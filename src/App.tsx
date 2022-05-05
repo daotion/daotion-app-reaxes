@@ -1,7 +1,8 @@
 import React , { Component } from 'react';
-import {hot} from 'react-hot-loader/root';
+import { hot } from 'react-hot-loader/root';
+import Button from '@mui/material/Button';
 
-class _App extends Component<any , any>{
+class _App extends Component<any , any> {
 	
 	state = { input : 1 };
 	
@@ -16,6 +17,11 @@ class _App extends Component<any , any>{
 				} }
 			/>
 			<span>123213</span>
+			<Button
+				variant="contained"
+			>
+				hello world 
+			</Button>
 		</>;
 	}
 }
