@@ -26,7 +26,6 @@
 			"ES2017" ,
 			"ES2018" ,
 			"ESNext" ,
-			"DOM" ,
 			"DOM.Iterable" ,
 			"WebWorker" ,
 			"ScriptHost" ,
@@ -52,7 +51,8 @@
 			"ESNext.Array" ,
 			"ESNext.Intl" ,
 			"ESNext.Symbol" ,
-			"react"
+			"react",
+			"DOM"
 		] ,
 		"module" : "CommonJS" ,
 		"moduleResolution" : "node" ,
@@ -63,40 +63,35 @@
 		"noUnusedLocals" : false ,
 		"noUnusedParameters" : false ,
 		"paths" : {
-			"*/*.ts" : [
-				"*"
-			] ,
-			"common/*" : [
+			"*/*.ts" : ["*"] ,
+			"@@common/*" : [
 				"src/common/*"
 			] ,
-			"common/utils" : [
-				"src/common/utils/index.ts"
+			"@@utils" : [
+				"src/utils/index.ts"
 			] ,
-			"common/utils/*" : [
-				"src/common/utils/*"
+			"@@utils/*" : [
+				"src/utils/*"
 			] ,
-			"common/pureComponents" : [
-				"src/common/pureComponents/index.ts"
+			"@@components" : [
+				"src/utils/components/index.ts"
 			] ,
-			"common/pureComponents/*" : [
-				"src/common/pureComponents/*"
+			"@@components/*" : [
+				"src/utils/components/*"
 			] ,
-			"common/requests" : [
+			"-@@common/requests" : [
 				"src/common/requests/index.ts"
 			] ,
-			"common/env" : [
-				"src/common/env.ts"
-			] ,
-			"common/routes" : [
+			"-@@common/routes" : [
 				"src/common/routes/index.tsx"
 			] ,
-			"common/Public/*" : [
-				"src/common/Public/*"
+			"@@Public/*" : [
+				"Public/*"
 			],
-			"common/Auth" : [
-				"src/common/Auth/Controller.tsx"
+			"@@pages/*" : [
+				"src/pages/*"
 			],
-			"common/mobxState" : [
+			"@@mobxState" : [
 				"src/common/mobxState/index"
 			] 
 			

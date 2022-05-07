@@ -19,7 +19,6 @@ import { developmentConfig$Fn } from "./build/webpack.development.config.mjs";
 
 const {
 	DefinePlugin ,
-	HotModuleReplacementPlugin,
 } = webpack;
 /* 标记开始时间以记录build花费 */
 const startTime = Date.now();
@@ -103,7 +102,6 @@ const devServer = () => {
 		const devConfig = developmentConfig$Fn({
 			plugins : [
 				getDefinePlugin() ,
-				new HotModuleReplacementPlugin({}) ,
 			] ,
 		});
 		const compiler = webpack(devConfig);

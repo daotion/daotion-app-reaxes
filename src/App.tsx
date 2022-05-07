@@ -1,30 +1,52 @@
 import React , { Component } from 'react';
-import { hot } from 'react-hot-loader/root';
+import {
+	BrowserRouter ,
+	Route ,
+	Routes ,
+	Link ,
+} from 'react-router-dom';
 import Button from '@mui/material/Button';
+import { ComponentWrapper } from '@@common/ReactComponentWrapper';
+import { DemoLayout } from '@@pages/DemoLayout';
+import "./styles/main.less";
 
 class _App extends Component<any , any> {
 	
-	state = { input : 1 };
-	
 	render() {
+		
 		return <>
-			<input
-				value = { this.state.input }
-				onInput = { ( e ) => {
-					this.setState( {
-						input : e.target.value ,
-					} );
-				} }
-			/>
-			<span>123213</span>
-			<Button
-				variant="contained"
-			>
-				hello world 
-			</Button>
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path = "/"
+						exact
+						element = { React.createElement( () => {
+							return <>
+								
+								<Button>
+									<Link
+										to = "/demo"
+									>
+										Demo
+									</Link>
+								</Button>
+							
+							</>;
+						} ) }
+					/>
+					<Route
+						path = "/demo"
+						exact
+						element = { <DemoLayout /> }
+					>
+					
+					</Route>
+				</Routes>
+			</BrowserRouter>
 		</>;
 	}
+	
 }
 
-export const App = hot( _App );
+export const App = ComponentWrapper( _App );
 
