@@ -11,11 +11,12 @@ import {
 	method,
 } from '../webpack.main.mjs';
 
+import {LogAtSucceed} from './plugins.mjs';
+
 /**
  * @suggest dev环境建议使用全量source-map , 否则可能会导致错误栈无法定位到正确的模块
  */
 const {
-	HotModuleReplacementPlugin ,
 	DllReferencePlugin ,
 	DllPlugin ,
 	DefinePlugin,
@@ -41,14 +42,17 @@ export const basicConfig$Fn = (plugins = []) => ({
 	resolve : {
 		alias : {
 			'react-dom' : "@hot-loader/react-dom" ,
-			'common' : path.resolve(rootPath , 'src/common') ,
-			'common/utils' : path.resolve(rootPath , 'src/common/utils/index.ts') ,
-			'common/utils/*' : path.resolve(rootPath , 'src/common/utils/*') ,
-			'common/Public/*' : path.resolve(rootPath , 'src/common/Public/*') ,
-			'common/requests' : path.resolve(rootPath , 'src/common/requests/index.ts') ,
-			'common/routes' : path.resolve(rootPath , 'src/common/routes/index.ts') ,
-			'common/mobxState' : path.resolve(rootPath , 'src/common/mobxState/index.ts') ,
-			'common/Auth' : path.resolve(rootPath , 'src/common/Auth/index.ts') ,
+			'@@common' : path.resolve(rootPath , 'src/common') ,
+			'@@common/*' : path.resolve(rootPath , 'src/common/*') ,
+			'@@utils' : path.resolve(rootPath , 'src/utils/index.ts') ,
+			'@@utils/*' : path.resolve(rootPath , 'src/utils/*') ,
+			'@@Public/*' : path.resolve(rootPath , 'src/common/Public/*') ,
+			'@@mobxState' : path.resolve(rootPath , 'src/common/mobxState/index.ts') ,
+			'@@components' : path.resolve(rootPath , 'src/utils/components/index.ts') ,
+			'@@components/*' : path.resolve(rootPath , 'src/utils/components/*') ,
+			'@@pages' : path.resolve(rootPath , 'src/pages') ,
+			// '@@common/requests' : path.resolve(rootPath , 'src/common/requests/index.ts') ,
+			// '@@common/routes' : path.resolve(rootPath , 'src/common/routes/index.ts') ,
 		} ,
 		extensions : [
 			'.ts' ,
@@ -79,9 +83,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 					} ,
 					{
 						loader : 'css-loader' ,
-						options : {
-							sourceMap : true ,
-						} ,
+						options : cssLoaderOptions ,
 					} ,
 					{
 						loader : 'less-loader' ,
@@ -102,14 +104,12 @@ export const basicConfig$Fn = (plugins = []) => ({
 					} ,
 					{
 						loader : 'css-loader' ,
-						options : {
-							sourceMap : true ,
-						} ,
+						options : cssLoaderOptions ,
 					} ,
 				] ,
 			} ,
 			{
-				test : /\.(png|jpe?g|svg|te?xt|gif|woff|woff2|eot|ttf|otf|bmp|swf)$/ ,
+				test : /\.(png|jpe?g|te?xt|gif|woff|woff2|eot|ttf|otf|bmp|swf)$/ ,
 				type : "asset/resource",
 				generator: {
 					filename: 'static/[hash][ext][query]'
@@ -119,6 +119,11 @@ export const basicConfig$Fn = (plugins = []) => ({
 						maxSize: 20 * 1024,
 					},
 				},
+			} ,
+			{
+				test : /\.component\.svg$/ ,
+				use : ["@svgr/webpack"],
+				
 			} ,
 		] ,
 	} ,
@@ -149,6 +154,20 @@ export const basicConfig$Fn = (plugins = []) => ({
 			excludeChunks : [] ,
 			inject : false ,
 		}) ,
+		
+		new LogAtSucceed(),
+		
 		...plugins
 	] ,
 });
+
+
+
+const cssLoaderOptions = {
+	sourceMap :  true ,
+	modules : {
+		exportLocalsConvention : "camelCase",
+		localIdentName: "[local]--[hash:base64:4]",
+		
+	},
+}

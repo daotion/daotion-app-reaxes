@@ -11,7 +11,7 @@ import {
 } from "./webpack.core.config.mjs";
 
 /*返回dev-server配置 , 用于启动本地服务*/
-export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$Fn([HMRplugin]) , {
+export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$Fn([]) , {
 	stats : 'errors-only' ,
 	devServer : {
 		static : {
@@ -20,9 +20,10 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 		compress : false ,
 		port : port ,
 		host : '0.0.0.0' ,
-		hot : true ,
+		hot : true , 
 		open : false ,
 		allowedHosts: "all",
+		bonjour : true ,
 		historyApiFallback : true ,
 		// clientLogLevel : "none",
 		// quiet : true,
@@ -35,5 +36,3 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 	
 });
 
-
-const HMRplugin = new Webpack.HotModuleReplacementPlugin();

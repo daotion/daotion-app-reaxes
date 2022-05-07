@@ -1,42 +1,64 @@
 // class
 
-import React ,{
+import React , {
 	Component ,
-	useState,
+	useState ,
 } from "react";
-import { set } from "mobx";
 
-
-const creator = ( _class ) => {
-	
+const currentComponentInstance = {
+	currentNode : null ,
+	maps : new Map(),
 };
 
-const parisite = (initial = 0) => {
+
+
+class ReactComponent extends Component<any , any> {
 	
-};
-class DemoC extends Component {
 	
-	useParisite = creator(this , parisite)
+	constructor( props ) {
+		super( props );
+		currentComponentInstance.currentNode = this;
+		
+	}
+	
+	render(){
+		
+		return super.render();
+	}
+}
+
+class Test extends ReactComponent {
+	
+	
 	
 	render() {
-		return <span>
 		
-		</span>;
+		const [count , setCount] = strikeState(10);
+		
+		return <span
+			
+		>{count}</span>
 	}
+}
+
+function strikeState (){
+	
 }
 
 
 
-
-const useCount = (initial = 0) => {
-	const [count , setCount] = useState<number>( initial );
-	return [count,setCount];
+const useCount = ( initial = 0 ) => {
+	const [ count , setCount ] = useState<number>( initial );
+	return [
+		count ,
+		setCount,
+	];
 };
-const DemoH:React.FC = (props) => {
-	const [count , setCount] = useCount( 0 );
+const DemoH: React.FC = ( props ) => {
+	const [ count , setCount ] = useCount( 0 );
 	return <span
-		onClick={() => setCount(count+1)}
+		onClick = { () => setCount( count + 1 ) }
 	>
-		{count}
-	</span>
+		{ count }
+	</span>;
 };
