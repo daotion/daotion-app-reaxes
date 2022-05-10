@@ -6,7 +6,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import { merge } from 'webpack-merge';
 import { __dirname } from './.mix.js';
-import { getPort } from './utils.mjs';
+import { getPort, pick } from './utils.mjs';
 import {
 	method,
 } from '../webpack.main.mjs';
@@ -47,7 +47,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'@@utils' : path.resolve(rootPath , 'src/utils/index.ts') ,
 			'@@utils/*' : path.resolve(rootPath , 'src/utils/*') ,
 			'@@Public/*' : path.resolve(rootPath , 'src/common/Public/*') ,
-			'@@mobxState' : path.resolve(rootPath , 'src/common/mobxState/index.ts') ,
+			'@@mobxState' : path.resolve(rootPath , 'src/common/MobxState.ts') ,
 			'@@components' : path.resolve(rootPath , 'src/utils/components/index.ts') ,
 			'@@components/*' : path.resolve(rootPath , 'src/utils/components/*') ,
 			'@@pages' : path.resolve(rootPath , 'src/pages') ,
@@ -76,7 +76,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 				exclude : /node_modules/ ,
 			} ,
 			{
-				test : /\.less$/ ,
+				test : /\.module\.less$/ ,
 				use : [
 					{
 						loader : 'style-loader' ,
@@ -97,7 +97,28 @@ export const basicConfig$Fn = (plugins = []) => ({
 				] ,
 			} ,
 			{
-				test : /\.css$/ ,
+				test : /(?<!\.module)\.less$/ ,
+				use : [
+					{
+						loader : 'style-loader' ,
+					} ,
+					{
+						loader : 'css-loader' ,
+						options : pick(cssLoaderOptions,["sourceMap"]) ,
+					} ,
+					{
+						loader : 'less-loader' ,
+						options : {
+							sourceMap : true ,
+							lessOptions : {
+								javascriptEnabled : true ,
+							} ,
+						} ,
+					} ,
+				] ,
+			} ,
+			{
+				test : /\.module\.css$/ ,
 				use : [
 					{
 						loader : 'style-loader' ,
@@ -105,6 +126,18 @@ export const basicConfig$Fn = (plugins = []) => ({
 					{
 						loader : 'css-loader' ,
 						options : cssLoaderOptions ,
+					} ,
+				] ,
+			} ,
+			{
+				test : /(?<!\.module)\.css$/ ,
+				use : [
+					{
+						loader : 'style-loader' ,
+					} ,
+					{
+						loader : 'css-loader' ,
+						options : pick(cssLoaderOptions,["sourceMap"]) ,
 					} ,
 				] ,
 			} ,

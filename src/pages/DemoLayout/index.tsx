@@ -4,25 +4,21 @@ import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 import {
 	Button ,
 	Input ,
-	Icon ,
-	List ,
-	
-} from "@mui/material";
+	Tree ,
+	TreeDataNode,
+} from "antd";
+import { DownOutlined } from '@ant-design/icons';
 
-import {
-	TreeView,
-	TreeItem,
-} from "@mui/lab"
 
-import less from './style.less';
+import less from './style.module.less';
 
 import SVGchevron_down from './chevron_down.component.svg';
 import SVGchevron_up from './chevron_up.component.svg';
 import SVGicon1 from './demo-icon-1.component.svg';
 import SVGpeople from './people.component.svg';
-import {Expand} from './Expand.svg.component'
+import { Expand } from './Expand.svg.component';
 
-const _DemoLayout = class extends Component<any , any> {
+const _DemoLayout = class extends ReactComponentClass<any , any> {
 	
 	constructor( props ) {
 		super( props );
@@ -32,7 +28,10 @@ const _DemoLayout = class extends Component<any , any> {
 		input : '' ,
 	};
 	
+	
 	render() {
+		
+		
 		return <>
 			<div className = { less.demoLayout }>
 				<div
@@ -78,11 +77,11 @@ const _DemoLayout = class extends Component<any , any> {
 						} ) }
 					</div>
 					
-					{/*左侧第二竖栏*/}
+					{/*左侧第二竖栏*/ }
 					<div
 						style = { {
-							width : "240px",
-							flexFlow : "column nowrap",
+							width : "240px" ,
+							flexFlow : "column nowrap" ,
 							
 						} }
 					>
@@ -91,8 +90,8 @@ const _DemoLayout = class extends Component<any , any> {
 								margin : "24px" ,
 								fontSize : 20 ,
 								fontWeight : "bold" ,
-								height : "33px",
-								color : "#000000CC"
+								height : "33px" ,
+								color : "#000000cc",
 							} }
 						>Title
 						</div>
@@ -120,16 +119,17 @@ const _DemoLayout = class extends Component<any , any> {
 									} }
 								/>
 								<div
-									style = {{
-										fontSize : "14px",
-										fontWeight : "bold",
-										alignItems : "center",
-										color : "#25262B",
+									style = { {
+										fontSize : "14px" ,
+										fontWeight : "bold" ,
+										alignItems : "center" ,
+										color : "#25262b" ,
 										
-									}}
-								>Label</div>
+									} }
+								>Label
+								</div>
 							</div>
-						
+							
 							<div
 								style = { {
 									margin : "0 8px" ,
@@ -146,13 +146,14 @@ const _DemoLayout = class extends Component<any , any> {
 									} }
 								/>
 								<div
-									style = {{
-										fontSize : "14px",
-										fontWeight : "bold",
-										alignItems : "center",
-										color : "#00000099",
-									}}
-								>Label</div>
+									style = { {
+										fontSize : "14px" ,
+										fontWeight : "bold" ,
+										alignItems : "center" ,
+										color : "#00000099" ,
+									} }
+								>Label
+								</div>
 							</div>
 						</div>
 						
@@ -166,7 +167,9 @@ const _DemoLayout = class extends Component<any , any> {
 							<div
 								style = { {
 									flexFlow : "row nowrap" ,
-									margin : "8px 0 8px 8px",
+									margin : "8px 0 8px 8px" ,
+									alignItems : "center" ,
+									
 								} }
 							>
 								<SVGchevron_down
@@ -175,45 +178,47 @@ const _DemoLayout = class extends Component<any , any> {
 									} }
 								/>
 								<div
-									style = {{
-										fontSize : "14px",
-										fontWeight : "bold",
-										alignItems : "center",
-										color : "#00000066",
+									style = { {
+										fontSize : "14px" ,
+										fontWeight : "bold" ,
+										alignItems : "center" ,
+										color : "#00000066" ,
 										
-									}}
-								>Label</div>
+									} }
+								>Label
+								</div>
 							</div>
-						
+							
 							<div
 								style = { {
 									margin : "0 8px" ,
 									borderRadius : 8 ,
 									padding : "10px 16px" ,
 									flexFlow : "row nowrap" ,
-									backgroundColor : "#00000008",
+									backgroundColor : "#00000008" ,
 									
 								} }
 							>
 								<div
-									style={{
-										width : "24px",
-										height : "24px",
-										backgroundColor : "#E9F0FD",
-										marginRight : "16px",
+									style = { {
+										width : "24px" ,
+										height : "24px" ,
+										backgroundColor : "#e9f0fd" ,
+										marginRight : "16px" ,
 										
-									}}
+									} }
 								/>
 								<div
-									style = {{
-										fontSize : "14px",
-										fontWeight : "bold",
-										alignItems : "center",
-										color : "#25262B",
-									}}
-								>Label</div>
+									style = { {
+										fontSize : "14px" ,
+										fontWeight : "bold" ,
+										alignItems : "center" ,
+										color : "#25262b" ,
+									} }
+								>Label
+								</div>
 							</div>
-						
+							
 							<div
 								style = { {
 									margin : "0 8px" ,
@@ -223,48 +228,68 @@ const _DemoLayout = class extends Component<any , any> {
 								} }
 							>
 								<div
-									style={{
-										width : "24px",
-										height : "24px",
-										backgroundColor : "#0000000A",
-										marginRight : "16px",
+									style = { {
+										width : "24px" ,
+										height : "24px" ,
+										backgroundColor : "#0000000a" ,
+										marginRight : "16px" ,
 										
-									}}
+									} }
 								/>
 								<div
-									style = {{
-										fontSize : "14px",
-										fontWeight : "bold",
-										alignItems : "center",
-										color : "#00000099",
-									}}
-								>Label</div>
+									style = { {
+										fontSize : "14px" ,
+										fontWeight : "bold" ,
+										alignItems : "center" ,
+										color : "#00000099" ,
+									} }
+								>Label
+								</div>
 							</div>
 						</div>
-						
-						
+					
+					
 					</div>
 				</div>
 				
 				<div
 					className = { less.mainContent }
 				>
-					<TreeView
-						aria-label="file system navigator"
-						defaultCollapseIcon={<Expand rotate = {0} key = {123}/>}
-						defaultExpandIcon={<Expand rotate = {90} key = {123}/>}
-						sx={{ height: 240, flexGrow: 1, maxWidth: 200, overflowY: 'auto' }}
-					>
-						<TreeItem nodeId="1" label="Applications">
-							<TreeItem nodeId="2" label="Calendar" />
-						</TreeItem>
-						<TreeItem nodeId="5" label="Documents">
-							<TreeItem nodeId="10" label="OSS" />
-							<TreeItem nodeId="6" label="MUI">
-								<TreeItem nodeId="8" label="index.js" />
-							</TreeItem>
-						</TreeItem>
-					</TreeView>
+					<Tree
+						defaultExpandedKeys = { [
+							'0-0-0' ,
+							'0-0-1',
+						] }
+						defaultSelectedKeys = { [
+							'0-0-0' ,
+							'0-0-1',
+						] }
+						defaultCheckedKeys = { [
+							'0-0-0' ,
+							'0-0-1',
+						] }
+						onSelect = { () => null }
+						onCheck = { () => null }
+						treeData = { treeData }
+						switcherIcon = { <Expand /> }
+					/>
+					<Tree
+						defaultExpandedKeys = { [
+							'0-0-0' ,
+							'0-0-1',
+						] }
+						defaultSelectedKeys = { [
+							'0-0-0' ,
+							'0-0-1',
+						] }
+						defaultCheckedKeys = { [
+							'0-0-0' ,
+							'0-0-1',
+						] }
+						onSelect = { () => null }
+						onCheck = { () => null }
+						treeData = { treeData }
+					/>
 				</div>
 			</div>
 		</>;
@@ -273,3 +298,39 @@ const _DemoLayout = class extends Component<any , any> {
 
 
 export const DemoLayout = ComponentWrapper( _DemoLayout );
+
+
+const treeData = [
+	{
+		title : 'parent 1' ,
+		key : '0-0' ,
+		children : [
+			{
+				title : 'parent 1-0' ,
+				key : '0-0-0' ,
+				disabled : true ,
+				children : [
+					{
+						title : 'leaf' ,
+						key : '0-0-0-0' ,
+						disableCheckbox : true ,
+					} ,
+					{
+						title : 'leaf' ,
+						key : '0-0-0-1' ,
+					} ,
+				] ,
+			} ,
+			{
+				title : 'parent 1-1' ,
+				key : '0-0-1' ,
+				children : [
+					{
+						title : <span style = { { color : '#1890ff' } }>sss</span> ,
+						key : '0-0-1-0' ,
+					} ,
+				] ,
+			} ,
+		] ,
+	} ,
+];

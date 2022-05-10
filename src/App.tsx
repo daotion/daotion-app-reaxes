@@ -1,3 +1,4 @@
+import 'antd/dist/antd.less';
 import React , { Component } from 'react';
 import {
 	BrowserRouter ,
@@ -5,10 +6,11 @@ import {
 	Routes ,
 	Link ,
 } from 'react-router-dom';
-import Button from '@mui/material/Button';
+import { Button } from 'antd';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 import { DemoLayout } from '@@pages/DemoLayout';
-import "./styles/main.less";
+import {Test} from '@@pages/Test';
+import "./styles/main.module.less";
 
 class _App extends Component<any , any> {
 	
@@ -38,6 +40,13 @@ class _App extends Component<any , any> {
 						path = "/demo"
 						exact
 						element = { <DemoLayout /> }
+					>
+					
+					</Route>
+					<Route
+						path = "/test"
+						exact
+						element = { <Test /> }
 					>
 					
 					</Route>

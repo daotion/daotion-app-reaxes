@@ -1,0 +1,51 @@
+.demo-layout {
+	display: flex;
+	height: 100%;
+	overflow: auto;
+	
+	div {
+		
+		display: flex;
+	}
+	
+	
+	.left-side {
+		background-color: white;
+	}
+	
+	.main-content {
+		background-color: rgb(247, 247, 247);
+		flex: 1 0 auto;
+		
+		> topBar {
+			
+		}
+	}
+	
+	:global {
+		span.ant-tree-switcher_,.ant-tree-switcher {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			
+			&open {
+				:local {
+					.SVGexpand {
+						transform: rotate(90deg);
+					}
+				}
+			}
+			
+			&close {
+				
+				:local {
+					.SVGexpand {
+						transform: rotate(0);
+					}
+				}
+			}
+		}
+	}
+}
+
+

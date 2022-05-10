@@ -1,7 +1,13 @@
 import React , {} from 'react';
 import {
 	compose ,
-	hot,
+	hot ,
+	withHooks ,
+	didRenderLifeCycle ,
 } from './Wrappers/index';
 
-export const ComponentWrapper = compose( [hot] );
+export const ComponentWrapper = compose( [
+	hot ,
+	didRenderLifeCycle ,
+	withHooks ,
+] );

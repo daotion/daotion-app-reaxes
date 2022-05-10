@@ -92,7 +92,8 @@
 				"src/pages/*"
 			],
 			"@@mobxState" : [
-				"src/common/mobxState/index"
+				"src/common/MobxState.ts",
+				
 			] 
 			
 		} ,

@@ -3,62 +3,70 @@
 import React , {
 	Component ,
 	useState ,
+	useEffect ,
 } from "react";
+import { ReactComponentClass } from '@@common/ReactComponentClass';
+import { ComponentWrapper } from '@@common/ReactComponentWrapper';
+import {
+	viaMobx ,
+} from '@@common/MobxState';
+import {observer} from 'mobx-react';
+import {} from 'mobx-react-lite';
 
-const currentComponentInstance = {
-	currentNode : null ,
-	maps : new Map(),
-};
-
-
-
-class ReactComponent extends Component<any , any> {
+export const {
+	setState ,
+	store,
+} = viaMobx<any>( {
 	
+	count : 2 ,
 	
-	constructor( props ) {
-		super( props );
-		currentComponentInstance.currentNode = this;
+} );
+window.store = store;
+
+export const Test = ComponentWrapper( class extends ReactComponentClass<any , any> {
+	
+	state = {
+		input : "222",
+	};
+	
+	componentDidRender(stage , prevProps: Readonly<any> , prevState: Readonly<any> , snapshot?: any ) {
+		console.log( stage );
 		
 	}
-	
-	render(){
-		
-		return super.render();
-	}
-}
-
-class Test extends ReactComponent {
-	
-	
 	
 	render() {
 		
-		const [count , setCount] = strikeState(10);
+		// const [ count , setCount ] = useState<string|number>( 0 );
+		useEffect(
+			() => {
+				console.log( 0 );
+			} ,
+			[ this.state.input ],
+		);
 		
-		return <span
-			
-		>{count}</span>
+		return <>
+			<div>
+				<input
+					placeholder = "input count"
+					value = { false && count || "" }
+					onInput = { ( e ) => {
+						false && setCount( e.target.value );
+					} }
+				/>
+				
+				<div>count : { false && count }</div>
+				
+				<input
+					value = {store.count * 2}
+					onInput={(e) => {
+						console.log( 22222 );
+						setState( {
+							count : store.count + 1 ,
+							
+						} );
+					}}
+				/>
+			</div>
+		</>;
 	}
-}
-
-function strikeState (){
-	
-}
-
-
-
-const useCount = ( initial = 0 ) => {
-	const [ count , setCount ] = useState<number>( initial );
-	return [
-		count ,
-		setCount,
-	];
-};
-const DemoH: React.FC = ( props ) => {
-	const [ count , setCount ] = useCount( 0 );
-	return <span
-		onClick = { () => setCount( count + 1 ) }
-	>
-		{ count }
-	</span>;
-};
+} );

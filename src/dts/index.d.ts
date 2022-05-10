@@ -5,6 +5,8 @@ declare module '*.jpg';
 declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.bmp';
+// declare module '*.less';
+// declare module '*.css';
 // declare module "*";
 // declare module "common/requests"{
 // 	export type options = {};
@@ -23,12 +25,7 @@ declare type responseWrap<T> = {
 	message?: string;
 	errorCode?: string;
 };
-declare var ENV: ENV;
 declare var __IS_MOCK__: boolean;
-declare type ENV = 'pre' | 'publish' | 'dev' | 'daily' | string;
-declare var ROUTE_MAP: {
-  [p: string]: string;
-};
 declare interface NodeRequire {
   context: Function;
 }
@@ -44,5 +41,11 @@ declare type Batch<KEY extends (string | number | symbol)[], F> = {
 declare type Immutable<T> = {
   +readonly [key in keyof T]: T[key];
 };
-/*高德地图AMap挂载在window下*/
-declare var AMap : any;
+
+
+
+
+declare class ReactClassComponent {
+	
+	constructor(props: Readonly<P> | P);
+}
