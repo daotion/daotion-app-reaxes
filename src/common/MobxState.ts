@@ -3,8 +3,8 @@
 import {observable, action} from 'mobx';
 export {observer} from 'mobx-react';
 
-export const viaMobx = <S extends {}>(state: S) => {
-	const store = observable<S>(state);
+export const viaMobx = <S extends typeof state>(state: S) => {
+	const store = observable<S&typeof state>(state);
 	
 	return {
 		store,

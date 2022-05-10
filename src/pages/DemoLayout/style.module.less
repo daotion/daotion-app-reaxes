@@ -16,9 +16,24 @@
 	.main-content {
 		background-color: rgb(247, 247, 247);
 		flex: 1 0 auto;
+		flex-flow: column nowrap;
 		
-		> topBar {
+		> .top-banner {
+			background-color: white;
+			height: 80px;
+			flex-grow: 0;
+			width: 100%;
+			padding: 16px 32px;
+			flex-flow: row nowrap;
+			justify-content: space-between;
+			align-items: center;
 			
+			> .right-side-group {
+				flex-shrink: 0;
+				height: 100%;
+				align-items: center;
+
+			}
 		}
 	}
 	

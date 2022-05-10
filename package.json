@@ -1,5 +1,5 @@
 {
-	"name": "eth-web-front",
+	"name": "Daotion-web-interface",
 	"description": "Mainri Labs' font-end eth font-end project",
 	"scripts": {
 		"start": "node webpack.main.mjs server",

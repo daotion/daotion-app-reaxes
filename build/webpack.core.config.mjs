@@ -158,6 +158,11 @@ export const basicConfig$Fn = (plugins = []) => ({
 				use : ["@svgr/webpack"],
 				
 			} ,
+			{
+				test : /(?<!\.component)\.svg$/ ,
+				type : "asset/resource",
+				
+			} ,
 		] ,
 	} ,
 	optimization : {

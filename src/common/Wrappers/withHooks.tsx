@@ -1,7 +1,6 @@
 import React , {
-	useEffect ,
 	Component ,
-	createElement ,
+	useEffect ,
 	useRef ,
 } from 'react';
 
@@ -12,7 +11,7 @@ type Props = {
 	instance: React.Component;
 };
 
-export function withHooks<T extends ( React.Component | React.FC )>( OriginalComponent: T ): T {
+export function withHooks<T extends ( React.Component & React.FC )>( OriginalComponent: T ) {
 	/*this could be a FC*/
 	if ( !OriginalComponent.prototype?.render ) {
 		return observerLite( OriginalComponent );
