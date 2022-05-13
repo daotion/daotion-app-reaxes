@@ -1,10 +1,12 @@
 /** @format */
 
 import {observable, action} from 'mobx';
+import __ from 'lodash';
 export {observer} from 'mobx-react';
 
-export const viaMobx = <S extends typeof state>(state: S) => {
-	const store = observable<S&typeof state>(state);
+
+export const viaMobx = <S extends object>(state: S) => {
+	const store:Omit<S , "hasOwnProperty"> = observable<S>(state);
 	
 	return {
 		store,

@@ -5,6 +5,7 @@ module.exports = {
 		"@babel/preset-typescript",
 	],
 	"plugins": [
+		"react-hot-loader/babel",
 		"@babel/plugin-proposal-do-expressions",
 		"@babel/plugin-proposal-class-static-block",
 		"@babel/plugin-proposal-export-default-from",

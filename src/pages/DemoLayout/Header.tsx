@@ -11,7 +11,10 @@ import {
 	
 } from "antd";
 import { NotificationTwoTone } from '@ant-design/icons';
-
+import {
+	globalStore ,
+	globalSetState,
+} from '@@common/globalStore';
 
 import less from './style.module.less';
 
@@ -19,14 +22,15 @@ import SVGchevron_down from './chevron_down.component.svg';
 import SVGchevron_up from './chevron_up.component.svg';
 import SVGicon1 from './demo-icon-1.component.svg';
 import SVGpeople from './people.component.svg';
-import svgSRC_notification_unread from './notification.svg';
+import { SVG_notification } from './notification.svg-component';
 import { Expand } from './Expand.svg.component';
+import { SVG_toggle_theme } from './components/toggle-theme.svg-component';
 
 import { viaMobx } from '@@mobxState';
 
 import {
 	store ,
-	setState,
+	setState ,
 } from './index';
 
 
@@ -41,24 +45,43 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 			<div className = { less.rightSideGroup }>
 				<Button
 					style = { {
-						padding: '8px 8px 10px 12px',
+						padding : '8px 8px 10px 12px' ,
 						borderRadius : "12px" ,
 						height : "100%" ,
 						borderWidth : "2px" ,
 						
 					} }
 					onClick = { () => {
-						console.log( "data:image/svg+xml;base64," + window.btoa( store.svgString ) );
+						globalSetState( {
+							theme : globalStore.theme === "dark" ? "light" : "dark" ,
+						} );
 					} }
-					autoFocus={false}
+					autoFocus = { false }
 				>
-					<img src = { svgSRC_notification_unread } />
+					<SVG_toggle_theme />
 				</Button>
 				
-				<Dropdown 
+				
+				<Button
+					style = { {
+						padding : '8px 8px 10px 12px' ,
+						borderRadius : "12px" ,
+						height : "100%" ,
+						borderWidth : "2px" ,
+						marginLeft : "16px" ,
+					} }
+					onClick = { () => {
+						console.log( "data:image/svg+xml;base64," + window.btoa( store.svgString ) );
+					} }
+					autoFocus = { false }
+				>
+					<SVG_notification />
+				</Button>
+				
+				<Dropdown
 					overlay = { menu }
-					trigger={["click"]}
-					visible={true}
+					trigger = { [ "click" ] }
+					visible = { true }
 				>
 					<Button
 						style = { {
@@ -66,7 +89,7 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 							borderRadius : "12px" ,
 							height : "100%" ,
 							borderWidth : "2px" ,
-							marginLeft : "24px" ,
+							marginLeft : "16px" ,
 							
 						} }
 						onClick = { () => {
@@ -98,38 +121,48 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 	}
 } );
 
+//@ts-ignore
+const menu = <Menu
+	selectable
+	items = { [
+		{
+			label : <a
+				target = "_blank"
+				rel = "noopener noreferrer"
+				href = "https://www.antgroup.com"
+			>
+				1st menu item
+			</a> ,
+		} ,
+		{
+			label : (
+				<a
+					target = "_blank"
+					rel = "noopener noreferrer"
+					href = "https://www.aliyun.com"
+				>
+					2nd menu item (disabled)
+				</a>
+			) ,
+			disabled : true ,
+		} ,
+		{
+			label : (
+				<a
+					target = "_blank"
+					rel = "noopener noreferrer"
+					href = "https://www.luohanacademy.com"
+				>
+					3rd menu item (disabled)
+				</a>
+			) ,
+			disabled : true ,
+		} ,
+		{
+			danger : true ,
+			label : 'a danger item' ,
+		} ,
+	] }
+/>;
 
-const menu = (
-	<Menu
-		selectable
-		items={[
-			{
-				label: (
-					<a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-						1st menu item
-					</a>
-				),
-			},
-			{
-				label: (
-					<a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-						2nd menu item (disabled)
-					</a>
-				),
-				disabled: true,
-			},
-			{
-				label: (
-					<a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-						3rd menu item (disabled)
-					</a>
-				),
-				disabled: true,
-			},
-			{
-				danger: true,
-				label: 'a danger item',
-			},
-		]}
-	/>
-);
+

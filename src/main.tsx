@@ -2,11 +2,47 @@ import React , { Component } from 'react';
 import ReactDOM , { render } from 'react-dom';
 import { App } from './App';
 
-render( 
-	<App /> , 
-	document.getElementById( 'react-app-root' ) 
+
+
+
+
+
+// module.hot.accept( "./App.tsx" );
+
+
+module.hot.accept(
+	"./main.tsx" ,
+	( ...args ) => {
+		
+		return render(
+			<App /> ,
+			document.getElementById( 'react-app-root' ) ,
+		);
+	} ,
+	( ...args ) => {
+		console.error( ...args );
+		debugger;
+	} ,
 );
 
-module?.hot?.accept(() => {
-	console.error('pppppppppppp');
-})
+
+
+
+
+
+
+
+
+
+
+
+render(
+	<App /> ,
+	document.getElementById( 'react-app-root' ) ,
+);
+
+
+
+
+
+

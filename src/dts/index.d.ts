@@ -12,6 +12,19 @@ declare module '*.bmp';
 // 	export type options = {};
 // }
 
+declare interface globalStoreType {
+	theme : "light" | "dark" | string;
+	language : "enUS"|"zhCN"|string;
+}
+
+declare module '*.module.less' {
+	const classes : {
+		readonly [ key: string ]: string;
+	};
+	
+	export default classes;
+}
+
 declare interface Window {}
 declare interface NodeModule {
   hot?: {
@@ -43,9 +56,3 @@ declare type Immutable<T> = {
 };
 
 
-
-
-declare class ReactClassComponent {
-	
-	constructor(props: Readonly<P> | P);
-}
