@@ -6,8 +6,22 @@ import {
 	didRenderLifeCycle ,
 } from './Wrappers/index';
 
-export const ComponentWrapper = compose( [
-	hot ,
-	didRenderLifeCycle ,
-	withHooks ,
-] );
+const componentHasWrapped = Symbol( '' );
+
+export const ComponentWrapper = (component) => {
+	
+	if(component.hasOwnProperty(componentHasWrapped)){
+		return component;
+	}
+	
+	const wrappedComponent = compose( [
+		hot ,
+		didRenderLifeCycle ,
+		withHooks ,
+	] )(component);
+	
+	/*flag to prevent duplicated wrap*/
+	wrappedComponent[componentHasWrapped] = true;
+	return wrappedComponent;
+};
+

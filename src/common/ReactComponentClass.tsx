@@ -2,7 +2,7 @@ import React , { Component } from 'react';
 
 
 
-interface ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate>{
+export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate>{
 	componentDidRender?( stage: "mount" | "update" , prevProps?: Readonly<Tprops> , prevState?: Readonly<Tstate> , snapshot?: any ):any;
 	componentDidMount? : Component["componentDidMount"];
 	componentDidUpdate? : Component["componentDidUpdate"];

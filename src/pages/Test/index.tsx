@@ -10,9 +10,6 @@ import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 import {
 	viaMobx ,
 } from '@@common/MobxState';
-import {observer} from 'mobx-react';
-import {} from 'mobx-react-lite';
-
 export const {
 	setState ,
 	store,
@@ -21,9 +18,10 @@ export const {
 	count : 2 ,
 	
 } );
+//@ts-ignore
 window.store = store;
 
-export const Test = ComponentWrapper( class extends ReactComponentClass<any , any> {
+export const _Test = ( class extends ReactComponentClass<any , any> {
 	
 	state = {
 		input : "222",
@@ -36,7 +34,7 @@ export const Test = ComponentWrapper( class extends ReactComponentClass<any , an
 	
 	render() {
 		
-		// const [ count , setCount ] = useState<string|number>( 0 );
+		const [ count , setCount ] = useState<string|number>( 0 );
 		useEffect(
 			() => {
 				console.log( 0 );
@@ -48,13 +46,13 @@ export const Test = ComponentWrapper( class extends ReactComponentClass<any , an
 			<div>
 				<input
 					placeholder = "input count"
-					value = { false && count || "" }
+					value = { count }
 					onInput = { ( e ) => {
-						false && setCount( e.target.value );
+						setCount( e.target.value );
 					} }
 				/>
 				
-				<div>count : { false && count }</div>
+				<div>count : { count }</div>
 				
 				<input
 					value = {store.count * 2}
@@ -70,3 +68,8 @@ export const Test = ComponentWrapper( class extends ReactComponentClass<any , an
 		</>;
 	}
 } );
+
+
+
+
+export const Test = ComponentWrapper(_Test);
