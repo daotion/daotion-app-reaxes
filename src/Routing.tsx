@@ -56,6 +56,11 @@ export const Routing = (
 					/>
 					
 					<Route
+						path = "wallet"
+						element = { withOutlet( () => <Wallet /> ) }
+					/>
+					
+					<Route
 						path = "react-template"
 						element = { withOutlet( () => <ReactTemplate /> ) }
 					></Route>
