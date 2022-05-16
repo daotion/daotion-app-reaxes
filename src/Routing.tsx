@@ -14,6 +14,7 @@ import { Test } from '@@pages/Test';
 import { DemoLayout } from '@@pages/DemoLayout';
 import { ReactTemplate } from '../Public/react-template';
 import DesignComponents from '@@pages/DesignComponents';
+import {Wallet} from '@@pages/Wallet-logic';
 
 export const Routing = (
 	( props ) => {

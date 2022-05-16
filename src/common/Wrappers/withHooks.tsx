@@ -44,5 +44,12 @@ export function withHooks<T extends ( React.Component & React.FC )>( OriginalCom
 		return <Observed instance = { this } />;
 	};
 	
+	/**
+	 * 如果已经被Observer包裹过,则直接返回
+	 */
+	if(Object.getOwnPropertySymbols(OriginalComponent).find((symbol) => symbol.description === "isMobXReactObserver" )){
+		return OriginalComponent;
+	}
+	
 	return observer( OriginalComponent );
 }

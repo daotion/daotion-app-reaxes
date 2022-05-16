@@ -30,8 +30,6 @@ class _App extends ReactComponentClass<any , any> {
 			} ,
 		} );
 		
-		
-		message.error("sdsdsd")
 	}
 	
 	render() {
