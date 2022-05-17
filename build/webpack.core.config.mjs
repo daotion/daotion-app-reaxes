@@ -13,6 +13,7 @@ import {
 
 import {LogAtSucceed} from './plugins.mjs';
 
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
 /**
  * @suggest dev环境建议使用全量source-map , 否则可能会导致错误栈无法定位到正确的模块
  */
@@ -194,7 +195,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 		}) ,
 		
 		new LogAtSucceed(),
-		
+		new NodePolyfillPlugin(),
 		...plugins
 	] ,
 });
