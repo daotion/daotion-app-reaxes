@@ -13,7 +13,7 @@ import {
 import { Test } from '@@pages/Test';
 import { DemoLayout } from '@@pages/DemoLayout';
 import { ReactTemplate } from '../Public/react-template';
-import DesignComponents from '@@pages/DesignComponents';
+import { DesignComponents } from '@@pages/DesignComponents';
 import {Wallet} from '@@pages/Wallet-logic';
 
 export const Routing = (
@@ -46,8 +46,8 @@ export const Routing = (
 						element = { <DemoLayout /> }
 					/>
 					<Route
-						path = "DesignComponents"
-						element = { <DesignComponents /> }
+						path = "DesignComponents/*"
+						element = { withOutlet( () => <DesignComponents />) }
 					/>
 					
 					<Route
@@ -63,7 +63,7 @@ export const Routing = (
 					<Route
 						path = "react-template"
 						element = { withOutlet( () => <ReactTemplate /> ) }
-					></Route>
+					/>
 				</Route>
 			</Routes>
 		
@@ -72,7 +72,7 @@ export const Routing = (
 );
 
 
-const withOutlet = ( _Component ) => {
+export const withOutlet = ( _Component ) => {
 	return <>
 		<_Component />
 		<Outlet />

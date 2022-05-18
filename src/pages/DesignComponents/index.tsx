@@ -23,7 +23,12 @@ import {ClockCircleOutlined} from '@ant-design/icons';
 
 import { viaMobx } from '@@mobxState';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-
+import {
+	Routes ,
+	Route ,
+	Link ,
+} from 'react-router-dom';
+import {withOutlet} from '../../Routing';
 
 export interface store {
 	inputValue: string;
@@ -47,6 +52,30 @@ const _ReactTemplate = class extends Component<any , any>    {
 	render() {
 		
 		return <>
+			<Routes >
+				<Route
+					
+				>
+					<Route
+						index
+						element = {
+							withOutlet( () => <div>
+								<Link
+									to = "button/."
+								>Button</Link>
+							</div> ) }
+						
+					/>
+					<Route
+						path = "button"
+						
+						element = { React.createElement( ComponentWrapper( RegistrationForm ) ) }
+					>
+					
+					</Route>
+				</Route
+				>
+			</Routes>
 		</>;
 	}
 };
@@ -401,7 +430,7 @@ const RegistrationForm = () => {
 	;
 };
 
-export default ComponentWrapper(RegistrationForm);
+export const DesignComponents = ComponentWrapper(_ReactTemplate);
 
 import "./index.less";
 import {modifyVars} from 'less';
@@ -412,3 +441,11 @@ import {modifyVars} from 'less';
 
 export const ReactTemplate = ComponentWrapper( _ReactTemplate );
 
+
+
+const XButton = ComponentWrapper((props) => {
+	
+	return <>
+		
+	</>;  
+});

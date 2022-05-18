@@ -8,7 +8,7 @@ import {
 
 const componentHasWrapped = Symbol( '' );
 
-export const ComponentWrapper = (component) => {
+export const ComponentWrapper = <T extends {}>(component : T) : T => {
 	
 	if(component.hasOwnProperty(componentHasWrapped)){
 		return component;

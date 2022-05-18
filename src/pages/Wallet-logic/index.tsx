@@ -2,41 +2,31 @@ import React , {
 	Component ,
 	useEffect ,
 	useState ,
-	useRef ,
-	useMemo ,
-	useCallback ,
 } from 'react';
+import { Button  } from 'antd';
 import {
-	Routes ,
-	Route,
-} from 'react-router-dom';
-import {
-	Button ,
-	Input ,
-} from 'antd';
+	useConnectWallet ,
+	useSetChain ,
+	useWallets,
+} from '@web3-onboard/react';
+import { ethers } from 'ethers';
+
 
 import { viaMobx } from '@@mobxState';
-import {
-	globalStore ,
-	globalSetState ,
-} from '@@common/globalStore';
-import { ReactComponentClass } from '@@common/ReactComponentClass';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 
 
-import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react'
-import { ethers } from 'ethers'
+import { initWeb3Onboard } from './onboard';
+import {
+	AccountDetails ,
+	Network,
+} from './components';
 
-import { initWeb3Onboard } from './onboard'
-import { AccountDetails, Network } from './components'
-import type { Account } from './types'
+
+import type { Account } from './types';
 
 // Must be called outside of the App function
 initWeb3Onboard()
-
-export interface store {
-	inputValue: string;
-}
 
 export const {
 	store ,
@@ -46,7 +36,7 @@ export const {
 } );
 
 /* replace "ReactTemplate" once cloned from this template file. */
-const _ReactTemplate = class extends Component<any , any>    {
+const _ReactTemplate = class extends Component<any , any> {
 	
 	/*it will be invoked after "didMount"&"didUpdate"*/
 	// componentDidRender( stage: "mount" | "update" , prevProps?: Readonly<any> , prevState?: Readonly<any> , snapshot?: any ): any {
@@ -188,3 +178,7 @@ const InputPrinter = ComponentWrapper(( props: { initial: string } ) => {
 
 
 export const Wallet = ComponentWrapper( _ReactTemplate );
+
+export interface store {
+	inputValue: string;
+}

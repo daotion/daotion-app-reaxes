@@ -10,7 +10,7 @@ export const SVG_toggle_theme = ComponentWrapper((props?:props) => {
 	const scheme = {
 		"light" : "#6F767E" ,
 		"dark" : "#FFFFFF" ,
-	}[globalStore.theme];
+	}[globalStore.theme] || "#6F767E";
 	return <svg
 		width = "24"
 		height = "24"
