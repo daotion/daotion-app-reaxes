@@ -10,6 +10,10 @@ import {
 	useWallets,
 } from '@web3-onboard/react';
 import { ethers } from 'ethers';
+import {
+	Route ,
+	Routes ,
+} from 'react-router-dom';
 
 
 import { viaMobx } from '@@mobxState';
@@ -56,7 +60,6 @@ const _ReactTemplate = class extends Component<any , any> {
 			<div>
 				<InputPrinter initial = "xxxx" />
 			</div>
-		
 		</>;
 	}
 };

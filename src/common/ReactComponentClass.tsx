@@ -3,9 +3,9 @@ import React , { Component } from 'react';
 
 
 export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate>{
-	componentDidRender?( stage: "mount" | "update" , prevProps?: Readonly<Tprops> , prevState?: Readonly<Tstate> , snapshot?: any ):any;
-	componentDidMount? : Component["componentDidMount"];
-	componentDidUpdate? : Component["componentDidUpdate"];
+	// componentDidRender?( stage: "mount" | "update" , prevProps?: Readonly<Tprops> , prevState?: Readonly<Tstate> , snapshot?: any ):any;
+	// componentDidMount? : Component["componentDidMount"];
+	// componentDidUpdate? : Component["componentDidUpdate"];
 }
 
 export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate> {

@@ -15,7 +15,7 @@ import { DemoLayout } from '@@pages/DemoLayout';
 import { ReactTemplate } from '../Public/react-template';
 import { DesignComponents } from '@@pages/DesignComponents';
 import {Wallet} from '@@pages/Wallet-logic';
-
+import {WalletTest} from '@@pages/Test/wallet-test';
 export const Routing = (
 	( props ) => {
 		
@@ -57,8 +57,16 @@ export const Routing = (
 					
 					<Route
 						path = "wallet"
-						element = { withOutlet( () => <Wallet /> ) }
-					/>
+					>
+						<Route
+							index
+							element = { <Wallet /> }
+						></Route>
+						<Route
+							path="test"
+							element={<WalletTest/>}
+						/>
+					</Route>
 					
 					<Route
 						path = "react-template"
