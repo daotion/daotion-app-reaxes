@@ -1,19 +1,7 @@
-import React , { Component } from 'react';
+import React from 'react';
 import { ReactComponentClass } from '@@common/ReactComponentClass';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-import {
-	Button ,
-	Input ,
-	Tree ,
-	TreeDataNode ,
-} from "antd";
-import { DownOutlined } from '@ant-design/icons';
-import {
-	useConnectWallet ,
-	useSetChain ,
-	useWallets,
-} from '@web3-onboard/react';
-import { ethers } from 'ethers';
+import { Tree  } from "antd";
 
 import { viaMobx } from '@@mobxState';
 import { HeaderLayout } from './Header';
@@ -23,9 +11,11 @@ import { BtnAddDAOSvgComponent } from './components';
 import less from './style.module.less';
 
 import SVGchevron_down from './chevron_down.component.svg';
-import SVGchevron_up from './chevron_up.component.svg';
 import SVGicon1 from './demo-icon-1.component.svg';
 import SVGpeople from './people.component.svg';
+
+
+import {MainContent} from './MainContent';
 
 
 export const {
@@ -321,7 +311,7 @@ const _DemoLayout = class extends ReactComponentClass<any , any> {
 				>
 					<HeaderLayout />
 					
-					
+					<MainContent/>
 				</div>
 			</div>
 		</>;

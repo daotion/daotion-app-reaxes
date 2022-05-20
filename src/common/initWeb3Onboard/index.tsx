@@ -49,9 +49,7 @@ const magic = magicModule( {
 	// Replace with your apiKey
 	apiKey : 'pk_live_02207D744E81C2BA' ,
 } );
-
-
-export const web3Onboard = Web3Onboard( {
+const options:InitOptions =  {
 	// An array of wallet modules that you would like to be presented to the user to select from when connecting a wallet.
 	wallets : [
 		injected ,
@@ -143,7 +141,33 @@ export const web3Onboard = Web3Onboard( {
 	//     }
 	//   }
 	// }
-} ) as OnboardAPI;
+};
+/**
+ * web3onboard无法被初始化两次 , 所以使用单例模式
+ */
+export default new class web3Onboard {
+	
+	constructor() {
+		if ( !this.initialized ) {
+			this.initialized = true;
+			this.#web3Onboard = init( options ) as OnboardAPI;
+		} 
+	}
+	
+	initialized = false;
+	#web3Onboard: OnboardAPI;
+	get instance () {
+		if ( this.initialized ) {
+			return this.#web3Onboard;
+		} else {
+			this.initialized = true;
+			return this.#web3Onboard = init( options ) as OnboardAPI;
+		}
+		
+	}
+};
+
+
 
 import type {
 	InitOptions ,

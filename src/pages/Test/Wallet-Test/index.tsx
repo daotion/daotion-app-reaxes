@@ -21,7 +21,7 @@ import type {
 import { Chain } from '@web3-onboard/common';
 
 
-import { web3Onboard } from './onboard';
+import web3Onboard  from '@@common/initWeb3Onboard';
 
 import type { Account } from './types';
 import {

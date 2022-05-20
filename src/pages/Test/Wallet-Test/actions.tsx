@@ -18,7 +18,7 @@ import type {
 import { crayon } from '@@utils';
 
 import { Chain } from '@web3-onboard/common';
-import { web3Onboard } from './onboard';
+import InitWeb3Onboard from '@@common/initWeb3Onboard';
 
 import type { Account } from './types';
 import {
@@ -26,6 +26,8 @@ import {
 	setState ,
 	Store ,
 } from './';
+
+const web3Onboard = InitWeb3Onboard.instance;
 
 
 export const walletConnection = Object.freeze( new class {

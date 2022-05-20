@@ -3,7 +3,7 @@ import React , {
 	useEffect ,
 	useState ,
 } from 'react';
-import { Button  } from 'antd';
+import { Button ,message , } from 'antd';
 import {
 	useConnectWallet ,
 	useSetChain ,
@@ -19,8 +19,8 @@ import {
 import { viaMobx } from '@@mobxState';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 
-
-import { initWeb3Onboard } from './onboard';
+/*可以不用,但是需要引入*/
+import InitWeb3Onboard from '@@common/initWeb3Onboard';
 import {
 	AccountDetails ,
 	Network,
@@ -28,9 +28,9 @@ import {
 
 
 import type { Account } from './types';
-
+const web3Onboard = InitWeb3Onboard.instance;
 // Must be called outside of the App function
-initWeb3Onboard()
+
 
 export const {
 	store ,
@@ -115,7 +115,9 @@ const InputPrinter = ComponentWrapper(( props: { initial: string } ) => {
   }, [wallet])
 
   const connectWallet = () => {
-    connect({})
+    connect({}).then(() => {}).catch((e) => {
+	    message.error( 'connect failed' + e );
+    })
   }
 
   const disconnectWallet = () => {

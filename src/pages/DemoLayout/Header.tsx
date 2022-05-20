@@ -433,6 +433,26 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 				<Input.TextArea
 					value = { store.svgString }
 					onChange = { ( e ) => setState( { svgString : e.target.value } ) }
+					onPaste = {(e) => {
+						if(e.clipboardData.items[0].kind === "file"){
+							const picFile = e.clipboardData.items[0].getAsFile();
+							navigator.clipboard.readText().then((value) => {
+								console.log( value );
+							});
+							(
+								new Promise( ( resolve ) => {
+									const fileReader = new FileReader();
+									fileReader.onload = ( e ) => {
+										resolve( e.target.result );
+									};
+									fileReader.readAsDataURL( picFile );
+								} )
+							).then( ( base64:string ) => {
+								console.log( base64 );
+								navigator.clipboard.writeText( `url('${base64}')` );
+							} );
+						}
+					}}
 				/>
 				
 			</div>
@@ -465,7 +485,7 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 						marginLeft : "16px" ,
 					} }
 					onClick = { () => {
-						console.log( "data:image/svg+xml;base64," + window.btoa( store.svgString ) );
+						console.log( `url('data:image/svg+xml;base64,${window.btoa( store.svgString )}')` );
 					} }
 					autoFocus = { false }
 				>

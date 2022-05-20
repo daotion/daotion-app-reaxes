@@ -205,7 +205,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 const cssLoaderOptions = {
 	sourceMap :  true ,
 	modules : {
-		exportLocalsConvention : "camelCase",
+		exportLocalsConvention : "dashes",
 		localIdentName: "[local]--[hash:base64:4]",
 		
 	},
