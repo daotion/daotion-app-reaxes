@@ -1,19 +1,20 @@
-import React , {} from 'react';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-import {
-	store ,
-	setState ,
-} from './index';
-import { ReactComponentClass } from '@@common/ReactComponentClass';
+import React from 'react';
 import less from './style.module.less';
 import {
 	Input ,
 	Select ,
-	
+	Space ,
 } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+
+import { ComponentWrapper } from '@@common/ReactComponentWrapper';
+import { ReactComponentClass } from '@@common/ReactComponentClass';
+
+import { SelectArrowIconSvgComponent } from './components';
 
 const {Option} = Select;
 const {} = Input;
+
 
 export const MainContent = ComponentWrapper( class extends ReactComponentClass {
 	
@@ -37,7 +38,6 @@ export const MainContent = ComponentWrapper( class extends ReactComponentClass {
 					paddingBottom : "0",
 					justifyContent : "center",
 					flexFlow : "row nowrap",
-					minWidth : "960px",
 					
 				}}
 			>
@@ -56,69 +56,115 @@ export const DAO_list = ComponentWrapper(class extends ReactComponentClass {
 		
 		return <>
 			<div
-				style = {{
-					flexGrow : "1",
-					display : "flex",
-					flexFlow : "column nowrap",
-					userSelect : "none",
+				style = { {
+					flexGrow : "1" ,
+					display : "flex" ,
+					flexFlow : "column nowrap" ,
+					userSelect : "none" ,
 					
-				}}
+				} }
 			>
 				<h1
-					style = {{
-						color : "#000000",
+					style = { {
+						color : "#000000" ,
 						fontSize : "48px" ,
-						fontWeight : "bold",
-					}}
-				>Explore</h1>
+						fontWeight : "bold" ,
+					} }
+				>Explore
+				</h1>
 				
 				<div
-					style={{
-						backgroundColor : "#FFFFFF" ,
+					style = { {
+						backgroundColor : "#ffffff" ,
 						borderRadius : "16px" ,
-						display : "flex",
-						flexFlow : "column nowrap",
+						display : "flex" ,
+						flexFlow : "column nowrap" ,
 						padding : "32px" ,
 						
-					}}
+					} }
 				>
 					<div
-						style = {{
-							display : "flex",
-							justifyContent : "space-between",
-							alignItems : "center",
+						style = { {
+							display : "flex" ,
+							justifyContent : "space-between" ,
+							alignItems : "center" ,
 							
-						}}
+						} }
 					>
 						<div
-							style = {{
-								color : "#1A1D1F",
-								fontSize : "20px",
-								fontWeight : "bold",
+							style = { {
+								color : "#1a1d1f" ,
+								fontSize : "20px" ,
+								fontWeight : "bold" ,
 								
-							}}
-						>DAO list</div>
+							} }
+						>DAO list
+						</div>
 						<div>
-							<Input/>
-							<Select/>
-							<Select/>
+							<Space
+							
+							>
+								<Input
+									suffix = { <SearchOutlined /> }
+									style = { {
+										width : "256px" ,
+										height : "40px" ,
+										
+									} }
+									placeholder = "Search"
+								/>
+								<Select
+									value = "1"
+									suffixIcon = { <SelectArrowIconSvgComponent /> }
+									style = { {
+										width : "129px" ,
+										
+									} }
+								>
+									<Select.Option
+										key = "1"
+									>
+										Network
+									</Select.Option>
+								</Select>
+								<Select
+									value = "1"
+									suffixIcon = { <SelectArrowIconSvgComponent /> }
+									style = { {
+										width : "129px" ,
+										
+									} }
+								>
+									<Select.Option
+										key = "1"
+									>
+										Type
+									</Select.Option>
+								</Select>
+							</Space>
 						</div>
 					</div>
 					
 					<div
-						style = {{
-							display : "flex",
-							marginTop : "20px",
-							justifyContent : "flex-start",
+						style = { {
+							display : "flex" ,
+							marginTop : "20px" ,
+							justifyContent : "center" ,
 							paddingRight : "-16px" ,
-						}}
+							flexFlow : "row wrap",
+							
+						} }
 					>
-						<DAO_list_item/>
-						<DAO_list_item/>
+						<DAO_list_item />
+						
+						
+						{ Array( 200 ).
+						fill( '' ).
+						map( (v,i) => <DAO_list_item key = {i}/> ) }
 					</div>
 				</div>
 			</div>
-		</>
+		</>;
 	}
 })
 

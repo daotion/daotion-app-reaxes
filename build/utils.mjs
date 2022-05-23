@@ -25,7 +25,10 @@ export const getIPV4address = () => {
 	const network = os.networkInterfaces();
 	for (const i in network) {
 		for (const val of network[i]) {
-			if (val.family === 'IPv4' && val.address !== "127.0.0.1") {
+			if (val.family === 'IPv4' &&
+				val.address !== "127.0.0.1" &&
+				val.address.startsWith('192.168')
+			) {
 				return val.address;
 			}
 		}

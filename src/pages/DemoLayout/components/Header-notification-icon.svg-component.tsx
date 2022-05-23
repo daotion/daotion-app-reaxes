@@ -1,6 +1,6 @@
-import React , {} from 'react';
-import { globalStore } from '@@common/globalStore';
-import {ComponentWrapper} from '@@common/ReactComponentWrapper';
+import React from 'react';
+import { globalStore } from '@@common/global-controller';
+import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 
 type props = {
 	/*铃铛填充色*/
@@ -10,7 +10,7 @@ type props = {
 	/*提示点切割铃铛的填充色*/
 	dotOuterRingFilling?: string;
 };
-export const SVG_notification = ComponentWrapper(( props: props ) => {
+export const HeaderNotificationIconSvgComponent = ComponentWrapper(( props: props ) => {
 	/**
 	 * 通过props修改fill , stroke等
 	 */

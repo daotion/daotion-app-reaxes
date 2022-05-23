@@ -1,51 +1,43 @@
-import React , { Component ,useState,useEffect,} from 'react';
-import { ReactComponentClass } from '@@common/ReactComponentClass';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
+import React , {
+	Component ,
+	useEffect ,
+	useState ,
+} from 'react';
 import {
 	Button ,
-	Input ,
-	Tree ,
-	TreeDataNode ,
 	Dropdown ,
+	Input ,
 	Menu ,
-	Popover,
 	Switch ,
 } from "antd";
-import { NotificationTwoTone } from '@ant-design/icons';
-import {
-	globalStore ,
-	globalSetState,
-} from '@@common/globalStore';
-
 import less from './style.module.less';
 
-import SVGchevron_down from './chevron_down.component.svg';
-import SVGchevron_up from './chevron_up.component.svg';
-import SVGicon1 from './demo-icon-1.component.svg';
-import SVGpeople from './people.component.svg';
-import { SVG_notification } from './notification.svg-component';
-import { Expand } from './Expand.svg.component';
-import { SVG_toggle_theme } from './components/toggle-theme.svg-component';
+import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 import {
+	globalSetState ,
+	globalStore ,
+	invoke_root_click ,
+	subscribe_root_click ,
+} from '@@common/global-controller';
+import { XPopover } from '@@common/Xcomponents';
+
+import {
+	BtnIconCopySvgComponent ,
 	BtnIconRenameSvgComponent ,
-	BtnIconCopySvgComponent,
-	ItemIconProfileSvgComponent,
-	ItemIconI18nSvgComponent,
-	ItemIconThemeSvgComponent ,
-	ItemIconDisconnectSvgComponent,
+	BtnIconShare ,
+	HeaderNotificationIconSvgComponent ,
+	HeaderToggleThemeIconSvgComponent ,
+	ItemIconDisconnectSvgComponent ,
 	ItemIconEthNode ,
-	BtnIconShare,
+	ItemIconI18nSvgComponent ,
+	ItemIconProfileSvgComponent ,
+	ItemIconThemeSvgComponent,
 } from './components';
 import {
-	XPopover ,
-} from '@@common/Xcomponents';
-
-import { viaMobx } from '@@mobxState';
-
-import {
-	store ,
 	setState ,
+	store ,
 } from './index';
+
 
 
 const { Button : DropdownButton } = Dropdown;
@@ -54,9 +46,16 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 	
 	
 	JSX = {
-		WalletBtn : () =>  {
+		WalletNetworkBtn : () =>  {
 			
 			const [ visible , setVisible ] = useState( true );
+			
+			useEffect( () => {
+					
+				subscribe_root_click( () => {
+					setVisible( false );
+				} ,Symbol() );
+			} ,[] );
 			
 			const btnStyle = {
 				padding : "12px 12px 12px 12px" ,
@@ -83,91 +82,98 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 			}
 			return <>
 				<XPopover
-					overlayClassName={less.userinfoPopoverContainer}
-					align={{
-						targetOffset:[-61]
-					}}
-					onVisibleChange={(visible) => {
-						console.log( visible );
-					}}
-					autoAdjustOverflow = {false}
-					visible={visible}
-					content = {<div style = {{
-						padding : "24px 16px",
-						display : "flex",
-						flexFlow : "column nowrap",
-						whiteSpace : "nowrap",
-						
-					}}>
+					overlayClassName = { less.userinfoPopoverContainer }
+					align = { {
+						targetOffset : [ -61 ] ,
+					} }
+					onVisibleChange = { ( visible ) => {
+						invoke_root_click.then(() => setVisible( () => visible ));
+					} }
+					autoAdjustOverflow = { false }
+					visible = { visible }
+					content = { <div
+						style = { {
+							padding : "24px 16px" ,
+							display : "flex" ,
+							flexFlow : "column nowrap" ,
+							whiteSpace : "nowrap" ,
+							
+						} }
+						onClick={(e) => {
+							e.stopPropagation();
+						}}
+					>
 						<div
-							style = {{
+							style = { {
 								fontWeight : 600 ,
-								fontSize : "14px",
+								fontSize : "14px" ,
 								color : "#353945" ,
-							}}
+							} }
 						>
 							Select a network
 						</div>
 						
 						<div
-							style = {{
+							style = { {
 								padding : "8px 16px" ,
-								display : "flex",
-								alignItems : "center",
-								backgroundColor : "#F4F5F6" ,
+								display : "flex" ,
+								alignItems : "center" ,
+								backgroundColor : "#f4f5f6" ,
 								borderRadius : "12px" ,
-								marginTop : "8px",
-								userSelect : "none",
+								marginTop : "8px" ,
+								userSelect : "none" ,
 								
-							}}
+							} }
 						>
-							<ItemIconEthNode/>
+							<ItemIconEthNode />
 							<div
-								style = {{
-									width : "152px",
-									display : "flex",
-									justifyContent : "space-between",
-									alignItems : "center",
+								style = { {
+									width : "152px" ,
+									display : "flex" ,
+									justifyContent : "space-between" ,
+									alignItems : "center" ,
 									height : "46px" ,
-									marginLeft : "16px",
+									marginLeft : "16px" ,
 									
-								}}
+								} }
 							>
 								<div
 									style = { {
 										display : "flex" ,
 										flexFlow : "column nowrap" ,
-										justifyContent : "space-between",
-										lineHeight : "normal",
-										height : "100%",
+										justifyContent : "space-between" ,
+										lineHeight : "normal" ,
+										height : "100%" ,
 										
 									} }
 								>
 									<span
-										style = {{
+										style = { {
 											fontWeight : 600 ,
-											fontSize : "14px",
-											color : "#777E91",
+											fontSize : "14px" ,
+											color : "#777e91" ,
 											
-										}}
-									>Ethereum</span>
+										} }
+									>Ethereum
+									</span>
 									<span
-										style = {{
-											fontWeight : 400,
-											fontSize : "12px",
-											textDecoration : "underline",
-											color : "#777E90" ,
+										style = { {
+											fontWeight : 400 ,
+											fontSize : "12px" ,
+											textDecoration : "underline" ,
+											color : "#777e90" ,
 											
-										}}
-									>Etherscan</span>
+										} }
+									>Etherscan
+									</span>
 								</div>
 								<div
 									style = { {
-										display : "flex",
-										flexFlow : "column nowrap",
-										justifyContent : 'space-between',
-										alignItems : "center",
-										height : "100%",
+										display : "flex" ,
+										flexFlow : "column nowrap" ,
+										justifyContent : 'space-between' ,
+										alignItems : "center" ,
+										height : "100%" ,
 										
 									} }
 								>
@@ -182,60 +188,62 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 										} }
 									></span>
 									<BtnIconShare
-										style = {{
-											cursor : "pointer",
+										style = { {
+											cursor : "pointer" ,
 											
-										}}
+										} }
 									/>
 								</div>
 							</div>
 						</div>
 						<div
-							style = {{
+							style = { {
 								padding : "8px 16px" ,
-								display : "flex",
-								alignItems : "center",
+								display : "flex" ,
+								alignItems : "center" ,
 								borderRadius : "12px" ,
-								marginTop : "8px",
-								userSelect : "none",
+								marginTop : "8px" ,
+								userSelect : "none" ,
 								
-							}}
+							} }
 						>
-							<ItemIconEthNode/>
+							<ItemIconEthNode />
 							<div
-								style = {{
-									width : "152px",
-									display : "flex",
-									justifyContent : "space-between",
-									alignItems : "center",
+								style = { {
+									width : "152px" ,
+									display : "flex" ,
+									justifyContent : "space-between" ,
+									alignItems : "center" ,
 									height : "46px" ,
-									marginLeft : "16px",
+									marginLeft : "16px" ,
 									
-								}}
+								} }
 							>
 								<div
 									style = { {
 										display : "flex" ,
 										flexFlow : "column nowrap" ,
-										justifyContent : "center",
-										lineHeight : "normal",
-										height : "100%",
+										justifyContent : "center" ,
+										lineHeight : "normal" ,
+										height : "100%" ,
 										
 									} }
 								>
 									<span
-										style = {{
+										style = { {
 											fontWeight : 600 ,
-											fontSize : "14px",
-											color : "#777E91",
-										}}
-									>Ethereum</span>
+											fontSize : "14px" ,
+											color : "#777e91" ,
+										} }
+									>Ethereum
+									</span>
 								</div>
 							</div>
 						</div>
-						
-					</div>}
+					
+					</div> }
 					placement = "bottom"
+					trigger = { [ 'click' ] }
 				>
 					<Button
 						style = { btnStyle }
@@ -270,7 +278,12 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 		UserBtn : () => {
 			
 			const [visible,setVisible] = useState(false);
-			const [] = useState()
+			useEffect( () => {
+				
+				subscribe_root_click( () => {
+					setVisible( false );
+				} ,Symbol() );
+			} ,[] );
 			
 			if ( store.walletInfo === null ) return null;
 			const btnStyle:React.CSSProperties = {
@@ -292,7 +305,17 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 					}}
 					autoAdjustOverflow = {false}
 					visible={visible}
-					content = {<div className={less.userinfoPopoverContent}>
+					onVisibleChange={(visible) => {
+						
+						invoke_root_click.then(() => setVisible( () => visible ));
+					}}
+					trigger = { [ 'click' ] }
+					content = {<div 
+						className={less.userinfoPopoverContent}
+						onClick={(e) => {
+							e.stopPropagation();
+						}}
+					>
 						<div
 							style = {{display : "flex"}}
 						>
@@ -472,7 +495,7 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 					} }
 					autoFocus = { false }
 				>
-					<SVG_toggle_theme />
+					<HeaderToggleThemeIconSvgComponent />
 				</Button>
 				
 				
@@ -489,11 +512,11 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 					} }
 					autoFocus = { false }
 				>
-					<SVG_notification />
+					<HeaderNotificationIconSvgComponent />
 				</Button>
 				
 				
-				{this.JSX.WalletBtn()}
+				{this.JSX.WalletNetworkBtn()}
 				{this.JSX.UserBtn()}
 				
 			</div>

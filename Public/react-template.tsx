@@ -19,7 +19,7 @@ import { viaMobx } from '@@mobxState';
 import {
 	globalStore ,
 	globalSetState ,
-} from '@@common/globalStore';
+} from '@@common/global-controller';
 import { ReactComponentClass } from '@@common/ReactComponentClass';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 

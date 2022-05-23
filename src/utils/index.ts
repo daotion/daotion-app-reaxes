@@ -40,7 +40,7 @@ export * from './makePair.utility';
 export * from './timer.utility';
 export * from './replaceStr.utility';
 export * from './queryString.utility';
-export * from './usePromise.utility';
+export * from './viaPromise.utility';
 export * from './dataFormatter';
 export * from './checkGenericNull';
 export * from './runOnlyOnce.utility';

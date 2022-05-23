@@ -14,7 +14,7 @@ import {Routing} from './Routing';
 import {
 	globalSetState ,
 	globalStore,
-} from '@@common/globalStore';
+} from '@@common/global-controller';
 
 class _App extends ReactComponentClass<any , any> {
 	
