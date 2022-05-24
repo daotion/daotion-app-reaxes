@@ -1,34 +1,21 @@
-import React , {} from 'react';
-import { ComponentWrapper } from "@@common/ReactComponentWrapper";
-import { ReactComponentClass } from '@@common/ReactComponentClass';
-import {
-	Button ,
-	Input,
-	
-} from 'antd';
-import { viaMobx } from '@@common/MobxState';
-import utils , {} from '@@utils';
-import Web3Onboard from '@web3-onboard/core';
+import React from 'react';
+import { Button  } from 'antd';
+
 import type {
-	InitOptions ,
-	OnboardAPI ,
-	ConnectOptions ,
-	DisconnectOptions ,
-	WalletState ,
 	ConnectedChain ,
+	WalletState ,
 } from '@web3-onboard/core';
 
-import { Chain } from '@web3-onboard/common';
+import { ComponentWrapper } from "@@common/ReactComponentWrapper";
+import { ReactComponentClass } from '@@common/ReactComponentClass';
+import { viaMobx } from '@@common/MobxState';
 
 
-import web3Onboard  from '@@common/initWeb3Onboard';
-
-import type { Account } from './types';
 import {
+	setChain ,
 	walletConnection ,
 	wallets ,
-	setChain ,
-} from './actions';
+} from '@@common/actions';
 
 export interface Store {
 	/**
@@ -125,6 +112,7 @@ export const WalletTest = ComponentWrapper( class extends ReactComponentClass {
 							return "true";
 					}
 				})()}
+				{/*@ts-ignore*/ }
 				{!!walletConnection.connectedWallet && (console.log(walletConnection.connectedWallet,null)) || "ffffff"}
 			</>
 		</>;

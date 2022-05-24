@@ -20,7 +20,7 @@ import { viaMobx } from '@@mobxState';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 
 /*可以不用,但是需要引入*/
-import InitWeb3Onboard from '@@common/initWeb3Onboard';
+import {web3onboard} from '@@common/actions';
 import {
 	AccountDetails ,
 	Network,
@@ -28,7 +28,7 @@ import {
 
 
 import type { Account } from './types';
-const web3Onboard = InitWeb3Onboard.instance;
+const web3Onboard = web3onboard.instance;
 // Must be called outside of the App function
 
 

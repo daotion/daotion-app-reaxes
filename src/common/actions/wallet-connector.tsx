@@ -1,4 +1,4 @@
-import {
+import React , {
 	useEffect ,
 	useState ,
 	useCallback ,
@@ -16,50 +16,51 @@ import type {
 	ConnectedChain ,
 } from '@web3-onboard/core';
 import { crayon } from '@@utils';
+import {viaMobx} from '@@mobxState';
 
 import { Chain } from '@web3-onboard/common';
-import InitWeb3Onboard from '@@common/initWeb3Onboard';
+import { web3onboard } from '@@common/actions';
 
-import type { Account } from './types';
 import {
-	store ,
-	setState ,
-	Store ,
-} from './';
+	globalStore ,
+	globalSetState ,
+} from '@@common/global-controller';
 
-const web3Onboard = InitWeb3Onboard.instance;
+const web3Onboard = web3onboard.instance;
 
 
 export const walletConnection = Object.freeze( new class {
 	
-	get connectedWallet(): Store["connectedWallet"] {
-		return store.connectedWallet;
+	get connectedWallet(): globalStoreType["connectedWallet"] {
+		return globalStore.connectedWallet;
 	}
 	
-	get connecting(): Store["connecting"] {
-		return store.connecting;
+	get connecting(): globalStoreType["walletConnecting"] {
+		return globalStore.walletConnecting;
 	}
 	
 	connect = ( options ) => {
-		setState( {
-			connecting : true ,
+		globalSetState( {
+			walletConnecting : true ,
 		} );
 		return web3Onboard.connectWallet( options ).
 		then( ( [ connectedWallet ] ) => {
-			setState( {
+			
+			globalSetState( {
 				connectedWallet ,
-				connecting : false ,
+				walletConnecting : false ,
 			} );
+			return connectedWallet;
 		} );
 	};
 	
 	disconnect = ( { label } ) => {
-		setState( { connecting : true } );
+		globalSetState( { walletConnecting : true } );
 		web3Onboard.disconnectWallet( { label } ).
 		then( () => {
-			setState( {
+			globalSetState( {
 				connectedWallet : null ,
-				connecting : false ,
+				walletConnecting : false ,
 			} );
 		} );
 		
@@ -73,16 +74,16 @@ export const wallets = Object.freeze( new class {
 	#subscription;
 	
 	get connectedWallets() {
-		return store.wallets;
+		return globalStore.wallets;
 	}
 	
 	didMount = () => {
-		setState( {
+		globalSetState( {
 			wallets : web3Onboard.state.get().wallets ,
 		} );
 		const wallets$ = web3Onboard.state.select( 'wallets' );
 		this.#subscription = wallets$.subscribe( ( walletState ) => {
-			setState( {
+			globalSetState( {
 				wallets : walletState ,
 			} );
 		} );
@@ -96,7 +97,7 @@ export const setChain = Object.freeze( new class {
 	
 	#subscription;
 	#setInProgress = (value) => {
-		setState( {
+		globalSetState( {
 			settingChain : value ,
 		} );
 	};
@@ -105,11 +106,10 @@ export const setChain = Object.freeze( new class {
 		return web3Onboard.state.get().chains;
 	}
 	get connectedChain (){
-		return store.connectedChain;
+		return globalStore.connectedChain;
 	}
-	
 	get settingChain (){
-		return store.settingChain;
+		return globalStore.settingChain;
 	}
 	
 	didMount = (walletLabel?:string) => {
@@ -118,7 +118,7 @@ export const setChain = Object.freeze( new class {
 		subscribe( wallets => {
 			const wallet = wallets.find( ( { label } ) => label === walletLabel ) || wallets[ 0 ];
 			
-			wallet && setState( {
+			wallet && globalSetState( {
 				connectedChain : wallet.chains[ 0 ] ,
 			} );
 		} );
@@ -154,12 +154,12 @@ class test extends Component {
 	
 	constructor( props ) {
 		super( props );
-		
+		/*@ts-ignore*/
 		this.lifecycle.use(
-			() => {
+			() => {/*@ts-ignore*/
 				const subs = action.subscribe( () => {} );
 				
-				return () => {
+				return () => {/*@ts-ignore*/
 					action.unsubscribe( subs );
 				};
 			} ,
@@ -172,3 +172,25 @@ type SetChainOptions = {
 	chainId: string
 	chainNamespace?: string
 }
+
+
+
+
+
+
+const connect = () => {
+	let walletSubscription ;
+	walletConnection.connect({}).then((connectedWallet) => {
+		const { wallets } = web3Onboard.state.get();
+		const wallets$ = web3Onboard.state.select( 'wallets' );
+		
+		wallets$.subscribe( ( walletState ) => {
+			globalSetState( {
+				wallets : walletState ,
+			} );
+		} );
+		
+	});
+	
+}
+

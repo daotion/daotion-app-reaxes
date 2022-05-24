@@ -1,5 +1,5 @@
 // class
-
+import _ from 'lodash';
 import React , {
 	Component ,
 	useState ,
@@ -18,58 +18,99 @@ export const {
 	count : 2 ,
 	
 } );
-//@ts-ignore
-window.store = store;
 
-export const _Test = ( class extends ReactComponentClass<any , any> {
+
+class Apx extends ReactComponentClass<any , any> {
 	
-	state = {
-		input : "222",
-	};
 	
-	componentDidRender(stage , prevProps: Readonly<any> , prevState: Readonly<any> , snapshot?: any ) {
-		console.log( stage );
-		
-	}
 	
 	render() {
-		
-		const [ count , setCount ] = useState<string|number>( 0 );
-		useEffect(
-			() => {
-				console.log( 0 );
-			} ,
-			[ this.state.input ],
-		);
+		const [store , setCount ] = orzWallet(this)(0);
 		
 		return <>
-			<div>
-				<input
-					placeholder = "input count"
-					value = { count }
-					onInput = { ( e ) => {
-						setCount( e.target.value );
-					} }
-				/>
-				
-				<div>count : { count }</div>
-				
-				<input
-					value = {store.count * 2}
-					onInput={(e) => {
-						console.log( 22222 );
-						setState( {
-							count : store.count + 1 ,
-							
-						} );
-					}}
-				/>
-			</div>
+			<span
+				onClick = {() => setCount()}
+			>{store.count}</span>
 		</>;
 	}
+}
+
+const wrapper = (callback) => {
+	let first = true ;
+	let instance;
+	const lifecycle = {
+		mounted : (cb) => {
+			instance.mountedStack.push(cb);
+		},
+		unmount : (cb) => {
+			instance.unmountStack.push(cb);
+		} ,
+		updated : (cb) => {
+			instance.updatedStack.push(cb);
+		} ,
+		rendered : (cb) => {
+			instance.renderedStack.push(cb);
+		} ,
+	};
+	const preventDuplicate = (cb) => {
+		if(!first){
+			const noop = () => null ;
+			Object.assign(lifecycle,{
+				"mounted" : noop,
+				"unmount" : noop,
+				"updated" : noop,
+				"rendered" : noop,
+			});
+		}
+		return cb;
+	};
+	const prevented = preventDuplicate(callback());
+	return (_instance) => (...props) => {
+		instance = _instance ;
+		return first = false,prevented(lifecycle,...props);
+	}
+}
+
+const orzWallet = wrapper( () => {
+	
+	const {
+		store ,
+		setState,
+	} = viaMobx( {
+		count : 0 ,
+	} );
+	let prevInstance = null;
+	
+	return ( lifecycle , initialCount  ) => {
+		
+		let timer;
+		lifecycle.mounted( () => {
+			console.log( 'lifecycle.mounted' );
+			timer = setInterval(
+				() => {
+					console.log( `setIntervel ${ store.count }` );
+					setState( {
+						count : store.count + 1 ,
+					} );
+				} ,
+				2500 ,
+			);
+		} );
+		
+		lifecycle.unmount( () => {
+			clearInterval( timer );
+			console.log( 'timer cleared' );
+		} );
+		
+		return [
+			store ,
+			() => setState( { count : store.count + 1 } ) ,
+		];
+	};
 } );
 
 
 
 
-export const Test = ComponentWrapper(_Test);
+
+export const Test = ComponentWrapper(Apx);

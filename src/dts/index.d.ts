@@ -15,6 +15,14 @@ declare module '*.bmp';
 declare interface globalStoreType {
 	theme : "light" | "dark" | string;
 	language : "enUS"|"zhCN"|string;
+	/* null:第一次还没连接, false:已断开连接 */
+	walletConnecting : null|boolean,
+	connectedWallet : WalletState,
+	wallets : WalletState[] ,
+	settingChain : boolean ,
+	connectedChain : ConnectedChain|null ,
+	
+	account : Account|null ,
 }
 
 declare module '*.module.less' {
@@ -56,3 +64,13 @@ declare type Immutable<T> = {
 };
 
 
+
+type WalletState = import('@web3-onboard/core').WalletState;
+type ConnectedChain = import('@web3-onboard/core').ConnectedChain;
+
+
+declare interface Account {
+	address: string
+	ens: { name?: string; avatar?: string }
+	balance: Record<string, string> | null
+}

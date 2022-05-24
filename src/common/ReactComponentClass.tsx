@@ -10,7 +10,14 @@ export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {}
 
 export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate> {
 	
-
+	mountedStack = [];
+	
+	unmountStack = [];
+	
+	updatedStack = [];
+	
+	renderedStack = [];
+	
 	/**
 	 * didMount和didUpdate都要执行的函数,何不放在这里?
 	 */

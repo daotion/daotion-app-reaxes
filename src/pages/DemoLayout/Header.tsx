@@ -37,13 +37,21 @@ import {
 	setState ,
 	store ,
 } from './index';
-
+import {
+	setChain ,
+	wallets ,
+	walletConnection,
+} from '@@common/actions';
 
 
 const { Button : DropdownButton } = Dropdown;
 
 export const HeaderLayout = ComponentWrapper( class extends Component<any , any> {
 	
+	componentDidMount() {
+		
+		
+	}
 	
 	JSX = {
 		WalletNetworkBtn : () =>  {
@@ -71,9 +79,13 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 						style = {btnStyle}
 						onClick = {() => {
 							console.log("connect wallet...");
-							setState( {
-								walletInfo : {} ,
-							} );
+							
+							walletConnection.connect( {} ).then((f) => {
+								console.log(f);
+								setState( {
+									walletInfo : {} ,
+								} );
+							});
 						}}
 					>
 						Connect Wallet
@@ -354,12 +366,23 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 										color : "#777e91",
 										fontSize : "14" ,
 										width : "100%",
-										textOverflow : "ellipsis",
 										overflow : "hidden",
 										fontWeight : "500",
+										whiteSpace : "nowrap",
+										display : "flex",
 										
 									}}
-								>0x9329675794D71177c622a4559FF1d2A08dA56609</span>
+								>
+									<span
+										style = {{
+											display : "flex",
+											textOverflow : "ellipsis",
+											overflow : "hidden",
+										}}
+									>{"0x9329675794d71177c622a4559ff1d2a08da56609".slice(0,6)}</span>
+									...
+									<span>{"0x9329675794d71177c622a4559ff1d2a08da56609".slice(-4)}</span>
+								</span>
 							</div>
 							<div
 								style = {{
@@ -523,47 +546,3 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 		</div>;
 	}
 } );
-
-//@ts-ignore
-const menu = <Menu
-	selectable
-	items = { [
-		{
-			label : <a
-				target = "_blank"
-				rel = "noopener noreferrer"
-				href = "https://www.antgroup.com"
-			>
-				1st menu item
-			</a> ,
-		} ,
-		{
-			label : (
-				<a
-					target = "_blank"
-					rel = "noopener noreferrer"
-					href = "https://www.aliyun.com"
-				>
-					2nd menu item (disabled)
-				</a>
-			) ,
-			disabled : true ,
-		} ,
-		{
-			label : (
-				<a
-					target = "_blank"
-					rel = "noopener noreferrer"
-					href = "https://www.luohanacademy.com"
-				>
-					3rd menu item (disabled)
-				</a>
-			) ,
-			disabled : true ,
-		} ,
-		{
-			danger : true ,
-			label : 'a danger item' ,
-		} ,
-	] }
-/>;

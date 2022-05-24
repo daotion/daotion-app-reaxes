@@ -64,6 +64,10 @@ export const basicConfig$Fn = (plugins = []) => ({
 		] ,
 	} ,
 	devtool : 'source-map' , 
+	cache : {
+		type : "filesystem",
+		allowCollectingMemory: true, 
+	} ,
 	module : {
 		rules : [
 			{
@@ -93,6 +97,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 							lessOptions : {
 								javascriptEnabled : true ,
 							} ,
+							cacheDirectory: true ,
 						} ,
 					} ,
 				] ,
