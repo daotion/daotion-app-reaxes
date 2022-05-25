@@ -23,6 +23,7 @@ declare interface globalStoreType {
 	connectedChain : ConnectedChain|null ,
 	
 	account : Account|null ,
+	walletAddress : string ,
 }
 
 declare module '*.module.less' {
@@ -73,4 +74,13 @@ declare interface Account {
 	address: string
 	ens: { name?: string; avatar?: string }
 	balance: Record<string, string> | null
+}
+
+type lifecycle = (callback:Function) => void;
+declare interface LifeCycle {
+	unmount : lifecycle ,
+	mounted : lifecycle ,
+	rendered : lifecycle ,
+	updated : lifecycle ,
+	
 }

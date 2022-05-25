@@ -25,12 +25,15 @@ class Apx extends ReactComponentClass<any , any> {
 	
 	
 	render() {
-		const [store , setCount ] = orzWallet(this)(0);
+		const [store , setCount , clear ] = orzWallet(this)(0);
 		
 		return <>
 			<span
 				onClick = {() => setCount()}
 			>{store.count}</span>
+			<button
+				onClick={clear}
+			>clear</button>
 		</>;
 	}
 }
@@ -80,10 +83,9 @@ const orzWallet = wrapper( () => {
 		count : 0 ,
 	} );
 	let prevInstance = null;
-	
+	let timer;
 	return ( lifecycle , initialCount  ) => {
-		
-		let timer;
+		console.log( 'running' );
 		lifecycle.mounted( () => {
 			console.log( 'lifecycle.mounted' );
 			timer = setInterval(
@@ -105,6 +107,7 @@ const orzWallet = wrapper( () => {
 		return [
 			store ,
 			() => setState( { count : store.count + 1 } ) ,
+			() => clearInterval( timer ),
 		];
 	};
 } );

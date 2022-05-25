@@ -11,9 +11,13 @@ export const {
 	language : "zhCN" ,
 	/* null:第一次还没连接, false:已断开连接 */
 	walletConnecting : null ,
+	/*已连接的钱包*/
 	connectedWallet : null ,
+	/*?*/
 	wallets : null ,
+	/*正在切换线路*/
 	settingChain : false ,
+	/*已连接的线路*/
 	connectedChain : null ,
 	
 	account : null ,

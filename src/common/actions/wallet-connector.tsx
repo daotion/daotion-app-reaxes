@@ -15,7 +15,7 @@ import type {
 	WalletState ,
 	ConnectedChain ,
 } from '@web3-onboard/core';
-import { crayon } from '@@utils';
+import { crayon , viaPromise } from '@@utils';
 import {viaMobx} from '@@mobxState';
 
 import { Chain } from '@web3-onboard/common';
@@ -29,7 +29,7 @@ import {
 const web3Onboard = web3onboard.instance;
 
 
-export const walletConnection = Object.freeze( new class {
+export const _walletConnection = Object.freeze( new class {
 	
 	get connectedWallet(): globalStoreType["connectedWallet"] {
 		return globalStore.connectedWallet;
@@ -43,7 +43,8 @@ export const walletConnection = Object.freeze( new class {
 		globalSetState( {
 			walletConnecting : true ,
 		} );
-		return web3Onboard.connectWallet( options ).
+		return web3Onboard.
+		connectWallet( options ).
 		then( ( [ connectedWallet ] ) => {
 			
 			globalSetState( {
@@ -68,7 +69,7 @@ export const walletConnection = Object.freeze( new class {
 	
 }() );
 
-export const wallets = Object.freeze( new class {
+export const _wallets = Object.freeze( new class {
 	
 	
 	#subscription;
@@ -91,9 +92,24 @@ export const wallets = Object.freeze( new class {
 	unMount = () => {
 		this.#subscription.unsubscribe();
 	};
+	
+	connectWallets = (lifecycle,connectedWallet) => {
+		
+		globalSetState( {
+			wallets : web3Onboard.state.get().wallets ,
+		} );
+		const wallets$ = web3Onboard.state.select( 'wallets' );
+		const subscription = wallets$.subscribe( ( walletState ) => {
+			globalSetState( {
+				wallets : walletState ,
+			} );
+		} );
+		lifecycle.unmount(subscription);
+		return Promise.resolve(connectedWallet);
+	}
 }() );
 
-export const setChain = Object.freeze( new class {
+export const _setChain = Object.freeze( new class {
 	
 	#subscription;
 	#setInProgress = (value) => {
@@ -174,23 +190,117 @@ type SetChainOptions = {
 }
 
 
+const syncState = {};
 
 
 
 
-const connect = () => {
-	let walletSubscription ;
-	walletConnection.connect({}).then((connectedWallet) => {
-		const { wallets } = web3Onboard.state.get();
-		const wallets$ = web3Onboard.state.select( 'wallets' );
-		
-		wallets$.subscribe( ( walletState ) => {
-			globalSetState( {
-				wallets : walletState ,
-			} );
+
+export const connectWallet = (lifecycle:LifeCycle) => {
+	
+	lifecycle.mounted( () => {
+		globalSetState( {
+			connectedWallet : web3onboard.instance.state.get().wallets[ 0 ] ,
 		} );
-		
-	});
+	} );
+	
+	return {
+		get connectedWallet() {
+			return globalStore.connectedWallet;
+		} ,
+		get connecting() {
+			return globalStore.walletConnecting;
+		} ,
+		get connect() {
+			return ( options: ConnectOptions ) => {
+				globalSetState( { walletConnecting : true } );
+				
+				return web3onboard.
+				instance.
+				connectWallet( options ).
+				then( ( [ connectedWallet ] ) => {
+					if ( connectedWallet.accounts[ 0 ].ens === null ) {
+						return viaPromise<WalletState>( ( resolve ) => {
+							setTimeout(
+								() => {
+									resolve( connectedWallet );
+								} ,
+								1800 ,
+							);
+						} ).
+						then( ( connectedWallet ) => {
+							globalSetState( {
+								walletConnecting : false ,
+								connectedWallet : connectedWallet || null ,
+							} );
+							return connectedWallet;
+						} );
+					} else {
+						globalSetState( {
+							walletConnecting : false ,
+							connectedWallet : connectedWallet || null ,
+						} );
+						return connectedWallet;
+					}
+				} );
+				
+			};
+		} ,
+		get disconnect() {
+			return ( label ) => {
+				globalSetState( { walletConnecting : true } );
+				web3onboard.instance.disconnectWallet( { label } ).
+				then( ( wallet ) => {
+					globalSetState( {
+						connectedWallet : null ,
+						walletConnecting : false ,
+					} );
+				} );
+				
+			};
+		} ,
+	};
 	
 }
 
+export const wallets = (lifecycle:LifeCycle) => {
+	const wallets = web3onboard.instance.state.get().wallets;
+	lifecycle.mounted( () => {
+		const wallets$ = web3onboard.instance.state.select( "wallets" );
+		const subscription = wallets$.subscribe( ( connectedWallets ) => {
+			globalSetState( { wallets : connectedWallets } );
+			lifecycle.unmount( () => subscription.unsubscribe() );
+		} );
+	} );
+	
+	return {
+		get wallet() {
+			return globalStore.wallets?.[0] || null ;
+		},
+	}
+}
+
+export const chains = () => {
+	
+}
+
+
+
+import {ReactComponentClass} from '@@common/ReactComponentClass';
+class App extends ReactComponentClass {
+	connectWallet = connectWallet(this.lifecycle);
+	actions = {
+		connect : () => {
+			this.connectWallet.connect({} )
+		}
+	}
+	
+	render (){
+	
+		
+		return <>
+			<button onClick = {this.actions.connect}>connect</button>
+			<button>disconnect</button>
+		</>
+	}
+}

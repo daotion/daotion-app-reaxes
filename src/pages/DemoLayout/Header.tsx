@@ -13,6 +13,7 @@ import {
 import less from './style.module.less';
 
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
+import {ReactComponentClass} from '@@common/ReactComponentClass';
 import {
 	globalSetState ,
 	globalStore ,
@@ -38,15 +39,13 @@ import {
 	store ,
 } from './index';
 import {
-	setChain ,
+	connectWallet ,
 	wallets ,
-	walletConnection,
 } from '@@common/actions';
-
 
 const { Button : DropdownButton } = Dropdown;
 
-export const HeaderLayout = ComponentWrapper( class extends Component<any , any> {
+export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<any , any> {
 	
 	componentDidMount() {
 		
@@ -54,6 +53,31 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 	}
 	
 	JSX = {
+		ellipsisAddress : () => {
+			if(!this.connectWallet.connectedWallet ) return null;
+			const address = this.connectWallet.connectedWallet.accounts[0].address;
+			return <span
+				style = {{
+					color : "#777e91",
+					fontSize : "14" ,
+					width : "100%",
+					overflow : "hidden",
+					fontWeight : "500",
+					whiteSpace : "nowrap",
+					display : "flex",
+				}}
+			>
+				<span
+					style = {{
+						display : "flex",
+						textOverflow : "ellipsis",
+						overflow : "hidden",
+					}}
+				>{address.slice(0,6)}</span>
+				<span>...{address.slice(-4)}</span>
+			</span>
+		} ,
+		
 		WalletNetworkBtn : () =>  {
 			
 			const [ visible , setVisible ] = useState( true );
@@ -72,20 +96,13 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 				borderWidth : "2px" ,
 				marginLeft : "16px" ,
 			};
-			if(store.walletInfo === null){
+			if(!globalStore.connectedWallet){
 				return <>
 					<Button
 						type="primary"
 						style = {btnStyle}
 						onClick = {() => {
-							console.log("connect wallet...");
-							
-							walletConnection.connect( {} ).then((f) => {
-								console.log(f);
-								setState( {
-									walletInfo : {} ,
-								} );
-							});
+							this.actions.connect();
 						}}
 					>
 						Connect Wallet
@@ -297,7 +314,7 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 				} ,Symbol() );
 			} ,[] );
 			
-			if ( store.walletInfo === null ) return null;
+			if ( !globalStore.connectedWallet ) return null;
 			const btnStyle:React.CSSProperties = {
 				padding : "0 16px" ,
 				borderRadius : "12px" ,
@@ -309,6 +326,7 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 				fontWeight : "bold",
 				
 			};
+			
 			return <>
 				<XPopover
 					overlayClassName={less.userinfoPopoverContainer}
@@ -360,29 +378,8 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 										fontSize : 16 ,
 										color : "#23262F",
 									}}
-								>Hillen.eth</span>
-								<span
-									style = {{
-										color : "#777e91",
-										fontSize : "14" ,
-										width : "100%",
-										overflow : "hidden",
-										fontWeight : "500",
-										whiteSpace : "nowrap",
-										display : "flex",
-										
-									}}
-								>
-									<span
-										style = {{
-											display : "flex",
-											textOverflow : "ellipsis",
-											overflow : "hidden",
-										}}
-									>{"0x9329675794d71177c622a4559ff1d2a08da56609".slice(0,6)}</span>
-									...
-									<span>{"0x9329675794d71177c622a4559ff1d2a08da56609".slice(-4)}</span>
-								</span>
+								>{this.connectWallet.connectedWallet?.accounts[0]?.ens?.name}</span>
+								{this.JSX.ellipsisAddress()}
 							</div>
 							<div
 								style = {{
@@ -451,7 +448,7 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 						}}
 					>
 						<span>{ /*@ts-ignore*/
-							store.walletInfo.userName || "Hillen.eth" }</span>
+							this.connectWallet.connectedWallet.accounts[0]?.ens?.name }</span>
 						<span
 							style = { {
 								marginLeft : "8px" ,
@@ -472,8 +469,23 @@ export const HeaderLayout = ComponentWrapper( class extends Component<any , any>
 		},
 	}
 	
+	wallets = wallets( this.lifecycle );
+	
+	connectWallet = connectWallet( this.lifecycle );
+	
+	actions = {
+		connect : () => {
+			this.connectWallet.connect({}).then((wallet) => {
+				console.log(wallet);
+			})
+		} ,
+	} ;
 	
 	render() {
+		
+		console.log( this.wallets.wallet );
+		
+		
 		return <div className = { less.topBanner }>
 			<div>
 				<Input.TextArea

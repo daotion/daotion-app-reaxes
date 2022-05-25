@@ -12,9 +12,7 @@ import { viaMobx } from '@@common/MobxState';
 
 
 import {
-	setChain ,
-	walletConnection ,
-	wallets ,
+	
 } from '@@common/actions';
 
 export interface Store {
@@ -46,20 +44,10 @@ export const WalletTest = ComponentWrapper( class extends ReactComponentClass {
 	
 	
 	componentDidMount() {
-		wallets.didMount();
-		setChain.didMount(walletConnection.connectedWallet?.label);
-		
-		
-		
-		if(walletConnection.connectedWallet){
-			
-		}
 		
 	};
 	
 	componentWillUnmount() {
-		wallets.unMount();
-		setChain.unMount()
 	}
 	
 	componentDidRender( stage: "mount" | "update" , prevProps?: Readonly<any> , prevState?: Readonly<any> , snapshot?: any ): any {
