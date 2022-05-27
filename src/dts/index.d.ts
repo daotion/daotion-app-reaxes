@@ -18,12 +18,16 @@ declare interface globalStoreType {
 	/* null:第一次还没连接, false:已断开连接 */
 	walletConnecting : null|boolean,
 	connectedWallet : WalletState,
-	wallets : WalletState[] ,
+	// wallets : WalletState[] ,
 	settingChain : boolean ,
 	connectedChain : ConnectedChain|null ,
-	
+	chains : Chain[],
 	account : Account|null ,
 	walletAddress : string ,
+	windowLoading : {
+		isLoading : boolean ,
+		tipNode?: React.ReactNode;
+	} ,
 }
 
 declare module '*.module.less' {
@@ -68,11 +72,12 @@ declare type Immutable<T> = {
 
 type WalletState = import('@web3-onboard/core').WalletState;
 type ConnectedChain = import('@web3-onboard/core').ConnectedChain;
+type Chain = import('@web3-onboard/common').Chain;
 
 
 declare interface Account {
 	address: string
-	ens: { name?: string; avatar?: string }
+	ens: { name?: string; avator?: string }
 	balance: Record<string, string> | null
 }
 
@@ -83,4 +88,20 @@ declare interface LifeCycle {
 	rendered : lifecycle ,
 	updated : lifecycle ,
 	
+}
+
+
+
+declare namespace ORZ {
+	
+	export type env = {
+		host : string ,
+		prefix : string ,
+	};
+	
+	export type RequestOptions<body extends object> = Omit<RequestInit, 'body'> & {
+		env? : env,
+		body?: body;
+		mock? : boolean ;
+	};
 }

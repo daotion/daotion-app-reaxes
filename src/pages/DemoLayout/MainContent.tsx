@@ -61,6 +61,7 @@ export const DAO_list = ComponentWrapper(class extends ReactComponentClass {
 					display : "flex" ,
 					flexFlow : "column nowrap" ,
 					userSelect : "none" ,
+					minWidth : "810px",
 					
 				} }
 			>

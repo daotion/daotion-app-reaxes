@@ -26,10 +26,10 @@ const AccountDetails = ({ className = '', account }: Props) => {
             </div>
           )}
         </div>
-        <div className={`avatar mx-2 ${account ? 'online' : 'offline'}`}>
+        <div className={`avator mx-2 ${account ? 'online' : 'offline'}`}>
           <div className="w-9 rounded-full">
-            {ens?.avatar ? (
-              <img src={ens?.avatar} alt="" />
+            {ens?.avator ? (
+              <img src={ens?.avator} alt="" />
             ) : (
               <div className="bg-slate-300 w-full h-full" />
             )}

@@ -10,7 +10,7 @@ export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {}
 
 export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate> {
 	
-	JSX: { [ p: string ]: () => React.ReactElement | void };
+	JSX: { [ p: string ]: () => React.ReactElement | void | React.ReactNode };
 	
 	actions: { [ p: string ]: Function };
 	

@@ -6,7 +6,8 @@ import React , {
 	Component ,
 } from 'react';
 
-import Web3Onboard from '@web3-onboard/core';
+import Web3Onboard , {} from '@web3-onboard/core';
+import {} from '@web3-onboard/common';
 import type {
 	InitOptions ,
 	OnboardAPI ,
@@ -15,6 +16,7 @@ import type {
 	WalletState ,
 	ConnectedChain ,
 } from '@web3-onboard/core';
+import _ from 'lodash';
 import { crayon , viaPromise } from '@@utils';
 import {viaMobx} from '@@mobxState';
 
@@ -26,139 +28,8 @@ import {
 	globalSetState ,
 } from '@@common/global-controller';
 
+
 const web3Onboard = web3onboard.instance;
-
-
-export const _walletConnection = Object.freeze( new class {
-	
-	get connectedWallet(): globalStoreType["connectedWallet"] {
-		return globalStore.connectedWallet;
-	}
-	
-	get connecting(): globalStoreType["walletConnecting"] {
-		return globalStore.walletConnecting;
-	}
-	
-	connect = ( options ) => {
-		globalSetState( {
-			walletConnecting : true ,
-		} );
-		return web3Onboard.
-		connectWallet( options ).
-		then( ( [ connectedWallet ] ) => {
-			
-			globalSetState( {
-				connectedWallet ,
-				walletConnecting : false ,
-			} );
-			return connectedWallet;
-		} );
-	};
-	
-	disconnect = ( { label } ) => {
-		globalSetState( { walletConnecting : true } );
-		web3Onboard.disconnectWallet( { label } ).
-		then( () => {
-			globalSetState( {
-				connectedWallet : null ,
-				walletConnecting : false ,
-			} );
-		} );
-		
-	};
-	
-}() );
-
-export const _wallets = Object.freeze( new class {
-	
-	
-	#subscription;
-	
-	get connectedWallets() {
-		return globalStore.wallets;
-	}
-	
-	didMount = () => {
-		globalSetState( {
-			wallets : web3Onboard.state.get().wallets ,
-		} );
-		const wallets$ = web3Onboard.state.select( 'wallets' );
-		this.#subscription = wallets$.subscribe( ( walletState ) => {
-			globalSetState( {
-				wallets : walletState ,
-			} );
-		} );
-	};
-	unMount = () => {
-		this.#subscription.unsubscribe();
-	};
-	
-	connectWallets = (lifecycle,connectedWallet) => {
-		
-		globalSetState( {
-			wallets : web3Onboard.state.get().wallets ,
-		} );
-		const wallets$ = web3Onboard.state.select( 'wallets' );
-		const subscription = wallets$.subscribe( ( walletState ) => {
-			globalSetState( {
-				wallets : walletState ,
-			} );
-		} );
-		lifecycle.unmount(subscription);
-		return Promise.resolve(connectedWallet);
-	}
-}() );
-
-export const _setChain = Object.freeze( new class {
-	
-	#subscription;
-	#setInProgress = (value) => {
-		globalSetState( {
-			settingChain : value ,
-		} );
-	};
-	
-	get chains (){
-		return web3Onboard.state.get().chains;
-	}
-	get connectedChain (){
-		return globalStore.connectedChain;
-	}
-	get settingChain (){
-		return globalStore.settingChain;
-	}
-	
-	didMount = (walletLabel?:string) => {
-		
-		this.#subscription = web3Onboard.state.select( 'wallets' ).
-		subscribe( wallets => {
-			const wallet = wallets.find( ( { label } ) => label === walletLabel ) || wallets[ 0 ];
-			
-			wallet && globalSetState( {
-				connectedChain : wallet.chains[ 0 ] ,
-			} );
-		} );
-		
-	};
-	
-	unMount = () => {
-		this.#subscription.unsubscribe();
-	};
-	
-	set = ( options: SetChainOptions ,walletLabel?:string ): Promise<boolean> => {
-		this.#setInProgress( true );
-		
-		return web3Onboard.setChain( {
-			...options ,
-			wallet : walletLabel ,
-		} ).
-		then( ( success ) => {
-			this.#setInProgress( false );
-			return success;
-		} );
-	}
-	
-}() );
 
 
 const onerror = ( msg ) => {
@@ -204,6 +75,18 @@ export const connectWallet = (lifecycle:LifeCycle) => {
 		} );
 	} );
 	
+	const persistWallet = () => {
+		const walletsSub = web3onboard.instance.state.select( 'wallets' );
+		const { unsubscribe } = walletsSub.subscribe( wallets => {
+			const connectedWallets = wallets.map( ( { label } ) => label );
+			window.localStorage.setItem(
+				'connectedWallets' ,
+				JSON.stringify( connectedWallets ) ,
+			);
+		} );
+		
+	};
+	
 	return {
 		get connectedWallet() {
 			return globalStore.connectedWallet;
@@ -213,37 +96,50 @@ export const connectWallet = (lifecycle:LifeCycle) => {
 		} ,
 		get connect() {
 			return ( options: ConnectOptions ) => {
-				globalSetState( { walletConnecting : true } );
+				globalSetState( { 
+					walletConnecting : true ,
+					windowLoading : {tipNode : "connecting wallet, please hold on.",isLoading : true}
+				} );
 				
 				return web3onboard.
 				instance.
 				connectWallet( options ).
 				then( ( [ connectedWallet ] ) => {
+					/**
+					 * 陷阱!!!原connectWallet()的wallet Promise会先resolve掉
+					 * 随后发起异步请求getEns修改已resolve的wallet对象.
+					 * 由于mobx将对象递归深拷贝设置为新的Proxy对象, 
+					 * 所以在connectWallet()修改ens时的wallet对象与已在globalStore的Proxy已无关系.
+					 * 所以在此从源码中提取出了getEns逻辑,和connectWallet一起resolve
+					 */
 					if ( connectedWallet.accounts[ 0 ].ens === null ) {
-						return viaPromise<WalletState>( ( resolve ) => {
-							setTimeout(
-								() => {
-									resolve( connectedWallet );
-								} ,
-								1800 ,
-							);
-						} ).
-						then( ( connectedWallet ) => {
+						const chain = web3onboard.instance.state.get().chains.find(({ namespace, id }) => namespace === 'evm' && id === connectedWallet.chains[0].id );
+						
+						return getEns(connectedWallet.accounts[0].address,chain).
+						then( ( ens ) => {
+							connectedWallet.accounts[0].ens = ens;
 							globalSetState( {
 								walletConnecting : false ,
 								connectedWallet : connectedWallet || null ,
+								windowLoading:{ isLoading : false}
 							} );
 							return connectedWallet;
 						} );
-					} else {
-						globalSetState( {
-							walletConnecting : false ,
-							connectedWallet : connectedWallet || null ,
-						} );
-						return connectedWallet;
 					}
-				} );
-				
+					
+					globalSetState( {
+						walletConnecting : false ,
+						connectedWallet : connectedWallet || null ,
+						windowLoading : {
+							tipNode : "connecting wallet, please hold on." ,
+							isLoading : false,
+						},
+					} );
+					return connectedWallet;
+					
+				} ).catch((e) => {
+					console.error( e);
+				});
 			};
 		} ,
 		get disconnect() {
@@ -256,7 +152,6 @@ export const connectWallet = (lifecycle:LifeCycle) => {
 						walletConnecting : false ,
 					} );
 				} );
-				
 			};
 		} ,
 	};
@@ -268,20 +163,81 @@ export const wallets = (lifecycle:LifeCycle) => {
 	lifecycle.mounted( () => {
 		const wallets$ = web3onboard.instance.state.select( "wallets" );
 		const subscription = wallets$.subscribe( ( connectedWallets ) => {
-			globalSetState( { wallets : connectedWallets } );
+			globalSetState( { connectedWallet : connectedWallets[0] } );
 			lifecycle.unmount( () => subscription.unsubscribe() );
 		} );
 	} );
 	
 	return {
 		get wallet() {
-			return globalStore.wallets?.[0] || null ;
+			return globalStore.connectedWallet || null ;
 		},
 	}
 }
 
-export const chains = () => {
+export const chains = (lifecycle:LifeCycle) => {
 	
+	const {state,setChain} = web3onboard.instance;
+	
+	const chains = state.get().chains;
+	/*typescript do not support do expression UNTIL NOW!厚礼蟹*/
+	const getConnectedChain = function (walletLabel) {
+		const initialWallets = state.get().wallets;
+		if ( initialWallets.length === 0 ) return null;
+		return (
+			initialWallets.find( ( { label } ) => label === walletLabel ) ||
+			initialWallets[ 0 ]
+		).chains[ 0 ] || null;
+	};
+	
+	/*订阅器作用是监听钱包extension的切换行为,*/
+	lifecycle.mounted( () => {
+		const subscription = state.
+		select( 'wallets' ).
+		subscribe( ( wallets ) => {
+			console.log(`chains.subscribe()......`,wallets);
+			const wallet = /*wallets.find( ( { label } ) => label === walletLabel ) ||*/ wallets[ 0 ];
+			
+			if ( wallet ) {
+				globalSetState( { connectedChain : wallet.chains[ 0 ] } );
+			}
+			
+		} );
+		lifecycle.unmount(() => {
+			subscription.unsubscribe();
+		});
+	} );
+	
+	
+	
+	const set = ( options: SetChainOptions,walletLabel ): Promise<boolean> => {
+		globalSetState( { settingChain : true } );
+		
+		return setChain( {...options ,wallet : walletLabel ,} ).
+		then( ( success ) => {
+			globalSetState( { settingChain : false });
+			return success;
+		} );
+	}
+	
+	return {
+		get chains() {
+			return state.get().chains;
+		} ,
+		/*设置globalStore的chains,引起rerender*/
+		get setChainsState (){
+			return () => globalSetState({chains : this.chains});
+		},
+		get connectedChain (){
+			return globalStore.connectedChain;
+		},
+		get settingChain (){
+			return globalStore.settingChain;
+		},
+		get setChain (){
+			return set;
+		},
+	};
 }
 
 
@@ -304,3 +260,48 @@ class App extends ReactComponentClass {
 		</>
 	}
 }
+
+
+
+import {providers,} from 'ethers';
+const getEns = (address:string , chain:Chain) => {
+	const provider = new providers.StaticJsonRpcProvider( chain.rpcUrl );
+	const ens = {} as ArrayType<WalletState['accounts']>["ens"];
+	return provider.lookupAddress( address ).
+	then( ( name ) => {
+		if ( name ) {
+			_.assign(
+				ens ,
+				{ name },
+			);
+			return provider.getResolver( name );
+		} else {
+			throw "error : name is null ";
+		}
+		
+	} ).
+	then( ( resolver ) => {
+		if ( resolver ) {
+			return Promise.all( [
+				resolver.getContentHash() ,
+				resolver.getAvatar(),
+				resolver,
+			] );
+		}else {
+			throw "error : resolver is null";
+		}
+	} ).then(([contentHash,avatar,resolver]) => {
+		
+		const res = _.assign(
+			ens ,
+			{ 
+				avatar ,
+				contentHash,
+				getText : resolver.getText.bind(resolver),
+			},
+		);
+		console.log(logProxy(res));
+		return res;
+	});
+};
+import {logProxy} from '@@utils';

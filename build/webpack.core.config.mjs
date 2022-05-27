@@ -97,7 +97,6 @@ export const basicConfig$Fn = (plugins = []) => ({
 							lessOptions : {
 								javascriptEnabled : true ,
 							} ,
-							cacheDirectory: true ,
 						} ,
 					} ,
 				] ,

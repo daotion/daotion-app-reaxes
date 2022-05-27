@@ -13,16 +13,24 @@ export const {
 	walletConnecting : null ,
 	/*已连接的钱包*/
 	connectedWallet : null ,
-	/*?*/
-	wallets : null ,
+	// /*?*/
+	// wallets : null ,
 	/*正在切换线路*/
 	settingChain : false ,
+	/*可以选择的线路*/
+	chains : [],
 	/*已连接的线路*/
 	connectedChain : null ,
 	
 	account : null ,
 	
 	walletAddress : null ,
+	
+	/*窗口级别的loading*/
+	windowLoading : {
+		isLoading : false ,
+		tipNode : "loading..."
+	} ,
 } );
 
 /*@ts-ignore*/

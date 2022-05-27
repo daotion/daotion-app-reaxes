@@ -27,6 +27,13 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 		historyApiFallback : true ,
 		// clientLogLevel : "none",
 		// quiet : true,
+		proxy : {
+			"/yang_host" : {
+				target : 'http://192.168.1.126:8199' ,
+				pathRewrite : {'^/yang_host':''},
+				secure: false,
+			}
+		}
 	} ,
 	devtool : 'source-map' ,
 	optimization : {

@@ -47,6 +47,7 @@ export * from './runOnlyOnce.utility';
 export * from './hooks/useAsync.utility';
 export * from './hooks/useMountedRef.utility';
 export * from './crayon';
+export * from './logProxy';
 export {default as Cookie} from './cookie.utility';
 export {default as checkType} from './checkType.utility';
 export {default as getNestedValue} from './getNestedValue.utility';

@@ -58,14 +58,14 @@ export const WalletTest = ComponentWrapper( class extends ReactComponentClass {
 		connect : () => {
 			walletConnection.connect( {} ).then(() => {
 				const wallet = store.connectedWallet;
-				const { name, avatar } = wallet?.accounts[0].ens ?? {}
+				const { name, avator } = wallet?.accounts[0].ens ?? {}
 				setState( {
 					account : {
 						address : wallet.accounts[ 0 ].address ,
 						balance : wallet.accounts[ 0 ].balance ,
 						ens : {
 							name ,
-							avatar : avatar?.url ,
+							avator : avator?.url ,
 						} ,
 					} ,
 				} );

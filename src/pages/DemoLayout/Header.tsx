@@ -9,6 +9,7 @@ import {
 	Input ,
 	Menu ,
 	Switch ,
+	message ,
 } from "antd";
 import less from './style.module.less';
 
@@ -21,6 +22,7 @@ import {
 	subscribe_root_click ,
 } from '@@common/global-controller';
 import { XPopover } from '@@common/Xcomponents';
+import utils,{logProxy} from '@@utils';
 
 import {
 	BtnIconCopySvgComponent ,
@@ -41,6 +43,7 @@ import {
 import {
 	connectWallet ,
 	wallets ,
+	chains ,
 } from '@@common/actions';
 
 const { Button : DropdownButton } = Dropdown;
@@ -53,6 +56,9 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 	}
 	
 	JSX = {
+		userAvator : () => {
+			return globalStore.connectedWallet?.accounts?.[0]?.ens?.avatar?.url || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNS42MzEiIGhlaWdodD0iMzQuNjU2IiB2aWV3Qm94PSIwIDAgMzUuNjMxIDM0LjY1NiIgY2xhc3M9IlNpdGVXaWRlQXBwQmFyX19NaW5pTG9nby1zYy0xcTY1N2UtNiBra2paVVgiPjxnIGRhdGEtbmFtZT0iSWNvbiBMb2dvIj48cGF0aCBkYXRhLW5hbWU9IlBhdGggNzcxIiBkPSJNNi45IDIzLjEwNUw1LjgzOCAxMS4wMiAxOC41IDguNDczbDEyLjc4NiAyLjU0NC0xLjE2NiAxMi4wNTctMTEuNjI0IDguNzMzeiIgZmlsbD0iI2JmZmZmZiI+PC9wYXRoPjxnIGRhdGEtbmFtZT0iUGF0aCA3Njg4IiBmaWxsPSIjMGYxNzI0Ij48cGF0aCBkPSJNMTguNTAxIDMwLjgxNUw2LjU4MSAxMS4yOTkgMTguNSA3LjQyNmwxMi4wMjggMy44NzItMTIuMDI3IDE5LjUxN3oiPjwvcGF0aD48cGF0aCBkPSJNMTguNSA3Ljk1MUw3LjMzOSAxMS41NzlsMTEuMTY0IDE4LjI4IDExLjI2NC0xOC4yOEwxOC41IDcuOTUxTTE4LjQ5OSA2LjlsMTIuNzg5IDQuMTE4LTEyLjc5IDIwLjc1M0w1LjgyNSAxMS4wMTkgMTguNDk5IDYuOXoiIGZpbGw9IiNiZmZmZmYiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==';
+		},
 		ellipsisAddress : () => {
 			if(!this.connectWallet.connectedWallet ) return null;
 			const address = this.connectWallet.connectedWallet.accounts[0].address;
@@ -354,12 +360,11 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 									backgroundSize : "100%" ,
 									backgroundRepeat : "no-repeat" ,
 									backgroundPosition : "center" ,
-									backgroundImage : "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CjxyZWN0IHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgcng9IjE4IiBmaWxsPSIjRkZCQzk5Ii8+CjxyZWN0IHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgZmlsbD0idXJsKCNwYXR0ZXJuMCkiLz4KPGRlZnM+CjxwYXR0ZXJuIGlkPSJwYXR0ZXJuMCIgcGF0dGVybkNvbnRlbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHdpZHRoPSIxIiBoZWlnaHQ9IjEiPgo8dXNlIHhsaW5rOmhyZWY9IiNpbWFnZTBfMjA5XzM3NTYiIHRyYW5zZm9ybT0ic2NhbGUoMC4wMzEyNSkiLz4KPC9wYXR0ZXJuPgo8aW1hZ2UgaWQ9ImltYWdlMF8yMDlfMzc1NiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUNBQUFBQWdDQVlBQUFCemVucjBBQUFLT0dsRFExQkpRME1nVUhKdlptbHNaUUFBU0ltVmxnZFVGTmNheCsvTWJDOHNzTXZTRmxoNjcyMEJLVXRIVUhvVmxXWHB6WFhwWUVXQ0VZZ0lJaUpZSWhpbEtCZ05SYUtJaUdKQkJDellzMGdRVUdLd2dBV1ZOMGlpeWN0NTc3ejNuM1BuKzUxdjduejN1ek56enZ3QklOZnhCSUlrV0J5QTVKUTBvWitiSXpza05JeU5md0lRd0FKRVlBTXdQSDZxZ092ajR3VlEvUm4vcnRuYkFGcUlOL1FYYXYzeituK1ZaRlIwS2g4QUtCemw1S2hVZmpMS2ZTZzc4QVhDTkFCZ0NzcXFtV21DQlRaQ21TRkVHMFRaZVlGakZ6bGtnU01YT2Vuem5BQS9KNVEzQVVDZzhIakNXQUJJeFdpZW5jR1BSZXVRanFKc2xCSVZuNEx5QTVUdCtIRzhLQURJTEpUMWtwUFhMTEE3eWxyb2ZBSEs2QUNjeUwvVWpQMWIvY2d2OVhtODJDKzh1Sy9Qb3RzdnlObkZ5NHNkYUdKbWJPWHViLzkvUHFYL1FjbEo2WCt1dC9BMktEbHhUc3ZScUlZTzFzcVhjY3ErRnpQeTJTemdERnlBRjNxd1FTQXdBV2JBR0ZnQmQrRFBWa2lMemtwYnVObHBqU0JiR0I4Ymw4Ym1vbTh6bXUyUndqZlFZNXNZbVpnQXNQQnRMQzd4eXUvektoQ3o4MnR1elNIME1jMENnSlIrelVXV0E5QldBSURNdmE4NXRmMEEwUElCYU8zbXB3c3pGbk9ZaFJNV2tBQU5NSUFzVUFTcVFBdm9veDFhb04rZ0E5cnpVdUFOQWtBb1dBWDRJQTRrQXlISUJPdkFabEFBaXNBT3NBdFVnUU9nRnRTQlkrQUVhQU9ud1Rsd0VWd0ZBK0FXdUE5RVlBdzhBOU5nRnN4QkVJU0hxQkFka29XVUlIVklGektCT0pBZDVBSjVRWDVRS0JRQnhVSXBVRHEwRHRvQ0ZVRmxVQlYwRUtxSGZvUk9RZWVneTlBZ2RCY2FnU2FobDlCN0dJRXBNQU5XZ0RWZ1E1Z0RjMkZQT0FCZUNjZkNhK0VjT0IvZURsZkNOZkJSdUJVK0IxK0ZiOEVpK0JrOGd3Q0VqREFSWlVRZjRTQk9pRGNTaHNRZ1FtUURVb2hVSURWSUU5S0I5Q0kzRUJFeWhiekQ0REIwREJ1amo3SEJ1R01DTVh6TVdzd0dUREdtQ2xPSGFjWDBZRzVnUmpEVG1FOVlLcGFGMWNWYVl6MndJZGhZYkNhMkFGdUJQWXh0d1Y3QTNzS09ZV2R4T0J3VHA0bXp4TG5qUW5FSnVGeGNNVzRmcmhuWGhSdkVqZUptOEhpOExGNFhiNHYzeHZQd2FmZ0MvQjc4VWZ4Wi9CQitEUCtXUUNZb0VVd0lyb1F3UWdvaGoxQkJhQ0IwRW9ZSTQ0UTVvamhSbldoTjlDWkdFYk9KSmNSRHhBN2lkZUlZY1k0a1FkSWsyWklDU0Fta3phUktVaFBwQXVrQjZSV1pURlloVzVGOXlmSGtUZVJLOG5IeUpmSUkrUjFGa3FKRGNhS0VVOUlwMnlsSEtGMlV1NVJYVkNwVmcrcEFEYU9tVWJkVDY2bm5xWStvYjhYb1lnWmlIbUpSWWh2RnFzVmF4WWJFbnRPSU5IVWFsN2FLbGtPcm9KMmtYYWROaVJQRk5jU2R4SG5pRzhTcnhVK0pENHZQU05BbGpDVzhKWklsaWlVYUpDNUxURWppSlRVa1hTU2pKUE1sYXlYUFM0N1NFYm9xM1luT3AyK2hINkpmb0k4eGNBeE5oZ2NqZ1ZIRU9NYm9aMHhMU1VxWlNRVkpaVWxWUzUyUkVqRVJwZ2JUZzVuRUxHR2VZTjVtdnBkV2tPWktSMHR2azI2U0hwSitJeU12NHlBVExWTW8weXh6UythOUxGdldSVFpSdGxTMlRmYWhIRVpPUjg1WExsTnV2OXdGdVNsNWhyeU5QRisrVVA2RS9EMFd6TkpoK2JGeVdiV3NQdGFNZ3FLQ200SkFZWS9DZVlVcFJhYWlnMktDWXJsaXArS2tFbDNKVGlsZXFWenByTkpUdGhTYnkwNWlWN0o3Mk5QS0xHVjM1WFRsZzhyOXluTXFtaXFCS25rcXpTb1BWVW1xSE5VWTFYTFZidFZwTlNXMVpXcnIxQnJWN3FrVDFUbnFjZXE3MVh2VjMyaG9hZ1JyYk5WbzA1alFsTkgwME16UmJOUjhvRVhWc3RkYXExV2pkVk1icDgzUlR0VGVwejJnQSt1WTY4VHBWT3RjMTRWMUxYVGpkZmZwRHVwaDlhejBVdlJxOUliMUtmcGMvUXo5UnYwUkE2YUJsMEdlUVp2QmMwTTF3ekREVXNOZXcwOUc1a1pKUm9lTTdodExHaTgxempQdU1INXBvbVBDTjZrMnVXbEtOWFUxM1dqYWJ2ckNUTmNzMm15LzJSMXp1dmt5ODYzbTNlWWZMU3d0aEJaTkZwT1dhcFlSbG5zdGh6a01qZytubUhQSkNtdmxhTFhSNnJUVk8yc0w2elRyRTlhLzIramJKTm8wMkV3czBWd1N2ZVRRa2xGYkZWdWU3VUZia1IzYkxzTHVlenVSdmJJOXo3N0cvckdEcWtPVXcyR0hjYTQyTjRGN2xQdmMwY2hSNk5qaStNYkoybW05VTVjejR1em1YT2pjN3lMcEV1aFM1ZkxJVmNVMTFyWFJkZHJOM0MzWHJjc2Q2KzdwWHVvKzdLSGd3ZmVvOTVoZWFybDAvZEllVDRxbnYyZVY1Mk12SFMraFY4Y3llTm5TWlR1WFBWaXV2anhsZVpzMzhQYnczdW45MEVmVFo2M1B6NzQ0WHgvZmF0OG5mc1orNi94Ni9lbitxLzBiL0djREhBTktBdTRIYWdXbUIzWUgwWUxDZytxRDNnUTdCNWNGaTBJTVE5YUhYQTJWQzQwUGJRL0Rod1dGSFE2YldlR3lZdGVLc1hEejhJTHcyeXMxVjJhdHZMeEtibFhTcWpPcmFhdDVxMDlHWUNPQ0l4b2lQdkM4ZVRXOG1VaVB5TDJSMDN3bi9tNytzeWlIcVBLb3lXamI2TExvOFJqYm1MS1lpVmpiMkoyeGszSDJjUlZ4VS9GTzhWWHhMeExjRXc0a3ZFbjBUanlTT0o4VW5OU2NURWlPU0Q2VklwbVNtTkt6Um5GTjFwcEJnYTZnUUNCYWE3MTIxOXBwb2Fmd2NDcVV1aksxUFkyQi9vVDcwclhTdjBrZnliRExxTTU0bXhtVWVUSkxJaXNscXk5YkozdGI5bmlPYTg0UHVaaGNmbTczT3VWMW05ZU5yT2V1UDdnQjJoQzVvWHVqNnNiOGpXT2IzRGJWYlNadFR0eDhMYzhvcnl6djlaYmdMUjM1Q3ZtYjhrZS9jZnVtc1VDc1FGZ3d2TlZtNjRGdk1kL0dmOXUvelhUYm5tMmZDcU1LcnhRWkZWVVVmU2ptRjEvNXp2aTd5dS9tdDhkczd5K3hLTm0vQTdjalpjZnRVdnZTdWpLSnNweXkwWjNMZHJhV3M4c0x5MS92V3IzcmNvVlp4WUhkcE4zcHUwV1ZYcFh0ZTlUMjdOanpvU3F1NmxhMVkzWHpYdGJlYlh2ZjdJdmFON1RmWVgvVEFZVURSUWZlZngvLy9aMkRiZ2RiYXpScUttcHh0Um0xVHc0RkhlcjlnZk5EL1dHNXcwV0hQeDVKT1NLcTg2dnJxYmVzcjI5Z05aUTB3bzNwalpOSHc0OE9ISE0rMXQ2azMzU3dtZGxjZEJ3Y1R6Lys5TWVJSDIrZjhEelJmWkp6c3VrbjlaLzJ0dEJiQ2x1aDF1elc2YmE0TmxGN2FQdmdxYVdudWp0c09scCtOdmo1eUdubDA5Vm5wTTZVZEpJNjh6dm56K2FjbmVrU2RFMmRpejAzMnIyNisvNzVrUE0zZTN4NytpOTRYcmgwMGZYaStWNXU3OWxMdHBkT1g3YStmT29LNTByYlZZdXJyWDNtZlMzWHpLKzE5RnYwdDE2M3ZONCtZRFhRTWJoa3NIUElmdWpjRGVjYkYyOTYzTHg2YS9tdHdkdUJ0KzhNaHcrTDdrVGRtYmliZFBmRnZZeDdjL2MzUGNBK0tId28vckRpRWV0UnpTL2F2elNMTEVSblJweEgraDc3UDc0L3loOTk5bXZxcngvRzhwOVFuMVNNSzQzWFQ1aE1uSjUwblJ4NHV1THAyRFBCczdtcGd0OGtmdHY3WE92NVQ3ODcvTjQzSFRJOTlrTDRZdjVsOFN2WlYwZGVtNzN1bnZHWmVUU2JQRHYzcHZDdDdOdTZkNXgzdmUrRDM0L1BaWDdBZjZqOHFQMng0NVBucHdmenlmUHpBcDZROTlrS0lPaUFZMklBZUhrRUFHb29hcDhHVUUrMVl0RzcvZUZ2SUNYVEwwN25QL0Npdi9zc0N3QnFod0VJeUFYQTZ4b0FlNm9BMEVEcjAxRFA2VU5EOHpZQW1zVjhHWDhvTmNiVVpMRVdCWFZyMklmejg2KzBBTUNYQXZDeGRINStyblorL21NdDJ1eDlBTHF5RnozamdzUlJiOG10YzEyK1BQZ3VZZm9mSG0zUlQvNWxqLzhld1pjTy9oYi9CWnpEenFlN3VDNGlBQUFBT0dWWVNXWk5UUUFxQUFBQUNBQUJoMmtBQkFBQUFBRUFBQUFhQUFBQUFBQUNvQUlBQkFBQUFBRUFBQUFnb0FNQUJBQUFBQUVBQUFBZ0FBQUFBSTlPUU1rQUFBRE5TVVJCVkZnSlk5UXB1L2lmQVE5WWQ3NFpSVGJJc0JhRmo4NGhWVDBUdWdIMDVvODZnUEdXYXdoS0dpQVV4NVJHRVhvYUdZMkNBUThCUnZSeUFEMk8wT09jVUJvaFZmK0FoOENvQTFqbXNGNUJqMmE4ZkVKeGpGY3pVQkxkdnRFb0dQQVFZQkU2dFI0bDJ0RHpPWHFjdnpNTFJGR1B6aUZvM2luVTlzV0FoOENvQTFqUTR4Q2RqNUVtME9LUWtIcDBlWFQrYUJRTWVBaXdZT1RyMytpeGhNcEhUeE9vc29SNTZQWU5lQWlNT2dDalRZZ2VpK2oxTjNwWmo2NGVQWTVUZnV1Z0swSGhqMGJCZ0ljQUFPYzROMTBiYkFOd0FBQUFBRWxGVGtTdVFtQ0MiLz4KPC9kZWZzPgo8L3N2Zz4K')" ,
+									backgroundImage : `url("${this.JSX.userAvator()}")` ,
 									display : "flex" ,
 									width : 44 ,
 									height : 44 ,
 									borderRadius : "50%" ,
-									
 								} }
 							/>
 							<div
@@ -396,7 +401,6 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 							</div>
 						</div>
 						
-						
 						<div
 							className={less.userPopoverMenuItem}
 						>
@@ -424,12 +428,14 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 							</div>
 							<Switch
 								size="small"
+								checked={{light:false,dark:true}[globalStore.theme]}
 							/>
 						</div>
 						
 						
 						<div
 							className={less.userPopoverMenuItem}
+							onClick = {this.actions.disconnect}
 						>
 							<div>
 								<ItemIconDisconnectSvgComponent />
@@ -455,12 +461,11 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 								backgroundSize : "100%" ,
 								backgroundRepeat : "no-repeat" ,
 								backgroundPosition : "center" ,
-								backgroundImage : "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CjxyZWN0IHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgcng9IjE4IiBmaWxsPSIjRkZCQzk5Ii8+CjxyZWN0IHdpZHRoPSIzNiIgaGVpZ2h0PSIzNiIgZmlsbD0idXJsKCNwYXR0ZXJuMCkiLz4KPGRlZnM+CjxwYXR0ZXJuIGlkPSJwYXR0ZXJuMCIgcGF0dGVybkNvbnRlbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giIHdpZHRoPSIxIiBoZWlnaHQ9IjEiPgo8dXNlIHhsaW5rOmhyZWY9IiNpbWFnZTBfMjA5XzM3NTYiIHRyYW5zZm9ybT0ic2NhbGUoMC4wMzEyNSkiLz4KPC9wYXR0ZXJuPgo8aW1hZ2UgaWQ9ImltYWdlMF8yMDlfMzc1NiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiB4bGluazpocmVmPSJkYXRhOmltYWdlL3BuZztiYXNlNjQsaVZCT1J3MEtHZ29BQUFBTlNVaEVVZ0FBQUNBQUFBQWdDQVlBQUFCemVucjBBQUFLT0dsRFExQkpRME1nVUhKdlptbHNaUUFBU0ltVmxnZFVGTmNheCsvTWJDOHNzTXZTRmxoNjcyMEJLVXRIVUhvVmxXWHB6WFhwWUVXQ0VZZ0lJaUpZSWhpbEtCZ05SYUtJaUdKQkJDellzMGdRVUdLd2dBV1ZOMGlpeWN0NTc3ejNuM1BuKzUxdjduejN1ek56enZ3QklOZnhCSUlrV0J5QTVKUTBvWitiSXpza05JeU5md0lRd0FKRVlBTXdQSDZxZ092ajR3VlEvUm4vcnRuYkFGcUlOL1FYYXYzeituK1ZaRlIwS2g4QUtCemw1S2hVZmpMS2ZTZzc4QVhDTkFCZ0NzcXFtV21DQlRaQ21TRkVHMFRaZVlGakZ6bGtnU01YT2Vuem5BQS9KNVEzQVVDZzhIakNXQUJJeFdpZW5jR1BSZXVRanFKc2xCSVZuNEx5QTVUdCtIRzhLQURJTEpUMWtwUFhMTEE3eWxyb2ZBSEs2QUNjeUwvVWpQMWIvY2d2OVhtODJDKzh1Sy9Qb3RzdnlObkZ5NHNkYUdKbWJPWHViLzkvUHFYL1FjbEo2WCt1dC9BMktEbHhUc3ZScUlZTzFzcVhjY3ErRnpQeTJTemdERnlBRjNxd1FTQXdBV2JBR0ZnQmQrRFBWa2lMemtwYnVObHBqU0JiR0I4Ymw4Ym1vbTh6bXUyUndqZlFZNXNZbVpnQXNQQnRMQzd4eXUvektoQ3o4MnR1elNIME1jMENnSlIrelVXV0E5QldBSURNdmE4NXRmMEEwUElCYU8zbXB3c3pGbk9ZaFJNV2tBQU5NSUFzVUFTcVFBdm9veDFhb04rZ0E5cnpVdUFOQWtBb1dBWDRJQTRrQXlISUJPdkFabEFBaXNBT3NBdFVnUU9nRnRTQlkrQUVhQU9ud1Rsd0VWd0ZBK0FXdUE5RVlBdzhBOU5nRnN4QkVJU0hxQkFka29XVUlIVklGektCT0pBZDVBSjVRWDVRS0JRQnhVSXBVRHEwRHRvQ0ZVRmxVQlYwRUtxSGZvUk9RZWVneTlBZ2RCY2FnU2FobDlCN0dJRXBNQU5XZ0RWZ1E1Z0RjMkZQT0FCZUNjZkNhK0VjT0IvZURsZkNOZkJSdUJVK0IxK0ZiOEVpK0JrOGd3Q0VqREFSWlVRZjRTQk9pRGNTaHNRZ1FtUURVb2hVSURWSUU5S0I5Q0kzRUJFeWhiekQ0REIwREJ1amo3SEJ1R01DTVh6TVdzd0dUREdtQ2xPSGFjWDBZRzVnUmpEVG1FOVlLcGFGMWNWYVl6MndJZGhZYkNhMkFGdUJQWXh0d1Y3QTNzS09ZV2R4T0J3VHA0bXp4TG5qUW5FSnVGeGNNVzRmcmhuWGhSdkVqZUptOEhpOExGNFhiNHYzeHZQd2FmZ0MvQjc4VWZ4Wi9CQitEUCtXUUNZb0VVd0lyb1F3UWdvaGoxQkJhQ0IwRW9ZSTQ0UTVvamhSbldoTjlDWkdFYk9KSmNSRHhBN2lkZUlZY1k0a1FkSWsyWklDU0Fta3phUktVaFBwQXVrQjZSV1pURlloVzVGOXlmSGtUZVJLOG5IeUpmSUkrUjFGa3FKRGNhS0VVOUlwMnlsSEtGMlV1NVJYVkNwVmcrcEFEYU9tVWJkVDY2bm5xWStvYjhYb1lnWmlIbUpSWWh2RnFzVmF4WWJFbnRPSU5IVWFsN2FLbGtPcm9KMmtYYWROaVJQRk5jU2R4SG5pRzhTcnhVK0pENHZQU05BbGpDVzhKWklsaWlVYUpDNUxURWppSlRVa1hTU2pKUE1sYXlYUFM0N1NFYm9xM1luT3AyK2hINkpmb0k4eGNBeE5oZ2NqZ1ZIRU9NYm9aMHhMU1VxWlNRVkpaVWxWUzUyUkVqRVJwZ2JUZzVuRUxHR2VZTjVtdnBkV2tPWktSMHR2azI2U0hwSitJeU12NHlBVExWTW8weXh6UythOUxGdldSVFpSdGxTMlRmYWhIRVpPUjg1WExsTnV2OXdGdVNsNWhyeU5QRisrVVA2RS9EMFd6TkpoK2JGeVdiV3NQdGFNZ3FLQ200SkFZWS9DZVlVcFJhYWlnMktDWXJsaXArS2tFbDNKVGlsZXFWenByTkpUdGhTYnkwNWlWN0o3Mk5QS0xHVjM1WFRsZzhyOXluTXFtaXFCS25rcXpTb1BWVW1xSE5VWTFYTFZidFZwTlNXMVpXcnIxQnJWN3FrVDFUbnFjZXE3MVh2VjMyaG9hZ1JyYk5WbzA1alFsTkgwME16UmJOUjhvRVhWc3RkYXExV2pkVk1icDgzUlR0VGVwejJnQSt1WTY4VHBWT3RjMTRWMUxYVGpkZmZwRHVwaDlhejBVdlJxOUliMUtmcGMvUXo5UnYwUkE2YUJsMEdlUVp2QmMwTTF3ekREVXNOZXcwOUc1a1pKUm9lTTdodExHaTgxempQdU1INXBvbVBDTjZrMnVXbEtOWFUxM1dqYWJ2ckNUTmNzMm15LzJSMXp1dmt5ODYzbTNlWWZMU3d0aEJaTkZwT1dhcFlSbG5zdGh6a01qZytubUhQSkNtdmxhTFhSNnJUVk8yc0w2elRyRTlhLzIramJKTm8wMkV3czBWd1N2ZVRRa2xGYkZWdWU3VUZia1IzYkxzTHVlenVSdmJJOXo3N0cvckdEcWtPVXcyR0hjYTQyTjRGN2xQdmMwY2hSNk5qaStNYkoybW05VTVjejR1em1YT2pjN3lMcEV1aFM1ZkxJVmNVMTFyWFJkZHJOM0MzWHJjc2Q2KzdwWHVvKzdLSGd3ZmVvOTVoZWFybDAvZEllVDRxbnYyZVY1Mk12SFMraFY4Y3llTm5TWlR1WFBWaXV2anhsZVpzMzhQYnczdW45MEVmVFo2M1B6NzQ0WHgvZmF0OG5mc1orNi94Ni9lbitxLzBiL0djREhBTktBdTRIYWdXbUIzWUgwWUxDZytxRDNnUTdCNWNGaTBJTVE5YUhYQTJWQzQwUGJRL0Rod1dGSFE2YldlR3lZdGVLc1hEejhJTHcyeXMxVjJhdHZMeEtibFhTcWpPcmFhdDVxMDlHWUNPQ0l4b2lQdkM4ZVRXOG1VaVB5TDJSMDN3bi9tNytzeWlIcVBLb3lXamI2TExvOFJqYm1MS1lpVmpiMkoyeGszSDJjUlZ4VS9GTzhWWHhMeExjRXc0a3ZFbjBUanlTT0o4VW5OU2NURWlPU0Q2VklwbVNtTkt6Um5GTjFwcEJnYTZnUUNCYWE3MTIxOXBwb2Fmd2NDcVV1aksxUFkyQi9vVDcwclhTdjBrZnliRExxTTU0bXhtVWVUSkxJaXNscXk5YkozdGI5bmlPYTg0UHVaaGNmbTczT3VWMW05ZU5yT2V1UDdnQjJoQzVvWHVqNnNiOGpXT2IzRGJWYlNadFR0eDhMYzhvcnl6djlaYmdMUjM1Q3ZtYjhrZS9jZnVtc1VDc1FGZ3d2TlZtNjRGdk1kL0dmOXUvelhUYm5tMmZDcU1LcnhRWkZWVVVmU2ptRjEvNXp2aTd5dS9tdDhkczd5K3hLTm0vQTdjalpjZnRVdnZTdWpLSnNweXkwWjNMZHJhV3M4c0x5MS92V3IzcmNvVlp4WUhkcE4zcHUwV1ZYcFh0ZTlUMjdOanpvU3F1NmxhMVkzWHpYdGJlYlh2ZjdJdmFON1RmWVgvVEFZVURSUWZlZngvLy9aMkRiZ2RiYXpScUttcHh0Um0xVHc0RkhlcjlnZk5EL1dHNXcwV0hQeDVKT1NLcTg2dnJxYmVzcjI5Z05aUTB3bzNwalpOSHc0OE9ISE0rMXQ2azMzU3dtZGxjZEJ3Y1R6Lys5TWVJSDIrZjhEelJmWkp6c3VrbjlaLzJ0dEJiQ2x1aDF1elc2YmE0TmxGN2FQdmdxYVdudWp0c09scCtOdmo1eUdubDA5Vm5wTTZVZEpJNjh6dm56K2FjbmVrU2RFMmRpejAzMnIyNisvNzVrUE0zZTN4NytpOTRYcmgwMGZYaStWNXU3OWxMdHBkT1g3YStmT29LNTByYlZZdXJyWDNtZlMzWHpLKzE5RnYwdDE2M3ZONCtZRFhRTWJoa3NIUElmdWpjRGVjYkYyOTYzTHg2YS9tdHdkdUJ0KzhNaHcrTDdrVGRtYmliZFBmRnZZeDdjL2MzUGNBK0tId28vckRpRWV0UnpTL2F2elNMTEVSblJweEgraDc3UDc0L3loOTk5bXZxcngvRzhwOVFuMVNNSzQzWFQ1aE1uSjUwblJ4NHV1THAyRFBCczdtcGd0OGtmdHY3WE92NVQ3ODcvTjQzSFRJOTlrTDRZdjVsOFN2WlYwZGVtNzN1bnZHWmVUU2JQRHYzcHZDdDdOdTZkNXgzdmUrRDM0L1BaWDdBZjZqOHFQMng0NVBucHdmenlmUHpBcDZROTlrS0lPaUFZMklBZUhrRUFHb29hcDhHVUUrMVl0RzcvZUZ2SUNYVEwwN25QL0Npdi9zc0N3QnFod0VJeUFYQTZ4b0FlNm9BMEVEcjAxRFA2VU5EOHpZQW1zVjhHWDhvTmNiVVpMRVdCWFZyMklmejg2KzBBTUNYQXZDeGRINStyblorL21NdDJ1eDlBTHF5RnozamdzUlJiOG10YzEyK1BQZ3VZZm9mSG0zUlQvNWxqLzhld1pjTy9oYi9CWnpEenFlN3VDNGlBQUFBT0dWWVNXWk5UUUFxQUFBQUNBQUJoMmtBQkFBQUFBRUFBQUFhQUFBQUFBQUNvQUlBQkFBQUFBRUFBQUFnb0FNQUJBQUFBQUVBQUFBZ0FBQUFBSTlPUU1rQUFBRE5TVVJCVkZnSlk5UXB1L2lmQVE5WWQ3NFpSVGJJc0JhRmo4NGhWVDBUdWdIMDVvODZnUEdXYXdoS0dpQVV4NVJHRVhvYUdZMkNBUThCUnZSeUFEMk8wT09jVUJvaFZmK0FoOENvQTFqbXNGNUJqMmE4ZkVKeGpGY3pVQkxkdnRFb0dQQVFZQkU2dFI0bDJ0RHpPWHFjdnpNTFJGR1B6aUZvM2luVTlzV0FoOENvQTFqUTR4Q2RqNUVtME9LUWtIcDBlWFQrYUJRTWVBaXdZT1RyMytpeGhNcEhUeE9vc29SNTZQWU5lQWlNT2dDalRZZ2VpK2oxTjNwWmo2NGVQWTVUZnV1Z0swSGhqMGJCZ0ljQUFPYzROMTBiYkFOd0FBQUFBRWxGVGtTdVFtQ0MiLz4KPC9kZWZzPgo8L3N2Zz4K')" ,
+								backgroundImage : `url("${this.JSX.userAvator()}")` ,
 								display : "flex" ,
 								width : 36 ,
 								height : 36 ,
 								borderRadius : "50%" ,
-								
 							} }
 						/>
 					</Button>
@@ -473,19 +478,36 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 	
 	connectWallet = connectWallet( this.lifecycle );
 	
+	chains = chains( this.lifecycle );
+	
 	actions = {
 		connect : () => {
-			this.connectWallet.connect({}).then((wallet) => {
-				console.log(wallet);
-			})
+			this.connectWallet.connect( {} ).
+			then( ( wallet ) => {
+				console.log( logProxy(wallet) );
+			} );
 		} ,
+		disconnect : () => {
+			this.connectWallet.disconnect(this.connectWallet.connectedWallet.label);
+		},
+		setChain : () => {
+			return (chainId,chainNamespace) => {
+				this.chains.setChain(
+					{
+						chainId ,
+						chainNamespace,
+					} ,
+					this.connectWallet.connectedWallet.label,
+				).then((bool) => {
+					if(bool){
+						message.success('change chain successfully');
+					}
+				});
+			};
+		},
 	} ;
 	
 	render() {
-		
-		console.log( this.wallets.wallet );
-		
-		
 		return <div className = { less.topBanner }>
 			<div>
 				<Input.TextArea
@@ -510,6 +532,24 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 								navigator.clipboard.writeText( `url('${base64}')` );
 							} );
 						}
+					}}
+					
+					onClick = {() => {
+						fetch(`/yang_host/dao/all-dao`,{
+							method : "post",
+							body : JSON.stringify( {
+								"indexStart" : 0 ,
+								"count" : 50 ,
+								"firstTimestamp" : 0 ,
+							} ),
+							
+						}).then((res) => {
+							return res.json();
+						}).then((data) => {
+							console.log(data);
+							
+						})
+						
 					}}
 				/>
 				
@@ -558,3 +598,24 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 		</div>;
 	}
 } );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,129 @@
+
+import {encodeQueryString , crayon} from '@@utils';
+
+
+
+
+
+
+
+export const request = new (class {
+	
+	#testURL = /^https?:\/\//;
+	
+	#fetch = async <request extends object = any, response extends any = any>(
+		url: string,
+		options: ORZ.RequestOptions<request> = {
+			method: 'get',
+		},
+	): Promise<response> => {
+		/**
+		 * 需 mock 的情形，走mock请求
+		 * */
+		if (__IS_MOCK__ && options.mock !== false) {
+			try {
+				const resArr = mockArr.filter(item => url.endsWith(item.url));
+				if (resArr[0]?.code === 1) {
+					return resArr[0]?.data || [];
+				} else {
+					throw Error('code not 1');
+				}
+			} catch (error) {
+				crayon.info['#ffd12cd9']('请检查mock文件相关配置!',url);
+			}
+		}
+		
+		const target = this.#testURL.test(url) ? url : `${env.request_base_url}${url}`;
+		const body = (function () {
+			if (typeof options.body === 'string') {
+				return options.body;
+			} else {
+				return JSON.stringify(options.body ?? {});
+			}
+		})();
+		const opt = {...options, body};
+		if (/get/i.test(opt.method)) delete opt.body;
+		try {
+			const json: response = await fetch(target, {
+				...opt,
+				credentials: 'include',
+				mode: 'cors',
+				headers: {
+					token: this.#token,
+					...opt.headers,
+				},
+			})
+			.then(response => {
+				return response.json();
+			})
+			.then(async (json: responseWrap<response> & response) => {
+				if (json.hasOwnProperty('code')) {
+					switch (json.code) {
+						case 1: {
+							return json.data ?? null;
+						}
+						case 0: {
+							switch (json.errorCode) {
+								case '20001':
+								case '20002': {
+									try {
+										await login(true);
+										return this.#fetch(url, options);
+									} catch (e) {
+										Modal.error({
+											title: '未登录错误',
+											content: e,
+										});
+										throw e;
+									}
+								}
+							}
+							throw json.message;
+						}
+					}
+				} else if (json.code === 0) {
+					throw json.message ?? '错误7921';
+				} else {
+					return json;
+				}
+			});
+			
+			return json;
+		}catch ( e ) {
+			return Promise.reject( e );
+		}
+	};
+	
+	
+	post = async <request extends object = any, response = any>(
+		url: string,
+		options: options<request> = {},
+	): Promise<response> => {
+		return this.#fetch(url, {
+			method: 'POST',
+			...options,
+		});
+	};
+	
+	get = async <request extends object = any, response = any>(
+		url: string,
+		options: options<request> = {},
+	): Promise<response> => {
+		const requestBody = (function () {
+			if (typeof options.body === 'object' && options.body !== null) {
+				return encodeQueryString(options.body);
+			} else if (typeof options.body === 'string') {
+				return options.body;
+			} else {
+				return ``;
+			}
+		})();
+		const opt = {...options};
+		delete opt.body;
+		
+		return this.#fetch(`${url}${requestBody ? '?' : ''}${requestBody}`, {
+			...opt,
+			method: 'GET',
+		});
+	};
+})();

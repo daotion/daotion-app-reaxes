@@ -99,11 +99,11 @@ const InputPrinter = ComponentWrapper(( props: { initial: string } ) => {
   useEffect(() => {
     // If `wallet` is defined then the user is connected
     if (wallet) {
-      const { name, avatar } = wallet?.accounts[0].ens ?? {}
+      const { name, avator } = wallet?.accounts[0].ens ?? {}
       setAccount({
         address: wallet.accounts[0].address,
         balance: wallet.accounts[0].balance,
-        ens: { name, avatar: avatar?.url }
+        ens: { name, avator: avator?.url }
       })
     }
   }, [wallet])

@@ -1,5 +1,4 @@
 import React , {
-	Component ,
 	useEffect ,
 	useState ,
 	useRef ,
@@ -14,7 +13,9 @@ import {
 	Button ,
 	Input ,
 } from 'antd';
+import _ from 'lodash';
 
+import utils,{} from '@@utils';
 import { viaMobx } from '@@mobxState';
 import {
 	globalStore ,
@@ -23,40 +24,38 @@ import {
 import { ReactComponentClass } from '@@common/ReactComponentClass';
 import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 
+// import './style.module.less';
+
 
 export interface store {
-	inputValue: string;
+	
 }
 
 export const {
 	store ,
 	setState ,
 } = viaMobx<store>( {
-	inputValue : "" ,
+	
 } );
 
 /* replace "ReactTemplate" once cloned from this template file. */
-const _ReactTemplate = class extends Component<any , any>    {
+const _ReactTemplate = class extends ReactComponentClass<any , any>    {
 	
 	/*it will be invoked after "didMount"&"didUpdate"*/
 	// componentDidRender( stage: "mount" | "update" , prevProps?: Readonly<any> , prevState?: Readonly<any> , snapshot?: any ): any {
 	// 	console.log( stage );
 	// }
 	
+	componentDidRender( stage: "mount" | "update" , prevProps?: Readonly<any> , prevState?: Readonly<any> , snapshot?: any ): any {
+		
+	}
+	
 	render() {
 		/* you can use react-hooks here if you want, but it was not recommended  */
 		const [ count , setCount ] = useState( 10 );
 		
 		return <>
-			<Button
-				onClick = { () => {setCount( count + 1 );} }
-			>
-				click me : { count }
-			</Button>
-			<div>
-				<InputPrinter initial = "xxxx" />
-			</div>
-		
+			
 		</>;
 	}
 };
@@ -65,54 +64,14 @@ const _ReactTemplate = class extends Component<any , any>    {
 
 
 /*every component which gonna be instantiated must be wrapped , it contains various basic supoort */
-const InputPrinter = ComponentWrapper(( props: { initial: string } ) => {
+const InputPrinter = ComponentWrapper(( props: { } ) => {
 	
-	useEffect(
-		() => {
-			console.log( "store.inputValue updated" );
-		} ,
-		[ store.inputValue ] ,
-	);
-	
-	useEffect(
-		() => {
-			setState( {
-				inputValue : props.initial ,
-			} );
-		} ,
-		[ props.initial ] ,
-	);
+	useEffect( () => {} ,[] );
 	
 	return <>
-		<Input
-			onInput = { ( e ) => {
-				setState( {
-					inputValue : e.target.value ,
-					
-				} );
-			} }
-			value = { store.inputValue }
-		/>
-		<div>
-			print : { store.inputValue }
-		</div>
 		
-		
-		<span>ggggggg</span>
-		<span>ggggggg</span>
-		<span>ggggggg</span>
 	</>;
 }) ;
-
-
-
-
-
-
-
-
-
-
 
 export const ReactTemplate = ComponentWrapper( _ReactTemplate );
 
