@@ -1,10 +1,5 @@
-import React from 'react';
 import {Spin} from 'antd';
-import { ReactComponentClass } from '@@common/ReactComponentClass';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-
 import { viaMobx } from '@@mobxState';
-import {globalStore,globalSetState} from '@@common/global-controller';
 import { invoke_root_click  } from '@@common/global-controller';
 
 import { HeaderLayout } from './Header';

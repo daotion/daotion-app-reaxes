@@ -2,7 +2,7 @@ type css = {
 	[key in keyof CSSStyleDeclaration] : CSSStyleDeclaration[key] ;
 	
 };
-type crayon = ( ( css: Partial<CSSStyleDeclaration> ) => ( str?: string , ...any ) => any ) & {
+type crayon = ( ( css: Partial<CSSStyleDeclaration> ) => ( ...logs:any[] ) => void ) & {
 	[key in "warn" | "info" | "log" | "error"]: (( str?: string , ...any ) => any) & {
 	[key in string]: (str:string , ...any) => any ;
 } } & {
@@ -40,14 +40,22 @@ const batchTransformCSSHumpToLowercase = (object:{[key in keyof CSSStyleDeclarat
    
     
  */
+
+/* secondary是console.log第二项的cssPropertiesString*/
+const argumentsAgent = (secondary , ...args) => args.reduce((accu, arg , index ) => (accu[0] += typeof arg === "string" ? arg : (accu.push(arg),"%o"),accu) ,['%c',secondary]);
+
+
 export const crayon : crayon = new Proxy((cssProperties:Partial<CSSStyleDeclaration> = {}) => {
-	return (string = '',...data) => {
+	/*using as crayon({CSSProperties})('wanna log msg')*/
+	return (...logs) => {
 		const cssString = Object.keys(cssProperties).reduce((accumulator,key:string) => {
 			/*@ts-ignore*/
 			const res = `${accumulator}${String(transformCSSHumpToLowercase(key))}:${cssProperties[key]};`
 			return res;
 		},'' as Partial<CSSStyleDeclaration>);
-		console.log( '%c' + string , cssString , ...data );
+		
+		const a = argumentsAgent( cssString );
+		return console.log( ...argumentsAgent( cssString,...logs ) );
 	};
 },{
 	get : (target, propKey:string, receiver) => {
@@ -62,22 +70,25 @@ export const crayon : crayon = new Proxy((cssProperties:Partial<CSSStyleDeclarat
 			"arguments",
 			"constructor",
 			"isPrototypeOf",
+			"apply",
+			"call",
+			"bind",
 		].includes(propKey)){
 			return target[ propKey ];
 		}
 		
-		const createColorProxy = ( type = "log" ) => new Proxy( (string , ...data) => {
-			console[ type ]( '%c' + string , `color:${ propKey }` , ...data );
+		const createColorProxy = ( type = "log" ) => new Proxy( (...logs) => {
+			return console[type]( ...argumentsAgent( `color:${ propKey }`,...logs ) );
 		} , {
 			get : ( target , _propKey , receiver ) => {
 				
-				return ( string , ...data ) => {
+				return ( ...logs ) => {
 					/*当crayon.blue('',...args)时,babel使用了apply来隐式转换扩展运算符 , 导致了proxy拿到的是'apply'而非'blue' */
-					if(typeof string !== "string"){
-						const [[str,..._data]] = data;
-						return console[ type ]( '%c' + str , `color:${ propKey }` , ..._data ); 
+					if(_propKey === "apply"){
+						const [,_logs] = logs;
+						return console[type]( ...argumentsAgent( `color:${ propKey }`,..._logs ) );
 					}
-					console[ type ]( '%c' + string , `color:${ _propKey.toString() }` , ...data );
+					return console[type]( ...argumentsAgent( `color:${ _propKey.toString() }`,...logs ) );
 					
 				};
 			} ,
@@ -95,15 +106,21 @@ export const crayon : crayon = new Proxy((cssProperties:Partial<CSSStyleDeclarat
 
 /*示例 & 测试*/
 if(0){
+	crayon({fontSize : "33px"})('erer',2342343,{a:23},'erer');
 	crayon.warn['#eee']('dsdsdsdsds',{b:222});
 	crayon.warn('dsdsdsdsds',{b:222});
 	crayon.log('dsdsdsdsds',{b:222});
 	crayon.purple('1111111111111',{b:222});
 
 	crayon( {
-		'backgroundColor' : "blue" ,
+		backgroundColor : "blue" ,
 		color : "green" ,
+		fontSize : "24px",
+		
+		
 	} )( 'bbbbbbbbbbbbbbb' , { a : 1 } );
+	crayon({color:"purple"})('asdasd',{a:1},'fafsdsd',{b:2},undefined);
 	
 	crayon[ "#aabbcc" ]( "asdsadsd");
 }
+

@@ -1,8 +1,4 @@
-import React , {
-	Component ,
-	useEffect ,
-	useState ,
-} from 'react';
+
 import { Button ,message , } from 'antd';
 import {
 	useConnectWallet ,
@@ -17,7 +13,6 @@ import {
 
 
 import { viaMobx } from '@@mobxState';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 
 /*可以不用,但是需要引入*/
 import {web3onboard} from '@@common/actions';
@@ -40,7 +35,7 @@ export const {
 } );
 
 /* replace "ReactTemplate" once cloned from this template file. */
-const _ReactTemplate = class extends Component<any , any> {
+const _ReactTemplate = class extends ReactComponentClass<any , any> {
 	
 	/*it will be invoked after "didMount"&"didUpdate"*/
 	// componentDidRender( stage: "mount" | "update" , prevProps?: Readonly<any> , prevState?: Readonly<any> , snapshot?: any ): any {

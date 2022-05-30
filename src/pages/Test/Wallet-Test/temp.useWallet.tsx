@@ -1,10 +1,3 @@
-import {
-	useEffect ,
-	useState ,
-	useCallback ,
-	useMemo ,
-} from 'react';
-
 import Web3Onboard from '@web3-onboard/core';
 import type {
 	InitOptions ,

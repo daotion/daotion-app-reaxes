@@ -7,13 +7,14 @@ import {
 } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
+// import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 import { ReactComponentClass } from '@@common/ReactComponentClass';
 
 import { SelectArrowIconSvgComponent } from './components';
 
 const {Option} = Select;
 const {} = Input;
+
 
 
 export const MainContent = ComponentWrapper( class extends ReactComponentClass {

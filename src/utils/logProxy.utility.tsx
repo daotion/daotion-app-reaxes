@@ -1,4 +1,3 @@
-import _ from 'lodash';
 
 /**
  * console.log a proxy as an normal object to show; 

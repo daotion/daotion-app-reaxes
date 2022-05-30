@@ -1,6 +1,3 @@
-import React , {} from 'react';
-
-
 /*provide "componentDidRender" lifeCycle in class component*/
 export const didRenderLifeCycle = ( originalComponent: React.ComponentClass ) => {
 	

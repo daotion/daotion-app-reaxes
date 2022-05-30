@@ -28,17 +28,6 @@ export const formatter = new (class {
     }
     throw '必须传入数组';
   };
-  /**
-   * 将source对象内的props属性捡出来生成一个新对象(浅拷贝实现)
-   */
-  pick = <T extends object, F extends (string | number | symbol)[]>(source: T, props: F) => {
-    return props.reduce((accumulator, key) => {
-      if (key in source) {
-        return (accumulator[key] = source[key]), accumulator;
-      } else return accumulator;
-    }, {});
-  };
-
   /*todo*/
   /**
    * 将除了props以外的属性拿出来生成一个全新对象(浅拷贝实现)

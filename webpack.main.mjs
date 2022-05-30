@@ -19,6 +19,7 @@ import { developmentConfig$Fn } from "./build/webpack.development.config.mjs";
 
 const {
 	DefinePlugin ,
+	ProvidePlugin ,
 } = webpack;
 /* 标记开始时间以记录build花费 */
 const startTime = Date.now();
@@ -69,7 +70,8 @@ setTimeout(() => {
 				console.error(e);
 			});
 			break;
-		case 'build': {
+			/*not avalibel for now*/
+		case '-build': {
 			chalk.green(`building , please hold on...`)
 			runBuild().then(() => {
 				const usedTime = (Date.now() - startTime) / 1000;
@@ -101,6 +103,7 @@ const devServer = () => {
 	try {
 		const devConfig = developmentConfig$Fn({
 			plugins : [
+				getProvidePlugin() ,
 				getDefinePlugin() ,
 			] ,
 		});
@@ -129,10 +132,34 @@ const runBuild = () => {
 };
 
 const getDefinePlugin = () => new DefinePlugin({
+	'__REACT_DEVTOOLS_GLOBAL_HOOK__': '({ isDisabled: true })',
 	/* 递归遍历src/pages下的文件结合src/pages/Route_Map.json , 生成一份路由表注入到全局变量里 */
 	ROUTE_MAP : "{}" || generateRouteMap() , 
 	// 全局注入mock模式变量
 	__IS_MOCK__ : process.argv.includes('mock') ,
+	
+});
+
+const getProvidePlugin = (config = {}) => new ProvidePlugin({
+	_ : ["lodash"] ,
+	React : ["react"] ,
+	useState : ["react","useState"] ,
+	useEffect : ["react","useEffect"] ,
+	useRef : ["react","useRef"] ,
+	useLayoutEffect : ["react","useLayoutEffect"] ,
+	useMemo : ["react","useMemo"] ,
+	useCallback : ["react","useCallback"] ,
+	ComponentWrapper : ["@@common/ReactComponentWrapper","ComponentWrapper"] ,
+	ReactComponentClass : ["@@common/ReactComponentClass","ReactComponentClass"] ,
+	orzPromise : ["@@utils","orzPromise"] ,
+	utils : ["@@utils"] ,
+	globalStore : ["@@common/global-controller","globalStore"] ,
+	globalSetState : ["@@common/global-controller","globalSetState"] ,
+	crayon : ["@@utils","crayon"] ,
+	logProxy : ["@@utils","logProxy"] ,
+	decodeQueryString : ["@@utils","decodeQueryString"] ,
+	encodeQueryString : ["@@utils","encodeQueryString"] ,
+	...config,
 });
 
 /* 递归搜集pages下所有模块 , 子路由文件夹必须由.subpage结尾 , 写入全局ROUTE_MAP变量 */

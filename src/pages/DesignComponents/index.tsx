@@ -1,8 +1,3 @@
-import React , {
-	Component ,
-	useState ,
-	useEffect,
-} from 'react';
 import {
 	AutoComplete ,
 	Button ,
@@ -22,7 +17,6 @@ import {
 import {ClockCircleOutlined} from '@ant-design/icons';
 
 import { viaMobx } from '@@mobxState';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 import {
 	Routes ,
 	Route ,
@@ -42,7 +36,7 @@ export const {
 } );
 
 /* replace "ReactTemplate" once cloned from this template file. */
-const _ReactTemplate = class extends Component<any , any>    {
+const _ReactTemplate = class extends ReactComponentClass<any , any>    {
 	
 	/*it will be invoked after "didMount"&"didUpdate"*/
 	componentDidRender( stage: "mount" | "update" , prevProps?: Readonly<any> , prevState?: Readonly<any> , snapshot?: any ): any {

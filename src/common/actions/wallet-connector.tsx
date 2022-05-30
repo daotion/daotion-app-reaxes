@@ -1,13 +1,4 @@
-import React , {
-	useEffect ,
-	useState ,
-	useCallback ,
-	useMemo ,
-	Component ,
-} from 'react';
-
 import Web3Onboard , {} from '@web3-onboard/core';
-import {} from '@web3-onboard/common';
 import type {
 	InitOptions ,
 	OnboardAPI ,
@@ -16,17 +7,10 @@ import type {
 	WalletState ,
 	ConnectedChain ,
 } from '@web3-onboard/core';
-import _ from 'lodash';
-import { crayon , viaPromise } from '@@utils';
 import {viaMobx} from '@@mobxState';
 
 import { Chain } from '@web3-onboard/common';
 import { web3onboard } from '@@common/actions';
-
-import {
-	globalStore ,
-	globalSetState ,
-} from '@@common/global-controller';
 
 
 const web3Onboard = web3onboard.instance;
@@ -37,24 +21,6 @@ const onerror = ( msg ) => {
 };
 
 
-class test extends Component {
-	
-	constructor( props ) {
-		super( props );
-		/*@ts-ignore*/
-		this.lifecycle.use(
-			() => {/*@ts-ignore*/
-				const subs = action.subscribe( () => {} );
-				
-				return () => {/*@ts-ignore*/
-					action.unsubscribe( subs );
-				};
-			} ,
-			[] ,
-		);
-	}
-	
-}
 type SetChainOptions = {
 	chainId: string
 	chainNamespace?: string
@@ -241,8 +207,6 @@ export const chains = (lifecycle:LifeCycle) => {
 }
 
 
-
-import {ReactComponentClass} from '@@common/ReactComponentClass';
 class App extends ReactComponentClass {
 	connectWallet = connectWallet(this.lifecycle);
 	actions = {
@@ -304,4 +268,3 @@ const getEns = (address:string , chain:Chain) => {
 		return res;
 	});
 };
-import {logProxy} from '@@utils';

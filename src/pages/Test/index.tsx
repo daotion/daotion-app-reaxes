@@ -1,12 +1,3 @@
-// class
-import _ from 'lodash';
-import React , {
-	Component ,
-	useState ,
-	useEffect ,
-} from "react";
-import { ReactComponentClass } from '@@common/ReactComponentClass';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
 import {
 	viaMobx ,
 } from '@@common/MobxState';
@@ -18,7 +9,6 @@ export const {
 	count : 2 ,
 	
 } );
-
 
 class Apx extends ReactComponentClass<any , any> {
 	
@@ -111,9 +101,5 @@ const orzWallet = wrapper( () => {
 		];
 	};
 } );
-
-
-
-
 
 export const Test = ComponentWrapper(Apx);

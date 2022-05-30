@@ -1,17 +1,7 @@
-import _ from 'lodash';
-import { crayon , viaPromise } from '@@utils';
 import {viaMobx} from '@@mobxState';
 
 import { Chain } from '@web3-onboard/common';
 import { web3onboard } from '@@common/actions';
-
-import {
-	globalStore ,
-	globalSetState ,
-} from '@@common/global-controller';
-
-import {logProxy} from '@@utils';
-
 
 const onerror = ( msg ) => {
 	crayon.error( msg );

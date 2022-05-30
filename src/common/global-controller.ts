@@ -1,5 +1,5 @@
 import { viaMobx } from '@@mobxState';
-import { viaPromise } from '@@utils';
+// import { orzPromise } from '@@utils';
 
 
 /*存储全局性状态*/
@@ -51,7 +51,7 @@ export const createSubscriber = ( description?: string ): [
 	const subscribe_symbol_map: { [ p: symbol ]: Function } = {};
 	
 	const invoke = () => {
-		const promise = viaPromise();
+		const promise = orzPromise<boolean>();
 		Object.getOwnPropertySymbols( subscribe_symbol_map ).
 		forEach( ( key ) => {
 			const fn = subscribe_symbol_map[ key ];
@@ -79,6 +79,5 @@ export const createSubscriber = ( description?: string ): [
 
 /*为根节点创建的订阅器*/
 export const [ subscribe_root_click , invoke_root_click , root_click_symbol ] = createSubscriber( 'root-onclick' );
-
 
 

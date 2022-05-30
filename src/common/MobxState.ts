@@ -1,7 +1,6 @@
 /** @format */
 
 import {observable, action} from 'mobx';
-import __ from 'lodash';
 export {observer} from 'mobx-react';
 
 

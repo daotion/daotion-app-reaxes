@@ -1,15 +1,9 @@
-import React from 'react';
 import { Button  } from 'antd';
-
 import type {
 	ConnectedChain ,
 	WalletState ,
 } from '@web3-onboard/core';
-
-import { ComponentWrapper } from "@@common/ReactComponentWrapper";
-import { ReactComponentClass } from '@@common/ReactComponentClass';
 import { viaMobx } from '@@common/MobxState';
-
 
 import {
 	

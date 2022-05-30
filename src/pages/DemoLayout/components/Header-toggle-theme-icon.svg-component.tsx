@@ -1,7 +1,3 @@
-import React from 'react';
-import { globalStore } from '@@common/global-controller';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-
 type props = {
 	theme?: globalStoreType["theme"]
 };
