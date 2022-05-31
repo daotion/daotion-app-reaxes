@@ -20,7 +20,8 @@ declare interface globalStoreType {
 	connectedWallet : WalletState,
 	// wallets : WalletState[] ,
 	settingChain : boolean ,
-	connectedChain : ConnectedChain|null ,
+	currentChain : Chain ,
+	/*可选链路*/
 	chains : Chain[],
 	account : Account|null ,
 	walletAddress : string ,
@@ -56,11 +57,11 @@ declare interface NodeRequire {
   context: Function;
 }
 /*获取数组泛型参数*/
-declare type ArrayType<ARR> = ARR extends (infer P)[] ? P : never;
+declare type ArrayElement<ArrayType extends any[]> = ArrayType extends (infer P)[] ? P : never;
 
 /*批量将一个包含键名的数组KEY指定为一个值都为F的对象类型*/
 declare type Batch<KEY extends (string | number | symbol)[], F> = {
-  [p in ArrayType<KEY>]: F;
+  [p in ArrayElement<KEY>]: F;
 };
 
 /*将所有属性变为只读*/

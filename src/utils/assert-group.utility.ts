@@ -20,8 +20,7 @@ export const assert = <Expect extends any , List extends any[]>( expected : Expe
 };
 
 
-const a = assert({a:1},["abc",{a:1},"abc"] , true);
-console.log( a );
+
 
 /**
  * 组断言函数
@@ -57,6 +56,15 @@ export const assert1of = <Expected extends any,ExpressionList extends any[]>( ex
 export const assert1ofTrue = (expressionList , consoleWarn = false) => assert1of( true , expressionList ,consoleWarn);
 export const assert1ofFalse = (expressionList , consoleWarn = false) => assert1of( false , expressionList ,consoleWarn );
 
-assert1of( 111 , [22,11221,2] , true );
 
 
+
+/**
+ * @test
+ * 
+ */
+if(0){
+	const a = assert({a:1},["abc",{a:1},"abc"] , true);
+	console.log( a );
+	assert1of( 111 , [22,11221,2] , true );
+}

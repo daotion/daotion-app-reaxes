@@ -20,7 +20,7 @@ export const {
 	/*可以选择的线路*/
 	chains : [],
 	/*已连接的线路*/
-	connectedChain : null ,
+	currentChain : null ,
 	
 	account : null ,
 	

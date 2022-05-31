@@ -8,7 +8,7 @@ export const formatter = new (class {
    * 将数组添加随机key , 返回新数组
    * @param source
    */
-  addKey = <T extends any[]>(source: T): (ArrayType<T> & {key: number})[] => {
+  addKey = <T extends any[]>(source: T): (ArrayElement<T> & {key: number})[] => {
     if (Array.isArray(source)) {
       let flag = true;
       for (const i of source) {
@@ -23,22 +23,9 @@ export const formatter = new (class {
           ({
             ...item,
             key: Math.random(),
-          } as ArrayType<T> & {key: number}),
+          } as ArrayElement<T> & {key: number}),
       );
     }
     throw '必须传入数组';
-  };
-  /*todo*/
-  /**
-   * 将除了props以外的属性拿出来生成一个全新对象(浅拷贝实现)
-   */
-  exclude = <T extends object, F extends (string | number | symbol)[]>(source: T, props: F) /*todo type*/ => {
-    const sourceKeys = Object.keys(source);
-    return sourceKeys.reduce((accumulator, key) => {
-      if (!props.includes(key)) {
-        accumulator[key] = source[key];
-      }
-      return accumulator;
-    }, {});
   };
 })();

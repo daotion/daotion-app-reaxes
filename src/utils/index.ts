@@ -7,7 +7,7 @@ export default Object.freeze( new class {
 	 * @param keys
 	 */
 	
-	originalPick = <O extends {} , K extends Array<keyof O>>(object:O , keys:K) : Pick<O,ArrayType<K>> => {
+	originalPick = <O extends {} , K extends Array<keyof O>>(object:O , keys:K) : Pick<O,ArrayElement<K>> => {
 		
 		
 		Object.keys(object).forEach((k) => {/*@ts-ignore*/
@@ -15,25 +15,28 @@ export default Object.freeze( new class {
 				delete object[ k ];
 			}
 		})
-		return object as Pick<O,ArrayType<K>> ;
+		return object as Pick<O,ArrayElement<K>> ;
 	};
 } );
 
 
 
-
+/*无依赖@@utils的放上面*/
+export * from './stringify.utility';
 export * from './crayon.utility';
-export * from './logProxy.utility';
+export * from './checkGenericNull.utility';
+export * from './runOnlyOnce.utility';
 export * from './ConditionRender.utility';
 export * from './makePair.utility';
-export * from './assert-group.utility';
 export * from './timer.utility';
 export * from './replaceStr.utility';
 export * from './queryString.utility';
 export * from './orzPromise.utility';
+
+export * from './assert-group.utility';
 export * from './dataflow.utility';
-export * from './checkGenericNull.utility';
-export * from './runOnlyOnce.utility';
+
+export * from './logProxy.utility';
 
 export * from "./components";
 export * from "./hooks";

@@ -16,6 +16,7 @@ const defineGetter = ( object , key , callback ) => {
 			} ,
 		} );
 	}
+	return object;
 };
 
 

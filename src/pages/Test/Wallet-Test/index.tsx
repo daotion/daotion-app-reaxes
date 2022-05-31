@@ -29,7 +29,7 @@ export const {
 	connectedWallet : null ,
 	wallets : null ,
 	settingChain : false ,
-	connectedChain : null ,
+	currentChain : null ,
 	account : null ,
 } );
 

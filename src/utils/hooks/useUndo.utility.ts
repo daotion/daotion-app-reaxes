@@ -1,4 +1,4 @@
-/** @format 实现历史记录的customer hook */
+/* 实现历史记录的customer hook */
 import {useCallback, useReducer} from 'react';
 
 const UNDO = 'UNDO';

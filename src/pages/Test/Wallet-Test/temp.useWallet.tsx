@@ -160,7 +160,7 @@ export const useSetChain = (
 	return [
 		{
 			chains ,
-			connectedChain ,
+			connectedChain : currentChain ,
 			settingChain ,
 		} ,
 		set ,

@@ -1,6 +1,3 @@
-/** @format */
-
-import React from 'react';
 
 /**
  * 优雅的条件渲染器

@@ -22,6 +22,7 @@ export const makePair = (value, ...callbacks) => {
 if (0) {
   /*传入一个react ref hook , 并用后面两个函数对其进行封装或引用 , */
   const [paramObject, getParamFromKey] = makePair(
+	  /*@ts-ignore*/
     getUrlParam(),
     params => params,
     params => key => params[key],

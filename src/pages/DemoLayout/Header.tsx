@@ -78,7 +78,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 		
 		WalletNetworkBtn : () =>  {
 			
-			const [ visible , setVisible ] = useState( true );
+			const [ visible , setVisible ] = useState( false );
 			
 			useEffect( () => {
 					
@@ -476,7 +476,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 		connect : () => {
 			this.connectWallet.connect( {} ).
 			then( ( wallet ) => {
-				console.log( logProxy(wallet) );
+				
 			} );
 		} ,
 		disconnect : () => {

@@ -159,6 +159,7 @@ const getProvidePlugin = (config = {}) => new ProvidePlugin({
 	logProxy : ["@@utils","logProxy"] ,
 	decodeQueryString : ["@@utils","decodeQueryString"] ,
 	encodeQueryString : ["@@utils","encodeQueryString"] ,
+	stringify : ["@@utils","stringify"] ,
 	...config,
 });
 
