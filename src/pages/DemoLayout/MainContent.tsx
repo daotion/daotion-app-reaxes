@@ -51,7 +51,7 @@ export const MainContent = ComponentWrapper( class extends ReactComponentClass {
 
 export const DAO_list = ComponentWrapper(class extends ReactComponentClass {
 	
-	
+	signMsg = signViaWallet(this.lifecycle);
 	
 	render(){
 		
@@ -72,6 +72,12 @@ export const DAO_list = ComponentWrapper(class extends ReactComponentClass {
 						fontSize : "48px" ,
 						fontWeight : "bold" ,
 					} }
+					onClick = {() => {
+						this.signMsg.sign( 'fffffffffff' ).then((secret) => {
+							console.log( secret );
+							
+						});
+					}}
 				>Explore
 				</h1>
 				
@@ -308,3 +314,6 @@ export const DAO_item_tag = (props:{text:string}) => {
 		}}
 	>{props.text}</span>
 };
+
+
+import { signViaWallet } from '@@common/actions/sign-message';

@@ -1,4 +1,4 @@
-// import __ from "lodash";
+import shallowequal from 'shallowequal';
 
 export default Object.freeze( new class {
 	/**
@@ -17,6 +17,8 @@ export default Object.freeze( new class {
 		})
 		return object as Pick<O,ArrayElement<K>> ;
 	};
+	
+	shallowEqual = shallowequal;
 } );
 
 

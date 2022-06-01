@@ -25,7 +25,7 @@ const defineGetter = ( object , key , callback ) => {
 const env = defineGetter({
 	yang : {
 		host : "http://192.168.1.126:8199" ,
-		prefix : "/yang_host" ,
+		prefix : "/server_yang" ,
 		get baseUrl (){
 			return `${this.host}${this.prefix}/`
 		}

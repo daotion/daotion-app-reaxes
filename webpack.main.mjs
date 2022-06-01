@@ -160,6 +160,8 @@ const getProvidePlugin = (config = {}) => new ProvidePlugin({
 	decodeQueryString : ["@@utils","decodeQueryString"] ,
 	encodeQueryString : ["@@utils","encodeQueryString"] ,
 	stringify : ["@@utils","stringify"] ,
+	request : ["@@common/requests","request"] ,
+	env : ["@@common/requests","request"] ,
 	...config,
 });
 

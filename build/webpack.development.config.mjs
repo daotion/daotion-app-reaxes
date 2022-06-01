@@ -28,11 +28,17 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 		// clientLogLevel : "none",
 		// quiet : true,
 		proxy : {
-			"/yang_host" : {
+			"/server_yang" : {
 				target : 'http://192.168.1.126:8199' ,
-				pathRewrite : {'^/yang_host':''},
+				pathRewrite : {'^/server_yang':''},
 				secure: false,
-			}
+			},
+			"/server_dev" : {
+				target : 'http://121.199.23.234:8199' ,
+				pathRewrite : {'^/server_dev':''},
+				secure: false,
+			},
+			
 		}
 	} ,
 	devtool : 'source-map' ,

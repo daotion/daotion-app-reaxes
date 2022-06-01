@@ -1,5 +1,5 @@
 import { Component } from 'react';
-
+import { reaction } from 'mobx';
 
 
 export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate>{
@@ -35,6 +35,24 @@ export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = a
 		rendered : (cb) => {
 			this.renderedStack.push(cb);
 		} ,
+		
+		memory<F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F> {
+			reaction( dependencies , ( data , reaction ) => {
+				const dataChanged = !utils.default.shallowEqual( data , depList );
+				console.log( dataChanged );
+				if ( dataChanged ) {
+					crayon.orange( 'data changed' );
+					callback( false );
+					depList = data;
+				} else {
+					crayon.red( 'reaction called but data not changed' );
+				}
+				
+			} );
+			let depList = dependencies();
+			
+			return callback( true );
+		},
 	}
 	
 	/**

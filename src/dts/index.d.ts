@@ -88,9 +88,8 @@ declare interface LifeCycle {
 	mounted : lifecycle ,
 	rendered : lifecycle ,
 	updated : lifecycle ,
-	
+	memory<F extends (first:boolean) => any >( callback : F , dependencies ):ReturnType<F> ,
 }
-
 
 
 declare namespace ORZ {

@@ -499,7 +499,10 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 		},
 	} ;
 	
+	counter = counter(this.lifecycle,10);
+	
 	render() {
+		
 		return <div className = { less.topBanner }>
 			<div>
 				<Input.TextArea
@@ -527,7 +530,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 					}}
 					
 					onClick = {() => {
-						fetch(`/yang_host/dao/all-dao`,{
+						fetch(`/server_yang/dao/all-dao`,{
 							method : "post",
 							body : JSON.stringify( {
 								"indexStart" : 0 ,
@@ -544,7 +547,17 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 						
 					}}
 				/>
-				
+				<button
+					onClick = {() => {
+						this.counter.plus();
+					}}
+				>plus</button>
+				{this.counter.count}
+				<button
+					onClick = {() => {
+						this.counter.minus()
+					}}
+				>minus</button>
 			</div>
 			<div className = { less.rightSideGroup }>
 				<Button
@@ -590,7 +603,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 		</div>;
 	}
 } );
-
+import {counter} from '@@common/actions/sign-message';
 
 
 
