@@ -26,9 +26,6 @@ const env = defineGetter({
 	yang : {
 		host : "http://192.168.1.126:8199" ,
 		prefix : "/server_yang" ,
-		get baseUrl (){
-			return `${this.host}${this.prefix}/`
-		}
 	},
 },"baseUrl",(source) => {
 	return `${ source.host }${ source.prefix }/`;

@@ -21,3 +21,8 @@ react-list : 一个用于无限滚动的react库
 
 如果于钱包登录状态离线,则断开DAOtion链接
 
+
+
+**废弃和暂时无用的特性**
+
+ROUTE_MAP : 用于映射pages目录路径和路由关系

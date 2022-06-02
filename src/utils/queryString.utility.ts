@@ -54,10 +54,10 @@ export const decodeQueryString = <result extends string[] = []>( str: string = l
 
 
 /**
- * 将对象转换为queryString(暂不支持多层嵌套)
- * @param source
+ * 将对象转换为queryString不带问号(暂不支持多层嵌套)
+ * @return {string} a=1&b=2
  */
-export const encodeQueryString = ( source: object ) => {
+export const encodeQueryString = ( source: object ):string => {
 	let result = ``;
 	for ( const key in source ) {
 		const value = source[ key ];

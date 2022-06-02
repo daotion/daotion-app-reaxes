@@ -31,13 +31,7 @@ declare interface globalStoreType {
 	} ,
 }
 
-declare module '*.module.less' {
-	const classes : {
-		readonly [ key: string ]: string;
-	};
-	
-	export default classes;
-}
+
 
 declare interface Window {}
 declare interface NodeModule {
@@ -50,9 +44,14 @@ declare type responseWrap<T> = {
 	code: number;
 	data: T;
 	message?: string;
-	errorCode?: string;
 };
-declare var __IS_MOCK__: boolean;
+
+
+
+
+declare const __IS_MOCK__: boolean;
+declare const __ENV__ : ORZ.env;
+
 declare interface NodeRequire {
   context: Function;
 }
@@ -94,10 +93,7 @@ declare interface LifeCycle {
 
 declare namespace ORZ {
 	
-	export type env = {
-		host : string ,
-		prefix : string ,
-	};
+	export type env = "server_dev"|"server_yang" ;
 	
 	export type RequestOptions<body extends object> = Omit<RequestInit, 'body'> & {
 		env? : env,
@@ -105,3 +101,6 @@ declare namespace ORZ {
 		mock? : boolean ;
 	};
 }
+
+
+declare const request : typeof import('@@common/requests').request;

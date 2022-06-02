@@ -32,7 +32,7 @@ const args = process.argv.slice(2);
 /**
  * npm start dev mock
  * npm start --analyze
- * npm build mock
+ * #npm build mock
  * npm start
  * todo: analyze
  */
@@ -40,6 +40,7 @@ const args = process.argv.slice(2);
 export let {
 	method = "server" ,
 	mock = null,
+	env = "server_dev",
 } = function () {
 	return overload(args , [
 		{
@@ -53,6 +54,11 @@ export let {
 		{
 			regExp : /build|server/ ,
 			key : "method" ,
+		} ,
+		{
+			/*网络请求环境*/
+			regExp : /server_yang|server_dev/ ,
+			key : "env" ,
 		} ,
 	]);
 }();
@@ -137,7 +143,7 @@ const getDefinePlugin = () => new DefinePlugin({
 	ROUTE_MAP : "{}" || generateRouteMap() , 
 	// 全局注入mock模式变量
 	__IS_MOCK__ : process.argv.includes('mock') ,
-	
+	__ENV__ : JSON.stringify(env),
 });
 
 const getProvidePlugin = (config = {}) => new ProvidePlugin({
