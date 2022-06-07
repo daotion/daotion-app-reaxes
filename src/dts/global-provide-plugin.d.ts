@@ -17,6 +17,7 @@ declare const useMemo : typeof React.useMemo;
 declare const useCallback : typeof React.useCallback;
 declare const globalStore : globalStoreType;
 declare const globalSetState : typeof import('@@common/global-controller').globalSetState;
+declare const orzMobx : typeof import('@@mobxState').viaMobx;
 
 declare const ComponentWrapper : typeof import('../common/ReactComponentWrapper').ComponentWrapper;
 declare const ReactComponentClass : typeof import('../common/ReactComponentClass').ReactComponentClass;

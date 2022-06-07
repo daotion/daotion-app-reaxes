@@ -2,6 +2,9 @@ import {viaMobx} from '@@mobxState';
 
 import { Chain } from '@web3-onboard/common';
 import { web3onboard } from '@@common/actions';
+import {
+	dao__all_dao ,
+} from './types';
 
 const onerror = ( msg ) => {
 	crayon.error( msg );
@@ -41,7 +44,20 @@ const _fetch = (path:string,) => {
 
 
 
-export const fetch_DAO_list = () => {
+export const fetch_DAO_list = (payload:dao__all_dao.payload) => {
 	
-	return _fetch('',)
+	return request.post<dao__all_dao.response,dao__all_dao.payload>('/dao/all-dao',{
+		body : payload,
+		env : "server_yang" ,
+	}).then((data) => {
+		crayon.purple( 'fetch_DAO_list' , data );
+		return {
+			...data,
+			infos : data.infos.map((item) => (
+				{ ...item , id : Math.random().toString()  }))
+		};
+	}).catch((e) => {
+		console.error( e );
+		return null as dao__all_dao.response;
+	})
 };

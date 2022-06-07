@@ -528,24 +528,6 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 							} );
 						}
 					}}
-					
-					onClick = {() => {
-						fetch(`/server_yang/dao/all-dao`,{
-							method : "post",
-							body : JSON.stringify( {
-								"indexStart" : 0 ,
-								"count" : 50 ,
-								"firstTimestamp" : 0 ,
-							} ),
-							
-						}).then((res) => {
-							return res.json();
-						}).then((data) => {
-							console.log(data);
-							
-						})
-						
-					}}
 				/>
 				<button
 					onClick = {() => {

@@ -47,7 +47,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'@@common/*' : path.resolve(rootPath , 'src/common/*') ,
 			'@@utils' : path.resolve(rootPath , 'src/utils/index.ts') ,
 			'@@utils/*' : path.resolve(rootPath , 'src/utils/*') ,
-			'@@Public/*' : path.resolve(rootPath , 'src/common/Public/*') ,
+			'@@Public' : path.join(rootPath , 'Public') ,
 			'@@mobxState' : path.resolve(rootPath , 'src/common/MobxState.ts') ,
 			'@@components' : path.resolve(rootPath , 'src/utils/components/index.ts') ,
 			'@@components/*' : path.resolve(rootPath , 'src/utils/components/*') ,

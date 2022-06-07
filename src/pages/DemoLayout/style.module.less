@@ -215,6 +215,8 @@
 
 
 .global-window-loading {
+	flex-grow : 1 ;
+	
 	:global{
 		.ant-spin-container.ant-spin-blur {
 			opacity: .2;
@@ -226,6 +228,11 @@
 		
 		.ant-spin.ant-spin-spinning {
 			position: unset;
+			
+		}
+		
+		.ant-spin-container {
+			flex-grow: 1;
 			
 		}
 	}

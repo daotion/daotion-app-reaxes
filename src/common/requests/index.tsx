@@ -1,4 +1,4 @@
-const env = __ENV__ || "server_dev";
+
 
 export const request = new class {
 	
@@ -10,7 +10,7 @@ export const request = new class {
 			method: 'GET',
 		},
 	): Promise<response> => {
-		
+		const env = (options.env ?? options.env) || __ENV__ || "server_dev";
 		/**
 		 * 暂时禁用
 		 * 需 mock 的情形，走mock请求
@@ -78,17 +78,15 @@ export const request = new class {
 						default : 
 							throw json.message;
 					}
-				} else if (json.code === 0) {
-					throw json.message ?? '错误7921';
-				} else {
-					return json;
+				}else {
+					throw 'uncatched error : 22041';
 				}
 			});
 			
 			return json;
 		}catch ( e ) {
-			if(Array.isArray(e)){
-				
+			if(Array.isArray(e) && e[0] === symbol_no_authorized){
+				return Promise.reject( symbol_no_authorized );
 			}
 			return Promise.reject( e );
 		}

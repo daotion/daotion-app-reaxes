@@ -24,6 +24,7 @@ export default Object.freeze( new class {
 
 
 /*无依赖@@utils的放上面*/
+export * from './debounce.utility';
 export * from './stringify.utility';
 export * from './crayon.utility';
 export * from './checkGenericNull.utility';
@@ -47,5 +48,4 @@ export {default as Cookie} from './cookie.utility';
 export {default as checkType} from './checkType.utility';
 export {default as getNestedValue} from './getNestedValue.utility';
 export {default as Random} from './random.utility';
-export {default as debounce} from './debounce.utility';
 export {default as throttle} from './throttle.utility';

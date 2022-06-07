@@ -157,6 +157,7 @@ const getProvidePlugin = (config = {}) => new ProvidePlugin({
 	useCallback : ["react","useCallback"] ,
 	ComponentWrapper : ["@@common/ReactComponentWrapper","ComponentWrapper"] ,
 	ReactComponentClass : ["@@common/ReactComponentClass","ReactComponentClass"] ,
+	orzMobx : ["@@mobxState","viaMobx"] ,
 	orzPromise : ["@@utils","orzPromise"] ,
 	utils : ["@@utils"] ,
 	globalStore : ["@@common/global-controller","globalStore"] ,

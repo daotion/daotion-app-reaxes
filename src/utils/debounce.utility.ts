@@ -1,29 +1,31 @@
-/** @format */
 /**
  * @description 防抖功能
  * @param {function} fn 要进行防抖处理的function
  * @param {number} wait  间隔时间 ms为单位
- * @param {boolean} immediate  是否立即执行
+ * @param {boolean} immediate  开启后在最初的一次会立即执行,后续的触发进行防抖.
  * @return {function} 进行防抖处理后的函数
  */
-export default function debounce(fn: Function, wait: number, immediate: boolean) {
-  let timeId, result;
-  return function () {
-    let context = this;
-    let args = arguments;
-    if (timeId) clearTimeout(timeId);
-    if (immediate) {
-      if (!timeId) {
-        result = fn.apply(context, args);
-      }
-      timeId = setTimeout(() => {
-        timeId = null;
-      }, wait);
-    } else {
-      timeId = setTimeout(() => {
-        fn.apply(context, args);
-      }, wait);
-    }
-    return result;
-  };
-}
+export const debounce = <F extends any[],T extends ((...args:F) => any)>( callback : T , wait : number = 1000 , immediate : boolean = false )
+	: T => {
+	let lastTimestamp = 0;
+	let timeoutID;
+	return (( ...args : F) => {
+		/*immediate模式*/
+		if ( immediate ) {
+			if ( Date.now() - lastTimestamp > wait ) {
+				callback( ...args );
+				lastTimestamp = Date.now();
+				return;
+			} else {
+				lastTimestamp = Date.now();
+				clearTimeout( timeoutID );
+				timeoutID = setTimeout( () => callback( ...args ) , wait );
+				return;
+			}
+		} else {
+			/*普通模式*/
+			clearTimeout( timeoutID );
+			timeoutID = setTimeout( () => callback( ...args ) , wait );
+		}
+	}) as T;
+};

@@ -18,8 +18,8 @@ export const request_sign_in = ( address : string , signatureNonce : string ) =>
 		crayon.green( 'sign in successfully' );
 	});
 
-export const request_regression_sign = (address) => 
-	request_signature_string(address).
-	then((res) => {
-		return request_sign_in(address,)
-	})
+export const request_regression_sign = ( address ) =>
+	request_signature_string( address ).
+	then( ( signatureNonce ) => {
+		return request_sign_in( address , signatureNonce as string );
+	} );
