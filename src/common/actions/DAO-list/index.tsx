@@ -48,7 +48,7 @@ export const fetch_DAO_list = (payload:dao__all_dao.payload) => {
 	
 	return request.post<dao__all_dao.response,dao__all_dao.payload>('/dao/all-dao',{
 		body : payload,
-		env : "server_yang" ,
+		env : "server_dev" ,
 	}).then((data) => {
 		crayon.purple( 'fetch_DAO_list' , data );
 		return {

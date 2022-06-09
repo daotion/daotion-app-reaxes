@@ -38,7 +38,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 	output : {
 		filename : '[name].bundle.[fullhash:6].js' ,
 		path : path.resolve(rootPath , 'dist') ,
-		// publicPath : "/Public" ,
+		// publicPath : path.resolve(rootPath , 'dist') ,
 	} ,
 	resolve : {
 		alias : {
@@ -64,10 +64,10 @@ export const basicConfig$Fn = (plugins = []) => ({
 		] ,
 	} ,
 	devtool : 'source-map' , 
-	cache : {
-		type : "filesystem",
-		allowCollectingMemory: true, 
-	} ,
+	// cache : {
+	// 	type : "filesystem",
+	// 	allowCollectingMemory: true, 
+	// } ,
 	module : {
 		rules : [
 			{

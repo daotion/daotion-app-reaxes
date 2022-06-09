@@ -3,8 +3,8 @@
 	"description": "Mainri Labs' font-end eth font-end project",
 	"scripts": {
 		"start": "node webpack.main.mjs server",
-		"debug": "node --inspect-brk webpack.main.mjs server",
-		"build": "node webpack.main.mjs build"
+		"debug": "node --inspect-brk webpack.main.mjs server server_dev",
+		"build": "rm -rf dist & node webpack.main.mjs build analyze"
 	},
 	"dependencies": {
 		"@svgr/webpack": "^6.2.1",
@@ -67,6 +67,7 @@
 		"@types/react-dom": "^17.0.16",
 		"@types/react-router-dom": "^5.3.3",
 		"babel-loader": "^8.2.5",
+		"compression-webpack-plugin": "^10.0.0",
 		"cross-env": "^7.0.3",
 		"css-loader": "^6.7.1",
 		"html-webpack-plugin": "^5.5.0",
@@ -78,6 +79,7 @@
 		"style-loader": "^3.3.1",
 		"typescript": "^4.6.3",
 		"webpack": "^5.72.0",
+		"webpack-bundle-analyzer": "^4.5.0",
 		"webpack-dev-server": "^4.8.1",
 		"webpack-merge": "^5.8.0"
 	},
@@ -85,7 +87,7 @@
 		"type": "git",
 		"url": "git+https://github.com/CainKane/eth-web-front.git"
 	},
-	"homepage": "https://github.com/CainKane/eth-web-front#readme",
+	"homepage": "/",
 	"main": "src/main.tsx",
 	"keywords": [],
 	"author": "Kane",

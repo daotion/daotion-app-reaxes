@@ -1,16 +1,7 @@
-import React , { Component } from 'react';
-import ReactDOM , { render } from 'react-dom';
+import { render } from 'react-dom';
 import { App } from './App';
 
-
-
-
-
-
-// module.hot.accept( "./App.tsx" );
-
-
-module.hot.accept(
+module?.hot?.accept?.(
 	"./main.tsx" ,
 	( ...args ) => {
 		
@@ -24,17 +15,6 @@ module.hot.accept(
 		debugger;
 	} ,
 );
-
-
-
-
-
-
-
-
-
-
-
 
 render(
 	<App /> ,

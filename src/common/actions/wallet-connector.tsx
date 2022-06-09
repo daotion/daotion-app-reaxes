@@ -154,6 +154,8 @@ export const wallets = ( lifecycle : LifeCycle ) => {
 							walletConnecting : false ,
 						} );
 						setWalletToLocalstorage(connectedWallet);
+					}).catch((e) => {
+						console.trace(e);
 					});
 				}
 			}
@@ -257,7 +259,8 @@ function fetchENS( address : string , chain : Chain ) {
 			);
 			return provider.getResolver( name );
 		} else {
-			throw "error : name is null ";
+			console.error('there is no "ens:name" , will show address directly');
+			return null;
 		}
 		
 	} ).
@@ -269,7 +272,7 @@ function fetchENS( address : string , chain : Chain ) {
 				resolver ,
 			] );
 		} else {
-			throw "error : resolver is null";
+			throw null;
 		}
 	} ).
 	then( ( [ contentHash , avatar , resolver ] ) => {
@@ -284,5 +287,9 @@ function fetchENS( address : string , chain : Chain ) {
 		);
 		console.log( logProxy( res ) );
 		return res;
-	} );
+	} ).catch((e) => {
+		if(e === null){
+			return null ;
+		}
+	});
 }

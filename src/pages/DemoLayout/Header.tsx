@@ -504,16 +504,17 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 	render() {
 		
 		return <div className = { less.topBanner }>
-			<div>
+			{ __NODE_ENV__ === "development" && <div>
 				<Input.TextArea
 					value = { store.svgString }
 					onChange = { ( e ) => setState( { svgString : e.target.value } ) }
-					onPaste = {(e) => {
-						if(e.clipboardData.items[0].kind === "file"){
-							const picFile = e.clipboardData.items[0].getAsFile();
-							navigator.clipboard.readText().then((value) => {
+					onPaste = { ( e ) => {
+						if ( e.clipboardData.items[ 0 ].kind === "file" ) {
+							const picFile = e.clipboardData.items[ 0 ].getAsFile();
+							navigator.clipboard.readText().
+							then( ( value ) => {
 								console.log( value );
-							});
+							} );
 							(
 								new Promise( ( resolve ) => {
 									const fileReader = new FileReader();
@@ -522,25 +523,27 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 									};
 									fileReader.readAsDataURL( picFile );
 								} )
-							).then( ( base64:string ) => {
+							).then( ( base64 : string ) => {
 								console.log( base64 );
-								navigator.clipboard.writeText( `url('${base64}')` );
+								navigator.clipboard.writeText( `url('${ base64 }')` );
 							} );
 						}
-					}}
+					} }
 				/>
 				<button
-					onClick = {() => {
+					onClick = { () => {
 						this.counter.plus();
-					}}
-				>plus</button>
-				{this.counter.count}
+					} }
+				>plus
+				</button>
+				{ this.counter.count }
 				<button
-					onClick = {() => {
-						this.counter.minus()
-					}}
-				>minus</button>
-			</div>
+					onClick = { () => {
+						this.counter.minus();
+					} }
+				>minus
+				</button>
+			</div> }
 			<div className = { less.rightSideGroup }>
 				<Button
 					style = { {

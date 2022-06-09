@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { reaction } from 'mobx';
 
 
-export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate>{
+export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate> {
 	// componentDidRender?( stage: "mount" | "update" , prevProps?: Readonly<Tprops> , prevState?: Readonly<Tstate> , snapshot?: any ):any;
 	// componentDidMount? : Component["componentDidMount"];
 	// componentDidUpdate? : Component["componentDidUpdate"];
@@ -10,32 +10,82 @@ export interface ReactComponentClass<Tprops extends {} = any , Tstate extends {}
 
 export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate> {
 	
-	JSX: { [ p: string ]: () => React.ReactElement | void | React.ReactNode };
+	#generateQueueID = function () {
+		let id = 0;
+		return ( callback : () => any ):{callback():any,id:string} => (
+			{
+				callback ,
+				id : (id++).toString(),
+			}
+		);
+	}();
 	
-	actions: { [ p: string ]: Function };
+	JSX : { [ p : string ] : () => React.ReactElement | void | React.ReactNode };
 	
-	mountedStack = [];
+	actions : { [ p : string ] : Function };
 	
-	unmountStack = [];
+	mountedStack:{callback():any,id:string}[] = [];
 	
-	updatedStack = [];
+	unmountStack:{callback():any,id:string}[] = [];
 	
-	renderedStack = [];
+	updatedStack:{callback():any,id:string}[] = [];
+	
+	renderedStack:{callback():any,id:string}[] = [];
 	
 	lifecycle = {
-		mounted : (cb) => {
-			this.mountedStack.push(cb);
-		},
-		unmount : (cb) => {
-			this.unmountStack.push(cb);
-		} ,
-		updated : (cb) => {
-			this.updatedStack.push(cb);
-		} ,
-		rendered : (cb) => {
-			this.renderedStack.push(cb);
+		
+		unregister : (id) => {
+			_.remove(this.mountedStack,(value) => value.id === id);
+			_.remove(this.unmountStack,(value) => value.id === id);
+			_.remove(this.updatedStack,(value) => value.id === id);
+			_.remove(this.renderedStack,(value) => value.id === id);
 		} ,
 		
+		mounted : ( cb : () => any ):string => {
+			const cbObj = this.#generateQueueID( cb );
+			this.mountedStack.push( cbObj );
+			return cbObj.id;
+		} ,
+		unmount : ( cb : () => any ) => {
+			const cbObj = this.#generateQueueID( cb );
+			this.unmountStack.push( cbObj );
+			return cbObj.id;
+		} ,
+		updated : ( cb : () => any ) => {
+			const cbObj = this.#generateQueueID( cb );
+			this.updatedStack.push( cbObj );
+			return cbObj.id;
+		} ,
+		rendered : ( cb : () => any ) => {
+			const cbObj = this.#generateQueueID( cb );
+			this.renderedStack.push( cbObj );
+			return cbObj.id;
+		} ,
+		/**
+		 * completed
+		 * 当每次渲染后触发的副作用,自动比对deps变化触发
+		 * 触发时机:componentDidRender
+		 */
+		effect : (cb : () => any , deps : () => any[] ) : string => {
+			let prevDeps = deps();
+			let firstflag = true;
+			const fn = () => {
+				const currentDeps = deps();
+				if(firstflag){
+					return cb(),firstflag = false,void 0;
+				}
+				if(!utils.default.shallowEqual(prevDeps,currentDeps)){
+					return cb(),prevDeps = currentDeps,void 0;
+				}
+			};
+			const cbObj = this.#generateQueueID( fn );
+			this.updatedStack.push( cbObj );
+			this.mountedStack.push( cbObj );
+			return cbObj.id;
+		},
+		/**
+		 * 实验性功能:监听deps变化自动触发计算
+		 */
 		memory<F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F> {
 			reaction( dependencies , ( data , reaction ) => {
 				const dataChanged = !utils.default.shallowEqual( data , depList );
@@ -52,41 +102,13 @@ export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = a
 			let depList = dependencies();
 			
 			return callback( true );
-		},
-	}
+		} ,
+	};
 	
 	/**
 	 * didMount和didUpdate都要执行的函数,何不放在这里?
 	 */
-	componentDidRender?( stage: "mount" | "update" , prevProps?: Readonly<Tprops> , prevState?: Readonly<Tstate> , snapshot?: any ):any;
+	componentDidRender?( stage : "mount" | "update" , prevProps? : Readonly<Tprops> , prevState? : Readonly<Tstate> , snapshot? : any ) : any;
 	
 	
-	// componentDidMount?() {
-	// 	super.componentDidMount();
-	// 	this.componentDidRender?.( "mount" );
-	// }
-	//
-	// componentDidUpdate?( prevProps: Readonly<Tprops> , prevState: Readonly<Tstate> , snapshot?: any ) {
-	//	
-	// 	super.componentDidUpdate(
-	// 		prevProps ,
-	// 		prevState ,
-	// 		snapshot 
-	// 	);
-	//	
-	// 	this.componentDidRender?.(
-	// 		"update" ,
-	// 		prevProps ,
-	// 		prevState ,
-	// 		snapshot ,
-	// 	);
-	// }
-};
-
-
-const Apx = class extends ReactComponentClass<any , any> {
-	
-	componentDidRender( stage: "mount" | "update" , prevProps?: Readonly<any> , prevState?: Readonly<any> , snapshot?: any ): any {
-		
-	}
 };

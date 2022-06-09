@@ -3,7 +3,7 @@ type css = {
 	
 };
 type crayon = ( ( css: Partial<CSSStyleDeclaration> ) => ( ...logs:any[] ) => void ) & {
-	[key in "warn" | "info" | "log" | "error"]: (( ...any ) => any) & {
+	[key in "warn" | "info" | "log" | "error"| "debug"| "trace"]: (( ...any ) => any) & {
 	[key in string]: (...any) => any ;
 } } & {
 	[key in string]: (...any) => any ;
@@ -48,14 +48,18 @@ const argumentsAgent = (secondary , ...args) => args.reduce((accu, arg , index )
 export const crayon : crayon = new Proxy((cssProperties:Partial<CSSStyleDeclaration> = {}) => {
 	/*using as crayon({CSSProperties})('wanna log msg')*/
 	return (...logs) => {
-		const cssString = Object.keys(cssProperties).reduce((accumulator,key:string) => {
+		let cssString = Object.keys(cssProperties).reduce((accumulator,key:string) => {
 			/*@ts-ignore*/
 			const res = `${accumulator}${String(transformCSSHumpToLowercase(key))}:${cssProperties[key]};`
 			return res;
-		},'' as Partial<CSSStyleDeclaration>);
-		
-		const a = argumentsAgent( cssString );
-		return console.log( ...argumentsAgent( cssString,...logs ) );
+		},'');
+		if(!cssString.includes('font-weight')){
+			cssString += `font-weight:normal;`;
+		}
+		console.groupCollapsed(...argumentsAgent( cssString,...logs ));
+		console.trace(`%c`,'font-weight:normal;');
+		console.groupEnd();
+		return;
 	};
 },{
 	get : (target, propKey:string, receiver) => {
@@ -77,30 +81,49 @@ export const crayon : crayon = new Proxy((cssProperties:Partial<CSSStyleDeclarat
 			return target[ propKey ];
 		}
 		
-		const createColorProxy = ( type = "log" ) => new Proxy( (...logs) => {
+		const createColorProxy = ( type = "trace" ) => new Proxy( (...logs) => {
+			if(type === "trace"){
+				console.groupCollapsed(...argumentsAgent( `color:${ propKey };font-weight:normal;`,...logs ));
+				console.trace(`%c`,'font-weight:normal;');
+				console.groupEnd();
+				return;
+			}
 			return console[type]( ...argumentsAgent( `color:${ propKey }`,...logs ) );
 		} , {
 			get : ( target , _propKey , receiver ) => {
 				
 				return ( ...logs ) => {
+					if(type === "trace"){
+						console.groupCollapsed(...argumentsAgent( `color:${ _propKey as string };font-weight:normal;`,...logs ));
+						console.trace(`%c`,'font-weight:normal;');
+						console.groupEnd();
+						return;
+					}
 					/*当crayon.blue('',...args)时,babel使用了apply来隐式转换扩展运算符 , 导致了proxy拿到的是'apply'而非'blue' */
-					if(_propKey === "apply"){
+					if ( _propKey === "apply" ) {
 						const [,_logs] = logs;
+						if ( type === "trace" ) {
+							console.groupCollapsed( ...argumentsAgent( `color:${ propKey }`,..._logs )  );
+							console.trace( `%c` , 'font-weight:normal;' );
+							console.groupEnd();
+							return;
+						}
 						return console[type]( ...argumentsAgent( `color:${ propKey }`,..._logs ) );
 					}
 					return console[type]( ...argumentsAgent( `color:${ _propKey.toString() }`,...logs ) );
-					
 				};
 			} ,
 		} );
 		switch ( propKey ){
+			case "trace" :
 			case "warn" : 
 			case "log" : 
 			case "info" : 
 			case "error" :
+			case "debug" :
 				return createColorProxy(propKey);
 		}
-		return createColorProxy("log");
+		return createColorProxy("trace");
 	},
 }) as crayon;
 

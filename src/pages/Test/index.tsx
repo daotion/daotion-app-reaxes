@@ -1,105 +1,67 @@
-import {
-	viaMobx ,
-} from '@@common/MobxState';
-export const {
-	setState ,
-	store,
-} = viaMobx<any>( {
+export const Test = ComponentWrapper( class extends ReactComponentClass {
 	
-	count : 2 ,
-	
-} );
-
-class Apx extends ReactComponentClass<any , any> {
-	
-	
+	act = _action({name:"Test",...this.lifecycle});
 	
 	render() {
-		const [store , setCount , clear ] = orzWallet(this)(0);
-		
 		return <>
-			<span
-				onClick = {() => setCount()}
-			>{store.count}</span>
-			<button
-				onClick={clear}
-			>clear</button>
+			<Text/>
+			<button onClick = {this.act.setCount}>counter</button>
 		</>;
 	}
-}
-
-const wrapper = (callback) => {
-	let first = true ;
-	let instance;
-	const lifecycle = {
-		mounted : (cb) => {
-			instance.mountedStack.push(cb);
-		},
-		unmount : (cb) => {
-			instance.unmountStack.push(cb);
-		} ,
-		updated : (cb) => {
-			instance.updatedStack.push(cb);
-		} ,
-		rendered : (cb) => {
-			instance.renderedStack.push(cb);
-		} ,
-	};
-	const preventDuplicate = (cb) => {
-		if(!first){
-			const noop = () => null ;
-			Object.assign(lifecycle,{
-				"mounted" : noop,
-				"unmount" : noop,
-				"updated" : noop,
-				"rendered" : noop,
-			});
-		}
-		return cb;
-	};
-	const prevented = preventDuplicate(callback());
-	return (_instance) => (...props) => {
-		instance = _instance ;
-		return first = false,prevented(lifecycle,...props);
-	}
-}
-
-const orzWallet = wrapper( () => {
-	
-	const {
-		store ,
-		setState,
-	} = viaMobx( {
-		count : 0 ,
-	} );
-	let prevInstance = null;
-	let timer;
-	return ( lifecycle , initialCount  ) => {
-		console.log( 'running' );
-		lifecycle.mounted( () => {
-			console.log( 'lifecycle.mounted' );
-			timer = setInterval(
-				() => {
-					console.log( `setIntervel ${ store.count }` );
-					setState( {
-						count : store.count + 1 ,
-					} );
-				} ,
-				2500 ,
-			);
-		} );
-		
-		lifecycle.unmount( () => {
-			clearInterval( timer );
-			console.log( 'timer cleared' );
-		} );
-		
-		return [
-			store ,
-			() => setState( { count : store.count + 1 } ) ,
-			() => clearInterval( timer ),
-		];
-	};
 } );
 
-export const Test = ComponentWrapper(Apx);
+const Text = ComponentWrapper(class extends ReactComponentClass {
+	
+	act = _action( { name : "Text" , ...this.lifecycle });
+	
+	render() {
+		return <>
+			<span>
+				{ this.act.count }
+			</span>
+			<span>
+				{this.act.number }
+			</span>
+		</>;
+	}
+})
+
+const action = (initial?) => {
+	
+	const {store,setState} = orzMobx({
+		count : initial ?? 0 ,
+		number : 999 ,
+	})
+	
+	return (lifecycle?:LifeCycle) => {
+		
+		lifecycle.updated(() => {
+			if(lifecycle.name ==="Text"){
+				console.log(lifecycle);
+			}
+		});
+		
+		lifecycle.effect(() => {
+			console.log(`component:${lifecycle.name} updated!!`);
+		},() => [store.count , store.number > 990])
+		
+		return {
+			get count (){
+				return store.count;
+			} ,
+			get number (){
+				return store.number;
+			} ,
+			setCount() {
+				if(store.count > 4){
+					return setState({number:store.number - 1}) ;
+				}
+				setState( { count : store.count + 1 } );
+			},
+			
+		}
+	}
+	
+};
+
+const _action = action();

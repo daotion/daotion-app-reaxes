@@ -1,4 +1,16 @@
-
+type global_env_config = {
+	[o in typeof __ENV__] : {
+		proxy_dev : string;
+		proxy_server : string;
+	}
+};
+const global_env_config = __ENV_CONFIG__.reduce((accu,itm) => {
+	accu[itm.env] = {
+		proxy_dev : itm.proxy_path_dev ,
+		proxy_server : itm.proxy_path_server ,
+	};
+	return accu;
+},{} as global_env_config);
 
 export const request = new class {
 	
@@ -33,7 +45,17 @@ export const request = new class {
 		 * 如果不是绝对地址则加http前缀
 		 * 这一步得到"http://baidu.com" || "/server_dev/dao-list"
 		 */
-		url = this.#testHTTP.test( url ) ? url : `/${ env }${ url.startsWith( '/' ) ? url : `/${ url }` }`;
+		url = (() => {
+			/*如果是绝对地址,则不作处理*/
+			if(this.#testHTTP.test( url )) return url;
+			else {
+				const prefixPath = {
+					"development" : global_env_config[env].proxy_dev ,
+					"production" : global_env_config[env].proxy_server ,
+				}[__NODE_ENV__];
+				return `${ prefixPath }${ url.startsWith( '/' ) ? url : `/${ url }`}`;
+			}
+		})();
 		/*把GET请求的body对象转成queryString.去除body属性*/
 		if (/GET/i.test(options.method)){
 			/*检测绝对地址中是否存在qs并警告*/

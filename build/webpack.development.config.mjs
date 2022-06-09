@@ -9,6 +9,10 @@ import {
 	port ,
 	rootPath ,
 } from "./webpack.core.config.mjs";
+import { envConfig } from './.mix.js';
+// import envConfig from '../Public/env.config.json';
+// const envConfig = require('../Public/env.config.json');
+
 
 /*返回dev-server配置 , 用于启动本地服务*/
 export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$Fn([]) , {
@@ -27,19 +31,12 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 		historyApiFallback : true ,
 		// clientLogLevel : "none",
 		// quiet : true,
-		proxy : {
-			"/server_yang" : {
-				target : 'http://192.168.1.126:8199' ,
-				pathRewrite : {'^/server_yang':''},
-				secure: false,
-			},
-			"/server_dev" : {
-				target : 'http://121.199.23.234:8199' ,
-				pathRewrite : {'^/server_dev':''},
-				secure: false,
-			},
-			
-		}
+		proxy : envConfig.reduce((accu , config) => (accu[config.proxy_path_dev] = {
+			target : config.server_host ,
+			pathRewrite : config.path_rewrite ,
+			secure : config.secure ,
+		},accu) , {}),
+		
 	} ,
 	devtool : 'source-map' ,
 	optimization : {
@@ -48,4 +45,3 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 	plugins : [...mixed.plugins],
 	
 });
-

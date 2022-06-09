@@ -1,25 +1,26 @@
-import 'antd/dist/antd.less';
-import React , { Component } from 'react';
-import {hot} from 'react-hot-loader/root';
-import { Button ,ConfigProvider ,message ,} from 'antd';
+import { hot } from 'react-hot-loader/root';
 import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-import {ReactComponentClass} from '@@common/ReactComponentClass';
-import { DemoLayout } from '@@pages/DemoLayout';
-import {Test} from '@@pages/Test';
-import "./styles/main.module.less";
-import {ReactTemplate} from '../Public/react-template';
-import {Routing} from './Routing';
+import {
+	Button ,
+	ConfigProvider ,
+	message ,
+} from 'antd';
 import {
 	globalSetState ,
-	globalStore,
+	globalStore ,
 } from '@@common/global-controller';
+import { Test } from '@@pages/Test';
+import { ReactTemplate } from '../Public/react-template';
+import { Routing } from './Routing';
+import { DemoLayout } from '@@pages/DemoLayout';
+import 'antd/dist/antd.less';
+import "./styles/main.module.less";
 
 class _App extends ReactComponentClass<any , any> {
 	
 	
-	componentDidRender( stage ,prevProps, prevState: Readonly<any> , snapshot?: any ) {
+	componentDidRender( stage , prevProps , prevState : Readonly<any> , snapshot? : any ) {
 		ConfigProvider.config( {
 			theme : {
 				primaryColor : '#1890ff' ,
@@ -33,17 +34,16 @@ class _App extends ReactComponentClass<any , any> {
 	}
 	
 	render() {
-		[globalStore.theme];
-		
+		[ globalStore.theme ];
 		
 		
 		return <>
 			<ConfigProvider
-				locale={{
-					"zhCN" : zhCN,
-					"enUS" : enUS,
-				}[globalStore.language]}
-				
+				locale = { {
+					"zhCN" : zhCN ,
+					"enUS" : enUS ,
+				}[ globalStore.language ] }
+			
 			>
 				<Routing />
 			</ConfigProvider>
@@ -53,8 +53,9 @@ class _App extends ReactComponentClass<any , any> {
 }
 
 
-
-
-
-export const App = (ComponentWrapper( (_App) ));
+export const App = (
+	ComponentWrapper( (
+		_App
+	) )
+);
 

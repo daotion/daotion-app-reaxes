@@ -1,6 +1,3 @@
-import React from 'react';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-import { ReactComponentClass } from '@@common/ReactComponentClass';
 import { BtnAddDAOSvgComponent } from './components';
 
 

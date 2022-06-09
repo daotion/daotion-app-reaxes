@@ -29,7 +29,7 @@ export const didRenderLifeCycle = ( originalComponent: React.ComponentClass ) =>
 			...args,
 		);
 		
-		this.mountedStack.forEach((callback) => callback());
+		this.mountedStack.forEach(( { callback }) => callback());
 	};
 	originalComponent.prototype.componentDidUpdate = function ( ...args ) {
 		originalDidUpdate?.call(
@@ -41,13 +41,13 @@ export const didRenderLifeCycle = ( originalComponent: React.ComponentClass ) =>
 			"update" ,
 			...args,
 		);
-		this.updatedStack.forEach((callback) => callback());
+		this.updatedStack.forEach(( { callback }) => callback());
 	};
 	originalComponent.prototype.componentDidRender = function ( ...args ) {
 		
 		originalDidRender?.call(this,...args);
 		
-		this.renderedStack.forEach((callback) => callback());
+		this.renderedStack.forEach(( { callback }) => callback());
 	};
 	
 	
@@ -55,7 +55,7 @@ export const didRenderLifeCycle = ( originalComponent: React.ComponentClass ) =>
 	originalComponent.prototype.originalWillUnmount = function ( ...args ) {
 		
 		originalWillUnmount.call(this,...args);
-		this.updatedStack.forEach((callback) => callback());
+		this.updatedStack.forEach(( { callback }) => callback());
 	};
 	
 	return originalComponent;

@@ -50,6 +50,17 @@ declare type responseWrap<T> = {
 
 
 declare const __IS_MOCK__: boolean;
+declare const __ENV_CONFIG__: {
+	"env" : string,
+	"proxy_path_dev" : string ,
+	"proxy_path_server" : string ,
+	"server_host" : string ,
+	"path_rewrite" : {
+		[p:string] : string,
+	} ,
+	"secure" : boolean,
+}[];
+declare const __NODE_ENV__ : "development"|"production";
 declare const __ENV__ : ORZ.env;
 
 declare interface NodeRequire {
@@ -81,12 +92,15 @@ declare interface Account {
 	balance: Record<string, string> | null
 }
 
-type lifecycle = (callback:Function) => void;
+type lifecycle = (callback:Function) => string;
 declare interface LifeCycle {
+	[p:string|symbol] : any ;
 	unmount : lifecycle ,
 	mounted : lifecycle ,
 	rendered : lifecycle ,
 	updated : lifecycle ,
+	unregister : (id:string) => void,
+	effect <T extends () => any,F extends () => any[]>(callback : T ,deps : F) : void ,
 	memory<F extends (first:boolean) => any >( callback : F , dependencies ):ReturnType<F> ,
 }
 
