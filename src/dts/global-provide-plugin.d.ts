@@ -30,4 +30,4 @@ declare const assert : typeof import('@@utils/assert-group.utility').assert;
 declare const decodeQueryString : typeof import('@@utils/queryString.utility').decodeQueryString;
 declare const encodeQueryString : typeof import('@@utils/queryString.utility').encodeQueryString;
 declare const stringify : typeof import('@@utils/stringify.utility').stringify;
-declare const utils : typeof import('@@utils');
+declare const utils : typeof import('@@utils/index');

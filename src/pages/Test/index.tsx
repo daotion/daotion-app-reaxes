@@ -1,6 +1,6 @@
 export const Test = ComponentWrapper( class extends ReactComponentClass {
 	
-	act = _action({name:"Test",...this.lifecycle});
+	act = _action(this.lifecycle);
 	
 	render() {
 		return <>
@@ -12,7 +12,8 @@ export const Test = ComponentWrapper( class extends ReactComponentClass {
 
 const Text = ComponentWrapper(class extends ReactComponentClass {
 	
-	act = _action( { name : "Text" , ...this.lifecycle });
+	act = _action( this.lifecycle);
+	
 	
 	render() {
 		return <>
@@ -36,14 +37,16 @@ const action = (initial?) => {
 	return (lifecycle?:LifeCycle) => {
 		
 		lifecycle.updated(() => {
-			if(lifecycle.name ==="Text"){
-				console.log(lifecycle);
-			}
+			console.log(lifecycle);
 		});
 		
-		lifecycle.effect(() => {
-			console.log(`component:${lifecycle.name} updated!!`);
-		},() => [store.count , store.number > 990])
+		lifecycle.rendered(() => {
+			console.log(11111111);
+		});
+		
+		// lifecycle.effect(() => {
+		// 	console.log(`component:${lifecycle.name} updated!!`);
+		// },() => [store.count , store.number > 990])
 		
 		return {
 			get count (){

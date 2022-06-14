@@ -7,6 +7,7 @@ export const {
 	store : globalStore ,
 	setState : globalSetState ,
 } = viaMobx<globalStoreType>( {
+	experimental : __EXPERIMENTAL__ ,
 	theme : "light" ,
 	language : "zhCN" ,
 	/* null:第一次还没连接, false:已断开连接 */

@@ -13,6 +13,10 @@ const port = await getPort();
  * 每次打包完成后输出日志
  */
 export class LogAtSucceed {
+	env = null;
+	constructor (env = "production") {
+		this.env = env;
+	}
 	
 	count = 0;
 	
@@ -27,8 +31,8 @@ export class LogAtSucceed {
 			if ( stats.hasErrors() ) {
 				return this.onFail(stats);
 			}
-			
-			console.log(chalk.green(`compiled successfully at ${ dayjs().format("HH:mm:ss") } , host : http://${ getIPV4address() }:${port}\n\r`));
+			const whisper = this.env === "production" ? "" : ` , host : http://${ getIPV4address() }:${port}\n\r`;
+			console.log(chalk.green(`compiled successfully at ${ dayjs().format("HH:mm:ss") }${whisper}`));
 		});
 		compiler.hooks.failed.tap('LogAtSucceed' , (error) => {
 			this.onFail(error);

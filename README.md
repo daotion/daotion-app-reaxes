@@ -1,6 +1,8 @@
 # Daotion web-interface
 
+**`全新架构Reaxes`**
 
+同一个reaxel内的lifecycle生命周期不保证调用顺序,所以lifecycle.updated()注等钩子注册的函数们不应该相互有依赖关系 ,就像hooks callbacks 
 
 #### Notes
 生成图标库:

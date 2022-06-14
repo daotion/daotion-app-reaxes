@@ -53,7 +53,7 @@ const _ReactTemplate = class extends ReactComponentClass<any , any>    {
 					<Route
 						index
 						element = {
-							withOutlet( () => <div>
+							withOutlet( <div>
 								<Link
 									to = "button/."
 								>Button</Link>

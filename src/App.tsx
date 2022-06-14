@@ -13,7 +13,7 @@ import {
 import { Test } from '@@pages/Test';
 import { ReactTemplate } from '../Public/react-template';
 import { Routing } from './Routing';
-import { DemoLayout } from '@@pages/DemoLayout';
+import { Home } from '@@pages/Home';
 import 'antd/dist/antd.less';
 import "./styles/main.module.less";
 

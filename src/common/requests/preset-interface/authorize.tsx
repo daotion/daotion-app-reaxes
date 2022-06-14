@@ -1,3 +1,7 @@
+import { signViaWallet } from '@@common/reaxes/sign-message';
+
+
+
 export const request_signature_string = ( address : string ) =>
 	request.post<{ signatureNonce : string }>( '/user/signature-string' , {
 		body : { address } ,
@@ -8,15 +12,18 @@ export const request_signature_string = ( address : string ) =>
 	} );
 
 
-export const request_sign_in = ( address : string , signatureNonce : string ) =>
-	request.post<void , { address : string, signatureNonce : string }>( '/user/sign_in' , {
+export const request_sign_in = async ( address : string , signatureNonce : string ) => {
+	const { sign } = signViaWallet( { memory : ( s ) => s() } as any );
+	return request.post<void , { address : string, signatureStr : string }>( '/user/sign-in' , {
 		body : {
 			address ,
-			signatureNonce ,
-		},
-	} ).then(() => {
+			signatureStr : await sign( signatureNonce ) ,
+		} ,
+	} ).
+	then( () => {
 		crayon.green( 'sign in successfully' );
-	});
+	} );
+};
 
 export const request_regression_sign = ( address ) =>
 	request_signature_string( address ).

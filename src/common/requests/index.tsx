@@ -22,7 +22,7 @@ export const request = new class {
 			method: 'GET',
 		},
 	): Promise<response> => {
-		const env = (options.env ?? options.env) || __ENV__ || "server_dev";
+		const env = (options.env ?? __ENV__) ?? "default_server";
 		/**
 		 * 暂时禁用
 		 * 需 mock 的情形，走mock请求
@@ -49,10 +49,19 @@ export const request = new class {
 			/*如果是绝对地址,则不作处理*/
 			if(this.#testHTTP.test( url )) return url;
 			else {
-				const prefixPath = {
-					"development" : global_env_config[env].proxy_dev ,
-					"production" : global_env_config[env].proxy_server ,
-				}[__NODE_ENV__];
+				const prefixPath = (() => {
+					/**
+					 * 
+					 */
+					if(env === "default_server"){
+						return "/server";
+					}else {
+						return {
+							"development" : global_env_config[env].proxy_dev ,
+							"production" : global_env_config[env].proxy_server ,
+						}[__NODE_ENV__];
+					}
+				})();
 				return `${ prefixPath }${ url.startsWith( '/' ) ? url : `/${ url }`}`;
 			}
 		})();

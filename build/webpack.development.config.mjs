@@ -10,6 +10,7 @@ import {
 	rootPath ,
 } from "./webpack.core.config.mjs";
 import { envConfig } from './.mix.js';
+import {LogAtSucceed} from './plugins.mjs';
 // import envConfig from '../Public/env.config.json';
 // const envConfig = require('../Public/env.config.json');
 
@@ -42,6 +43,6 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 	optimization : {
 		minimize : false ,
 	} ,
-	plugins : [...mixed.plugins],
+	plugins : [...mixed.plugins, new LogAtSucceed('development'),],
 	
 });

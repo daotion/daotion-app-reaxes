@@ -44,7 +44,9 @@ export let {
 	mock = null,
 	analyze = false ,
 	method = "server" ,
-	env = "server_dev",
+	env = "default_server",
+	node_env = "development",
+	experimental = null ,
 } = overload(args , [
 	{
 		regExp : /\bmock\b/ ,
@@ -63,12 +65,25 @@ export let {
 		regExp : /\bserver_yang|server_dev\b/ ,
 		key : "env" ,
 	} ,
+	{
+		/*网络请求环境*/
+		regExp : /\bdevelopment|production\b/ ,
+		key : "node_env" ,
+	} ,
+	{
+		/*是否开启实验特性*/
+		regExp : /\bexp|non-exp\b/i ,
+		key : "experimental" ,
+	} ,
 ]);
+/*如果是dev环境则默认开启实验特性,除非明确说明*/
+if(experimental === null && node_env === 'development') experimental = 'exp';
+else experimental = 'non-exp';
 const analysis = analyze ? [new BundleAnalyzerPlugin()] : []; 
 const devConfig = developmentConfig$Fn({
 	plugins : [
 		getProvidePlugin() ,
-		getDefinePlugin('development') ,
+		getDefinePlugin(node_env ) ,
 		...analysis,
 	] ,
 });
@@ -99,7 +114,6 @@ function start(){
 				console.error(e);
 			});
 			break;
-		/*not avalibel for now*/
 		case 'build': {
 			chalk.green(`building , please hold on...`)
 			build().then(() => {
@@ -137,7 +151,7 @@ function devServer () {
 			compiler ,
 		);
 		webpackServer.start().then(() => {
-			console.log(chalk.yellow(`WDS已启动在http://${ getIPV4address() }:${ port }`));
+			// console.log(chalk.yellow(`WDS已启动在http://${ getIPV4address() }:${ port }`));
 		})
 	}
 	catch ( e ) {
@@ -153,14 +167,15 @@ function build () {
 	return webpack_promise(prodConfig );
 };
 
-function getDefinePlugin (mode = 'production') {
+function getDefinePlugin (mode = node_env || 'production') {
 	return new DefinePlugin({
-		'__REACT_DEVTOOLS_GLOBAL_HOOK__' : '({ isDisabled: true })' , /* 递归遍历src/pages下的文件结合src/pages/Route_Map.json , 生成一份路由表注入到全局变量里 */
+		// '__REACT_DEVTOOLS_GLOBAL_HOOK__' : '({ isDisabled: true })' , /* 递归遍历src/pages下的文件结合src/pages/Route_Map.json , 生成一份路由表注入到全局变量里 */
 		ROUTE_MAP : "{}" || generateRouteMap() , // 全局注入mock模式变量
 		__IS_MOCK__ : mock ? 'true' : 'false' ,
 		__ENV__ : JSON.stringify(env) ,
 		__ENV_CONFIG__ : JSON.stringify(envConfig) ,
 		__NODE_ENV__ : JSON.stringify(mode),
+		__EXPERIMENTAL__ : JSON.stringify(experimental === 'experimental'),
 	});
 };
 

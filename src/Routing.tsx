@@ -9,10 +9,13 @@ import {
 	Link ,
 } from 'react-router-dom';
 import { Test } from '@@pages/Test';
-import { DemoLayout } from '@@pages/DemoLayout';
+import { Home } from '@@pages/Home';
+import { Navigation } from '@@utils';
 import { ReactTemplate } from '../Public/react-template';
 import { DesignComponents } from '@@pages/DesignComponents';
 import {Wallet} from '@@pages/Wallet-logic';
+import { DaoInfo } from '@@pages/DAO-Info';
+
 export const Routing = (
 	( props ) => {
 		
@@ -20,54 +23,52 @@ export const Routing = (
 		return <BrowserRouter>
 			<Routes>
 				<Route
-					path = "/*"
-				>
-					<Route
-						index
-						element = { React.createElement( () => {
-							return <>
-								
-								<Button>
-									<Link
-										to = "/demo"
-									>
-										Demo
-									</Link>
-								</Button>
+					path="/"
+					element = { React.createElement( () => {
+						return <>
 							
-							</>;
-						} ) }
-					/>
-					<Route
-						path = "demo"
-						element = { <DemoLayout /> }
-					/>
-					<Route
-						path = "DesignComponents/*"
-						element = { withOutlet( () => <DesignComponents />) }
-					/>
-					
-					<Route
-						path = "test"
-						element = { withOutlet( () => <Test /> ) }
-					/>
-					
-					
-					<Route
-						path = "react-template"
-						element = { withOutlet( () => <ReactTemplate /> ) }
-					/>
-				</Route>
+							<Button>
+								<Link
+									to = "/demo"
+								>
+									Demo
+								</Link>
+							</Button>
+						
+						</>;
+					} ) }
+				/>
+				<Route
+					path = "home/*"
+					element = { withOutlet(<Home />) }
+				/>
+				<Route
+					path = "DesignComponents/*"
+					element = { withOutlet( <DesignComponents />) }
+				/>
+				
+				<Route
+					path = "test"
+					element = { withOutlet( <Test /> ) }
+				/>
+				
+				<Route
+					path = "react-template"
+					element = { withOutlet( <ReactTemplate /> ) }
+				/>
+				<Route
+					path = "dao-info"
+					element = { <DaoInfo /> }
+				/>
 			</Routes>
-		
+			<Navigation/>
 		</BrowserRouter>;
 	}
 );
 
-
-export const withOutlet = ( _Component ) => {
+export const withOutlet = ( ReactElement:React.ReactElement ) => {
 	return <>
-		<_Component />
+		{ReactElement}
 		<Outlet />
 	</>;
 };

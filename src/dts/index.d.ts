@@ -13,6 +13,7 @@ declare module '*.bmp';
 // }
 
 declare interface globalStoreType {
+	experimental : boolean,
 	theme : "light" | "dark" | string;
 	language : "enUS"|"zhCN"|string;
 	/* null:第一次还没连接, false:已断开连接 */
@@ -50,6 +51,7 @@ declare type responseWrap<T> = {
 
 
 declare const __IS_MOCK__: boolean;
+declare const __EXPERIMENTAL__: boolean;
 declare const __ENV_CONFIG__: {
 	"env" : string,
 	"proxy_path_dev" : string ,
@@ -107,7 +109,7 @@ declare interface LifeCycle {
 
 declare namespace ORZ {
 	
-	export type env = "server_dev"|"server_yang" ;
+	export type env = "server_dev"|"server_yang" | "default_server"  ;
 	
 	export type RequestOptions<body extends object> = Omit<RequestInit, 'body'> & {
 		env? : env,

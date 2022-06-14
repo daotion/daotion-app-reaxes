@@ -45,7 +45,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'react-dom' : "@hot-loader/react-dom" ,
 			'@@common' : path.resolve(rootPath , 'src/common') ,
 			'@@common/*' : path.resolve(rootPath , 'src/common/*') ,
-			'@@utils' : path.resolve(rootPath , 'src/utils/index.ts') ,
+			'@@utils' : path.resolve(rootPath , 'src/utils/index.tsx') ,
 			'@@utils/*' : path.resolve(rootPath , 'src/utils/*') ,
 			'@@Public' : path.join(rootPath , 'Public') ,
 			'@@mobxState' : path.resolve(rootPath , 'src/common/MobxState.ts') ,
@@ -197,8 +197,6 @@ export const basicConfig$Fn = (plugins = []) => ({
 			excludeChunks : [] ,
 			inject : false ,
 		}) ,
-		
-		new LogAtSucceed(),
 		new NodePolyfillPlugin(),
 		...plugins
 	] ,

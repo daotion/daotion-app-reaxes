@@ -23,10 +23,10 @@ export const webpack_promise = config => {
 /*返回本机的ipv4局域网地址*/
 export const getIPV4address = () => {
 	const network = os.networkInterfaces();
+	
 	for (const i in network) {
 		for (const val of network[i]) {
-			if (val.family === 'IPv4' &&
-				val.address !== "127.0.0.1" &&
+			if (val.netmask === "255.255.255.0" &&
 				val.address.startsWith('192.168')
 			) {
 				return val.address;

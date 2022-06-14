@@ -34,6 +34,14 @@ export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = a
 	
 	lifecycle = {
 		
+		_only (props){
+			return _.pick(this,props);
+		},
+		
+		_omit(props){
+			
+		},
+		
 		unregister : (id) => {
 			_.remove(this.mountedStack,(value) => value.id === id);
 			_.remove(this.unmountStack,(value) => value.id === id);

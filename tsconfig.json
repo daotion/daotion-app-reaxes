@@ -68,7 +68,7 @@
 				"src/common/*"
 			] ,
 			"@@utils" : [
-				"src/utils/index.ts"
+				"src/utils/index.tsx"
 			] ,
 			"@@utils/*" : [
 				"src/utils/*"
