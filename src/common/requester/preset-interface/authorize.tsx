@@ -1,4 +1,4 @@
-import { signViaWallet } from '@@common/reaxes/sign-message';
+import { reaxel_sign_via_wallet } from '@@common/reaxes/authurize';
 
 
 
@@ -13,7 +13,7 @@ export const request_signature_string = ( address : string ) =>
 
 
 export const request_sign_in = async ( address : string , signatureNonce : string ) => {
-	const { sign } = signViaWallet( { memory : ( s ) => s() } as any );
+	const { sign } = reaxel_sign_via_wallet();
 	return request.post<void , { address : string, signatureStr : string }>( '/user/sign-in' , {
 		body : {
 			address ,
@@ -29,4 +29,8 @@ export const request_regression_sign = ( address ) =>
 	request_signature_string( address ).
 	then( ( signatureNonce ) => {
 		return request_sign_in( address , signatureNonce as string );
-	} );
+	} ).then(() => {
+		console.log('PPPPPPPPPPPPPPPPPPPPPPPPP');
+	}).catch(() => {
+		console.log('PPPPPPPPPPPPPPPPPPPPPPPPP');
+	});

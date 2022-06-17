@@ -1,7 +1,7 @@
 import { Button, Modal } from 'antd';
 import { useCallback, useReducer, useState } from 'react';
-import { DaoAvator } from './components/dao-avator';
-import { ChannelShare } from './components/channel-share';
+import { DaoAvator } from './Components/dao-avator';
+import { ChannelShare } from './Components/channel-share';
 import { useSearchParams } from 'react-router-dom';
 import less from './style.module.less';
 const _DaoInfo = class extends ReactComponentClass<any, any> {

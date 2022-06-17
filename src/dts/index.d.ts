@@ -95,7 +95,7 @@ declare interface Account {
 }
 
 type lifecycle = (callback:Function) => string;
-declare interface LifeCycle {
+declare interface Lifecycle {
 	[p:string|symbol] : any ;
 	unmount : lifecycle ,
 	mounted : lifecycle ,
@@ -119,4 +119,4 @@ declare namespace ORZ {
 }
 
 
-declare const request : typeof import('@@common/requests').request;
+declare const request : typeof import('@@common/requester').request;

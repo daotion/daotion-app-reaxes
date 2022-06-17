@@ -1,7 +1,6 @@
 /**
- * @format
  * @description 将字符串qs转换为对象(暂不支持多层嵌套)||注意:中文key-value需要decodeURIComponent!!!
- * @param str 要转换的字符串
+ * @param str 要转换的字符串,不传默认是获取href query对象
  */
 
 export const decodeQueryString = <result extends string[] = []>( str: string = location.href ): Batch<result , string> => {
@@ -75,4 +74,4 @@ export const encodeQueryString = ( source: object ):string => {
 
 
 
-  
+

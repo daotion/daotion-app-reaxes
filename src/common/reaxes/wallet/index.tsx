@@ -2,14 +2,17 @@ import type {
 	ConnectOptions ,
 	WalletState ,
 } from '@web3-onboard/core';
-import {ethers} from 'ethers';
-import { providers } from 'ethers';
+import {
+	ethers ,
+	providers,
+} from 'ethers';
 import {
 	account_storage_symbol ,
 	orzLocalstroage ,
 } from '@@common/storages';
 import { Chain } from '@web3-onboard/common';
-import { web3onboard } from '@@common/reaxes';
+import { web3onboard } from '@@reaxes';
+import { reaxel_login } from '@@reaxes/authurize';
 
 const web3Onboard = web3onboard.instance;
 
@@ -27,7 +30,7 @@ type SetChainOptions = {
 
 const syncState = {};
 
-export const ReaxelConnectWalletFromStorage = ( lifecycle : LifeCycle ) => {
+export const reaxel_connect_wallet_from_storage = ( lifecycle : Lifecycle ) => {
 	
 	return {
 		/*从localstorage读入缓存并链接钱包*/
@@ -40,14 +43,17 @@ export const ReaxelConnectWalletFromStorage = ( lifecycle : LifeCycle ) => {
 						label : wallet.label ,
 						disableModals : true ,
 					} ,
-				} );
-				globalSetState( {
-					windowLoading : {
-						isLoading : true ,
-						tipNode : "connecting wallet and fetch for ens .." ,
-					} ,
-					walletConnecting : true ,
-				} );
+				} ).then(() => {
+					globalSetState( {
+						// windowLoading : {
+						// 	isLoading : true ,
+						// 	tipNode : "connecting wallet and fetch for ens .." ,
+						// } ,
+						walletConnecting : true ,
+					} );
+				}).catch(() => {
+					crayon.gold( '222cannot get previous wallet info' );
+				});
 			} else {
 				crayon.gold( 'cannot get previous wallet info' );
 			}
@@ -55,14 +61,14 @@ export const ReaxelConnectWalletFromStorage = ( lifecycle : LifeCycle ) => {
 	};
 };
 
-export const ReaxelConnectWalletWhenMounted = ( lifecycle : LifeCycle ) => {
-	const { connectWalletFromStorage } = ReaxelConnectWalletFromStorage( lifecycle );
+export const reaxel_connect_wallet_when_mounted = ( lifecycle : Lifecycle ) => {
+	const { connectWalletFromStorage } = reaxel_connect_wallet_from_storage( lifecycle );
 	lifecycle.mounted( () => {
 		connectWalletFromStorage();
 	} );
 };
 
-export const ReaxelconnectWallet = ( lifecycle : LifeCycle ) => {
+export const reaxel_connectWallet = ( lifecycle : Lifecycle ) => {
 	
 	return {
 		get connectedWallet() {
@@ -76,10 +82,10 @@ export const ReaxelconnectWallet = ( lifecycle : LifeCycle ) => {
 			return ( options : ConnectOptions ):Promise<WalletState> => {
 				globalSetState( {
 					walletConnecting : true ,
-					windowLoading : {
-						tipNode : "connecting wallet, please hold on." ,
-						isLoading : true ,
-					} ,
+					// windowLoading : {
+					// 	tipNode : "connecting wallet, please hold on." ,
+					// 	isLoading : true ,
+					// } ,
 				} );
 				
 				return web3onboard.
@@ -104,7 +110,7 @@ export const ReaxelconnectWallet = ( lifecycle : LifeCycle ) => {
 					globalSetState( {
 						walletConnecting : false ,
 						connectedWallet : null ,
-						windowLoading : { isLoading : false } ,
+						// windowLoading : { isLoading : false } ,
 					} );
 					throw e;
 				} );
@@ -123,74 +129,84 @@ export const ReaxelconnectWallet = ( lifecycle : LifeCycle ) => {
 	};
 };
 
-export const ReaxelWallets = ( lifecycle : LifeCycle ) => {
-	const wallets = web3onboard.instance.state.get().wallets;
-	lifecycle?.mounted?.( () => {
-		const wallets$ = web3onboard.instance.state.select( "wallets" );
-		const subscription = wallets$.subscribe( ( [connectedWallet] ) => {
-			crayon.purple( '2312321',connectedWallet );
-			if(connectedWallet === undefined){
-				globalSetState({
-					connectedWallet : null , 
-					windowLoading : {
-						isLoading : false ,
-					},
-					walletConnecting :false ,
-				});
-				return;
-			}else {
-				if(connectedWallet.accounts[0].ens !== null ) {
-					globalSetState( {
-						connectedWallet : connectedWallet ,
-						windowLoading : {
-							isLoading : false ,
-						} ,
-						walletConnecting : false ,
-					} );
-					setWalletToLocalstorage(connectedWallet);
+export const reaxel_wallet = function(){
+	const {
+		is_logged_in ,
+		login,
+	} = reaxel_login( null );
+	
+	return ( lifecycle : Lifecycle ) => {
+		
+		
+		const wallets = web3onboard.instance.state.get().wallets;
+		lifecycle?.mounted?.( () => {
+			const wallets$ = web3onboard.instance.state.select( "wallets" );
+			const subscription = wallets$.subscribe( ( [connectedWallet] ) => {
+				// crayon.purple( '2312321',connectedWallet );
+				if(connectedWallet === undefined){
+					globalSetState({
+						connectedWallet : null ,
+						// windowLoading : {
+						// 	isLoading : false ,
+						// },
+						walletConnecting :false ,
+					});
+					return;
 				}else {
-					fetchENS(
-						connectedWallet.accounts[0].address ,
-						web3onboard.instance.state.get().chains[0],
-					).then((ens) => {
-						connectedWallet.accounts[0].ens = ens;
+					login(connectedWallet.accounts[0].address);
+					if(connectedWallet.accounts[0].ens !== null ) {
 						globalSetState( {
 							connectedWallet : connectedWallet ,
-							windowLoading : {
-								isLoading : false ,
-							} ,
+							// windowLoading : {
+							// 	isLoading : false ,
+							// } ,
 							walletConnecting : false ,
 						} );
 						setWalletToLocalstorage(connectedWallet);
-					}).catch((e) => {
-						console.trace(e);
-					});
+					}else {
+						// fetchENS(
+						// 	connectedWallet.accounts[0].address ,
+						// 	web3onboard.instance.state.get().chains[0],
+						// ).then((ens) => {
+						// 	connectedWallet.accounts[0].ens = ens;
+						// 	globalSetState( {
+						// 		connectedWallet : connectedWallet ,
+						// 		windowLoading : {
+						// 			isLoading : false ,
+						// 		} ,
+						// 		walletConnecting : false ,
+						// 	} );
+						// 	setWalletToLocalstorage(connectedWallet);
+						// }).catch((e) => {
+						// 	console.trace(e);
+						// });
+					}
 				}
-			}
-			
-			lifecycle.unmount( () => subscription.unsubscribe() );
+				
+				lifecycle.unmount( () => subscription.unsubscribe() );
+			} );
 		} );
-	} );
-	
-	let prodiver = lifecycle.memory((first) => {
-		if(!globalStore.connectedWallet) return prodiver = null;
-		return prodiver = new ethers.providers.Web3Provider(globalStore.connectedWallet?.provider ?? null, 'any');
-	} , () => [globalStore.connectedWallet]);
-	
-	return {
-		get connectedWallet (){
-			return globalStore.connectedWallet;
-		},
-		get wallet() {
-			return globalStore.connectedWallet || null;
-		} ,
-		get provider (){
-			return prodiver;
-		},
+		
+		let prodiver = Reaxes.memory((first) => {
+			if(!globalStore.connectedWallet) return prodiver = null;
+			return prodiver = new ethers.providers.Web3Provider(globalStore.connectedWallet?.provider ?? null, 'any');
+		} , () => [globalStore.connectedWallet]);
+		
+		return {
+			get connectedWallet (){
+				return globalStore.connectedWallet;
+			},
+			get wallet() {
+				return globalStore.connectedWallet || null;
+			} ,
+			get provider (){
+				return prodiver;
+			},
+		};
 	};
-};
+}();
 
-export const chains = ( lifecycle : LifeCycle ) => {
+export const reaxel_chains = ( lifecycle : Lifecycle ) => {
 	
 	const {
 		state ,

@@ -16,13 +16,11 @@ import {
 } from 'antd';
 import {ClockCircleOutlined} from '@ant-design/icons';
 
-import { viaMobx } from '@@mobxState';
 import {
 	Routes ,
 	Route ,
 	Link ,
 } from 'react-router-dom';
-import {withOutlet} from '../../Routing';
 
 export interface store {
 	inputValue: string;
@@ -31,7 +29,7 @@ export interface store {
 export const {
 	store ,
 	setState ,
-} = viaMobx<store>( {
+} = orzMobx<store>( {
 	inputValue : "" ,
 } );
 
@@ -53,7 +51,7 @@ const _ReactTemplate = class extends ReactComponentClass<any , any>    {
 					<Route
 						index
 						element = {
-							withOutlet( <div>
+							utils.withOutlet( <div>
 								<Link
 									to = "button/."
 								>Button</Link>

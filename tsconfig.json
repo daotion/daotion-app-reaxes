@@ -79,11 +79,11 @@
 			"@@components/*" : [
 				"src/utils/components/*"
 			] ,
-			"-@@common/requests" : [
-				"src/common/requests/index.ts"
+			"@@requester" : [
+				"src/common/requester/index"
 			] ,
-			"-@@common/routes" : [
-				"src/common/routes/index.tsx"
+			"@@requester/*" : [
+				"src/common/requester/*"
 			] ,
 			"@@Public/*" : [
 				"Public/*"
@@ -91,9 +91,14 @@
 			"@@pages/*" : [
 				"src/pages/*"
 			],
+			"@@reaxes" : [
+				"src/common/reaxes/index"
+			],
+			"@@reaxes/*" : [
+				"src/common/reaxes/*"
+			],
 			"@@mobxState" : [
 				"src/common/MobxState.ts",
-				
 			] 
 			
 		} ,

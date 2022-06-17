@@ -4,7 +4,7 @@ import {observable, action} from 'mobx';
 export {observer} from 'mobx-react';
 
 
-export const viaMobx = <S extends object>(state: S) => {
+export const orzMobx = <S extends object>(state: S) => {
 	const store:Omit<S , "hasOwnProperty"> = observable<S>(state);
 	
 	return {

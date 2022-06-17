@@ -15,9 +15,8 @@ import { WalletState } from '@web3-onboard/core';
 import { DAOFactoryAbi } from '../../../src/contract/abi';
 import { DAOFactoryAddress } from '../../../src/contract/address';
 import bytecode from '../../../src/contract/deploy/bytecode';
-import { request_signature_string, request_sign_in } from '@@common/requests/preset-interface';
+import { request_signature_string, request_sign_in } from '@@common/requester/preset-interface';
 
-import { viaMobx } from '@@mobxState';
 
 /*可以不用,但是需要引入*/
 import { web3onboard } from '@@common/reaxes';
@@ -34,7 +33,7 @@ const web3Onboard = web3onboard.instance;
 export const {
   store,
   setState,
-} = viaMobx<store>({
+} = orzMobx<store>({
   inputValue: "",
 });
 

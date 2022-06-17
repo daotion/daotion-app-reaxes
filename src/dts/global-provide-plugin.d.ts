@@ -17,7 +17,7 @@ declare const useMemo : typeof React.useMemo;
 declare const useCallback : typeof React.useCallback;
 declare const globalStore : globalStoreType;
 declare const globalSetState : typeof import('@@common/global-controller').globalSetState;
-declare const orzMobx : typeof import('@@mobxState').viaMobx;
+declare const orzMobx : typeof import('@@mobxState').orzMobx;
 
 declare const ComponentWrapper : typeof import('../common/ReactComponentWrapper').ComponentWrapper;
 declare const ReactComponentClass : typeof import('../common/ReactComponentClass').ReactComponentClass;
@@ -31,3 +31,4 @@ declare const decodeQueryString : typeof import('@@utils/queryString.utility').d
 declare const encodeQueryString : typeof import('@@utils/queryString.utility').encodeQueryString;
 declare const stringify : typeof import('@@utils/stringify.utility').stringify;
 declare const utils : typeof import('@@utils/index');
+declare const Reaxes : typeof import('@@reaxes').Reaxes;

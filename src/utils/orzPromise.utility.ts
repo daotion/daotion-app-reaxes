@@ -3,7 +3,7 @@
  * @description 生成一个pending状态的promise
  */
 
-export const orzPromise = <T>(
+export const orzPromise = <T = any>(
   callback?: (resolve: Function, reject: Function) => any,
 ): Promise<T> & {
   resolve: (value?: any) => void;

@@ -217,7 +217,7 @@ function getProvidePlugin (config = {}) {
 		] ,
 		orzMobx : [
 			"@@mobxState" ,
-			"viaMobx",
+			"orzMobx",
 		] ,
 		orzPromise : [
 			"@@utils" ,
@@ -253,11 +253,12 @@ function getProvidePlugin (config = {}) {
 			"stringify",
 		] ,
 		request : [
-			"@@common/requests" ,
+			"@@requester" ,
 			"request",
 		] ,
+		Reaxes : ["@@reaxes","Reaxes"] ,
 		env : [
-			"@@common/requests" ,
+			"@@requester" ,
 			"request",
 		] , ...config ,
 	});

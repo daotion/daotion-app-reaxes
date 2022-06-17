@@ -27,27 +27,26 @@ import {
 	ItemIconI18nSvgComponent ,
 	ItemIconProfileSvgComponent ,
 	ItemIconThemeSvgComponent,
-} from './components';
+} from '@@pages/_SvgComponents';
+
 import {
-	setState ,
-	store ,
-} from './index';
-import {
-	ReaxelconnectWallet ,
-	ReaxelWallets ,
-	chains ,
-	ReaxelConnectWalletWhenMounted ,
+	reaxel_connectWallet ,
+	reaxel_wallet ,
+	reaxel_chains ,
+	reaxel_connect_wallet_when_mounted ,
 } from '@@common/reaxes';
 
 const { Button : DropdownButton } = Dropdown;
 
-export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<any , any> {
+export const Layout_Header = ComponentWrapper( class extends ReactComponentClass<any , any> {
 	
 	constructor( props ) {
 		super( props );
 		/*挂载时检查是否可以从storage里自动链接钱包*/
-		ReaxelConnectWalletWhenMounted( this.lifecycle );
+		reaxel_connect_wallet_when_mounted( this.lifecycle );
 	}
+	
+	header_svg_tool = reaxel_header_svg_tool()(this.lifecycle);
 	
 	JSX = {
 		userAvator : () => {
@@ -83,7 +82,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 			const [ visible , setVisible ] = useState( false );
 			
 			useEffect( () => {
-					
+				
 				subscribe_root_click( () => {
 					setVisible( false );
 				} ,Symbol() );
@@ -278,7 +277,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 						style = { btnStyle }
 						onClick = { () => {
 							setVisible( !visible );
-							console.log( "data:image/svg+xml;base64," + window.btoa( store.svgString ) );
+							console.log( "data:image/svg+xml;base64," + window.btoa( this.header_svg_tool.inputSvgString ) );
 						} }
 					>
 						<img
@@ -340,7 +339,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 						invoke_root_click.then(() => setVisible( () => visible ));
 					}}
 					trigger = { [ 'click' ] }
-					content = {<div 
+					content = {<div
 						className={less.userinfoPopoverContent}
 						onClick={(e) => {
 							e.stopPropagation();
@@ -436,8 +435,8 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 								<span>Disconnect</span>
 							</div>
 						</div>
-						
-						
+					
+					
 					</div>}
 				>
 					<Button
@@ -468,11 +467,11 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 		},
 	}
 	
-	wallets = ReaxelWallets( this.lifecycle );
+	wallets = reaxel_wallet( this.lifecycle );
 	
-	connectWallet = ReaxelconnectWallet( this.lifecycle );
+	connectWallet = reaxel_connectWallet( this.lifecycle );
 	
-	chains = chains( this.lifecycle );
+	chains = reaxel_chains( this.lifecycle );
 	
 	actions = {
 		connect : () => {
@@ -501,15 +500,15 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 		},
 	} ;
 	
-	counter = counter(this.lifecycle,10);
+	counter = reaxel_counter(this.lifecycle,10);
 	
 	render() {
 		
 		return <div className = { less.topBanner }>
 			{ __EXPERIMENTAL__ && <div>
 				<Input.TextArea
-					value = { store.svgString }
-					onChange = { ( e ) => setState( { svgString : e.target.value } ) }
+					value = { this.header_svg_tool.inputSvgString }
+					onChange = { ( e ) => this.header_svg_tool.setInputSvgString(e.target.value) }
 					onPaste = { ( e ) => {
 						if ( e.clipboardData.items[ 0 ].kind === "file" ) {
 							const picFile = e.clipboardData.items[ 0 ].getAsFile();
@@ -575,7 +574,7 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 						marginLeft : "16px" ,
 					} }
 					onClick = { () => {
-						console.log( `url('data:image/svg+xml;base64,${window.btoa( store.svgString )}')` );
+						console.log( `url('data:image/svg+xml;base64,${window.btoa( this.header_svg_tool.inputSvgString )}')` );
 					} }
 					autoFocus = { false }
 				>
@@ -585,12 +584,39 @@ export const HeaderLayout = ComponentWrapper( class extends ReactComponentClass<
 				
 				{this.JSX.WalletNetworkBtn()}
 				{this.JSX.UserBtn()}
-				
+			
 			</div>
 		</div>;
 	}
 } );
-import {counter} from '@@common/reaxes/sign-message';
+
+
+
+
+
+
+const reaxel_header_svg_tool = () => {
+	
+	const {store,setState} = orzMobx({
+		inputSvgString : '' 
+	})
+	
+	return (lifecycle:Lifecycle) => {
+		
+		return {
+			get inputSvgString (){
+				return store.inputSvgString;
+			},
+			setInputSvgString (inputSvgString){
+				setState( { inputSvgString } );
+			}
+		};
+	}
+};
+
+
+
+import {reaxel_counter} from '@@common/reaxes';
 
 
 

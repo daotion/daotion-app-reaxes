@@ -1,17 +1,18 @@
 /**
  * 钱包签名
  */
-export const signViaWallet = (lifecycle:LifeCycle) => {
-	
-	let provider:ethers.providers.Web3Provider = lifecycle?.memory?.(() => {
-		console.log('memory callback called!');
+export const reaxel_sign_via_wallet = (lifecycle?:Lifecycle) => {
+	const provider_promise = orzPromise();
+	let provider:ethers.providers.Web3Provider = Reaxes.memory(() => {
 		if(!globalStore.connectedWallet){
 			/**
-			 * Warning:所有返回值必须加provider=xxx;
+			 * Warning:返回值必须加provider=xxx;
 			 */
 			return provider = null;
 		}
-		return provider = new ethers.providers.Web3Provider(globalStore.connectedWallet.provider, 'any');
+		provider = new ethers.providers.Web3Provider(globalStore.connectedWallet.provider, 'any')
+		provider_promise.resolve(provider);
+		return provider;
 	},() => [
 		/**
 		 * fixme API Deisgn : 不可能所有依赖项都是observables数据 ,很多场景需要强制触发刷新
@@ -22,16 +23,18 @@ export const signViaWallet = (lifecycle:LifeCycle) => {
 	
 	return {
 		sign( msg : string ) {
-			return provider?.getSigner().signMessage( msg );
+			return provider_promise.then(() => {
+				return provider.getSigner().signMessage( msg );
+			});
 		},
 	}
 };
 
-export const counter = (lifecycle:LifeCycle , initialCount = 0) => {
+export const reaxel_counter = (lifecycle:Lifecycle , initialCount = 0) => {
 	const {
 		store ,
 		setState,
-	} = viaMobx( { count : initialCount } );
+	} = orzMobx( { count : initialCount } );
 	
 	return {
 		get count (){
@@ -48,6 +51,4 @@ export const counter = (lifecycle:LifeCycle , initialCount = 0) => {
 }
 
 
-import { reaction } from 'mobx';
-import { ethers  } from 'ethers';
-import {viaMobx} from '@@mobxState';
+import { ethers } from 'ethers';

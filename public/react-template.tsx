@@ -7,7 +7,6 @@ import {
 	Input ,
 } from 'antd';
 
-import { viaMobx } from '@@mobxState';
 
 // import './style.module.less';
 
@@ -19,7 +18,7 @@ export interface store {
 export const {
 	store ,
 	setState ,
-} = viaMobx<store>( {
+} = orzMobx<store>( {
 	
 } );
 

@@ -1,17 +1,15 @@
-import React from 'react';
-import { ComponentWrapper } from '@@common/ReactComponentWrapper';
-import { ReactComponentClass } from '@@common/ReactComponentClass';
-
-import {SelectArrowIconSvgComponent} from './components';
-import PluginSideBar from './Plugin-SideBar.component.svg'
-import PluginCenterBtn from './Plugin-Center-Btn.component.svg';
+import {SelectArrowIconSvgComponent} from '@@pages/_SvgComponents';
+import PluginSideBar from '@@Public/Plugin-SideBar.component.svg'
+import PluginCenterBtn from '@@Public/Plugin-Center-Btn.component.svg';
 
 // import SVGchevron_down from './chevron_down.component.svg';
 // import SVGicon1 from './demo-icon-1.component.svg';
 // import SVGpeople from './people.component.svg';
-
-export const UserPluginSidebar = ComponentWrapper( class extends ReactComponentClass {
-
+/**
+ *
+ */
+export const Sider_DAO_Plugin_List = ComponentWrapper( class extends ReactComponentClass {
+	
 	
 	render() {
 		// return null;
@@ -31,7 +29,7 @@ export const UserPluginSidebar = ComponentWrapper( class extends ReactComponentC
 				
 				<div
 					onClick = { () => (
-						utils.navigateTo( '/home/plugin-center' ), utils.default.__temp__Token_rect_bgc( false )
+						utils.navigateTo( 'DAO:DAOID/plugin-center' ), utils.default.__temp__Token_rect_bgc( false )
 					) }
 				>
 					<PluginCenterBtn />
@@ -130,6 +128,7 @@ export const UserPluginSidebar = ComponentWrapper( class extends ReactComponentC
 							
 						} }
 					>
+						{/*@ts-ignore*/}
 						<SVGicon1
 							style = { {
 								marginRight : "18px" ,
@@ -157,6 +156,7 @@ export const UserPluginSidebar = ComponentWrapper( class extends ReactComponentC
 							
 						} }
 					>
+						{/*@ts-ignore*/}
 						<SVGpeople
 							style = { {
 								marginRight : "18px" ,
@@ -189,6 +189,7 @@ export const UserPluginSidebar = ComponentWrapper( class extends ReactComponentC
 							
 						} }
 					>
+						{/*@ts-ignore*/}
 						<SVGchevron_down
 							style = { {
 								marginRight : "8px" ,

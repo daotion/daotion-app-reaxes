@@ -1,4 +1,3 @@
-import { viaMobx } from '@@mobxState';
 // import { orzPromise } from '@@utils';
 
 
@@ -6,7 +5,7 @@ import { viaMobx } from '@@mobxState';
 export const {
 	store : globalStore ,
 	setState : globalSetState ,
-} = viaMobx<globalStoreType>( {
+} = orzMobx<globalStoreType>( {
 	experimental : __EXPERIMENTAL__ ,
 	theme : "light" ,
 	language : "zhCN" ,

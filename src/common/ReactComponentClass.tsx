@@ -32,12 +32,16 @@ export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = a
 	
 	renderedStack:{callback():any,id:string}[] = [];
 	
-	lifecycle = {
-		
+	lifecycle:Lifecycle = {
+		/**
+		 * 只执行某些生命周期
+		 */
 		_only (props){
 			return _.pick(this,props);
 		},
-		
+		/**
+		 * 不执行某些生命周期
+		 */
 		_omit(props){
 			
 		},
@@ -95,6 +99,7 @@ export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = a
 		 * 实验性功能:监听deps变化自动触发计算
 		 */
 		memory<F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F> {
+			let depList = dependencies();
 			reaction( dependencies , ( data , reaction ) => {
 				const dataChanged = !utils.default.shallowEqual( data , depList );
 				console.log( dataChanged );
@@ -107,7 +112,6 @@ export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = a
 				}
 				
 			} );
-			let depList = dependencies();
 			
 			return callback( true );
 		} ,

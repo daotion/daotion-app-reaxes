@@ -158,7 +158,7 @@ export const request = new class {
 
 import {
 	request_regression_sign
-} from '@@common/requests/preset-interface';
+} from '@@common/requester/preset-interface';
 
 
 const symbol_no_authorized = Symbol( 'no_authorized' );
