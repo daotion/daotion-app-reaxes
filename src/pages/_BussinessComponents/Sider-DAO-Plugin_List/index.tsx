@@ -8,10 +8,30 @@ import PluginCenterBtn from '@@Public/Plugin-Center-Btn.component.svg';
 /**
  *
  */
+window.onpopstate = (...args) => {
+	console.log( ...args );
+}
 export const Sider_DAO_Plugin_List = ComponentWrapper( class extends ReactComponentClass {
 	
+	componentDidMount() : any {
+		const history= window.$history;
+		history.listen(location => {
+			if (history.action === 'PUSH') {
+				console.log(location);
+			}
+			
+			if (history.action === 'POP') {
+				console.log( location );
+				// history.back();
+			}
+		})
+	}
 	
 	render() {
+		
+		
+		// return 'Sider_DAO_Plugin_Listgggggggggggggggggg';
+		
 		// return null;
 		return <div>
 			

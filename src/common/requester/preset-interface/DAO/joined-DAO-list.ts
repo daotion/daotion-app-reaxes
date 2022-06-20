@@ -8,7 +8,6 @@ export const fetch_DAO_joined_DAO_list = () => {
 		env : "server_dev" ,
 	} ).
 	then( ( data ) => {
-		console.log( data );
 		return data;
 	} ).
 	catch( ( e ) => {

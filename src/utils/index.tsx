@@ -94,11 +94,13 @@ export const { Navigation ,navigateTo } = function(){
 }();
 
 
-export const withRouter = (fn) => {
+export const withRouter = ( fn : ( params ) => React.ReactElement ) => {
 	return <RouteContext.Consumer>{
-		({matches}) => {
-			const routeMatch = _.last(matches);
-			return fn(routeMatch ? (routeMatch.params as any) : {});
+		( { matches } ) => {
+			const routeMatch = _.last( matches );
+			return React.createElement(ComponentWrapper(() => fn( routeMatch ? (
+				routeMatch.params as any
+			) : {} )));
 		}
-	}</RouteContext.Consumer>
-}
+	}</RouteContext.Consumer>;
+};

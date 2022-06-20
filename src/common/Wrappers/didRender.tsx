@@ -52,10 +52,10 @@ export const didRenderLifeCycle = ( originalComponent: React.ComponentClass ) =>
 	
 	
 	
-	originalComponent.prototype.originalWillUnmount = function ( ...args ) {
+	originalComponent.prototype.componentWillUnmount = function ( ...args ) {
 		
 		originalWillUnmount.call(this,...args);
-		this.updatedStack.forEach(( { callback }) => callback());
+		this.unmountStack.forEach(( { callback }) => callback());
 	};
 	
 	return originalComponent;

@@ -1,31 +1,29 @@
 import {
-	Button ,
-} from 'antd';
-import {
-	BrowserRouter ,
+	// BrowserRouter ,
 	Route ,
 	Routes ,
-	Outlet ,
-	Link ,
-	useParams,
-	matchPath,
-	matchRoutes,
-	UNSAFE_RouteContext as RouteContext ,
+	unstable_HistoryRouter as BrowserRouter ,
 } from 'react-router-dom';
 import { Test } from '@@pages/Test';
-import { Navigation} from '@@utils';
+import { Navigation } from '@@utils';
 import { ReactTemplate } from '../Public/react-template';
 import { DesignComponents } from '@@pages/DesignComponents';
-import {Wallet} from '@@pages/Wallet-logic';
 import { Home } from '@@pages/Home';
-import { DaoInfo } from '@@pages/DAO-Info';
 import { Layout } from './Layout';
 import { Sider_DAO_Plugin_List } from '@@pages/Sider-DAO-Plugin_List';
+import PluginTokenOverviewLaunch from '@@Public/Plugin-Token-Overview-Launch.component.svg';
+import PluginTokenOverview from '@@Public/Plugin-Token-Overview.component.svg';
+import PluginCenter from '@@Public/Plugin-Center.component.svg';
+import NFTMinting from '@@Public/NFT-Mininting.component.svg';
+import {DAOInfo} from '@@pages/DAO-Info';
+import {createBrowserHistory} from 'history';
 
+/*@ts-ignore*/
+window.$history = createBrowserHistory( { window } );
 export const Routing = ( props ) => {
 	
 	
-	return <BrowserRouter>
+	return <BrowserRouter history = {window.$history}>
 		<Routes>
 			<Route
 				path = "/*"
@@ -52,7 +50,7 @@ export const Routing = ( props ) => {
 
 export const SiderPluginListRouting = () => <Routes>
 	<Route
-		path = "DAO:DAOID"
+		path = "DAO:DAOID/*"
 		element = { utils.withOutlet( <Sider_DAO_Plugin_List /> ) }
 	/>
 </Routes>;
@@ -80,7 +78,7 @@ export const MainContentRouting = () => <Routes>
 			/>
 			<Route 
 				path="info"
-				element={utils.withRouter((params) => <>/DAO:{params.DAOID}/info</>)}
+				element={<DAOInfo/>}
 			/>
 		</Route>
 		<Route
@@ -105,10 +103,5 @@ export const MainContentRouting = () => <Routes>
 
 </Routes>;
 
-	
-	
-import PluginTokenOverviewLaunch from '@@Public/Plugin-Token-Overview-Launch.component.svg';
-import PluginTokenOverview from '@@Public/Plugin-Token-Overview.component.svg';
-import PluginCenter from '@@Public/Plugin-Center.component.svg';
-import NFTMinting from '@@Public/NFT-Mininting.component.svg';
+
 // import {PluginTokenOverviewLaunch} from '@@pages/_SvgComponents';

@@ -58,8 +58,8 @@ export const Sider_DAO_List = ComponentWrapper( class extends ReactComponentClas
 							key = { DAOinfo.daoId }
 							onClick={() => {
 								crayon.blue('joined DAO info : ',DAOinfo);
-								utils.navigateTo( `/DAO${DAOinfo.daoId}` , {replace : true} );
-								utils.default.__temp__Token_rect_bgc(false);
+								// utils.navigateTo( `/DAO${DAOinfo.daoId}`,{ replace : true} );
+								utils.navigateTo( `/DAO${DAOinfo.daoId}`,{ replace : true} );
 							}}
 							style = { {
 								width : 48 ,
@@ -112,7 +112,7 @@ export const Homepage_Avator = ComponentWrapper((props:{url:string}) => {
 	
 	
 	return <div
-		onClick = { () => utils.navigateTo( '/home' , { replace : true } ) }
+		onClick = { () => utils.navigateTo( '/home' , { replace : false } ) }
 		style = { {
 			width : 48 ,
 			height : 48 ,

@@ -1,30 +1,42 @@
-import { Button, Modal } from 'antd';
-import { useCallback, useReducer, useState } from 'react';
-import { DaoAvator } from './Components/dao-avator';
-import { ChannelShare } from './Components/channel-share';
-import { useSearchParams } from 'react-router-dom';
+import {
+	Button ,
+	Modal ,
+} from 'antd';
+// import { DaoAvator } from './Components/dao-avator';
+// import { ChannelShare } from './Components/channel-share';
 import less from './style.module.less';
-const _DaoInfo = class extends ReactComponentClass<any, any> {
+import { reaxel_DAO_detail } from '@@reaxes/DAO/DAO-detail';
 
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		const [searchParams, setSearchParams] = useSearchParams()
-		console.log(searchParams.get('id'))
-		console.log(searchParams)
-		return <>
-			<div className={less.daoHome}>
-				<DaoAvator id={+searchParams.get('id')} />
-				<div className={less.share}>
-					<ChannelShare />
+export const DAOInfo = ComponentWrapper(
+	class extends ReactComponentClass<any , any> {
+		
+		DAO_detail = reaxel_DAO_detail(this.lifecycle); 
+	
+		
+		render() {
+			return utils.withRouter((params) => {
+				this.DAO_detail.resolveDAOID( params.DAOID );
+				console.log( params );
+				return <>
+					<code>
+						{ JSON.stringify( this.DAO_detail.store.DAOinfo , null , 3 ) }
+					</code>
+				</>;
+			});
+			
+			// return <>{ }</>;
+			
+			/*const [searchParams, setSearchParams] = useSearchParams()
+			console.log(searchParams.get('id'))
+			console.log(searchParams)
+			return <>
+				<div className={less.daoHome}>
+					<DaoAvator id={+searchParams.get('id')} />
+					<div className={less.share}>
+						<ChannelShare />
+					</div>
 				</div>
-			</div>
-		</>;
-	}
-};
-
-
-export const DaoInfo = ComponentWrapper(_DaoInfo);
-
+			</>;*/
+		}
+	} ,
+);

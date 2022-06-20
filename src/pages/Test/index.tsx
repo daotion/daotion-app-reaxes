@@ -69,6 +69,10 @@ const reaxel = (initial?) => {
 			console.log(`component:${lifecycle.name} updated!!`);
 		},() => [store.count , store.number > 990])
 		
+		lifecycle.mounted(() => {
+			console.log('mounted===================');
+		})
+		
 		return {
 			get result (){
 				[store.number,store.count];

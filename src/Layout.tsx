@@ -3,6 +3,7 @@ import {
 	Spin ,
 } from 'antd';
 import { invoke_root_click } from '@@common/global-controller';
+import { reaxel_scrollParentRef } from '@@reaxes';
 import {
 	MainContentRouting ,
 	SiderPluginListRouting ,
@@ -11,6 +12,8 @@ import {
 	Layout_Header ,
 	Sider_DAO_List ,
 } from '@@pages/_BussinessComponents';
+import less from './styles/main.module.less';
+
 export const {
 	store ,
 	setState ,
@@ -20,17 +23,15 @@ export const {
 
 const { Option } = Select;
 
-const scrollParentRef = React.createRef<HTMLDivElement>();
-import less from './styles/main.module.less';
-
 /*Refactor↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓NEW↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
 
 
 export const Layout = ComponentWrapper(class extends ReactComponentClass {
 	
+	scrollParentRef = reaxel_scrollParentRef();
+	
 	render() {
 		const urlparam = utils.decodeQueryString();
-		console.log(urlparam);
 		return <>
 			<div className = { less.HomeRoot } onClick={invoke_root_click}>
 				<Spin
@@ -68,7 +69,7 @@ export const Layout = ComponentWrapper(class extends ReactComponentClass {
 									justifyContent : "center" ,
 									flexFlow : "row nowrap" ,
 								} }
-								ref = { scrollParentRef }
+								ref = { this.scrollParentRef }
 							>
 								<MainContentRouting/>
 							</div>

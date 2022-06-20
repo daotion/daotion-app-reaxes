@@ -1,5 +1,28 @@
 export const Reaxes:Reaxes = new class {
 	
+	/*渲染时触发的动作, 使用标记位来防止重复渲染*/
+	renderAction () {
+		/*null是第一次渲染状态;true是可以触发渲染轮;false是阻止渲染轮*/
+		let flag = true;
+		
+		return (action:Function,lifcecycle?:Lifecycle) => {
+			action();
+			return;
+			/*if(flag === null){
+				// action?.();
+				flag = true;
+				return;
+			}else */if(flag === true){
+				action?.();
+				flag = false;
+				return;
+			}else {
+				flag = true;
+				return ;
+			}
+		}
+	};
+	
 	memory <F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F> {
 		let depList = dependencies();
 		reaction( dependencies , ( data , reaction ) => {
@@ -29,6 +52,9 @@ export const Reaxes:Reaxes = new class {
 		rendered <T extends Function>(cb:T) {
 			useEffect( () => cb() );
 		},
+		mounted <T extends Function>(cb:T) {
+			useEffect( () => cb() ,[]);
+		},
 		effect <T extends Function,F extends () => any[]>(cb:T,deps:F){
 			useEffect(() => cb() , deps());
 		},
@@ -36,6 +62,7 @@ export const Reaxes:Reaxes = new class {
 };
 
 type Reaxes = {
+	renderAction() : (callback:Function) => any;
 	memory<F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F>;
 	hooks : Lifecycle;
 };

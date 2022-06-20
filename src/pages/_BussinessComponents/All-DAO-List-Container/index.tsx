@@ -11,14 +11,16 @@ import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
 import DAO_tags from '@@Public/DAO-tags.json';
 import {
 	reaxel_DAO_list ,
-	reaxel_sign_via_wallet,
+	reaxel_scrollParentRef ,
+	reaxel_sign_via_wallet ,
 } from '@@reaxes';
+import InfiniteScroll from 'react-infinite-scroller';
 
 const { Option } = Select;
-const scrollParentRef = React.createRef<HTMLDivElement>();
 
 export const All_DAO_List_Container = ComponentWrapper( class extends ReactComponentClass {
 	
+	scrollParentRef = reaxel_scrollParentRef();
 	signMsg = reaxel_sign_via_wallet( this.lifecycle );
 	DAO_list = reaxel_DAO_list( this.lifecycle );
 	
@@ -42,9 +44,10 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 				pageStart = { 0 }
 				hasMore = { this.DAO_list.store.hasMore }
 				loadMore = { () => {
+					loopBreaker();
 					this.DAO_list.fetchMore( 40 );
 				} }
-				getScrollParent = { () => scrollParentRef.current }
+				getScrollParent = { () => this.scrollParentRef.current }
 				useWindow = { false }
 				threshold = { 500 }
 			>
@@ -179,4 +182,18 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 	}
 } );
 
-import InfiniteScroll from 'react-infinite-scroller';
+
+const loopBreaker = (function () {
+	let count = 0;
+	let startTime;
+	return function () {
+		startTime = startTime || (startTime = Date.now());
+		count += 1;
+		// 更改阈值为你想要的，这里是 10000
+		if (count > 300 ) {
+			throw new Error("Loop Broken!");
+		}
+		// 一秒后清空
+		// setTimeout(() => { count = 0; startTime = null; }, 1000);
+	};
+}());

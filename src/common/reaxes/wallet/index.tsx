@@ -4,15 +4,18 @@ import type {
 } from '@web3-onboard/core';
 import {
 	ethers ,
-	providers,
+	providers ,
 } from 'ethers';
 import {
 	account_storage_symbol ,
 	orzLocalstroage ,
 } from '@@common/storages';
 import { Chain } from '@web3-onboard/common';
-import { web3onboard } from '@@reaxes';
-import { reaxel_login } from '@@reaxes/authurize';
+import {
+	reaxel_login ,
+	web3onboard,
+} from '@@reaxes';
+
 
 const web3Onboard = web3onboard.instance;
 
@@ -37,7 +40,7 @@ export const reaxel_connect_wallet_from_storage = ( lifecycle : Lifecycle ) => {
 		connectWalletFromStorage() {
 			const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
 			if ( wallet !== null ) {
-				crayon.blue( 'connectWalletFromStorage:' , wallet );
+				// crayon.blue( 'connectWalletFromStorage:' , wallet );
 				web3onboard.instance.connectWallet( {
 					autoSelect : {
 						label : wallet.label ,
@@ -231,7 +234,7 @@ export const reaxel_chains = ( lifecycle : Lifecycle ) => {
 		subscribe( ( [chain] ) => {
 			
 			if ( chain ) {
-				crayon.green('connected chain:',chain);
+				// crayon.green('connected chain:',chain);
 				globalSetState( { 
 					currentChain : chain ,
 				} );

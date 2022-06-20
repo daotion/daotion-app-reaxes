@@ -1,6 +1,6 @@
 import { fetch_DAO_joined_DAO_list } from '@@requester/preset-interface/DAO';
 import { DAO__joined_DAO_list } from '@@requester/preset-interface/DAO/types';
-import { reaxel_login } from '@@reaxes/authurize/user';
+import { reaxel_login } from '@@reaxes';
 
 export const reaxel_joined_DAO_list = ( lifecycle : Lifecycle ) => {
 	let ret;
