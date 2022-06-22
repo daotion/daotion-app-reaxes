@@ -120,3 +120,6 @@ declare namespace ORZ {
 
 
 declare const request : typeof import('@@common/requester').request;
+
+
+declare type orzPromise = Promise<T> & {resolve; reject};

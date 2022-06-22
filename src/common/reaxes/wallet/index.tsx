@@ -15,6 +15,7 @@ import {
 	web3onboard,
 } from '@@reaxes';
 import { reaxel_login } from '@@reaxes/authurize/user';
+import { reaxel_disconnect } from '@@reaxes/authurize/disconnect';
 
 const web3Onboard = web3onboard.instance;
 
@@ -70,77 +71,83 @@ export const reaxel_connect_wallet_when_mounted = ( lifecycle : Lifecycle ) => {
 	} );
 };
 
-export const reaxel_connectWallet = ( lifecycle : Lifecycle ) => {
+export const reaxel_connectWallet = function(){
 	
-	return {
-		get connectedWallet() {
-			return globalStore.connectedWallet;
-		} ,
-		get connecting() {
-			return globalStore.walletConnecting;
-		} ,
-		get connect() {
-			
-			return ( options : ConnectOptions ):Promise<WalletState> => {
-				globalSetState( {
-					walletConnecting : true ,
-					// windowLoading : {
-					// 	tipNode : "connecting wallet, please hold on." ,
-					// 	isLoading : true ,
-					// } ,
-				} );
+	const { disconnect } = reaxel_disconnect();
+	
+	return ( lifecycle : Lifecycle ) => {
+		
+		return {
+			get connectedWallet() {
+				return globalStore.connectedWallet;
+			} ,
+			get connecting() {
+				return globalStore.walletConnecting;
+			} ,
+			get connect() {
 				
-				return web3onboard.
-				instance.
-				connectWallet( options ).
-				then( ( [ connectedWallet ] ) => {
-					/**
-					 * 陷阱!!!原connectWallet()的wallet Promise会先resolve掉
-					 * 随后发起异步请求getEns修改已resolve的wallet对象.
-					 * 由于mobx将对象递归深拷贝设置为新的Proxy对象,
-					 * 所以在connectWallet()修改ens时的wallet对象与已在globalStore的Proxy已无关系.
-					 * 所以在此从源码中提取出了getEns逻辑,和connectWallet一起resolve
-					 */
-					/*如果wallet是undefined , 说明用户取消了连接钱包*/
-					if(connectedWallet === undefined){
-						return Promise.reject( 'canceled' );
-					}
-					return connectedWallet;
-				} ).
-				catch( ( e ) => {
-					console.error( e );
+				return ( options : ConnectOptions ):Promise<WalletState> => {
 					globalSetState( {
-						walletConnecting : false ,
-						connectedWallet : null ,
-						// windowLoading : { isLoading : false } ,
+						walletConnecting : true ,
+						// windowLoading : {
+						// 	tipNode : "connecting wallet, please hold on." ,
+						// 	isLoading : true ,
+						// } ,
 					} );
-					throw e;
-				} );
-			};
-		} ,
-		get disconnect() {
-			return ( label ) => {
+					
+					return web3onboard.
+					instance.
+					connectWallet( options ).
+					then( ( [ connectedWallet ] ) => {
+						/**
+						 * 陷阱!!!原connectWallet()的wallet Promise会先resolve掉
+						 * 随后发起异步请求getEns修改已resolve的wallet对象.
+						 * 由于mobx将对象递归深拷贝设置为新的Proxy对象,
+						 * 所以在connectWallet()修改ens时的wallet对象与已在globalStore的Proxy已无关系.
+						 * 所以在此从源码中提取出了getEns逻辑,和connectWallet一起resolve
+						 */
+						/*如果wallet是undefined , 说明用户取消了连接钱包*/
+						if(connectedWallet === undefined){
+							return Promise.reject( 'canceled' );
+						}
+						return connectedWallet;
+					} ).
+					catch( ( e ) => {
+						console.error( e );
+						globalSetState( {
+							walletConnecting : false ,
+							connectedWallet : null ,
+							// windowLoading : { isLoading : false } ,
+						} );
+						throw e;
+					} );
+				};
+			} ,
+			disconnect(label) {
 				web3onboard.instance.disconnectWallet( { label } ).
 				then( ( [wallet] ) => {
 					/*remove cache*/
 					orzLocalstroage.remove( orzLocalstroage.account_storage_symbol );
+					/*disconnect with backend*/
+					return disconnect();
 				} );
-			};
-		} ,
-		
-	};
-};
+			} ,
+			
+		};
+	}
+}();
 
 export const reaxel_wallet = function(){
 	const {
-		is_logged_in ,
+		store:login_store ,
 		login,
 	} = reaxel_login( null );
+	
+	const wallets = web3onboard.instance.state.get().wallets;
 	
 	return ( lifecycle : Lifecycle ) => {
 		
 		
-		const wallets = web3onboard.instance.state.get().wallets;
 		lifecycle?.mounted?.( () => {
 			const wallets$ = web3onboard.instance.state.select( "wallets" );
 			const subscription = wallets$.subscribe( ( [connectedWallet] ) => {

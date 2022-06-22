@@ -35,7 +35,9 @@ export const {
 
 /*@ts-ignore*/
 window.store = globalStore;
-
+const subscribe_symbol_map: { [ p: symbol ]: Function[] } = {};
+/*@ts-ignore*/
+window.subscribe_symbol_map = subscribe_symbol_map;
 /**
  * 创建一个订阅状态机
  */
@@ -45,25 +47,27 @@ export const createSubscriber = ( description?: string ): [
 	Symbol
 ] => {
 	let running = false;
-	const subscribe = ( callback , symbol ) => {
-		subscribe_symbol_map[ symbol ] = callback;
+	const symbol = Symbol( description );
+	
+	const subscribe = ( callback ) => {
+		if(subscribe_symbol_map.hasOwnProperty(symbol)){
+			subscribe_symbol_map[symbol].push(callback);
+		}else {
+			subscribe_symbol_map[ symbol ] = [callback];
+		}
 	};
-	const subscribe_symbol_map: { [ p: symbol ]: Function } = {};
+	
 	
 	const invoke = () => {
-		const promise = orzPromise<boolean>();
-		Object.getOwnPropertySymbols( subscribe_symbol_map ).
-		forEach( ( key ) => {
-			const fn = subscribe_symbol_map[ key ];
-			try {
+		const callbackList = subscribe_symbol_map[ symbol ];
+		try {
+			for(const fn of callbackList){
 				fn();
-			} catch ( e ) {
-				promise.reject( e );
-				console.error( e );
 			}
-		} );
-		promise.resolve( true );
-		return promise;
+		} catch ( e ) {
+			throw e;
+			console.error( e );
+		}
 	};
 	
 	invoke.then = ( callback ) => {
@@ -73,11 +77,14 @@ export const createSubscriber = ( description?: string ): [
 	return [
 		subscribe ,
 		invoke ,
-		Symbol( description ) ,
+		symbol ,
 	];
 };
 
 /*为根节点创建的订阅器*/
 export const [ subscribe_root_click , invoke_root_click , root_click_symbol ] = createSubscriber( 'root-onclick' );
+
+/*登录&连接钱包<->断开的订阅*/
+export const [ subscribe_connect_login , invoke_connect_login , connect_login_symbol ] = createSubscriber( 'connected-wallet&login' );
 
 

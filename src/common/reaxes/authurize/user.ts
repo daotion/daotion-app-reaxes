@@ -1,7 +1,11 @@
+import {
+	subscribe_connect_login,
+} from '@@common/global-controller';
+import { reaxel_disconnect } from '@@reaxes/authurize/disconnect';
+
 export const reaxel_login = function(){
 	let ret,
-		isLogin:Promise<any>|boolean = false ,
-		waittingLogin = orzPromise()
+		isLogin:Promise<any>|boolean = false 
 	;
 	const {
 		store ,
@@ -9,14 +13,28 @@ export const reaxel_login = function(){
 	} = orzMobx( {
 		is_logged_in : false ,
 	} );
-	waittingLogin.then((data) => {
+	
+	const {
+		setDisconnected,
+	} = reaxel_disconnect();
+	let waittingLogin:orzPromise = Reaxes.observedMemo( () => {
+		if(store.is_logged_in === false){
+			return waittingLogin = orzPromise();
+		}else {
+			return waittingLogin = orzPromise((resolve) => resolve());
+		}
+	} , () => [store.is_logged_in] );
+	
+	waittingLogin.then( ( data ) => {
 		crayon.gold( 'waittingLogin.then' , data );
-	})
-	return (lifecycle:Lifecycle) => {
+	} );
+	
+	
+	return (lifecycle?:Lifecycle) => {
 		
 		/*如果cookie里有登录信息则直接视为登陆过了*/
 		lifecycle?.mounted?.( () => {
-			if ( document.cookie.includes( 'gfsessionid=' ) ) {
+			if ( utils.Cookie.get('gfsessionid') ) {
 				setState( { is_logged_in : true } );
 				waittingLogin.resolve( true );
 			}
@@ -27,8 +45,14 @@ export const reaxel_login = function(){
 		})
 		
 		return ret = {
-			get is_logged_in (){
-				return store.is_logged_in;
+			get store (){
+				return store;
+			},
+			get logginPromise (){
+				return waittingLogin;
+			},
+			set_is_logged_in (is_logged_in:boolean){
+				setState( { is_logged_in } );
 			},
 			login (address : string){
 				/*单例,防止重复请求*/
@@ -36,14 +60,15 @@ export const reaxel_login = function(){
 					return isLogin;
 				}else {
 					/*fixme 判断cookie可以优化*/
-					if(!store.is_logged_in && !document.cookie.includes('gfsessionid=')){
-						crayon.blue(!store.is_logged_in,!document.cookie.includes('gfsessionid='),'!store.is_logged_in && !document.cookie.includes(\'gfsessionid=\')');
+					if(!store.is_logged_in || !(utils.Cookie.get('gfsessionid'))){
+						crayon.blue(!store.is_logged_in,utils.Cookie.get('gfsessionid'),'!store.is_logged_in && !document.cookie.includes(\'gfsessionid=\')');
 						isLogin = request_regression_sign(address).then(() => {
 							setState({
 								is_logged_in : true,
 							});
 							isLogin = false;
-							waittingLogin.resolve(true)
+							waittingLogin.resolve(true);
+							setDisconnected( false );
 						}).catch(() => {
 							isLogin = false ;
 							waittingLogin.reject('登录失败:s2sa0d7sa87d9sad');
@@ -54,7 +79,14 @@ export const reaxel_login = function(){
 					}
 				}
 			},
-			logginPromise : waittingLogin,
+			/*监听store.is_logged_in变化,变化时执行回调函数.*/
+			memedLogin(callback:(is_logged_in:boolean) => any){
+				const memo = Reaxes.closuredMemo(callback,() => []);
+				Reaxes.observedMemo( () => {
+					console.log( store.is_logged_in );
+					memo(() => [store.is_logged_in])(store.is_logged_in);
+				} , () => [ store.is_logged_in ] );
+			},
 		};
 	}
 }();

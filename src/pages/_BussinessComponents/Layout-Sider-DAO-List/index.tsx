@@ -6,6 +6,7 @@ import {
 	reaxel_connectWallet ,
 	reaxel_joined_DAO_list ,
 	reaxel_wallet ,
+	reaxel_login,
 } from '@@reaxes';
 import { Modal } from 'antd';
 /**
@@ -17,15 +18,13 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 		createDAOmodalShowing : false ,
 	};
 	
-	componentDidUpdate( prevProps : Readonly<Tprops> , prevState : Readonly<Tstate> , snapshot? : any ) {
-		console.log( 'lllllllllll' );
-	}
-	
 	connectWallet = reaxel_connectWallet(this.lifecycle);
 	
 	joined_DAO_list = reaxel_joined_DAO_list( this.lifecycle );
 	
 	wallet = reaxel_wallet( this.lifecycle );
+	
+	login = reaxel_login(this.lifecycle);
 	
 	create_DAO_Modal = reaxel_create_DAO_Modal(this.lifecycle);
 	
@@ -70,8 +69,7 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 							return <div
 								key = { DAOinfo.daoId }
 								onClick = { () => {
-									crayon.blue( 'joined DAO info : ' , DAOinfo );
-									// utils.navigateTo( `/DAO${DAOinfo.daoId}`,{ replace : true} );
+									// crayon.blue( 'joined DAO info : ' , DAOinfo );
 									navigate( `./DAO${ DAOinfo.daoId }/info` );
 								} }
 								style = { {
@@ -101,10 +99,10 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 								console.log( 'connected' );
 								act();
 							} else {
-								this.connectWallet.connect( {} ).
-								then( () => {
+								this.connectWallet.connect( {} );
+								this.login.logginPromise.then(() => {
 									act();
-								} );
+								})
 							}
 						} }
 					>
@@ -139,12 +137,6 @@ export const Homepage_Avator = ComponentWrapper((props:{url:string}) => {
 		} }
 	/>;
 })
-
-
-
-
-
-
 
 
 const reaxel_create_DAO_Modal = function() {

@@ -1,5 +1,5 @@
-import { reaxel_sign_via_wallet } from '@@common/reaxes/authurize';
-
+import { reaxel_sign_via_wallet } from '@@reaxes/authurize';
+import { reaxel_disconnect } from '@@reaxes/authurize/disconnect';
 
 
 export const request_signature_string = ( address : string ) =>
@@ -7,8 +7,9 @@ export const request_signature_string = ( address : string ) =>
 		body : { address } ,
 	} ).
 	then((data) => data.signatureNonce).
-	catch( () : void => {
+	catch( () => {
 		crayon.yellow( '/user/signature-string failed' );
+		return Promise.reject('request_signature_string failed');
 	} );
 
 
@@ -22,7 +23,10 @@ export const request_sign_in = async ( address : string , signatureNonce : strin
 	} ).
 	then( () => {
 		crayon.green( 'sign in successfully' );
-	} );
+	} ).catch(() => {
+		crayon.yellow( '/user/sign-in failed' );
+		return Promise.reject('request_sign_in failed');
+	});
 };
 
 export const request_regression_sign = ( address ) =>
@@ -35,3 +39,14 @@ export const request_regression_sign = ( address ) =>
 		crayon.red('request_regression_sign failed!');
 		return Promise.reject();
 	});
+
+/*与后端断开连接*/
+export const request_disconnect = () =>
+	request.post<null>( '/user/sign-out' , {
+		
+	} ).
+	catch( () => {
+		crayon.yellow( '/user/signature-string failed' );
+		return Promise.reject();
+	} );
+
