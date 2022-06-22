@@ -2,10 +2,10 @@ import {
 	// BrowserRouter ,
 	Route ,
 	Routes ,
-	unstable_HistoryRouter as BrowserRouter ,
+	BrowserRouter ,
+	Navigate ,
 } from 'react-router-dom';
 import { Test } from '@@pages/Test';
-import { Navigation } from '@@utils';
 import { ReactTemplate } from '../Public/react-template';
 import { DesignComponents } from '@@pages/DesignComponents';
 import { Home } from '@@pages/Home';
@@ -18,12 +18,11 @@ import NFTMinting from '@@Public/NFT-Mininting.component.svg';
 import {DAOInfo} from '@@pages/DAO-Info';
 import {createBrowserHistory} from 'history';
 
-/*@ts-ignore*/
-window.$history = createBrowserHistory( { window } );
+
 export const Routing = ( props ) => {
 	
 	
-	return <BrowserRouter history = {window.$history}>
+	return <BrowserRouter>
 		<Routes>
 			<Route
 				path = "/*"
@@ -35,7 +34,7 @@ export const Routing = ( props ) => {
 			/>
 			
 			<Route
-				path = "test"
+				path = "test/*"
 				element = { utils.withOutlet( <Test /> ) }
 			/>
 			
@@ -44,7 +43,6 @@ export const Routing = ( props ) => {
 				element = { utils.withOutlet( <ReactTemplate /> ) }
 			/>
 		</Routes>
-		<Navigation />
 	</BrowserRouter>;
 }
 
@@ -55,26 +53,22 @@ export const SiderPluginListRouting = () => <Routes>
 	/>
 </Routes>;
 
-export const MainContentRouting = () => <Routes>
+export const MainContentRouting = (props) => <Routes>
 	<Route path = "/*">
 		<Route
 			index
-			element = { React.createElement(() => utils.navigateTo('/home')) }
+			element = { <Navigate to='/home'/> }
 		/>
 		<Route
 			path="home"
 			element = { utils.withOutlet( <Home /> ) }
 		/>
 		<Route
-			path="DAO:DAOID"
+			path="DAO:DAOID/*"
 		>
 			<Route 
 				index
-				element={utils.withRouter((params) => {
-					
-					utils.navigateTo(`/DAO${params.DAOID}/info`);
-					return null;
-				})}
+				element={<Navigate to={'./info'} replace/>}
 			/>
 			<Route 
 				path="info"
@@ -83,7 +77,8 @@ export const MainContentRouting = () => <Routes>
 		</Route>
 		<Route
 			path = "plugin-overview-launch"
-			element = { utils.withOutlet( <div onClick = { () => utils.navigateTo( '/home/plugin-overview' ) }>
+			
+			element = { utils.withOutlet( <div onClick = { () => props.routerProps.navigate('/home/plugin-overview' ) }>
 				<PluginTokenOverviewLaunch />
 			</div> ) }
 		/>

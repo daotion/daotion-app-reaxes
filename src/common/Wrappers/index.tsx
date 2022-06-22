@@ -1,5 +1,5 @@
 export { hot } from './HMR';
-export { withHooks } from './withHooks';
+export { withHoC } from './withHoC';
 export { didRenderLifeCycle } from './didRender';
 export { observer } from '@@mobxState';
 

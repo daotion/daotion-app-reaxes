@@ -30,19 +30,46 @@ export const reaxel_DAO_detail = function (){
 	return (lifecycle:Lifecycle) => {
 		let ret;
 		
-		lifecycle.mounted( () => {
-			console.log( 'updated' );
-			renderedPromise.then( ( DAOID ) => fetch( DAOID ) );
-		} );
+		// lifecycle.mounted( () => {
+		// 	console.log( 'updated' );
+		// 	renderedPromise.then( ( DAOID ) => fetch( DAOID ) );
+		// } );
+		// lifecycle.updated( () => {
+		// 	console.log( 'updated' );
+		// 	renderedPromise.then( ( DAOID ) => fetch( DAOID ) );
+		// } );
+		
+		const memedFetchDAOinfo = Reaxes.closuredMemo( ( DAOID ) => {
+			fetch( DAOID );
+		} , () => [] );
 		
 		return ret = {
 			get store (){
 				return store;
 			},
 			/*必须在render里每次渲染时执行*/
-			resolveDAOID (DAOID:string){
+			DEPRECATED_resolveDAOID (DAOID:string){
 				renderedPromise = Promise.resolve( DAOID );
 			},
+			getDAOdetailMemed (DAOID){
+				return memedFetchDAOinfo((prevDeps) => [DAOID])(DAOID);
+				// Reaxes.memory(() => {
+				// 	fetch( DAOID );
+				// },() => [DAOID]);
+			}
 		};
 	};
+}();
+
+
+export const reaxel_preventInfinitLoop = function(){
+	/*标记位.奇数可渲染,偶数跳过渲染*/
+	let flag = 0;
+	
+	return (closureFn) => {
+		
+		return () => {
+			
+		}
+	}
 }();

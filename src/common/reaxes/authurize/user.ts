@@ -9,7 +9,9 @@ export const reaxel_login = function(){
 	} = orzMobx( {
 		is_logged_in : false ,
 	} );
-	
+	waittingLogin.then((data) => {
+		crayon.gold( 'waittingLogin.then' , data );
+	})
 	return (lifecycle:Lifecycle) => {
 		
 		/*如果cookie里有登录信息则直接视为登陆过了*/

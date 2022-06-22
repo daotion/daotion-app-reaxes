@@ -1,9 +1,10 @@
 import {
 	compose ,
 	hot ,
-	withHooks ,
+	// withHoC ,
 	didRenderLifeCycle ,
 } from './Wrappers/index';
+import {withHoC} from '@@pages/Test/parentObserver/withHoC';
 
 const componentHasWrapped = Symbol( '' );
 
@@ -16,7 +17,7 @@ export const ComponentWrapper = <T extends {}>(component : T) : T => {
 	const wrappedComponent = compose( [
 		hot ,
 		didRenderLifeCycle ,
-		withHooks ,
+		withHoC ,
 	] )(component);
 	
 	/*flag to prevent duplicated wrap*/

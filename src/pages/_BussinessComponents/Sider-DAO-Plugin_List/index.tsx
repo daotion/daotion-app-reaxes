@@ -2,37 +2,13 @@ import {SelectArrowIconSvgComponent} from '@@pages/_SvgComponents';
 import PluginSideBar from '@@Public/Plugin-SideBar.component.svg'
 import PluginCenterBtn from '@@Public/Plugin-Center-Btn.component.svg';
 
-// import SVGchevron_down from './chevron_down.component.svg';
-// import SVGicon1 from './demo-icon-1.component.svg';
-// import SVGpeople from './people.component.svg';
-/**
- *
- */
-window.onpopstate = (...args) => {
-	console.log( ...args );
-}
+
 export const Sider_DAO_Plugin_List = ComponentWrapper( class extends ReactComponentClass {
 	
-	componentDidMount() : any {
-		const history= window.$history;
-		history.listen(location => {
-			if (history.action === 'PUSH') {
-				console.log(location);
-			}
-			
-			if (history.action === 'POP') {
-				console.log( location );
-				// history.back();
-			}
-		})
-	}
 	
 	render() {
 		
-		
-		// return 'Sider_DAO_Plugin_Listgggggggggggggggggg';
-		
-		// return null;
+		const { navigate } = utils.useRouter();
 		return <div>
 			
 			<div
@@ -49,7 +25,7 @@ export const Sider_DAO_Plugin_List = ComponentWrapper( class extends ReactCompon
 				
 				<div
 					onClick = { () => (
-						utils.navigateTo( 'DAO:DAOID/plugin-center' ), utils.default.__temp__Token_rect_bgc( false )
+						navigate( 'DAO:DAOID/plugin-center' ), utils.default.__temp__Token_rect_bgc( false )
 					) }
 				>
 					<PluginCenterBtn />
@@ -64,7 +40,7 @@ export const Sider_DAO_Plugin_List = ComponentWrapper( class extends ReactCompon
 			>
 				<div
 					onClick = { () => (
-						utils.navigateTo( '/home/dao-info' ), utils.default.__temp__Token_rect_bgc( false )
+						navigate( '/home/dao-info' ), utils.default.__temp__Token_rect_bgc( false )
 					) }
 					style = { {
 						position : "absolute" ,
@@ -76,7 +52,7 @@ export const Sider_DAO_Plugin_List = ComponentWrapper( class extends ReactCompon
 				/>
 				<div
 					onClick = { () => (
-						utils.navigateTo( '/home/plugin-overview-launch' ), utils.default.__temp__Token_rect_bgc( true )
+						navigate( '/home/plugin-overview-launch' ), utils.default.__temp__Token_rect_bgc( true )
 					) }
 					style = { {
 						position : "absolute" ,
@@ -88,7 +64,7 @@ export const Sider_DAO_Plugin_List = ComponentWrapper( class extends ReactCompon
 				/>
 				<div
 					onClick = { () => (
-						utils.navigateTo( '/home/nft-minting' ), utils.default.__temp__NFT_rect_bgc( true )
+						navigate( '/home/nft-minting' ), utils.default.__temp__NFT_rect_bgc( true )
 					) }
 					style = { {
 						position : "absolute" ,

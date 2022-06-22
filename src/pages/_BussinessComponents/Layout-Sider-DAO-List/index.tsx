@@ -11,7 +11,7 @@ import {
 /**
  * 左侧的DAO list和Plugin list
  */
-export const Sider_DAO_List = ComponentWrapper( class extends ReactComponentClass {
+export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentClass {
 	
 	state = {
 		createDAOmodalShowing : false ,
@@ -24,7 +24,8 @@ export const Sider_DAO_List = ComponentWrapper( class extends ReactComponentClas
 	wallet = reaxel_wallet( this.lifecycle );
 	
 	render() {
-		return <>
+		
+		return utils.withRouter(({navigate,params}) => <>
 			{/*左侧第一竖栏,用户已加入的DAO列表*/ }
 			<div
 				style = { {
@@ -59,7 +60,7 @@ export const Sider_DAO_List = ComponentWrapper( class extends ReactComponentClas
 							onClick={() => {
 								crayon.blue('joined DAO info : ',DAOinfo);
 								// utils.navigateTo( `/DAO${DAOinfo.daoId}`,{ replace : true} );
-								utils.navigateTo( `/DAO${DAOinfo.daoId}`,{ replace : true} );
+								navigate( `./DAO${DAOinfo.daoId}/info`);
 							}}
 							style = { {
 								width : 48 ,
@@ -103,16 +104,17 @@ export const Sider_DAO_List = ComponentWrapper( class extends ReactComponentClas
 					provider = { this.wallet.provider }
 				/>
 			</div>
-		</>;
+		</>);
 	}
-} );
+});
 
 
 export const Homepage_Avator = ComponentWrapper((props:{url:string}) => {
 	
+	const routerProps = utils.useRouter();
 	
 	return <div
-		onClick = { () => utils.navigateTo( '/home' , { replace : false } ) }
+		onClick = { () => routerProps.navigate( '/home') }
 		style = { {
 			width : 48 ,
 			height : 48 ,

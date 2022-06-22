@@ -23,7 +23,7 @@ export const Reaxes:Reaxes = new class {
 		}
 	};
 	
-	memory <F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F> {
+	observedMemo <F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F> {
 		let depList = dependencies();
 		reaction( dependencies , ( data , reaction ) => {
 			const dataChanged = !utils.default.shallowEqual( data , depList );
@@ -36,6 +36,19 @@ export const Reaxes:Reaxes = new class {
 		} );
 		return callback( true );
 	};
+	
+	closuredMemo(callback,deps = () => []){
+		let depList = deps() ;
+		return (depsSetter) => {
+			const tempDepsList = depsSetter(depList);
+			return (...args) => {
+				if(!utils.default.shallowEqual(depList,tempDepsList)){
+					callback(...args);
+					depList = tempDepsList;
+				}
+			}
+		};
+	}
 	
 	/**
 	 * 为reaxel在hooks中使用提供支持
@@ -57,6 +70,9 @@ export const Reaxes:Reaxes = new class {
 		},
 		effect <T extends Function,F extends () => any[]>(cb:T,deps:F){
 			useEffect(() => cb() , deps());
+		},
+		unmount <T extends Function,F extends () => any[]>(cb:T,deps:F){
+			useEffect(() => cb() , []);
 		},
 	} as Lifecycle;
 };

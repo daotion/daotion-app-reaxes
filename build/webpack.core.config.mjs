@@ -43,6 +43,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 	resolve : {
 		alias : {
 			'react-dom' : "@hot-loader/react-dom" ,
+			'mobx-react-lite' : path.resolve(rootPath , 'src/libs/mobx-react-lite/index') ,
 			'@@common' : path.resolve(rootPath , 'src/common') ,
 			'@@common/*' : path.resolve(rootPath , 'src/common/*') ,
 			'@@utils' : path.resolve(rootPath , 'src/utils/index.tsx') ,

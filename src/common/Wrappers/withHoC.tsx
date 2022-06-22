@@ -6,10 +6,14 @@ type Props = {
 	instance: React.Component;
 };
 
-export function withHooks<T extends ( React.Component & React.FC )>( OriginalComponent: T ) {
+/**
+ * 包裹原始component , 集成了react-router , mobx-react , withHooks
+ * @param OriginalComponent
+ */
+export function withHoC<T extends ( React.Component & React.FC )>( OriginalComponent: T ) {
 	/*this should be a FC*/
 	if ( !OriginalComponent.prototype?.render ) {
-		return observerLite( OriginalComponent );
+		return observerLite(OriginalComponent);
 	}
 	/**
 	 * 如果已经被Observer包裹过,则直接返回
@@ -20,7 +24,8 @@ export function withHooks<T extends ( React.Component & React.FC )>( OriginalCom
 	
 	const baseRender = OriginalComponent.prototype.render;
 	
-	function HooksProvider( { instance,random } ): any {
+	function HooksProvider( { instance } ): any {
+		
 		/*null:是第一次render;true:是需要触发forceUpdate();false则阻止并使下一次可用*/
 		const ref = useRef<true|false|null>(null);
 		/**
@@ -44,16 +49,18 @@ export function withHooks<T extends ( React.Component & React.FC )>( OriginalCom
 		return baseRender.call(instance);
 	}
 	
-	// @ts-ignore
+	// @ts-ignore  
 	const componentName = OriginalComponent.displayName || OriginalComponent.name || 'Component';
 	HooksProvider.displayName = componentName + 'Hooks';
 	const H = observerLite( HooksProvider );
 	
 	
 	OriginalComponent.prototype.render = function (){
-		return <H instance={this} random = {Math.random()}/>
+		return <H instance={this} /*random = {Math.random()}*//>
 	};
 	
 	
 	return observer(OriginalComponent);
 }
+
+

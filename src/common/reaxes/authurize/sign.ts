@@ -3,7 +3,7 @@
  */
 export const reaxel_sign_via_wallet = (lifecycle?:Lifecycle) => {
 	const provider_promise = orzPromise();
-	let provider:ethers.providers.Web3Provider = Reaxes.memory(() => {
+	let provider:ethers.providers.Web3Provider = Reaxes.observedMemo(() => {
 		if(!globalStore.connectedWallet){
 			/**
 			 * Warning:返回值必须加provider=xxx;

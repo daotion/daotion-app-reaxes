@@ -6,6 +6,8 @@ import {
 	NavigateOptions,
 	useParams,
 	UNSAFE_RouteContext as RouteContext ,
+	UNSAFE_NavigationContext as NavigationContext ,
+	NavigateFunction,
 } from 'react-router-dom';
 let util;
 
@@ -52,7 +54,6 @@ export default util = Object.freeze( new class {
 
 
 /*无依赖@@utils的放上面*/
-export * from './withOutlet';
 export * from './debounce.utility';
 export * from './stringify.utility';
 export * from './crayon.utility';
@@ -65,6 +66,7 @@ export * from './replaceStr.utility';
 export * from './queryString.utility';
 export * from './orzPromise.utility';
 
+export * from './withRouter';
 export * from './assert-group.utility';
 export * from './dataflow.utility';
 
@@ -80,27 +82,4 @@ export {default as Random} from './random.utility';
 export {default as throttle} from './throttle.utility';
 
 
-export const { Navigation ,navigateTo } = function(){
-	const navigate = orzPromise();
-	const navigateTo = ( to : (To | number)&React.PropsWithChildren<any> , options : NavigateOptions = {} ) => {
-		navigate.then((nav) => (nav( to , options )));
-		return null;
-	};
-	const Navigation = () => {
-		navigate.resolve( useNavigate() );
-		return null;
-	};
-	return {navigateTo ,Navigation};
-}();
 
-
-export const withRouter = ( fn : ( params ) => React.ReactElement ) => {
-	return <RouteContext.Consumer>{
-		( { matches } ) => {
-			const routeMatch = _.last( matches );
-			return React.createElement(ComponentWrapper(() => fn( routeMatch ? (
-				routeMatch.params as any
-			) : {} )));
-		}
-	}</RouteContext.Consumer>;
-};

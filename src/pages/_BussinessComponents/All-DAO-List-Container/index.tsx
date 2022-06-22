@@ -44,7 +44,6 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 				pageStart = { 0 }
 				hasMore = { this.DAO_list.store.hasMore }
 				loadMore = { () => {
-					loopBreaker();
 					this.DAO_list.fetchMore( 40 );
 				} }
 				getScrollParent = { () => this.scrollParentRef.current }
@@ -181,19 +180,3 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 		</>;
 	}
 } );
-
-
-const loopBreaker = (function () {
-	let count = 0;
-	let startTime;
-	return function () {
-		startTime = startTime || (startTime = Date.now());
-		count += 1;
-		// 更改阈值为你想要的，这里是 10000
-		if (count > 300 ) {
-			throw new Error("Loop Broken!");
-		}
-		// 一秒后清空
-		// setTimeout(() => { count = 0; startTime = null; }, 1000);
-	};
-}());

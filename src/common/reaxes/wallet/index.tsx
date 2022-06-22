@@ -12,10 +12,9 @@ import {
 } from '@@common/storages';
 import { Chain } from '@web3-onboard/common';
 import {
-	reaxel_login ,
 	web3onboard,
 } from '@@reaxes';
-
+import { reaxel_login } from '@@reaxes/authurize/user';
 
 const web3Onboard = web3onboard.instance;
 
@@ -190,7 +189,7 @@ export const reaxel_wallet = function(){
 			} );
 		} );
 		
-		let prodiver = Reaxes.memory((first) => {
+		let prodiver = Reaxes.observedMemo((first) => {
 			if(!globalStore.connectedWallet) return prodiver = null;
 			return prodiver = new ethers.providers.Web3Provider(globalStore.connectedWallet?.provider ?? null, 'any');
 		} , () => [globalStore.connectedWallet]);

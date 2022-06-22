@@ -1,6 +1,6 @@
 import { fetch_DAO_joined_DAO_list } from '@@requester/preset-interface/DAO';
 import { DAO__joined_DAO_list } from '@@requester/preset-interface/DAO/types';
-import { reaxel_login } from '@@reaxes';
+import { reaxel_login } from '@@reaxes/authurize/user';
 
 export const reaxel_joined_DAO_list = ( lifecycle : Lifecycle ) => {
 	let ret;
@@ -17,6 +17,7 @@ export const reaxel_joined_DAO_list = ( lifecycle : Lifecycle ) => {
 	} );
 	
 	lifecycle.mounted( () => {
+		console.log( 'ggggggggggggg' );
 		ret.setJoined_DAO_list();
 	} );
 	
@@ -25,12 +26,21 @@ export const reaxel_joined_DAO_list = ( lifecycle : Lifecycle ) => {
 			return store.joined_dao_list;
 		} ,
 		setJoined_DAO_list() {
-			logginPromise.then(() => fetch_DAO_joined_DAO_list().
+			console.log( 'gggggggggggggg' );
+			logginPromise.then((e) => {
+				console.error( e );
+			})
+			
+			
+			
+			logginPromise.
+			then(() => fetch_DAO_joined_DAO_list()).
 			then( ( data ) => setState( {
 				joined_dao_list : data.infos ,
-			} ) ).catch((e) => {
-				
-			}));
+			} ) ).
+			catch((e) => {
+				console.error( e );
+			});
 		} ,
 	};
 };
