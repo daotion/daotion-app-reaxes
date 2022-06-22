@@ -37,7 +37,6 @@ export function withHoC<T extends ( React.Component & React.FC )>( OriginalCompo
 	
 	
 	OriginalComponent.prototype.render = function (){
-		
 		// return React.createElement()
 		return <H instance={this} /*random = {Math.random()}*//>
 	};

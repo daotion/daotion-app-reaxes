@@ -30,7 +30,8 @@ export const request_regression_sign = ( address ) =>
 	then( ( signatureNonce ) => {
 		return request_sign_in( address , signatureNonce as string );
 	} ).then(() => {
-		console.log('PPPPPPPPPPPPPPPPPPPPPPPPP');
+		crayon.green('request_regression_sign success!');
 	}).catch(() => {
-		console.log('PPPPPPPPPPPPPPPPPPPPPPPPP');
+		crayon.red('request_regression_sign failed!');
+		return Promise.reject();
 	});

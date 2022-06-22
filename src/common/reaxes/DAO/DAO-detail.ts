@@ -38,8 +38,11 @@ export const reaxel_DAO_detail = function (){
 		// 	console.log( 'updated' );
 		// 	renderedPromise.then( ( DAOID ) => fetch( DAOID ) );
 		// } );
-		
-		const memedFetchDAOinfo = Reaxes.closuredMemo( ( DAOID ) => {
+		/**
+		 * 初始化一个依据deps变化来执行的闭包.每次调用时memedFetchDAOinfo(*这里传入函数返回新的依赖列表*)此时会自动比对是否和上一次有差异,
+		 * 如果没差异则不会执行,此方法用于防止无限请求&渲染.
+		 */
+		const memedFetchDAOinfo = Reaxes.closuredMemo( ( DAOID:string ) => {
 			fetch( DAOID );
 		} , () => [] );
 		
@@ -51,7 +54,7 @@ export const reaxel_DAO_detail = function (){
 			DEPRECATED_resolveDAOID (DAOID:string){
 				renderedPromise = Promise.resolve( DAOID );
 			},
-			getDAOdetailMemed (DAOID){
+			getDAOdetailMemed (DAOID:string){
 				return memedFetchDAOinfo((prevDeps) => [DAOID])(DAOID);
 				// Reaxes.memory(() => {
 				// 	fetch( DAOID );

@@ -225,7 +225,7 @@ export function parentObserver<P extends object , TRef = {}>(
 	// memo; we are not interested in deep updates
 	// in props; we assume that if deep objects are changed,
 	// this is in observables, which would have been tracked anyway
-	observerComponent = memo( observerComponent );
+	observerComponent = ( observerComponent );
 	
 	copyStaticProperties( baseComponent , observerComponent );
 	

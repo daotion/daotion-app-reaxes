@@ -43,8 +43,9 @@ export const Reaxes:Reaxes = new class {
 			const tempDepsList = depsSetter(depList);
 			return (...args) => {
 				if(!utils.default.shallowEqual(depList,tempDepsList)){
-					callback(...args);
+					const ret = callback(...args);
 					depList = tempDepsList;
+					return ret;
 				}
 			}
 		};
@@ -79,7 +80,9 @@ export const Reaxes:Reaxes = new class {
 
 type Reaxes = {
 	renderAction() : (callback:Function) => any;
-	memory<F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F>;
+	/*自动收集dependencies里的依赖, 当依赖变化时自动*/
+	observedMemo<F extends ( first : boolean ) => any>( callback : F , dependencies ) : ReturnType<F>;
+	closuredMemo <C extends (...args) => any ,>(callback:C , deps : () => any[]): (depsSetter:(prevDeps:any[]) => any[]) => (...args:Parameters<C>) => ReturnType<C>;
 	hooks : Lifecycle;
 };
 
