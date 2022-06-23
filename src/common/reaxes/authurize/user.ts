@@ -1,10 +1,9 @@
-import {
-	subscribe_connect_login,
-} from '@@common/global-controller';
+import {getConnectedPromise} from '@@reaxes/wallet/exported-connected-promise';
 import { reaxel_disconnect } from '@@reaxes/authurize/disconnect';
 
 export const reaxel_login = function(){
 	let ret,
+		/*是否正在登录进程中,如果是则是登录中的promise,否则是false*/
 		isLogin:Promise<any>|boolean = false 
 	;
 	const {
@@ -17,18 +16,6 @@ export const reaxel_login = function(){
 	const {
 		setDisconnected,
 	} = reaxel_disconnect();
-	let waittingLogin:orzPromise = Reaxes.observedMemo( () => {
-		if(store.is_logged_in === false){
-			return waittingLogin = orzPromise();
-		}else {
-			return waittingLogin = orzPromise((resolve) => resolve());
-		}
-	} , () => [store.is_logged_in] );
-	
-	waittingLogin.then( ( data ) => {
-		crayon.gold( 'waittingLogin.then' , data );
-	} );
-	
 	
 	return (lifecycle?:Lifecycle) => {
 		
@@ -36,45 +23,43 @@ export const reaxel_login = function(){
 		lifecycle?.mounted?.( () => {
 			if ( utils.Cookie.get('gfsessionid') ) {
 				setState( { is_logged_in : true } );
-				waittingLogin.resolve( true );
+				getConnectedPromise().resolve( true );
 			}
 		} );
 		
-		waittingLogin.catch((e) => {
-			console.error( e );
-		})
 		
 		return ret = {
 			get store (){
 				return store;
 			},
 			get logginPromise (){
-				return waittingLogin;
+				return getConnectedPromise();
 			},
 			set_is_logged_in (is_logged_in:boolean){
 				setState( { is_logged_in } );
 			},
 			login (address : string){
 				/*单例,防止重复请求*/
-				if(isLogin){
-					return isLogin;
+				if(isLogin !== false){
+					return isLogin as Promise<any>;
 				}else {
 					/*fixme 判断cookie可以优化*/
 					if(!store.is_logged_in || !(utils.Cookie.get('gfsessionid'))){
 						crayon.blue(!store.is_logged_in,utils.Cookie.get('gfsessionid'),'!store.is_logged_in && !document.cookie.includes(\'gfsessionid=\')');
-						isLogin = request_regression_sign(address).then(() => {
+						return isLogin = request_regression_sign(address).then(() => {
 							setState({
 								is_logged_in : true,
 							});
 							isLogin = false;
-							waittingLogin.resolve(true);
+							getConnectedPromise().resolve(true);
 							setDisconnected( false );
-						}).catch(() => {
+						}).catch((e) => {
 							isLogin = false ;
-							waittingLogin.reject('登录失败:s2sa0d7sa87d9sad');
+							getConnectedPromise().reject('登录失败:s2sa0d7sa87d9sad');
+							throw e;
 						});
 					}else {
-						waittingLogin.resolve( true );
+						getConnectedPromise().resolve(true);
 						return Promise.resolve(true);
 					}
 				}
@@ -83,7 +68,6 @@ export const reaxel_login = function(){
 			memedLogin(callback:(is_logged_in:boolean) => any){
 				const memo = Reaxes.closuredMemo(callback,() => []);
 				Reaxes.observedMemo( () => {
-					console.log( store.is_logged_in );
 					memo(() => [store.is_logged_in])(store.is_logged_in);
 				} , () => [ store.is_logged_in ] );
 			},

@@ -13,10 +13,10 @@ import {
 import { Chain } from '@web3-onboard/common';
 import {
 	web3onboard,
-} from '@@reaxes';
-import { reaxel_login } from '@@reaxes/authurize/user';
+} from '@@reaxes/wallet/init-web3onboard';
 import { reaxel_disconnect } from '@@reaxes/authurize/disconnect';
-
+import { reaxel_login } from '@@reaxes/authurize/user';
+import {getConnectedPromise,setConnectedPromise} from '@@reaxes/wallet/exported-connected-promise';
 const web3Onboard = web3onboard.instance;
 
 
@@ -32,6 +32,8 @@ type SetChainOptions = {
 
 
 const syncState = {};
+/*全局的登录promise*/
+
 
 export const reaxel_connect_wallet_from_storage = ( lifecycle : Lifecycle ) => {
 	
@@ -84,44 +86,42 @@ export const reaxel_connectWallet = function(){
 			get connecting() {
 				return globalStore.walletConnecting;
 			} ,
-			get connect() {
+			connect( options : ConnectOptions ) : Promise<WalletState> {
+				setConnectedPromise();
+				globalSetState( {
+					walletConnecting : true ,
+					// windowLoading : {
+					// 	tipNode : "connecting wallet, please hold on." ,
+					// 	isLoading : true ,
+					// } ,
+				} );
 				
-				return ( options : ConnectOptions ):Promise<WalletState> => {
+				return web3onboard.
+				instance.
+				connectWallet( options ).
+				then( ( [ connectedWallet ] ) => {
+					/**
+					 * 陷阱!!!原connectWallet()的wallet Promise会先resolve掉
+					 * 随后发起异步请求getEns修改已resolve的wallet对象.
+					 * 由于mobx将对象递归深拷贝设置为新的Proxy对象,
+					 * 所以在connectWallet()修改ens时的wallet对象与已在globalStore的Proxy已无关系.
+					 * 所以在此从源码中提取出了getEns逻辑,和connectWallet一起resolve
+					 */
+					/*如果wallet是undefined , 说明用户取消了连接钱包*/
+					if ( connectedWallet === undefined ) {
+						return Promise.reject( 'canceled' );
+					}
+					return connectedWallet;
+				} ).
+				catch( ( e ) => {
+					console.error( e );
 					globalSetState( {
-						walletConnecting : true ,
-						// windowLoading : {
-						// 	tipNode : "connecting wallet, please hold on." ,
-						// 	isLoading : true ,
-						// } ,
+						walletConnecting : false ,
+						connectedWallet : null ,
+						// windowLoading : { isLoading : false } ,
 					} );
-					
-					return web3onboard.
-					instance.
-					connectWallet( options ).
-					then( ( [ connectedWallet ] ) => {
-						/**
-						 * 陷阱!!!原connectWallet()的wallet Promise会先resolve掉
-						 * 随后发起异步请求getEns修改已resolve的wallet对象.
-						 * 由于mobx将对象递归深拷贝设置为新的Proxy对象,
-						 * 所以在connectWallet()修改ens时的wallet对象与已在globalStore的Proxy已无关系.
-						 * 所以在此从源码中提取出了getEns逻辑,和connectWallet一起resolve
-						 */
-						/*如果wallet是undefined , 说明用户取消了连接钱包*/
-						if(connectedWallet === undefined){
-							return Promise.reject( 'canceled' );
-						}
-						return connectedWallet;
-					} ).
-					catch( ( e ) => {
-						console.error( e );
-						globalSetState( {
-							walletConnecting : false ,
-							connectedWallet : null ,
-							// windowLoading : { isLoading : false } ,
-						} );
-						throw e;
-					} );
-				};
+					throw e;
+				} );
 			} ,
 			disconnect(label) {
 				web3onboard.instance.disconnectWallet( { label } ).
@@ -145,13 +145,27 @@ export const reaxel_wallet = function(){
 	
 	const wallets = web3onboard.instance.state.get().wallets;
 	
+	const memo = Reaxes.closuredMemo( (wallet) => {
+		if(wallet){
+			login(wallet.accounts[0].address).then(() => {
+				getConnectedPromise().resolve();
+				getConnectedPromise().then(() => {
+					console.log( 'ccccccccccccccccc' )
+				})
+			});
+		}else {
+			// setConnectedPromise();
+		}
+	} , () => [] );
+	
 	return ( lifecycle : Lifecycle ) => {
 		
 		
 		lifecycle?.mounted?.( () => {
 			const wallets$ = web3onboard.instance.state.select( "wallets" );
 			const subscription = wallets$.subscribe( ( [connectedWallet] ) => {
-				// crayon.purple( '2312321',connectedWallet );
+				lifecycle.unmount( () => subscription.unsubscribe() );
+				
 				if(connectedWallet === undefined){
 					globalSetState({
 						connectedWallet : null ,
@@ -162,7 +176,7 @@ export const reaxel_wallet = function(){
 					});
 					return;
 				}else {
-					login(connectedWallet.accounts[0].address);
+					memo( () => [ connectedWallet ] )( connectedWallet );
 					if(connectedWallet.accounts[0].ens !== null ) {
 						globalSetState( {
 							connectedWallet : connectedWallet ,
@@ -192,7 +206,6 @@ export const reaxel_wallet = function(){
 					}
 				}
 				
-				lifecycle.unmount( () => subscription.unsubscribe() );
 			} );
 		} );
 		

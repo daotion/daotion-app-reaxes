@@ -34,7 +34,6 @@ export const reaxel_joined_DAO_list = ( lifecycle : Lifecycle ) => {
 	};
 	
 	memedLogin( ( is_logged_in : boolean ) => {
-		console.log( is_logged_in );
 		if ( is_logged_in ) {
 			set_joined_DAO_list();
 		} else {

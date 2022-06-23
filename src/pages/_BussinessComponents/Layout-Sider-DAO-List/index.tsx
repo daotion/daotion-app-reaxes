@@ -95,14 +95,31 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 							const act = () => {
 								this.setState( { createDAOmodalShowing : !this.state.createDAOmodalShowing } );
 							}
+							
+							if(this.login.store.is_logged_in){
+								act()
+							}else {
+								this.connectWallet.connect( {} );
+								this.login.logginPromise.then(() => {
+									act()
+								})
+							}return;
+							/******************/
 							if ( this.connectWallet.connectedWallet ) {
 								console.log( 'connected' );
 								act();
 							} else {
-								this.connectWallet.connect( {} );
+								;
 								this.login.logginPromise.then(() => {
 									act();
 								})
+								
+								this.login.memedLogin((is_logged_in) => {
+									if(is_logged_in){
+										act();
+									}
+								})
+								
 							}
 						} }
 					>
