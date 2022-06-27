@@ -17,7 +17,6 @@ export const DxzPluginList = () => {
 	return <>
 		
 		<aside
-			className = "aside-list"
 			style = { {
 				width : "214px" ,
 				height : "100%" ,
@@ -176,7 +175,7 @@ export const DxzPluginList = () => {
 				/>
 			</div>
 			
-			<div style={{
+			<div className="nav-button" style={{
 				display:"flex",
 				flexDirection:"column",
 				justifyContent:"space-between",
@@ -185,6 +184,8 @@ export const DxzPluginList = () => {
 				<div
 					className = "aside-nav"
 					style = { {
+						// cursor:"pointer",
+						userSelect:"none",
 						display : "flex" ,
 						flexDirection : "column" ,
 						alignItems : "flex-start" ,
@@ -192,15 +193,8 @@ export const DxzPluginList = () => {
 						
 					} }
 				>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
+					<div className={less.nav}
+						
 					>
 						<img
 							src = ""
@@ -214,24 +208,12 @@ export const DxzPluginList = () => {
 							} }
 						/>
 						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
+							
 						>Token
 						</p>
 					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
+					<div className={less.nav}
+						
 					>
 						<img
 							src = ""
@@ -245,24 +227,12 @@ export const DxzPluginList = () => {
 							} }
 						/>
 						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
+							
 						>NFT
 						</p>
 					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
+					<div className={less.nav}
+						
 					>
 						<img
 							src = ""
@@ -275,202 +245,7 @@ export const DxzPluginList = () => {
 								left : "8px" ,
 							} }
 						/>
-						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
-						>SRM
-						</p>
-					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
-					>
-						<img
-							src = ""
-							alt = ""
-							style = { {
-								verticalAlign : "middle" ,
-								backgroundColor : "lightcoral" ,
-								width : "24px" ,
-								height : "24px" ,
-								left : "8px" ,
-							} }
-						/>
-						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
-						>Voting
-						</p>
-					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
-					>
-						<img
-							src = ""
-							alt = ""
-							style = { {
-								verticalAlign : "middle" ,
-								backgroundColor : "lightcoral" ,
-								width : "24px" ,
-								height : "24px" ,
-								left : "8px" ,
-							} }
-						/>
-						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
-						>Vault
-						</p>
-					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
-					>
-						<img
-							src = ""
-							alt = ""
-							style = { {
-								verticalAlign : "middle" ,
-								backgroundColor : "lightcoral" ,
-								width : "24px" ,
-								height : "24px" ,
-								left : "8px" ,
-							} }
-						/>
-						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
-						>PlanSquare
-						</p>
-					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
-					>
-						<img
-							src = ""
-							alt = ""
-							style = { {
-								verticalAlign : "middle" ,
-								backgroundColor : "lightcoral" ,
-								width : "24px" ,
-								height : "24px" ,
-								left : "8px" ,
-							} }
-						/>
-						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
-						>Dework
-						</p>
-					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-						} }
-					>
-						<img
-							src = ""
-							alt = ""
-							style = { {
-								verticalAlign : "middle" ,
-								backgroundColor : "lightcoral" ,
-								width : "24px" ,
-								height : "24px" ,
-								left : "8px" ,
-							} }
-						/>
-						<p
-							style = { {
-								fontWeight : "400" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-							} }
-						>Label
-						</p>
-					</div>
-					<div
-						style = { {
-							display : "flex" ,
-							width : "fill" ,
-							flexDirection : "row" ,
-							alignItems : "center" ,
-							borderRadius : "12px" ,
-							padding : "8px 16px 8px 8px" ,
-							
-						} }
-					>
-						<img
-							src = ""
-							alt = ""
-							style = { {
-								verticalAlign : "middle" ,
-								backgroundColor : "lightcoral" ,
-								width : "24px" ,
-								height : "24px" ,
-								left : "8px" ,
-							} }
-						/>
-						<p
-							style = { {
-								fontWeight : "lighter" ,
-								fontSize : "14px" ,
-								lineHeight : "24px" ,
-								margin : "0px 0px 0px 16px" ,
-								
-							} }
-						>Label
+						<p>SRM
 						</p>
 					</div>
 				</div>
@@ -493,6 +268,7 @@ export const DxzPluginList = () => {
 							display : "flex" ,
 							alignItems : "center" ,
 							justifyContent : "center" ,
+							color:"black"
 						} }
 					>Plugins Center</Button>
 					{/*<span
