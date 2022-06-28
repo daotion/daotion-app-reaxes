@@ -256,7 +256,7 @@ function getProvidePlugin (config = {}) {
 			"@@requester" ,
 			"request",
 		] ,
-		Reaxes : ["@@reaxes","Reaxes"] ,
+		Reaxes : ["@@RootPath/src/Reaxes.core","Reaxes"] ,
 		env : [
 			"@@requester" ,
 			"request",

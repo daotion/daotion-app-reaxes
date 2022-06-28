@@ -34,7 +34,7 @@ import {
 	reaxel_wallet ,
 	reaxel_chains ,
 	reaxel_connect_wallet_when_mounted ,
-} from '@@common/reaxes';
+} from '@@reaxes';
 
 const { Button : DropdownButton } = Dropdown;
 
@@ -616,7 +616,7 @@ const reaxel_header_svg_tool = () => {
 
 
 
-import {reaxel_counter} from '@@common/reaxes';
+import {reaxel_counter} from '@@reaxes';
 
 
 
