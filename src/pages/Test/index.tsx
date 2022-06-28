@@ -2,7 +2,7 @@ import { RoutingTest } from './Routing';
 import { ParentObserver } from './parentObserver';
 import {SetState} from './SetState';
 import {DxzPluginList} from './dxz-plugin-list';
-import{DxzVoting} from './dxz-voting'
+import{DxzVoting} from './dxz-voting_proposals'
 const C = DxzVoting;
 
 

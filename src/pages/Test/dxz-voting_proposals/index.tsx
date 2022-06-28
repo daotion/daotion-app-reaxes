@@ -126,7 +126,7 @@ export const DxzVoting = () => {
 	};
 	
 	return <>
-		<div className = { less.votingContainer }
+		<div className = { less.voting_proposalsContainer }
 			style = { {
 				backgroundColor : "#f4f5f6" ,
 				display : "flex" ,
