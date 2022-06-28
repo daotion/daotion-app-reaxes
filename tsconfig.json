@@ -63,6 +63,10 @@
 		"noUnusedLocals" : false ,
 		"noUnusedParameters" : false ,
 		"paths" : {
+			"@@RootPath" : ["/"] ,
+			"@@common/*" : [
+				"src/common/*"
+			] ,
 			"*/*.ts" : ["*"] ,
 			"@@common/*" : [
 				"src/common/*"
@@ -85,6 +89,12 @@
 			"@@requester/*" : [
 				"src/common/requester/*"
 			] ,
+			"@@requests" : [
+				"src/requests/index"
+			] ,
+			"@@requests/*" : [
+				"src/requests/*"
+			] ,
 			"@@Public/*" : [
 				"Public/*"
 			],
@@ -92,10 +102,10 @@
 				"src/pages/*"
 			],
 			"@@reaxes" : [
-				"src/common/reaxes/index"
+				"src/reaxes/index"
 			],
 			"@@reaxes/*" : [
-				"src/common/reaxes/*"
+				"src/reaxes/*"
 			],
 			"@@mobxState" : [
 				"src/common/MobxState.ts",

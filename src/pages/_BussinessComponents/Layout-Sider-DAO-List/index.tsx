@@ -67,10 +67,10 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 						{ this.joined_DAO_list.joined_DAO_list.map( ( DAOinfo , index ) => {
 							
 							return <div
-								key = { DAOinfo.daoId }
+								key = { DAOinfo.daoID }
 								onClick = { () => {
 									// crayon.blue( 'joined DAO info : ' , DAOinfo );
-									navigate( `./DAO${ DAOinfo.daoId }/info` );
+									navigate( `./DAO${ DAOinfo.daoID }/info` );
 								} }
 								style = { {
 									width : 48 ,
@@ -92,35 +92,7 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 							marginBottom : 8 ,
 						} }
 						onClick = { () => {
-							const act = () => {
-								this.setState( { createDAOmodalShowing : !this.state.createDAOmodalShowing } );
-							}
-							
-							if(this.login.store.is_logged_in){
-								act()
-							}else {
-								this.connectWallet.connect( {} );
-								this.login.logginPromise.then(() => {
-									act()
-								})
-							}return;
-							/******************/
-							if ( this.connectWallet.connectedWallet ) {
-								console.log( 'connected' );
-								act();
-							} else {
-								;
-								this.login.logginPromise.then(() => {
-									act();
-								})
-								
-								this.login.memedLogin((is_logged_in) => {
-									if(is_logged_in){
-										act();
-									}
-								})
-								
-							}
+							this.setState( { createDAOmodalShowing : true } );
 						} }
 					>
 						<BtnAddDAOSvgComponent />
