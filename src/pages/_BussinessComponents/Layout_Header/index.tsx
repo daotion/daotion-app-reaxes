@@ -46,7 +46,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 		reaxel_connect_wallet_when_mounted( this.lifecycle );
 	}
 	
-	header_svg_tool = reaxel_header_svg_tool()(this.lifecycle);
+	header_svg_tool = reaxel_header_svg_tool(this.lifecycle);
 	
 	JSX = {
 		userAvator : () => {
@@ -595,7 +595,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 
 
 
-const reaxel_header_svg_tool = () => {
+const reaxel_header_svg_tool = function() {
 	
 	const {store,setState} = orzMobx({
 		inputSvgString : '' 
@@ -607,12 +607,12 @@ const reaxel_header_svg_tool = () => {
 			get inputSvgString (){
 				return store.inputSvgString;
 			},
-			setInputSvgString (inputSvgString){
-				setState( { inputSvgString } );
+			setInputSvgString (inputSvgString:string){
+				setState( { inputSvgString } as const );
 			}
 		};
 	}
-};
+}();
 
 
 
