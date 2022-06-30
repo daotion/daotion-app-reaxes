@@ -2,6 +2,12 @@ import less from './index.module.less';
 import { Button } from 'antd';
 import { Switch } from 'antd';
 import { Select } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
+import {
+	Cascader ,
+	Input ,
+	Space,
+} from 'antd';
 
 const { Option } = Select;
 
@@ -9,7 +15,17 @@ const children : React.ReactNode[] = [];
 for ( let i = 10 ; i < 36 ; i++ ) {
 	children.push( <Option key = { i.toString( 36 ) + i }>{ i.toString( 36 ) + i }</Option> );
 }
-
+const selectAfter = (
+	<Select
+		defaultValue = "Hours"
+		style = { {} }
+	>
+		<Option value = "Hours">Hours</Option>
+		<Option value = "Minutes">Minutes</Option>
+		<Option value = "Seconds">Seconds</Option>
+		<Option value = "Days">Days</Option>
+	</Select>
+);
 const handleChange = ( value : string[] ) => {
 	console.log( `selected ${ value }` );
 };
@@ -338,8 +354,31 @@ export const DxzVoting_Settings = () => {
 							Voting Strategie
 						</p>
 						<AddButton text = "">Add Strategie</AddButton>
-						<Votingtype title = "Voting delay">0</Votingtype>
-						<Votingtype title = "Voting period">0</Votingtype>
+						<p
+							
+								style = { {
+								fontSize : "14px" ,
+								lineHeight : "24px" ,
+								fontWeight : "600" ,
+								marginBottom : "12px" ,
+							} }
+								>
+							
+							Voting delay
+						</p>
+						
+						<IptSelect></IptSelect>
+						<p
+							style = { {
+								fontSize : "14px" ,
+								lineHeight : "24px" ,
+								fontWeight : "600" ,
+								marginBottom : "12px" ,
+							} }
+						>
+							Voting period
+						</p>
+						<IptSelect></IptSelect>
 						<Votingtype title = "Proposal validity threshold"></Votingtype>
 						<p
 							style = { {
@@ -352,23 +391,22 @@ export const DxzVoting_Settings = () => {
 							Proposal validity threshold
 						</p>
 						<Select
-							// className = { less.antSelectSelectionItem }
+							className = { less.votingType_box }
 							style = { {
 								width : "100%" ,
 								color : "#9a9fa5" ,
-								height: "48px",
-								borderRadius:"12px",
+								height : "48px" ,
 								
 							} }
-							removeIcon={<ClearSvg/>}
+							removeIcon = { <ClearSvg /> }
 							defaultValue = { [
 								'a10' ,
-								'c12',
+								'c12' ,
 							] }
 							onChange = { handleChange }
 							mode = "multiple"
 							allowClear
-							placeholder = "Select Type"
+							placeholder = "Select VotingType"
 						>{ children }
 						
 						</Select>
@@ -498,6 +536,7 @@ const AddButton = ( props ) => {
 		</Button>
 	</>;
 };
+
 const Votingtype = ( props ) => {
 	return <>
 		<p
@@ -538,7 +577,7 @@ const Votingtype = ( props ) => {
 						color : "#23262f" ,
 						lineHeight : "16px" ,
 					} }
-				>{ props.children }
+				>0
 				</p>
 			
 			</div>
@@ -564,4 +603,36 @@ const ClearSvg = () => {
 		</svg>
 	
 	</>;
-}
+};
+const IptSelect = () => {
+	return <>
+		{/*<div*/ }
+		{/*// style = { {
+			// 	marginBottom : "32px" ,
+			// 	padding : "16px 24px" ,
+			// 	backgroundColor : "#ffffff" ,
+			// 	border : "none" ,
+			// 	borderRadius : "16px" ,
+			// 	display : "inline-flex" ,
+			// 	width : "70%" ,
+			// 	justifyContent : "space-between" ,
+			// 	alignItems : "center" ,
+			// 	height : "48px" ,
+			// } }*/ }
+		{/*>*/ }
+		<Input
+			addonAfter = { selectAfter }
+			placeholder = { 'please input' }
+			bordered={true}
+			size="large"
+			style={{
+				// backgroundColor:"#f4f4f4",
+				height:"48px",
+				width:"100%",
+				marginBottom:"32px",
+		}}		
+		/>
+		
+		{/*</div>*/ }
+	</>;
+};
