@@ -263,12 +263,15 @@ export const DxzPluginList = () => {
 							borderRadius : "12px" ,
 							border : "2px solid #e6e8ec" ,
 							fontSize : "14px" ,
-							lineHeight : "24px" ,
 							width : "100%" ,
 							display : "flex" ,
 							alignItems : "center" ,
 							justifyContent : "center" ,
-							color:"black"
+							color:"black",
+							padding:"8px 32px",
+							fontWeight:"500",
+							lineHeight:"24px",
+							height:"40px"
 						} }
 					>Plugins Center</Button>
 					{/*<span

@@ -4,7 +4,7 @@ import {SetState} from './SetState';
 import {DxzPluginList} from './dxz-plugin-list';
 import{DxzVotingProposals} from './dxz-voting_proposals';
 import{DxzVoting_Settings}from'./dxz-voting_settings';
-const C = DxzVoting_Settings;
+const C = DxzPluginList;
 
 
 export const Test = () => <C/>
