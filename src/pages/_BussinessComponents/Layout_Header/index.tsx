@@ -82,10 +82,12 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 			const [ visible , setVisible ] = useState( false );
 			
 			useEffect( () => {
-				
-				subscribe_root_click( () => {
+				const symbol = Symbol();
+				const subscription = () => {
 					setVisible( false );
-				} ,Symbol() );
+				};
+				return subscribe_root_click( subscription ,symbol );
+				
 			} ,[] );
 			
 			const btnStyle = {
@@ -271,7 +273,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					
 					</div> }
 					placement = "bottom"
-					trigger = { [ 'click' ] }
+					trigger = { [ 'hover', ] }
 				>
 					<Button
 						style = { btnStyle }
@@ -308,7 +310,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 			const [visible,setVisible] = useState(false);
 			useEffect( () => {
 				
-				subscribe_root_click( () => {
+				return subscribe_root_click( () => {
 					setVisible( false );
 				} ,Symbol() );
 			} ,[] );
@@ -467,11 +469,11 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 		},
 	}
 	
-	wallets = reaxel_wallet( this.lifecycle );
+	wallets = reaxel_wallet();
 	
 	connectWallet = reaxel_connectWallet( this.lifecycle );
 	
-	chains = reaxel_chains( this.lifecycle );
+	chains = reaxel_chains();
 	
 	actions = {
 		connect : () => {
@@ -503,7 +505,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 	counter = reaxel_counter(this.lifecycle,10);
 	
 	render() {
-		
+		const {navigate} = utils.useRouter();
 		return <div className = { less.topBanner }>
 			{ __EXPERIMENTAL__ && <div>
 				<Input.TextArea
@@ -512,7 +514,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					onPaste = { ( e ) => {
 						if ( e.clipboardData.items[ 0 ].kind === "file" ) {
 							const picFile = e.clipboardData.items[ 0 ].getAsFile();
-							navigator.clipboard.readText().
+							navigator?.clipboard?.readText?.().
 							then( ( value ) => {
 								console.log( value );
 							} );
@@ -558,6 +560,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						globalSetState( {
 							theme : globalStore.theme === "dark" ? "light" : "dark" ,
 						} );
+						navigate( '/test' );
 					} }
 					autoFocus = { false }
 				>

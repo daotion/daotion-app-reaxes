@@ -33,13 +33,13 @@ const syncState = {};
 /*全局的登录promise*/
 
 
-export const reaxel_connect_wallet_from_storage = ( lifecycle : Lifecycle ) => {
+export const reaxel_connect_wallet_from_storage = () => {
 	
 	return {
 		/*从localstorage读入缓存并链接钱包*/
 		connectWalletFromStorage() {
 			const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
-			if ( wallet !== null ) {
+			if ( wallet !== null && globalStore.connectedWallet === null ) {
 				// crayon.blue( 'connectWalletFromStorage:' , wallet );
 				web3onboard.instance.connectWallet( {
 					autoSelect : {
@@ -65,7 +65,7 @@ export const reaxel_connect_wallet_from_storage = ( lifecycle : Lifecycle ) => {
 };
 
 export const reaxel_connect_wallet_when_mounted = ( lifecycle : Lifecycle ) => {
-	const { connectWalletFromStorage } = reaxel_connect_wallet_from_storage( lifecycle );
+	const { connectWalletFromStorage } = reaxel_connect_wallet_from_storage();
 	lifecycle.mounted( () => {
 		connectWalletFromStorage();
 	} );
@@ -134,63 +134,61 @@ export const reaxel_connectWallet = function(){
 
 export const reaxel_wallet = function(){
 	
-	const wallets = web3onboard.instance.state.get().wallets;
+	// const wallets = web3onboard.instance.state.get().wallets;
+	
+	const wallets$ = web3onboard.instance.state.select( "wallets" );
+	const subscription = wallets$.subscribe( ( [connectedWallet] ) => {
+		// lifecycle.unmount( () => subscription.unsubscribe() );
+		
+		if(connectedWallet === undefined){
+			globalSetState({
+				connectedWallet : null ,
+				// windowLoading : {
+				// 	isLoading : false ,
+				// },
+				walletConnecting :false ,
+			});
+			return;
+		}else {
+			if(connectedWallet.accounts[0].ens !== null ) {
+				globalSetState( {
+					connectedWallet : connectedWallet ,
+					// windowLoading : {
+					// 	isLoading : false ,
+					// } ,
+					walletConnecting : false ,
+				} );
+				setWalletToLocalstorage(connectedWallet);
+			}else {
+				fetchENS(
+					connectedWallet.accounts[0].address ,
+					web3onboard.instance.state.get().chains[0],
+				).then((ens) => {
+					connectedWallet.accounts[0].ens = ens;
+					globalSetState( {
+						connectedWallet : connectedWallet ,
+						windowLoading : {
+							isLoading : false ,
+						} ,
+						walletConnecting : false ,
+					} );
+					setWalletToLocalstorage(connectedWallet);
+				}).catch((e) => {
+					console.trace(e);
+				});
+			}
+		}
+		
+	} );
 	
 	
-	return ( lifecycle? : Lifecycle ) => {
+	let prodiver = Reaxes.observedMemo((first) => {
+		if(!globalStore.connectedWallet) return prodiver = null;
+		return prodiver = new ethers.providers.Web3Provider(globalStore.connectedWallet?.provider ?? null, 'any');
+	} , () => [globalStore.connectedWallet]);
+	
+	return () => {
 		
-		
-		lifecycle?.mounted?.( () => {
-			const wallets$ = web3onboard.instance.state.select( "wallets" );
-			const subscription = wallets$.subscribe( ( [connectedWallet] ) => {
-				lifecycle.unmount( () => subscription.unsubscribe() );
-				
-				if(connectedWallet === undefined){
-					globalSetState({
-						connectedWallet : null ,
-						// windowLoading : {
-						// 	isLoading : false ,
-						// },
-						walletConnecting :false ,
-					});
-					return;
-				}else {
-					if(connectedWallet.accounts[0].ens !== null ) {
-						globalSetState( {
-							connectedWallet : connectedWallet ,
-							// windowLoading : {
-							// 	isLoading : false ,
-							// } ,
-							walletConnecting : false ,
-						} );
-						setWalletToLocalstorage(connectedWallet);
-					}else {
-						fetchENS(
-							connectedWallet.accounts[0].address ,
-							web3onboard.instance.state.get().chains[0],
-						).then((ens) => {
-							connectedWallet.accounts[0].ens = ens;
-							globalSetState( {
-								connectedWallet : connectedWallet ,
-								windowLoading : {
-									isLoading : false ,
-								} ,
-								walletConnecting : false ,
-							} );
-							setWalletToLocalstorage(connectedWallet);
-						}).catch((e) => {
-							console.trace(e);
-						});
-					}
-				}
-				
-			} );
-		} );
-		
-		let prodiver = Reaxes.observedMemo((first) => {
-			if(!globalStore.connectedWallet) return prodiver = null;
-			return prodiver = new ethers.providers.Web3Provider(globalStore.connectedWallet?.provider ?? null, 'any');
-		} , () => [globalStore.connectedWallet]);
 		
 		
 		return {
@@ -223,71 +221,72 @@ export const reaxel_chains = function(){
 		setChain ,
 	} = web3onboard.instance;
 	
-	const chains = state.get().chains;
+	// const chains = state.get().chains;
 	const closured = Reaxes.closuredMemo( (currentChain) => {
 		crayon.green( `currentChain:` , currentChain );
 	} , () => [] );
+	
+	
 	const subscription = state.
 	select( 'chains' ).
 	subscribe( ( [chain] ) => {
-		
-		console.log( chain );
 		if ( chain ) {
-			// crayon.green('connected chain:',chain);
+			crayon.green('connected chain:',chain);
 			globalSetState( {
 				currentChain : chain ,
 			} );
-			closured(() => [chain])(chain);
+			closured(() => [chain.id])(chain);
 		}
 		
 	} );
 	
-	return ( lifecycle : Lifecycle ) => {
-		const chains = state.get().chains;
-		
-		
-		/*typescript do not support do expression UNTIL NOW!厚礼蟹*/
-		const getConnectedChain = function ( walletLabel ) {
-			const initialWallets = state.get().wallets;
-			if ( initialWallets.length === 0 ) return null;
-			return (
-				initialWallets.find( ( { label } ) => label === walletLabel ) ||
-				initialWallets[ 0 ]
-			).chains[ 0 ] || null;
-		};
-		
-		/*订阅器作用是监听任何链接钱包的行为, 包括调用blocknativeAPI或UI widget*/
-		lifecycle.mounted( () => {
-			const subscription = state.
-			select( 'chains' ).
-			subscribe( ( [chain] ) => {
-				console.log( 'kkkkkkkkkkkkkkk' , chain );
-				if ( chain ) {
-					// crayon.green('connected chain:',chain);
-					globalSetState( {
-						currentChain : chain ,
-					} );
-				}
-
+	
+	/*/!*typescript do not support do expression UNTIL NOW!厚礼蟹*!/
+	const getConnectedChain = function ( walletLabel ) {
+		const initialWallets = state.get().wallets;
+		if ( initialWallets.length === 0 ) return null;
+		return (
+			initialWallets.find( ( { label } ) => label === walletLabel ) ||
+			initialWallets[ 0 ]
+		).chains[ 0 ] || null;
+	};
+	
+	/!*订阅器作用是监听任何链接钱包的行为, 包括调用blocknativeAPI或UI widget*!/
+	const subscription = web3onboard.instance.state.
+	select( 'chains' ).
+	subscribe( ( [chain] ) => {
+		console.log( chain && globalStore.connectedWallet );
+		if ( chain && globalStore.connectedWallet ) {
+			crayon.green('connected chain:',chain);
+			fetchENS(globalStore.connectedWallet.accounts[0].address,chain).then((data) => {
+				crayon.purple( 'ens===',data );
+			});
+			globalStore.connectedWallet && (globalStore.connectedWallet.chains = [chain]);
+			globalSetState( {
+				currentChain : chain ,
 			} );
-			lifecycle.unmount( () => {
-				subscription.unsubscribe();
-			} );
+		}
+		
+	} );*/
+	
+	
+	const set = ( options : SetChainOptions , walletLabel ) : Promise<boolean> => {
+		globalSetState( { settingChain : true } );
+		
+		return setChain( {
+			...options ,
+			wallet : walletLabel ,
+		} ).
+		then( ( success ) => {
+			globalSetState( { settingChain : false } );
+			return success;
 		} );
+	};
+	
+	return () => {
+		// const chains = state.get().chains;
 		
 		
-		const set = ( options : SetChainOptions , walletLabel ) : Promise<boolean> => {
-			globalSetState( { settingChain : true } );
-			
-			return setChain( {
-				...options ,
-				wallet : walletLabel ,
-			} ).
-			then( ( success ) => {
-				globalSetState( { settingChain : false } );
-				return success;
-			} );
-		};
 		
 		return {
 			get chains() {
@@ -336,7 +335,7 @@ function fetchENS( address : string , chain : Chain ) {
 			);
 			return provider.getResolver( name );
 		} else {
-			console.error('there is no "ens:name" , will show address directly');
+			crayon.warn('there is no "ens:name" , will show address directly');
 			return null;
 		}
 		

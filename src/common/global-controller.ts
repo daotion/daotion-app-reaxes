@@ -55,6 +55,11 @@ export const createSubscriber = ( description?: string ): [
 		}else {
 			subscribe_symbol_map[ symbol ] = [callback];
 		}
+		return function unsubscribe (){
+			_.remove( subscribe_symbol_map[ symbol ] , ( _cb ) => {
+				return _cb === callback;
+			} );
+		}
 	};
 	
 	

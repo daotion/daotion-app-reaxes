@@ -22,7 +22,7 @@ export const reaxel_joined_DAO_list = function(){
 	
 	address_reaction((address) => {
 		if(typeof address === "string" && address){
-			ret.request_joined_DAO_list( address );
+			ret?.request_joined_DAO_list( address );
 		}else {
 			ret?.empty_joined_DAO_list?.();
 		}
