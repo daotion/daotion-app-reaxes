@@ -1,80 +1,123 @@
-import {getConnectedPromise} from '@@reaxes/wallet/exported-connected-promise';
-import { reaxel_disconnect } from './disconnect';
+/**
+ * 真钱包签名,登录
+ */
 
 
-export const reaxel_login = function(){
-	let ret,
-		/*是否正在登录进程中,如果是则是登录中的promise,否则是false*/
-		isLogin:Promise<any>|boolean = false 
-	;
-	const {
-		store ,
-		setState,
-	} = orzMobx( {
-		is_logged_in : false ,
+
+const reaxel_user_sign_login = function(){
+	const {store,setState} = orzMobx({
+		logged_in : false ,
+		privateKey : null ,
+		/*用户真实钱包的地址*/
+		real_address : null ,
+	});
+	const { address_memoed_reaction , provider } = reaxel_wallet();
+	const symbol__fake_wallets_map_ = Symbol( '_fake_wallets_map_' );
+	
+	/*从storage获取私钥*/
+	const checkAddressIsLoggedIn = (address:string) => {
+		const walletsMap:string = orzLocalstroage.get<string>(symbol__fake_wallets_map_.description);
+		const privateKey:string = JSON.parse(walletsMap)[address] ?? null;
+		
+		return privateKey;
+	}
+	/*用于操作localstorage存的私钥组*/
+	const address_map_private_key_utils = {
+		add([address,privateKey]:[string,string]){
+			address_map_private_key_utils.getAll().find(() => )
+		},
+		remove(){},
+		empyt(){},
+		getAll():member[]{
+			const map_string = orzLocalstroage.get<string>( symbol__fake_wallets_map_.description );
+			return JSON.parse( map_string );
+		},
+		
+	};
+	
+	address_memoed_reaction( ( address ) => {
+		if(address){
+			setState( { real_address : address } );
+			const privateKey = checkAddressIsLoggedIn(address);
+			if(privateKey){
+				setState( { privateKey } );
+			}
+		}
 	} );
 	
-	const {
-		setDisconnected,
-	} = reaxel_disconnect();
-	
-	return (lifecycle?:Lifecycle) => {
+	return () => {
 		
-		/*如果cookie里有登录信息则直接视为登陆过了*/
-		lifecycle?.mounted?.( () => {
-			if ( utils.Cookie.get('gfsessionid') ) {
-				setState( { is_logged_in : true } );
-				getConnectedPromise().resolve( true );
-			}
-		} );
-		
-		
-		return ret = {
-			get store (){
+		return {
+			get fake_wallets_map_string (){
+				return symbol__fake_wallets_map_.description;
+			} ,
+			get fake_wallet_store (){ 
 				return store;
 			},
-			get logginPromise (){
-				return getConnectedPromise();
-			},
-			set_is_logged_in (is_logged_in:boolean){
-				setState( { is_logged_in } );
-			},
-			login (address : string){
-				/*单例,防止重复请求*/
-				if(isLogin !== false){
-					return isLogin as Promise<any>;
-				}else {
-					/*fixme 判断cookie可以优化*/
-					if(!store.is_logged_in || !(utils.Cookie.get('gfsessionid'))){
-						crayon.blue(!store.is_logged_in,utils.Cookie.get('gfsessionid'),'!store.is_logged_in && !document.cookie.includes(\'gfsessionid=\')');
-						return isLogin = request_regression_sign(address).then(() => {
-							setState({
-								is_logged_in : true,
-							});
-							isLogin = false;
-							getConnectedPromise().resolve(true);
-							setDisconnected( false );
-						}).catch((e) => {
-							isLogin = false ;
-							getConnectedPromise().reject('登录失败:s2sa0d7sa87d9sad');
-							throw e;
-						});
-					}else {
-						getConnectedPromise().resolve(true);
-						return Promise.resolve(true);
-					}
+			/*使用用户真实的钱包签名并登录 ,当用户点击了签名按钮并且与后端交互成功时,将假钱包私钥缓存进localstorage*/
+			loginWithUserWallet (){
+				if(!store.privateKey){
+					const fakeWallet = Wallet.createRandom();
+					const {address:fakeAddress,privateKey:fakePrivateKey} = fakeWallet;
+					const real_address = store.real_address || globalStore.connectedWallet.accounts[ 0 ].address;
+					const domainTypes = [
+						{ name: "name", type: "string" },
+						{ name: "version", type: "string" },
+						{ name: "salt", type: "bytes32" },
+					];
+					const domainData = {
+						name : "dao_app" ,
+						version : "1",
+						salt : "0xf2d857f4a3edcb9b78b5d503bfe733db1e3f6cdc2b7971ee739626c97e86a558" ,
+					};
+					const messageTypes = [
+						{name : "from" , type : "address"},
+						{name : "alias" , type : "address"},
+						{name : "timestamp" , type : "string"},
+					];
+					
+					const message = {
+						from: real_address,
+						alias: fakeAddress,
+						timestamp : Date.now().toString(),
+					};
+					
+					const data = (
+						{
+							types : {
+								EIP712Domain : domainTypes ,
+								AddressAlias : messageTypes ,
+							} ,
+							domain : domainData ,
+							primaryType : "AddressAlias" ,
+							message : message ,
+						}
+					);
+					
+					const web3provider = new ethers.providers.Web3Provider(provider, 'any');
+					
+					web3provider.send( 'eth_signTypedData_v3' , [
+						globalStore.connectedWallet.accounts[ 0 ].address.toLowerCase() ,
+						JSON.stringify( data ),
+					] ).then((res) => {
+						return fetch_user_address_alias( {
+							address : globalStore.connectedWallet.accounts[ 0 ].address ,
+							data : message ,
+							signature : res ,
+						} );
+					}).then((res) => {
+						crayon.green("登录成功!");
+						
+					});
 				}
-			},
-			/*监听store.is_logged_in变化,变化时执行回调函数.*/
-			memedLogin(callback:(is_logged_in:boolean) => any){
-				const memo = Reaxes.closuredMemo(callback,() => []);
-				Reaxes.observedMemo( () => {
-					memo(() => [store.is_logged_in])(store.is_logged_in);
-				} , () => [ store.is_logged_in ] );
-			},
+			}
 		};
-	}
+	};
 }();
 
-
-import { request_regression_sign } from '@@requests/authorize';
+import { reaxel_wallet } from '@@reaxes/wallet';
+import {orzLocalstroage} from '@@common/storages';
+import { ethers ,Wallet } from 'ethers';
+import { fetch_user_address_alias } from '@@requests';
+/*address-privateKey映射*/
+type member = {[p:string]:string};

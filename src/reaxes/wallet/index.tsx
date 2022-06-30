@@ -203,7 +203,7 @@ export const reaxel_wallet = function(){
 			},
 			
 			/*当钱包地址发生变化时自动执行*/
-			address_reaction(cb:(address:string) => any){
+			address_memoed_reaction(cb:(address:string) => any){
 				const lazyInvoke = Reaxes.closuredMemo(() => cb(globalStore.connectedWallet?.accounts?.[0]?.address) , () => []);
 				const memo = Reaxes.observedMemo( () => {
 					lazyInvoke(() => [globalStore.connectedWallet?.accounts?.[0]?.address])()

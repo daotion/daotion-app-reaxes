@@ -5,6 +5,6 @@ import { SignTest } from './Sign';
 import {DxzPluginList} from './dxz-plugin-list';
 import{DxzVoting} from './dxz-voting'
 
-const C = SignTest;
+const C = DxzPluginList;
 
 export const Test = () => <C/>

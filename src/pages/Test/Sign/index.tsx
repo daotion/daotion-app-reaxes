@@ -14,8 +14,8 @@ const reaxel_login = function(){
 		
 	})
 	reaxel_connect_wallet_from_storage().connectWalletFromStorage();
-	const {address_reaction} = reaxel_wallet();
-	const sign_reaction = address_reaction((address) => {
+	const {address_memoed_reaction} = reaxel_wallet();
+	const sign_reaction = address_memoed_reaction((address) => {
 		if(address){
 			setState( { sign_avalable : true } );
 		}else {

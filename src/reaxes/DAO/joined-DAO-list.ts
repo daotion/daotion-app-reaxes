@@ -18,9 +18,9 @@ export const reaxel_joined_DAO_list = function(){
 	} );
 	
 	
-	const { address_reaction } = reaxel_wallet();
+	const { address_memoed_reaction } = reaxel_wallet();
 	
-	address_reaction((address) => {
+	address_memoed_reaction((address) => {
 		if(typeof address === "string" && address){
 			ret?.request_joined_DAO_list( address );
 		}else {

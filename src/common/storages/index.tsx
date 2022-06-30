@@ -4,7 +4,7 @@
  */
 
 type ORZLocalstorage = {
-	get<ret>(key?): ret|Storage ,
+	get : (<ret>(key:string|symbol) => ret) & (() => Storage) ,
 	set( key : string | symbol , value , expiration?:number|BigInt):void ,
 	remove(key : string | symbol):void;
 } & symbols;
@@ -22,13 +22,13 @@ export const orzLocalstroage:ORZLocalstorage = (new class {
 		});
 	}
 	
-	get<ret extends any = any>( ...key ):ret|Storage {
+	get<ret extends any = any>( ...key:[string|symbol]|[] ):ret|Storage {
 		if ( key.length !== 0 ) {
 			const _key = typeof key[0] === "string" ? key[0] : getMap(key[0]);
 			try {
 				return JSON.parse(window.localStorage.getItem( _key ));
 			}catch ( e ) {
-				return window.localStorage.getItem( key[ 0 ] ) as ret;
+				return window.localStorage.getItem( key[ 0 ] as string ) as ret;
 			}
 		} else {
 			return window.localStorage;
