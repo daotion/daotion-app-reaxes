@@ -56,8 +56,8 @@ export const DxzPluginList = () => {
 						style = { {
 							marginRight : "16px" ,
 						} }
-						width = "36"
-						height = "36"
+						width = "36px"
+						height = "36px"
 						viewBox = "0 0 36 37"
 						fill = "none"
 						xmlns = "http://www.w3.org/2000/svg"
@@ -101,7 +101,6 @@ export const DxzPluginList = () => {
 					
 					<div
 						style = { {
-							width : "82.5px" ,
 							flex : "none" ,
 							display : "inline-flex" ,
 							flexFlow : "flow nowrap" ,
@@ -111,7 +110,7 @@ export const DxzPluginList = () => {
 					>
 						<span
 							style = { {
-								padding : "0px 0px 0px 2px" ,
+								padding : "0px 0px 0px 0px" ,
 								margin : "0px 8px 0px 0px" ,
 								fontSize : "14px" ,
 								fontWeight : "bold" ,
@@ -119,6 +118,11 @@ export const DxzPluginList = () => {
 								fontFamily : "'inter'" ,
 								fontStyle : "normal" ,
 								lineHeight : "20px" ,
+								width:"53px",
+								height:"24px",
+								alignItems:"center" ,
+								display:"flex"
+								
 							} }
 						>DAOtion
 						</span>
@@ -146,6 +150,8 @@ export const DxzPluginList = () => {
 							<svg
 								style={{
 									marginLeft:"28px",
+									display:"flex",
+									alignItems:"center",
 								}}
 								width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M12.1103 7.39629L12.644 6.7737L12.1103 6.31628L11.5767 6.7737L12.1103 7.39629ZM12.1103 17.2363L11.5767 17.8589L12.1103 18.3163L12.644 17.8589L12.1103 17.2363ZM8.8173 11.2989L12.644 8.01888L11.5767 6.7737L7.75 10.0537L8.8173 11.2989ZM11.5767 8.01888L15.4033 11.2989L16.4706 10.0537L12.644 6.7737L11.5767 8.01888ZM7.75 14.5789L11.5767 17.8589L12.644 16.6137L8.8173 13.3337L7.75 14.5789ZM12.644 17.8589L16.4706 14.5789L15.4033 13.3337L11.5767 16.6137L12.644 17.8589Z" fill="#B1B5C3"/>
