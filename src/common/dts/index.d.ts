@@ -18,10 +18,10 @@ declare interface globalStoreType {
 	language : "enUS"|"zhCN"|string;
 	/* null:第一次还没连接, false:已断开连接 */
 	walletConnecting : null|boolean,
-	connectedWallet : WalletState,
+	wallet : WalletState,
 	// wallets : WalletState[] ,
 	settingChain : boolean ,
-	currentChain : Chain ,
+	chain : Chain ,
 	/*可选链路*/
 	chains : Chain[],
 	account : Account|null ,

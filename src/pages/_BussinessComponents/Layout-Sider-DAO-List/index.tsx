@@ -3,10 +3,10 @@ import { BtnAddDAOSvgComponent } from '@@pages/_SvgComponents';
 import { CreateModalContent } from '@@pages/Create-DAO/components/create-modal';
 
 import {
-	reaxel_connectWallet ,
+	// reaxel_connectWallet ,
 	reaxel_joined_DAO_list ,
 	reaxel_wallet ,
-	reaxel_login,
+	// reaxel_login,
 } from '@@reaxes';
 import { Modal } from 'antd';
 /**
@@ -22,9 +22,8 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 	
 	joined_DAO_list = reaxel_joined_DAO_list( this.lifecycle );
 	
-	wallet = reaxel_wallet( this.lifecycle );
+	wallet = reaxel_wallet();
 	
-	login = reaxel_login(this.lifecycle);
 	
 	create_DAO_Modal = reaxel_create_DAO_Modal(this.lifecycle);
 	

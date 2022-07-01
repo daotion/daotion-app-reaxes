@@ -1,10 +1,10 @@
 import {
 	compose ,
 	hot ,
-	// withHoC ,
+	withHoC ,
 	didRenderLifeCycle ,
 } from './Wrappers/index';
-import {withHoC} from '@@pages/Test/parentObserver/withHoC';
+// import {withHoC} from '@@pages/Test/parentObserver/withHoC';
 
 const componentHasWrapped = Symbol( '' );
 
@@ -25,3 +25,4 @@ export const ComponentWrapper = <T extends {}>(component : T) : T => {
 	return wrappedComponent;
 };
 
+console.log( __EXPERIMENTAL__ );

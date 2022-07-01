@@ -2,7 +2,7 @@ import {
 	ethers ,
 	Wallet,
 } from 'ethers';
-import {reaxel_connect_wallet_from_storage , reaxel_wallet} from '@@reaxes/wallet/index';
+import { reaxel_user_sign_login } from '@@reaxes/authurize/user';
 import { globalStore } from '@@common/global-controller';
 import { Button } from 'antd';
 
@@ -130,23 +130,37 @@ const reaxel_sign_request = function(){
 
 export const SignTest = ComponentWrapper(class extends ReactComponentClass{
 	
-	reax_login = reaxel_login(this.lifecycle);
+	// reax_login = reaxel_login(this.lifecycle);
+	//
+	// reax_sign_request = reaxel_sign_request( this.lifecycle );
 	
-	reax_sign_request = reaxel_sign_request( this.lifecycle );
+	user_sign_login = reaxel_user_sign_login();
+	
+	wallet = reaxel_wallet();
+	
+	reax_connectWallet = reaxel_connectWallet(this.lifecycle);
 	
 	render() {
 		return <>
-			{ this.reax_login.store.sign_avalable ? <Button
+			{ (this.wallet.wallet && !this.user_sign_login.fake_wallet_store.logged_in) ? <Button
 				type="primary"
 				onClick = { () => {
-					this.reax_login.login();
+					this.user_sign_login.loginWithUserWallet();
 				} }
 			>
 				sign
 			</Button> : null }
 			<Button
 				onClick={() => {
-					this.reax_sign_request.sign();
+					this.reax_connectWallet.connect({});
+				}}
+				type="dashed"
+			>
+				connect Wallet
+			</Button>
+			<Button
+				onClick={() => {
+					this.user_sign_login.sign();
 				}}
 				type="dashed"
 			>

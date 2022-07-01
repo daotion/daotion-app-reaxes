@@ -1,6 +1,6 @@
 import { fetch_DAO_joined_DAO_list } from '@@requests/DAO';
 import { DAO__joined_DAO_list } from '@@requests/DAO/types';
-import { reaxel_wallet } from '@@reaxes/wallet';
+import { reaxel_wallet } from '@@reaxes/wallet/wallet';
 
 export const reaxel_joined_DAO_list = function(){
 	

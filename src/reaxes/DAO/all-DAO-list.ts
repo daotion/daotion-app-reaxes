@@ -1,5 +1,5 @@
 import {fetch_all_DAO_list} from '@@requests/DAO';
-import { reaxel_login } from '@@reaxes';
+// import { reaxel_login } from '@@reaxes';
 
 
 const onerror = ( msg ) => {
@@ -24,7 +24,7 @@ export const reaxel_DAO_list = function(){
 	
 	
 	return ( lifecycle : Lifecycle ) => {
-		const {store:login_store,memedLogin} = reaxel_login(lifecycle);
+		// const {store:login_store,memedLogin} = reaxel_login(lifecycle);
 		// memedLogin((is_logged_in) => {
 		// 	if(is_logged_in){
 		// 		fetch_all_DAO_list( {

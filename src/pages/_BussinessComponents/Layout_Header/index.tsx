@@ -30,10 +30,10 @@ import {
 } from '@@pages/_SvgComponents';
 
 import {
-	reaxel_connectWallet ,
+	// reaxel_connectWallet ,
 	reaxel_wallet ,
-	reaxel_chains ,
-	reaxel_connect_wallet_when_mounted ,
+	// reaxel_chains ,
+	// reaxel_connect_wallet_when_mounted ,
 } from '@@reaxes';
 
 const { Button : DropdownButton } = Dropdown;
@@ -53,8 +53,8 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 			return globalStore.connectedWallet?.accounts?.[0]?.ens?.avatar?.url || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNS42MzEiIGhlaWdodD0iMzQuNjU2IiB2aWV3Qm94PSIwIDAgMzUuNjMxIDM0LjY1NiIgY2xhc3M9IlNpdGVXaWRlQXBwQmFyX19NaW5pTG9nby1zYy0xcTY1N2UtNiBra2paVVgiPjxnIGRhdGEtbmFtZT0iSWNvbiBMb2dvIj48cGF0aCBkYXRhLW5hbWU9IlBhdGggNzcxIiBkPSJNNi45IDIzLjEwNUw1LjgzOCAxMS4wMiAxOC41IDguNDczbDEyLjc4NiAyLjU0NC0xLjE2NiAxMi4wNTctMTEuNjI0IDguNzMzeiIgZmlsbD0iI2JmZmZmZiI+PC9wYXRoPjxnIGRhdGEtbmFtZT0iUGF0aCA3Njg4IiBmaWxsPSIjMGYxNzI0Ij48cGF0aCBkPSJNMTguNTAxIDMwLjgxNUw2LjU4MSAxMS4yOTkgMTguNSA3LjQyNmwxMi4wMjggMy44NzItMTIuMDI3IDE5LjUxN3oiPjwvcGF0aD48cGF0aCBkPSJNMTguNSA3Ljk1MUw3LjMzOSAxMS41NzlsMTEuMTY0IDE4LjI4IDExLjI2NC0xOC4yOEwxOC41IDcuOTUxTTE4LjQ5OSA2LjlsMTIuNzg5IDQuMTE4LTEyLjc5IDIwLjc1M0w1LjgyNSAxMS4wMTkgMTguNDk5IDYuOXoiIGZpbGw9IiNiZmZmZmYiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==';
 		},
 		ellipsisAddress : () => {
-			if(!this.connectWallet.connectedWallet ) return null;
-			const address = this.connectWallet.connectedWallet.accounts[0].address;
+			if(!this.connectWallet.wallet ) return null;
+			const address = this.connectWallet.wallet.accounts[0].address;
 			return <span
 				style = {{
 					color : "#777e91",
@@ -378,7 +378,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 										fontSize : 16 ,
 										color : "#23262F",
 									}}
-								>{this.connectWallet.connectedWallet?.accounts[0]?.ens?.name}</span>
+								>{this.connectWallet.wallet?.accounts[0]?.ens?.name}</span>
 								{this.JSX.ellipsisAddress()}
 							</div>
 							<div
@@ -449,7 +449,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						}}
 					>
 						<span>{ /*@ts-ignore*/
-							this.connectWallet.connectedWallet.accounts[0]?.ens?.name }</span>
+							this.connectWallet.wallet.accounts[0]?.ens?.name }</span>
 						<span
 							style = { {
 								marginLeft : "8px" ,
@@ -483,16 +483,16 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 			} );
 		} ,
 		disconnect : () => {
-			this.connectWallet.disconnect(this.connectWallet.connectedWallet.label);
+			this.connectWallet.disconnect(this.connectWallet.wallet.label);
 		},
-		setChain : () => {
+		selectChain : () => {
 			return (chainId,chainNamespace) => {
 				this.chains.setChain(
 					{
 						chainId ,
 						chainNamespace,
 					} ,
-					this.connectWallet.connectedWallet.label,
+					this.connectWallet.wallet.label,
 				).then((bool) => {
 					if(bool){
 						message.success('change chain successfully');
@@ -502,7 +502,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 		},
 	} ;
 	
-	counter = reaxel_counter(this.lifecycle,10);
 	
 	render() {
 		const {navigate} = utils.useRouter();
@@ -514,10 +513,10 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					onPaste = { ( e ) => {
 						if ( e.clipboardData.items[ 0 ].kind === "file" ) {
 							const picFile = e.clipboardData.items[ 0 ].getAsFile();
-							navigator?.clipboard?.readText?.().
+							/*navigator?.clipboard?.readText?.().
 							then( ( value ) => {
 								console.log( value );
-							} );
+							} );*/
 							(
 								new Promise( ( resolve ) => {
 									const fileReader = new FileReader();
@@ -533,19 +532,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						}
 					} }
 				/>
-				<button
-					onClick = { () => {
-						this.counter.plus();
-					} }
-				>plus
-				</button>
-				{ this.counter.count }
-				<button
-					onClick = { () => {
-						this.counter.minus();
-					} }
-				>minus
-				</button>
 			</div> }
 			<div className = { less.rightSideGroup }>
 				<Button
@@ -619,7 +605,7 @@ const reaxel_header_svg_tool = function() {
 
 
 
-import {reaxel_counter} from '@@reaxes';
+// import {reaxel_counter} from '@@reaxes';
 
 
 

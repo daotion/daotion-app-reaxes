@@ -4,7 +4,9 @@ import {SetState} from './SetState';
 import { SignTest } from './Sign';
 import {DxzPluginList} from './dxz-plugin-list';
 import{DxzVoting} from './dxz-voting'
+import { UseSyncExternalStore } from './useSyncExternalStore';
+import {TextWallet} from './reax-wallet';
 
-const C = DxzPluginList;
+const C = TextWallet;
 
 export const Test = () => <C/>
