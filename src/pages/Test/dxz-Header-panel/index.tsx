@@ -1,7 +1,7 @@
 import less from './index.module.less';
 import { Switch } from 'antd';
 
-export const DxzLanguage = () => {
+export const DxzHeaderPanel = () => {
 	return <>
 		<div
 			className = { less.dxzLanguageContainer }
