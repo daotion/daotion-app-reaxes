@@ -1,9 +1,9 @@
 import {
 	reaxel_wallet ,
-	reaxel_chain,
+	reaxel_chain ,
 } from '@@reaxes';
 
-export const TextWallet = ComponentWrapper(class extends ReactComponentClass{
+export const TextWallet = ComponentWrapper( class extends ReactComponentClass {
 	
 	
 	render() {
@@ -11,39 +11,40 @@ export const TextWallet = ComponentWrapper(class extends ReactComponentClass{
 		
 		const reax_wallet = reaxel_wallet();
 		
+		
 		return <>
-			{!reax_wallet.wallet && <button
+			{ !reax_wallet.wallet && <button
 				onClick = { () => {
 					reax_wallet.connectWallet();
 				} }
 			>
 				connect wallet
 			</button> }
-			{reax_wallet.wallet && <button
-				onClick = {() => {
+			{ reax_wallet.wallet && <button
+				onClick = { () => {
 					reax_wallet.disconnectWallet( reax_wallet.wallet.label );
-				}}
+				} }
 			>
-				disconnect wallet 
-			</button>}
+				disconnect wallet
+			</button> }
 			
 			<select
-				onChange={(e) => {
+				onChange = { ( e ) => {
 					console.log( e.target.value );
 					reax_wallet.selectChain( { chainId : e.target.value } );
-				}}
-				value={reax_wallet.walletStore.chain?.id ?? '0x1'}
+				} }
+				value = { reax_wallet.walletStore.chain?.id ?? '0x1' }
 			>
-				{reax_wallet.chains.map((chain) => {
-					return <option 
-						key = {chain.id} 
-						value = {chain.id}
-						onClick={() => {
+				{ reax_wallet.chains.map( ( chain ) => {
+					return <option
+						key = { chain.id }
+						value = { chain.id }
+						onClick = { () => {
 							// reax_wallet.selectChain( { chainId : chain.id } );
-						}}
-					>{chain.label}</option>
-				})}
+						} }
+					>{ chain.label }</option>;
+				} ) }
 			</select>
-		</>
+		</>;
 	}
-})
+} );

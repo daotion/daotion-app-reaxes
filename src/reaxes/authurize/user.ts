@@ -6,12 +6,18 @@ export const reaxel_user_sign_login = function () {
 	const {
 		store ,
 		setState ,
-	} = orzMobx( {
+	} = orzMobx<{
+		logged_in:boolean;
+		privateKey : string;
+		real_address : string;
+		fakeWallet : Wallet;
+	}>( {
 		logged_in : false ,
 		/*假钱包私钥*/
 		privateKey : null ,
 		/*用户真实钱包的地址*/
 		real_address : null ,
+		fakeWallet : null ,
 	} );
 	const reax_wallet = reaxel_wallet();
 	const symbol__fake_wallets_map_ = Symbol( '_fake_wallets_map_' );
@@ -53,7 +59,7 @@ export const reaxel_user_sign_login = function () {
 			setState( { real_address : address } );
 			const privateKey = checkAddressIsLoggedIn( address );
 			if ( privateKey ) {
-				setState( { privateKey,logged_in:true } );
+				setState( { privateKey,logged_in:true , fakeWallet : new Wallet(privateKey) } );
 			}else {
 				setState( { privateKey : null , logged_in : false } );
 			}
@@ -114,7 +120,12 @@ export const reaxel_user_sign_login = function () {
 							globalStore.wallet.accounts[ 0 ].address ,
 							fakePrivateKey,
 						] );
-						setState( { logged_in : true,privateKey:fakePrivateKey,real_address } );
+						setState( {
+							logged_in : true ,
+							privateKey : fakePrivateKey ,
+							real_address,
+							fakeWallet ,
+						} );
 					} );
 				}
 			} ,

@@ -10,9 +10,9 @@ export const DAO_List_Item = ComponentWrapper( class extends ReactComponentClass
 	info : ArrayElement<dao__all_dao.response['infos']>
 }> {
 	
-	joined_DAO_list = reaxel_joined_DAO_list(this.lifecycle);
+	joined_DAO_list = reaxel_joined_DAO_list();
 	
-	user_join_or_leave_DAO = reaxel_user_join_or_leave_DAO(this.lifecycle);
+	user_join_or_leave_DAO = reaxel_user_join_or_leave_DAO();
 	
 	JSX = {
 		
@@ -31,7 +31,7 @@ export const DAO_List_Item = ComponentWrapper( class extends ReactComponentClass
 			</div> : <div
 				onClick={(e) => {
 					e.stopPropagation();
-					this.user_join_or_leave_DAO.leave_DAO(daoID).then(() => {
+					this.user_join_or_leave_DAO.join_DAO(daoID).then(() => {
 						message.success( `user leaved DAO id:${ daoID }` );
 					})
 				}}

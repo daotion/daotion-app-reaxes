@@ -6,7 +6,7 @@ export const SetState = ComponentWrapper(class extends ReactComponentClass {
 	
 	setCount = () => this.setState({count:this.state.count + 1});
 	
-	componentDidUpdate( prevProps : Readonly<Tprops> , prevState : Readonly<Tstate> , snapshot? : any ) {
+	componentDidUpdate( prevProps  , prevState , snapshot? : any ) {
 		console.log('updated',this);
 	}
 	

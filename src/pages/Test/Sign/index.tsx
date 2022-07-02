@@ -2,7 +2,7 @@ import {
 	ethers ,
 	Wallet,
 } from 'ethers';
-import { reaxel_user_sign_login } from '@@reaxes/authurize/user';
+import { reaxel_user_sign_login ,reaxel_wallet} from '@@reaxes';
 import { globalStore } from '@@common/global-controller';
 import { Button } from 'antd';
 
@@ -11,16 +11,13 @@ const randomWallet = Wallet.createRandom();
 const reaxel_login = function(){
 	const {store,setState} = orzMobx({
 		sign_avalable : false ,
-		
 	})
-	reaxel_connect_wallet_from_storage().connectWalletFromStorage();
-	const {address_memoed_reaction} = reaxel_wallet();
-	const sign_reaction = address_memoed_reaction((address) => {
+	const reax_wallet = reaxel_wallet();
+	const sign_reaction = reax_wallet.address_memoed_reaction((address) => {
 		if(address){
 			setState( { sign_avalable : true } );
 		}else {
 			setState( { sign_avalable : false } );
-			
 		}
 	})
 	return (lifecycle:Lifecycle) => {
@@ -35,7 +32,7 @@ const reaxel_login = function(){
 					privateKey ,
 				} = randomWallet;
 				
-				const address = globalStore.connectedWallet.accounts[ 0 ].address;
+				const address = reax_wallet.account?.address;
 				
 				
 				const domainTypes = [
@@ -69,15 +66,14 @@ const reaxel_login = function(){
 					message: message
 				})
 				
-				const provider = new ethers.providers.Web3Provider(globalStore.connectedWallet.provider, 'any');
-				provider.send( 'eth_signTypedData_v3' , [
-					globalStore.connectedWallet.accounts[ 0 ].address.toLowerCase() ,
+				reax_wallet.web3Provider.send( 'eth_signTypedData_v3' , [
+					reax_wallet.account?.address.toLowerCase() ,
 					JSON.stringify( data ),
 				] ).then((res) => {
 					return request.post( `/user/address-alias` , {
 						env : "server_yang" ,
 						body : {
-							address : globalStore.connectedWallet.accounts[ 0 ].address ,
+							address : reax_wallet.account?.address ,
 							data : message ,
 							signature : res ,
 						} ,
@@ -91,10 +87,10 @@ const reaxel_login = function(){
 }();
 /*普通校验假签名请求后端*/
 const reaxel_sign_request = function(){
-	
+	const reax_wallet = reaxel_wallet();
 	// new Wallet(randomWallet.privateKey);
 	// ethers.getDefaultProvider();
-	return (lifecycle:Lifecycle) => {
+	return () => {
 		const {
 			address : randomAdress ,
 			privateKey ,
@@ -111,7 +107,7 @@ const reaxel_sign_request = function(){
 				})).then((signature) => {
 					request.post( '/user/join-dao' , {
 						body : {
-							address : globalStore.connectedWallet.accounts[0].address ,
+							address : reax_wallet.account.address ,
 							data : {
 								"daoID" : 0 ,
 								"joinAddress" : "0x46DE5Eb1ecd41A974b86B85C6c53e1a04606dA59" ,
@@ -136,13 +132,12 @@ export const SignTest = ComponentWrapper(class extends ReactComponentClass{
 	
 	user_sign_login = reaxel_user_sign_login();
 	
-	wallet = reaxel_wallet();
-	
-	reax_connectWallet = reaxel_connectWallet(this.lifecycle);
+	reax_sign_request = reaxel_sign_request();
+	reax_wallet = reaxel_wallet();
 	
 	render() {
 		return <>
-			{ (this.wallet.wallet && !this.user_sign_login.fake_wallet_store.logged_in) ? <Button
+			{ (this.reax_wallet.wallet && !this.user_sign_login.fake_wallet_store.logged_in) ? <Button
 				type="primary"
 				onClick = { () => {
 					this.user_sign_login.loginWithUserWallet();
@@ -152,7 +147,7 @@ export const SignTest = ComponentWrapper(class extends ReactComponentClass{
 			</Button> : null }
 			<Button
 				onClick={() => {
-					this.reax_connectWallet.connect({});
+					this.reax_wallet.connectWallet();
 				}}
 				type="dashed"
 			>
@@ -160,7 +155,7 @@ export const SignTest = ComponentWrapper(class extends ReactComponentClass{
 			</Button>
 			<Button
 				onClick={() => {
-					this.user_sign_login.sign();
+					this.reax_sign_request.sign();
 				}}
 				type="dashed"
 			>

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useState, useEffect } from 'react'
 import { useConnectWallet, useSetChain, useWallets } from '@web3-onboard/react'
 import { ethers } from 'ethers'

@@ -218,7 +218,7 @@ const InfoElement = ComponentWrapper((props) => {
 	const reax = reaxel( Reaxes.hooks );
 	
 	
-	return utils.withRouter( ( routerProps ) => {
+	return utils.withRouter( ( routerProps ):React.ReactElement => {
 		// const { params } = this.reax.useRouters();
 		const { params } = routerProps;
 		return <div onClick = { reax.setCount }>info:{ params.ID } , count:{ reax.count }</div>;

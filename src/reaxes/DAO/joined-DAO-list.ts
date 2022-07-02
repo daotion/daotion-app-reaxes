@@ -28,7 +28,7 @@ export const reaxel_joined_DAO_list = function(){
 		}
 	});
 	
-	return ( lifecycle : Lifecycle ) => {
+	return () => {
 		
 		
 		const request_joined_DAO_list = (address:string) => {

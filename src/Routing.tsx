@@ -11,10 +11,6 @@ import { DesignComponents } from '@@pages/DesignComponents';
 import { Home } from '@@pages/Home';
 import { Layout } from './Layout';
 import { Sider_DAO_Plugin_List } from '@@pages/Sider-DAO-Plugin_List';
-import PluginTokenOverviewLaunch from '@@Public/Plugin-Token-Overview-Launch.component.svg';
-import PluginTokenOverview from '@@Public/Plugin-Token-Overview.component.svg';
-import PluginCenter from '@@Public/Plugin-Center.component.svg';
-import NFTMinting from '@@Public/NFT-Mininting.component.svg';
 import {DAOInfo} from '@@pages/DAO-Info';
 import {createBrowserHistory} from 'history';
 
@@ -53,46 +49,49 @@ export const SiderPluginListRouting = () => <Routes>
 	/>
 </Routes>;
 
-export const MainContentRouting = (props) => <Routes>
+export const MainContentRouting = ( props ) => <Routes>
 	<Route path = "/*">
 		<Route
 			index
-			element = { <Navigate to='/home'/> }
+			element = { <Navigate to = "/home" /> }
 		/>
 		<Route
-			path="home"
+			path = "home"
 			element = { utils.withOutlet( <Home /> ) }
 		/>
 		<Route
-			path="DAO:DAOID/*"
+			path = "DAO:DAOID/*"
 		>
-			<Route 
+			<Route
 				index
-				element={<Navigate to={'./info'} replace/>}
+				element = { <Navigate
+					to = { './info' }
+					replace
+				/> }
 			/>
-			<Route 
-				path="info"
-				element={<DAOInfo/>}
+			<Route
+				path = "info"
+				element = { <DAOInfo /> }
 			/>
 		</Route>
 		<Route
 			path = "plugin-overview-launch"
 			
-			element = { utils.withOutlet( <div onClick = { () => props.routerProps.navigate('/home/plugin-overview' ) }>
-				<PluginTokenOverviewLaunch />
+			element = { utils.withOutlet( <div onClick = { () => props.routerProps.navigate( '/home/plugin-overview' ) }>
+				<>plugin-overview-launch</>
 			</div> ) }
 		/>
 		<Route
 			path = "plugin-overview"
-			element = { utils.withOutlet( <PluginTokenOverview /> ) }
+			element = { utils.withOutlet( <>PluginTokenOverview</> ) }
 		/>
 		<Route
 			path = "plugin-center"
-			element = { utils.withOutlet( <PluginCenter /> ) }
+			element = { utils.withOutlet( <>PluginCenter</> ) }
 		/>
 		<Route
 			path = "nft-minting"
-			element = { utils.withOutlet( <NFTMinting /> ) }
+			element = { utils.withOutlet( <>NFTMinting</> ) }
 		/>
 	</Route>
 

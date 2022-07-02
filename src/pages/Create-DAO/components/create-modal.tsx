@@ -10,9 +10,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import less from '../style.module.less';
 import { ethers } from 'ethers';
 import {
-	// reaxel_connectWallet ,
-	// reaxel_login ,
-	// reaxel_sign_via_wallet ,
+	reaxel_wallet ,
 } from '@@reaxes';
 // import { request_signature_string } from '@@requests';
 import { DAOFactoryAbi } from '../../../common/contract/abi';
@@ -48,7 +46,9 @@ type props = {
 	setModalVisible : Function ,
 }
 
-const _CreateModalContent =  ( props : props ) => {
+export const CreateModalContent =  ComponentWrapper(( props : props ) => {
+	const reax_wallet = reaxel_wallet(); 
+	return null;
 	const {
 		provider ,
 		modalVisible ,
@@ -59,7 +59,7 @@ const _CreateModalContent =  ( props : props ) => {
 	const [ netWorkDesc , setNetWorkDesc ] = useState( false );
 	const navigate = useNavigate();
 	
-	const { connect , connectedWallet } = reaxel_connectWallet( Reaxes.hooks );
+	
 	// 登录
 	const signIn = async ( payload : signInPayload ) : Promise<void> => {
 		request.post<signInPayload>( '/user/sign-in' , {
@@ -220,6 +220,4 @@ const _CreateModalContent =  ( props : props ) => {
 			</div>
 		</Modal>
 	</>;
-} ;
-
-export const CreateModalContent = ComponentWrapper( _CreateModalContent );
+}) ;
