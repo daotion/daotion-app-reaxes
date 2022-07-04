@@ -4,7 +4,7 @@
 	"scripts": {
 		"start": "node --max_old_space_size=18000 webpack.main.mjs server experimental",
 		"debug": "node --inspect-brk webpack.main.mjs server server_dev",
-		"build": "rm -rf dist & node webpack.main.mjs build"
+		"build": "rm -rf dist & node webpack.main.mjs build production"
 	},
 	"dependencies": {
 		"@cosmjs/stargate": "^0.28.4",

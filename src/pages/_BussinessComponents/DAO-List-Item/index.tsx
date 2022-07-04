@@ -23,7 +23,7 @@ export const DAO_List_Item = ComponentWrapper( class extends ReactComponentClass
 				onClick = { (e) => {
 					e.stopPropagation();
 					this.user_join_or_leave_DAO.leave_DAO( daoID ).then(() => {
-						message.success( `joined DAO successfuly id:${ daoID }` );
+						message.success( `user leaved DAO id:${ daoID }` );
 					});
 				} }
 			>
@@ -32,7 +32,7 @@ export const DAO_List_Item = ComponentWrapper( class extends ReactComponentClass
 				onClick={(e) => {
 					e.stopPropagation();
 					this.user_join_or_leave_DAO.join_DAO(daoID).then(() => {
-						message.success( `user leaved DAO id:${ daoID }` );
+						message.success( `joined DAO successfuly id:${ daoID }` );
 					})
 				}}
 				className = { less.DAOListItemBtn }
