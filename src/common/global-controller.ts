@@ -12,7 +12,7 @@ export const {
 	/* null:第一次还没连接, false:已断开连接 */
 	walletConnecting : null ,
 	/*已连接的钱包*/
-	connectedWallet : null ,
+	wallet : null ,
 	// /*?*/
 	// wallets : null ,
 	/*正在切换线路*/
@@ -20,7 +20,7 @@ export const {
 	/*可以选择的线路*/
 	chains : [],
 	/*已连接的线路*/
-	currentChain : null ,
+	chain : null ,
 	
 	account : null ,
 	
@@ -54,6 +54,11 @@ export const createSubscriber = ( description?: string ): [
 			subscribe_symbol_map[symbol].push(callback);
 		}else {
 			subscribe_symbol_map[ symbol ] = [callback];
+		}
+		return function unsubscribe (){
+			_.remove( subscribe_symbol_map[ symbol ] , ( _cb ) => {
+				return _cb === callback;
+			} );
 		}
 	};
 	

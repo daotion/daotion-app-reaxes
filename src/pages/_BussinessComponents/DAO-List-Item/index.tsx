@@ -1,15 +1,54 @@
 import { dao__all_dao } from '@@reaxes/DAO/types';
+import {
+	reaxel_joined_DAO_list ,
+	reaxel_user_join_or_leave_DAO,
+} from '@@reaxes';
 import chainIconMap from '@@Public/chain-icon-map.json';
+import { message } from 'antd';
 
 export const DAO_List_Item = ComponentWrapper( class extends ReactComponentClass<{
 	info : ArrayElement<dao__all_dao.response['infos']>
 }> {
 	
+	joined_DAO_list = reaxel_joined_DAO_list();
+	
+	user_join_or_leave_DAO = reaxel_user_join_or_leave_DAO();
+	
+	JSX = {
+		
+		join_or_leave : () => {
+			const { daoID } = this.props.info;
+			return this.joined_DAO_list.joined_DAO_list.some((item) => item.daoID === this.props.info.daoID) ? <div
+				className = { less.DAOListItemBtn }
+				onClick = { (e) => {
+					e.stopPropagation();
+					this.user_join_or_leave_DAO.leave_DAO( daoID ).then(() => {
+						message.success( `joined DAO successfuly id:${ daoID }` );
+					});
+				} }
+			>
+				Leave
+			</div> : <div
+				onClick={(e) => {
+					e.stopPropagation();
+					this.user_join_or_leave_DAO.join_DAO(daoID).then(() => {
+						message.success( `user leaved DAO id:${ daoID }` );
+					})
+				}}
+				className = { less.DAOListItemBtn }
+			>Join</div>
+		},
+	}
+	
 	render() {
 		const { info } = this.props;
+		const {navigate} = utils.useRouter();
 		return <>
 			<div
 				className = { less.daoListCard }
+				onClick={() => {
+					navigate( `/DAO${ info.daoID }/info` );
+				}}
 			>
 				<div>
 					
@@ -70,11 +109,7 @@ export const DAO_List_Item = ComponentWrapper( class extends ReactComponentClass
 						/> ) }
 					</div>
 					
-					<div
-						className = { less.DAOListItemBtn }
-					>
-						Join
-					</div>
+					{ this.JSX.join_or_leave() }
 				</div>
 			</div>
 		</>;

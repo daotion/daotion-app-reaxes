@@ -3,10 +3,10 @@ import { BtnAddDAOSvgComponent } from '@@pages/_SvgComponents';
 import { CreateModalContent } from '@@pages/Create-DAO/components/create-modal';
 
 import {
-	reaxel_connectWallet ,
+	
 	reaxel_joined_DAO_list ,
 	reaxel_wallet ,
-	reaxel_login,
+	// reaxel_login,
 } from '@@reaxes';
 import { Modal } from 'antd';
 /**
@@ -18,13 +18,12 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 		createDAOmodalShowing : false ,
 	};
 	
-	connectWallet = reaxel_connectWallet(this.lifecycle);
 	
-	joined_DAO_list = reaxel_joined_DAO_list( this.lifecycle );
 	
-	wallet = reaxel_wallet( this.lifecycle );
+	joined_DAO_list = reaxel_joined_DAO_list();
 	
-	login = reaxel_login(this.lifecycle);
+	reax_wallet = reaxel_wallet();
+	
 	
 	create_DAO_Modal = reaxel_create_DAO_Modal(this.lifecycle);
 	
@@ -53,7 +52,7 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 							
 						} }
 					>
-						<Homepage_Avator
+						<Homepage_Avatar
 							url = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CjxjaXJjbGUgY3g9IjI0IiBjeT0iMjQiIHI9IjI0IiBmaWxsPSJ1cmwoI3BhdHRlcm4wKSIvPgo8ZGVmcz4KPHBhdHRlcm4gaWQ9InBhdHRlcm4wIiBwYXR0ZXJuQ29udGVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgd2lkdGg9IjEiIGhlaWdodD0iMSI+Cjx1c2UgeGxpbms6aHJlZj0iI2ltYWdlMF8xMzJfMzI4IiB0cmFuc2Zvcm09InNjYWxlKDAuMDE1NjI1KSIvPgo8L3BhdHRlcm4+CjxpbWFnZSBpZD0iaW1hZ2UwXzEzMl8zMjgiIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFFQUFBQUJBQ0FZQUFBQ3FhWEhlQUFBQUFYTlNSMElBcnM0YzZRQUFBT05KUkVGVWVGN3QyMEVPaEVBSVJGRzQvNkY3RHZFblllRnpyeVFJdjZwQmQyYmVoT3U5ZFB2c2JvZytrK05MZ0FyUUFxbUpjdzlpQUFoU2daS0IzSUpra0F5U1FUSjRDaUUrZ0E4b0JlZzBtSDNBaTA4NFA4OUhocXdFcUlBMjA5SUNzUWRqQWVhWklnYUFZS3hCRE1DQVl5OGZYd0FJZ2lBSWNvSnBKRVlHSTRWakIzWXJiQzlnTDJBdmtDQjQzY001UGdaZ0FBWmdRRm5OWkFoZEd5a1FCRUVRQkVFUURCbWdBbTJnbE0veitRVVlpc1lVR29sZE83a1kzMklFQXpDZzZSZ0lSZ2pGQXN3K0FnUkJNTllnQm1DQVQyVENZZm9QUHovSENxUUNYMWVCSHpIbnY3QzdXaEJTQUFBQUFFbEZUa1N1UW1DQyIvPgo8L2RlZnM+Cjwvc3ZnPgo="
 						/>
 						<div
@@ -67,10 +66,10 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 						{ this.joined_DAO_list.joined_DAO_list.map( ( DAOinfo , index ) => {
 							
 							return <div
-								key = { DAOinfo.daoId }
+								key = { DAOinfo.daoID }
 								onClick = { () => {
 									// crayon.blue( 'joined DAO info : ' , DAOinfo );
-									navigate( `./DAO${ DAOinfo.daoId }/info` );
+									navigate( `./DAO${ DAOinfo.daoID }/info` );
 								} }
 								style = { {
 									width : 48 ,
@@ -92,35 +91,7 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 							marginBottom : 8 ,
 						} }
 						onClick = { () => {
-							const act = () => {
-								this.setState( { createDAOmodalShowing : !this.state.createDAOmodalShowing } );
-							}
-							
-							if(this.login.store.is_logged_in){
-								act()
-							}else {
-								this.connectWallet.connect( {} );
-								this.login.logginPromise.then(() => {
-									act()
-								})
-							}return;
-							/******************/
-							if ( this.connectWallet.connectedWallet ) {
-								console.log( 'connected' );
-								act();
-							} else {
-								;
-								this.login.logginPromise.then(() => {
-									act();
-								})
-								
-								this.login.memedLogin((is_logged_in) => {
-									if(is_logged_in){
-										act();
-									}
-								})
-								
-							}
+							this.setState( { createDAOmodalShowing : true } );
 						} }
 					>
 						<BtnAddDAOSvgComponent />
@@ -128,7 +99,7 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 					<CreateModalContent
 						modalVisible = { this.state.createDAOmodalShowing }
 						setModalVisible = { () => this.setState( { createDAOmodalShowing : !this.state.createDAOmodalShowing } ) }
-						provider = { this.wallet.provider }
+						provider = { this.reax_wallet.web3Provider }
 					/>
 				</div>
 			</>;
@@ -137,7 +108,7 @@ export const Sider_DAO_List = ComponentWrapper(  class extends ReactComponentCla
 });
 
 
-export const Homepage_Avator = ComponentWrapper((props:{url:string}) => {
+export const Homepage_Avatar = ComponentWrapper((props:{url:string}) => {
 	
 	const routerProps = utils.useRouter();
 	

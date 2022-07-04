@@ -12,7 +12,7 @@ import DAO_tags from '@@Public/DAO-tags.json';
 import {
 	reaxel_DAO_list ,
 	reaxel_scrollParentRef ,
-	reaxel_sign_via_wallet ,
+	// reaxel_sign_via_wallet ,
 } from '@@reaxes';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -21,7 +21,7 @@ const { Option } = Select;
 export const All_DAO_List_Container = ComponentWrapper( class extends ReactComponentClass {
 	
 	scrollParentRef = reaxel_scrollParentRef();
-	signMsg = reaxel_sign_via_wallet( this.lifecycle );
+	// signMsg = reaxel_sign_via_wallet( this.lifecycle );
 	DAO_list = reaxel_DAO_list( this.lifecycle );
 	
 	JSX = {

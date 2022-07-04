@@ -9,7 +9,6 @@
 		"declarationMap" : true ,
 		"esModuleInterop" : true ,
 		"experimentalDecorators" : true ,
-		"emitDeclarationOnly" : true ,
 		"jsx" : "react" ,
 		"resolveJsonModule" : true ,
 		"strictFunctionTypes" : false ,
@@ -63,7 +62,10 @@
 		"noUnusedLocals" : false ,
 		"noUnusedParameters" : false ,
 		"paths" : {
-			"*/*.ts" : ["*"] ,
+			"@@RootPath" : ["/"] ,
+			"@@common/*" : [
+				"src/common/*"
+			] ,
 			"@@common/*" : [
 				"src/common/*"
 			] ,
@@ -85,6 +87,12 @@
 			"@@requester/*" : [
 				"src/common/requester/*"
 			] ,
+			"@@requests" : [
+				"src/requests/index"
+			] ,
+			"@@requests/*" : [
+				"src/requests/*"
+			] ,
 			"@@Public/*" : [
 				"Public/*"
 			],
@@ -92,10 +100,10 @@
 				"src/pages/*"
 			],
 			"@@reaxes" : [
-				"src/common/reaxes/index"
+				"src/reaxes/index"
 			],
 			"@@reaxes/*" : [
-				"src/common/reaxes/*"
+				"src/reaxes/*"
 			],
 			"@@mobxState" : [
 				"src/common/MobxState.ts",

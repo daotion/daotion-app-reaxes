@@ -1,21 +1,23 @@
 import {
 	Input ,
-	Select ,
 	message ,
 	Modal ,
+	Select ,
+	Button ,
+	
 } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import less from '../style.module.less';
 import { ethers } from 'ethers';
-import { web3onboard } from '@@common/reaxes';
-import { request_signature_string } from '@@common/requester/preset-interface';
-import { DAOFactoryAbi } from '../../../../src/contract/abi';
-import { DAOFactoryAddress } from '../../../../src/contract/address';
+import {
+	reaxel_wallet ,
+} from '@@reaxes';
+// import { request_signature_string } from '@@requests';
+import { DAOFactoryAbi } from '../../../common/contract/abi';
+import { DAOFactoryAddress } from '../../../common/contract/address';
 import { useNavigate } from 'react-router-dom';
-import { reaxel_wallet } from '@@reaxes/wallet';
-import { request_regression_sign } from '@@common/requester/preset-interface/authorize';
+// import { request_regression_sign } from '@@requests/authorize';
 import DAOtags from '@@Public/DAO-tags.json';
-import { reaxel_login , reaxel_connectWallet , reaxel_sign_via_wallet } from '@@reaxes';
 
 
 const { Option } = Select;
@@ -44,7 +46,9 @@ type props = {
 	setModalVisible : Function ,
 }
 
-const _CreateModalContent =  ( props : props ) => {
+export const CreateModalContent =  ComponentWrapper(( props : props ) => {
+	const reax_wallet = reaxel_wallet(); 
+	return null;
 	const {
 		provider ,
 		modalVisible ,
@@ -55,9 +59,7 @@ const _CreateModalContent =  ( props : props ) => {
 	const [ netWorkDesc , setNetWorkDesc ] = useState( false );
 	const navigate = useNavigate();
 	
-	const { logginPromise } = reaxel_login( Reaxes.hooks );
-	const { connect , connectedWallet } = reaxel_connectWallet( Reaxes.hooks );
-	const { sign } = reaxel_sign_via_wallet( Reaxes.hooks );
+	
 	// 登录
 	const signIn = async ( payload : signInPayload ) : Promise<void> => {
 		request.post<signInPayload>( '/user/sign-in' , {
@@ -97,7 +99,6 @@ const _CreateModalContent =  ( props : props ) => {
 		// 获取钱包地址
 		const wallets = connectedWallet;
 		const address = connectedWallet.accounts[0].address;
-		await request_regression_sign( globalStore.connectedWallet.accounts[ 0 ].address );
 		
 		// 获取中心化签名
 		const signatureNonce : any = await request_signature_string( address );
@@ -149,9 +150,15 @@ const _CreateModalContent =  ( props : props ) => {
 		<Modal
 			title = ""
 			visible = { modalVisible }
+			// visible = { true }
 			onOk = { () => {
 				createDAO();
 			} }
+			footer={<>
+				<Button style={{
+					width : "100%",
+				}}>Create</Button>
+			</>}
 			onCancel = { () => { setModalVisible( false ); } }
 		>
 			<div className = { less.modalContent }>
@@ -213,6 +220,4 @@ const _CreateModalContent =  ( props : props ) => {
 			</div>
 		</Modal>
 	</>;
-} ;
-
-export const CreateModalContent = ComponentWrapper( _CreateModalContent );
+}) ;

@@ -2,12 +2,13 @@
 	"name": "Daotion-web-interface",
 	"description": "Mainri Labs' font-end eth font-end project",
 	"scripts": {
-		"start": "node --max_old_space_size=18000 webpack.main.mjs server experimental  ",
+		"start": "node --max_old_space_size=18000 webpack.main.mjs server experimental",
 		"debug": "node --inspect-brk webpack.main.mjs server server_dev",
 		"build": "rm -rf dist & node webpack.main.mjs build"
 	},
 	"dependencies": {
 		"@cosmjs/stargate": "^0.28.4",
+		"@ethersproject/wallet": "^5.6.2",
 		"@svgr/webpack": "^6.2.1",
 		"@web3-onboard/common": "^2.0.9",
 		"@web3-onboard/core": "^2.2.8",
@@ -64,7 +65,7 @@
 		"@hot-loader/react-dom": "^17.0.2",
 		"@types/less": "^3.0.3",
 		"@types/lodash": "^4.14.182",
-		"@types/react": "^17.0.44",
+		"@types/react": "^17.0.47",
 		"@types/react-dom": "^17.0.16",
 		"@types/react-router-dom": "^5.3.3",
 		"babel-loader": "^8.2.5",

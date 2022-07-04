@@ -72,13 +72,15 @@ export let {
 	} ,
 	{
 		/*是否开启实验特性*/
-		regExp : /\bexp|non-exp\b/i ,
+		regExp : /\bexperimental\b/i ,
 		key : "experimental" ,
 	} ,
 ]);
+console.log(experimental);
+
 /*如果是dev环境则默认开启实验特性,除非明确说明*/
-if(experimental === null && node_env === 'development') experimental = 'exp';
-else experimental = 'non-exp';
+if(experimental === null && node_env === 'development') experimental = 'experimental';
+else if(node_env === "production" ) experimental = 'non-exp';
 const analysis = analyze ? [new BundleAnalyzerPlugin()] : []; 
 const devConfig = developmentConfig$Fn({
 	plugins : [
@@ -256,7 +258,7 @@ function getProvidePlugin (config = {}) {
 			"@@requester" ,
 			"request",
 		] ,
-		Reaxes : ["@@reaxes","Reaxes"] ,
+		Reaxes : ["@@RootPath/src/Reaxes.core","Reaxes"] ,
 		env : [
 			"@@requester" ,
 			"request",
