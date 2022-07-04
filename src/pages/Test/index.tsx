@@ -6,7 +6,8 @@ import {DxzPluginList} from './dxz-plugin-list';
 import{DxzVoting} from './dxz-voting'
 import { UseSyncExternalStore } from './useSyncExternalStore';
 import {TextWallet} from './reax-wallet';
+import {BlockiesIdenticon} from './blockies-identicon';
 
-const C = TextWallet;
+const C = BlockiesIdenticon;
 
 export const Test = () => <C/>

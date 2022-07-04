@@ -29,7 +29,7 @@ import {
 	ItemIconThemeSvgComponent ,
 } from '@@pages/_SvgComponents';
 
-import { reaxel_wallet  } from '@@reaxes';
+import { reaxel_wallet ,reaxel_blockies } from '@@reaxes';
 
 const { Button : DropdownButton } = Dropdown;
 
@@ -40,9 +40,29 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 	
 	reax_wallet = reaxel_wallet();
 	
+	reax_blockies = reaxel_blockies();
+	
 	JSX = {
 		userAvatar : () => {
-			return this.reax_wallet.account?.ens?.avatar?.url || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNS42MzEiIGhlaWdodD0iMzQuNjU2IiB2aWV3Qm94PSIwIDAgMzUuNjMxIDM0LjY1NiIgY2xhc3M9IlNpdGVXaWRlQXBwQmFyX19NaW5pTG9nby1zYy0xcTY1N2UtNiBra2paVVgiPjxnIGRhdGEtbmFtZT0iSWNvbiBMb2dvIj48cGF0aCBkYXRhLW5hbWU9IlBhdGggNzcxIiBkPSJNNi45IDIzLjEwNUw1LjgzOCAxMS4wMiAxOC41IDguNDczbDEyLjc4NiAyLjU0NC0xLjE2NiAxMi4wNTctMTEuNjI0IDguNzMzeiIgZmlsbD0iI2JmZmZmZiI+PC9wYXRoPjxnIGRhdGEtbmFtZT0iUGF0aCA3Njg4IiBmaWxsPSIjMGYxNzI0Ij48cGF0aCBkPSJNMTguNTAxIDMwLjgxNUw2LjU4MSAxMS4yOTkgMTguNSA3LjQyNmwxMi4wMjggMy44NzItMTIuMDI3IDE5LjUxN3oiPjwvcGF0aD48cGF0aCBkPSJNMTguNSA3Ljk1MUw3LjMzOSAxMS41NzlsMTEuMTY0IDE4LjI4IDExLjI2NC0xOC4yOEwxOC41IDcuOTUxTTE4LjQ5OSA2LjlsMTIuNzg5IDQuMTE4LTEyLjc5IDIwLjc1M0w1LjgyNSAxMS4wMTkgMTguNDk5IDYuOXoiIGZpbGw9IiNiZmZmZmYiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==';
+			
+			if(this.reax_wallet.account?.ens?.avatar?.url){
+				return <span
+					style = { {
+						marginLeft : "8px" ,
+						backgroundSize : "100%" ,
+						backgroundRepeat : "no-repeat" ,
+						backgroundPosition : "center" ,
+						backgroundImage : `url("${ this.reax_wallet.account.ens.avatar }")` ,
+						backgroundColor : "#eee",
+						display : "flex" ,
+						width : 36 ,
+						height : 36 ,
+						borderRadius : "50%" ,
+					} }
+				/>
+			}
+			const { BlockiesAvatar } = this.reax_blockies;
+			return <BlockiesAvatar/>;
 		},
 		ellipsisAddress : () => {
 			if(!this.reax_wallet.wallet ) return null;
@@ -471,27 +491,17 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						}}
 					>
 						<span
-							style = {{
-								fontSize : "16px",
-								fontWeight : "bold" ,
-								color : "#23262F",
-								fontFamily : "Inter , Consolas",
-							}}
-						>
-							{ this.reax_wallet.account?.ens?.name ?? this.JSX.ellipsisAddress() }</span>
-						<span
 							style = { {
-								marginLeft : "8px" ,
-								backgroundSize : "100%" ,
-								backgroundRepeat : "no-repeat" ,
-								backgroundPosition : "center" ,
-								backgroundImage : `url("${this.JSX.userAvatar()}")` ,
-								display : "flex" ,
-								width : 36 ,
-								height : 36 ,
-								borderRadius : "50%" ,
+								fontSize : "16px" ,
+								fontWeight : "bold" ,
+								color : "#23262f" ,
+								fontFamily : "Inter , Consolas" ,
 							} }
-						/>
+						>
+							{ this.reax_wallet.account?.ens?.name ?? this.JSX.ellipsisAddress() }
+						</span>
+						{ this.JSX.userAvatar() }
+						
 					</Button>
 				</XPopover>
 			</>

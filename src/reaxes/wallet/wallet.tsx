@@ -18,7 +18,6 @@ import {
 } from './init-web3onboard';
 
 const web3Onboard = web3onboard.instance;
-import { reaxel_chain } from '@@reaxes/wallet/chain';
 
 
 
