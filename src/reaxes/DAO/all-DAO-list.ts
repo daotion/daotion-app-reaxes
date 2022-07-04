@@ -99,7 +99,7 @@ export const reaxel_DAO_list = function(){
 			} );
 		}
 		
-		const searchBySelectTag = (text) => {
+		const searchOnSelect = () => {
 			return fetch_all_DAO_list( {
 				indexStart : 0 ,
 				firstTimestamp : 0 ,
@@ -125,11 +125,17 @@ export const reaxel_DAO_list = function(){
 					searchText : text ,
 				} );
 			},
-			setSearchingTagSelection (text:string){
+			setSearchingTagSelection (tag:string){
 				setState( {
-					searchTagSelection : text ,
+					searchTagSelection : tag ,
 				} );
-				searchBySelectTag(text);
+				searchOnSelect();
+			},
+			setSearchingChainSelection (chainID:string){
+				setState( {
+					searchChainId : chainID,
+				} );
+				searchOnSelect();
 			},
 			fetchMore ,
 			debouncedInputingSearch ,

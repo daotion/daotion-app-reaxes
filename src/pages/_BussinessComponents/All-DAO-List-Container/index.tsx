@@ -12,7 +12,7 @@ import DAO_tags from '@@Public/DAO-tags.json';
 import {
 	reaxel_DAO_list ,
 	reaxel_scrollParentRef ,
-	// reaxel_sign_via_wallet ,
+	reaxel_wallet ,
 } from '@@reaxes';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -22,11 +22,11 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 	
 	scrollParentRef = reaxel_scrollParentRef();
 	// signMsg = reaxel_sign_via_wallet( this.lifecycle );
-	DAO_list = reaxel_DAO_list( this.lifecycle );
+	reax_DAO_list = reaxel_DAO_list( this.lifecycle );
 	
 	JSX = {
 		InfiniteDAOlist : () => {
-			if(this.DAO_list.store.infos.length === 0){
+			if(this.reax_DAO_list.store.infos.length === 0){
 				return <>
 					<Empty
 						image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -42,15 +42,15 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 					
 				} }
 				pageStart = { 0 }
-				hasMore = { this.DAO_list.store.hasMore }
+				hasMore = { this.reax_DAO_list.store.hasMore }
 				loadMore = { () => {
-					this.DAO_list.fetchMore( 40 );
+					this.reax_DAO_list.fetchMore( 40 );
 				} }
 				getScrollParent = { () => this.scrollParentRef.current }
 				useWindow = { false }
 				threshold = { 500 }
 			>
-				{ this.DAO_list.store.infos.map( ( item ) => <DAO_List_Item
+				{ this.reax_DAO_list.store.infos.map( ( item ) => <DAO_List_Item
 					key = { item.id }
 					info = { item }
 				/> ) }
@@ -58,9 +58,10 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 		},
 	}
 	
+	reax_wallet = reaxel_wallet();
 	
 	render() {
-		
+		const reax_wallet = this.reax_wallet;
 		return <>
 			<div
 				style = { {
@@ -119,44 +120,57 @@ export const All_DAO_List_Container = ComponentWrapper( class extends ReactCompo
 										height : "40px" ,
 										
 									} }
-									value = {this.DAO_list.store.searchText}
+									value = {this.reax_DAO_list.store.searchText}
 									placeholder = "Search"
 									onInput = { (e) => {
 										const text = e.target.value;
-										this.DAO_list.setSearchingText(text);
-										this.DAO_list.debouncedInputingSearch(text);
+										this.reax_DAO_list.setSearchingText(text);
+										this.reax_DAO_list.debouncedInputingSearch(text);
 									}}
 								/>
 								<Select
-									value = "1"
+									value = {this.reax_DAO_list.store.searchChainId}
+									placeholder="All Networks"
 									suffixIcon = { <SelectArrowIconSvgComponent /> }
+									onChange={(chainID) => {
+										if(chainID === "null") chainID = null;
+										this.reax_DAO_list.setSearchingChainSelection(chainID);
+									}}
 									style = { {
-										width : "129px" ,
-										
+										width : "170px" ,
 									} }
 								>
 									<Select.Option
-										key = "1"
+										key = {null}
 									>
-										Network
+										All Networks
 									</Select.Option>
+									
+									{reax_wallet.chains.map((chain) => {
+										
+										return <Select.Option
+											key = {chain.id}
+										>
+											{chain.label}
+										</Select.Option>
+									})}
 								</Select>
 								<Select
-									value = {this.DAO_list.store.searchTagSelection}
+									value = {this.reax_DAO_list.store.searchTagSelection}
 									placeholder="All Types"
 									suffixIcon = { <SelectArrowIconSvgComponent /> }
 									onSelect={(text) => {
-										this.DAO_list.setSearchingTagSelection(text === "__empty__" ? null : text);
+										if(text === "null") text = null;
+										this.reax_DAO_list.setSearchingTagSelection( text );
 									}}
 									style = { {
-										width : "129px" ,
+										width : "170px" ,
 									} }
 								>
-									<Select.Option key = "__empty__" value = "__empty__" >
-										<b>
-											all types
-										</b></Select.Option>
-									{DAO_tags.map((tag) => <Select.Option key = {tag} value = {tag}>{tag}</Select.Option>)}
+									<Select.Option key = {null} >
+										all types
+									</Select.Option>
+									{DAO_tags.map((tag) => <Select.Option key = {tag}>{tag}</Select.Option>)}
 								</Select>
 							</Space>
 						</div>
