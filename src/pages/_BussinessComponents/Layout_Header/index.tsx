@@ -87,7 +87,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 		} ,
 		
 		WalletNetworkBtn : (() =>  {
-			[this.reax_wallet.walletStore.chain];
 			const [ visible , setVisible ] = useState( false );
 			
 			useEffect( () => {
@@ -109,7 +108,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 				alignItems : "center",
 			};
 			
-			// crayon.purple( 'chain list : ' , this.reax_wallet.chains );
 			if(!this.reax_wallet.wallet){
 				return <>
 					<Button
@@ -291,6 +289,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					>
 						<img
 							src = { currentNetworkInfo.icon }
+							style={{borderRadius : "50%"}}
 						/>
 						<span
 							style = { {
@@ -389,18 +388,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						<div
 							style = {{display : "flex"}}
 						>
-							<span
-								style = { {
-									backgroundSize : "100%" ,
-									backgroundRepeat : "no-repeat" ,
-									backgroundPosition : "center" ,
-									backgroundImage : `url("${this.JSX.userAvatar()}")` ,
-									display : "flex" ,
-									width : 44 ,
-									height : 44 ,
-									borderRadius : "50%" ,
-								} }
-							/>
+							{ this.JSX.userAvatar() }
 							<div
 								style={{
 									display : "flex",

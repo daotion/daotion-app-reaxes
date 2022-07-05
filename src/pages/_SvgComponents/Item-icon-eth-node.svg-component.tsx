@@ -10,6 +10,9 @@ export const ItemIconEthNode = ( props: Props ) => {
 			width = "24"
 			height = "24"
 			src = { props.src }
+			style={{
+				borderRadius : "50%",
+			}}
 		/>;
 	}
 	
