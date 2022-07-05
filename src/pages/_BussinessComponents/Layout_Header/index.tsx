@@ -52,7 +52,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						backgroundSize : "100%" ,
 						backgroundRepeat : "no-repeat" ,
 						backgroundPosition : "center" ,
-						backgroundImage : `url("${ this.reax_wallet.account.ens.avatar }")` ,
+						backgroundImage : `url("${ this.reax_wallet.account.ens.avatar.url }")` ,
 						backgroundColor : "#eee",
 						display : "flex" ,
 						width : 36 ,
