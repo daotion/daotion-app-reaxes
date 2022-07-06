@@ -12,6 +12,7 @@ import {TextWallet} from './reax-wallet';
 import{DxzTokenOverview}from'./dxz-Token-overview';
 import{DxzDaotionPop}from'./dxz-Daotion-pop'
 import{DxzLanguage}from'./dxz-language'
+import{DxzPluginBrowse}from'./dxz-plugin-browse'
 
 
 const C = DxzPluginList;
