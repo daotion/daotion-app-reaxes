@@ -12,10 +12,11 @@ import { TextWallet } from './reax-wallet';
 import { DxzTokenOverview } from './dxz-Token-overview';
 import { DxzDaotionPop } from './dxz-Daotion-pop';
 import { DxzPluginBrowse } from './dxz-plugin-browse';
+import{DxzPluginNewview}from'./dxz-plugin-newview'
 
 import { BlockiesIdenticon } from './blockies-identicon';
 
-const C = TextWallet;
+const C = DxzPluginNewview;
 
 export const Test = () => <C />;
 
