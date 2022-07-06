@@ -78,7 +78,7 @@ export let {
 ]);
 /*如果是dev环境则默认开启实验特性,除非明确说明*/
 if(experimental === null && node_env === 'development') experimental = 'exp';
-else experimental = 'non-exp';
+else if(node_env === "production" ) experimental = 'non-exp';
 const analysis = analyze ? [new BundleAnalyzerPlugin()] : []; 
 const devConfig = developmentConfig$Fn({
 	plugins : [
@@ -175,7 +175,7 @@ function getDefinePlugin (mode = node_env || 'production') {
 		__ENV__ : JSON.stringify(env) ,
 		__ENV_CONFIG__ : JSON.stringify(envConfig) ,
 		__NODE_ENV__ : JSON.stringify(mode),
-		__EXPERIMENTAL__ : JSON.stringify(experimental === 'experimental'),
+		__EXPERIMENTAL__ : JSON.stringify(experimental === 'exp'),
 	});
 };
 
@@ -256,7 +256,7 @@ function getProvidePlugin (config = {}) {
 			"@@requester" ,
 			"request",
 		] ,
-		Reaxes : ["@@reaxes","Reaxes"] ,
+		Reaxes : ["@@RootPath/src/Reaxes.core","Reaxes"] ,
 		env : [
 			"@@requester" ,
 			"request",
