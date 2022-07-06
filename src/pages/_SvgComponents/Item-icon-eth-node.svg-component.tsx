@@ -1,10 +1,20 @@
 import React from 'react';
 
 interface Props {
-	
+	src? : string;
 };
 export const ItemIconEthNode = ( props: Props ) => {
 	
+	if(props.src){
+		return <img
+			width = "24"
+			height = "24"
+			src = { props.src }
+			style={{
+				borderRadius : "50%",
+			}}
+		/>;
+	}
 	
 	return <svg
 		width = "24"

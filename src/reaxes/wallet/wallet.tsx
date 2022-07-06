@@ -18,7 +18,6 @@ import {
 } from './init-web3onboard';
 
 const web3Onboard = web3onboard.instance;
-import { reaxel_chain } from '@@reaxes/wallet/chain';
 
 
 
@@ -177,7 +176,20 @@ export const reaxel_wallet = function () {
 				return store.chain;
 			} ,
 			get chains() {
-				return web3Onboard.state.get().chains;
+				const blockchainExplorerMap = {
+					'0x1' : 'https://etherscan.io',
+					'0x3' : 'https://ropsten.etherscan.io',
+					'0x4' : 'https://rinkeby.etherscan.io',
+					'0x5' : 'https://goerli.etherscan.io',
+					'0x42' : 'https://kovan.etherscan.io',
+				};
+				// crayon.orange( 'web3Onboard.state.get().chains:' , web3Onboard.state.get().chains );
+				return web3Onboard.state.get().chains.map((chain) => {
+					return {
+						...chain ,
+						blockchainExplorer : blockchainExplorerMap[ chain.id ] ,
+					};
+				});
 			} ,
 			/*当钱包地址发生变化时自动执行*/
 			address_memoed_reaction( cb : ( address : string ) => any ) {

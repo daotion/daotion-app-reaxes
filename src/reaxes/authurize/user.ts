@@ -103,7 +103,7 @@ export const reaxel_user_sign_login = function () {
 						}
 					);
 					
-					reax_wallet.web3Provider.send( 'eth_signTypedData_v3' , [
+					return reax_wallet.web3Provider.send( 'eth_signTypedData_v3' , [
 						globalStore.wallet.accounts[ 0 ].address.toLowerCase() ,
 						JSON.stringify( data ) ,
 					] ).

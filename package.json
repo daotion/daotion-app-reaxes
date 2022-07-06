@@ -4,12 +4,11 @@
 	"scripts": {
 		"start": "node --max_old_space_size=18000 webpack.main.mjs server experimental",
 		"debug": "node --inspect-brk webpack.main.mjs server server_dev",
-		"build": "rm -rf dist & node webpack.main.mjs build"
+		"build": "rm -rf dist & node webpack.main.mjs build production"
 	},
 	"dependencies": {
-		"@cosmjs/stargate": "^0.28.4",
+		"@download/blockies": "^1.0.3",
 		"@ethersproject/wallet": "^5.6.2",
-		"@svgr/webpack": "^6.2.1",
 		"@web3-onboard/common": "^2.0.9",
 		"@web3-onboard/core": "^2.2.8",
 		"@web3-onboard/fortmatic": "^2.0.2",
@@ -32,8 +31,6 @@
 		"@web3-react/url": "^8.0.17-beta.0",
 		"ahooks": "^3.3.12",
 		"antd": "^4.20.5",
-		"blockies-identicon": "^0.1.0",
-		"buffer": "^6.0.3",
 		"dayjs": "^1.11.2",
 		"ethers": "^5.6.6",
 		"lodash": "^4.17.21",
@@ -62,7 +59,9 @@
 		"@babel/preset-env": "^7.14.8",
 		"@babel/preset-react": "^7.14.5",
 		"@babel/preset-typescript": "^7.14.5",
+		"@cosmjs/stargate": "^0.28.4",
 		"@hot-loader/react-dom": "^17.0.2",
+		"@svgr/webpack": "^6.2.1",
 		"@types/less": "^3.0.3",
 		"@types/lodash": "^4.14.182",
 		"@types/react": "^17.0.47",

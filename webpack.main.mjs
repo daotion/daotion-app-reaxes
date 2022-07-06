@@ -76,7 +76,6 @@ export let {
 		key : "experimental" ,
 	} ,
 ]);
-console.log(experimental);
 
 /*如果是dev环境则默认开启实验特性,除非明确说明*/
 if(experimental === null && node_env === 'development') experimental = 'experimental';
