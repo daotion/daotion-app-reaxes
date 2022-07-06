@@ -42,7 +42,7 @@ const Routing = utils.withRouter((routerProps) => (props) => {
 });
  
  */
-export const withRouter = ( JSX : (routerProps:routerProps) => React.ReactNode ) => {
+export const withRouter = ( JSX : (routerProps:routerProps) => React.ReactNode&React.ReactElement ):React.ReactElement => {
 	
 	const routerProps = useRouter();
 	return JSX(routerProps);

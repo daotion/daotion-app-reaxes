@@ -1,5 +1,4 @@
 /**
- * @format
  *
  * Random工具方法
  *
@@ -61,7 +60,7 @@ const Random = {
         let index = str.indexOf('.');
         str = str.substr(0, index + 1 + float);
         if (str[str.length - 1] === '0') {
-          str = str.substr(0, str.length - 1) + random(1, 9);
+          str = str.substr(0, str.length - 1) + _.random(1, 9);
         }
         return parseFloat(str);
       }

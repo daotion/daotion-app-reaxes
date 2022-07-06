@@ -9,7 +9,6 @@
 		"declarationMap" : true ,
 		"esModuleInterop" : true ,
 		"experimentalDecorators" : true ,
-		"emitDeclarationOnly" : true ,
 		"jsx" : "react" ,
 		"resolveJsonModule" : true ,
 		"strictFunctionTypes" : false ,
@@ -67,7 +66,6 @@
 			"@@common/*" : [
 				"src/common/*"
 			] ,
-			"*/*.ts" : ["*"] ,
 			"@@common/*" : [
 				"src/common/*"
 			] ,

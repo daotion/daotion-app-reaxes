@@ -26,7 +26,7 @@ interface DAOData {
 }
 
 
-export const _DaoAvator = ComponentWrapper( ( props : { id : number } ) => {
+export const DAOAvatar = ComponentWrapper( ( props : { id : number } ) => {
 	const { id } = props;
 	const [ DAOInfo , setDAOInfo ] = useState<DAOData>( {
 		desc : '' ,
@@ -82,8 +82,8 @@ export const _DaoAvator = ComponentWrapper( ( props : { id : number } ) => {
 		
 	} , [ DAOInfo ] );
 	
-	return <div className = { less.daoAvatorWrp }>
-		<div className = { less.daoAvator }>
+	return <div className = { less.daoAvatarWrp }>
+		<div className = { less.daoAvatar }>
 			<img
 				src = { DAOInfo.info.iconUrl }
 				alt = ""
@@ -144,5 +144,3 @@ export const _DaoAvator = ComponentWrapper( ( props : { id : number } ) => {
 		</div>
 	</div>;
 } );
-
-export const DaoAvator = ComponentWrapper( _DaoAvator );

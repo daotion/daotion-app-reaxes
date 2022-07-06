@@ -72,12 +72,14 @@ export let {
 	} ,
 	{
 		/*是否开启实验特性*/
-		regExp : /\bexp|non-exp\b/i ,
+		regExp : /\bexperimental\b/i ,
 		key : "experimental" ,
 	} ,
 ]);
+console.log(experimental);
+
 /*如果是dev环境则默认开启实验特性,除非明确说明*/
-if(experimental === null && node_env === 'development') experimental = 'exp';
+if(experimental === null && node_env === 'development') experimental = 'experimental';
 else if(node_env === "production" ) experimental = 'non-exp';
 const analysis = analyze ? [new BundleAnalyzerPlugin()] : []; 
 const devConfig = developmentConfig$Fn({
@@ -175,7 +177,7 @@ function getDefinePlugin (mode = node_env || 'production') {
 		__ENV__ : JSON.stringify(env) ,
 		__ENV_CONFIG__ : JSON.stringify(envConfig) ,
 		__NODE_ENV__ : JSON.stringify(mode),
-		__EXPERIMENTAL__ : JSON.stringify(experimental === 'exp'),
+		__EXPERIMENTAL__ : JSON.stringify(experimental === 'experimental'),
 	});
 };
 

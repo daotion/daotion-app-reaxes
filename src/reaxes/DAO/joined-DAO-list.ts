@@ -1,6 +1,6 @@
 import { fetch_DAO_joined_DAO_list } from '@@requests/DAO';
 import { DAO__joined_DAO_list } from '@@requests/DAO/types';
-import { reaxel_wallet } from '@@reaxes/wallet';
+import { reaxel_wallet } from '@@reaxes/wallet/wallet';
 
 export const reaxel_joined_DAO_list = function(){
 	
@@ -18,17 +18,17 @@ export const reaxel_joined_DAO_list = function(){
 	} );
 	
 	
-	const { address_reaction } = reaxel_wallet();
+	const { address_memoed_reaction } = reaxel_wallet();
 	
-	address_reaction((address) => {
+	address_memoed_reaction((address) => {
 		if(typeof address === "string" && address){
-			ret.request_joined_DAO_list( address );
+			ret?.request_joined_DAO_list( address );
 		}else {
 			ret?.empty_joined_DAO_list?.();
 		}
 	});
 	
-	return ( lifecycle : Lifecycle ) => {
+	return () => {
 		
 		
 		const request_joined_DAO_list = (address:string) => {

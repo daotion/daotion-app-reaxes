@@ -1,5 +1,5 @@
 import {SelectArrowIconSvgComponent} from '@@pages/_SvgComponents';
-import PluginSideBar from '@@Public/Plugin-SideBar.component.svg'
+import PluginSideBar from '@@Public/Plugin-List.component.svg'
 import PluginCenterBtn from '@@Public/Plugin-Center-Btn.component.svg';
 
 

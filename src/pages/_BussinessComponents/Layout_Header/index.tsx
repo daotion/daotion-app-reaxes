@@ -2,9 +2,8 @@ import {
 	Button ,
 	Dropdown ,
 	Input ,
-	Menu ,
-	Switch ,
 	message ,
+	Switch ,
 } from "antd";
 import less from './style.module.less';
 
@@ -13,6 +12,7 @@ import {
 	globalStore ,
 	invoke_root_click ,
 	subscribe_root_click ,
+	root_click_symbol
 } from '@@common/global-controller';
 import { XPopover } from '@@common/Xcomponents';
 
@@ -26,42 +26,31 @@ import {
 	ItemIconEthNode ,
 	ItemIconI18nSvgComponent ,
 	ItemIconProfileSvgComponent ,
-	ItemIconThemeSvgComponent,
+	ItemIconThemeSvgComponent ,
 } from '@@pages/_SvgComponents';
 
-import {
-	reaxel_connectWallet ,
-	reaxel_wallet ,
-	reaxel_chains ,
-	reaxel_connect_wallet_when_mounted ,
-} from '@@reaxes';
+import { reaxel_wallet  } from '@@reaxes';
 
 const { Button : DropdownButton } = Dropdown;
 
-export const Layout_Header = ComponentWrapper( class extends ReactComponentClass<any , any> {
+export const Layout_Header = ComponentWrapper( class extends ReactComponentClass {
 	
-	constructor( props ) {
-		super( props );
-		/*挂载时检查是否可以从storage里自动链接钱包*/
-		reaxel_connect_wallet_when_mounted( this.lifecycle );
-	}
 	
 	header_svg_tool = reaxel_header_svg_tool(this.lifecycle);
 	
+	reax_wallet = reaxel_wallet();
+	
 	JSX = {
-		userAvator : () => {
-			return globalStore.connectedWallet?.accounts?.[0]?.ens?.avatar?.url || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNS42MzEiIGhlaWdodD0iMzQuNjU2IiB2aWV3Qm94PSIwIDAgMzUuNjMxIDM0LjY1NiIgY2xhc3M9IlNpdGVXaWRlQXBwQmFyX19NaW5pTG9nby1zYy0xcTY1N2UtNiBra2paVVgiPjxnIGRhdGEtbmFtZT0iSWNvbiBMb2dvIj48cGF0aCBkYXRhLW5hbWU9IlBhdGggNzcxIiBkPSJNNi45IDIzLjEwNUw1LjgzOCAxMS4wMiAxOC41IDguNDczbDEyLjc4NiAyLjU0NC0xLjE2NiAxMi4wNTctMTEuNjI0IDguNzMzeiIgZmlsbD0iI2JmZmZmZiI+PC9wYXRoPjxnIGRhdGEtbmFtZT0iUGF0aCA3Njg4IiBmaWxsPSIjMGYxNzI0Ij48cGF0aCBkPSJNMTguNTAxIDMwLjgxNUw2LjU4MSAxMS4yOTkgMTguNSA3LjQyNmwxMi4wMjggMy44NzItMTIuMDI3IDE5LjUxN3oiPjwvcGF0aD48cGF0aCBkPSJNMTguNSA3Ljk1MUw3LjMzOSAxMS41NzlsMTEuMTY0IDE4LjI4IDExLjI2NC0xOC4yOEwxOC41IDcuOTUxTTE4LjQ5OSA2LjlsMTIuNzg5IDQuMTE4LTEyLjc5IDIwLjc1M0w1LjgyNSAxMS4wMTkgMTguNDk5IDYuOXoiIGZpbGw9IiNiZmZmZmYiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==';
+		userAvatar : () => {
+			return this.reax_wallet.account?.ens?.avatar?.url || 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNS42MzEiIGhlaWdodD0iMzQuNjU2IiB2aWV3Qm94PSIwIDAgMzUuNjMxIDM0LjY1NiIgY2xhc3M9IlNpdGVXaWRlQXBwQmFyX19NaW5pTG9nby1zYy0xcTY1N2UtNiBra2paVVgiPjxnIGRhdGEtbmFtZT0iSWNvbiBMb2dvIj48cGF0aCBkYXRhLW5hbWU9IlBhdGggNzcxIiBkPSJNNi45IDIzLjEwNUw1LjgzOCAxMS4wMiAxOC41IDguNDczbDEyLjc4NiAyLjU0NC0xLjE2NiAxMi4wNTctMTEuNjI0IDguNzMzeiIgZmlsbD0iI2JmZmZmZiI+PC9wYXRoPjxnIGRhdGEtbmFtZT0iUGF0aCA3Njg4IiBmaWxsPSIjMGYxNzI0Ij48cGF0aCBkPSJNMTguNTAxIDMwLjgxNUw2LjU4MSAxMS4yOTkgMTguNSA3LjQyNmwxMi4wMjggMy44NzItMTIuMDI3IDE5LjUxN3oiPjwvcGF0aD48cGF0aCBkPSJNMTguNSA3Ljk1MUw3LjMzOSAxMS41NzlsMTEuMTY0IDE4LjI4IDExLjI2NC0xOC4yOEwxOC41IDcuOTUxTTE4LjQ5OSA2LjlsMTIuNzg5IDQuMTE4LTEyLjc5IDIwLjc1M0w1LjgyNSAxMS4wMTkgMTguNDk5IDYuOXoiIGZpbGw9IiNiZmZmZmYiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==';
 		},
 		ellipsisAddress : () => {
-			if(!this.connectWallet.connectedWallet ) return null;
-			const address = this.connectWallet.connectedWallet.accounts[0].address;
+			if(!this.reax_wallet.wallet ) return null;
+			const address = this.reax_wallet.account.address;
 			return <span
 				style = {{
-					color : "#777e91",
-					fontSize : "14" ,
 					width : "100%",
 					overflow : "hidden",
-					fontWeight : "500",
 					whiteSpace : "nowrap",
 					display : "flex",
 				}}
@@ -82,20 +71,26 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 			const [ visible , setVisible ] = useState( false );
 			
 			useEffect( () => {
-				
-				subscribe_root_click( () => {
+				const symbol = Symbol();
+				const subscription = () => {
 					setVisible( false );
-				} ,Symbol() );
+				};
+				return subscribe_root_click( subscription ,symbol );
+				
 			} ,[] );
 			
-			const btnStyle = {
+			const btnStyle:React.CSSProperties = {
 				padding : "12px 12px 12px 12px" ,
 				borderRadius : "12px" ,
 				height : "100%" ,
 				borderWidth : "2px" ,
 				marginLeft : "16px" ,
+				display : "flex",
+				alignItems : "center",
 			};
-			if(!globalStore.connectedWallet){
+			
+			crayon.purple( 'chain list : ' , this.reax_wallet.chains );
+			if(!this.reax_wallet.wallet){
 				return <>
 					<Button
 						type="primary"
@@ -140,138 +135,97 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						>
 							Select a network
 						</div>
-						
-						<div
-							style = { {
-								padding : "8px 16px" ,
-								display : "flex" ,
-								alignItems : "center" ,
-								backgroundColor : "#f4f5f6" ,
-								borderRadius : "12px" ,
-								marginTop : "8px" ,
-								userSelect : "none" ,
-								
-							} }
-						>
-							<ItemIconEthNode />
-							<div
+						{this.reax_wallet.chains.map((chain) => {
+							
+							return <div
+								key = { chain.id }
 								style = { {
-									width : "152px" ,
+									padding : "8px 16px" ,
 									display : "flex" ,
-									justifyContent : "space-between" ,
 									alignItems : "center" ,
-									height : "46px" ,
-									marginLeft : "16px" ,
+									backgroundColor : "#f4f5f6" ,
+									borderRadius : "12px" ,
+									marginTop : "8px" ,
+									userSelect : "none" ,
 									
 								} }
 							>
+								<ItemIconEthNode />
 								<div
 									style = { {
+										width : "152px" ,
 										display : "flex" ,
-										flexFlow : "column nowrap" ,
 										justifyContent : "space-between" ,
-										lineHeight : "normal" ,
-										height : "100%" ,
-										
-									} }
-								>
-									<span
-										style = { {
-											fontWeight : 600 ,
-											fontSize : "14px" ,
-											color : "#777e91" ,
-											
-										} }
-									>Ethereum
-									</span>
-									<span
-										style = { {
-											fontWeight : 400 ,
-											fontSize : "12px" ,
-											textDecoration : "underline" ,
-											color : "#777e90" ,
-											
-										} }
-									>Etherscan
-									</span>
-								</div>
-								<div
-									style = { {
-										display : "flex" ,
-										flexFlow : "column nowrap" ,
-										justifyContent : 'space-between' ,
 										alignItems : "center" ,
-										height : "100%" ,
+										height : "46px" ,
+										marginLeft : "16px" ,
 										
 									} }
 								>
-									<span
+									<div
 										style = { {
 											display : "flex" ,
-											width : "10px" ,
-											height : "10px" ,
-											backgroundColor : "#45b26b" ,
-											borderRadius : "50%" ,
+											flexFlow : "column nowrap" ,
+											justifyContent : "space-between" ,
+											lineHeight : "normal" ,
+											height : "100%" ,
 											
 										} }
-									></span>
-									<BtnIconShare
+									>
+										<span
+											style = { {
+												fontWeight : 600 ,
+												fontSize : "14px" ,
+												color : "#777e91" ,
+												
+											} }
+										>{ chain.label }
+										</span>
+										<span
+											style = { {
+												fontWeight : 400 ,
+												fontSize : "12px" ,
+												textDecoration : "underline" ,
+												color : "#777e90" ,
+												
+											} }
+										>Etherscan
+										</span>
+									</div>
+									<div
 										style = { {
-											cursor : "pointer" ,
+											display : "flex" ,
+											flexFlow : "column nowrap" ,
+											justifyContent : 'space-between' ,
+											alignItems : "center" ,
+											height : "100%" ,
 											
 										} }
-									/>
+									>
+										<span
+											style = { {
+												display : "flex" ,
+												width : "10px" ,
+												height : "10px" ,
+												backgroundColor : "#45b26b" ,
+												borderRadius : "50%" ,
+												
+											} }
+										></span>
+										<BtnIconShare
+											style = { {
+												cursor : "pointer" ,
+												
+											} }
+										/>
+									</div>
 								</div>
-							</div>
-						</div>
-						<div
-							style = { {
-								padding : "8px 16px" ,
-								display : "flex" ,
-								alignItems : "center" ,
-								borderRadius : "12px" ,
-								marginTop : "8px" ,
-								userSelect : "none" ,
-								
-							} }
-						>
-							<ItemIconEthNode />
-							<div
-								style = { {
-									width : "152px" ,
-									display : "flex" ,
-									justifyContent : "space-between" ,
-									alignItems : "center" ,
-									height : "46px" ,
-									marginLeft : "16px" ,
-									
-								} }
-							>
-								<div
-									style = { {
-										display : "flex" ,
-										flexFlow : "column nowrap" ,
-										justifyContent : "center" ,
-										lineHeight : "normal" ,
-										height : "100%" ,
-										
-									} }
-								>
-									<span
-										style = { {
-											fontWeight : 600 ,
-											fontSize : "14px" ,
-											color : "#777e91" ,
-										} }
-									>Ethereum
-									</span>
-								</div>
-							</div>
-						</div>
-					
+							</div>;
+						})}
 					</div> }
+					
 					placement = "bottom"
-					trigger = { [ 'click' ] }
+					trigger = { [ 'click', ] }
 				>
 					<Button
 						style = { btnStyle }
@@ -308,12 +262,11 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 			const [visible,setVisible] = useState(false);
 			useEffect( () => {
 				
-				subscribe_root_click( () => {
+				return subscribe_root_click( () => {
 					setVisible( false );
-				} ,Symbol() );
+				} ,root_click_symbol );
 			} ,[] );
-			
-			if ( !globalStore.connectedWallet ) return null;
+			if ( !this.reax_wallet.wallet ) return null;
 			const btnStyle:React.CSSProperties = {
 				padding : "0 16px" ,
 				borderRadius : "12px" ,
@@ -326,16 +279,18 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 				
 			};
 			
+			crayon.cyan( 'visible: ' , visible );
+			
 			return <>
 				<XPopover
 					overlayClassName={less.userinfoPopoverContainer}
 					align={{
-						targetOffset:[50]
+						targetOffset:[32]
 					}}
 					autoAdjustOverflow = {false}
 					visible={visible}
 					onVisibleChange={(visible) => {
-						
+						crayon.yellow( 'visible: ' , visible );
 						invoke_root_click.then(() => setVisible( () => visible ));
 					}}
 					trigger = { [ 'click' ] }
@@ -353,7 +308,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 									backgroundSize : "100%" ,
 									backgroundRepeat : "no-repeat" ,
 									backgroundPosition : "center" ,
-									backgroundImage : `url("${this.JSX.userAvator()}")` ,
+									backgroundImage : `url("${this.JSX.userAvatar()}")` ,
 									display : "flex" ,
 									width : 44 ,
 									height : 44 ,
@@ -376,7 +331,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 										fontSize : 16 ,
 										color : "#23262F",
 									}}
-								>{this.connectWallet.connectedWallet?.accounts[0]?.ens?.name}</span>
+								>{this.reax_wallet.account?.ens?.name}</span>
 								{this.JSX.ellipsisAddress()}
 							</div>
 							<div
@@ -428,7 +383,10 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						
 						<div
 							className={less.userPopoverMenuItem}
-							onClick = {this.actions.disconnect}
+							onClick = {() => {
+								setVisible( false );
+								this.actions.disconnect();
+							}}
 						>
 							<div>
 								<ItemIconDisconnectSvgComponent />
@@ -441,20 +399,27 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 				>
 					<Button
 						style = { btnStyle }
-						// onBlur={() => setTimeout(() => setVisible(false),300)}
 						onClick={() => {
+							console.log( '000000000000000000' );
 							setVisible( !visible );
 						}}
 					>
-						<span>{ /*@ts-ignore*/
-							this.connectWallet.connectedWallet.accounts[0]?.ens?.name }</span>
+						<span
+							style = {{
+								fontSize : "16px",
+								fontWeight : "bold" ,
+								color : "#23262F",
+								fontFamily : "Inter , Consolas",
+							}}
+						>
+							{ this.reax_wallet.account?.ens?.name ?? this.JSX.ellipsisAddress() }</span>
 						<span
 							style = { {
 								marginLeft : "8px" ,
 								backgroundSize : "100%" ,
 								backgroundRepeat : "no-repeat" ,
 								backgroundPosition : "center" ,
-								backgroundImage : `url("${this.JSX.userAvator()}")` ,
+								backgroundImage : `url("${this.JSX.userAvatar()}")` ,
 								display : "flex" ,
 								width : 36 ,
 								height : 36 ,
@@ -467,30 +432,22 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 		},
 	}
 	
-	wallets = reaxel_wallet( this.lifecycle );
-	
-	connectWallet = reaxel_connectWallet( this.lifecycle );
-	
-	chains = reaxel_chains( this.lifecycle );
-	
 	actions = {
 		connect : () => {
-			this.connectWallet.connect( {} ).
+			this.reax_wallet.connectWallet().
 			then( ( wallet ) => {
 				
 			} );
 		} ,
 		disconnect : () => {
-			this.connectWallet.disconnect(this.connectWallet.connectedWallet.label);
+			this.reax_wallet.disconnectWallet(this.reax_wallet.wallet.label);
 		},
-		setChain : () => {
-			return (chainId,chainNamespace) => {
-				this.chains.setChain(
+		selectChain : () => {
+			return (chainId:string) => {
+				this.reax_wallet.selectChain(
 					{
 						chainId ,
-						chainNamespace,
 					} ,
-					this.connectWallet.connectedWallet.label,
 				).then((bool) => {
 					if(bool){
 						message.success('change chain successfully');
@@ -500,10 +457,9 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 		},
 	} ;
 	
-	counter = reaxel_counter(this.lifecycle,10);
 	
 	render() {
-		
+		const {navigate} = utils.useRouter();
 		return <div className = { less.topBanner }>
 			{ __EXPERIMENTAL__ && <div>
 				<Input.TextArea
@@ -512,10 +468,10 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					onPaste = { ( e ) => {
 						if ( e.clipboardData.items[ 0 ].kind === "file" ) {
 							const picFile = e.clipboardData.items[ 0 ].getAsFile();
-							navigator.clipboard.readText().
+							/*navigator?.clipboard?.readText?.().
 							then( ( value ) => {
 								console.log( value );
-							} );
+							} );*/
 							(
 								new Promise( ( resolve ) => {
 									const fileReader = new FileReader();
@@ -531,19 +487,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						}
 					} }
 				/>
-				<button
-					onClick = { () => {
-						this.counter.plus();
-					} }
-				>plus
-				</button>
-				{ this.counter.count }
-				<button
-					onClick = { () => {
-						this.counter.minus();
-					} }
-				>minus
-				</button>
 			</div> }
 			<div className = { less.rightSideGroup }>
 				<Button
@@ -558,6 +501,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						globalSetState( {
 							theme : globalStore.theme === "dark" ? "light" : "dark" ,
 						} );
+						navigate( '/test' );
 					} }
 					autoFocus = { false }
 				>
@@ -616,7 +560,7 @@ const reaxel_header_svg_tool = function() {
 
 
 
-import {reaxel_counter} from '@@reaxes';
+// import {reaxel_counter} from '@@reaxes';
 
 
 

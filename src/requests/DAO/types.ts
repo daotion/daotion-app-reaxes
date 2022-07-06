@@ -57,10 +57,19 @@ export namespace DAO___inf_DAO_detail{
 
 export namespace DAO__user_join_DAO {
 	export type payload = {
-		daoID : number;
+		"address": string,
+		"data": {
+			"daoID": number,
+			"joinAddress": string
+		},
+		"signature": string
 	}
 	
 	export type response = {
+		"daoID": number,
+		"address": string,
+		"icon": string,
+		"notifyNums"?: number,
 	}
 }
 

@@ -18,10 +18,10 @@ declare interface globalStoreType {
 	language : "enUS"|"zhCN"|string;
 	/* null:第一次还没连接, false:已断开连接 */
 	walletConnecting : null|boolean,
-	connectedWallet : WalletState,
+	wallet : WalletState,
 	// wallets : WalletState[] ,
 	settingChain : boolean ,
-	currentChain : Chain ,
+	chain : Chain ,
 	/*可选链路*/
 	chains : Chain[],
 	account : Account|null ,
@@ -85,14 +85,18 @@ declare type Immutable<T> = {
 
 type WalletState = import('@web3-onboard/core').WalletState;
 type ConnectedChain = import('@web3-onboard/core').ConnectedChain;
+
 type Chain = import('@web3-onboard/common').Chain;
+declare type Account = ArrayElement<WalletState['accounts']>;
 
 
-declare interface Account {
-	address: string
-	ens: { name?: string; avator?: string }
-	balance: Record<string, string> | null
-}
+// declare interface Account {
+// 	address: string
+// 	ens: { name?: string; avatar : {
+// 		linkage : 
+// 		} }
+// 	balance: Record<string, string> | null
+// }
 
 type lifecycle = (callback:Function) => string;
 declare interface Lifecycle {

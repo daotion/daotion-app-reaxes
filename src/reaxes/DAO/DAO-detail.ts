@@ -11,7 +11,7 @@ export const reaxel_DAO_detail = function (){
 	} );
 	
 	/*当执行到react的render函数时才会通过react-router知道DAOID,所以异步等待一下*/
-	let renderedPromise:Promise<string>;
+	let renderedPromise:Promise<number>;
 	// /*防止每次rendered之后setstate死循环的标记位 , 每次render之后仅运行一次请求函数*/
 	// let flag = true;
 	
@@ -42,7 +42,7 @@ export const reaxel_DAO_detail = function (){
 		 * 初始化一个依据deps变化来执行的闭包.每次调用时memedFetchDAOinfo(*这里传入函数返回新的依赖列表*)此时会自动比对是否和上一次有差异,
 		 * 如果没差异则不会执行,此方法用于防止无限请求&渲染.
 		 */
-		const memedFetchDAOinfo = Reaxes.closuredMemo( ( DAOID:string ) => {
+		const memedFetchDAOinfo = Reaxes.closuredMemo( ( DAOID:number ) => {
 			request_DAO_detail( DAOID );
 		} , () => [] );
 		
@@ -51,10 +51,10 @@ export const reaxel_DAO_detail = function (){
 				return store;
 			},
 			/*必须在render里每次渲染时执行*/
-			DEPRECATED_resolveDAOID (DAOID:string){
+			DEPRECATED_resolveDAOID (DAOID:number){
 				renderedPromise = Promise.resolve( DAOID );
 			},
-			getDAOdetailMemed (DAOID:string){
+			getDAOdetailMemed (DAOID:number){
 				return memedFetchDAOinfo((prevDeps) => [DAOID])(DAOID);
 				// Reaxes.memory(() => {
 				// 	fetch( DAOID );
