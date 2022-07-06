@@ -11,6 +11,9 @@ import { UseSyncExternalStore } from './useSyncExternalStore';
 import {TextWallet} from './reax-wallet';
 import{DxzTokenOverview}from'./dxz-Token-overview';
 import{DxzDaotionPop}from'./dxz-Daotion-pop'
+import{DxzLanguage}from'./dxz-language'
+
+
 const C = DxzPluginList;
 
 
