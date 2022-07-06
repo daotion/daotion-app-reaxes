@@ -5,8 +5,9 @@ import { SignTest } from './Sign';
 import {DxzPluginList} from './dxz-plugin-list';
 import { UseSyncExternalStore } from './useSyncExternalStore';
 import {TextWallet} from './reax-wallet';
-import{DxzTokenOverview}from'./dxz-Token-overview'
-const C = DxzTokenOverview;
+import{DxzTokenOverview}from'./dxz-Token-overview';
+import{DxzPluginBrowse}from'./dxz-plugin-browse'
+const C = DxzPluginBrowse;
 
 
 export const Test = () => <C/>
