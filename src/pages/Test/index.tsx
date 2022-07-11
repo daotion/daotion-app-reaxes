@@ -13,10 +13,11 @@ import { DxzTokenOverview } from './dxz-Token-overview';
 import { DxzDaotionPop } from './dxz-Daotion-pop';
 import { DxzPluginBrowse } from './dxz-plugin-browse';
 import { DxzPluginNewview } from './dxz-plugin-newview';
-import{DxzDAODropdownPop}from'./dxz-DAO-dropdown-pop'
+import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 import { BlockiesIdenticon } from './blockies-identicon';
+import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
 
-const C = DxzDAODropdownPop;
+const C = DxzSpaceHomeJoined;
 
 export const Test = () => <C />;
 
