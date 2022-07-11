@@ -24,5 +24,3 @@ export const ComponentWrapper = <T extends {}>(component : T) : T => {
 	wrappedComponent[componentHasWrapped] = true;
 	return wrappedComponent;
 };
-
-console.log( __EXPERIMENTAL__ );
