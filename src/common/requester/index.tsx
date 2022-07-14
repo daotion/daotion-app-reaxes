@@ -79,9 +79,13 @@ export const request = new class {
 			}
 			delete options.body;
 		} else {
-			options.body = JSON.stringify(options.body) as request & string ;
+			/*支持请求体是FormData*/
+			if(options.body instanceof FormData){
+				
+			}else {
+				options.body = JSON.stringify(options.body || {}) as request & string ;
+			}
 		}
-		const body = typeof options.body === 'string' ? options.body : JSON.stringify( options.body ?? {} );
 			
 		try {
 			const json: response = await fetch(url, {

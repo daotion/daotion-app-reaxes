@@ -7,7 +7,8 @@ import{DxzVoting} from './dxz-voting'
 import { UseSyncExternalStore } from './useSyncExternalStore';
 import {TextWallet} from './reax-wallet';
 import {BlockiesIdenticon} from './blockies-identicon';
+import {FileUpload} from './File-Upload';
 
-const C = BlockiesIdenticon;
+const C = FileUpload;
 
 export const Test = () => <C/>

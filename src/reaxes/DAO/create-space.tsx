@@ -9,7 +9,7 @@ import {
 } from '@@reaxes';
 
 export const reaxel_create_space = function(){
-	const {} = orzMobx({
+	const {store,setState} = orzMobx({
 		modal_showing : false,
 		input_name: '', 
 		select_type : null ,
@@ -19,8 +19,14 @@ export const reaxel_create_space = function(){
 	
 	
 	return () => {
-		
+		type props = {};
 		return {
+			get store (){
+				return store;
+			},
+			CreateSpaceModal : Reaxper((props:React.Props<props>) => {
+				
+			}),
 			
 			
 		}
