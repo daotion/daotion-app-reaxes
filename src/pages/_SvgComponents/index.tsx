@@ -1,4 +1,4 @@
-export * from './Btn-add-DAO.svg-component';
+export * from './Btn-Create-Space.svg-component';
 export * from './Header-toggle-theme-icon.svg-component';
 export * from './Btn-icon-rename.svg-component';
 export * from './Btn-icon-copy.svg-component';

@@ -160,7 +160,7 @@ export const reaxel_wallet = function () {
 			get wallet() {
 				return store.wallet;
 			} ,
-			get account() {
+			get account():Account {
 				return store.account;
 			} ,
 			get walletStore() {

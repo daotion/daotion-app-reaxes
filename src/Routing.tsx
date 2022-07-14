@@ -10,8 +10,8 @@ import { ReactTemplate } from '../Public/react-template';
 import { DesignComponents } from '@@pages/DesignComponents';
 import { Home } from '@@pages/Home';
 import { Layout } from './Layout';
-import { Sider_DAO_Plugin_List } from '@@pages/Sider-DAO-Plugin_List';
-import {DAOInfo} from '@@pages/DAO-Info';
+import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
+import {SpaceInfo} from '@@pages/Space-Info';
 import {createBrowserHistory} from 'history';
 
 
@@ -44,8 +44,8 @@ export const Routing = ( props ) => {
 
 export const SiderPluginListRouting = () => <Routes>
 	<Route
-		path = "DAO:DAOID/*"
-		element = { utils.withOutlet( <Sider_DAO_Plugin_List /> ) }
+		path = "space:spaceID/*"
+		element = { utils.withOutlet( <Sider_Space_Plugin_List /> ) }
 	/>
 </Routes>;
 
@@ -60,7 +60,7 @@ export const MainContentRouting = ( props ) => <Routes>
 			element = { utils.withOutlet( <Home /> ) }
 		/>
 		<Route
-			path = "DAO:DAOID/*"
+			path = "space:spaceID/*"
 		>
 			<Route
 				index
@@ -71,7 +71,7 @@ export const MainContentRouting = ( props ) => <Routes>
 			/>
 			<Route
 				path = "info"
-				element = { <DAOInfo /> }
+				element = { <SpaceInfo /> }
 			/>
 		</Route>
 		<Route

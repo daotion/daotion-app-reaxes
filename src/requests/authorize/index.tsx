@@ -2,10 +2,9 @@
  * 使用用户真实钱包私钥签随机假钱包公钥,获取登录状态
  * 
  */
-export const fetch_user_address_alias = (payload) => {
+export const request_user_address_alias = (payload) => {
 	return request.post( `/user/address-alias` , {
 		body : payload ,
-		env : "server_yang",
 	} ).then((res) => {
 		if(res.result !== true){
 			return Promise.reject( res.result );

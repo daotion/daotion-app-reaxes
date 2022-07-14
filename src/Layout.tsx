@@ -10,7 +10,7 @@ import {
 } from './Routing';
 import {
 	Layout_Header ,
-	Sider_DAO_List ,
+	Sider_Space_List ,
 } from '@@pages/_BussinessComponents';
 import less from './styles/main.module.less';
 
@@ -43,9 +43,9 @@ export const Layout = ComponentWrapper(class extends ReactComponentClass {
 					<div
 						className = { less.leftSide }
 					>
-						{/*用户加入过的DAO列表*/}
-						<Sider_DAO_List/>
-						{/*选中DAO下的插件列表 , 仅当出在host/DAO:DAOID时出现*/}
+						{/*用户加入过的space列表*/}
+						<Sider_Space_List/>
+						{/*选中space下的插件列表 , 仅当出在host/space:spaceID时出现*/}
 						<SiderPluginListRouting/>
 					</div>
 					

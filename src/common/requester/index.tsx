@@ -43,7 +43,7 @@ export const request = new class {
 		/**
 		 * 处理请求地址
 		 * 如果不是绝对地址则加http前缀
-		 * 这一步得到"http://baidu.com" || "/server_dev/dao-list"
+		 * 这一步得到"http://baidu.com" || "/server_dev/space-list"
 		 */
 		url = (() => {
 			/*如果是绝对地址,则不作处理*/
@@ -54,6 +54,7 @@ export const request = new class {
 					 * 
 					 */
 					if(env === "default_server"){
+						if(__NODE_ENV__ === "development") return "/server_dev"
 						return "/server";
 					}else {
 						return {
@@ -88,12 +89,19 @@ export const request = new class {
 		}
 			
 		try {
+			const real_address = __ENV_CONFIG__.find(({env}) => {
+				if(__ENV__ === "default_server" || __ENV__ === "server_dev"){
+					return env === "server_dev";
+				}
+			}).server_host + url.replace(/\/(server_dev|server_yang|server_production)/,'');
 			const json: response = await fetch(url, {
 				credentials: 'include',
 				mode: 'cors',
 				...options,
 				body : options.body as request&string,
 				headers: {
+					/*没有devserver真实请求的地址*/
+					"_real_address_" : real_address,
 					...options.headers,
 				},
 			})
