@@ -24,26 +24,7 @@ export const reaxel_space_list = function(){
 	
 	
 	return ( lifecycle : Lifecycle ) => {
-		// const {store:login_store,memedLogin} = reaxel_login(lifecycle);
-		// memedLogin((is_logged_in) => {
-		// 	if(is_logged_in){
-		// 		fetch_all_DAO_list( {
-		// 			indexStart : store.indexStart ,
-		// 			firstTimestamp : store.firstTimestamp ,
-		// 			count : 40 ,
-		// 		} ).
-		// 		then( ( data ) => {
-		// 			setState( {
-		// 				infos : data.infos ,
-		// 				firstTimestamp : data.firstTimestamp ,
-		// 				indexStart : data.indexEnd ,
-		// 			} );
-		// 		} );
-		// 	}else {
-		// 		setState( { infos : [] } );
-		// 	}
-		// })
-		/*todo refactory*/
+		
 		lifecycle.mounted( () => {
 			request_all_spaces_list( {
 				indexStart : store.indexStart ,

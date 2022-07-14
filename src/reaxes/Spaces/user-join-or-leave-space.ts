@@ -20,6 +20,7 @@ export const reaxel_user_join_or_leave_space = function(){
 				const data = {
 					spaceID ,
 					joinAddress : reax_wallet.account.address ,
+					timestamp : await request_server_timestamp(),
 				};
 				
 				const signature = await reax_sign.signByFakeWallet( data );

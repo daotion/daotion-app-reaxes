@@ -73,18 +73,9 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 					
 				} }
 			>
-				<h1
-					style = { {
-						color : "#000000" ,
-						fontSize : "48px" ,
-						fontWeight : "bold" ,
-					} }
-				>Explore
-				</h1>
 				
 				<div
 					style = { {
-						backgroundColor : "#ffffff" ,
 						borderRadius : "16px" ,
 						display : "flex" ,
 						flexFlow : "column nowrap" ,

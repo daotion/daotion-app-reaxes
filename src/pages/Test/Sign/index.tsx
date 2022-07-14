@@ -71,7 +71,7 @@ const reaxel_login = function(){
 					JSON.stringify( data ),
 				] ).then((res) => {
 					return request.post( `/user/address-alias` , {
-						env : "server_yang" ,
+						// env : "server_yang" ,
 						body : {
 							address : reax_wallet.account?.address ,
 							data : message ,

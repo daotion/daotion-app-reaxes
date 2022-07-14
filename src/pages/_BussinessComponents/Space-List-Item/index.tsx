@@ -19,7 +19,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 		join_or_leave : () => {
 			const { spaceID } = this.props.info;
 			return this.reax_joined_spaces_list.joined_space_list.some((item) => item.spaceID === this.props.info.spaceID) ? <div
-				className = { less.spaceListItemBtn }
+				className = { less.spaceListItemBtnJoined }
 				onClick = { (e) => {
 					e.stopPropagation();
 					this.reax_user_join_or_leave_space.leave_space( spaceID ).then(() => {
@@ -28,9 +28,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 						}
 					});
 				} }
-			>
-				Leave
-			</div> : <div
+			/> : <div
 				onClick={(e) => {
 					e.stopPropagation();
 					this.reax_user_join_or_leave_space.join_space(spaceID).then(() => {
@@ -39,7 +37,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 						}
 					})
 				}}
-				className = { less.spaceListItemBtn }
+				className = { less.spaceListItemBtnLeaved }
 			>Join</div>
 		},
 	}
@@ -62,7 +60,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 							display : "flex" ,
 							justifyContent : "center" ,
 							alignItems : "center" ,
-							marginTop : "16px" ,
+							marginTop : "24px" ,
 						} }
 					>
 						<span
@@ -77,6 +75,10 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 					<div
 						className = { less.spaceListItemTagContainer }
 					>
+						{ info.tags.map( text => <Space_Item_Tag
+							key = { text }
+							text = { text }
+						/> ) }
 						{ info.tags.map( text => <Space_Item_Tag
 							key = { text }
 							text = { text }
@@ -103,8 +105,8 @@ export const Space_Item_Name_Icon = ( props : { src : string } ) => {
 		<span
 			style = { {
 				display : "inline-flex" ,
-				width : "72px" ,
-				height : "72px" ,
+				width : "76px" ,
+				height : "76px" ,
 				backgroundImage : props.src ,
 				borderRadius : "50%" ,
 				backgroundColor : "#f4f5f6" ,
@@ -147,6 +149,7 @@ export const Space_Item_Tag = ( props : { text : string } ) => {
 			backgroundColor : "#f0f0f0" ,
 			color : "#7d7d7d" ,
 			fontSize : "12px" ,
+			margin : "2px",
 			borderRadius : "4px" ,
 			flex : "0 0 auto" ,
 			height : "fit-content" ,
