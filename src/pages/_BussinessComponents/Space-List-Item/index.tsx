@@ -1,0 +1,162 @@
+import { Space__all_spaces } from '@@reaxes/Spaces/types';
+import {
+	reaxel_joined_Space_list ,
+	reaxel_user_join_or_leave_space,
+} from '@@reaxes';
+import chainIconMap from '@@Public/chain-icon-map.json';
+import { message } from 'antd';
+
+export const Space_List_Item = ComponentWrapper( class extends ReactComponentClass<{
+	info : ArrayElement<Space__all_spaces.response['infos']>
+}> {
+	
+	reax_joined_spaces_list = reaxel_joined_Space_list();
+	
+	reax_user_join_or_leave_space = reaxel_user_join_or_leave_space();
+	
+	JSX = {
+		
+		join_or_leave : () => {
+			const { spaceID } = this.props.info;
+			return this.reax_joined_spaces_list.joined_space_list.some((item) => item.spaceID === this.props.info.spaceID) ? <div
+				className = { less.spaceListItemBtnJoined }
+				onClick = { (e) => {
+					e.stopPropagation();
+					this.reax_user_join_or_leave_space.leave_space( spaceID ).then(() => {
+						if(__EXPERIMENTAL__){
+							message.success( `user leaved Space id:${ spaceID }` );
+						}
+					});
+				} }
+			/> : <div
+				onClick={(e) => {
+					e.stopPropagation();
+					this.reax_user_join_or_leave_space.join_space(spaceID).then(() => {
+						if(__EXPERIMENTAL__){
+							message.success( `joined Space successfuly id:${ spaceID }` );
+						}
+					})
+				}}
+				className = { less.spaceListItemBtnLeaved }
+			>Join</div>
+		},
+	}
+	
+	render() {
+		const { info } = this.props;
+		const {navigate} = utils.useRouter();
+		return <>
+			<div
+				className = { less.spaceListCard }
+				onClick={() => {
+					navigate( `/space${ info.spaceID }/info` );
+				}}
+			>
+				<div>
+					
+					<Space_Item_Name_Icon src = { `url('${ info.iconUrl }')` } />
+					<div
+						style = { {
+							display : "flex" ,
+							justifyContent : "center" ,
+							alignItems : "center" ,
+							marginTop : "24px" ,
+						} }
+					>
+						<span
+							style = { {
+								fontSize : "16px" ,
+								fontWeight : "bold" ,
+							} }
+						>{ info.name }</span>
+					
+					</div>
+					
+					<div
+						className = { less.spaceListItemTagContainer }
+					>
+						{ info.tags.map( text => <Space_Item_Tag
+							key = { text }
+							text = { text }
+						/> ) }
+						{ info.tags.map( text => <Space_Item_Tag
+							key = { text }
+							text = { text }
+						/> ) }
+					</div>
+					
+					{ this.JSX.join_or_leave() }
+				</div>
+			</div>
+		</>;
+	}
+} );
+
+
+/**
+ * @example
+ * <Space_Item_Name_Icon src="url('data:image/svg...')"/>
+ * <Space_Item_Name_Icon src="url('https://xxx.png')"/>
+ *
+ */
+export const Space_Item_Name_Icon = ( props : { src : string } ) => {
+	
+	return <>
+		<span
+			style = { {
+				display : "inline-flex" ,
+				width : "76px" ,
+				height : "76px" ,
+				backgroundImage : props.src ,
+				borderRadius : "50%" ,
+				backgroundColor : "#f4f5f6" ,
+				flex : "0 0 auto",
+			} }
+		/>
+	</>;
+};
+
+/**
+ * @example
+ * <Space_Item_Name_Chain_Icon src="url('data:image/svg...')"/>
+ * <Space_Item_Name_Chain_Icon src="url('https://xxx.png')"/>
+ *
+ */
+export const Space_Item_Name_Chain_Icon = ( props : { src : string } ) => {
+	
+	return <>
+		<span
+			style = { {
+				display : "inline-flex" ,
+				width : "16px" ,
+				height : "16px" ,
+				backgroundImage : props.src ,
+				borderRadius : "50%" ,
+				backgroundColor : "#f4f5f6" ,
+				marginLeft : "4px" ,
+			} }
+		/>
+	</>;
+};
+
+
+export const Space_Item_Tag = ( props : { text : string } ) => {
+	
+	return <span
+		style = { {
+			display : "inline-flex" ,
+			padding : "0px 4px" ,
+			backgroundColor : "#f0f0f0" ,
+			color : "#7d7d7d" ,
+			fontSize : "12px" ,
+			margin : "2px",
+			borderRadius : "4px" ,
+			flex : "0 0 auto" ,
+			height : "fit-content" ,
+			lineHeight : "normal" ,
+			
+		} }
+	>{ props.text }</span>;
+};
+
+import less from './style.module.less';

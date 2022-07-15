@@ -20,6 +20,9 @@ https://openbase.com/js/blockies-identicon
 
 react-list : 一个用于无限滚动的react库
 
+dom-align 灵活地将源 html 元素与目标 html 元素对齐 https://github.com/yiminghe/dom-align 
+
+
 #### TROUBLE
 
 如果np i 时报错 , npm update

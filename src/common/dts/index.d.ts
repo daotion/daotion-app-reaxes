@@ -127,3 +127,9 @@ declare const request : typeof import('@@requester').request;
 
 
 declare type orzPromise<T> = Promise<T> & {resolve; reject};
+
+
+declare module 'mobx-react-lite' {
+	export const parentObserver : typeof import('node_modules/mobx-react-lite').observer;
+	export * from 'node_modules/mobx-react-lite/dist/index';
+}

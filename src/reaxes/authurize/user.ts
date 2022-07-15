@@ -108,7 +108,7 @@ export const reaxel_user_sign_login = function () {
 						JSON.stringify( data ) ,
 					] ).
 					then( ( res ) => {
-						return fetch_user_address_alias( {
+						return request_user_address_alias( {
 							address : globalStore.wallet.accounts[ 0 ].address ,
 							data : message ,
 							signature : res ,
@@ -138,7 +138,7 @@ import {
 	ethers ,
 	Wallet ,
 } from 'ethers';
-import { fetch_user_address_alias } from '@@requests';
+import { request_user_address_alias } from '@@requests';
 import {reaxel_wallet} from '@@reaxes/wallet/wallet';
 /*address-privateKey映射*/
 type member = { [ p : string ] : string };

@@ -106,7 +106,7 @@
 				"src/reaxes/*"
 			],
 			"@@mobxState" : [
-				"src/common/MobxState.ts",
+				"src/common/MobxState.ts"
 			] 
 			
 		} ,
@@ -115,6 +115,7 @@
 		"sourceMap" : true ,
 		"target" : "ES2020" ,
 		"watch" : true ,
+		"types" : [ "index.d.ts" ] ,
 		"allowSyntheticDefaultImports" : true
 	} ,
 	"include" : [

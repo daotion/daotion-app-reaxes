@@ -17,9 +17,15 @@ import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
+<<<<<<< HEAD
 import { DxzSocialGeneral } from './dxz-social-general';
 
 const C = DxzSocialGeneral;
+=======
+import {FileUpload} from './File-Upload';
+
+const C = DxzSpaceHomeJoined;
+>>>>>>> Ferry/Space-Home-joined
 
 export const Test = () => <C />;
 

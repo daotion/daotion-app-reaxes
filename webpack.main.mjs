@@ -37,7 +37,6 @@ const args = process.argv.slice(2);
  * npm start --analyze
  * #npm build mock
  * npm start
- * todo: analyze
  */
 /*对参数进行判断/处理*/
 export let {

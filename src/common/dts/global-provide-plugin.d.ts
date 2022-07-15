@@ -1,14 +1,14 @@
 /**
  * 这里面的变量已经在webpack-provide-plugin定义过,所以在global声明,无需再import
  *
- * @ts-nocheck
+ * ts-nocheck
  *
  */
 
 
 declare const _ : typeof import('lodash/lodash');
 
-declare const React : typeof React;
+declare const React : typeof import('react');
 declare const useState : typeof React.useState;
 declare const useEffect : typeof React.useEffect;
 declare const useRef : typeof React.useRef;

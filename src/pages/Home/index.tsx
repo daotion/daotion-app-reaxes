@@ -1,4 +1,4 @@
-import {All_DAO_List_Container} from '@@pages/_BussinessComponents/All-DAO-List-Container';
+import {All_Spaces_List_Container} from '@@pages/_BussinessComponents/All-Space-List-Container';
 
 
 export const Home = ComponentWrapper(class extends ReactComponentClass{
@@ -9,7 +9,7 @@ export const Home = ComponentWrapper(class extends ReactComponentClass{
 	
 	render() {
 		return <>
-			<All_DAO_List_Container/>
+			<All_Spaces_List_Container/>
 		</>;
 	}
 })

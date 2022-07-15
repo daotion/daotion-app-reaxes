@@ -12,18 +12,21 @@ export const reaxel_sign = function () {
 				
 			},
 			/*传入要被签名的对象或字符串*/
-			signByFakeWallet(data:any){
+			async signByFakeWallet(data:any){
 				const reax_wallet = reaxel_wallet();
 				const reax_user = reaxel_user_sign_login();
-				const { fakeWallet } = reax_user.fake_wallet_store;
+				const fake_wallet_store = reax_user.fake_wallet_store;
+				if(!fake_wallet_store.fakeWallet){
+					await reax_user.loginWithUserWallet();
+				}
 				if({
 					"string" : true,
 					"number" : true,
 					"boolean" : true,
 				}[typeof data]){
-					return fakeWallet.signMessage( data );
+					return fake_wallet_store.fakeWallet.signMessage( data );
 				}
-				return fakeWallet.signMessage( JSON.stringify( data ) );
+				return fake_wallet_store.fakeWallet.signMessage( JSON.stringify( data ) );
 			},
 		};
 	};
