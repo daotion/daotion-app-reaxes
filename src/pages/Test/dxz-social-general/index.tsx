@@ -122,9 +122,12 @@ export const DxzSocialGeneral = () => {
 							fontSize:'13px',
 							fontWeight:'700',
 							lineHeight:'24px',
+							justifyContent:"15px"
 						}}
 						>
-							<div className="add-mark"></div>
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M13 7C13 6.44772 12.5523 6 12 6C11.4477 6 11 6.44772 11 7V11H7C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H13V7Z" fill="#FCFCFC"/>
+							</svg>
 							<span>
 								Upload
 							</span>
@@ -220,8 +223,28 @@ export const DxzSocialGeneral = () => {
 							lineHeight:'24px',
 							border:"2px solid #2a85ff",
 						}}
-					>+  Add Network</Button>
+					>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M13 7C13 6.44772 12.5523 6 12 6C11.4477 6 11 6.44772 11 7V11H7C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H13V7Z" fill="#2A85FF"/>
+						</svg>
+						<span>
+							Add Network
+						</span>
+					</Button>
+					<div className="bio">
+						<span>Bio</span>
+						<svg 
+							style={{
+								verticalAlign:"middle",
+								marginLeft:"5px",
+							}}
+							width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" clip-rule="evenodd" d="M14.6666 7.99967C14.6666 11.6816 11.6818 14.6663 7.99992 14.6663C4.31802 14.6663 1.33325 11.6816 1.33325 7.99967C1.33325 4.31778 4.31802 1.33301 7.99992 1.33301C11.6818 1.33301 14.6666 4.31778 14.6666 7.99967ZM7.99992 7.33301C8.36811 7.33301 8.66659 7.63148 8.66659 7.99967V11.3336C8.66659 11.7018 8.36811 12.0003 7.99992 12.0003C7.63173 12.0003 7.33325 11.7018 7.33325 11.3336V7.99967C7.33325 7.63148 7.63173 7.33301 7.99992 7.33301ZM7.99992 5.99967C8.36811 5.99967 8.66659 5.7012 8.66659 5.33301C8.66659 4.96482 8.36811 4.66634 7.99992 4.66634C7.63173 4.66634 7.33325 4.96482 7.33325 5.33301C7.33325 5.7012 7.63173 5.99967 7.99992 5.99967Z" fill="#9A9FA5"/>
+						</svg>
+					</div>
+					
 				</div>
+				
 			</div>
 		</body>
 	</>;
