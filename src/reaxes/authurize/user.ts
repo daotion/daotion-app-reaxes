@@ -2,7 +2,7 @@
  * 真钱包签名,登录
  * localstorage._fake_wallets_map_ === "{'<address>':'<private_key>'}"
  */
-export const reaxel_user_sign_login = function () {
+export const reaxel_user = function () {
 	const {
 		store ,
 		setState ,
@@ -19,6 +19,7 @@ export const reaxel_user_sign_login = function () {
 		real_address : null ,
 		fakeWallet : null ,
 	} );
+	let ret;
 	const reax_wallet = reaxel_wallet();
 	const symbol__fake_wallets_map_ = Symbol( '_fake_wallets_map_' );
 	
@@ -68,7 +69,7 @@ export const reaxel_user_sign_login = function () {
 	
 	return () => {
 		
-		return {
+		return ret = {
 			get fake_wallets_map_string() {
 				return symbol__fake_wallets_map_.description;
 			} ,
@@ -129,6 +130,24 @@ export const reaxel_user_sign_login = function () {
 					} );
 				}
 			} ,
+			sign712(){
+				/*todo to be continued*/
+				
+			},
+			/*传入要被签名的对象或字符串*/
+			async signByFakeWallet(data:any){
+				if(!store.fakeWallet){
+					await ret.loginWithUserWallet();
+				}
+				if({
+					"string" : true,
+					"number" : true,
+					"boolean" : true,
+				}[typeof data]){
+					return store.fakeWallet.signMessage( data );
+				}
+				return store.fakeWallet.signMessage( JSON.stringify( data ) );
+			},
 		};
 	};
 }();

@@ -95,3 +95,22 @@ export namespace Space__user_leave_space {
 	export type response = {
 	}
 }
+
+export namespace Space__create_space {
+	export type payload = {
+		address : string;
+		data : {
+			"name": string,
+			"tags": string,
+			"email": string,
+			"createAddress": string,
+			"timestamp" : number;
+		};
+		signature : string;
+	}
+	
+	export type response = {
+		"spaceID" : number;
+		"name" : string;
+	}
+}

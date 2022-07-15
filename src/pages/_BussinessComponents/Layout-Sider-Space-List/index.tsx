@@ -1,12 +1,12 @@
 import { BtnCreateSpaceSvgComponent } from '@@pages/_SvgComponents';
 //todo import { CreateModalContent } from '@@pages/_BussinessComponents/Create-DAO-Modal';
-import { CreateModalContent } from '@@pages/Create-Space/components/create-modal';
+import { CreateModalContent } from '@@pages/_BussinessComponents/Modal-Create-Space/components/create-modal';
 
 import {
 	
 	reaxel_joined_Space_list ,
 	reaxel_wallet ,
-	// reaxel_login,
+	reaxel_create_space ,
 } from '@@reaxes';
 import { Modal } from 'antd';
 /**
@@ -24,8 +24,7 @@ export const Sider_Space_List = ComponentWrapper(  class extends ReactComponentC
 	
 	reax_wallet = reaxel_wallet();
 	
-	/*todo */
-	reax_create_space = reaxel_create_space(this.lifecycle);
+	reax_create_space = reaxel_create_space();
 	
 	render() {
 		
@@ -91,7 +90,7 @@ export const Sider_Space_List = ComponentWrapper(  class extends ReactComponentC
 							marginBottom : 8 ,
 						} }
 						onClick = { () => {
-							this.setState( { createSpaceModalShowing : true } );
+							this.reax_create_space.setCreateModalVisible( true );
 						} }
 					>
 						<BtnCreateSpaceSvgComponent />
@@ -108,12 +107,12 @@ export const Sider_Space_List = ComponentWrapper(  class extends ReactComponentC
 });
 
 
-export const Homepage_Avatar = ComponentWrapper((props:{url:string}) => {
+export const Homepage_Avatar = ComponentWrapper( ( props : { url : string } ) => {
 	
 	const routerProps = utils.useRouter();
 	
 	return <div
-		onClick = { () => routerProps.navigate( '/home') }
+		onClick = { () => routerProps.navigate( '/home' ) }
 		style = { {
 			width : 48 ,
 			height : 48 ,
@@ -124,31 +123,4 @@ export const Homepage_Avatar = ComponentWrapper((props:{url:string}) => {
 			marginTop : 0 ,
 		} }
 	/>;
-})
-
-
-const reaxel_create_space = function() {
-	
-	const {
-		store ,
-		setState,
-	} = orzMobx( { createSpaceModalShowing : false } );
-	
-	return (lifecycle:Lifecycle) => {
-		let ret;
-		
-		return ret = {
-			get visible (){
-				return store.createSpaceModalShowing;
-			}, 
-			/*设置create-space-Modal的可见性*/
-			setVisible(visible){
-				setState({ createSpaceModalShowing : !store.createSpaceModalShowing})
-				
-			},
-			CreateModalContent (){
-				
-			},
-		};
-	}
-}();
+} );

@@ -13,8 +13,8 @@ import {
 	reaxel_wallet ,
 } from '@@reaxes';
 // import { request_signature_string } from '@@requests';
-import { SpaceFactoryAbi } from '../../../common/contract/abi';
-import { SpaceFactoryAddress } from '../../../common/contract/address';
+import { SpaceFactoryAbi } from '@@common/contract/abi';
+import { SpaceFactoryAddress } from '@@common/contract/address';
 import { useNavigate } from 'react-router-dom';
 // import { request_regression_sign } from '@@requests/authorize';
 import spaceTags from '@@Public/space-tags.json';
@@ -133,6 +133,7 @@ export const CreateModalContent =  ComponentWrapper(( props : props ) => {
 			setTimeout( () => {
 				navigate( '/home/dao-info');
 			} , 3000 );
+			
 		} );
 		
 		

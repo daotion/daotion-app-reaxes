@@ -1,7 +1,6 @@
 import {
 	reaxel_wallet ,
-	reaxel_sign,
-	reaxel_user_sign_login,
+	reaxel_user,
 } from "@@reaxes";
 
 export const FileUpload = ComponentWrapper( () => {
@@ -46,7 +45,7 @@ const reaxel_upload = function(){
 				return store;
 			},
 			upload (file:File){
-				const reax_sign = reaxel_sign();
+				const reax_user = reaxel_user();
 				const formater = (source,formdata = null,parentKey:string = null) => {
 					return Reflect.ownKeys(source).reduce((formdata,key:string) => {
 						const value = source[key];
@@ -81,7 +80,7 @@ const reaxel_upload = function(){
 					address : "0x46DE5Eb1ecd41A974b86B85C6c53e1a04606dA59" ,
 					timestamp : Date.now() ,
 				};
-				reax_sign.signByFakeWallet( data ).then((signature) => {
+				reax_user.signByFakeWallet( data ).then((signature) => {
 					
 					return request.post( `https://192.168.0.4:8199/space/space-upload-icon` , {
 						method : "post" ,

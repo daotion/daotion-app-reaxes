@@ -7,6 +7,7 @@ import type {
 import {
 	ethers ,
 	providers ,
+	
 } from 'ethers';
 import {
 	account_storage_symbol ,
@@ -118,7 +119,7 @@ export const reaxel_wallet = function () {
 	
 	connect_wallet_from_storage.connectWalletFromStorage();
 	
-	let web3provider = Reaxes.observedMemo( ( first ) => {
+	let web3provider:ethers.providers.Web3Provider = Reaxes.observedMemo( ( first ) => {
 		if ( !store.wallet ) return web3provider = null;
 		return web3provider = new ethers.providers.Web3Provider( store.wallet?.provider ?? null , 'any' );
 	} , () => [ store.wallet ] );

@@ -2,9 +2,8 @@ export const reaxel_user_join_or_leave_space = function(){
 	
 	return () => {
 		const reax_joined_space_list= reaxel_joined_Space_list();
-		const reax_user = reaxel_user_sign_login();
+		const reax_user = reaxel_user();
 		const reax_wallet = reaxel_wallet();
-		const reax_sign = reaxel_sign();
 		return {
 			is_user_joined_space (spaceID:number):boolean{
 				return reax_joined_space_list.joined_space_list.some( ( { spaceID } ) => spaceID === spaceID );
@@ -23,7 +22,7 @@ export const reaxel_user_join_or_leave_space = function(){
 					timestamp : await request_server_timestamp(),
 				};
 				
-				const signature = await reax_sign.signByFakeWallet( data );
+				const signature = await reax_user.signByFakeWallet( data );
 				
 				return request_user_join_space( {
 					address : data.joinAddress ,
@@ -43,7 +42,7 @@ export const reaxel_user_join_or_leave_space = function(){
 					leaveAddress : reax_wallet.account.address ,
 					timestamp : await request_server_timestamp(),
 				};
-				const signature = await reax_sign.signByFakeWallet( data );
+				const signature = await reax_user.signByFakeWallet( data );
 				return request_user_leave_space( {
 					data ,
 					address : reax_wallet.account.address,
@@ -63,6 +62,5 @@ import {
 	request_server_timestamp
 } from '@@requests';
 import { reaxel_joined_Space_list } from '@@reaxes/Spaces/joined-space-list';
-import {reaxel_user_sign_login,} from '@@reaxes/authurize';
+import {reaxel_user,} from '@@reaxes/authurize';
 import {reaxel_wallet,} from '@@reaxes/wallet';
-import { reaxel_sign } from '@@reaxes/authurize/signer';

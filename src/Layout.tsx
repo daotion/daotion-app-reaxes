@@ -11,6 +11,8 @@ import {
 import {
 	Layout_Header ,
 	Sider_Space_List ,
+	ModalCreateSpace ,
+	
 } from '@@pages/_BussinessComponents';
 import less from './styles/main.module.less';
 
@@ -76,6 +78,7 @@ export const Layout = ComponentWrapper(class extends ReactComponentClass {
 						</>
 					</div>
 				</Spin>
+				<ModalCreateSpace/>
 			</div>
 		</>
 	}

@@ -2,7 +2,7 @@ import {
 	ethers ,
 	Wallet,
 } from 'ethers';
-import { reaxel_user_sign_login ,reaxel_wallet} from '@@reaxes';
+import { reaxel_user ,reaxel_wallet} from '@@reaxes';
 import { globalStore } from '@@common/global-controller';
 import { Button } from 'antd';
 
@@ -130,7 +130,7 @@ export const SignTest = ComponentWrapper(class extends ReactComponentClass{
 	//
 	// reax_sign_request = reaxel_sign_request( this.lifecycle );
 	
-	user_sign_login = reaxel_user_sign_login();
+	user_sign_login = reaxel_user();
 	
 	reax_sign_request = reaxel_sign_request();
 	reax_wallet = reaxel_wallet();
