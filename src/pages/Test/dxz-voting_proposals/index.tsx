@@ -4,7 +4,7 @@ import { Button } from 'antd';
 
 const { Option } = Select;
 
-export const DxzVoting = () => {
+export const DxzVotingProposals = () => {
 	
 	
 	const JSX = {
@@ -126,7 +126,7 @@ export const DxzVoting = () => {
 	};
 	
 	return <>
-		<div className = { less.votingContainer }
+		<div className = { less.voting_proposalsContainer }
 			style = { {
 				backgroundColor : "#f4f5f6" ,
 				display : "flex" ,
@@ -159,7 +159,7 @@ export const DxzVoting = () => {
 							fontWeight : "600" ,
 							lineHeight : "48px" ,
 						} }
-					>Proposal
+					>Proposals
 					</span>
 					<span
 						style = { {
@@ -195,22 +195,17 @@ export const DxzVoting = () => {
 						alignItems : "center" ,
 					} }
 				>
-					<Button 
+					<Button className={less.setting_newProposal}
 						style = { {
-							display : "flex" ,
-							alignItems : "center" ,
-							justifyContent : "center" ,
 							backgroundColor : "#ffffff" ,
 							border : "2px solid #E6E8EC" ,
 							borderRadius:"12px",
 							color : "#6f767e" ,
-							fontWeight : "bolder" ,
-							fontSize:"14px",
 							padding : "19px 0px" ,
 						} }
 					
 					>
-						<span
+						<span 
 							style = { {
 								padding : "12px 15px" ,
 							} }
@@ -218,17 +213,12 @@ export const DxzVoting = () => {
 							Settings
 						</span>
 					</Button>
-					<Button 
+					<Button className={less.setting_newProposal}
 						style = { {
-							display : "flex" ,
-							alignItems : "center" ,
-							justifyContent : "center" ,
 							marginLeft : "16px" ,
 							backgroundColor : "#3772ff" ,
-							fontSize:"14px",
 							color : "#fcfcfd" ,
 							padding : "22px 14px" ,
-							fontWeight : "700" ,
 							borderRadius:"12px",
 						} }
 					>New Proposal

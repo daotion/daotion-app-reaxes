@@ -6,6 +6,8 @@ import less from './style.module.less';
 import { reaxel_space_detail } from '@@reaxes/Spaces/DAO-detail';
 import { reaxel_user_join_or_leave_space } from '@@reaxes';
 
+import { DxzSpaceHomeJoined } from '@@pages/Test/dxz-space-home-joined';
+
 export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any , any> {
 	
 	reax_space_detail = reaxel_space_detail( this.lifecycle );
@@ -25,13 +27,8 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 						flexFlow : "column",
 					}}
 				>
-					<code>
-					<pre>
-						{ JSON.stringify( this.reax_space_detail.store.spaceInfo , null , 3 ) }
-					</pre>
-					</code>
-					<br/>
-					<Button
+					<DxzSpaceHomeJoined/>
+					{/*<Button
 						onClick={() => {
 							if(joined_DAO){
 								return this.reax_user_join_or_leave_space.leave_space(spaceID)
@@ -39,7 +36,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 								return this.reax_user_join_or_leave_space.join_space( spaceID );
 							}
 						}}
-					>{joined_DAO ? 'Leave DAO' : 'Join DAO'}</Button>
+					>{joined_DAO ? 'Leave DAO' : 'Join DAO'}</Button>*/}
 				</div>
 			</>;
 		} );
