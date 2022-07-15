@@ -82,6 +82,26 @@ export const DxzSpaceHomeJoined = () => {
 						height : "124px" ,
 					} }
 				/>
+				<div className="edit-cover"
+				style={{
+					backgroundColor:'#141416',
+					borderRadius:"12px",
+					padding:"16px",
+					display:"flex",
+					alignItems:"center",
+					height:"48px",
+					fontWeight:"700",
+					fontSize:"14px",
+					lineHeight:'16px',
+					color:"#fcfcfd",
+					position:"absolute",
+					bottom:"24px",
+					right:"32px",
+					top:"228px",
+					flexDirection:"row",
+					flexWrap:"nowrap"
+				}}
+				>Edit cover</div>
 			</div>
 			<div
 				style = { {
@@ -184,7 +204,6 @@ export const DxzSpaceHomeJoined = () => {
 							border : '2px solid #E6E8EC' ,
 							width : "fit-content" ,
 							height : "40px" ,
-							
 							padding : "4px 16px" ,
 							display : "flex" ,
 							alignItems : "center" ,
@@ -223,7 +242,6 @@ export const DxzSpaceHomeJoined = () => {
 								fill = "#353945"
 							/>
 						</svg>
-					
 					</div>
 					<div
 						style = { {
@@ -463,17 +481,49 @@ export const DxzSpaceHomeJoined = () => {
 							
 						} }
 					>
-						<span
-							style = { {
-								marginBottom : "32px" ,
-								fontWeight : "600" ,
-								fontSize : "20px" ,
-								lineHeight : "32px" ,
-								color : "#1a1d1f" ,
-							} }
+						<div 
+						style={{
+							display:"flex",
+							justifyContent:"space-between"
+						}}
 						>
-							Title
-						</span>
+							
+							<span
+								style = { {
+									marginBottom : "32px" ,
+									fontWeight : "600" ,
+									fontSize : "20px" ,
+									lineHeight : "32px" ,
+									color : "#1a1d1f" ,
+								} }
+							>
+								Title
+							</span>
+							<svg
+								width = "24"
+								height = "24"
+								viewBox = "0 0 24 24"
+								fill = "none"
+								xmlns = "http://www.w3.org/2000/svg"
+							>
+								<rect
+									width = "24"
+									height = "24"
+									fill = "white"
+								/>
+								<path
+									d = "M3 22C3 21.4477 3.44772 21 4 21H20C20.5523 21 21 21.4477 21 22C21 22.5523 20.5523 23 20 23H4C3.44772 23 3 22.5523 3 22Z"
+									fill = "#777E91"
+								/>
+								<path
+									fill-rule = "evenodd"
+									clip-rule = "evenodd"
+									d = "M16.7071 3.12102C16.3166 2.73049 15.6834 2.73049 15.2929 3.12102L14.4142 3.99967L18 7.58545L18.8787 6.7068C19.2692 6.31628 19.2692 5.68312 18.8787 5.29259L16.7071 3.12102ZM6.91425 11.4997L13 5.41388L16.5858 8.99967L10.5 15.0855L6.91425 11.4997ZM5.50003 12.9139L5 13.4139V16.9997H8.58579L9.08582 16.4997L5.50003 12.9139ZM13.8787 1.7068C15.0503 0.535232 16.9497 0.535232 18.1213 1.7068L20.2929 3.87838C21.4645 5.04995 21.4645 6.94945 20.2929 8.12102L10 18.4139C9.62493 18.789 9.11622 18.9997 8.58579 18.9997H5C3.89543 18.9997 3 18.1043 3 16.9997V13.4139C3 12.8835 3.21071 12.3748 3.58579 11.9997L13.8787 1.7068Z"
+									fill = "#777E91"
+								/>
+							</svg>
+						</div>
+					
 					</div>
 					<div
 						style = { {
@@ -485,17 +535,48 @@ export const DxzSpaceHomeJoined = () => {
 							
 						} }
 					>
-						<span
-							style = { {
-								marginBottom : "32px" ,
-								fontWeight : "600" ,
-								fontSize : "20px" ,
-								lineHeight : "32px" ,
-								color : "#1a1d1f" ,
-							} }
+						<div
+							style={{
+								display:"flex",
+								justifyContent:"space-between"
+							}}
 						>
-							Title
-						</span>
+							<span
+								style = { {
+									marginBottom : "32px" ,
+									fontWeight : "600" ,
+									fontSize : "20px" ,
+									lineHeight : "32px" ,
+									color : "#1a1d1f" ,
+								} }
+							>
+								Title
+							</span>
+							<svg
+								width = "24"
+								height = "24"
+								viewBox = "0 0 24 24"
+								fill = "none"
+								xmlns = "http://www.w3.org/2000/svg"
+							>
+								<rect
+									width = "24"
+									height = "24"
+									fill = "white"
+								/>
+								<path
+									d = "M3 22C3 21.4477 3.44772 21 4 21H20C20.5523 21 21 21.4477 21 22C21 22.5523 20.5523 23 20 23H4C3.44772 23 3 22.5523 3 22Z"
+									fill = "#777E91"
+								/>
+								<path
+									fill-rule = "evenodd"
+									clip-rule = "evenodd"
+									d = "M16.7071 3.12102C16.3166 2.73049 15.6834 2.73049 15.2929 3.12102L14.4142 3.99967L18 7.58545L18.8787 6.7068C19.2692 6.31628 19.2692 5.68312 18.8787 5.29259L16.7071 3.12102ZM6.91425 11.4997L13 5.41388L16.5858 8.99967L10.5 15.0855L6.91425 11.4997ZM5.50003 12.9139L5 13.4139V16.9997H8.58579L9.08582 16.4997L5.50003 12.9139ZM13.8787 1.7068C15.0503 0.535232 16.9497 0.535232 18.1213 1.7068L20.2929 3.87838C21.4645 5.04995 21.4645 6.94945 20.2929 8.12102L10 18.4139C9.62493 18.789 9.11622 18.9997 8.58579 18.9997H5C3.89543 18.9997 3 18.1043 3 16.9997V13.4139C3 12.8835 3.21071 12.3748 3.58579 11.9997L13.8787 1.7068Z"
+									fill = "#777E91"
+								/>
+							</svg>
+						
+						</div>
 					</div>
 				</div>
 				<div
@@ -505,20 +586,50 @@ export const DxzSpaceHomeJoined = () => {
 						backgroundColor : "#ffffff" ,
 						borderRadius : "12px" ,
 						padding : "24px 0 24px 24px" ,
-						
-						
 					} }
 				>
-					<span
-						style = { {
-							fontWeight : "600" ,
-							fontSize : "20px" ,
-							lineHeight : "32px" ,
-							color : "#1a1d1f" ,
-						} }
-					>
-						Title
-					</span>
+					<div style={{
+						display:"flex",
+						justifyContent:"space-between"
+					}}>
+						<span
+							style = { {
+								fontWeight : "600" ,
+								fontSize : "20px" ,
+								lineHeight : "32px" ,
+								color : "#1a1d1f" ,
+							} }
+						>
+							Title
+						</span>
+						<svg
+							width = "24"
+							height = "24"
+							viewBox = "0 0 24 24"
+							fill = "none"
+							xmlns = "http://www.w3.org/2000/svg"
+							style={{
+								marginRight:"24px",
+							}}
+						>
+							<rect
+								width = "24"
+								height = "24"
+								fill = "white"
+							/>
+							<path
+								d = "M3 22C3 21.4477 3.44772 21 4 21H20C20.5523 21 21 21.4477 21 22C21 22.5523 20.5523 23 20 23H4C3.44772 23 3 22.5523 3 22Z"
+								fill = "#777E91"
+							/>
+							<path
+								fill-rule = "evenodd"
+								clip-rule = "evenodd"
+								d = "M16.7071 3.12102C16.3166 2.73049 15.6834 2.73049 15.2929 3.12102L14.4142 3.99967L18 7.58545L18.8787 6.7068C19.2692 6.31628 19.2692 5.68312 18.8787 5.29259L16.7071 3.12102ZM6.91425 11.4997L13 5.41388L16.5858 8.99967L10.5 15.0855L6.91425 11.4997ZM5.50003 12.9139L5 13.4139V16.9997H8.58579L9.08582 16.4997L5.50003 12.9139ZM13.8787 1.7068C15.0503 0.535232 16.9497 0.535232 18.1213 1.7068L20.2929 3.87838C21.4645 5.04995 21.4645 6.94945 20.2929 8.12102L10 18.4139C9.62493 18.789 9.11622 18.9997 8.58579 18.9997H5C3.89543 18.9997 3 18.1043 3 16.9997V13.4139C3 12.8835 3.21071 12.3748 3.58579 11.9997L13.8787 1.7068Z"
+								fill = "#777E91"
+							/>
+						</svg>
+					</div>
+					
 					<div
 						className = { less.memberList }
 						style = { {
