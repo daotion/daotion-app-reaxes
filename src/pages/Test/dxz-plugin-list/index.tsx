@@ -379,13 +379,9 @@ const NavItem = ( props ) => {
 			className = { less.nav }
 		>
 			{props.children}
-			<p
-			>{props.title}
+			<p>
+				{props.title}
 			</p>
 		</div>
-	
-	
 	</>;
-	
-	
 };
