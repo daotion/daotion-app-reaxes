@@ -17,8 +17,9 @@ import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
+import { DxzSocialGeneral } from './dxz-social-general';
 
-const C = DxzConnectWalletPopup;
+const C = DxzSocialGeneral;
 
 export const Test = () => <C />;
 
