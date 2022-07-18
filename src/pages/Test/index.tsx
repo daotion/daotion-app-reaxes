@@ -17,15 +17,12 @@ import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
-<<<<<<< HEAD
 import { DxzSocialGeneral } from './dxz-social-general';
+import { DxzEditProfilePop } from './dxz-edit-profile-pop';
 
-const C = DxzSocialGeneral;
-=======
-import {FileUpload} from './File-Upload';
+const C = DxzEditProfilePop;
+import { FileUpload } from './File-Upload';
 
-const C = DxzSpaceHomeJoined;
->>>>>>> Ferry/Space-Home-joined
 
 export const Test = () => <C />;
 
