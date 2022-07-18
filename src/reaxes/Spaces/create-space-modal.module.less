@@ -91,3 +91,25 @@
 		}
 	}
 }
+
+
+.antd-create-space-modal {
+	
+	> div {
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		max-width: 100%;
+		position: static;
+		padding : 0 ;
+		
+		:global {
+			.ant-modal-content {
+				height: 100%;
+			}
+			.ant-modal-body {
+				height: calc(100% - 53px);
+			}
+		}
+	}
+}

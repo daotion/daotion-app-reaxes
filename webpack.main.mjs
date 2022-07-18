@@ -207,6 +207,9 @@ function getProvidePlugin (config = {}) {
 			"react" ,
 			"useCallback",
 		] ,
+		antd : [
+			"antd"
+		] ,
 		ComponentWrapper : [
 			"@@common/ReactComponentWrapper" ,
 			"ComponentWrapper",

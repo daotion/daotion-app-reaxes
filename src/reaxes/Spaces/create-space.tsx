@@ -9,7 +9,6 @@ import {
 	reaxel_user ,
 	
 } from '@@reaxes';
-import {Modal , Button , Input , Select ,} from 'antd';
 import less from './create-space-modal.module.less';
 import spaceTags from '@@Public/space-tags.json';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -31,6 +30,7 @@ export const reaxel_create_space = function(){
 		input_email : null ,
 	} );
 	let ret;
+	const {Modal} = antd;
 	
 	const create_space = async () => {
 		const reax_wallet = reaxel_wallet();
@@ -53,13 +53,22 @@ export const reaxel_create_space = function(){
 			} );
 		};
 		
-		const contract_create = (spaceID:number) => {
+		const contract_create = async (spaceID:number) => {
 			const spaceName = store.input_space_name;
 			const contract = new ethers.Contract( SpaceFactoryAddress , SpaceFactoryAbi , reax_wallet.web3Provider );
-			const contractWithSigner = contract.connect(reax_wallet.web3Provider);
-			contractWithSigner.createDAO(spaceID,spaceName,"desciption").then(({hash,receipt}) => {
-				reax_wallet.web3Provider.getTransaction('').then()
-				ethers.providers.getDefaultProvider().getTransaction()
+			const contractWithSigner = contract.connect(reax_wallet.web3Provider.getSigner(reax_wallet.account.address));
+			return contractWithSigner.createDAO(spaceID,spaceName,"desciption").then(({hash,receipt}) => {
+				return reax_wallet.web3Provider.getTransaction( hash ).
+				then( ( response ) => {
+					return response.wait().then( ( receipt ) => {
+						if ( receipt?.confirmations ) {
+							Modal.success( {
+								title : "transaction success !" ,
+							} );
+						}
+					} );
+				} );
+				// ethers.providers.getDefaultProvider().getTransaction()
 			});
 		}
 		
@@ -70,18 +79,37 @@ export const reaxel_create_space = function(){
 				if(!reax_user.fake_wallet_store.logged_in){
 					await reax_user.loginWithUserWallet();
 				}
-				const spaceID = await fetch_space_ID();
-				
-				
-				ret.setCreateModalVisible( false );
 			}catch ( e ) {
+				console.error( e );
 				ret.setCreateModalVisible( true );
+				Modal.error( {
+					title : e.toString() ,
+				} );
+			}
+		}else {
+			try {
+				const spaceID = await fetch_space_ID();
+				await contract_create( spaceID );
+				ret.setCreateModalVisible( false );
+			}catch ( e ){
+				console.error( e );
+				Modal.error( {
+					title : e.toString() ,
+				} );
 			}
 		}
 	};
+	const validations = {
+		input_space_name : () => {
+			return true;
+			/*暂时不对space-name做限制 , beta阶段出问题再限制*/
+		},
+		input_email_address : (address:string) => {
+			return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test( address );
+		},
+	};
 	
 	return () => {
-		type props = {};
 		return ret = {
 			get store (){
 				return store;
@@ -89,22 +117,29 @@ export const reaxel_create_space = function(){
 			setCreateModalVisible : (visible:boolean) => setState({visible}),
 			CreateSpaceModal : Reaxper(class extends Reaxlass{
 				
-				
 				render() {
+					const {Form,Modal , Button , Input , Select ,} = antd;
 					return <>
 						<Modal
-							visible={store.visible}
-							maskClosable={true}
-							onCancel={() => setState({ visible : false})}
-							footer={<>
-								<Button 
-									onClick={() => {
+							visible = { store.visible }
+							onCancel = { () => setState( { visible : false } ) }
+							footer = { <>
+								<Button
+									onClick = { () => {
+										if(!validations.input_email_address(store.input_email)){
+											return;
+										}
+										if(!validations.input_space_name()){
+											return ;
+										}
 										create_space();
-									}}
+									} }
 								>
 									Create
 								</Button>
-							</>}
+							</> }
+							width="100%"
+							wrapClassName = {less.antdCreateSpaceModal}
 						>
 							<div className = { less.modalContent }>
 								<h1 className = { less.mainTitle }>Create your Space</h1>
@@ -125,21 +160,34 @@ export const reaxel_create_space = function(){
 										/>
 									</div>
 									<div className = { less.formItem }>
-										<p>Type</p>
+										<p
+											style = { {
+												display : "flex" ,
+												justifyContent : "space-between",
+											} }
+										>
+											<span>Type</span>
+											<span style = { { color : "#b1b5c3",fontWeight : "normal" } }>
+												<span style = { { color : "#313436" } }>{ store.select_types.length }</span>
+												/3 Types
+											</span>
+										</p>
 										<Select
 											mode = "tags"
 											allowClear
 											className = { less.mSelect }
 											placeholder = "Please select"
-											value={store.select_types}
-											onChange = { ( e ) => {
-												console.log( e );
-												setState(({
-													select_types : e,
-												}))
+											value = { store.select_types }
+											onChange = { ( selectedTypes ) => {
+												if ( selectedTypes.length < 4 ) {
+													setState( {
+														select_types : selectedTypes ,
+													} );
+												}
 											} }
 										>
-											{spaceTags.filter((text) => !store.select_types.includes(text) ).map((text) => <Select.Option key = {text}>{text}</Select.Option>)}
+											{ spaceTags.filter( ( text ) => !store.select_types.includes( text ) ).
+											map( ( text ) => <Select.Option key = { text }>{ text }</Select.Option> ) }
 										</Select>
 									</div>
 									<div className = { less.formItem }>
@@ -154,16 +202,24 @@ export const reaxel_create_space = function(){
 										</Select>
 									</div>
 									<div className = { less.formItem }>
-									<p>Email</p>
-									<Input
-										className = { less.mInput }
-										placeholder = "Enter your email"
-										value = { store.input_email }
-										onChange = { ( e ) => {
-											setState( { input_email : e.target.value } );
-										}}
-									/>
-								</div>
+										<p>Email</p>
+										<Input
+											className = { less.mInput }
+											placeholder = "Enter your email"
+											value = { store.input_email }
+											onChange = { ( e ) => {
+												setState( { input_email : e.target.value } );
+											} }
+										/>
+										{ (
+											!validations.input_email_address( store.input_email ) && store.input_email
+										) && <p
+											style = { {
+												color : "red" ,
+												fontWeight : "normal" ,
+											} }
+										>email address is not valid</p> }
+									</div>
 								</div>
 							</div>
 						</Modal>
