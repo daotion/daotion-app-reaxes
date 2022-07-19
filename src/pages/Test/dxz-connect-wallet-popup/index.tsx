@@ -409,7 +409,7 @@ export const DxzConnectWalletPopup = () => {
 						</span>
 					</Button>
 					<footer
-						className = "some-intro"
+						className = "bios"
 						style = { {
 							fontWeight : "500" ,
 							fontSize : "12px" ,

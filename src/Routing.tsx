@@ -12,6 +12,7 @@ import { Home } from '@@pages/Home';
 import { Layout } from './Layout';
 import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import {SpaceInfo} from '@@pages/Space-Info';
+import { SpaceSettings } from '@@pages/Space-Settings';
 import {createBrowserHistory} from 'history';
 
 
@@ -72,6 +73,10 @@ export const MainContentRouting = ( props ) => <Routes>
 			<Route
 				path = "info"
 				element = { <SpaceInfo /> }
+			/>
+			<Route
+				path = "settings"
+				element = { <SpaceSettings /> }
 			/>
 		</Route>
 		<Route

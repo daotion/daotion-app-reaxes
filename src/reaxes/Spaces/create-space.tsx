@@ -22,7 +22,7 @@ export const reaxel_create_space = function(){
 		store ,
 		setState,
 	} = orzMobx( {
-		visible : true ,
+		visible : false ,
 		modal_showing : false ,
 		input_space_name : '' ,
 		select_types : [] ,
@@ -58,6 +58,17 @@ export const reaxel_create_space = function(){
 			const contract = new ethers.Contract( SpaceFactoryAddress , SpaceFactoryAbi , reax_wallet.web3Provider );
 			const contractWithSigner = contract.connect(reax_wallet.web3Provider.getSigner(reax_wallet.account.address));
 			return contractWithSigner.createDAO(spaceID,spaceName,"desciption").then(({hash,receipt}) => {
+				
+				/*todo 两种方法都可以,测试哪种更好*/
+				
+				return reax_wallet.web3Provider.waitForTransaction( hash , 1 ).
+				then( () => {
+					
+					Modal.success( {
+						title : "transaction success !" ,
+					} );
+				} );
+				
 				return reax_wallet.web3Provider.getTransaction( hash ).
 				then( ( response ) => {
 					return response.wait().then( ( receipt ) => {

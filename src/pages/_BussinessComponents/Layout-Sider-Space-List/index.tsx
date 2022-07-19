@@ -1,23 +1,19 @@
 import { BtnCreateSpaceSvgComponent } from '@@pages/_SvgComponents';
-//todo import { CreateModalContent } from '@@pages/_BussinessComponents/Create-DAO-Modal';
-import { CreateModalContent } from '@@pages/_BussinessComponents/Modal-Create-Space/components/create-modal';
 
 import {
-	
+	reaxel_create_space ,
 	reaxel_joined_Space_list ,
 	reaxel_wallet ,
-	reaxel_create_space ,
 } from '@@reaxes';
-import { Modal } from 'antd';
+
 /**
  * 左侧的space list和Plugin list
  */
-export const Sider_Space_List = ComponentWrapper(  class extends ReactComponentClass {
+export const Sider_Space_List = ComponentWrapper( class extends ReactComponentClass {
 	
 	state = {
 		createSpaceModalShowing : false ,
 	};
-	
 	
 	
 	reax_joined_space_list = reaxel_joined_Space_list();
@@ -99,12 +95,12 @@ export const Sider_Space_List = ComponentWrapper(  class extends ReactComponentC
 						modalVisible = { this.state.createSpaceModalShowing }
 						setModalVisible = { () => this.setState( { createSpaceModalShowing : !this.state.createSpaceModalShowing } ) }
 						provider = { this.reax_wallet.web3Provider }
-					/>*/}
+					/>*/ }
 				</div>
 			</>;
 		} );
 	}
-});
+} );
 
 
 export const Homepage_Avatar = ComponentWrapper( ( props : { url : string } ) => {

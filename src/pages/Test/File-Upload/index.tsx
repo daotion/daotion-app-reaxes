@@ -46,6 +46,7 @@ const reaxel_upload = function(){
 			},
 			upload (file:File){
 				const reax_user = reaxel_user();
+				/*递归对象转换成data[subKey][subsubkey]*/
 				const formater = (source,formdata = null,parentKey:string = null) => {
 					return Reflect.ownKeys(source).reduce((formdata,key:string) => {
 						const value = source[key];
@@ -58,22 +59,6 @@ const reaxel_upload = function(){
 					},formdata??new FormData);
 				};
 				
-				// const test = formater( {
-				// 	address : '21323' ,
-				// 	data : {
-				// 		spaceID : 30 ,
-				// 		iconType : 1 ,
-				// 		address : "0x46DE5Eb1ecd41A974b86B85C6c53e1a04606dA59" ,
-				// 		timestamp : Date.now() ,
-				// 		file,
-				// 	} ,
-				// 	signature : "sads" ,
-				// } );
-				//
-				// console.log( test );
-				// for(const i of test.keys()){
-				// 	console.log(i,test.get(i));
-				// }
 				const data = {
 					spaceID : 30 ,
 					iconType : 1 ,

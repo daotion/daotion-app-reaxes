@@ -49,14 +49,18 @@ export namespace Space___get_space_detail{
 	}
 	
 	export type response = {
+		"bgUrl" : string;
+		/*简介*/
+		"bio": string,
 		"info": {
-			"spaceID": number,
-			"name": string,
-			"tags": string[],
+			/*space地址*/
 			"addrChain": string,
 			"iconUrl": string,
+			"name": string,
+			"spaceID": number,
+			"tags": string[],
 		},
-		"bio": string,
+		/*添加的社交账户组字符串:[{social:"",address:""}]*/
 		"links": string,
 		"tabs" : string[];
 	}
@@ -113,4 +117,26 @@ export namespace Space__create_space {
 		"spaceID" : number;
 		"name" : string;
 	}
+}
+
+export namespace Space__upload_pics {
+	
+	
+	export type payload = FormData & {
+		address : string;
+		data : {
+			spaceID: number;
+			icontype : 1 | 2;
+			address : string;
+			timestamp : number;
+		};
+		signature : string;
+		file : File;
+	};
+	export type response = {
+		spaceID : number;
+		iconType : 1|2;
+		url : string;
+		ipfsHash : string;
+	};
 }

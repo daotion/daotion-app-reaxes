@@ -1,4 +1,5 @@
 import { request_space_detail } from '@@requests/Spaces/space-detail';
+import { Space___get_space_detail } from '@@requests/Spaces/types';
 
 export const reaxel_space_detail = function (){
 	
@@ -6,7 +7,7 @@ export const reaxel_space_detail = function (){
 		store ,
 		setState,
 	} = orzMobx( {
-		spaceInfo : null ,
+		spaceInfo : null as Space___get_space_detail.response ,
 		loading : true ,
 	} );
 	
@@ -22,7 +23,7 @@ export const reaxel_space_detail = function (){
 		} );
 	});
 	
-	return (lifecycle:Lifecycle) => {
+	return () => {
 		let ret;
 		
 		/**
@@ -36,6 +37,14 @@ export const reaxel_space_detail = function (){
 		return ret = {
 			get store (){
 				return store;
+			},
+			setSpaceBanner(url:string){
+				setState( {
+					spaceInfo : {
+						...store.spaceInfo ,
+						bgUrl : url ,
+					} ,
+				} );
 			},
 			getSpaceDetailMemo( spaceID : number ) {
 				return memoFetchSpaceInfo( ( prevDeps ) => [ spaceID ] )( spaceID );

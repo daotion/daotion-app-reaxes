@@ -22,7 +22,7 @@ export const ModalCreateSpace = Reaxper(class extends Reaxlass{
 	
 	render() {
 		const { CreateSpaceModal } = this.reax_create_space;
-		const {visible} = this.props;
+		
 		return <>
 			<CreateSpaceModal/>
 		</>;

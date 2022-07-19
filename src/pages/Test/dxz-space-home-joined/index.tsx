@@ -2,11 +2,18 @@ import { DxzTokenOverview } from '../dxz-Token-overview';
 import { Button } from 'antd';
 import { WalletAddressCopyBox } from '@@common/Xcomponents';
 import less from './index.module.less';
+import {reaxel_joined_Space_list} from '@@reaxes';
+import { Img } from '@@common/Xcomponents';
 
-export const DxzSpaceHomeJoined = () => {
+export const DxzSpaceHomeJoined = ( props : props ) => {
+	
+	const { spaceInfo } = props;
+	
+	const reax_upload_banner = useRef( reaxel_upload_pics() );
+	const {JoinedBtn} = reaxel_joined_Space_list();
 	return <>
 		<div
-			className = "space-home-join_box"
+			className = { less.spaceInfo }
 			style = { {
 				background : "#f4f5f6" ,
 				display : "flex" ,
@@ -15,38 +22,59 @@ export const DxzSpaceHomeJoined = () => {
 				minWidth : "fit-content" ,
 			} }
 		>
-			<header className={less.tabSettingNav}
+			<header
+				className = { less.tabSettingNav }
 			>
 				<DxzTokenOverview />
-				<SettingIcon></SettingIcon>
+				<SettingIcon />
 			</header>
 			<div
-				className = "space-cover"
+				className = { less.banner }
 				style = { {
 					position : "relative" ,
 					width : "1200px" ,
 					display : "flex" ,
 					justifyContent : "center" ,
+					borderRadius : "12px 12px 0px 0px" ,
 				} }
 			>
-				<img
-					src = "https://s1.ax1x.com/2022/07/11/j61xfI.png"
-					alt = "background-img"
+				<Img
+					src = { spaceInfo?.bgUrl }
 					width = "1200px"
 					height = "300px"
+					
+					alt = ""
 					style = { {
 						borderRadius : "12px 12px 0px 0px" ,
+						maxWidth : "100%" ,
+						maxHeight : "100%" ,
 					} }
 				/>
-				<SpaceJoinAvater></SpaceJoinAvater>
+				<Img
+					src = { spaceInfo?.info?.iconUrl }
+					style = { {
+						borderRadius : "16px" ,
+						position : "absolute" ,
+						top : "204px" ,
+						left : "32px" ,
+						width : "124px" ,
+						height : "124px" ,
+					} }
+				/>
+				
 				<div
 					className = { less.editCover }
-				>Edit cover
+					onClick = { () => {
+						reax_upload_banner.current.space_info_banner( spaceInfo.info.spaceID );
+					} }
+				>
+					Edit cover
 				</div>
 			</div>
-			<div className="info-box"
+			<div
+				className = "info-box"
 				style = { {
-					paddingLeft : "32px" ,
+					padding : "0 32px 34px 32px" ,
 					width : "1200px" ,
 					borderRadius : "0px 0px 12px 12px" ,
 					backgroundColor : "#ffffff" ,
@@ -58,7 +86,7 @@ export const DxzSpaceHomeJoined = () => {
 				>
 					<span
 						className = { less.spaceName }
-					>SpaceName
+					>{ spaceInfo?.info?.name }
 					</span>
 					<div
 						style = { {
@@ -68,7 +96,8 @@ export const DxzSpaceHomeJoined = () => {
 						} }
 					>
 						<ShareIcon></ShareIcon>
-						<Button
+						<JoinedBtn
+							spaceID = {spaceInfo?.info?.spaceID}
 							style = { {
 								width : "140px" ,
 								height : "48px" ,
@@ -78,7 +107,7 @@ export const DxzSpaceHomeJoined = () => {
 								fontSize : "16px" ,
 								fontWeight : "600" ,
 							} }
-						>joined</Button>
+						/>
 					</div>
 				</div>
 				<div
@@ -88,7 +117,9 @@ export const DxzSpaceHomeJoined = () => {
 						alignItems : "center" ,
 					} }
 				>
-					<WalletAddressCopyBox walletAddr = "0xD0B747Df2122A04f4011089999ff77Dd97b1bdb9" />
+					<WalletAddressCopyBox
+						walletAddr = { spaceInfo?.info?.addrChain }
+					/>
 					<div
 						style = { {
 							display : "flex" ,
@@ -96,24 +127,20 @@ export const DxzSpaceHomeJoined = () => {
 							alignItems : "flex-start" ,
 						} }
 					>
-						<SocialShare></SocialShare>
+						<SocialShare />
 					</div>
 				</div>
 				<p
-					className = { less.someIntro }
+					className = { less.bios }
 				>
-					Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-					<br />
-					amet sint. Velit officia consequat duis enim velit mollit.
-					<br />
-					Exercitation veniam...
+					{ spaceInfo?.bio }
 				</p>
 			</div>
 			<div
 				className = { less.contentBox }
 			>
 				<div
-					className = {less.contentLeft}
+					className = { less.contentLeft }
 				>
 					<ContentListFirst></ContentListFirst>
 					<ContentListSecond></ContentListSecond>
@@ -148,7 +175,7 @@ export const DxzSpaceHomeJoined = () => {
 						map( ( v , i ) =>
 							<MemberItem
 								key = { i }
-							></MemberItem>,
+							></MemberItem> ,
 						) }
 					</div>
 				</div>
@@ -157,9 +184,81 @@ export const DxzSpaceHomeJoined = () => {
 	</>;
 };
 
+import {
+	request_server_timestamp ,
+	request_upload_space_banner ,
+} from '@@requests';
+import {
+	reaxel_user ,
+	reaxel_wallet ,
+	reaxel_space_detail ,
+} from '@@reaxes';
+
+const reaxel_upload_pics = function () {
+	let ret;
+	
+	
+	/*递归对象转换成data[subKey][subsubkey]的formdata*/
+	const formater = ( source , formdata = null , parentKey : string = null ) => {
+		return Reflect.ownKeys( source ).
+		reduce( ( formdata , key : string ) => {
+			const value = source[ key ];
+			if ( _.isObject( value ) && Object.getPrototypeOf( value ) !== File.prototype ) {
+				formater( value , formdata , parentKey ? `${ parentKey }[${ key }]` : key );
+			} else {
+				formdata.append( parentKey ? `${ parentKey }[${ key }]` : key , value );
+			}
+			return formdata;
+		} , formdata ?? new FormData );
+	};
+	
+	return () => {
+		return ret = {
+			space_info_banner( spaceID : number ) {
+				const reax_user = reaxel_user();
+				const reax_wallet = reaxel_wallet();
+				const reax_space_detail = reaxel_space_detail();
+				const input = document.createElement( 'input' );
+				input.type = "file";
+				input.onchange = ( { target } ) => {
+					const [ file ] = (
+						target as HTMLInputElement
+					).files;
+					fetch_upload( file );
+				};
+				const fetch_upload = async ( file : File ) => {
+					const { address } = reax_wallet.account;
+					const data = {
+						spaceID ,
+						iconType : 2 ,
+						address ,
+						timestamp : await request_server_timestamp() ,
+					};
+					try {
+						const signature = await reax_user.signByFakeWallet( data );
+						const response = await request_upload_space_banner( formater( {
+							address ,
+							data ,
+							signature ,
+							file ,
+						} ) );
+						reax_space_detail.setSpaceBanner( response.url );
+						antd.Modal.success( { title : "upload successful!" } );
+					} catch ( e ) {
+						antd.Modal.error( { title : e.toString() } );
+					}
+				};
+				input.click();
+			} ,
+		};
+	};
+}();
+
+
 const MemberItem = () => {
 	return <>
-		<div className={less.memberItem}
+		<div
+			className = { less.memberItem }
 			style = { {
 				height : "24px" ,
 				width : "100%" ,
@@ -189,6 +288,13 @@ const MemberItem = () => {
 		</div>
 	</>;
 };
+import { Space___get_space_detail } from '@@requests/Spaces/types';
+
+type props = {
+	spaceInfo : Space___get_space_detail.response;
+};
+
+
 const TitleEdit = () => {
 	return <>
 		<div
@@ -196,7 +302,7 @@ const TitleEdit = () => {
 				display : "flex" ,
 				justifyContent : "space-between" ,
 				width : "100%" ,
-				height : "fit-content",
+				height : "fit-content" ,
 			} }
 		>
 			<span
@@ -515,14 +621,19 @@ const ShareIcon = () => {
 		</svg>
 	</>;
 };
-const SettingIcon = () => {
+const SettingIcon = ComponentWrapper(() => {
+	const {navigate,params} = utils.useRouter();
 	return <>
 		<svg
+			onClick={() => {
+				navigate( `/space${ params.spaceID }/settings` );
+			}}
 			style = { {
 				display : "flex" ,
 				alignItems : "center" ,
 				marginLeft : "17px" ,
 				marginTop : "20px" ,
+				cursor : "pointer",
 			} }
 			width = "24"
 			height = "24"
@@ -544,4 +655,4 @@ const SettingIcon = () => {
 			/>
 		</svg>
 	</>;
-};
+});

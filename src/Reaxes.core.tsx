@@ -32,7 +32,7 @@ export const Reaxes:Reaxes = new class {
 				callback( false,disposer );
 				depList = data;
 			} else {
-				crayon.red( 'reaction called but data not changed' );
+				// crayon.red( 'reaction called but data not changed' );
 			}
 		} );
 		return callback( true , disposer );

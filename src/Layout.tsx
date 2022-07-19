@@ -55,7 +55,6 @@ export const Layout = ComponentWrapper(class extends ReactComponentClass {
 						className = { less.mainContent }
 					>
 						<Layout_Header />
-						{/*MainContent*/}
 						<>
 							<div
 								style = { {

@@ -6,7 +6,7 @@ export const WalletAddressCopyBox = ( props : { walletAddr : string, prefixLengt
 		walletAddr ,
 		prefixLength = 6,
 	} = props;
-	
+	if(!walletAddr) return null;
 	const tail = "……" + walletAddr.slice( walletAddr.length - 4 );
 	const result = walletAddr.slice( 0 , prefixLength ) + tail;
 	
