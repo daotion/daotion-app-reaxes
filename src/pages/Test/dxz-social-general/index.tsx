@@ -2,10 +2,17 @@ import less from './index.module.less';
 import {
 	Button ,
 	Input ,
-	Select,
+	Select ,
 } from 'antd';
 
 const { Option } = Select;
+const handleChange = ( value : string[] ) => {
+	console.log( `selected ${ value }` );
+};
+const children : React.ReactNode[] = [];
+for ( let i = 10 ; i < 36 ; i++ ) {
+	children.push( <Option key = { i.toString( 36 ) + i }>{ i.toString( 36 ) + i }</Option> );
+}
 
 const { TextArea } = Input;
 export const DxzSpaceSettings = () => {
@@ -13,13 +20,13 @@ export const DxzSpaceSettings = () => {
 		<div
 			className = { less.container }
 		>
-			<SpaceSettingTabs/>
+			<SpaceSettingTabs />
 			<div
 				style = { {
 					width : "100%" ,
 					marginLeft : "32px" ,
-					display : "flex",
-					flexFlow : "column nowrap",
+					display : "flex" ,
+					flexFlow : "column nowrap" ,
 				} }
 			>
 				<ProfileTitle title = "General"></ProfileTitle>
@@ -65,8 +72,9 @@ export const DxzSpaceSettings = () => {
 						border : "2px solid rgba(154, 159, 165, 0.25)" ,
 					} }
 				/>
+				<span className={less.email}>Type</span>
 				<Select
-					className = { less.antSelectSelectionItem }
+					className = { less.votingType_box }
 					style = { {
 						width : "100%" ,
 						color : "#9a9fa5" ,
@@ -74,10 +82,16 @@ export const DxzSpaceSettings = () => {
 						
 					} }
 					removeIcon = { <ClearSvg /> }
+					defaultValue = { [
+						'a10' ,
+						'c12' ,
+					] }
+					onChange = { handleChange }
 					mode = "multiple"
 					allowClear
-					placeholder = "Select VotingType"
-				></Select>
+					placeholder = "Enter tags or Select"
+				>{ children }
+				</Select>
 				<TitleInput name = "Email"></TitleInput>
 				<div className = { less.divider }></div>
 				<ProfileFooterBtn text = "Save Changes"></ProfileFooterBtn>
@@ -86,7 +100,7 @@ export const DxzSpaceSettings = () => {
 	</>;
 };
 
-const SpaceSettingTabs = ComponentWrapper(() => {
+const SpaceSettingTabs = ComponentWrapper( () => {
 	
 	const { navigate } = utils.useRouter();
 	
@@ -95,8 +109,8 @@ const SpaceSettingTabs = ComponentWrapper(() => {
 			style = { {
 				width : "280px" ,
 				height : "fit-content" ,
-				display : "flex",
-				flexFlow : "column nowrap",
+				display : "flex" ,
+				flexFlow : "column nowrap" ,
 			} }
 		>
 			<span
@@ -104,63 +118,31 @@ const SpaceSettingTabs = ComponentWrapper(() => {
 			>DAO Settings
 			</span>
 			<ul
-				style={{
-					display : "flex",
-					flexFlow : "column nowrap",
-				}}
+				style = { {
+					display : "flex" ,
+					flexFlow : "column nowrap" ,
+					padding:"0 0 0 0",
+					userSelect:'none'
+				} }
 			>
 				<span
-					style = {{
-						display : "flex",
-					}}
-				>General</span>
+					className = { less.settingTab }
+					style = { {
+						display : "flex" ,
+						marginBottom : '8px',
+					} }
+				>General
+				</span>
 				<span
-					style = {{
-						
-					}}
-				>Social Profiles</span>
+					className = { less.settingTabSelected }
+					style = { {} }
+				>Social Profiles
+				</span>
 			</ul>
 		</div>
-	</>
-});
+	</>;
+} );
 
-
-if(false){
-	<div
-		className = { less.container }
-	>
-		<div
-			className = "select-btn"
-			style = { {
-				width : "280px" ,
-				height : "fit-content" ,
-			} }
-		>
-			<span
-				className = { less.settingsSelect }
-			>DAO Settings
-			</span>
-			<GeneralBtn></GeneralBtn>
-			<SocialBtn></SocialBtn>
-		</div>
-		<div
-			className = "social-main"
-			style = { {
-				width : "100%" ,
-				marginLeft : "32px" ,
-			} }
-		>
-			<ProfileTitle title = "Social Profiles"></ProfileTitle>
-			<TitleInput name = "Homepage"></TitleInput>
-			<TitleInput name = "Twitter"></TitleInput>
-			<TitleInput name = "Discord"></TitleInput>
-			<TitleInput name = "GitHub"></TitleInput>
-			<AddSocialBtn></AddSocialBtn>
-			<div className = { less.divider }></div>
-			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
-		</div>
-	</div>
-}
 
 const GeneralBtn = () => {
 	return <>
@@ -210,7 +192,8 @@ const SocialBtn = () => {
 			<span
 			>Social Profiles
 			</span>
-		</li></>;
+		</li>
+	</>;
 };
 const GeneralAvater = () => {
 	return <>
@@ -237,7 +220,7 @@ const UploadBtn = () => {
 		>
 			<svg
 				style = { {
-					marginRight : "8px",
+					marginRight : "8px" ,
 					
 				} }
 				width = "24"
@@ -309,12 +292,12 @@ const AddSocialBtn = () => {
 				padding : "12px 16px" ,
 				borderRadius : "12px" ,
 				height : "40px" ,
-				marginTop : "32px",
+				marginTop : "32px" ,
 			} }
 		>
 			<svg
 				style = { {
-					marginRight : '12px',
+					marginRight : '12px' ,
 				} }
 				width = "16"
 				height = "16"
@@ -471,3 +454,40 @@ const ClearSvg = () => {
 	
 	</>;
 };
+
+if ( false ) {
+	<div
+		className = { less.container }
+	>
+		<div
+			className = "select-btn"
+			style = { {
+				width : "280px" ,
+				height : "fit-content" ,
+			} }
+		>
+			<span
+				className = { less.settingsSelect }
+			>DAO Settings
+			</span>
+			<GeneralBtn></GeneralBtn>
+			<SocialBtn></SocialBtn>
+		</div>
+		<div
+			className = "social-main"
+			style = { {
+				width : "100%" ,
+				marginLeft : "32px" ,
+			} }
+		>
+			<ProfileTitle title = "Social Profiles"></ProfileTitle>
+			<TitleInput name = "Homepage"></TitleInput>
+			<TitleInput name = "Twitter"></TitleInput>
+			<TitleInput name = "Discord"></TitleInput>
+			<TitleInput name = "GitHub"></TitleInput>
+			<AddSocialBtn></AddSocialBtn>
+			<div className = { less.divider }></div>
+			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
+		</div>
+	</div>;
+}
