@@ -18,6 +18,8 @@ import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import {FileUpload} from './File-Upload';
+import InputTest from './componentTest/inputTest';
+import DarkThemeTest from './darkTheme';
 
 const C = DxzPluginList;
 
