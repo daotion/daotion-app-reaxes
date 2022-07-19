@@ -9,11 +9,15 @@ const { Option } = Select;
 
 const { TextArea } = Input;
 export const DxzSpaceSettings = () => {
+	
+	const [tab,setTab] = useState<'social'|'general'>('social');
+	
+	
 	return <>
 		<div
 			className = { less.container }
 		>
-			<SpaceSettingTabs/>
+			<SpaceSettingTabs tab = {tab} setTab = {setTab}/>
 			<div
 				style = { {
 					width : "100%" ,
@@ -86,7 +90,7 @@ export const DxzSpaceSettings = () => {
 	</>;
 };
 
-const SpaceSettingTabs = ComponentWrapper(() => {
+const SpaceSettingTabs = ComponentWrapper((props:SpaceSettingTabsProps) => {
 	
 	const { navigate } = utils.useRouter();
 	
@@ -123,44 +127,12 @@ const SpaceSettingTabs = ComponentWrapper(() => {
 		</div>
 	</>
 });
+type SpaceSettingTabsProps = {
+	tab : 'social'|'general',
+	setTab : (tab:'social'|'general') => void;
+};
 
 
-if(false){
-	<div
-		className = { less.container }
-	>
-		<div
-			className = "select-btn"
-			style = { {
-				width : "280px" ,
-				height : "fit-content" ,
-			} }
-		>
-			<span
-				className = { less.settingsSelect }
-			>DAO Settings
-			</span>
-			<GeneralBtn></GeneralBtn>
-			<SocialBtn></SocialBtn>
-		</div>
-		<div
-			className = "social-main"
-			style = { {
-				width : "100%" ,
-				marginLeft : "32px" ,
-			} }
-		>
-			<ProfileTitle title = "Social Profiles"></ProfileTitle>
-			<TitleInput name = "Homepage"></TitleInput>
-			<TitleInput name = "Twitter"></TitleInput>
-			<TitleInput name = "Discord"></TitleInput>
-			<TitleInput name = "GitHub"></TitleInput>
-			<AddSocialBtn></AddSocialBtn>
-			<div className = { less.divider }></div>
-			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
-		</div>
-	</div>
-}
 
 const GeneralBtn = () => {
 	return <>
@@ -471,3 +443,39 @@ const ClearSvg = () => {
 	
 	</>;
 };
+if(false){
+	<div
+		className = { less.container }
+	>
+		<div
+			className = "select-btn"
+			style = { {
+				width : "280px" ,
+				height : "fit-content" ,
+			} }
+		>
+			<span
+				className = { less.settingsSelect }
+			>DAO Settings
+			</span>
+			<GeneralBtn></GeneralBtn>
+			<SocialBtn></SocialBtn>
+		</div>
+		<div
+			className = "social-main"
+			style = { {
+				width : "100%" ,
+				marginLeft : "32px" ,
+			} }
+		>
+			<ProfileTitle title = "Social Profiles"></ProfileTitle>
+			<TitleInput name = "Homepage"></TitleInput>
+			<TitleInput name = "Twitter"></TitleInput>
+			<TitleInput name = "Discord"></TitleInput>
+			<TitleInput name = "GitHub"></TitleInput>
+			<AddSocialBtn></AddSocialBtn>
+			<div className = { less.divider }></div>
+			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
+		</div>
+	</div>
+}
