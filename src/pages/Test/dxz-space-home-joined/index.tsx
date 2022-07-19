@@ -1,9 +1,14 @@
 import { DxzTokenOverview } from '../dxz-Token-overview';
-import { Button } from 'antd';
-import { WalletAddressCopyBox } from '@@common/Xcomponents';
+import {
+	Img ,
+	WalletAddressCopyBox,
+} from '@@common/Xcomponents';
 import less from './index.module.less';
-import {reaxel_joined_Space_list} from '@@reaxes';
-import { Img } from '@@common/Xcomponents';
+import {
+	reaxel_joined_Space_list ,
+	reaxel_upload_pics,
+} from '@@reaxes';
+import { Space___get_space_detail } from '@@requests/Spaces/types';
 
 export const DxzSpaceHomeJoined = ( props : props ) => {
 	
@@ -184,76 +189,6 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 	</>;
 };
 
-import {
-	request_server_timestamp ,
-	request_upload_space_banner ,
-} from '@@requests';
-import {
-	reaxel_user ,
-	reaxel_wallet ,
-	reaxel_space_detail ,
-} from '@@reaxes';
-
-const reaxel_upload_pics = function () {
-	let ret;
-	
-	
-	/*递归对象转换成data[subKey][subsubkey]的formdata*/
-	const formater = ( source , formdata = null , parentKey : string = null ) => {
-		return Reflect.ownKeys( source ).
-		reduce( ( formdata , key : string ) => {
-			const value = source[ key ];
-			if ( _.isObject( value ) && Object.getPrototypeOf( value ) !== File.prototype ) {
-				formater( value , formdata , parentKey ? `${ parentKey }[${ key }]` : key );
-			} else {
-				formdata.append( parentKey ? `${ parentKey }[${ key }]` : key , value );
-			}
-			return formdata;
-		} , formdata ?? new FormData );
-	};
-	
-	return () => {
-		return ret = {
-			space_info_banner( spaceID : number ) {
-				const reax_user = reaxel_user();
-				const reax_wallet = reaxel_wallet();
-				const reax_space_detail = reaxel_space_detail();
-				const input = document.createElement( 'input' );
-				input.type = "file";
-				input.onchange = ( { target } ) => {
-					const [ file ] = (
-						target as HTMLInputElement
-					).files;
-					fetch_upload( file );
-				};
-				const fetch_upload = async ( file : File ) => {
-					const { address } = reax_wallet.account;
-					const data = {
-						spaceID ,
-						iconType : 2 ,
-						address ,
-						timestamp : await request_server_timestamp() ,
-					};
-					try {
-						const signature = await reax_user.signByFakeWallet( data );
-						const response = await request_upload_space_banner( formater( {
-							address ,
-							data ,
-							signature ,
-							file ,
-						} ) );
-						reax_space_detail.setSpaceBanner( response.url );
-						antd.Modal.success( { title : "upload successful!" } );
-					} catch ( e ) {
-						antd.Modal.error( { title : e.toString() } );
-					}
-				};
-				input.click();
-			} ,
-		};
-	};
-}();
-
 
 const MemberItem = () => {
 	return <>
@@ -288,7 +223,6 @@ const MemberItem = () => {
 		</div>
 	</>;
 };
-import { Space___get_space_detail } from '@@requests/Spaces/types';
 
 type props = {
 	spaceInfo : Space___get_space_detail.response;

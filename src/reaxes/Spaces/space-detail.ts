@@ -30,7 +30,7 @@ export const reaxel_space_detail = function (){
 		 * 初始化一个依据deps变化来执行的闭包.每次调用时memedFetchSpaceinfo(*这里传入函数返回新的依赖列表*)此时会自动比对是否和上一次有差异,
 		 * 如果没差异则不会执行,此方法用于防止无限请求&渲染.
 		 */
-		const memoFetchSpaceInfo = Reaxes.closuredMemo( ( spaceID:number ) => {
+		const closuredFetchSpaceInfo = Reaxes.closuredMemo( ( spaceID:number ) => {
 			fetch_space_detail( spaceID );
 		} , () => [] );
 		
@@ -46,8 +46,19 @@ export const reaxel_space_detail = function (){
 					} ,
 				} );
 			},
-			getSpaceDetailMemo( spaceID : number ) {
-				return memoFetchSpaceInfo( ( prevDeps ) => [ spaceID ] )( spaceID );
+			setSpaceAvatar(url:string){
+				setState( {
+					spaceInfo : {
+						...store.spaceInfo ,
+						info : {
+							...store.spaceInfo.info ,
+							iconUrl : url ,
+						},
+					} ,
+				} );
+			},
+			getSpaceDetailMemoed( spaceID : number ) {
+				return closuredFetchSpaceInfo( ( prevDeps ) => [ spaceID ] )( spaceID );
 			},
 		};
 	};

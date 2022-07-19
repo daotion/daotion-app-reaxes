@@ -18,7 +18,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 		
 		return utils.withRouter( ( {params} ) => {
 			const spaceID = parseInt( params.spaceID );
-			this.reax_space_detail.getSpaceDetailMemo( spaceID );
+			this.reax_space_detail.getSpaceDetailMemoed( spaceID );
 			const joined_DAO = this.reax_user_join_or_leave_space.is_user_joined_space( parseInt(params.DAOID) );
 			return <>
 				<div
