@@ -2,7 +2,7 @@ import {Select, SelectProps} from "antd";
 
 import Tags from '@@common/Xcomponents/tags';
 
-import './index.less';
+import less from './index.module.less';
 
 const SelectTags: React.FC<SelectProps> = (props) => {
   const tagRender = (params) => {
@@ -26,7 +26,7 @@ const SelectTags: React.FC<SelectProps> = (props) => {
   };
 
   return (
-    <div className="daotion-select-tags">
+    <div className={less.daotionSelectTags}>
       <Select
         mode="tags"
         showArrow

@@ -1,10 +1,10 @@
 import { Tag as AntdTags } from 'antd';
 
-import './index.less';
+import less from './index.module.less';
 
 const Tags = (props) => {
   return (
-    <div className="daotion-tag">
+    <div className={less.daotionTag}>
       <AntdTags {...props} />
     </div>
   )
