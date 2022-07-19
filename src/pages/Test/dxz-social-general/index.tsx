@@ -21,24 +21,7 @@ export const DxzSpaceSettings = () => {
 			className = { less.container }
 		>
 			<SpaceSettingTabs />
-			<div
-				className = "social-main"
-				style = { {
-					display:"block",
-					width : "100%" ,
-					marginLeft : "32px" ,
-				} }
-			>
-				<ProfileTitle title = "Social Profiles"></ProfileTitle>
-				<TitleInput name = "Official website"></TitleInput>
-				<TitleInput name = "Twitter"></TitleInput>
-				<TitleInput name = "Discord"></TitleInput>
-				<TitleInput name = "GitHub"></TitleInput>
-				<AddSocialBtn></AddSocialBtn>
-				<div className = { less.divider }></div>
-				<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
-			</div>
-			
+			<SocialProfile></SocialProfile>
 		</div>
 	</>;
 };
@@ -87,61 +70,8 @@ const SpaceSettingTabs = ComponentWrapper( () => {
 } );
 
 
-const GeneralBtn = () => {
-	return <>
-		<li
-			className = { less.generalBtn }
-			style = { {
-				backgroundColor : '#efefef' ,
-				color : '#1a1d1f' ,
-				display : "flex" ,
-				alignItems : "center" ,
-				flexDirection : "row" ,
-				width : "280px" ,
-				height : "40px" ,
-				borderRadius : '8px' ,
-				fontSize : "15px" ,
-				fontWeight : "600" ,
-				lineHeight : "24px" ,
-				marginBottom : "8px" ,
-			} }
-		>
-			<span
-			>General
-			</span>
-		</li>
-	</>;
-};
-const SocialBtn = () => {
-	return <>
-		<li
-			className = { less.socialBtn }
-			style = { {
-				backgroundColor : '#fcfcfc' ,
-				color : '#6f767e' ,
-				display : "flex" ,
-				alignItems : "center" ,
-				flexDirection : "row" ,
-				width : "280px" ,
-				height : "40px" ,
-				borderRadius : '8px' ,
-				fontSize : "15px" ,
-				fontWeight : "600" ,
-				lineHeight : "24px" ,
-				marginBottom : "8px" ,
-				border : "none" ,
-			} }
-		>
-			<span
-			>Social Profiles
-			</span>
-		</li>
-	</>;
-};
-const GeneralAvater = () => {
-	return <>
-	</>;
-};
+
+
 const UploadBtn = () => {
 	return <>
 		<Button
@@ -237,6 +167,7 @@ const AddSocialBtn = () => {
 				borderRadius : "12px" ,
 				height : "40px" ,
 				marginTop : "32px" ,
+				width:"fit-content"
 			} }
 		>
 			<svg
@@ -413,10 +344,9 @@ if ( false ) {
 		>
 			<span
 				className = { less.settingsSelect }
-			>DAO Settings
+			>Space Settings
 			</span>
-			<GeneralBtn></GeneralBtn>
-			<SocialBtn></SocialBtn>
+			
 		</div>
 		<div
 			className = "social-main"
@@ -439,10 +369,11 @@ if ( false ) {
 const SocialProfile=()=>{
 	return<>
 		<div
-			className = "social-main"
 			style = { {
 				width : "100%" ,
 				marginLeft : "32px" ,
+				display:"flex",
+				flexFlow:"column wrap"
 			} }
 		>
 			<ProfileTitle title = "Social Profiles"></ProfileTitle>
@@ -507,6 +438,7 @@ const GeneralProfile=()=>{
 					padding : "4px" ,
 					height : "112px" ,
 					border : "2px solid rgba(154, 159, 165, 0.25)" ,
+					flex:"0"
 				} }
 			/>
 			<span className={less.email}>Type</span>
