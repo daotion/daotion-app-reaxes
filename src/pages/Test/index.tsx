@@ -17,11 +17,14 @@ import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
-import {FileUpload} from './File-Upload';
+import { DxzSpaceSettings } from './dxz-social-general';
+import { DxzEditProfilePop } from './dxz-edit-profile-pop';
+import { FileUpload } from './File-Upload';
 
-const C = DxzPluginList;
+export const Test = () => <div className={less.HomeRoot}>
+	<DxzSpaceSettings/>
+</div>;
 
-export const Test = () => <C />;
 
 import "antd/dist/antd.less";
-
+import less from '../../styles/main.module.less';

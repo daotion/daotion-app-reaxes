@@ -1,4 +1,4 @@
-
+import { DxzSpaceSettings } from '@@pages/Test/dxz-social-general';
 
 
 export const SpaceSettings = ComponentWrapper(class extends ReactComponentClass{
@@ -9,7 +9,7 @@ export const SpaceSettings = ComponentWrapper(class extends ReactComponentClass{
 		const {} = antd;
 		return <>
 			
-			{params.spaceID}
+			<DxzSpaceSettings/>
 		</>
 	}
 })
