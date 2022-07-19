@@ -4,31 +4,35 @@ import {
 	Input ,
 	Select ,
 } from 'antd';
+import {} from '@@reaxes';
+
 
 const { Option } = Select;
-const handleChange = ( value : string[] ) => {
-	console.log( `selected ${ value }` );
-};
-const children : React.ReactNode[] = [];
-for ( let i = 10 ; i < 36 ; i++ ) {
-	children.push( <Option key = { i.toString( 36 ) + i }>{ i.toString( 36 ) + i }</Option> );
-}
 
 const { TextArea } = Input;
 export const DxzSpaceSettings = () => {
+	
+	const [ tab , setTab ] = useState<'social' | 'general'>( 'social' );
+	
+	const Content = {
+		social : SocialProfile ,
+		general : GeneralProfile ,
+	}[ tab ];
 	return <>
 		<div
 			className = { less.container }
 		>
-			<SpaceSettingTabs />
-			<SocialProfile></SocialProfile>
+			<SpaceSettingTabs
+				tab = { tab }
+				setTab = { setTab }
+			/>
+			<Content/>
+		
 		</div>
 	</>;
 };
 
-const SpaceSettingTabs = ComponentWrapper( () => {
-	
-	const { navigate } = utils.useRouter();
+const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
 	
 	return <>
 		<div
@@ -47,29 +51,40 @@ const SpaceSettingTabs = ComponentWrapper( () => {
 				style = { {
 					display : "flex" ,
 					flexFlow : "column nowrap" ,
-					padding:"0 0 0 0",
-					userSelect:'none'
+					padding : "0 0 0 0" ,
+					userSelect : 'none' ,
 				} }
 			>
-				<span
-					className = { less.settingTab }
-					style = { {
-						display : "flex" ,
-						marginBottom : '8px',
-					} }
-				>General
-				</span>
-				<span
-					className = { less.settingTabSelected }
-					style = { {} }
-				>Social Profiles
-				</span>
+				{ (
+					[
+						'general' ,
+						'social' ,
+					] as const
+				).map( ( tab ) => <SpaceSettingTabPane
+					key = { tab }
+					selected = { props.tab === tab }
+					onClick = { () => props.setTab( tab ) }
+				>{
+					tab
+				}</SpaceSettingTabPane> ) }
 			</ul>
 		</div>
 	</>;
 } );
+const SpaceSettingTabPane = ( props : React.PropsWithChildren<{ selected? : boolean; onClick : () => any }> ) => {
+	return <span
+		className = { props.selected ? less.settingTabSelected : less.settingTab }
+		onClick = { () => props.onClick() }
+	>
+		{ props.children }
+	</span>;
+};
 
 
+type SpaceSettingTabsProps = {
+	tab : 'social' | 'general',
+	setTab : ( tab : 'social' | 'general' ) => void;
+};
 
 
 const UploadBtn = () => {
@@ -145,7 +160,7 @@ const ProfileTitle = ( props ) => {
 				fontWeight : '600' ,
 				fontSize : '20px' ,
 				lineHeight : "36px" ,
-				userSelect: 'none',
+				userSelect : 'none' ,
 			} }
 		>{ props.title }
 		</h1>
@@ -231,7 +246,7 @@ const CurrentNet = ( props ) => {
 				height : "40px" ,
 				padding : "8px" ,
 				justifyContent : "space-between" ,
-				userSelect: 'none',
+				userSelect : 'none' ,
 			} }
 		>
 			<svg
@@ -330,7 +345,6 @@ const ClearSvg = () => {
 	
 	</>;
 };
-
 if ( false ) {
 	<div
 		className = { less.container }
@@ -366,14 +380,30 @@ if ( false ) {
 		</div>
 	</div>;
 }
-const SocialProfile=()=>{
-	return<>
+
+if ( false ) {
+	<div
+		className = { less.container }
+	>
 		<div
+			className = "select-btn"
+			style = { {
+				width : "280px" ,
+				height : "fit-content" ,
+			} }
+		>
+			<span
+				className = { less.settingsSelect }
+			>DAO Settings
+			</span>
+			<GeneralBtn></GeneralBtn>
+			<SocialBtn></SocialBtn>
+		</div>
+		<div
+			className = "social-main"
 			style = { {
 				width : "100%" ,
 				marginLeft : "32px" ,
-				display:"flex",
-				flexFlow:"column wrap"
 			} }
 		>
 			<ProfileTitle title = "Social Profiles"></ProfileTitle>
@@ -384,10 +414,32 @@ const SocialProfile=()=>{
 			<AddSocialBtn></AddSocialBtn>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
-		</div></>
+		</div>
+	</div>;
 }
-const GeneralProfile=()=>{
-	return<>
+const SocialProfile = ComponentWrapper(() => {
+	return <>
+		<div
+			style = { {
+				width : "100%" ,
+				marginLeft : "32px" ,
+				display : "flex",
+				flexFlow : "column nowrap",
+			} }
+		>
+			<ProfileTitle title = "Social Profiles"></ProfileTitle>
+			<TitleInput name = "Homepage"></TitleInput>
+			<TitleInput name = "Twitter"></TitleInput>
+			<TitleInput name = "Discord"></TitleInput>
+			<TitleInput name = "GitHub"></TitleInput>
+			<AddSocialBtn></AddSocialBtn>
+			<div className = { less.divider }></div>
+			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
+		</div>
+	</>;
+});
+const GeneralProfile = ComponentWrapper(() => {
+	return <>
 		<div
 			style = { {
 				width : "100%" ,
@@ -417,7 +469,7 @@ const GeneralProfile=()=>{
 				<span
 					style = { {
 						marginRight : '6px' ,
-						userSelect: 'none',
+						userSelect : 'none' ,
 					} }
 				>
 					The current deployed network
@@ -441,7 +493,7 @@ const GeneralProfile=()=>{
 					flex:"0"
 				} }
 			/>
-			<span className={less.email}>Type</span>
+			<span className = { less.email }>Type</span>
 			<Select
 				className = { less.votingType_box }
 				style = { {
@@ -451,19 +503,13 @@ const GeneralProfile=()=>{
 					
 				} }
 				removeIcon = { <ClearSvg /> }
-				defaultValue = { [
-					'a10' ,
-					'c12' ,
-				] }
-				onChange = { handleChange }
 				mode = "multiple"
 				allowClear
 				placeholder = "Enter tags or Select"
-			>{ children }
-			</Select>
+			></Select>
 			<TitleInput name = "Email"></TitleInput>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn text = "Save Changes"></ProfileFooterBtn>
 		</div>
-			</>
-}
+	</>;
+});
