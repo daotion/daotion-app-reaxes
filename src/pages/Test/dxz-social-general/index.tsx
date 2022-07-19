@@ -25,7 +25,7 @@ export const DxzSpaceSettings = () => {
 				tab = { tab }
 				setTab = { setTab }
 			/>
-			<Content/>
+			<Content />
 		</div>
 	</>;
 };
@@ -81,12 +81,12 @@ const GeneralProfile = ComponentWrapper(() => {
 				>
 					The current deployed network
 				</span>
-				<AttentionIcon></AttentionIcon>
+				<SVGTooltip></SVGTooltip>
 			</p>
 			<CurrentNet></CurrentNet>
 			<div className = { less.bio }>
 				<span>Bio</span>
-				<AttentionIcon></AttentionIcon>
+				<SVGTooltip></SVGTooltip>
 			</div>
 			<TextArea
 				rows = { 4 }
@@ -109,12 +109,29 @@ const GeneralProfile = ComponentWrapper(() => {
 					height : "48px" ,
 					
 				} }
-				removeIcon = { <ClearSvg /> }
+				removeIcon = { <SVGClear /> }
 				mode = "multiple"
 				allowClear
 				placeholder = "Enter tags or Select"
 			></Select>
-			<TitleInput name = "Email"></TitleInput>
+			<ItemWithTitle
+				title = "Email"
+			>
+				<Input
+					style = { {
+						background : "#f4f4f4" ,
+						borderRadius : "12px" ,
+						width : "100%" ,
+						height : "48px" ,
+						padding : "12px" ,
+						border : "none" ,
+						fontWeight:"600",
+						fontSize:"14px",
+						lineHeight:"24px",
+						color:"#33383f"
+					} }
+				/>
+			</ItemWithTitle>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn text = "Save Changes"></ProfileFooterBtn>
 		</div>
@@ -131,10 +148,10 @@ const SocialProfile = ComponentWrapper(() => {
 			} }
 		>
 			<ProfileTitle title = "Social Profiles"></ProfileTitle>
-			<TitleInput name = "Homepage"></TitleInput>
-			<TitleInput name = "Twitter"></TitleInput>
-			<TitleInput name = "Discord"></TitleInput>
-			<TitleInput name = "GitHub"></TitleInput>
+			<ItemWithTitle title = "Homepage"></ItemWithTitle>
+			<ItemWithTitle title = "Twitter"></ItemWithTitle>
+			<ItemWithTitle title = "Discord"></ItemWithTitle>
+			<ItemWithTitle title = "GitHub"></ItemWithTitle>
 			<AddSocialBtn></AddSocialBtn>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
@@ -164,8 +181,8 @@ const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => 
 			} }
 		>
 			<span
-				className = { less.settingsSelect }
-			>DAO Settings
+				className = { less.settingsTitle }
+			>Space Settings
 			</span>
 			<ul
 				style = { {
@@ -207,10 +224,6 @@ type SpaceSettingTabsProps = {
 };
 
 
-const GeneralAvater = () => {
-	return <>
-	</>;
-};
 const UploadBtn = (props : {onClick? : () => void}) => {
 	return <>
 		<Button
@@ -231,38 +244,42 @@ const UploadBtn = (props : {onClick? : () => void}) => {
 				justifyContent : "15px" ,
 			} }
 		>
-			<svg
-				style = { {
-					marginRight : "8px" ,
-					
-				} }
-				width = "24"
-				height = "24"
-				viewBox = "0 0 24 24"
-				fill = "none"
-				xmlns = "http://www.w3.org/2000/svg"
-			>
-				<path
-					fillRule = "evenodd"
-					clipRule = "evenodd"
-					d = "M13 7C13 6.44772 12.5523 6 12 6C11.4477 6 11 6.44772 11 7V11H7C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H13V7Z"
-					fill = "#FCFCFC"
-				/>
-			</svg>
+			<SVGWhiteAdd></SVGWhiteAdd>
 			<span
 				style = { {} }
 			>
 				Upload
 			</span>
-		</Button>
+		</Button></>;
+};
+const SVGWhiteAdd = () => {
+	return <>
+		<svg
+			style = { {
+				marginRight : "8px" ,
+				
+			} }
+			width = "24"
+			height = "24"
+			viewBox = "0 0 24 24"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M13 7C13 6.44772 12.5523 6 12 6C11.4477 6 11 6.44772 11 7V11H7C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11V17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H13V7Z"
+				fill = "#FCFCFC"
+			/>
+		</svg>
 	</>;
 };
-const AttentionIcon = () => {
+const SVGTooltip = () => {
 	return <>
 		<svg
 			style = { {
 				verticalAlign : "middle" ,
-				marginLeft : "5px" ,
+				paddingLeft : "5px" ,
 			} }
 			width = "16"
 			height = "16"
@@ -308,32 +325,37 @@ const AddSocialBtn = () => {
 				borderRadius : "12px" ,
 				height : "40px" ,
 				marginTop : "32px" ,
+				width : "fit-content",
 			} }
 		>
-			<svg
-				style = { {
-					marginRight : '12px' ,
-				} }
-				width = "16"
-				height = "16"
-				viewBox = "0 0 16 16"
-				fill = "none"
-				xmlns = "http://www.w3.org/2000/svg"
-			>
-				<path
-					fillRule = "evenodd"
-					clipRule = "evenodd"
-					d = "M12.6667 7.99967C12.6667 10.577 10.5773 12.6663 8.00001 12.6663C5.42268 12.6663 3.33334 10.577 3.33334 7.99967C3.33334 5.42235 5.42268 3.33301 8.00001 3.33301C10.5773 3.33301 12.6667 5.42235 12.6667 7.99967ZM14.6667 7.99967C14.6667 11.6816 11.6819 14.6663 8.00001 14.6663C4.31811 14.6663 1.33334 11.6816 1.33334 7.99967C1.33334 4.31778 4.31811 1.33301 8.00001 1.33301C11.6819 1.33301 14.6667 4.31778 14.6667 7.99967ZM8.00001 3.66634C8.55229 3.66634 9.00001 4.11406 9.00001 4.66634V6.99967H11.3333C11.8856 6.99967 12.3333 7.44739 12.3333 7.99967C12.3333 8.55196 11.8856 8.99967 11.3333 8.99967H9.00001V11.333C9.00001 11.8853 8.55229 12.333 8.00001 12.333C7.44773 12.333 7.00001 11.8853 7.00001 11.333V8.99967H4.66668C4.11439 8.99967 3.66668 8.55196 3.66668 7.99967C3.66668 7.44739 4.11439 6.99967 4.66668 6.99967H7.00001V4.66634C7.00001 4.11406 7.44773 3.66634 8.00001 3.66634Z"
-					fill = "#777E91"
-				/>
-			</svg>
+			<SVGGrayAdd></SVGGrayAdd>
 			<span>
 				Add more social account
 			</span>
 		</Button>
 	</>;
 };
-
+const SVGGrayAdd = () => {
+	return <>
+		<svg
+			style = { {
+				marginRight : '12px' ,
+			} }
+			width = "16"
+			height = "16"
+			viewBox = "0 0 16 16"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M12.6667 7.99967C12.6667 10.577 10.5773 12.6663 8.00001 12.6663C5.42268 12.6663 3.33334 10.577 3.33334 7.99967C3.33334 5.42235 5.42268 3.33301 8.00001 3.33301C10.5773 3.33301 12.6667 5.42235 12.6667 7.99967ZM14.6667 7.99967C14.6667 11.6816 11.6819 14.6663 8.00001 14.6663C4.31811 14.6663 1.33334 11.6816 1.33334 7.99967C1.33334 4.31778 4.31811 1.33301 8.00001 1.33301C11.6819 1.33301 14.6667 4.31778 14.6667 7.99967ZM8.00001 3.66634C8.55229 3.66634 9.00001 4.11406 9.00001 4.66634V6.99967H11.3333C11.8856 6.99967 12.3333 7.44739 12.3333 7.99967C12.3333 8.55196 11.8856 8.99967 11.3333 8.99967H9.00001V11.333C9.00001 11.8853 8.55229 12.333 8.00001 12.333C7.44773 12.333 7.00001 11.8853 7.00001 11.333V8.99967H4.66668C4.11439 8.99967 3.66668 8.55196 3.66668 7.99967C3.66668 7.44739 4.11439 6.99967 4.66668 6.99967H7.00001V4.66634C7.00001 4.11406 7.44773 3.66634 8.00001 3.66634Z"
+				fill = "#777E91"
+			/>
+		</svg>
+	</>;
+};
 const ProfileFooterBtn = ( props ) => {
 	return <>
 		<Button
@@ -347,6 +369,7 @@ const ProfileFooterBtn = ( props ) => {
 				fontWeight : '700' ,
 				lineHeight : "24px" ,
 				height : "48px" ,
+				width : 'fit-content' ,
 				display : "flex" ,
 				alignItems : "center" ,
 				justifyContent : "center" ,
@@ -374,53 +397,7 @@ const CurrentNet = ( props ) => {
 				userSelect : 'none' ,
 			} }
 		>
-			<svg
-				width = "16"
-				height = "16"
-				viewBox = "0 0 16 16"
-				fill = "none"
-				xmlns = "http://www.w3.org/2000/svg"
-			>
-				<g clipPath = "url(#clip0_2540_29067)">
-					<path
-						d = "M0 8C0 3.5816 3.58166 0 8.00014 0C12.4186 0 16.0003 3.5816 16.0003 8C16.0003 12.4184 12.4186 16 8.00014 16C3.58166 16 0 12.4184 0 8Z"
-						fill = "#627EEA"
-					/>
-					<path
-						d = "M4 7.7243L8 9.99967V1.33301L4 7.7243Z"
-						fill = "white"
-					/>
-					<path
-						opacity = "0.8"
-						d = "M8.00041 1.33301L8 9.99967L12 7.75276L8.00041 1.33301Z"
-						fill = "#C0CBF6"
-					/>
-					<path
-						d = "M4 8.86426L7.92927 14.4003V11.1859L4 8.86466V8.86426Z"
-						fill = "white"
-					/>
-					<path
-						opacity = "0.8"
-						d = "M7.92969 11.1859V14.4003L11.8606 8.86426L7.92969 11.1859Z"
-						fill = "#C0CBF6"
-					/>
-					<path
-						opacity = "0.6"
-						d = "M8.00061 6L4 7.73966L8.00061 10L12 7.73966L8.00061 6Z"
-						fill = "#8197EE"
-					/>
-				</g>
-				<defs>
-					<clipPath id = "clip0_2540_29067">
-						<rect
-							width = "16.0003"
-							height = "16"
-							fill = "white"
-						/>
-					</clipPath>
-				</defs>
-			</svg>
-			
+			<SVGNet></SVGNet>
 			<span
 				style = { { marginLeft : "10px" } }
 			>ETHEREUM
@@ -428,30 +405,66 @@ const CurrentNet = ( props ) => {
 		</div>
 	</>;
 };
-const TitleInput = ( props ) => {
+const SVGNet = () => {
 	return <>
-		<span className = { less.email }>{ props.name }</span>
-		<GrayInput></GrayInput>
+		<svg
+			width = "16"
+			height = "16"
+			viewBox = "0 0 16 16"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<g clipPath = "url(#clip0_2540_29067)">
+				<path
+					d = "M0 8C0 3.5816 3.58166 0 8.00014 0C12.4186 0 16.0003 3.5816 16.0003 8C16.0003 12.4184 12.4186 16 8.00014 16C3.58166 16 0 12.4184 0 8Z"
+					fill = "#627EEA"
+				/>
+				<path
+					d = "M4 7.7243L8 9.99967V1.33301L4 7.7243Z"
+					fill = "white"
+				/>
+				<path
+					opacity = "0.8"
+					d = "M8.00041 1.33301L8 9.99967L12 7.75276L8.00041 1.33301Z"
+					fill = "#C0CBF6"
+				/>
+				<path
+					d = "M4 8.86426L7.92927 14.4003V11.1859L4 8.86466V8.86426Z"
+					fill = "white"
+				/>
+				<path
+					opacity = "0.8"
+					d = "M7.92969 11.1859V14.4003L11.8606 8.86426L7.92969 11.1859Z"
+					fill = "#C0CBF6"
+				/>
+				<path
+					opacity = "0.6"
+					d = "M8.00061 6L4 7.73966L8.00061 10L12 7.73966L8.00061 6Z"
+					fill = "#8197EE"
+				/>
+			</g>
+			<defs>
+				<clipPath id = "clip0_2540_29067">
+					<rect
+						width = "16.0003"
+						height = "16"
+						fill = "white"
+					/>
+				</clipPath>
+			</defs>
+		</svg>
 	</>;
 };
-const GrayInput = () => {
+const ItemWithTitle = ( props : React.PropsWithChildren<{
+	title : string ;
+}> ) => {
 	return <>
-		<Input
-			placeholder = "Please enter address"
-			className = "gray-input"
-			style = { {
-				background : "#f4f4f4" ,
-				borderRadius : "12px" ,
-				width : "100%" ,
-				height : "48px" ,
-				padding : "12px" ,
-				border : "none" ,
-			} }
-		/>
+		<span className = { less.email }>{ props.title }</span>
+		{props.children}
 	</>;
 };
 
-const ClearSvg = () => {
+const SVGClear = () => {
 	return <>
 		<svg
 			width = "24"
