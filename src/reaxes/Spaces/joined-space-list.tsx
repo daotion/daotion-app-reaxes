@@ -1,6 +1,7 @@
 import { request_user_joined_space_list } from '@@requests/Spaces';
 import { Space__user_joined_Space_list } from '@@requests/Spaces/types';
 import { reaxel_wallet } from '@@reaxes/wallet/wallet';
+import { reaxel_user_join_or_leave_space } from '@@reaxes/Spaces/user-join-or-leave-space';
 
 
 export const reaxel_joined_Space_list = function () {
@@ -33,7 +34,7 @@ export const reaxel_joined_Space_list = function () {
 		
 		
 		const fetch_joined_space_list = ( address : string ) => {
-			request_user_joined_space_list( address ).
+			return request_user_joined_space_list( address ).
 			then( ( data ) => setState( {
 				joined_space_list : data.infos ,
 			} ) ).
@@ -69,7 +70,7 @@ export const reaxel_joined_Space_list = function () {
 						style={props.style}
 						onClick = { (e) => {
 							e.stopPropagation();
-							ret.leave_space( props.spaceID ).then(() => {
+							reaxel_user_join_or_leave_space().leave_space( props.spaceID ).then(() => {
 								if(__EXPERIMENTAL__){
 									antd.message.success( `user leaved Space id:${ props.spaceID }` );
 								}
@@ -81,7 +82,7 @@ export const reaxel_joined_Space_list = function () {
 						style={props.style}
 						onClick={(e) => {
 							e.stopPropagation();
-							ret.join_space( props.spaceID ).
+							reaxel_user_join_or_leave_space().join_space( props.spaceID ).
 							then( () => {
 								if ( __EXPERIMENTAL__ ) {
 									antd.message.success( `joined Space successfuly id:${ props.spaceID }` );

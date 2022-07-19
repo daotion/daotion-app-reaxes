@@ -49,20 +49,19 @@ export namespace Space___get_space_detail{
 	}
 	
 	export type response = {
+		/*space地址*/
+		"addrChain": string,
 		"bgUrl" : string;
 		/*简介*/
 		"bio": string,
-		"info": {
-			/*space地址*/
-			"addrChain": string,
-			"iconUrl": string,
-			"name": string,
-			"spaceID": number,
-			"tags": string[],
-		},
+		"email" : string;
+		"iconUrl": string,
 		/*添加的社交账户组字符串:[{social:"",address:""}]*/
 		"links": string,
+		"name": string,
+		"spaceID": number,
 		"tabs" : string[];
+		"tags": string[],
 	}
 }
 

@@ -25,8 +25,8 @@ export const reaxel_space_list = function(){
 	
 	return ( lifecycle : Lifecycle ) => {
 		
-		lifecycle.mounted( () => {
-			request_all_spaces_list( {
+		const fetch_all_spaces_list = () => {
+			return request_all_spaces_list( {
 				indexStart : store.indexStart ,
 				firstTimestamp : store.firstTimestamp ,
 				count : 20 ,
@@ -38,6 +38,10 @@ export const reaxel_space_list = function(){
 					indexStart : data.indexEnd ,
 				} );
 			} );
+		};
+		
+		lifecycle.mounted( () => {
+			fetch_all_spaces_list();
 		} );
 		
 		const debouncedInputingSearch = utils.debounce( ( text:string ) => {
@@ -109,6 +113,10 @@ export const reaxel_space_list = function(){
 					searchTagSelection : tag ,
 				} );
 				searchOnSelect();
+			},
+			/*请求并更新all-space-list*/
+			updateSpacesList (){
+				return fetch_all_spaces_list();
 			},
 			fetchMore ,
 			debouncedInputingSearch ,
