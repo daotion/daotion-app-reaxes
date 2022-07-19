@@ -1,8 +1,9 @@
 import less from './index.module.less';
 import { Button } from 'antd';
-import { TitleInput } from '../dxz-social-general';
-import{AddSocialBtn}from'../dxz-social-general';
-import{ProfileFooterBtn}from'../dxz-social-general'
+import { AddSocialBtn } from '../dxz-social-general';
+import { ProfileFooterBtn } from '../dxz-social-general';
+import { Input } from 'antd';
+
 export const DxzEditProfilePop = () => {
 	return <>
 		<div className = { less.editProfileBox }>
@@ -56,15 +57,70 @@ export const DxzEditProfilePop = () => {
 				</div>
 				<div className = { less.accountInfo }>
 					<p className = { less.accountTitle_1 }>Account info</p>
-					<TitleInput name = "display name" />
-					<TitleInput name = "Bio" />
+					<Subtitle title = "display name"></Subtitle>
+					<Input
+						className={less.editInput}
+						placeholder='Enter your display name'
+						style = { {
+							background : "#f4f4f4" ,
+							borderRadius : "12px" ,
+							width : "100%" ,
+							height : "48px" ,
+							padding : "12px" ,
+							border : "none" ,
+							color : "#777e91" ,
+							fontSize : "14px" ,
+						} }
+					/>
+					<Subtitle title = "Bio"></Subtitle>
+					<Input
+						className={less.editInput}
+						placeholder='About yourselt in a few words'
+						style = { {
+							background : "#f4f4f4" ,
+							borderRadius : "12px" ,
+							width : "100%" ,
+							height : "48px" ,
+							padding : "12px" ,
+							border : "none" ,
+							color : "#777e91" ,
+							fontSize : "14px" ,
+						} }
+					/>
 					<p className = { less.accountTitle_2 }>Social</p>
-					<TitleInput name = "Portfolio or website" />
-					<TitleInput name = "Twitter" />
-					<AddSocialBtn/>
-					<footer className={less.lastIntro}>To update your settings you should sign message through your wallet. Click 'Update profile' then sign the message</footer>
-					<div className={less.divider}></div>
-					<ProfileFooterBtn text='Update Profile'/>
+					<Subtitle title = "Portfolio or website"></Subtitle>
+					<Input
+						className={less.editInput}
+						placeholder='Enter URL'						style = { {
+							background : "#f4f4f4" ,
+							borderRadius : "12px" ,
+							width : "100%" ,
+							height : "48px" ,
+							padding : "12px" ,
+							border : "none" ,
+							color : "#777e91" ,
+							fontSize : "14px" ,
+						} }
+					/>
+					<Subtitle title = "Twitter"></Subtitle>
+					<Input
+						className={less.editInput}
+						placeholder='@twitter username'
+						style = { {
+							background : "#f4f4f4" ,
+							borderRadius : "12px" ,
+							width : "100%" ,
+							height : "48px" ,
+							padding : "12px" ,
+							border : "none" ,
+							color : "#777e91" ,
+							fontSize : "14px" ,
+						} }
+					/>
+					<AddSocialBtn />
+					<footer className = { less.lastIntro }>To update your settings you should sign message through your wallet. Click 'Update profile' then sign the message</footer>
+					<div className = { less.divider }></div>
+					<ProfileFooterBtn text = "Update Profile" />
 				</div>
 			</div>
 		
@@ -73,3 +129,10 @@ export const DxzEditProfilePop = () => {
 	</>
 		;
 };
+export const Subtitle = ( props ) => {
+	return <>
+		<span className = { less.subtitle }>{ props.title }</span>
+	
+	</>;
+};
+
