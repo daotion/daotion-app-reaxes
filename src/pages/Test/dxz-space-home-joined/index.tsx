@@ -47,12 +47,13 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 					src = { spaceInfo?.bgUrl }
 					width = "1200px"
 					height = "300px"
-					
 					alt = ""
 					style = { {
 						borderRadius : "12px 12px 0px 0px" ,
-						maxWidth : "100%" ,
-						maxHeight : "100%" ,
+						minWidth : "100%" ,
+						height : "300px" ,
+						objectFit:"cover",
+						objectPosition:"50% 50%"
 					} }
 				/>
 				<Img
@@ -64,6 +65,8 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 						left : "32px" ,
 						width : "124px" ,
 						height : "124px" ,
+						objectFit:"cover",
+						objectPosition:"50% 50%"
 					} }
 				/>
 				

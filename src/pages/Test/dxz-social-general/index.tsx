@@ -77,6 +77,8 @@ const GeneralProfile = ComponentWrapper(() => {
 						height : "96px" ,
 						borderRadius : "12px" ,
 						backgroundColor : "#eee" ,
+						objectFit:"cover",
+						objectPosition:"50% 50%",
 					} }
 				/>
 				<UploadBtn onClick={() => {
@@ -495,7 +497,7 @@ const ProfileTitle = ( props ) => {
 		</h1>
 	</>;
 };
-const AddSocialBtn = () => {
+export const AddSocialBtn = () => {
 	return <>
 		<Button
 			style = { {
@@ -542,7 +544,7 @@ const SVGGrayAdd = () => {
 		</svg>
 	</>;
 };
-const ProfileFooterBtn = ( props ) => {
+export const ProfileFooterBtn = ( props ) => {
 	return <>
 		<Button
 			className = "profile-footer-btn"

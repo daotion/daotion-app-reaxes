@@ -111,6 +111,8 @@ export const Space_Item_Name_Icon = ( props : { src : string } ) => {
 				borderRadius : "50%" ,
 				backgroundColor : "#f4f5f6" ,
 				flex : "0 0 auto",
+				backgroundSize:"cover",
+				objectPosition:"50% 50%"
 			} }
 		/>
 	</>;
@@ -144,17 +146,18 @@ export const Space_Item_Tag = ( props : { text : string } ) => {
 	
 	return <span
 		style = { {
-			display : "inline-flex" ,
+			display : "flex" ,
 			padding : "0px 4px" ,
-			backgroundColor : "#f0f0f0" ,
-			color : "#7d7d7d" ,
+			backgroundColor : "#e6e8ec" ,
+			color : "#777e91" ,
 			fontSize : "12px" ,
-			margin : "2px",
+			margin : "2px 2px 2px 2px",
 			borderRadius : "4px" ,
 			flex : "0 0 auto" ,
-			height : "fit-content" ,
+			height : "16px" ,
 			lineHeight : "normal" ,
-			
+			width:"fit-content",
+			alignItems:"center"
 		} }
 	>{ props.text }</span>;
 };
