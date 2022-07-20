@@ -56,19 +56,26 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 						objectPosition:"50% 50%"
 					} }
 				/>
-				<Img
-					src = { spaceInfo?.iconUrl }
-					style = { {
-						borderRadius : "16px" ,
+				<div
+					style={{
 						position : "absolute" ,
 						top : "204px" ,
 						left : "32px" ,
-						width : "124px" ,
-						height : "124px" ,
-						objectFit:"cover",
-						objectPosition:"50% 50%"
-					} }
-				/>
+						backgroundColor : "#eee",
+						borderRadius : "16px" ,
+					}}
+				>
+					<Img
+						src = { spaceInfo?.iconUrl }
+						style = { {
+							borderRadius : "16px" ,
+							width : "124px" ,
+							height : "124px" ,
+							objectFit : "cover" ,
+							objectPosition : "50% 50%" ,
+						} }
+					/>
+				</div>
 				
 				<div
 					className = { less.editCover }
@@ -179,8 +186,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 							width : "316px" ,
 						} }
 					>
-						{ new Array( 44 ).fill( '' ).
-						map( ( v , i ) =>
+						{ new Array( 44 ).fill( '' ).map( ( v , i ) =>
 							<MemberItem
 								key = { i }
 							></MemberItem> ,

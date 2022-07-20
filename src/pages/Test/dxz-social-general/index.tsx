@@ -70,17 +70,23 @@ const GeneralProfile = ComponentWrapper(() => {
 			<div
 				className = { less.picBox }
 			>
-				<Img
-					src = { editingStore.iconUrl}
-					style = { {
-						width : "96px" ,
-						height : "96px" ,
-						borderRadius : "12px" ,
+				<div
+					style={{
 						backgroundColor : "#eee" ,
-						objectFit:"cover",
-						objectPosition:"50% 50%",
-					} }
-				/>
+						borderRadius : "12px",
+					}}
+				>
+					<Img
+						src = { editingStore.iconUrl}
+						style = { {
+							width : "96px" ,
+							height : "96px" ,
+							borderRadius : "12px" ,
+							objectFit:"cover",
+							objectPosition:"50% 50%",
+						} }
+					/>
+				</div>
 				<UploadBtn onClick={() => {
 					reax_upload_avatar(spaceID).then((url) => {
 						setEditingSpaceInfo( { iconUrl : url } );
