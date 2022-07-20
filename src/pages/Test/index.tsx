@@ -20,9 +20,10 @@ import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import { DxzSpaceSettings } from './dxz-social-general';
 import { DxzEditProfilePop } from './dxz-edit-profile-pop';
 import { FileUpload } from './File-Upload';
+import { DxzUIKits } from './dxz-UI-kits';
 
-export const Test = () => <div className={less.HomeRoot}>
-	<DxzSpaceSettings/>
+export const Test = () => <div className = { less.HomeRoot }>
+	<DxzUIKits />
 </div>;
 
 
