@@ -25,7 +25,7 @@ import DarkThemeTest from './darkTheme';
 import { DxzUIKits } from './dxz-UI-kits';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzUIKits />
+	<InputTest />
 </div>;
 
 
