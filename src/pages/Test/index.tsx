@@ -20,6 +20,8 @@ import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import { DxzSpaceSettings } from './dxz-social-general';
 import { DxzEditProfilePop } from './dxz-edit-profile-pop';
 import { FileUpload } from './File-Upload';
+import InputTest from './componentTest/inputTest';
+import DarkThemeTest from './darkTheme';
 import { DxzUIKits } from './dxz-UI-kits';
 
 export const Test = () => <div className = { less.HomeRoot }>
