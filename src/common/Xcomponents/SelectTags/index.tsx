@@ -4,7 +4,11 @@ import Tags from '@@common/Xcomponents/tags';
 
 import less from './index.module.less';
 
-const SelectTags: React.FC<SelectProps> = (props) => {
+const { Option: AntdOption } = Select;
+
+export const Option = AntdOption;
+
+export const SelectTags: React.FC<SelectProps> = (props) => {
   const tagRender = (params) => {
     const {label, closable, onClose} = params;
 
@@ -31,10 +35,11 @@ const SelectTags: React.FC<SelectProps> = (props) => {
         mode="tags"
         showArrow
         tagRender={tagRender}
+        notFoundContent="Not Found"
         {...props}
-      />
+      >
+        {props.children}
+      </Select>
     </div>
   )
 }
-
-export default React.memo(SelectTags);
