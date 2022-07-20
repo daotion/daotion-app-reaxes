@@ -36,9 +36,12 @@ export const DxzSpaceSettings = () => {
 import {
 	reaxel_upload_pics ,
 	reaxel_space_detail,
+	reaxel_wallet,
+	reaxel_user,
+	
 } from '@@reaxes';
 import {useParams} from 'react-router-dom';
-import {request_space_detail} from '@@requests';
+import {request_space_detail , request_space_general_modify,request_server_timestamp} from '@@requests';
 import {Space___get_space_detail} from '@@requests/Spaces/types';
 const GeneralProfile = ComponentWrapper(() => {
 	const spaceID = parseInt(useParams().spaceID);
@@ -49,6 +52,7 @@ const GeneralProfile = ComponentWrapper(() => {
 		editingStore,
 		setEditingSpaceInfo,
 		closuredFetchSpaceInfo,
+		saveSpaceSettings,
 	} = reaxel_edit_space_settings();
 	
 	[ store__space_detail.spaceInfo ];
@@ -131,11 +135,11 @@ const GeneralProfile = ComponentWrapper(() => {
 					mode = "multiple"
 					allowClear
 					placeholder = "Enter or select tags"
-					value = {editingStore.type}
-					onChange={(type) => {
-						if(type.length > 3) return ;
+					value = {editingStore.tags}
+					onChange={(tags) => {
+						if(tags.length > 3) return ;
 						setEditingSpaceInfo( {
-							type ,
+							tags ,
 						} );
 					}}
 				>
@@ -174,7 +178,7 @@ const GeneralProfile = ComponentWrapper(() => {
 				disabled={InfoEquals}
 				type="primary"
 				onClick={() => {
-					
+					saveSpaceSettings();
 				}}
 				style = { {
 					borderRadius : "12px" ,
@@ -193,50 +197,57 @@ const GeneralProfile = ComponentWrapper(() => {
 	</>;
 });
 const reaxel_edit_space_settings = function(){
-	
+	let ret;
 	type fields = {
 		bio : string ,
-		type : string[] ,
 		email : string ,
+		tags : string[],
 		iconUrl : string;
 	};
 	const {store,setState} = orzMobx<fields>( {
 		bio : null ,
-		type : [] ,
 		email : null ,
+		tags : [],
 		iconUrl : null,
 	} );
+	let currentSpaceID : number;
 	let spaceInfo:fields;
 	let fetching = false;
 	
 	/*从服务器拿spaceInfo并缓存下来*/
-	const closuredSpaceInfo = Reaxes.closuredMemo(async (spaceID:number) => {
+	const closuredSpaceInfo = Reaxes.closuredMemo(async (spaceID:number , forceUpdate:boolean = false) => {
 		/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
 		  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
 		const info = reaxel_space_detail().store.spaceInfo;
-		if(info && (spaceID === info.spaceID)){
-			return spaceInfo = {
+		currentSpaceID = spaceID;
+		if(info && (spaceID === info.spaceID) && !forceUpdate){
+			spaceInfo = {
 				bio : info.bio,
-				type : info.tags,
 				email : info.email,
+				tags : info.tags,
 				iconUrl : info.iconUrl,
-			};
+			}
+			setState(spaceInfo);
+			return ;
 		}
 		if(fetching === true){
 			return ;
 		}
 		fetching = true;
-		await request_space_detail(spaceID).then((info) => {
+		const promise = request_space_detail( spaceID ).
+		then( ( info ) => {
 			spaceInfo = {
-				bio : info.bio,
-				type : info.tags,
-				email : info.email,
-				iconUrl : info.iconUrl,
+				bio : info.bio ,
+				email : info.email ,
+				tags : info.tags ,
+				iconUrl : info.iconUrl ,
 			};
 			setState( spaceInfo );
-		}).finally(() => {
+		} );
+		promise.finally(() => {
 			fetching = false;
 		});
+		return promise;
 	},() => []);
 	
 	const omitIconUrl = () => {
@@ -245,12 +256,10 @@ const reaxel_edit_space_settings = function(){
 	
 	return () => {
 		
-		
-		
-		
-		return {
-			closuredFetchSpaceInfo(spaceID:number){
-				closuredSpaceInfo(() => [spaceID])(spaceID);
+		return ret = {
+			closuredFetchSpaceInfo(spaceID:number,forceUpdate:boolean = false){
+				const force = forceUpdate ? [Math.random()] : [];
+				return closuredSpaceInfo(() => [spaceID,...force])(spaceID,forceUpdate);
 			},
 			get InfoEquals (){
 				/*_.isEqual()深度对比*/
@@ -262,8 +271,49 @@ const reaxel_edit_space_settings = function(){
 			setEditingSpaceInfo(partialInfo:Partial<fields>){
 				setState( partialInfo );
 			},
-			saveSpaceSettings (){
-				
+			async saveSpaceSettings (){
+				const reax_wallet = reaxel_wallet();
+				const reax_user = reaxel_user();
+				const address = reax_wallet.account.address;
+				const data:data = {
+					spaceID : currentSpaceID ,
+					tags : store.tags.join(','),
+					bio : store.bio ,
+					email : store.email,
+					modifyAddress : reax_wallet.account.address,
+					timestamp : await request_server_timestamp() ,
+				};
+				/*todo 只传改变了的字段.现在没时间 后续优化*/
+				// if(!_.isEqual(store.tags,spaceInfo.tags)){
+				// 	data.tags = store.tags.join(',');
+				// }
+				//
+				const fetch_space_general_modify = async () => {
+					return request_space_general_modify( {
+						address ,
+						data ,
+						signature : await reax_user.signByFakeWallet( data ) ,
+					} );
+				};
+				// ret.closuredFetchSpaceInfo(currentSpaceID,true).then(() => {
+				// 	antd.Modal.success({title : "changed successful!"})
+				// });
+				// return ;
+				fetch_space_general_modify().then(() => {
+					ret.closuredFetchSpaceInfo(currentSpaceID,true).then(() => {
+						antd.Modal.success({title : "changed successful!"})
+					});
+				}).catch((e) => {
+					console.error(e);
+				});
+				type data = {
+					spaceID : number,
+					modifyAddress : string,
+					timestamp : number,
+					tags?:string,
+					bio?:string,
+					email?:string,
+				};
 			},
 		}
 	}

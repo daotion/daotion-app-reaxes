@@ -147,9 +147,10 @@ export namespace Space__general_modify {
 		"address": string,
 		"data": {
 			"spaceID": number,
+			/*[].join(',')的字符串:"NFT,DEFI"*/
+			"tags"? : string,
 			"bio"?: string,
 			"email"?: string,
-			"type" : string[],
 			"modifyAddress": string,
 			"timestamp": number
 		},
