@@ -37,6 +37,12 @@ export const reaxel_user_join_or_leave_space = function(){
 				});
 			} ,
 			async leave_space( spaceID : number ) {
+				if(!reax_wallet.wallet){
+					await reax_wallet.connectWallet();
+				}
+				if(!reax_user.fake_wallet_store.logged_in){
+					await reax_user.loginWithUserWallet();
+				}
 				const data = {
 					spaceID ,
 					leaveAddress : reax_wallet.account.address ,
@@ -49,7 +55,7 @@ export const reaxel_user_join_or_leave_space = function(){
 					signature,
 				} ).then(() => {
 					reax_joined_space_list.set_joined_space_list( reax_joined_space_list.joined_space_list.filter( ( spaceInfo ) => spaceInfo.spaceID !== spaceID ) );
-				});
+				} );
 			} ,
 			
 		};

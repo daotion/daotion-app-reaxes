@@ -17,11 +17,12 @@ export const request = new class {
 	#testHTTP = /^https?:\/\//;
 	
 	fetch = async <response extends any = any,request extends object = any>(
-		url: string,
-		options: ORZ.RequestOptions<request>&{method:string} = {
+		orignal_url: string,
+		orignal_options: ORZ.RequestOptions<request>&{method:string} = {
 			method: 'GET',
 		},
 	): Promise<response> => {
+		let url = orignal_url,options = _.cloneDeep(orignal_options);
 		const env = (options.env ?? __ENV__) ?? "default_server";
 		/**
 		 * 暂时禁用
@@ -111,8 +112,21 @@ export const request = new class {
 			.then(async (json: responseWrap<response> & response) => {
 				if (json.hasOwnProperty('code')) {
 					switch (json.code) {
+						/*success*/
 						case 0: {
 							return json.data ?? null;
+						}
+						case 1002: {
+							const {
+								loginWithUserWallet ,
+								clearInvalidFakeWallet ,
+								storage_key_fake_wallets_secret_map,
+							} = reaxel_user();
+							clearInvalidFakeWallet();
+							orzLocalstroage.remove( storage_key_fake_wallets_secret_map );
+							return loginWithUserWallet().then(() => {
+								return this.fetch(orignal_url,orignal_options);
+							});
 						}
 						/**/
 						case 403: {
@@ -170,3 +184,5 @@ export const request = new class {
 
 
 const symbol_no_authorized = Symbol( 'no_authorized' );
+import {reaxel_user} from '@@reaxes/authurize/user';
+import { orzLocalstroage } from '@@common/storages';

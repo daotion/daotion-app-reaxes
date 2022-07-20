@@ -21,11 +21,11 @@ export const reaxel_user = function () {
 	} );
 	let ret;
 	const reax_wallet = reaxel_wallet();
-	const symbol__fake_wallets_map_ = Symbol( '_fake_wallets_map_' );
+	const symbol__storage_key_fake_wallets_secret_map_ = Symbol( '_fake_wallets_map_' );
 	
 	/*从storage获取私钥*/
 	const checkAddressIsLoggedIn = ( address : string ) => {
-		const walletsMap : string = orzLocalstroage.get<string>( symbol__fake_wallets_map_.description ) || '{}';
+		const walletsMap : string = orzLocalstroage.get<string>( symbol__storage_key_fake_wallets_secret_map_.description ) || '{}';
 		const privateKey : string = (typeof walletsMap === "string" ? JSON.parse( walletsMap )[ address ] : walletsMap[address]) ?? null;
 		
 		return privateKey;
@@ -38,18 +38,18 @@ export const reaxel_user = function () {
 			// }
 			const pairs = address_map_private_key_utils.getAll();
 			pairs[address] = privateKey;
-			orzLocalstroage.set( symbol__fake_wallets_map_.description , JSON.stringify( pairs ) );
+			orzLocalstroage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( pairs ) );
 		} ,
 		remove(address:string) {
 			const pairs = _.omit(address_map_private_key_utils.getAll(),[address]);
-			orzLocalstroage.set( symbol__fake_wallets_map_.description , JSON.stringify( pairs ) );
+			orzLocalstroage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( pairs ) );
 		} ,
 		empyt() {
-			orzLocalstroage.set( symbol__fake_wallets_map_.description , JSON.stringify( {} ) );
+			orzLocalstroage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( {} ) );
 		} ,
 		/*获取所有的映射关系键值对 exa:{k1:v1,k2:v2}*/
 		getAll() : member {
-			const map_string = orzLocalstroage.get<string>( symbol__fake_wallets_map_.description ) ?? '{}';
+			const map_string = orzLocalstroage.get<string>( symbol__storage_key_fake_wallets_secret_map_.description ) ?? '{}';
 			return typeof map_string === "string" ? JSON.parse( map_string ) : map_string ;
 		} ,
 		checkAddressIsLoggedIn ,
@@ -70,14 +70,14 @@ export const reaxel_user = function () {
 	return () => {
 		
 		return ret = {
-			get fake_wallets_map_string() {
-				return symbol__fake_wallets_map_.description;
+			get storage_key_fake_wallets_secret_map() {
+				return symbol__storage_key_fake_wallets_secret_map_.description;
 			} ,
 			get fake_wallet_store() {
 				return store;
 			} ,
 			/*使用用户真实的钱包签名并登录 ,当用户点击了签名按钮并且与后端交互成功时,将假钱包私钥缓存进localstorage*/
-			loginWithUserWallet() {
+			async loginWithUserWallet() {
 				if ( !store.privateKey ) {
 					const fakeWallet = Wallet.createRandom();
 					const {
@@ -89,7 +89,8 @@ export const reaxel_user = function () {
 					const message = {
 						from : real_address ,
 						alias : fakeAddress ,
-						timestamp : Date.now().toString() ,
+						/*所有接口只有这里用string的时间戳.*/
+						timestamp : (await request_server_timestamp()).toString(),
 					};
 					
 					const data = (
@@ -110,7 +111,7 @@ export const reaxel_user = function () {
 					] ).
 					then( ( res ) => {
 						return request_user_address_alias( {
-							address : globalStore.wallet.accounts[ 0 ].address ,
+							address : reax_wallet.account.address ,
 							data : message ,
 							signature : res ,
 						} );
@@ -118,7 +119,7 @@ export const reaxel_user = function () {
 					then( ( res ) => {
 						crayon.green( "登录成功!" );
 						address_map_private_key_utils.add( [
-							globalStore.wallet.accounts[ 0 ].address ,
+							reax_wallet.account.address ,
 							fakePrivateKey,
 						] );
 						setState( {
@@ -148,6 +149,19 @@ export const reaxel_user = function () {
 				}
 				return store.fakeWallet.signMessage( JSON.stringify( data ) );
 			},
+			
+			/*登录失效时清空状态,不会清除localstorage*/
+			clearInvalidFakeWallet() {
+				setState( {
+					logged_in : false ,
+					/*假钱包私钥*/
+					privateKey : null ,
+					/*用户真实钱包的地址*/
+					real_address : null ,
+					fakeWallet : null ,
+				} );
+			},
+			
 		};
 	};
 }();
@@ -194,3 +208,4 @@ const messageTypes = [
 		type : "string" ,
 	} ,
 ];
+import {request_server_timestamp} from '@@requests';

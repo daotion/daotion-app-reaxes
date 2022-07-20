@@ -56,7 +56,7 @@ export const reaxel_joined_Space_list = function () {
 			request_joined_space_list : fetch_joined_space_list ,
 			set_joined_space_list( joined_space_list ) {
 				setState( {
-					joined_space_list : joined_space_list ,
+					joined_space_list ,
 				} );
 			} ,
 			empty_joined_space_list : empty_joined_space_list ,
