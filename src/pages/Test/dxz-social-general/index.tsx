@@ -4,7 +4,7 @@ import {
 	Input ,
 	Select ,
 } from 'antd';
-
+import spaceTags from '@@Public/space-tags.json';
 
 const { Option } = Select;
 
@@ -12,11 +12,12 @@ const { TextArea } = Input;
 export const DxzSpaceSettings = () => {
 	
 	const [ tab , setTab ] = useState<'social' | 'general'>( 'general' );
-	
+	const spaceID = parseInt(useParams().spaceID);
 	const Content = {
 		social : SocialProfile ,
 		general : GeneralProfile ,
 	}[ tab ];
+	reaxel_edit_space_settings().closuredFetchSpaceInfo( spaceID );
 	return <>
 		<div
 			className = { less.container }
@@ -36,10 +37,18 @@ import {
 	reaxel_space_detail,
 } from '@@reaxes';
 import {useParams} from 'react-router-dom';
+import {request_space_detail} from '@@requests';
+import {Space___get_space_detail} from '@@requests/Spaces/types';
 const GeneralProfile = ComponentWrapper(() => {
 	const spaceID = parseInt(useParams().spaceID);
 	const { getSpaceDetailMemoed , store } = reaxel_space_detail();
 	const {space_settings_avatar : reax_upload_avatar } = reaxel_upload_pics();
+	const {
+		InfoEquals ,
+		editingStore,
+		setEditingSpaceInfo,
+	} = reaxel_edit_space_settings();
+	
 	if(!store.spaceInfo){
 		getSpaceDetailMemoed( spaceID );
 	}
@@ -58,7 +67,7 @@ const GeneralProfile = ComponentWrapper(() => {
 				className = { less.picBox }
 			>
 				<img
-					src = {store.spaceInfo?.info?.iconUrl}
+					src = {store.spaceInfo?.iconUrl}
 					style = { {
 						width : "96px" ,
 						height : "96px" ,
@@ -98,22 +107,42 @@ const GeneralProfile = ComponentWrapper(() => {
 					height : "112px" ,
 					border : "2px solid rgba(154, 159, 165, 0.25)" ,
 				} }
-				value = {store.spaceInfo?.bio}
+				value = {editingStore.bio}
+				maxLength={160}
+				onChange={(e) => {
+					setEditingSpaceInfo( {
+						bio : e.target.value ,
+					} );
+				}}
 			/>
-			<span className = { less.email }>Type</span>
-			<Select
-				className = { less.votingType_box }
-				style = { {
-					width : "100%" ,
-					color : "#9a9fa5" ,
-					height : "48px" ,
-					
-				} }
-				removeIcon = { <SVGClear /> }
-				mode = "multiple"
-				allowClear
-				placeholder = "Enter tags or Select"
-			></Select>
+			<ItemWithTitle title="Type">
+				<Select
+					className = { less.votingType_box }
+					style = { {
+						width : "100%" ,
+						color : "#9a9fa5" ,
+						height : "48px" ,
+						
+					} }
+					removeIcon = { <SVGClear /> }
+					mode = "multiple"
+					allowClear
+					placeholder = "Enter tags or Select"
+					value = {editingStore.type}
+					onChange={(type) => {
+						if(type.length > 3) return ;
+						setEditingSpaceInfo( {
+							type ,
+						} );
+					}}
+				>
+					{spaceTags.map((tag) => {
+						return <Option key = {tag}>
+							{tag}
+						</Option>
+					})}
+				</Select>
+			</ItemWithTitle>
 			<ItemWithTitle
 				title = "Email"
 			>
@@ -133,10 +162,95 @@ const GeneralProfile = ComponentWrapper(() => {
 				/>
 			</ItemWithTitle>
 			<div className = { less.divider }></div>
-			<ProfileFooterBtn text = "Save Changes"></ProfileFooterBtn>
+			<Button
+				disabled={InfoEquals}
+				type="primary"
+				onClick={() => {
+					
+				}}
+				style = { {
+					borderRadius : "12px" ,
+					padding : "12px 20px" ,
+					fontSize : '15px' ,
+					fontWeight : '700' ,
+					lineHeight : "24px" ,
+					height : "48px" ,
+					width : 'fit-content' ,
+					display : "flex" ,
+					alignItems : "center" ,
+					justifyContent : "center" ,
+				} }
+			>Save Changes</Button>
 		</div>
 	</>;
 });
+const reaxel_edit_space_settings = function(){
+	
+	type fields = {
+		bio : string ,
+		type : string[] ,
+		email : string ,
+	};
+	const {store,setState} = orzMobx<fields>( {
+		bio : null ,
+		type : [] ,
+		email : null ,
+	} );
+	let spaceInfo:fields;
+	let fetching = false;
+	return () => {
+		
+		/*从服务器拿spaceInfo并缓存下来*/
+		let closuredSpaceInfo = Reaxes.closuredMemo((spaceID:number) => {
+			/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
+			  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
+			const info = reaxel_space_detail().store.spaceInfo;
+			if(info && (spaceID === info.spaceID)){
+				return spaceInfo = {
+					bio : info.bio,
+					type : info.tags,
+					email : info.email,
+				};
+			}
+			
+			fetching = true;
+			request_space_detail(spaceID).then((info) => {
+				spaceInfo = {
+					bio : info.bio,
+					type : info.tags,
+					email : info.email,
+				};
+				setState( spaceInfo );
+			}).finally(() => {
+				fetching = false;
+			});
+		},() => []);
+		
+		return {
+			closuredFetchSpaceInfo(spaceID:number){
+				closuredSpaceInfo(() => [spaceID])(spaceID);
+			},
+			get InfoEquals (){
+				/*_.isEqual()深度对比*/
+				return _.isEqual( store , spaceInfo );				
+			},
+			get editingStore() {
+				return store;
+			},
+			setEditingSpaceInfo(partialInfo:Partial<fields>){
+				setState( partialInfo );
+			},
+			saveSpaceSettings (){
+				
+			},
+		}
+	}
+}();
+
+
+
+
+
 const SocialProfile = ComponentWrapper(() => {
 	return <>
 		<div

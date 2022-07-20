@@ -1,4 +1,4 @@
-import { request_space_detail } from '@@requests/Spaces/space-detail';
+import { request_space_detail } from '@@requests';
 import { Space___get_space_detail } from '@@requests/Spaces/types';
 
 export const reaxel_space_detail = function (){
@@ -50,10 +50,7 @@ export const reaxel_space_detail = function (){
 				setState( {
 					spaceInfo : {
 						...store.spaceInfo ,
-						info : {
-							...store.spaceInfo.info ,
-							iconUrl : url ,
-						},
+						iconUrl : url ,
 					} ,
 				} );
 			},

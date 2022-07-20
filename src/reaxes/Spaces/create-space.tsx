@@ -4,11 +4,10 @@ import {
 	orzMobx ,
 	Reaxlass ,
 } from 'reaxes';
-import {
-	reaxel_wallet ,
-	reaxel_user ,
-	
-} from '@@reaxes';
+import {reaxel_wallet} from '@@reaxes/wallet/wallet';
+import {reaxel_user} from '@@reaxes/authurize/user';
+import {reaxel_space_list} from '@@reaxes/Spaces/all-space-list';
+
 import less from './create-space-modal.module.less';
 import spaceTags from '@@Public/space-tags.json';
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -74,6 +73,15 @@ export const reaxel_create_space = function () {
 					Modal.success( {
 						title : "transaction success !" ,
 					} );
+					reaxel_space_list
+					setState( {
+						visible : false ,
+						modal_showing : false ,
+						input_space_name : '' ,
+						select_types : [] ,
+						select_network : null ,
+						input_email : null ,
+					} );
 				} );
 				
 				return reax_wallet.web3Provider.getTransaction( hash ).
@@ -83,6 +91,14 @@ export const reaxel_create_space = function () {
 						if ( receipt?.confirmations ) {
 							Modal.success( {
 								title : "transaction success !" ,
+							} );
+							setState( {
+								visible : false ,
+								modal_showing : false ,
+								input_space_name : '' ,
+								select_types : [] ,
+								select_network : null ,
+								input_email : null ,
 							} );
 						}
 					} );

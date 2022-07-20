@@ -56,7 +56,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 					} }
 				/>
 				<Img
-					src = { spaceInfo?.info?.iconUrl }
+					src = { spaceInfo?.iconUrl }
 					style = { {
 						borderRadius : "16px" ,
 						position : "absolute" ,
@@ -70,7 +70,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 				<div
 					className = { less.editCover }
 					onClick = { () => {
-						reax_upload_banner.current.space_info_banner( spaceInfo.info.spaceID );
+						reax_upload_banner.current.space_info_banner( spaceInfo.spaceID );
 					} }
 				>
 					Edit cover
@@ -91,7 +91,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 				>
 					<span
 						className = { less.spaceName }
-					>{ spaceInfo?.info?.name }
+					>{ spaceInfo?.name }
 					</span>
 					<div
 						style = { {
@@ -102,7 +102,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 					>
 						<ShareIcon></ShareIcon>
 						<JoinedBtn
-							spaceID = {spaceInfo?.info?.spaceID}
+							spaceID = {spaceInfo?.spaceID}
 							style = { {
 								width : "140px" ,
 								height : "48px" ,
@@ -123,7 +123,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 					} }
 				>
 					<WalletAddressCopyBox
-						walletAddr = { spaceInfo?.info?.addrChain }
+						walletAddr = { spaceInfo?.addrChain }
 					/>
 					<div
 						style = { {
