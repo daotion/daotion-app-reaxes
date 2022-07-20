@@ -6,9 +6,15 @@
   :global {
     .ant-select-selector {
       box-sizing: border-box !important;
-      border: 2px solid @neutrals_5 !important;
       border-radius: 12px !important;
       box-shadow: none !important;
+      background-color: @grey_2 !important;
+      border: 2px solid transparent !important;
+    }
+
+    .ant-select.ant-select-focused .ant-select-selector {
+      background-color: @neutrals_F !important;
+      border: 2px solid @neutrals_5 !important;
     }
 
     .ant-select-selection-item {
