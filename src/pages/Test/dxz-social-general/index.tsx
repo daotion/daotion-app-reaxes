@@ -5,6 +5,7 @@ import {
 	Select ,
 } from 'antd';
 import spaceTags from '@@Public/space-tags.json';
+import { Img } from '@@common/Xcomponents';
 
 const { Option } = Select;
 
@@ -41,18 +42,17 @@ import {request_space_detail} from '@@requests';
 import {Space___get_space_detail} from '@@requests/Spaces/types';
 const GeneralProfile = ComponentWrapper(() => {
 	const spaceID = parseInt(useParams().spaceID);
-	const { getSpaceDetailMemoed , store } = reaxel_space_detail();
+	const { getSpaceDetailMemoed , store : store__space_detail } = reaxel_space_detail();
 	const {space_settings_avatar : reax_upload_avatar } = reaxel_upload_pics();
 	const {
 		InfoEquals ,
 		editingStore,
 		setEditingSpaceInfo,
+		closuredFetchSpaceInfo,
 	} = reaxel_edit_space_settings();
 	
-	if(!store.spaceInfo){
-		getSpaceDetailMemoed( spaceID );
-	}
-	[ store.spaceInfo ];
+	[ store__space_detail.spaceInfo ];
+	
 	return <>
 		<div
 			style = { {
@@ -66,17 +66,19 @@ const GeneralProfile = ComponentWrapper(() => {
 			<div
 				className = { less.picBox }
 			>
-				<img
-					src = {store.spaceInfo?.iconUrl}
+				<Img
+					src = { editingStore.iconUrl}
 					style = { {
 						width : "96px" ,
 						height : "96px" ,
 						borderRadius : "12px" ,
-						backgroundColor : "orange" ,
+						backgroundColor : "#eee" ,
 					} }
 				/>
 				<UploadBtn onClick={() => {
-					reax_upload_avatar(spaceID);
+					reax_upload_avatar(spaceID).then((url) => {
+						setEditingSpaceInfo( { iconUrl : url } );
+					});
 				}}/>
 			</div>
 			<p
@@ -107,6 +109,7 @@ const GeneralProfile = ComponentWrapper(() => {
 					height : "112px" ,
 					border : "2px solid rgba(154, 159, 165, 0.25)" ,
 				} }
+				placeholder="Tell about your Space in a few words"
 				value = {editingStore.bio}
 				maxLength={160}
 				onChange={(e) => {
@@ -127,7 +130,7 @@ const GeneralProfile = ComponentWrapper(() => {
 					removeIcon = { <SVGClear /> }
 					mode = "multiple"
 					allowClear
-					placeholder = "Enter tags or Select"
+					placeholder = "Enter or select tags"
 					value = {editingStore.type}
 					onChange={(type) => {
 						if(type.length > 3) return ;
@@ -159,6 +162,11 @@ const GeneralProfile = ComponentWrapper(() => {
 						lineHeight:"24px",
 						color:"#33383f"
 					} }
+					placeholder="Enter your email"
+					value = {editingStore.email}
+					onChange={(e) => {
+						setEditingSpaceInfo( { email : e.target.value } );
+					}}
 				/>
 			</ItemWithTitle>
 			<div className = { less.divider }></div>
@@ -190,41 +198,55 @@ const reaxel_edit_space_settings = function(){
 		bio : string ,
 		type : string[] ,
 		email : string ,
+		iconUrl : string;
 	};
 	const {store,setState} = orzMobx<fields>( {
 		bio : null ,
 		type : [] ,
 		email : null ,
+		iconUrl : null,
 	} );
 	let spaceInfo:fields;
 	let fetching = false;
+	
+	/*从服务器拿spaceInfo并缓存下来*/
+	const closuredSpaceInfo = Reaxes.closuredMemo(async (spaceID:number) => {
+		/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
+		  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
+		const info = reaxel_space_detail().store.spaceInfo;
+		if(info && (spaceID === info.spaceID)){
+			return spaceInfo = {
+				bio : info.bio,
+				type : info.tags,
+				email : info.email,
+				iconUrl : info.iconUrl,
+			};
+		}
+		if(fetching === true){
+			return ;
+		}
+		fetching = true;
+		await request_space_detail(spaceID).then((info) => {
+			spaceInfo = {
+				bio : info.bio,
+				type : info.tags,
+				email : info.email,
+				iconUrl : info.iconUrl,
+			};
+			setState( spaceInfo );
+		}).finally(() => {
+			fetching = false;
+		});
+	},() => []);
+	
+	const omitIconUrl = () => {
+		return [_.omit(store,'iconUrl'),_.omit(spaceInfo,'iconUrl')] as [Omit<fields,"iconUrl">,Omit<fields,'iconUrl'>];
+	};
+	
 	return () => {
 		
-		/*从服务器拿spaceInfo并缓存下来*/
-		let closuredSpaceInfo = Reaxes.closuredMemo((spaceID:number) => {
-			/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
-			  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
-			const info = reaxel_space_detail().store.spaceInfo;
-			if(info && (spaceID === info.spaceID)){
-				return spaceInfo = {
-					bio : info.bio,
-					type : info.tags,
-					email : info.email,
-				};
-			}
-			
-			fetching = true;
-			request_space_detail(spaceID).then((info) => {
-				spaceInfo = {
-					bio : info.bio,
-					type : info.tags,
-					email : info.email,
-				};
-				setState( spaceInfo );
-			}).finally(() => {
-				fetching = false;
-			});
-		},() => []);
+		
+		
 		
 		return {
 			closuredFetchSpaceInfo(spaceID:number){
@@ -232,7 +254,7 @@ const reaxel_edit_space_settings = function(){
 			},
 			get InfoEquals (){
 				/*_.isEqual()深度对比*/
-				return _.isEqual( store , spaceInfo );				
+				return _.isEqual( ...omitIconUrl() );				
 			},
 			get editingStore() {
 				return store;

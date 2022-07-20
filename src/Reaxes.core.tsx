@@ -37,12 +37,14 @@ export const Reaxes:Reaxes = new class {
 		} );
 		return callback( true , disposer );
 	};
-	
+	/*浅比较deps,如果相等则不执行回调*/
 	closuredMemo(callback,deps = () => []){
 		let depList = deps() ;
 		return (depsSetter) => {
 			const tempDepsList = depsSetter(depList);
 			return (...args) => {
+				/*debug时打开*/
+				// console.log(!utils.default.shallowEqual(depList,tempDepsList),depList,tempDepsList);
 				if(!utils.default.shallowEqual(depList,tempDepsList)){
 					const ret = callback(...args);
 					depList = tempDepsList;

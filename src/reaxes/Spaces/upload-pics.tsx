@@ -73,7 +73,7 @@ export const reaxel_upload_pics = function () {
 				input.click();
 			} ,
 			/*上传space头像*/
-			space_settings_avatar : ( spaceID : number ) => {
+			space_settings_avatar : ( spaceID : number ):Promise<any> => {
 				const reax_user = reaxel_user();
 				const reax_wallet = reaxel_wallet();
 				const reax_space_detail = reaxel_space_detail();
@@ -95,14 +95,17 @@ export const reaxel_upload_pics = function () {
 						} ) );
 						reax_space_detail.setSpaceAvatar( response.url );
 						antd.Modal.success( { title : "upload successful!" } );
+						return response.url;
 					} catch ( e ) {
 						antd.Modal.error( { title : e.toString() } );
 					}
 				};
+				const asyncUpload = orzPromise();
 				const input = uploader( {} , ( [ file ] ) => {
-					fetch_upload( file );
+					asyncUpload.resolve(fetch_upload( file ));
 				} );
 				input.click();
+				return asyncUpload;
 			} ,
 		};
 	};

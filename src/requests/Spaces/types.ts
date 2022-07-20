@@ -139,3 +139,23 @@ export namespace Space__upload_pics {
 		ipfsHash : string;
 	};
 }
+
+export namespace Space__general_modify {
+	
+	
+	export type payload = {
+		"address": string,
+		"data": {
+			"spaceID": number,
+			"bio"?: string,
+			"email"?: string,
+			"type" : string[],
+			"modifyAddress": string,
+			"timestamp": number
+		},
+		"signature" : string;
+	};
+	export type response = {
+		
+	};
+}

@@ -44,6 +44,19 @@ export const reaxel_space_list = function(){
 			fetch_all_spaces_list();
 		} );
 		
+		lifecycle.unmount( () => {
+			setState( {
+				infos : [] ,
+				indexStart : 0 ,
+				firstTimestamp : 0 ,
+				searchText : '' ,
+				searchTagSelection : null ,
+				searchChainId : null ,
+				hasMore : true ,
+			} );
+		} );
+		
+		
 		const debouncedInputingSearch = utils.debounce( ( text:string ) => {
 			request_all_spaces_list( {
 				indexStart : 0 ,
