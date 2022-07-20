@@ -6,7 +6,7 @@ import {
 } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { Space_List_Item } from '@@pages/_BussinessComponents';
-
+import less from'./index.module.less'
 import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
 import spaceTags from '@@Public/space-tags.json';
 import {
@@ -26,11 +26,11 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 	
 	JSX = {
 		InfiniteSpacesList : () => {
-			if(this.reax_spaces_list.store.infos.length === 0){
+			if ( this.reax_spaces_list.store.infos.length === 0 ) {
 				return <>
 					<Empty
-						image={Empty.PRESENTED_IMAGE_SIMPLE}
-						style = {{ display : "block"}}
+						image = { Empty.PRESENTED_IMAGE_SIMPLE }
+						style = { { display : "block" } }
 					/>
 				</>;
 			}
@@ -54,9 +54,9 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 					key = { item.id }
 					info = { item }
 				/> ) }
-			</InfiniteScroll>
-		},
-	}
+			</InfiniteScroll>;
+		} ,
+	};
 	
 	reax_wallet = reaxel_wallet();
 	
@@ -70,7 +70,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 					flexFlow : "column nowrap" ,
 					userSelect : "none" ,
 					minWidth : "810px" ,
-					
+					alignItems:"center"
 				} }
 			>
 				
@@ -80,7 +80,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 						display : "flex" ,
 						flexFlow : "column nowrap" ,
 						padding : "32px" ,
-						flex : "1",
+						flex : "1 1 auto" ,
 					} }
 				>
 					<div
@@ -96,45 +96,45 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 								color : "#1a1d1f" ,
 								fontSize : "20px" ,
 								fontWeight : "bold" ,
-								
+								display : "flex" ,
 							} }
 						>Spaces
 						</div>
-						<div>
+						<div className={less.iptSelectBox}
+						>
 							<Space
-							
 							>
 								<Input
-									prefix = { <SearchOutlined /> }
+									suffix = { <SearchOutlined /> }
 									style = { {
 										width : "256px" ,
 										height : "40px" ,
-										
+										display : "flex" ,
+										borderRadius:"8px",
+										border:"2px solid #e6e8ec",
+										marginRight:"16px",
 									} }
-									value = {this.reax_spaces_list.store.searchText}
+									value = { this.reax_spaces_list.store.searchText }
 									placeholder = "Search"
-									onInput = { (e) => {
+									onInput = { ( e ) => {
 										const text = e.target.value;
-										this.reax_spaces_list.setSearchingText(text);
-										this.reax_spaces_list.debouncedInputingSearch(text);
-									}}
+										this.reax_spaces_list.setSearchingText( text );
+										this.reax_spaces_list.debouncedInputingSearch( text );
+									} }
 								/>
 								<Select
-									value = {this.reax_spaces_list.store.searchTagSelection}
-									placeholder="All Types"
+									value = { this.reax_spaces_list.store.searchTagSelection }
+									placeholder = "Type"
 									suffixIcon = { <SelectArrowIconSvgComponent /> }
-									onSelect={(text) => {
-										if(text === "null") text = null;
+									onSelect = { ( text ) => {
+										if ( text === "null" ) text = null;
 										this.reax_spaces_list.setSearchingTagSelection( text );
-									}}
-									style = { {
-										width : "170px" ,
 									} }
 								>
-									<Select.Option key = {null} >
+									<Select.Option key = { null }>
 										all types
 									</Select.Option>
-									{spaceTags.map((tag) => <Select.Option key = {tag}>{tag}</Select.Option>)}
+									{ spaceTags.map( ( tag ) => <Select.Option key = { tag }>{ tag }</Select.Option> ) }
 								</Select>
 							</Space>
 						</div>
@@ -143,15 +143,17 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 					<div
 						style = { {
 							display : "flex" ,
-							marginTop : "20px" ,
-							justifyContent : "center" ,
+							marginTop : "24px" ,
+							justifyContent : "flex-start" ,
 							paddingRight : "-16px" ,
 							flexFlow : "row wrap" ,
-							minHeight : "576px",
-							
+							maxHeight : "fit-content" ,
+							width:"100%",
+							maxWidth:"1200px",
+							minWidth:"960px",
 						} }
 					>
-						{this.JSX.InfiniteSpacesList()}
+						{ this.JSX.InfiniteSpacesList() }
 					</div>
 				</div>
 			</div>

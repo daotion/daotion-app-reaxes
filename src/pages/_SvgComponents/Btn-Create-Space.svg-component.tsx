@@ -7,6 +7,9 @@ export const BtnCreateSpaceSvgComponent = ( props ) => {
 		viewBox = "0 0 48 48"
 		fill = "none"
 		xmlns = "http://www.w3.org/2000/svg"
+		style={{
+			display:"block"
+		}}
 	>
 		<circle
 			opacity = "0.1"

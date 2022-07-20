@@ -33,7 +33,7 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 				{/*左侧第一竖栏,用户已加入的space列表*/ }
 				<div
 					style = { {
-						padding : "24px 12px" ,
+						padding : "16px 8px" ,
 						display : "flex" ,
 						flexFlow : "column nowrap" ,
 						boxShadow : "inset -1px 0px 0px rgba(0, 0, 0, 0.05)" ,
@@ -44,7 +44,7 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 						style = { {
 							display : "flex" ,
 							flexFlow : "column nowrap" ,
-							
+							justifyContent:"space-between",
 						} }
 					>
 						<Homepage_Avatar
@@ -55,7 +55,8 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 								width : 48 ,
 								height : 1 ,
 								backgroundColor : "#efefef" ,
-								marginTop : 8 ,
+								marginTop : 12 ,
+								marginBottom : 4 ,
 							} }
 						/>
 						{ this.reax_joined_space_list.joined_space_list.map( ( spaceInfo , index ) => {
@@ -81,14 +82,18 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 						} ) }
 					</div>
 					<div
-						style = { {
-							marginTop : 8 ,
-							marginBottom : 8 ,
-						} }
 						onClick = { () => {
 							this.reax_create_space.setCreateModalVisible( true );
 						} }
 					>
+						<div
+							style = { {
+								width : 48 ,
+								height : 2 ,
+								backgroundColor : "#efefef" ,
+								marginBottom : 12 ,
+							} }
+						/>
 						<BtnCreateSpaceSvgComponent />
 					</div>
 					{/* todo <CreateModalContent

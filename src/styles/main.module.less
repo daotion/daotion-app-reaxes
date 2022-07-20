@@ -82,14 +82,17 @@
 	height: 100%;
 	overflow: auto;
 	
-	div {
-		
-		display: flex;
-	}
+	//div {
+	//	
+	//	display: flex;
+	//}
 	
 	
 	.left-side {
 		background-color: white;
+		height: 100%;
+		display: flex;
+		justify-content: space-between;
 	}
 	
 	.main-content {
@@ -176,7 +179,10 @@
 		
 		.ant-spin-container {
 			flex-grow: 1;
-			
+			display:flex;
+			justify-content: flex-start;
+			flex-flow: row nowrap;
+			height: 100%;
 		}
 	}
 }
