@@ -1,6 +1,21 @@
 @import "../../../styles/variable.module.less";
 
 // modal-content
+.antd-create-space-modal {
+	background-color: white;
+	
+	height : fit-content ;
+	borderRadius : 32px;
+	
+	:global {
+		.ant-modal-content {
+			border-radius: 32px;
+			padding: 32px;
+		}
+		
+		
+	}
+}
 .modal-content {
 	.main-title {
 		font-size: @font_1;
@@ -49,11 +64,11 @@
 				width: 100%;
 				height: 48px;
 				
-				:global{
+				:global {
 					.ant-select-selector {
 						height: 48px;
 						background-color: rgb(252, 252, 252);
-						border: 1px solid #EFEFEF;
+						border: 1px solid #efefef;
 						border-radius: 12px;
 					}
 					

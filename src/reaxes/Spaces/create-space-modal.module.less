@@ -6,6 +6,7 @@
 		font-size: @font_1;
 		color: @black_1;
 		margin-bottom: 24px;
+		font-weight: 700;
 	}
 	
 	.dec-title {
@@ -49,11 +50,11 @@
 				width: 100%;
 				min-height: 48px;
 				
-				:global{
+				:global {
 					.ant-select-selector {
 						min-height: 48px;
 						background-color: rgb(252, 252, 252);
-						border: 1px solid #EFEFEF;
+						border: 1px solid #efefef;
 						border-radius: 12px;
 					}
 					
@@ -94,21 +95,34 @@
 
 
 .antd-create-space-modal {
-	
+	position: relative;
 	> div {
 		height: 100%;
 		width: 100%;
 		margin: 0;
 		max-width: 100%;
 		position: static;
-		padding : 0 ;
+		padding: 0;
 		
 		:global {
+			border-radius: 32px;
+			padding: 32px;
+			
 			.ant-modal-content {
 				height: 100%;
 			}
+			
 			.ant-modal-body {
 				height: calc(100% - 53px);
+				padding: 0;
+			}
+			.ant-modal-footer{
+				padding:0 0 0 0;
+			}
+			.ant-modal-close-x{
+				position: absolute;
+				top:0px;
+				right:-140px;
 			}
 		}
 	}

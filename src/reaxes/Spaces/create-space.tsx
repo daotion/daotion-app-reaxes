@@ -2,7 +2,7 @@ import {
 	Reaxes ,
 	Reaxper ,
 	orzMobx ,
-	Reaxlass,
+	Reaxlass ,
 } from 'reaxes';
 import {reaxel_wallet} from '@@reaxes/wallet/wallet';
 import {reaxel_user} from '@@reaxes/authurize/user';
@@ -13,13 +13,16 @@ import spaceTags from '@@Public/space-tags.json';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { SpaceFactoryAbi } from '@@common/contract/abi';
 import { SpaceFactoryAddress } from '@@common/contract/address';
-import {request_server_timestamp,request_create_space} from '@@requests';
+import {
+	request_server_timestamp ,
+	request_create_space ,
+} from '@@requests';
 import { ethers } from 'ethers';
 
-export const reaxel_create_space = function(){
+export const reaxel_create_space = function () {
 	const {
 		store ,
-		setState,
+		setState ,
 	} = orzMobx( {
 		visible : false ,
 		modal_showing : false ,
@@ -29,7 +32,7 @@ export const reaxel_create_space = function(){
 		input_email : null ,
 	} );
 	let ret;
-	const {Modal} = antd;
+	const { Modal } = antd;
 	
 	const create_space = async () => {
 		const reax_wallet = reaxel_wallet();
@@ -38,11 +41,11 @@ export const reaxel_create_space = function(){
 		const fetch_space_ID = async () => {
 			const address = reax_wallet.account.address;
 			const data_wait_for_signature = {
-				name : store.input_space_name,
-				tags : store.select_types.join(','),
+				name : store.input_space_name ,
+				tags : store.select_types.join( ',' ) ,
 				email : store.input_email ,
 				/*当前用户地址*/
-				createAddress : address,
+				createAddress : address ,
 				timestamp : await request_server_timestamp() ,
 			};
 			return request_create_space( {
@@ -52,11 +55,15 @@ export const reaxel_create_space = function(){
 			} );
 		};
 		
-		const contract_create = async (spaceID:number) => {
+		const contract_create = async ( spaceID : number ) => {
 			const spaceName = store.input_space_name;
 			const contract = new ethers.Contract( SpaceFactoryAddress , SpaceFactoryAbi , reax_wallet.web3Provider );
-			const contractWithSigner = contract.connect(reax_wallet.web3Provider.getSigner(reax_wallet.account.address));
-			return contractWithSigner.createDAO(spaceID,spaceName,"desciption").then(({hash,receipt}) => {
+			const contractWithSigner = contract.connect( reax_wallet.web3Provider.getSigner( reax_wallet.account.address ) );
+			return contractWithSigner.createDAO( spaceID , spaceName , "desciption" ).
+			then( ( {
+				hash ,
+				receipt ,
+			} ) => {
 				
 				/*todo 两种方法都可以,测试哪种更好*/
 				
@@ -79,7 +86,8 @@ export const reaxel_create_space = function(){
 				
 				return reax_wallet.web3Provider.getTransaction( hash ).
 				then( ( response ) => {
-					return response.wait().then( ( receipt ) => {
+					return response.wait().
+					then( ( receipt ) => {
 						if ( receipt?.confirmations ) {
 							Modal.success( {
 								title : "transaction success !" ,
@@ -96,29 +104,29 @@ export const reaxel_create_space = function(){
 					} );
 				} );
 				// ethers.providers.getDefaultProvider().getTransaction()
-			});
-		}
+			} );
+		};
 		
-		if(!reax_wallet.account){
+		if ( !reax_wallet.account ) {
 			try {
 				ret.setCreateModalVisible( false );
 				await reax_wallet.connectWallet();
-				if(!reax_user.fake_wallet_store.logged_in){
+				if ( !reax_user.fake_wallet_store.logged_in ) {
 					await reax_user.loginWithUserWallet();
 				}
-			}catch ( e ) {
+			} catch ( e ) {
 				console.error( e );
 				ret.setCreateModalVisible( true );
 				Modal.error( {
 					title : e.toString() ,
 				} );
 			}
-		}else {
+		} else {
 			try {
 				const spaceID = await fetch_space_ID();
 				await contract_create( spaceID );
 				ret.setCreateModalVisible( false );
-			}catch ( e ){
+			} catch ( e ) {
 				console.error( e );
 				Modal.error( {
 					title : e.toString() ,
@@ -130,45 +138,78 @@ export const reaxel_create_space = function(){
 		input_space_name : () => {
 			return true;
 			/*暂时不对space-name做限制 , beta阶段出问题再限制*/
-		},
-		input_email_address : (address:string) => {
+		} ,
+		input_email_address : ( address : string ) => {
 			return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test( address );
-		},
+		} ,
 	};
 	
 	return () => {
 		return ret = {
-			get store (){
+			get store() {
 				return store;
-			},
-			setCreateModalVisible : (visible:boolean) => setState({visible}),
-			CreateSpaceModal : Reaxper(class extends Reaxlass{
+			} ,
+			setCreateModalVisible : ( visible : boolean ) => setState( { visible } ) ,
+			CreateSpaceModal : Reaxper( class extends Reaxlass {
 				
 				render() {
-					const {Form,Modal , Button , Input , Select ,} = antd;
+					const {
+						Form ,
+						Modal ,
+						Button ,
+						Input ,
+						Select ,
+					} = antd;
 					return <>
 						<Modal
 							visible = { store.visible }
+							// visible = { true }
+							centered
+							maskClosable
+							mask = { true }
+							className = { less.antdCreateSpaceModal }
 							onCancel = { () => setState( { visible : false } ) }
 							footer = { <>
 								<Button
 									onClick = { () => {
-										if(!validations.input_email_address(store.input_email)){
+										if ( !validations.input_email_address( store.input_email ) ) {
 											return;
 										}
-										if(!validations.input_space_name()){
-											return ;
+										if ( !validations.input_space_name() ) {
+											return;
 										}
 										create_space();
+									} }
+									style = { {
+										display : "flex" ,
+										alignItems : "center" ,
+										justifyContent : "center" ,
+										height : '56px' ,
+										width : "100%" ,
+										borderRadius : "12px" ,
+										background : "#0070f3" ,
+										color : "#ffffff" ,
+										fontSize : "15px" ,
+										fontWeight : "700" ,
+										lineHeight : "24px",
+										marginTop:'24px',
 									} }
 								>
 									Create
 								</Button>
 							</> }
-							width="100%"
-							wrapClassName = {less.antdCreateSpaceModal}
+							width = "800px"
+							// wrapClassName = {less.antdCreateSpaceModal}
+							maskStyle = { {
+								background : "#f4f4f4" ,
+							} }
 						>
-							<div className = { less.modalContent }>
+							<div
+								className = { less.modalContent }
+								style = { {
+									height : "fit-content",
+								} }
+							>
 								<h1 className = { less.mainTitle }>Create your Space</h1>
 								<h5 className = { less.decTitle }>Create your own organization in a few minutes!</h5>
 								<h3 className = { less.subTitle }>Space Information</h3>
@@ -190,11 +231,16 @@ export const reaxel_create_space = function(){
 										<p
 											style = { {
 												display : "flex" ,
-												justifyContent : "space-between",
+												justifyContent : "space-between" ,
 											} }
 										>
 											<span>Type</span>
-											<span style = { { color : "#b1b5c3",fontWeight : "normal" } }>
+											<span
+												style = { {
+													color : "#b1b5c3" ,
+													fontWeight : "normal" ,
+												} }
+											>
 												<span style = { { color : "#313436" } }>{ store.select_types.length }</span>
 												/3 Types
 											</span>
@@ -252,7 +298,7 @@ export const reaxel_create_space = function(){
 						</Modal>
 					</>;
 				}
-			}),
-		}
-	}
+			} ) ,
+		};
+	};
 }();
