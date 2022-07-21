@@ -1,7 +1,7 @@
 import { Space__all_spaces } from '@@reaxes/Spaces/types';
 import {
 	reaxel_joined_Space_list ,
-	reaxel_user_join_or_leave_space,
+	reaxel_user_join_or_leave_space ,
 } from '@@reaxes';
 import chainIconMap from '@@Public/chain-icon-map.json';
 import { message } from 'antd';
@@ -18,39 +18,41 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 		
 		join_or_leave : () => {
 			const { spaceID } = this.props.info;
-			return this.reax_joined_spaces_list.joined_space_list.some((item) => item.spaceID === this.props.info.spaceID) ? <div
+			return this.reax_joined_spaces_list.joined_space_list.some( ( item ) => item.spaceID === this.props.info.spaceID ) ? <div
 				className = { less.spaceListItemBtnJoined }
-				onClick = { (e) => {
+				onClick = { ( e ) => {
 					e.stopPropagation();
-					this.reax_user_join_or_leave_space.leave_space( spaceID ).then(() => {
-						if(__EXPERIMENTAL__){
+					this.reax_user_join_or_leave_space.leave_space( spaceID ).
+					then( () => {
+						if ( __EXPERIMENTAL__ ) {
 							message.success( `user leaved Space id:${ spaceID }` );
 						}
-					});
+					} );
 				} }
 			/> : <div
-				onClick={(e) => {
+				onClick = { ( e ) => {
 					e.stopPropagation();
-					this.reax_user_join_or_leave_space.join_space(spaceID).then(() => {
-						if(__EXPERIMENTAL__){
+					this.reax_user_join_or_leave_space.join_space( spaceID ).
+					then( () => {
+						if ( __EXPERIMENTAL__ ) {
 							message.success( `joined Space successfuly id:${ spaceID }` );
 						}
-					})
-				}}
+					} );
+				} }
 				className = { less.spaceListItemBtnLeaved }
-			>Join</div>
-		},
-	}
+			>Join</div>;
+		} ,
+	};
 	
 	render() {
 		const { info } = this.props;
-		const {navigate} = utils.useRouter();
+		const { navigate } = utils.useRouter();
 		return <>
 			<div
 				className = { less.spaceListCard }
-				onClick={() => {
+				onClick = { () => {
 					navigate( `/space${ info.spaceID }/info` );
-				}}
+				} }
 			>
 				<div>
 					
@@ -61,12 +63,18 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 							justifyContent : "center" ,
 							alignItems : "center" ,
 							marginTop : "24px" ,
+							width : "100%",
 						} }
 					>
 						<span
 							style = { {
 								fontSize : "16px" ,
 								fontWeight : "bold" ,
+								display : "flex" ,
+								flexFlow : "row wrap" ,
+								width : "100%",
+								justifyContent : "center" ,
+								textAlignLast:"center"
 							} }
 						>{ info.name }</span>
 					
@@ -110,9 +118,9 @@ export const Space_Item_Name_Icon = ( props : { src : string } ) => {
 				backgroundImage : props.src ,
 				borderRadius : "50%" ,
 				backgroundColor : "#f4f5f6" ,
-				flex : "0 0 auto",
-				backgroundSize:"cover",
-				objectPosition:"50% 50%"
+				flex : "0 0 auto" ,
+				backgroundSize : "cover" ,
+				objectPosition : "50% 50%",
 			} }
 		/>
 	</>;
@@ -151,13 +159,13 @@ export const Space_Item_Tag = ( props : { text : string } ) => {
 			backgroundColor : "#e6e8ec" ,
 			color : "#777e91" ,
 			fontSize : "12px" ,
-			margin : "2px 2px 2px 2px",
+			margin : "2px 2px 2px 2px" ,
 			borderRadius : "4px" ,
 			flex : "0 0 auto" ,
 			height : "16px" ,
 			lineHeight : "normal" ,
-			width:"fit-content",
-			alignItems:"center"
+			width : "fit-content" ,
+			alignItems : "center",
 		} }
 	>{ props.text }</span>;
 };

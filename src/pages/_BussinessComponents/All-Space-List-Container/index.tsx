@@ -38,8 +38,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 				style = { {
 					display : "flex" ,
 					flexFlow : "row wrap" ,
-					justifyContent : "center" ,
-					
+					justifyContent : "flex-start" ,
 				} }
 				pageStart = { 0 }
 				hasMore = { this.reax_spaces_list.store.hasMore }
@@ -81,6 +80,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 						flexFlow : "column nowrap" ,
 						padding : "32px" ,
 						flex : "1 1 auto" ,
+						minWidth:"1216px"
 					} }
 				>
 					<div
@@ -88,7 +88,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 							display : "flex" ,
 							justifyContent : "space-between" ,
 							alignItems : "center" ,
-							
+							width:"1200px"
 						} }
 					>
 						<div
@@ -148,9 +148,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 							paddingRight : "-16px" ,
 							flexFlow : "row wrap" ,
 							maxHeight : "fit-content" ,
-							width:"100%",
-							maxWidth:"1200px",
-							minWidth:"960px",
+							width:"1216px",
 						} }
 					>
 						{ this.JSX.InfiniteSpacesList() }
