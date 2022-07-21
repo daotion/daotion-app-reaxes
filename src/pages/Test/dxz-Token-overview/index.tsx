@@ -16,6 +16,7 @@ export const DxzTokenOverview=()=>{
 				// width:"440px",
 				width:"fit-content",
 			}}
-			options={['Token Overview', 'Fundraising Pool', 'Airdopr Pool']}/>
+			options={['Token Overview', 'Fundraising Pool', 'Airdopr Pool']}
+		/>
 	</>
 }

@@ -1,2 +1,2 @@
-export * from './DAO/types';
+export * from './Spaces/types';
 export * from './authorize/types';

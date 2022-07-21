@@ -559,7 +559,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						borderRadius : "12px" ,
 						height : "100%" ,
 						borderWidth : "2px" ,
-						
 					} }
 					onClick = { () => {
 						globalSetState( {

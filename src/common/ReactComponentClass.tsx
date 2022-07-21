@@ -102,7 +102,7 @@ export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = a
 					callback( false );
 					depList = data;
 				} else {
-					crayon.red( 'reaction called but data not changed' );
+					// crayon.red( 'reaction called but data not changed' );
 				}
 				
 			} );

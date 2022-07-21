@@ -24,7 +24,7 @@ import Web3Onboard from '@web3-onboard/core';
 // import blocknativeIcon from './icon/blocknatieIcon.svg';
 // import blocknativeLogo from './icon/blocknativeLogo.svg';
 
-const INFURA_KEY = '1886ff3d0a1143689424a8341cb75c66';
+const INFURA_KEY = 'b01bd727dc1748f8bd1ada4a1a8f34d8';
 
 const injected = injectedModule();
 
@@ -155,11 +155,7 @@ const options:InitOptions =  {
 			} ,
 		] ,
 		// Optional - but allows for dapps to require users to agree to TOS and privacy policy before connecting a wallet
-		agreement : {
-			version : '1.0.0' ,
-			termsUrl : 'https://www.blocknative.com/terms-conditions' ,
-			privacyUrl : 'https://www.blocknative.com/privacy-policy' ,
-		} ,
+		
 	} ,
 	// example customising copy
 	// i18n: {

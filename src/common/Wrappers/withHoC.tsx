@@ -1,5 +1,4 @@
 import { Component } from 'react';
-/*@ts-ignore*/
 import { observer as observerLite , parentObserver} from 'mobx-react-lite';
 import { observer } from 'mobx-react';
 
@@ -25,7 +24,7 @@ export function withHoC<T extends ( React.Component & React.FC )>( OriginalCompo
 	
 	const baseRender = OriginalComponent.prototype.render;
 	
-	function HooksProvider( { instance,random } , ref ,  ): any {
+	function HooksProvider( { instance } , ref ,  ): any {
 		
 	
 		return baseRender.call(instance);

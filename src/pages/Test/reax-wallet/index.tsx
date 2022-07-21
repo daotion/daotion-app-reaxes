@@ -1,6 +1,5 @@
 import {
 	reaxel_wallet ,
-	reaxel_chain ,
 } from '@@reaxes';
 
 export const TextWallet = ComponentWrapper( class extends ReactComponentClass {

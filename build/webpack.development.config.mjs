@@ -24,7 +24,7 @@ export const developmentConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$
 		} ,
 		compress : false ,
 		port : port ,
-		https:true ,
+		server : "https" ,
 		host : '0.0.0.0' ,
 		hot : true , 
 		open : false ,

@@ -9,7 +9,7 @@ export const SelectArrowIconSvgComponent = ( props?: Props ) => {
 	
 	const { color } = Object.assign(
 		{
-			color : "#6F767E" ,
+			color : "#222528" ,
 		} ,
 		props ,
 	);

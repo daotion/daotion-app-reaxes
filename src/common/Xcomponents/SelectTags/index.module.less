@@ -1,0 +1,19 @@
+@import "/src/styles/variable.module.less";
+
+.daotion-select-tags {
+  display: inline-block;
+
+  :global {
+    .ant-select-selector {
+      box-sizing: border-box !important;
+      border: 2px solid @neutrals_5 !important;
+      border-radius: 12px !important;
+      box-shadow: none !important;
+    }
+
+    .ant-select-selection-item {
+      box-sizing: border-box;
+      border-radius: 8px !important;
+    }
+  }
+}

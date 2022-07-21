@@ -1,0 +1,102 @@
+.member-lists::-webkit-scrollbar{
+	width:4px;
+	height:128px;
+}
+.member-lists::-webkit-scrollbar-track{
+	background: rgb(239, 239, 239);
+	border-radius:2px;
+}
+.member-lists::-webkit-scrollbar-thumb{
+	background: #aeaeae;
+	border-radius:13px;
+}
+.member-lists::-webkit-scrollbar-thumb:hover{
+	background: #333;
+}
+.member-item:not(:last-child){
+	margin-bottom: 8px;
+}
+
+.content-left{
+	display: flex;
+	flex-flow: column wrap;
+	margin-right: 16px;
+	flex: 0 1 0%;
+}
+.tab-setting-nav{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	margin: 0 0 32px 0;
+	width: 1200px;
+}
+.content-box{
+	display: flex;
+	flex-flow: row;
+	justify-content: flex-start;
+	width: 1200px;
+	margin-top: 16px;
+	background-color: rgb(244, 245, 246);
+}
+
+.space-join{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgb(255, 255, 255);
+	padding-top: 48px;
+	margin-bottom: 8px;
+}
+.space-name{
+	color: rgb(22, 22, 26);
+	font-size: 32px;
+	font-weight: 600;
+	line-height: 39px;
+	vertical-align: middle;
+}
+
+
+
+.space-info {
+	
+	.banner {
+		background-color : #E6E8EC;
+		
+		.edit-cover {
+			background-color: rgb(20, 20, 22);
+			border-radius: 12px;
+			padding: 16px;
+			display: none;
+			align-items: center;
+			height: 48px;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 16px;
+			color: rgb(252, 252, 253);
+			position: absolute;
+			bottom: 24px;
+			right: 32px;
+			top: 228px;
+			flex-flow: row nowrap;
+			user-select: none;
+			cursor: pointer;
+			
+		}
+		&:hover {
+			.edit-cover {
+				display: flex;
+			}
+		}
+	}
+	
+	.bios {
+		font-size: 14px;
+		color: rgb(119, 126, 145);
+		font-weight: 500;
+		margin-top: 16px;
+		height: 66px;
+		width: 568px;
+		margin-bottom: 0;
+	}
+}

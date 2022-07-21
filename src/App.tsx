@@ -16,8 +16,9 @@ import { Routing } from './Routing';
 import { Home } from '@@pages/Home';
 import 'antd/dist/antd.less';
 import "./styles/main.module.less";
+import './styles/web3-onboard.cover.less';
 
-class _App extends ReactComponentClass<any , any> {
+export const App = ComponentWrapper(class extends ReactComponentClass {
 	
 	
 	componentDidRender( stage , prevProps , prevState : Readonly<any> , snapshot? : any ) {
@@ -50,12 +51,6 @@ class _App extends ReactComponentClass<any , any> {
 		</>;
 	}
 	
-}
+});
 
-
-export const App = (
-	ComponentWrapper( (
-		_App
-	) )
-);
 
