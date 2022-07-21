@@ -8,26 +8,16 @@ import { DxzVoting_Settings } from './dxz-voting_settings';
 import { SignTest } from './Sign';
 import { DxzPluginList } from './dxz-plugin-list';
 import { UseSyncExternalStore } from './useSyncExternalStore';
-// import { TextWallet } from './reax-wallet';
+import { TextWallet } from './reax-wallet';
 import { DxzTokenOverview } from './dxz-Token-overview';
-// import { DxzDaotionPop as DeprecatedDxzDaotionPop } from './dxz-Daotion-pop';
+import { DxzDaotionPop } from './dxz-Daotion-pop';
 import { DxzPluginBrowse } from './dxz-plugin-browse';
-import { DxzDAOList } from './dxz-DAO-list';
-import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
-// import { BlockiesIdenticon } from './blockies-identicon';
-import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
-import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
-import { DxzSpaceSettings } from './dxz-social-general';
-import { DxzEditProfilePop } from './dxz-edit-profile-pop';
-import { FileUpload } from './File-Upload';
-import InputTest from './componentTest/inputTest';
-import DarkThemeTest from './darkTheme';
-import { DxzUIKits } from './dxz-UI-kits';
+import { DxzSpaceList } from './dxz-space-list';
 
-export const Test = () => <div className = { less.HomeRoot }>
-	<InputTest />
-</div>;
+import { BlockiesIdenticon } from './blockies-identicon';
 
+const C = DxzSpaceList;
+
+export const Test = () => <C />;
 
 import "antd/dist/antd.less";
-import less from '../../styles/main.module.less';
