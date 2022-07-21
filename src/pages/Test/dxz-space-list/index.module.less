@@ -1,18 +1,33 @@
-.DAO-item{
+.space-item {
 	user-select: none;
 	margin: 8px 0px;
-	&:first-child{
+	
+	&:first-child {
 		margin-top: 12px;
 	}
 }
-.seleted-line{
-	&:first-child{
-		top:92px;
+
+.seleted-block {
+	transition: height 5s;
+	width: 4px;
+	height:36px;
+	background: #3772ff;
+	border-radius: 0px 4px 4px 0px;
+	position:absolute;
+	left:-8px;
+	right:44px;
+	top:3px;
+	display: none;
+	&:first-child {
+		top: 92px;
 	}
 }
-.DAO-item .left-block{
-	display:none;
+
+.space-item .hover-block {
+	display: none;
 }
-.DAO-item:hover .left-block{
-	display:block;
+
+.space-item:hover .hover-block {
+	display: block;
+	transition: all 3s;
 }
