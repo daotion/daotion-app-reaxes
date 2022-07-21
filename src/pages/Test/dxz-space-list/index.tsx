@@ -1,6 +1,6 @@
 import less from './index.module.less';
 
-export const DxzDAOList = () => {
+export const DxzSpaceList = () => {
 	
 	const [ current , setCurrent ] = useState( 0 );
 	
@@ -29,13 +29,13 @@ export const DxzDAOList = () => {
 			>
 				
 				<div
-				className="DAO-list"
+				className="Space-list"
 					style={{
 					}}
 				>
 					<img
 						src = "https://s1.ax1x.com/2022/07/12/jg9ss0.png"
-						alt = "DAO"
+						alt = "Space"
 						width = "40px"
 						height = "40px"
 						style = { {
@@ -59,7 +59,7 @@ export const DxzDAOList = () => {
 					>
 						{ new Array( 8 ).fill( '' ).
 						map( ( _ , i ) => {
-							return <DAO
+							return <Space
 								key = { i }
 								onClick = { () => {
 									setCurrent( i );
@@ -75,7 +75,7 @@ export const DxzDAOList = () => {
 						} }
 					/>
 				</div>
-				<div className="add-DAO-btn"
+				<div className="add-Space-btn"
 				style={{
 					height:"54px"
 				}}
@@ -117,10 +117,10 @@ const SeletedLine = ( props : { style : React.CSSProperties } ) => (
 	)
 ;
 
-const DAO = ( props ) =>
+const Space = ( props ) =>
 	<div
 		onClick = { props.onClick }
-		className = { less.DAOItem }
+		className = { less.SpaceItem }
 		style={{
 			position:"relative",
 		}}
@@ -130,7 +130,7 @@ const DAO = ( props ) =>
 				borderRadius : "12px" ,
 			} }
 			src = "https://s1.ax1x.com/2022/07/12/jg9ss0.png"
-			alt = "DAO"
+			alt = "Space"
 			width = "40px"
 			height = "40px"
 		/>
