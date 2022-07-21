@@ -33,6 +33,7 @@ export const SelectTags: React.FC<SelectProps> = (props) => {
     <div className={less.daotionSelectTags}>
       <Select
         mode="tags"
+        allowClear
         showArrow
         tagRender={tagRender}
         notFoundContent="Not Found"
