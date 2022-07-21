@@ -3,8 +3,15 @@ import { SelectTags, Option } from "@@common/Xcomponents/SelectTags";
 import { BtnCreateSpaceSvgComponent } from "@@pages/_SvgComponents/Btn-Create-Space.svg-component";
 import { HeaderToggleThemeIconSvgComponent } from "@@pages/_SvgComponents";
 import { Select } from "@@common/Xcomponents/Select";
+import Switch from '@@common/Xcomponents/Switch';
 
 const InputTest = () => {
+  const [checked, setChecked] = useState(false); // 按钮checked状态
+
+  const toggleSwitch = useCallback(() => {
+    setChecked((prev) => !prev);
+  }, []);
+
   return (
     <div
       style={{
@@ -12,7 +19,9 @@ const InputTest = () => {
         backgroundColor: "#676767",
       }}
     >
-      <Select defaultOpen={true} defaultValue="china" placeholder="Select a person">
+      <Switch isOn={checked} handleToggle={toggleSwitch} colorOne="#33383F" colorTwo="#204c2f" />
+
+      <Select defaultOpen={true} placeholder="Select a person">
         <Option value="china" label="China">
           <span>
             <span>🇨🇳</span>
@@ -27,6 +36,7 @@ const InputTest = () => {
         </Option>
       </Select>
       <SelectTags
+        defaultOpen={true}
         placeholder="Enter tags to describe your item"
         defaultValue={["aaa", "bbb", "ccc", "ddd", "eee"]}
       >
