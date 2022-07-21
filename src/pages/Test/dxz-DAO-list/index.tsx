@@ -67,7 +67,7 @@ export const DxzDAOList = () => {
 							/>;
 						} ) }
 					</div>
-					<Underline
+					<SeletedLine
 						style = { {
 							position : "absolute" ,
 							left : "0" ,
@@ -99,8 +99,8 @@ export const DxzDAOList = () => {
 };
 
 
-const Underline = ( props : { style : React.CSSProperties } ) => (
-		<svg className={less.underline}
+const SeletedLine = ( props : { style : React.CSSProperties } ) => (
+		<svg className={less.seletedLine}
 			style = { props.style }
 			width = "4px"
 			height = "36px"
