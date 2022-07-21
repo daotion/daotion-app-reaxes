@@ -36,6 +36,12 @@ export const SelectTags: React.FC<SelectProps> = (props) => {
         showArrow
         tagRender={tagRender}
         notFoundContent="Not Found"
+        dropdownClassName="daotion-dropdown"
+        dropdownStyle={{
+          padding: 4,
+          border: '2px solid #E6E8EC',
+          borderRadius: 12,
+        }}
         {...props}
       >
         {props.children}
