@@ -1,9 +1,10 @@
 import less from './index.module.less';
-import {reaxel_joined_DAO_list} from '@@reaxes';
+import {reaxel_joined_Space_list} from '@@reaxes';
 
 export const DxzSpaceList = () => {
 	
 	const [ current , setCurrent ] = useState( 0 );
+	const {joined_space_list} = reaxel_joined_Space_list();
 	
 	return <>
 		<div
@@ -57,14 +58,27 @@ export const DxzSpaceList = () => {
 							flexDirection : "column" ,
 						} }
 					>
-						{ new Array( 8 ).fill( '' ).
-						map( ( _ , i ) => {
-							return <Space
-								key = { i }
-								// onClick = { () => {
-								// 	setCurrent( i );
-								// } }
-							/>;
+						{ joined_space_list.map( ( spaceInfo , i ) => {
+							return <div
+								onClick={() => {
+									setCurrent(spaceInfo.spaceID);
+								}}
+								key = {spaceInfo.spaceID}
+								className = { less.spaceItem }
+							>
+								<img
+									style = { {
+										borderRadius : "12px" ,
+									} }
+									src = "https://s1.ax1x.com/2022/07/12/jg9ss0.png"
+									alt = "Space"
+									width = "40px"
+									height = "40px"
+								/>
+								<div
+									className = { current === spaceInfo.spaceID ? less.selectVisionSelected : less.selectVision  }
+								/>
+							</div>;
 						} ) }
 					</div>
 				
@@ -106,17 +120,11 @@ export const DxzSpaceList = () => {
 		</div>
 	</>;
 };
-const dxz=document.getElementById('dxz');
-function hh(  ) {
-	const blue = document.getElementById( 'blue' );
-	blue.style.display = 'block';
-}
 
 
 const Space = ( props ) =>
 	<div
 		id = "dxz"
-		onClick={hh}
 		// onClick = { props.onClick }
 		className = { less.spaceItem }
 		style = { {
@@ -133,23 +141,21 @@ const Space = ( props ) =>
 			height = "40px"
 		/>
 		<div
-			className = { less.seletedBlock }
-			style={{display:"none"}}
-			id="blue"
+			className = { less.block }
 		/>
-		<div
-			className = { less.hoverBlock }
-			style = { {
-				background : "#3772ff" ,
-				borderRadius : ' 0px 4px 4px 0px' ,
-				width : "4px" ,
-				height : "20px" ,
-				position : "absolute" ,
-				left : "-8px" ,
-				right : "44px" ,
-				top : "10px" ,
-			} }
-		></div>
+		{/*<div*/}
+		{/*	className = { less.hoverBlock }*/}
+		{/*	style = { {*/}
+		{/*		background : "#3772ff" ,*/}
+		{/*		borderRadius : ' 0px 4px 4px 0px' ,*/}
+		{/*		width : "4px" ,*/}
+		{/*		height : "20px" ,*/}
+		{/*		position : "absolute" ,*/}
+		{/*		left : "-8px" ,*/}
+		{/*		right : "44px" ,*/}
+		{/*		top : "10px" ,*/}
+		{/*	} }*/}
+		{/*></div>*/}
 	</div>;
 
 

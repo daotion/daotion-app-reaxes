@@ -1,33 +1,79 @@
 .space-item {
 	user-select: none;
 	margin: 8px 0px;
+	display: flex;
+	transform: translate(0);
+	align-items: center;
 	
 	&:first-child {
 		margin-top: 12px;
 	}
+	
+	
+	
+	&:hover{
+		.select-vision{
+			height: 20px;
+		}
+	}
+	
+	
+	.select-vision {
+		.base() {
+			transition: .25s height ease;
+			width: 4px;
+			height: 0;
+			position: absolute;
+			background: #3772ff;
+			border-radius: 0px 4px 4px 0px;
+			margin-left: -8px;
+			display: block;
+			
+		}
+		.base();
+		
+		&-selected {
+			.base();
+			height: 36px;
+		}
+	}
+	
 }
 
-.seleted-block {
-	transition: height 5s;
+
+
+
+
+.-space-item {
+	.block {
+		display: inline-block;
+		transition: 1s all cubic-bezier(.40, .8, .23, 1.2);
+		width: 4px;
+		height: 36px;
+		background: #3772ff;
+		border-radius: 0px 4px 4px 0px;
+		position: absolute;
+		left: -8px;
+		right: 44px;
+		top: 3px;
+		
+		&:first-child {
+			top: 92px;
+		}
+	}
+	
+	
+}
+
+.-hover-block {
+	transition: 1s all ease-in-out;
 	width: 4px;
-	height:36px;
+	height: 20px;
 	background: #3772ff;
 	border-radius: 0px 4px 4px 0px;
-	position:absolute;
-	left:-8px;
-	right:44px;
-	top:3px;
+	position: absolute;
+	left: -8px;
+	right: 44px;
+	top: 10px;
 	display: none;
-	&:first-child {
-		top: 92px;
-	}
-}
-
-.space-item .hover-block {
-	display: none;
-}
-
-.space-item:hover .hover-block {
-	display: block;
-	transition: all 3s;
 }
