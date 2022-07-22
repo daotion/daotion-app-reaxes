@@ -5,3 +5,7 @@ declare module '*.module.less' {
 	
 	export default classes;
 }
+declare module '*.theme.less' {
+	const theme : string;
+	export default theme;
+}

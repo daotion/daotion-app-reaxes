@@ -23,9 +23,10 @@ import { FileUpload } from './File-Upload';
 import InputTest from './componentTest/inputTest';
 import DarkThemeTest from './darkTheme';
 import { DxzUIKits } from './dxz-UI-kits';
+import {KaneDarkMode} from './kane-dark-mode';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzDAOList />
+	<KaneDarkMode />
 </div>;
 
 

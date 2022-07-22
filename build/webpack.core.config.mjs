@@ -109,7 +109,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 				] ,
 			} ,
 			{
-				test : /(?<!\.module)\.less$/ ,
+				test : /(?<!(\.module|\.theme))\.less$/ ,
 				use : [
 					{
 						loader : 'style-loader' ,
@@ -142,7 +142,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 				] ,
 			} ,
 			{
-				test : /(?<!\.module)\.css$/ ,
+				test : /(?<!(\.module|\.theme))\.css$/ ,
 				use : [
 					{
 						loader : 'style-loader' ,
@@ -150,6 +150,25 @@ export const basicConfig$Fn = (plugins = []) => ({
 					{
 						loader : 'css-loader' ,
 						options : pick(cssLoaderOptions,["sourceMap"]) ,
+					} ,
+				] ,
+			} ,
+			{
+				test : /\.theme\.(le|c)ss$/ ,
+				// type :  "asset/source",
+				use : [
+					{
+						loader : 'css-loader' ,
+						options : pick(cssLoaderOptions,["sourceMap"]) ,
+					} ,
+					{
+						loader : 'less-loader' ,
+						options : {
+							sourceMap : true ,
+							lessOptions : {
+								javascriptEnabled : true ,
+							} ,
+						} ,
 					} ,
 				] ,
 			} ,
