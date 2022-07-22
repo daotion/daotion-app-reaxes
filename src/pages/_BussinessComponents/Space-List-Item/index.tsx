@@ -70,11 +70,12 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 							style = { {
 								fontSize : "16px" ,
 								fontWeight : "bold" ,
-								display : "flex" ,
-								flexFlow : "row wrap" ,
-								width : "100%",
-								justifyContent : "center" ,
-								textAlignLast:"center"
+								display:"block",
+								textAlign:"center",
+								whiteSpace:"nowrap",
+								overflow:"hidden",
+								textOverflow:"ellipsis",
+								width : "180px",
 							} }
 						>{ info.name }</span>
 					
