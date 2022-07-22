@@ -79,10 +79,6 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 							key = { text }
 							text = { text }
 						/> ) }
-						{ info.tags.map( text => <Space_Item_Tag
-							key = { text }
-							text = { text }
-						/> ) }
 					</div>
 					
 					{ this.JSX.join_or_leave() }
