@@ -8,7 +8,7 @@ import {reaxel_wallet} from '@@reaxes/wallet/wallet';
 import {reaxel_user} from '@@reaxes/authurize/user';
 import {reaxel_space_list} from '@@reaxes/Spaces/all-space-list';
 
-import less from './create-space-modal.module.less';
+import less from '../../styles/reaxels.module.less';
 import spaceTags from '@@Public/space-tags.json';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { SpaceFactoryAbi } from '@@common/contract/abi';
@@ -166,6 +166,7 @@ export const reaxel_create_space = function () {
 							// visible = { true }
 							centered
 							maskClosable
+							closeIcon={ <SVGCloseIcon/> }
 							mask = { true }
 							className = { less.antdCreateSpaceModal }
 							onCancel = { () => setState( { visible : false } ) }
@@ -302,3 +303,11 @@ export const reaxel_create_space = function () {
 		};
 	};
 }();
+const SVGCloseIcon=()=>{
+	return<>
+		<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z" fill="#313436"/>
+			<rect x="1" y="1" width="38" height="38" rx="19" stroke="#E6E8EC" stroke-width="2"/>
+		</svg>
+	</>
+}

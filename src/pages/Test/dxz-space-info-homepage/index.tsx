@@ -27,6 +27,8 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 				justifyContent : "center" ,
 				flexFlow : "column wrap" ,
 				minWidth : "fit-content" ,
+				minHeight:"fit-content",
+				paddingBottom:"64px",
 			} }
 		>
 			<header
@@ -71,10 +73,11 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 						src = { spaceInfo?.iconUrl }
 						style = { {
 							borderRadius : "16px" ,
-							width : "124px" ,
-							height : "124px" ,
+							width : "116px" ,
+							height : "116px" ,
 							objectFit : "cover" ,
 							objectPosition : "50% 50%" ,
+							border:"4px solid #ffffff"
 						} }
 					/>
 				</div>
@@ -108,8 +111,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 					<div
 						style = { {
 							display : "flex" ,
-							marginRight : "32px" ,
-							
+							justifyContent:"space-between",
 						} }
 					>
 						<ShareIcon></ShareIcon>
@@ -118,11 +120,11 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 							style = { {
 								width : "140px" ,
 								height : "48px" ,
-								backgroundColor : "#f4f5f6" ,
 								borderRadius : "12px" ,
-								color : "#777e90" ,
 								fontSize : "16px" ,
 								fontWeight : "600" ,
+								background:"#0070f3",
+								color:"#ffffff",
 							} }
 						/>
 					</div>

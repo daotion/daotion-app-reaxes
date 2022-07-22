@@ -13,6 +13,7 @@ import { DxzTokenOverview } from './dxz-Token-overview';
 // import { DxzDaotionPop as DeprecatedDxzDaotionPop } from './dxz-Daotion-pop';
 import { DxzPluginBrowse } from './dxz-plugin-browse';
 import { DxzDAOList } from './dxz-DAO-list';
+import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzSpaceHomeJoined } from './dxz-space-info-homepage';
@@ -24,6 +25,7 @@ import InputTest from './componentTest/inputTest';
 import DarkThemeTest from './darkTheme';
 import { DxzUIKits } from './dxz-UI-kits';
 import {KaneDarkMode} from './kane-dark-mode';
+import { DxzSpaceList } from './dxz-space-list';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	<KaneDarkMode />

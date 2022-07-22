@@ -38,6 +38,7 @@ export const reaxel_user = function () {
 			// }
 			const pairs = address_map_private_key_utils.getAll();
 			pairs[address] = privateKey;
+			console.log( pairs );
 			orzLocalstroage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( pairs ) );
 		} ,
 		remove(address:string) {
@@ -57,6 +58,7 @@ export const reaxel_user = function () {
 	
 	reax_wallet.address_memoed_reaction( ( address ) => {
 		if ( address ) {
+			console.log( 'pppppppppppppppppppppppp' );
 			setState( { real_address : address } );
 			const privateKey = checkAddressIsLoggedIn( address );
 			if ( privateKey ) {
@@ -84,7 +86,7 @@ export const reaxel_user = function () {
 						address : fakeAddress ,
 						privateKey : fakePrivateKey ,
 					} = fakeWallet;
-					const real_address = store.real_address || globalStore.wallet.accounts[ 0 ].address;
+					const real_address = store.real_address || reax_wallet.account.address;
 					
 					const message = {
 						from : real_address ,
@@ -106,7 +108,7 @@ export const reaxel_user = function () {
 					);
 					
 					return reax_wallet.web3Provider.send( 'eth_signTypedData_v3' , [
-						globalStore.wallet.accounts[ 0 ].address.toLowerCase() ,
+						store.real_address.toLowerCase() ,
 						JSON.stringify( data ) ,
 					] ).
 					then( ( res ) => {
@@ -122,10 +124,10 @@ export const reaxel_user = function () {
 							reax_wallet.account.address ,
 							fakePrivateKey,
 						] );
+						console.log(fakePrivateKey);
 						setState( {
 							logged_in : true ,
 							privateKey : fakePrivateKey ,
-							real_address,
 							fakeWallet ,
 						} );
 					} );
@@ -137,6 +139,7 @@ export const reaxel_user = function () {
 			},
 			/*传入要被签名的对象或字符串*/
 			async signByFakeWallet(data:any){
+				console.log(logProxy(store));
 				if(!store.fakeWallet){
 					await ret.loginWithUserWallet();
 				}
@@ -156,8 +159,6 @@ export const reaxel_user = function () {
 					logged_in : false ,
 					/*假钱包私钥*/
 					privateKey : null ,
-					/*用户真实钱包的地址*/
-					real_address : null ,
 					fakeWallet : null ,
 				} );
 			},

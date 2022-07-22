@@ -11,8 +11,8 @@ import {
 	globalSetState ,
 	globalStore ,
 	invoke_root_click ,
-	subscribe_root_click ,
-	root_click_symbol
+	root_click_symbol ,
+	subscribe_root_click,
 } from '@@common/global-controller';
 import { XPopover } from '@@common/Xcomponents';
 
@@ -29,7 +29,11 @@ import {
 	ItemIconThemeSvgComponent ,
 } from '@@pages/_SvgComponents';
 
-import { reaxel_wallet ,reaxel_blockies } from '@@reaxes';
+import {
+	reaxel_blockies ,
+	reaxel_wallet,
+	reaxel_user,
+} from '@@reaxes';
 
 const { Button : DropdownButton } = Dropdown;
 
@@ -39,6 +43,8 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 	header_svg_tool = reaxel_header_svg_tool(this.lifecycle);
 	
 	reax_wallet = reaxel_wallet();
+	
+	reax_user = reaxel_user();
 	
 	reax_blockies = reaxel_blockies();
 	
@@ -582,12 +588,28 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					} }
 					onClick = { () => {
 						console.log( `url('data:image/svg+xml;base64,${window.btoa( this.header_svg_tool.inputSvgString )}')` );
+						
 					} }
 					autoFocus = { false }
 				>
 					<HeaderNotificationIconSvgComponent />
 				</Button>
 				
+				{__EXPERIMENTAL__ && this.reax_user.fake_wallet_store.logged_in && <Button
+					style = { {
+						padding : '8px 8px 10px 12px' ,
+						borderRadius : "12px" ,
+						height : "100%" ,
+						borderWidth : "2px" ,
+						marginLeft : "16px" ,
+					} }
+					onClick = { () => {
+						request.post('/user/invalidate-alias')
+					} }
+					autoFocus = { false }
+				>
+					logout
+				</Button>}
 				
 				{this.JSX.WalletNetworkBtn()}
 				{this.JSX.UserBtn()}

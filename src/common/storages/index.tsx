@@ -36,6 +36,7 @@ export const orzLocalstroage:ORZLocalstorage = (new class {
 	}
 	
 	set( key : string | symbol , value , expiration:number|BigInt = null) {
+		console.log( typeof key === "string" );
 		if ( typeof key === "string" ) {
 			localStorage.setItem( key , value );
 		} else {

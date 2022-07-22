@@ -125,7 +125,7 @@ export const request = new class {
 							clearInvalidFakeWallet();
 							orzLocalstroage.remove( storage_key_fake_wallets_secret_map );
 							return loginWithUserWallet().then(() => {
-								return this.fetch(orignal_url,orignal_options);
+								
 							});
 						}
 						/**/
