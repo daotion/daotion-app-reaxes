@@ -33,6 +33,10 @@ export namespace Space__user_joined_Space_list {
 			"spaceID" : number,
 			"address" : string,
 			"icon" : string,
+			/*space通知数量:-1静音*/
+			"notifyNums" : 0;
+			/*用户权限角色:1:普通用户,2:admin,3:controller*/
+			"role" : 1|2|3;
 			/*图标上的未读消息数,暂时砍掉*/
 			// "mapChainNotify" : {
 			// 	/**/

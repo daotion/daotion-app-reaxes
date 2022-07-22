@@ -6,7 +6,7 @@ import less from './style.module.less';
 import { reaxel_space_detail } from '@@reaxes/Spaces/space-detail';
 import { reaxel_user_join_or_leave_space } from '@@reaxes';
 
-import { DxzSpaceHomeJoined } from '@@pages/Test/dxz-space-home-joined';
+import { DxzSpaceHomeJoined } from '@@pages/Test/dxz-space-info-homepage';
 
 export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any , any> {
 	

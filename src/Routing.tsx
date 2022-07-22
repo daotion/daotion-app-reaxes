@@ -30,10 +30,10 @@ export const Routing = ( props ) => {
 				element = { utils.withOutlet( <DesignComponents /> ) }
 			/>
 			
-			<Route
+			{ __NODE_ENV__ === 'development' &&  <Route
 				path = "test/*"
 				element = { utils.withOutlet( <Test /> ) }
-			/>
+			/> }
 			
 			<Route
 				path = "react-template"

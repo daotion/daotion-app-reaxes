@@ -1,12 +1,14 @@
 import { DxzTokenOverview } from '../dxz-Token-overview';
 import {
 	Img ,
-	WalletAddressCopyBox,
+	WalletAddressCopyBox ,
+	
 } from '@@common/Xcomponents';
+import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
 import less from './index.module.less';
 import {
 	reaxel_joined_Space_list ,
-	reaxel_upload_pics,
+	reaxel_upload_pics ,
 } from '@@reaxes';
 import { Space___get_space_detail } from '@@requests/Spaces/types';
 
@@ -15,7 +17,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 	const { spaceInfo } = props;
 	
 	const reax_upload_banner = useRef( reaxel_upload_pics() );
-	const {JoinedBtn} = reaxel_joined_Space_list();
+	
 	return <>
 		<div
 			className = { less.spaceInfo }
@@ -111,7 +113,7 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 						} }
 					>
 						<ShareIcon></ShareIcon>
-						<JoinedBtn
+						<BtnSpaceJoinedSetting
 							spaceID = {spaceInfo?.spaceID}
 							style = { {
 								width : "140px" ,

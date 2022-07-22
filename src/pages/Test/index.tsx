@@ -15,7 +15,7 @@ import { DxzPluginBrowse } from './dxz-plugin-browse';
 import { DxzDAOList } from './dxz-DAO-list';
 import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
-import { DxzSpaceHomeJoined } from './dxz-space-home-joined';
+import { DxzSpaceHomeJoined } from './dxz-space-info-homepage';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import { DxzSpaceSettings } from './dxz-social-general';
 import { DxzEditProfilePop } from './dxz-edit-profile-pop';
@@ -25,7 +25,7 @@ import DarkThemeTest from './darkTheme';
 import { DxzUIKits } from './dxz-UI-kits';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<InputTest />
+	<DxzDAOList />
 </div>;
 
 

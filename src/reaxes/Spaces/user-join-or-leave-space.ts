@@ -29,7 +29,13 @@ export const reaxel_user_join_or_leave_space = function(){
 					address : data.joinAddress ,
 					data ,
 					signature,
-				} ).then((spaceInfo) => {
+				} ).catch((e) => {
+					antd.Modal.error({
+						title : e ,
+					});
+					throw e;
+				}).then((spaceInfo) => {
+					console.log('dffffff',spaceInfo);
 					reax_joined_space_list.set_joined_space_list( [
 						...reax_joined_space_list.joined_space_list ,
 						spaceInfo ,
@@ -54,7 +60,13 @@ export const reaxel_user_join_or_leave_space = function(){
 					data ,
 					address : reax_wallet.account.address,
 					signature,
-				} ).then(() => {
+				} ).catch((e) => {
+					
+					antd.Modal.error({
+						title : e ,
+					});
+					throw e;
+				}).then(() => {
 					reax_joined_space_list.set_joined_space_list( reax_joined_space_list.joined_space_list.filter( ( spaceInfo ) => spaceInfo.spaceID !== spaceID ) );
 				} );
 			} ,
