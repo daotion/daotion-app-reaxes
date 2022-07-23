@@ -9,28 +9,41 @@
 	border-radius: 12px;
 	box-shadow: 0 0 10px 1px #eeeeee;
 	
-	
 	&:first-child {
 		margin-top: 12px;
 	}
 	
-	
+	@keyframes expand{
+		from{
+			height : 0px;
+		}
+	}
+	@keyframes expand1{
+		from{
+			height : 20px;
+		}
+	}
 	&:hover {
 		.select-vision {
 			height: 20px;
+			opacity: 1;
+			animation: expand;
+			animation-duration: .3s;
+			animation-timing-function: ease;
 		}
 	}
 	
 	
 	.select-vision {
 		.base() {
-			transition: .25s height ease;
+			transition: opacity 0.4s ease;
 			width: 4px;
-			height: 0;
+			height: 0px;
+			opacity: 1;
 			position: absolute;
 			background: #3772ff;
 			border-radius: 0px 4px 4px 0px;
-			margin-left: -8px;
+			margin-left: -7px;
 			display: block;
 			
 		}
@@ -38,7 +51,11 @@
 		
 		&-selected {
 			.base();
+			animation: expand1;
+			animation-duration: .3s;
+			animation-timing-function: ease;
 			height: 36px;
+			opacity: 1;
 		}
 	}
 	
@@ -51,39 +68,6 @@
 }
 
 
-.-space-item {
-	.block {
-		display: inline-block;
-		transition: 1s all cubic-bezier(.40, .8, .23, 1.2);
-		width: 4px;
-		height: 36px;
-		background: #3772ff;
-		border-radius: 0px 4px 4px 0px;
-		position: absolute;
-		left: -8px;
-		right: 44px;
-		top: 3px;
-		
-		&:first-child {
-			top: 92px;
-		}
-	}
-	
-	
-}
-
-.-hover-block {
-	transition: 1s all ease-in-out;
-	width: 4px;
-	height: 20px;
-	background: #3772ff;
-	border-radius: 0px 4px 4px 0px;
-	position: absolute;
-	left: -8px;
-	right: 44px;
-	top: 10px;
-	display: none;
-}
 .container{
 	display: flex;
 	flex-flow: row nowrap;
