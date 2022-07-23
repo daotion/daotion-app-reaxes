@@ -7,31 +7,12 @@ export const DxzSpaceList = ComponentWrapper(() => {
 	const { joined_space_list } = reaxel_joined_Space_list();
 	
 	return <>
-		<div
-			style = { {
-				display : "flex" ,
-				flexFlow : "row nowrap" ,
-				backgroundColor : "#f4f4f4" ,
-				height : "100%",
-			} }
+		<div className={less.container}
+			
 		>
-			<div
-				style = { {
-					backgroundColor : "#f4f4f4" ,
-					height : "100%" ,
-					display : "flex" ,
-					flexFlow : "column wrap" ,
-					padding : "16px 8px 16px 8px" ,
-					background : "#ffffff" ,
-					borderRadius : "12px" ,
-					justifyContent : "space-between" ,
-					position : "relative" ,
-					marginLeft : "4px" ,
-				} }
+			<div className={less.spaceBox}
 			>
-				
 				<div
-					className = "Space-list"
 				>
 					<img
 						src = "https://s1.ax1x.com/2022/07/12/jg9ss0.png"
@@ -40,22 +21,13 @@ export const DxzSpaceList = ComponentWrapper(() => {
 						height = "40px"
 						style = { {
 							borderRadius : "12px" ,
-							margin : "8px 0px 12px 0px" ,
+							margin : "0px 0px 12px 0px" ,
 						} }
 					/>
-					<div
-						style = { {
-							background : " #e6e8ec" ,
-							width : '40px' ,
-							height : '1px' ,
-						} }
+					<div className={less.divider1}
 					></div>
 					
 					<div
-						style = { {
-							display : "flex" ,
-							flexDirection : "column" ,
-						} }
 					>
 						{ joined_space_list.map( ( spaceInfo , i ) => {
 							return <div
@@ -81,12 +53,8 @@ export const DxzSpaceList = ComponentWrapper(() => {
 						} ) }
 					</div>
 				</div>
-				<div
-					style = { {
-						height : "54px",
-					} }
-				>
-					<div
+				<div>
+					<div className={less.divider2}
 						style = { {
 							height : "2px" ,
 							width : "40px" ,
@@ -120,27 +88,6 @@ export const DxzSpaceList = ComponentWrapper(() => {
 });
 
 
-const Space = ( props ) =>
-	<div
-		id = "dxz"
-		// onClick = { props.onClick }
-		className = { less.spaceItem }
-		style = { {
-			position : "relative" ,
-		} }
-	>
-		<img
-			style = { {
-				borderRadius : "12px" ,
-			} }
-			src = "https://s1.ax1x.com/2022/07/12/jg9ss0.png"
-			alt = "Space"
-			width = "40px"
-			height = "40px"
-		/>
-		<div
-			className = { less.block }
-		/>
-	</div>;
+
 
 
