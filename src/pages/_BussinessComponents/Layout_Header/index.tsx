@@ -597,7 +597,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 				
 				{__EXPERIMENTAL__ && this.reax_user.fake_wallet_store.logged_in && <Button
 					style = { {
-						padding : '8px 8px 10px 12px' ,
+						padding : '8px' ,
 						borderRadius : "12px" ,
 						height : "100%" ,
 						borderWidth : "2px" ,

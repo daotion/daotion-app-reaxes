@@ -37,13 +37,13 @@ export const reaxel_joined_Space_list = function () {
 			return request_user_joined_space_list( async () => ({
 				address,
 			}) ).
-			then( ( data ) => setState( {
-				joined_space_list : data.infos ,
-			} ) ).
-			catch( ( e ) => {
+			catch( ( e ):never => {
 				console.error( e );
 				throw e;
-			} );
+			} ).
+			then( ( data ) => setState( {
+				joined_space_list : data.infos ,
+			} ) );
 		};
 		/*清空joined space list*/
 		const empty_joined_space_list = () => {

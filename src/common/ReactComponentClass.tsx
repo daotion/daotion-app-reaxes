@@ -2,7 +2,8 @@ import { Component } from 'react';
 import { reaction } from 'mobx';
 
 
-export class ReactComponentClass<Tprops extends {} = any , Tstate extends {} = any> extends Component<Tprops , Tstate> {
+export class ReactComponentClass<Tprops = {}, Tstate = {}> extends Component<Tprops , Tstate> {
+	
 	
 	#generateQueueID = function () {
 		let id = 0;

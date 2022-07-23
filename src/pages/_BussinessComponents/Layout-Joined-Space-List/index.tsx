@@ -5,11 +5,16 @@ import {
 	reaxel_wallet ,
 } from '@@reaxes';
 import {Img} from '@@common/Xcomponents';
-
+import {useParams} from 'react-router-dom';
 /**
  * 左侧的space list和Plugin list
  */
-export const Sider_Space_List = ComponentWrapper( class extends ReactComponentClass {
+export const Sider_Space_List = ComponentWrapper( class extends ReactComponentClass<any,{
+	
+	createSpaceModalShowing : boolean ,
+	selectingSpaceID : number,
+	
+}> {
 	
 	state = {
 		createSpaceModalShowing : false ,
@@ -22,22 +27,28 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 	
 	reax_create_space = reaxel_create_space();
 	
+	getSpaceIDFromUrl = () => {
+		return parseInt(location.pathname.match(/([\d]+)/)?.[0]);
+	};
+	
 	memoSetSelectingSpaceIDFromRoute = Reaxes.closuredMemo((routeSpaceID:number) => {
 		if(typeof routeSpaceID === "number" && !_.isNaN(routeSpaceID)){
 			setTimeout( () => this.setState( {
 				selectingSpaceID : routeSpaceID ,
 			} ) );
+		}else {
+			setTimeout( () => this.setState( {
+				selectingSpaceID : null ,
+			} ) );
 		}
 	},() =>[]);
 	
 	render() {
-		
 		return utils.withRouter( ( {
 			navigate ,
 			params ,
 		} ) => {
-			console.log(parseInt(params.spaceID));
-			this.memoSetSelectingSpaceIDFromRoute(() => [parseInt(params.spaceID)||null])(parseInt(params.spaceID)||null);
+			this.memoSetSelectingSpaceIDFromRoute(() => [this.getSpaceIDFromUrl()])(this.getSpaceIDFromUrl());
 			return <>
 				{/*左侧第一竖栏,用户已加入的space列表*/ }
 				<div
@@ -63,7 +74,7 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 						/>
 						<div
 							style = { {
-								width : 48 ,
+								width : 40 ,
 								height : 1 ,
 								backgroundColor : "#efefef" ,
 								marginTop : 12 ,
@@ -135,7 +146,7 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 					>
 						<div
 							style = { {
-								width : 48 ,
+								width : 40 ,
 								height : 2 ,
 								backgroundColor : "#efefef" ,
 								marginBottom : 12 ,

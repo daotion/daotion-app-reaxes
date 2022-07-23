@@ -16,8 +16,8 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 	
 	const { spaceInfo } = props;
 	
-	const reax_upload_banner = useRef( reaxel_upload_pics() );
-	
+	const reax_upload_banner = reaxel_upload_pics();
+	const reax_joined_Space_list = reaxel_joined_Space_list();
 	return <>
 		<div
 			className = { less.spaceInfo }
@@ -82,14 +82,18 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 					/>
 				</div>
 				
-				<div
+				{ reax_joined_Space_list.joined_space_list?.some((space) => {
+					if(space.spaceID === spaceInfo.spaceID && space.role === 3){
+						return true;
+					}
+				}) && <div
 					className = { less.editCover }
 					onClick = { () => {
-						reax_upload_banner.current.space_info_banner( spaceInfo.spaceID );
+						reax_upload_banner.space_info_banner( spaceInfo.spaceID );
 					} }
 				>
 					Edit cover
-				</div>
+				</div> }
 			</div>
 			<div
 				className = "info-box"
