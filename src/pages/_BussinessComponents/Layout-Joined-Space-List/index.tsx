@@ -14,7 +14,6 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 		createSpaceModalShowing : false ,
 	};
 	
-	
 	reax_joined_space_list = reaxel_joined_Space_list();
 	
 	reax_wallet = reaxel_wallet();
