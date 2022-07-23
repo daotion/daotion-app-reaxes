@@ -127,7 +127,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					</Button>
 				</>;
 			}
-			const currentNetworkInfo = this.reax_wallet.chains.find(({id}) => this.reax_wallet.chain.id === id);
+			const currentNetworkInfo = this.reax_wallet.chains.find(({id}) => this.reax_wallet.chain?.id === id);
 			return <>
 				<XPopover
 					overlayClassName = { less.userinfoPopoverContainer }
@@ -162,7 +162,7 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 							Select a network
 						</div>
 						{ this.reax_wallet.chains.map( ( chain ) => {
-							if ( chain.id === this.reax_wallet.chain.id ) {
+							if ( chain.id === this.reax_wallet.chain?.id ) {
 								
 								return <div
 									key = { chain.id }

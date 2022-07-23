@@ -3,10 +3,8 @@
  */
 import { Space___get_space_detail } from './types';
 
-export const request_space_detail = ( spaceID : number ) => request.post<Space___get_space_detail.response , Space___get_space_detail.payload>( `/space/space-detail` , {
-	body : {
-		spaceID ,
-	} ,
+export const request_space_detail = ( payload: PayloadBody<Space___get_space_detail.payload> ) => request.post<Space___get_space_detail.response , typeof payload>( `/space/space-detail` , {
+	body : payload ,
 } ).
 then( ( data ) => {
 	return data;

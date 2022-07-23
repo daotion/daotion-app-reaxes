@@ -1,8 +1,10 @@
 const upload = (iconType : "bannber" | "avatar") => {
 	
-	return (payload:Space__upload_pics.payload) => request.post<Space__upload_pics.response,Space__upload_pics.payload>(`/space/space-upload-icon`,{
-		body : payload ,
-	});
+	return (payload:PayloadBody<Space__upload_pics.payload>) => {
+		return request.post<Space__upload_pics.response,typeof payload>(`/space/space-upload-icon`,{
+			body : payload ,
+		})
+	};
 };
 
 import { Space__upload_pics } from './types';

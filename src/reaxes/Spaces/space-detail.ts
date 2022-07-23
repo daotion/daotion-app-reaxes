@@ -11,17 +11,22 @@ export const reaxel_space_detail = function (){
 		loading : true ,
 	} );
 	
-	const fetch_space_detail = ( spaceID:number ) => request_space_detail( spaceID ).
-	then( ( data ) => {
-		setState( {
-			spaceInfo : data ,
-			loading : false ,
+	const fetchUpdate_space_detail = ( spaceID:number ) => {
+		
+		return request_space_detail( async() => ({spaceID}) ).
+		catch((e):never => {
+			setState( {
+				loading : false ,
+			} );
+			throw e;
+		}).
+		then( ( data ) => {
+			setState( {
+				spaceInfo : data ,
+				loading : false ,
+			} );
 		} );
-	} ).catch((e) => {
-		setState( {
-			loading : false ,
-		} );
-	});
+	}
 	
 	return () => {
 		let ret;
@@ -31,7 +36,7 @@ export const reaxel_space_detail = function (){
 		 * 如果没差异则不会执行,此方法用于防止无限请求&渲染.
 		 */
 		const closuredFetchSpaceInfo = Reaxes.closuredMemo( ( spaceID:number ) => {
-			fetch_space_detail( spaceID );
+			fetchUpdate_space_detail( spaceID );
 		} , () => [] );
 		
 		return ret = {

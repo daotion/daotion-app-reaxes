@@ -23,9 +23,8 @@ export const reaxel_joined_Space_list = function () {
 	const { address_memoed_reaction } = reaxel_wallet();
 	
 	address_memoed_reaction( ( address ) => {
-		console.log( 'llllllllllllllll' );
 		if ( typeof address === "string" && address ) {
-			ret?.request_joined_space_list( address );
+			ret?.fetchUpdate_joined_space_list( address );
 		} else {
 			ret?.empty_joined_space_list?.();
 		}
@@ -34,8 +33,10 @@ export const reaxel_joined_Space_list = function () {
 	return () => {
 		
 		/*请求并更新加入的space list*/
-		const fetch_joined_space_list = ( address : string ) => {
-			return request_user_joined_space_list( address ).
+		const fetchUpdate_joined_space_list = ( address : string ) => {
+			return request_user_joined_space_list( async () => ({
+				address,
+			}) ).
 			then( ( data ) => setState( {
 				joined_space_list : data.infos ,
 			} ) ).
@@ -55,7 +56,7 @@ export const reaxel_joined_Space_list = function () {
 			get joined_space_list() {
 				return store.joined_space_list;
 			} ,
-			request_joined_space_list : fetch_joined_space_list ,
+			fetchUpdate_joined_space_list ,
 			set_joined_space_list( joined_space_list ) {
 				setState( {
 					joined_space_list ,

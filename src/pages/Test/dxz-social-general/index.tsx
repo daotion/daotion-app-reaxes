@@ -242,7 +242,12 @@ const reaxel_edit_space_settings = function(){
 			return ;
 		}
 		fetching = true;
-		const promise = request_space_detail( spaceID ).
+		const createPayload = async () => {
+			return {
+				spaceID ,
+			};
+		};
+		const promise = request_space_detail( createPayload ).
 		then( ( info ) => {
 			spaceInfo = {
 				bio : info.bio ,
@@ -296,12 +301,15 @@ const reaxel_edit_space_settings = function(){
 				// 	data.tags = store.tags.join(',');
 				// }
 				//
-				const fetch_space_general_modify = async () => {
-					return request_space_general_modify( {
+				const createPayload = async () => {
+					return {
 						address ,
 						data ,
 						signature : await reax_user.signByFakeWallet( data ) ,
-					} );
+					};
+				};
+				const fetch_space_general_modify = async () => {
+					return request_space_general_modify( createPayload );
 				};
 				// ret.closuredFetchSpaceInfo(currentSpaceID,true).then(() => {
 				// 	antd.Modal.success({title : "changed successful!"})

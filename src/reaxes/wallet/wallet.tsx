@@ -81,15 +81,22 @@ export const reaxel_wallet = function () {
 		settingChain : false ,
 		account : null ,
 	} );
+	
 	const memedChain = Reaxes.closuredMemo( ( chain : ConnectedChain ) => {
 		if ( chain ) {
 			setState( { chain } );
 		}
 	} , () => [] );
+	const memoedLogWalletInfo = Reaxes.closuredMemo((connectedWallet:WalletState) => {
+		if(true || store.wallet){
+			crayon.green( 'connectedWallet : ' , connectedWallet , connectedWallet.chains );
+		}
+	},() => [store.wallet]);
+	
 	/*wallet subscription监听钱包的(外部和内部)改动*/
 	web3Onboard.state.select( "wallets" ).
 	subscribe( ( [ connectedWallet ] ) => {
-		if ( connectedWallet === undefined ) {
+		if ( connectedWallet == undefined ) {
 			globalSetState( {
 				wallet : null ,
 				walletConnecting : false ,
@@ -101,8 +108,8 @@ export const reaxel_wallet = function () {
 			} );
 			return;
 		} else {
-			memedChain( () => [ connectedWallet.chains[ 0 ].id ] )( connectedWallet.chains[ 0 ] );
-			crayon.green( 'connectedWallet : ' , connectedWallet , connectedWallet.chains );
+			
+			memoedLogWalletInfo( () => [ connectedWallet ] )(connectedWallet);
 			globalSetState( {
 				wallet : connectedWallet ,
 				walletConnecting : false ,
@@ -113,6 +120,7 @@ export const reaxel_wallet = function () {
 				account : connectedWallet.accounts[0] ,
 			} );
 			setWalletToLocalstorage( connectedWallet );
+			memedChain( () => [ connectedWallet.chains?.[ 0 ]?.id ] )( connectedWallet.chains?.[ 0 ] );
 			return;
 		}
 	} );

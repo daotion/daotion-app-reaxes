@@ -58,7 +58,6 @@ export const reaxel_user = function () {
 	
 	reax_wallet.address_memoed_reaction( ( address ) => {
 		if ( address ) {
-			console.log( 'pppppppppppppppppppppppp' );
 			setState( { real_address : address } );
 			const privateKey = checkAddressIsLoggedIn( address );
 			if ( privateKey ) {
@@ -107,30 +106,31 @@ export const reaxel_user = function () {
 						}
 					);
 					
-					return reax_wallet.web3Provider.send( 'eth_signTypedData_v3' , [
-						store.real_address.toLowerCase() ,
-						JSON.stringify( data ) ,
-					] ).
-					then( ( res ) => {
-						return request_user_address_alias( {
+					
+					const createPayload = async () => {
+						const signature:string = await reax_wallet.web3Provider.send( 'eth_signTypedData_v3' , [
+							store.real_address.toLowerCase() ,
+							JSON.stringify( data ) ,
+						] );
+						return {
 							address : reax_wallet.account.address ,
 							data : message ,
-							signature : res ,
-						} );
-					} ).
-					then( ( res ) => {
-						crayon.green( "登录成功!" );
-						address_map_private_key_utils.add( [
-							reax_wallet.account.address ,
-							fakePrivateKey,
-						] );
-						console.log(fakePrivateKey);
-						setState( {
-							logged_in : true ,
-							privateKey : fakePrivateKey ,
-							fakeWallet ,
-						} );
+							signature ,
+						};
+					};
+					
+					await request_user_address_alias( createPayload);
+					
+					address_map_private_key_utils.add( [
+						reax_wallet.account.address ,
+						fakePrivateKey,
+					] );
+					setState( {
+						logged_in : true ,
+						privateKey : fakePrivateKey ,
+						fakeWallet ,
 					} );
+					crayon.green( "登录成功!" );
 				}
 			} ,
 			sign712(){
@@ -139,7 +139,6 @@ export const reaxel_user = function () {
 			},
 			/*传入要被签名的对象或字符串*/
 			async signByFakeWallet(data:any){
-				console.log(logProxy(store));
 				if(!store.fakeWallet){
 					await ret.loginWithUserWallet();
 				}

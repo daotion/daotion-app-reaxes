@@ -115,7 +115,7 @@ declare namespace ORZ {
 	
 	export type env = "server_dev"|"server_yang" | "default_server"  ;
 	
-	export type RequestOptions<body extends object> = Omit<RequestInit, 'body'> & {
+	export type RequestOptions<body extends () => (Promise<F>|F) ,F = any> = Omit<RequestInit, 'body'> & {
 		env? : env,
 		body?: body;
 		mock? : boolean ;
@@ -133,3 +133,6 @@ declare module 'mobx-react-lite' {
 	export const parentObserver : typeof import('node_modules/mobx-react-lite').observer;
 	export * from 'node_modules/mobx-react-lite/dist/index';
 }
+
+
+declare type PayloadBody<T> = () => Promise<T> | T; 

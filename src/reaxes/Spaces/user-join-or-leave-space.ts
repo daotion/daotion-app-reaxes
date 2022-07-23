@@ -23,13 +23,18 @@ export const reaxel_user_join_or_leave_space = function(){
 				};
 				
 				
-				const signature = await reax_user.signByFakeWallet( data );
 				
-				return request_user_join_space( {
-					address : data.joinAddress ,
-					data ,
-					signature,
-				} ).catch((e) => {
+				
+				const createPayload = async () => {
+					const signature = await reax_user.signByFakeWallet( data );
+					return {
+						address : data.joinAddress ,
+						data ,
+						signature,
+					};
+				};
+				
+				return request_user_join_space( createPayload ).catch((e) => {
 					antd.Modal.error({
 						title : e ,
 					});
@@ -55,18 +60,21 @@ export const reaxel_user_join_or_leave_space = function(){
 					leaveAddress : reax_wallet.account.address ,
 					timestamp : await request_server_timestamp(),
 				};
-				const signature = await reax_user.signByFakeWallet( data );
-				return request_user_leave_space( {
-					data ,
-					address : reax_wallet.account.address,
-					signature,
-				} ).catch((e) => {
+				const createPayload = async () => {
+					return {
+						data ,
+						address : reax_wallet.account.address,
+						signature: await reax_user.signByFakeWallet( data ),
+					}
+				}
+				return request_user_leave_space( createPayload).
+				catch((e):never => {
 					
 					antd.Modal.error({
 						title : e ,
 					});
 					throw e;
-				}).then(() => {
+				}).then((e) => {
 					reax_joined_space_list.set_joined_space_list( reax_joined_space_list.joined_space_list.filter( ( spaceInfo ) => spaceInfo.spaceID !== spaceID ) );
 				} );
 			} ,

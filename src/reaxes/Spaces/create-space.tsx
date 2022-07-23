@@ -40,19 +40,23 @@ export const reaxel_create_space = function () {
 		
 		const fetch_space_ID = async () => {
 			const address = reax_wallet.account.address;
-			const data_wait_for_signature = {
-				name : store.input_space_name ,
-				tags : store.select_types.join( ',' ) ,
-				email : store.input_email ,
-				/*当前用户地址*/
-				createAddress : address ,
-				timestamp : await request_server_timestamp() ,
-			};
-			return request_create_space( {
-				address ,
-				data : data_wait_for_signature ,
-				signature : await reax_user.signByFakeWallet( data_wait_for_signature ) ,
-			} );
+			
+			const createPayload = async () => {
+				const data = {
+					name : store.input_space_name ,
+					tags : store.select_types.join( ',' ) ,
+					email : store.input_email ,
+					/*当前用户地址*/
+					createAddress : address ,
+					timestamp : await request_server_timestamp() ,
+				};
+				return {
+					address ,
+					data : data ,
+					signature : await reax_user.signByFakeWallet( data ) ,
+				}
+			}
+			return request_create_space( createPayload);
 		};
 		
 		const contract_create = async ( spaceID : number ) => {

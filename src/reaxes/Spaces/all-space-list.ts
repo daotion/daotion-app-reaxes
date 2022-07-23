@@ -26,10 +26,12 @@ export const reaxel_space_list = function(){
 	return ( lifecycle : Lifecycle ) => {
 		
 		const fetch_all_spaces_list = () => {
-			return request_all_spaces_list( {
-				indexStart : store.indexStart ,
-				firstTimestamp : store.firstTimestamp ,
-				count : 20 ,
+			return request_all_spaces_list( async() => {
+				return {
+					indexStart : store.indexStart ,
+					firstTimestamp : store.firstTimestamp ,
+					count : 20 ,
+				}
 			} ).
 			then( ( data ) => {
 				setState( {
@@ -58,13 +60,13 @@ export const reaxel_space_list = function(){
 		
 		
 		const debouncedInputingSearch = utils.debounce( ( text:string ) => {
-			request_all_spaces_list( {
+			request_all_spaces_list( async () => ({
 				indexStart : 0 ,
 				firstTimestamp : 0 ,
 				count : 30 ,
 				nameSearch : text ,
 				tag : store.searchTagSelection ,
-			} ).
+			} )).
 			then( ( data ) => {
 				prevSearchText = text;
 				setState( {
@@ -76,13 +78,13 @@ export const reaxel_space_list = function(){
 		} , 600 , false );
 		
 		const fetchMore = ( count : number = 20 ) => {
-			return request_all_spaces_list( {
+			return request_all_spaces_list( async () => ({
 				indexStart : store.indexStart ,
 				firstTimestamp : store.firstTimestamp ,
 				count : count ,
 				nameSearch : prevSearchText,
 				tag : store.searchTagSelection ,
-			} ).
+			}) ).
 			then( ( data ) => {
 				setState( {
 					infos : [
@@ -97,13 +99,13 @@ export const reaxel_space_list = function(){
 		}
 		
 		const searchOnSelect = () => {
-			return request_all_spaces_list( {
+			return request_all_spaces_list( async () => ({
 				indexStart : 0 ,
 				firstTimestamp : 0 ,
 				count : 30 ,
 				nameSearch : store.searchText ,
 				tag : store.searchTagSelection,
-			} ).
+			} )).
 			then( ( data ) => {
 				setState( {
 					infos : data.infos ,

@@ -16,7 +16,7 @@ export const request = new class {
 	
 	#testHTTP = /^https?:\/\//;
 	
-	fetch = async <response extends any = any,request extends object = any>(
+	fetch = async <response ,request extends () => Promise<any>>(
 		orignal_url: string,
 		orignal_options: ORZ.RequestOptions<request>&{method:string} = {
 			method: 'GET',
@@ -67,14 +67,17 @@ export const request = new class {
 				return `${ prefixPath }${ url.startsWith( '/' ) ? url : `/${ url }`}`;
 			}
 		})();
+		
+		
 		/*把GET请求的body对象转成queryString.去除body属性*/
+		const payload = await orignal_options.body?.();
 		if (/GET/i.test(options.method)){
 			/*检测绝对地址中是否存在qs并警告*/
 			if(url.includes('?') && options.body) crayon.warn( 'url参数中不应包含queryString!' );
 			
-			if ( typeof options.body === 'object' && options.body !== null ) {
-				url += `?${ encodeQueryString( options.body ) }`;
-			} else if ( typeof options.body === 'string' ) {
+			if ( _.isObject(payload) ) {
+				url += `?${ encodeQueryString( payload ) }`;
+			} else if ( _.isString(payload) ) {
 				crayon.warn( 'options.body不能是字符串!' );
 				/*字符串不是合法的body,必须传对象或不传*/
 				return Promise.reject( 'options.body不能是字符串!' );
@@ -82,10 +85,15 @@ export const request = new class {
 			delete options.body;
 		} else {
 			/*支持请求体是FormData*/
-			if(options.body instanceof FormData){
+			if(_.isObject(payload) && payload instanceof FormData){
+				options.body = payload;
+			}else if (_.isPlainObject(payload)){
+				options.body = JSON.stringify(payload || {}) as request & string ;
+			}else if(!payload){
 				
 			}else {
-				options.body = JSON.stringify(options.body || {}) as request & string ;
+				crayon.trace( payload );
+				throw 'innerError: payload is not a plainObject';
 			}
 		}
 			
@@ -124,9 +132,7 @@ export const request = new class {
 							} = reaxel_user();
 							clearInvalidFakeWallet();
 							orzLocalstroage.remove( storage_key_fake_wallets_secret_map );
-							return loginWithUserWallet().then(() => {
-								
-							});
+							return loginWithUserWallet().then(() => this.fetch(orignal_url,orignal_options));
 						}
 						/**/
 						case 403: {
@@ -149,7 +155,7 @@ export const request = new class {
 		}
 	};
 	
-	post = async <response = any,request extends object = any>(
+	post = async <response = any,request extends () => Promise<any>|any = any>(
 		url: string,
 		options: ORZ.RequestOptions<request> = {},
 	): Promise<response> => {
@@ -159,7 +165,7 @@ export const request = new class {
 		});
 	};
 	
-	get = async <response = any,request extends object = any>(
+	get = async <response = any,request extends () => Promise<any>|any = any>(
 		url: string,
 		options: ORZ.RequestOptions<request> = {},
 	): Promise<response> => {

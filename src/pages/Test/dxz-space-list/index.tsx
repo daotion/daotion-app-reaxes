@@ -1,16 +1,16 @@
 import less from './index.module.less';
 import {reaxel_joined_Space_list} from '@@reaxes';
 
-export const DxzSpaceList = () => {
+export const DxzSpaceList = ComponentWrapper(() => {
 	
 	const [ current , setCurrent ] = useState( 0 );
-	const {joined_space_list} = reaxel_joined_Space_list();
+	const { joined_space_list } = reaxel_joined_Space_list();
 	
 	return <>
 		<div
 			style = { {
 				display : "flex" ,
-				flexFlow : "row wrap" ,
+				flexFlow : "row nowrap" ,
 				backgroundColor : "#f4f4f4" ,
 				height : "100%",
 			} }
@@ -32,7 +32,6 @@ export const DxzSpaceList = () => {
 				
 				<div
 					className = "Space-list"
-					style = { {} }
 				>
 					<img
 						src = "https://s1.ax1x.com/2022/07/12/jg9ss0.png"
@@ -81,7 +80,6 @@ export const DxzSpaceList = () => {
 							</div>;
 						} ) }
 					</div>
-				
 				</div>
 				<div
 					style = { {
@@ -119,7 +117,7 @@ export const DxzSpaceList = () => {
 			</div>
 		</div>
 	</>;
-};
+});
 
 
 const Space = ( props ) =>
@@ -143,19 +141,6 @@ const Space = ( props ) =>
 		<div
 			className = { less.block }
 		/>
-		{/*<div*/}
-		{/*	className = { less.hoverBlock }*/}
-		{/*	style = { {*/}
-		{/*		background : "#3772ff" ,*/}
-		{/*		borderRadius : ' 0px 4px 4px 0px' ,*/}
-		{/*		width : "4px" ,*/}
-		{/*		height : "20px" ,*/}
-		{/*		position : "absolute" ,*/}
-		{/*		left : "-8px" ,*/}
-		{/*		right : "44px" ,*/}
-		{/*		top : "10px" ,*/}
-		{/*	} }*/}
-		{/*></div>*/}
 	</div>;
 
 
