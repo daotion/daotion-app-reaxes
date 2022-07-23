@@ -58,29 +58,25 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 							} }
 						/>
 						{ this.reax_joined_space_list.joined_space_list.map( ( spaceInfo , index ) => {
-							
-							return <>
-									<div
-										key = { spaceInfo.spaceID }
-										onClick = { () => {
-											// crayon.blue( 'joined space info : ' , spaceInfo );
-											navigate( `./space${ spaceInfo.spaceID }/info` );
-										} }
-										style = { {
-											width : 48 ,
-											height : 48 ,
-											backgroundImage : `url("${ spaceInfo.icon }")` ,
-											backgroundPosition : "center" ,
-											backgroundRepeat : "no-repeat" ,
-											backgroundSize : "100%" ,
-											marginBottom : 16 ,
-											borderRadius : "12px" ,
-											backgroundColor : '#eeeeee' ,
-											boxShadow : '0px 1px 10px rgba(0, 0, 0, 0.1)' ,
-										} }
-									/>
-									
-							</>;
+							return <div
+								key = { spaceInfo.spaceID }
+								onClick = { () => {
+									// crayon.blue( 'joined space info : ' , spaceInfo );
+									navigate( `./space${ spaceInfo.spaceID }/info` );
+								} }
+								style = { {
+									width : 48 ,
+									height : 48 ,
+									backgroundImage : `url("${ spaceInfo.icon }")` ,
+									backgroundPosition : "center" ,
+									backgroundRepeat : "no-repeat" ,
+									backgroundSize : "100%" ,
+									marginBottom : 16 ,
+									borderRadius : "12px" ,
+									backgroundColor : '#eeeeee' ,
+									boxShadow : '0px 1px 10px rgba(0, 0, 0, 0.1)' ,
+								} }
+							/>;
 						} ) }
 					</div>
 					<div

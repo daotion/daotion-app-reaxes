@@ -40,7 +40,6 @@ export const reaxel_user_join_or_leave_space = function(){
 					});
 					throw e;
 				}).then((spaceInfo) => {
-					console.log('dffffff',spaceInfo);
 					reax_joined_space_list.set_joined_space_list( [
 						...reax_joined_space_list.joined_space_list ,
 						spaceInfo ,

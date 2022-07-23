@@ -135,4 +135,4 @@ declare module 'mobx-react-lite' {
 }
 
 
-declare type PayloadBody<T> = () => Promise<T> | T; 
+declare type PayloadBody<T> = () => (Promise<T> | T); 
