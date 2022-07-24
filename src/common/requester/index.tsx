@@ -22,7 +22,10 @@ export const request = new class {
 			method: 'GET',
 		},
 	): Promise<response> => {
-		let url = orignal_url,options = _.cloneDeep(orignal_options);
+		let 
+			url = orignal_url,
+			options = _.cloneDeep(orignal_options);
+		
 		const env = (options.env ?? __ENV__) ?? "default_server";
 		/**
 		 * 暂时禁用

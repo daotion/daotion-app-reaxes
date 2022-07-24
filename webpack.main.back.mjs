@@ -77,8 +77,8 @@ export let {
 ]);
 
 /*如果是dev环境则默认开启实验特性,除非明确说明*/
-if(!experimental && node_env === 'development') experimental = 'experimental';
-else if(!experimental && node_env === "production" ) experimental = 'non-exp';
+if(experimental === null && node_env === 'development') experimental = 'experimental';
+else if(node_env === "production" ) experimental = 'non-exp';
 const analysis = analyze ? [new BundleAnalyzerPlugin()] : []; 
 const devConfig = developmentConfig$Fn({
 	plugins : [
@@ -98,8 +98,8 @@ const prodConfig = productionConfig$Fn({
 	] ,
 });
 
-if ( mock ) {
-	console.log(chalk.yellowBright(`当前运行在全局mock模式下`));
+if ( process.argv.includes('mock') ) {
+	console.log(chalk.yellowBright(`当前运行在mock模式下`));
 }
 
 setTimeout(start);
