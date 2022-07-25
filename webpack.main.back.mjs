@@ -43,7 +43,7 @@ export let {
 	mock = null,
 	analyze = false ,
 	method = "server" ,
-	env = "default_server",
+	env = "unset",
 	node_env = "development",
 	experimental = null ,
 } = overload(args , [

@@ -4,44 +4,45 @@ type global_env_config = {
 		proxy_server : string;
 	}
 };
-const global_env_config = __ENV_CONFIG__.reduce((accu,itm) => {
-	accu[itm.env] = {
+const global_env_config = __ENV_CONFIG__.reduce( ( accu , itm ) => {
+	accu[ itm.env ] = {
 		proxy_dev : itm.proxy_path_dev ,
 		proxy_server : itm.proxy_path_server ,
 	};
 	return accu;
-},{} as global_env_config);
+} , {} as global_env_config );
 
 export const request = new class {
-	
+	/*测试是否是绝对地址*/
 	#testHTTP = /^https?:\/\//;
 	
-	fetch = async <response ,request extends () => Promise<any>>(
-		orignal_url: string,
-		orignal_options: ORZ.RequestOptions<request>&{method:string} = {
-			method: 'GET',
-		},
-	): Promise<response> => {
-		let 
-			url = orignal_url,
-			options = _.cloneDeep(orignal_options);
+	fetch = async <response , request extends () => ( Promise<ORZ.RequestOptions<any>> | ORZ.RequestOptions<any> )>(
+		orignal_url : string ,
+		orignal_options : ORZ.RequestOptions<request> & { method : string } = { method : 'GET' },
+	) : Promise<response> => {
 		
-		const env = (options.env ?? __ENV__) ?? "default_server";
+		let
+			url = orignal_url ,
+			options = _.cloneDeep( orignal_options );
+		
+		const env = (
+			options.env ?? __ENV__
+		) ?? "unset";
 		/**
 		 * 暂时禁用
 		 * 需 mock 的情形，走mock请求
 		 * */
-		if (false && __IS_MOCK__ && options.mock === true) {
+		if ( false && __IS_MOCK__ && options.mock === true ) {
 			try {
 				/*@ts-ignore*/
-				const resArr = mockArr.filter(item => url.endsWith(item.url));
-				if (resArr[0]?.code === 1) {
-					return resArr[0]?.data || [];
+				const resArr = mockArr.filter( item => url.endsWith( item.url ) );
+				if ( resArr[ 0 ]?.code === 1 ) {
+					return resArr[ 0 ]?.data || [];
 				} else {
-					throw Error('code not 1');
+					throw Error( 'code not 1' );
 				}
-			} catch (error) {
-				crayon.info['#ffd12cd9']('请检查mock文件相关配置!',url);
+			} catch ( error ) {
+				crayon.info[ '#ffd12cd9' ]( '请检查mock文件相关配置!' , url );
 			}
 		}
 		/**
@@ -49,38 +50,64 @@ export const request = new class {
 		 * 如果不是绝对地址则加http前缀
 		 * 这一步得到"http://baidu.com" || "/server_dev/space-list"
 		 */
-		url = (() => {
-			/*如果是绝对地址,则不作处理*/
-			if(this.#testHTTP.test( url )) return url;
-			else {
-				const prefixPath = (() => {
-					/**
-					 * 
-					 */
-					if(env === "default_server"){
-						if(__NODE_ENV__ === "development") return "/server_dev"
-						return "/server";
-					}else {
-						return {
-							"development" : global_env_config[env].proxy_dev ,
-							"production" : global_env_config[env].proxy_server ,
-						}[__NODE_ENV__];
-					}
-				})();
-				return `${ prefixPath }${ url.startsWith( '/' ) ? url : `/${ url }`}`;
+		url = (
+			() => {
+				/*如果是绝对地址,则不作处理*/
+				if ( this.#testHTTP.test( url ) ) {
+					return url;
+				} else {
+					/*requester.env > npm.env > auto unset */
+					const prefixPath = (
+						() => {
+							/*如果没有指定npm env,则判断运行环境后拼装proxy前缀*/
+							if ( env === "unset" ) {
+								/*如果没有指定requester.env*/
+								if ( !orignal_options.env ) {
+									if ( __NODE_ENV__ === "development" ) {
+										return "/server_dev";
+									} else {
+										return "/server";
+									}
+								} else {
+									/*如果指定了requester.env就用它*/
+									return {
+										"development" : global_env_config[ orignal_options.env ].proxy_dev ,
+										"production" : global_env_config[ orignal_options.env ].proxy_server ,
+									}[ __NODE_ENV__ ];
+								}
+							} else {
+								/*如果没有指定requester.env*/
+								if ( !orignal_options.env ) {
+									/*根据node_env生成proxy代理路径*/
+									return {
+										"development" : global_env_config[ env ].proxy_dev ,
+										"production" : global_env_config[ env ].proxy_server ,
+									}[ __NODE_ENV__ ];
+								} else {
+									/*如果指定了requester.env就用它*/
+									return {
+										"development" : global_env_config[ orignal_options.env ].proxy_dev ,
+										"production" : global_env_config[ orignal_options.env ].proxy_server ,
+									}[ __NODE_ENV__ ];
+								}
+							}
+						}
+					)();
+					return `${ prefixPath }${ url.startsWith( '/' ) ? url : `/${ url }` }`;
+				}
 			}
-		})();
+		)();
 		
 		
 		/*把GET请求的body对象转成queryString.去除body属性*/
 		const payload = await orignal_options.body?.();
-		if (/GET/i.test(options.method)){
+		if ( /GET/i.test( options.method ) ) {
 			/*检测绝对地址中是否存在qs并警告*/
-			if(url.includes('?') && options.body) crayon.warn( 'url参数中不应包含queryString!' );
+			if ( url.includes( '?' ) && orignal_options.hasOwnProperty( 'body' ) ) crayon.warn( 'url参数中不应包含queryString!' );
 			
-			if ( _.isObject(payload) ) {
+			if ( _.isObject( payload ) ) {
 				url += `?${ encodeQueryString( payload ) }`;
-			} else if ( _.isString(payload) ) {
+			} else if ( _.isString( payload ) ) {
 				crayon.warn( 'options.body不能是字符串!' );
 				/*字符串不是合法的body,必须传对象或不传*/
 				return Promise.reject( 'options.body不能是字符串!' );
@@ -88,41 +115,53 @@ export const request = new class {
 			delete options.body;
 		} else {
 			/*支持请求体是FormData*/
-			if(_.isObject(payload) && payload instanceof FormData){
+			if ( _.isObject( payload ) && payload instanceof FormData ) {
 				options.body = payload;
-			}else if (_.isPlainObject(payload)){
-				options.body = JSON.stringify(payload || {}) as request & string ;
-			}else if(!payload){
+			} else if ( _.isPlainObject( payload ) ) {
+				options.body = JSON.stringify( payload || {} ) as request & string;
+			} else if ( !payload ) {
 				
-			}else {
+			} else {
 				crayon.trace( payload );
 				throw 'innerError: payload is not a plainObject';
 			}
 		}
-			
-		try {
-			const real_address = __ENV_CONFIG__.find(({env}) => {
-				if(__ENV__ === "default_server" || __ENV__ === "server_dev"){
+		
+		/*在webpack devserver服务下显示出请求给后端的真实url路径*/
+		const real_address = (() => {
+			const host = __ENV_CONFIG__.find( ( { env } ) => {
+				if ( __ENV__ === "unset" || __ENV__ === "server_dev" ) {
 					return env === "server_dev";
 				}
-			}).server_host + url.replace(/\/(server_dev|server_yang|server_production)/,'');
-			const json: response = await fetch(url, {
-				credentials: 'include',
-				mode: 'cors',
-				...options,
-				body : options.body as request&string,
-				headers: {
+			} )?.server_host;
+			
+			if ( !host ) {
+				return {};
+			} else {
+				return {
+					"_real_address_" : host + url.replace( /\/(server_dev|server_yang|server_production)/ , '' ) ,
+				};
+			}
+		})();
+		try {
+			
+			const json : response = await fetch( url , {
+				credentials : 'include' ,
+				mode : 'cors' ,
+				...options ,
+				body : options.body as request & string ,
+				headers : {
 					/*没有devserver真实请求的地址*/
-					"_real_address_" : real_address,
-					...options.headers,
-				},
-			})
-			.then(response => {
+					...real_address,
+					...options.headers ,
+				} ,
+			} ).
+			then( response => {
 				return response.json();
-			})
-			.then(async (json: responseWrap<response> & response) => {
-				if (json.hasOwnProperty('code')) {
-					switch (json.code) {
+			} ).
+			then( async ( json : responseWrap<response> & response ) => {
+				if ( json.hasOwnProperty( 'code' ) ) {
+					switch ( json.code ) {
 						/*success*/
 						case 0: {
 							return json.data ?? null;
@@ -131,68 +170,70 @@ export const request = new class {
 							const {
 								loginWithUserWallet ,
 								clearInvalidFakeWallet ,
-								storage_key_fake_wallets_secret_map,
+								storage_key_fake_wallets_secret_map ,
 							} = reaxel_user();
 							clearInvalidFakeWallet();
 							orzLocalstroage.remove( storage_key_fake_wallets_secret_map );
-							return loginWithUserWallet().then(() => this.fetch(orignal_url,orignal_options));
+							return loginWithUserWallet().
+							then( () => this.fetch( orignal_url , orignal_options ) );
 						}
 						/**/
 						case 403: {
-							throw [symbol_no_authorized,json.message];
+							throw [
+								symbol_no_authorized ,
+								json.message,
+							];
 						}
-						default : 
+						default :
 							throw json.message;
 					}
-				}else {
+				} else {
 					throw 'uncatched error : 22041';
 				}
-			});
+			} );
 			
 			return json;
-		}catch ( e ) {
-			if(Array.isArray(e) && e[0] === symbol_no_authorized){
+		} catch ( e ) {
+			if ( Array.isArray( e ) && e[ 0 ] === symbol_no_authorized ) {
 				return Promise.reject( symbol_no_authorized );
 			}
 			return Promise.reject( e );
 		}
 	};
 	
-	post = async <response = any,request extends () => Promise<any>|any = any>(
-		url: string,
-		options: ORZ.RequestOptions<request> = {},
-	): Promise<response> => {
-		return this.fetch(url, {
-			method: 'POST',
-			...options,
-		});
+	post = async <response = any , request extends () => ( Promise<ORZ.RequestOptions<any>> | ORZ.RequestOptions<any> ) = any>(
+		url : string ,
+		options : ORZ.RequestOptions<request> = {} ,
+	) : Promise<response> => {
+		return this.fetch<response , request>( url , {
+			method : 'POST' ,
+			...options ,
+		} );
 	};
 	
-	get = async <response = any,request extends () => Promise<any>|any = any>(
-		url: string,
-		options: ORZ.RequestOptions<request> = {},
-	): Promise<response> => {
+	get = async <response = any , request extends () => Promise<any> | any = any>(
+		url : string ,
+		options : ORZ.RequestOptions<request> = {} ,
+	) : Promise<response> => {
 		const requestBody = function () {
-			if (typeof options.body === 'object' && options.body !== null) {
-				return encodeQueryString(options.body);
-			} else if (typeof options.body === 'string') {
+			if ( typeof options.body === 'object' && options.body !== null ) {
+				return encodeQueryString( options.body );
+			} else if ( typeof options.body === 'string' ) {
 				return options.body;
 			} else {
 				return null;
 			}
 		}();
 		
-		return this.fetch(`${url}${requestBody ? '?' : ''}${requestBody}`, {
-			..._.omit(options,['body']),
-			method: 'GET',
-		});
+		return this.fetch( `${ url }${ requestBody ? '?' : '' }${ requestBody }` , {
+			..._.omit( options , [ 'body' ] ) ,
+			method : 'GET' ,
+		} );
 	};
 };
 
 
-
-
 const symbol_no_authorized = Symbol( 'no_authorized' );
-import {reaxel_user} from '@@reaxes/authurize/user';
+import { reaxel_user } from '@@reaxes/authurize/user';
 import { orzLocalstroage } from '@@common/storages';
 

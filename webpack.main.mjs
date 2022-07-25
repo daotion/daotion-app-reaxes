@@ -1,4 +1,4 @@
-import Process , {} from 'process';
+import Process from 'process';
 import path from 'path';
 import fs from 'fs';
 import webpack from 'webpack';
@@ -26,7 +26,6 @@ const {
 } = webpack;
 /* 标记开始时间以记录build花费 */
 const startTime = Date.now();
-
 /**
  * 获取npm run <method> <env> <mock?>
  * @var method {"server"|"build"}
@@ -43,7 +42,7 @@ export let {
 	mock = null,
 	analyze = false ,
 	method = "server" ,
-	env = "default_server",
+	env = "unset",
 	node_env = "development",
 	experimental = null ,
 } = overload(args , [
@@ -76,14 +75,26 @@ export let {
 	} ,
 ]);
 
-/*如果是dev环境则默认开启实验特性,除非明确说明*/
-if(!experimental && node_env === 'development') experimental = 'experimental';
-else if(!experimental && node_env === "production" ) experimental = 'non-exp';
-const analysis = analyze ? [new BundleAnalyzerPlugin()] : []; 
+{
+	/*如果是dev环境则默认开启实验特性,除非明确说明*/
+	if ( !experimental ) {
+		node_env === 'development' ? experimental = 'experimental' : experimental = 'non-exp';
+	}
+	/*如果没有明确指定node_env:  npm.server下自动dev,npm.build是production*/
+	if ( !node_env ) {
+		if(method === "server"){
+			node_env = 'development';
+		}else {
+			node_env = 'production';
+		}
+	}
+}
+const analysis = analyze ? [new BundleAnalyzerPlugin()] : [];
+
 const devConfig = developmentConfig$Fn({
 	plugins : [
 		getProvidePlugin() ,
-		getDefinePlugin(node_env ) ,
+		getDefinePlugin() ,
 		...analysis,
 	] ,
 });
@@ -167,14 +178,14 @@ function build () {
 	return webpack_promise(prodConfig );
 };
 
-function getDefinePlugin (mode = node_env || 'production') {
+function getDefinePlugin () {
 	return new DefinePlugin({
 		// '__REACT_DEVTOOLS_GLOBAL_HOOK__' : '({ isDisabled: true })' , /* 递归遍历src/pages下的文件结合src/pages/Route_Map.json , 生成一份路由表注入到全局变量里 */
 		ROUTE_MAP : "{}" || generateRouteMap() , // 全局注入mock模式变量
 		__IS_MOCK__ : mock ? 'true' : 'false' ,
 		__ENV__ : JSON.stringify(env) ,
 		__ENV_CONFIG__ : JSON.stringify(envConfig) ,
-		__NODE_ENV__ : JSON.stringify(mode),
+		__NODE_ENV__ : JSON.stringify(node_env),
 		__EXPERIMENTAL__ : JSON.stringify(experimental === 'experimental'),
 	});
 };
