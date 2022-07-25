@@ -28,7 +28,7 @@ import {KaneDarkMode} from './kane-dark-mode';
 import { DxzSpaceList } from './dxz-space-list';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzSpaceList />
+	<DxzSpaceSettings />
 </div>;
 
 

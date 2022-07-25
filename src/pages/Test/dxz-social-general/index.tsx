@@ -1,25 +1,27 @@
 import less from './index.module.less';
-import {
-	Button ,
-	Input ,
-	Select ,
-} from 'antd';
+
 import spaceTags from '@@Public/space-tags.json';
-import { Img 
+import {
+	Img ,
+	Button ,
+	InputTextarea ,
+	Input ,
+	Option ,
+	Select ,
 } from '@@common/Xcomponents';
 
-const { Option } = Select;
+// const { Option } = Select;
 
-const { TextArea } = Input;
 export const DxzSpaceSettings = () => {
 	
 	const [ tab , setTab ] = useState<'social' | 'general'>( 'general' );
-	const spaceID = parseInt(useParams().spaceID);
+	const spaceID = parseInt( useParams().spaceID );
 	const Content = {
 		social : SocialProfile ,
 		general : GeneralProfile ,
 	}[ tab ];
-	reaxel_edit_space_settings().closuredFetchSpaceInfo( spaceID );
+	reaxel_edit_space_settings().
+	closuredFetchSpaceInfo( spaceID );
 	return <>
 		<div
 			className = { less.container }
@@ -36,24 +38,32 @@ export const DxzSpaceSettings = () => {
 
 import {
 	reaxel_upload_pics ,
-	reaxel_space_detail,
-	reaxel_wallet,
-	reaxel_user,
+	reaxel_space_detail ,
+	reaxel_wallet ,
+	reaxel_user ,
 	
 } from '@@reaxes';
-import {useParams} from 'react-router-dom';
-import {request_space_detail , request_space_general_modify,request_server_timestamp} from '@@requests';
-import {Space___get_space_detail} from '@@requests/Spaces/types';
-const GeneralProfile = ComponentWrapper(() => {
-	const spaceID = parseInt(useParams().spaceID);
-	const { getSpaceDetailMemoed , store : store__space_detail } = reaxel_space_detail();
-	const {space_settings_avatar : reax_upload_avatar } = reaxel_upload_pics();
+import { useParams } from 'react-router-dom';
+import {
+	request_space_detail ,
+	request_space_general_modify ,
+	request_server_timestamp ,
+} from '@@requests';
+import { Space___get_space_detail } from '@@requests/Spaces/types';
+
+const GeneralProfile = ComponentWrapper( () => {
+	const spaceID = parseInt( useParams().spaceID );
+	const {
+		getSpaceDetailMemoed ,
+		store : store__space_detail ,
+	} = reaxel_space_detail();
+	const { space_settings_avatar : reax_upload_avatar } = reaxel_upload_pics();
 	const {
 		InfoEquals ,
-		editingStore,
-		setEditingSpaceInfo,
-		closuredFetchSpaceInfo,
-		saveSpaceSettings,
+		editingStore ,
+		setEditingSpaceInfo ,
+		closuredFetchSpaceInfo ,
+		saveSpaceSettings ,
 	} = reaxel_edit_space_settings();
 	
 	[ store__space_detail.spaceInfo ];
@@ -72,27 +82,30 @@ const GeneralProfile = ComponentWrapper(() => {
 				className = { less.picBox }
 			>
 				<div
-					style={{
-						backgroundColor : "#eee" ,
-						borderRadius : "12px",
-					}}
+					style = { {
+						backgroundColor : "#eeeeee" ,
+						borderRadius : "12px" ,
+					} }
 				>
 					<Img
-						src = { editingStore.iconUrl}
+						src = { editingStore.iconUrl }
 						style = { {
 							width : "96px" ,
 							height : "96px" ,
 							borderRadius : "12px" ,
-							objectFit:"cover",
-							objectPosition:"50% 50%",
+							objectFit : "cover" ,
+							objectPosition : "50% 50%" ,
 						} }
 					/>
 				</div>
-				<UploadBtn onClick={() => {
-					reax_upload_avatar(spaceID).then((url) => {
-						setEditingSpaceInfo( { iconUrl : url } );
-					});
-				}}/>
+				<UploadBtn
+					onClick = { () => {
+						reax_upload_avatar( spaceID ).
+						then( ( url ) => {
+							setEditingSpaceInfo( { iconUrl : url } );
+						} );
+					} }
+				/>
 			</div>
 			<p
 				className = { less.netInfo }
@@ -108,11 +121,11 @@ const GeneralProfile = ComponentWrapper(() => {
 				<SVGTooltip></SVGTooltip>
 			</p>
 			<CurrentNet></CurrentNet>
-			<div className = { less.bio }>
+			<div className = { less.subTitle }>
 				<span>Bio</span>
 				<SVGTooltip></SVGTooltip>
 			</div>
-			<TextArea
+			<InputTextarea
 				rows = { 4 }
 				style = { {
 					background : "#f4f4f4" ,
@@ -122,44 +135,43 @@ const GeneralProfile = ComponentWrapper(() => {
 					height : "112px" ,
 					border : "2px solid rgba(154, 159, 165, 0.25)" ,
 				} }
-				placeholder="Tell about your Space in a few words"
-				value = {editingStore.bio}
-				maxLength={160}
-				onChange={(e) => {
+				placeholder = "Tell about your Space in a few words"
+				value = { editingStore.bio }
+				maxLength = { 160 }
+				onChange = { ( e ) => {
 					setEditingSpaceInfo( {
 						bio : e.target.value ,
 					} );
-				}}
+				} }
 			/>
-			<ItemWithTitle title="Type">
+			<ItemWithSubTitle title = "Type">
 				<Select
 					className = { less.votingType_box }
 					style = { {
 						width : "100%" ,
 						color : "#9a9fa5" ,
 						height : "48px" ,
-						
 					} }
 					removeIcon = { <SVGClear /> }
 					mode = "multiple"
 					allowClear
 					placeholder = "Enter or select tags"
-					value = {editingStore.tags}
-					onChange={(tags) => {
-						if(tags.length > 3) return ;
+					value = { editingStore.tags }
+					onChange = { ( tags ) => {
+						if ( tags.length > 3 ) return;
 						setEditingSpaceInfo( {
 							tags ,
 						} );
-					}}
+					} }
 				>
-					{spaceTags.map((tag) => {
-						return <Option key = {tag}>
-							{tag}
-						</Option>
-					})}
+					{ spaceTags.map( ( tag ) => {
+						return <Option key = { tag }>
+							{ tag }
+						</Option>;
+					} ) }
 				</Select>
-			</ItemWithTitle>
-			<ItemWithTitle
+			</ItemWithSubTitle>
+			<ItemWithSubTitle
 				title = "Email"
 			>
 				<Input
@@ -170,25 +182,25 @@ const GeneralProfile = ComponentWrapper(() => {
 						height : "48px" ,
 						padding : "12px" ,
 						border : "none" ,
-						fontWeight:"600",
-						fontSize:"14px",
-						lineHeight:"24px",
-						color:"#33383f"
+						fontWeight : "600" ,
+						fontSize : "14px" ,
+						lineHeight : "24px" ,
+						color : "#33383f" ,
 					} }
-					placeholder="Enter your email"
-					value = {editingStore.email}
-					onChange={(e) => {
+					placeholder = "Enter your email"
+					value = { editingStore.email }
+					onChange = { ( e ) => {
 						setEditingSpaceInfo( { email : e.target.value } );
-					}}
+					} }
 				/>
-			</ItemWithTitle>
+			</ItemWithSubTitle>
 			<div className = { less.divider }></div>
 			<Button
-				disabled={InfoEquals}
-				type="primary"
-				onClick={() => {
+				disabled = { InfoEquals }
+				type = "primary"
+				onClick = { () => {
 					saveSpaceSettings();
-				}}
+				} }
 				style = { {
 					borderRadius : "12px" ,
 					padding : "12px 20px" ,
@@ -200,47 +212,53 @@ const GeneralProfile = ComponentWrapper(() => {
 					display : "flex" ,
 					alignItems : "center" ,
 					justifyContent : "center" ,
+					background : "#3772ff" ,
 				} }
 			>Save Changes</Button>
 		</div>
 	</>;
-});
-const reaxel_edit_space_settings = function(){
+} );
+const reaxel_edit_space_settings = function () {
 	let ret;
 	type fields = {
-		bio : string ,
-		email : string ,
+		bio : string,
+		email : string,
 		tags : string[],
 		iconUrl : string;
 	};
-	const {store,setState} = orzMobx<fields>( {
+	const {
+		store ,
+		setState ,
+	} = orzMobx<fields>( {
 		bio : null ,
 		email : null ,
-		tags : [],
-		iconUrl : null,
+		tags : [] ,
+		iconUrl : null ,
 	} );
 	let currentSpaceID : number;
-	let spaceInfo:fields;
+	let spaceInfo : fields;
 	let fetching = false;
 	
 	/*从服务器拿spaceInfo并缓存下来*/
-	const closuredSpaceInfo = Reaxes.closuredMemo(async (spaceID:number , forceUpdate:boolean = false) => {
+	const closuredSpaceInfo = Reaxes.closuredMemo( async ( spaceID : number , forceUpdate : boolean = false ) => {
 		/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
 		  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
 		const info = reaxel_space_detail().store.spaceInfo;
 		currentSpaceID = spaceID;
-		if(info && (spaceID === info.spaceID) && !forceUpdate){
+		if ( info && (
+			spaceID === info.spaceID
+		) && !forceUpdate ) {
 			spaceInfo = {
-				bio : info.bio,
-				email : info.email,
-				tags : info.tags,
-				iconUrl : info.iconUrl,
-			}
-			setState(spaceInfo);
-			return ;
+				bio : info.bio ,
+				email : info.email ,
+				tags : info.tags ,
+				iconUrl : info.iconUrl ,
+			};
+			setState( spaceInfo );
+			return;
 		}
-		if(fetching === true){
-			return ;
+		if ( fetching === true ) {
+			return;
 		}
 		fetching = true;
 		const createPayload = async () => {
@@ -258,43 +276,49 @@ const reaxel_edit_space_settings = function(){
 			};
 			setState( spaceInfo );
 		} );
-		promise.finally(() => {
+		promise.finally( () => {
 			fetching = false;
-		});
+		} );
 		return promise;
-	},() => []);
+	} , () => [] );
 	
 	const omitIconUrl = () => {
-		return [_.omit(store,'iconUrl'),_.omit(spaceInfo,'iconUrl')] as [Omit<fields,"iconUrl">,Omit<fields,'iconUrl'>];
+		return [
+			_.omit( store , 'iconUrl' ) ,
+			_.omit( spaceInfo , 'iconUrl' ) ,
+		] as [ Omit<fields , "iconUrl"> , Omit<fields , 'iconUrl'> ];
 	};
 	
 	return () => {
 		
 		return ret = {
-			closuredFetchSpaceInfo(spaceID:number,forceUpdate:boolean = false){
-				const force = forceUpdate ? [Math.random()] : [];
-				return closuredSpaceInfo(() => [spaceID,...force])(spaceID,forceUpdate);
-			},
-			get InfoEquals (){
+			closuredFetchSpaceInfo( spaceID : number , forceUpdate : boolean = false ) {
+				const force = forceUpdate ? [ Math.random() ] : [];
+				return closuredSpaceInfo( () => [
+					spaceID ,
+					...force ,
+				] )( spaceID , forceUpdate );
+			} ,
+			get InfoEquals() {
 				/*_.isEqual()深度对比*/
-				return _.isEqual( ...omitIconUrl() );				
-			},
+				return _.isEqual( ...omitIconUrl() );
+			} ,
 			get editingStore() {
 				return store;
-			},
-			setEditingSpaceInfo(partialInfo:Partial<fields>){
+			} ,
+			setEditingSpaceInfo( partialInfo : Partial<fields> ) {
 				setState( partialInfo );
-			},
-			async saveSpaceSettings (){
+			} ,
+			async saveSpaceSettings() {
 				const reax_wallet = reaxel_wallet();
 				const reax_user = reaxel_user();
 				const address = reax_wallet.account.address;
-				const data:data = {
+				const data : data = {
 					spaceID : currentSpaceID ,
-					tags : store.tags.join(','),
+					tags : store.tags.join( ',' ) ,
 					bio : store.bio ,
-					email : store.email,
-					modifyAddress : reax_wallet.account.address,
+					email : store.email ,
+					modifyAddress : reax_wallet.account.address ,
 					timestamp : await request_server_timestamp() ,
 				};
 				/*todo 只传改变了的字段.现在没时间 后续优化*/
@@ -316,60 +340,57 @@ const reaxel_edit_space_settings = function(){
 				// 	antd.Modal.success({title : "changed successful!"})
 				// });
 				// return ;
-				fetch_space_general_modify().then(() => {
-					ret.closuredFetchSpaceInfo(currentSpaceID,true).then(() => {
-						antd.Modal.success({title : "changed successful!"})
-					});
-				}).catch((e) => {
-					console.error(e);
-				});
+				fetch_space_general_modify().
+				then( () => {
+					ret.closuredFetchSpaceInfo( currentSpaceID , true ).
+					then( () => {
+						antd.Modal.success( { title : "changed successful!" } );
+					} );
+				} ).
+				catch( ( e ) => {
+					console.error( e );
+				} );
 				type data = {
 					spaceID : number,
 					modifyAddress : string,
 					timestamp : number,
-					tags?:string,
-					bio?:string,
-					email?:string,
+					tags? : string,
+					bio? : string,
+					email? : string,
 				};
-			},
-		}
-	}
+			} ,
+		};
+	};
 }();
 
 
-
-
-
-const SocialProfile = ComponentWrapper(() => {
+const SocialProfile = ComponentWrapper( () => {
 	return <>
 		<div
 			style = { {
 				width : "100%" ,
 				marginLeft : "32px" ,
-				display : "flex",
-				flexFlow : "column nowrap",
+				display : "flex" ,
+				flexFlow : "column nowrap" ,
 			} }
 		>
 			<ProfileTitle title = "Social Profiles"></ProfileTitle>
-			<ItemWithTitle title = "Homepage"></ItemWithTitle>
-			<ItemWithTitle title = "Twitter"></ItemWithTitle>
-			<ItemWithTitle title = "Discord"></ItemWithTitle>
-			<ItemWithTitle title = "GitHub"></ItemWithTitle>
+			
+			<ItemWithSubTitle title = "Homepage"></ItemWithSubTitle>
+			<SubItemInput/>
+			<ItemWithSubTitle title = "Twitter"></ItemWithSubTitle>
+			<SubItemInput/>
+			<ItemWithSubTitle title = "Discord"></ItemWithSubTitle>
+			<SubItemInput/>
+			<ItemWithSubTitle title = "GitHub"></ItemWithSubTitle>
+			<SubItemInput/>
+			
 			<AddSocialBtn></AddSocialBtn>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
 		</div>
 	</>;
-});
-
-
-
-
-
-
-
-
-
+} );
 
 
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
@@ -425,12 +446,39 @@ type SpaceSettingTabsProps = {
 	tab : 'social' | 'general',
 	setTab : ( tab : 'social' | 'general' ) => void;
 };
+const ItemWithSubTitle = ( props : React.PropsWithChildren<{
+	title : string;
+}> ) => {
+	return <>
+		<span className = { less.subTitle }>{ props.title }</span>
+		{ props.children }
+	</>;
+};
 
-
-const UploadBtn = (props : {onClick? : () => void}) => {
+const SubItemInput = () => {
+	return<>
+		<Input
+			placeholder='Please enter'
+			style = { {
+				background : "#f4f4f4" ,
+				borderRadius : "12px" ,
+				width : "100%" ,
+				height : "48px" ,
+				padding : "12px" ,
+				border : "none" ,
+				fontWeight : "600" ,
+				fontSize : "14px" ,
+				lineHeight : "24px" ,
+				color : "#33383f" ,
+			} }
+		/>
+	</>
+	
+};
+const UploadBtn = ( props : { onClick? : () => void } ) => {
 	return <>
 		<Button
-			onClick={props.onClick}
+			onClick = { props.onClick }
 			style = { {
 				marginLeft : "29px" ,
 				display : "inline-flex" ,
@@ -448,9 +496,7 @@ const UploadBtn = (props : {onClick? : () => void}) => {
 			} }
 		>
 			<SVGWhiteAdd></SVGWhiteAdd>
-			<span
-				style = { {} }
-			>
+			<span>
 				Upload
 			</span>
 		</Button></>;
@@ -507,6 +553,7 @@ const ProfileTitle = ( props ) => {
 				fontSize : '20px' ,
 				lineHeight : "36px" ,
 				userSelect : 'none' ,
+				marginBottom : "4px" ,
 			} }
 		>{ props.title }
 		</h1>
@@ -528,7 +575,8 @@ export const AddSocialBtn = () => {
 				borderRadius : "12px" ,
 				height : "40px" ,
 				marginTop : "32px" ,
-				width : "fit-content",
+				width : "fit-content" ,
+				background : "#ffffff" ,
 			} }
 		>
 			<SVGGrayAdd></SVGGrayAdd>
@@ -658,14 +706,7 @@ const SVGNet = () => {
 		</svg>
 	</>;
 };
-const ItemWithTitle = ( props : React.PropsWithChildren<{
-	title : string ;
-}> ) => {
-	return <>
-		<span className = { less.email }>{ props.title }</span>
-		{props.children}
-	</>;
-};
+
 
 const SVGClear = () => {
 	return <>
