@@ -15,6 +15,7 @@ import { Space___get_space_detail } from '@@requests/Spaces/types';
 export const DxzSpaceHomeJoined = ( props : props ) => {
 	
 	const { spaceInfo } = props;
+	if(!spaceInfo) return null;
 	
 	const reax_upload_banner = reaxel_upload_pics();
 	const reax_joined_Space_list = reaxel_joined_Space_list();
