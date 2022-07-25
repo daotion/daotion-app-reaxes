@@ -1,6 +1,10 @@
 import less from './index.module.less';
 import { Switch } from 'antd';
 
+import {
+	
+} from '@@reaxes';
+
 export const DxzHeaderPanel = () => {
 	return <>
 		<div
@@ -177,4 +181,40 @@ const AboutList = ( props ) => {
 		
 		</div>
 	</>;
+};
+
+const MenuItem = ComponentWrapper((props:MenuItem) => {
+	
+	
+	return <>
+		<div
+			className={less.languageItem}
+			style = { {
+				display : "flex" ,
+				alignItems : "center" ,
+				justifyContent : "space-between" ,
+				paddingTop : "17px" ,
+				borderTop : "1px solid #e6e8ec" ,
+			} }
+		>
+			<span
+				style = { {
+					color : "#777e90" ,
+					fontSize : "14px" ,
+					fontWeight : "600" ,
+					margin : "2px 0px 2px 0px" ,
+					display : "inline-flex" ,
+				} }
+			>
+				{ props.text }
+			</span>
+			{ props.icon }
+		</div>
+	</>
+})
+
+type MenuItem = {
+	icon : React.ReactElement ;
+	text : React.ReactNode ;
+	onClick : () => any ;
 };
