@@ -20,7 +20,27 @@ export const reaxel_joined_Space_list = function () {
 	} );
 	
 	
-	const { address_memoed_reaction } = reaxel_wallet();
+	const { address_memoed_reaction , walletStore } = reaxel_wallet();
+	
+	/*请求并更新加入的space list*/
+	const fetchUpdate_joined_space_list = ( address = walletStore.account.address) => {
+		return request_user_joined_space_list( async () => ({
+			address,
+		}) ).
+		catch( ( e ):never => {
+			console.error( e );
+			throw e;
+		} ).
+		then( ( data ) => setState( {
+			joined_space_list : data.infos ,
+		} ) );
+	};
+	/*清空joined space list*/
+	const empty_joined_space_list = () => {
+		setState( {
+			joined_space_list : [] ,
+		} );
+	};
 	
 	address_memoed_reaction( ( address ) => {
 		if ( typeof address === "string" && address ) {
@@ -32,25 +52,6 @@ export const reaxel_joined_Space_list = function () {
 	
 	return () => {
 		
-		/*请求并更新加入的space list*/
-		const fetchUpdate_joined_space_list = ( address : string ) => {
-			return request_user_joined_space_list( async () => ({
-				address,
-			}) ).
-			catch( ( e ):never => {
-				console.error( e );
-				throw e;
-			} ).
-			then( ( data ) => setState( {
-				joined_space_list : data.infos ,
-			} ) );
-		};
-		/*清空joined space list*/
-		const empty_joined_space_list = () => {
-			setState( {
-				joined_space_list : [] ,
-			} );
-		};
 		
 		return ret = {
 			get joined_space_list() {

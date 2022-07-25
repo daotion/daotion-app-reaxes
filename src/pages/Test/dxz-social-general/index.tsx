@@ -100,11 +100,9 @@ const GeneralProfile = ComponentWrapper( () => {
 				</div>
 				<UploadBtn
 					onClick = { () => {
-						reax_upload_avatar( spaceID ).
-						then( ( url ) => {
-							setEditingSpaceInfo( { iconUrl : url } );
-						} );
-					} }
+						reax_upload_avatar( spaceID , ( url :string) =>
+							setEditingSpaceInfo( { iconUrl : url } ));
+						}  }
 				/>
 			</div>
 			<p
@@ -727,3 +725,60 @@ const SVGClear = () => {
 	
 	</>;
 };
+
+
+
+
+
+
+/*
+const reaxel_edit_profile = function(){
+	let ret;
+	const {store,setState}= orzMobx({
+		fetchedUserInfo : null,
+		input_name : '',
+	});
+	const reax_wallet = reaxel_wallet();
+	
+	/!*当address变化时会自动执行,*!/
+	reax_wallet.address_memoed_reaction((address) => {
+		if(address){
+			request.post().then((fetchedUserInfo) => {
+				setState({fetchedUserInfo})
+			})
+		}
+	});
+	
+	const saveProfile = () => {
+		//保存逻辑
+	}
+	
+	
+	return () => {
+		
+		return ret = {
+			get editProfileStore (){
+				return store;
+			},
+			setState ,
+			saveProfile,
+		}
+	}
+}();
+
+const EditProfile = ComponentWrapper(() => {
+	
+	const reax_edit_profile = reaxel_edit_profile();
+	
+	if(!reax_edit_profile.editProfileStore.fetchedUserInfo) return null;
+	
+	return <>
+		<Input onInput={(e) =>{
+			reax_edit_profile.setState({input_name : e.target.value})
+		}}/>
+		<Button onClick={() =>{
+			reax_edit_profile.saveProfile()
+		}}/>
+	</>
+})
+*/

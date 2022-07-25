@@ -13,6 +13,7 @@ import { Layout } from './Layout';
 import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import {SpaceInfo} from '@@pages/Space-Info';
 import { SpaceSettings } from '@@pages/Space-Settings';
+import { Profile } from '@@pages/Profile';
 import {createBrowserHistory} from 'history';
 
 
@@ -54,11 +55,15 @@ export const MainContentRouting = ( props ) => <Routes>
 	<Route path = "/*">
 		<Route
 			index
-			element = { <Navigate to = "/home" /> }
+			element = { <Navigate to = "/home" replace /> }
 		/>
 		<Route
 			path = "home"
 			element = { utils.withOutlet( <Home /> ) }
+		/>
+		<Route
+			path = "profile"
+			element = { utils.withOutlet( <Profile /> ) }
 		/>
 		<Route
 			path = "space:spaceID/*"
