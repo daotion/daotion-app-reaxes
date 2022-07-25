@@ -88,9 +88,7 @@ const GeneralProfile = ComponentWrapper(() => {
 					/>
 				</div>
 				<UploadBtn onClick={() => {
-					reax_upload_avatar(spaceID).then((url) => {
-						setEditingSpaceInfo( { iconUrl : url } );
-					});
+					reax_upload_avatar( spaceID , (url:string) => setEditingSpaceInfo( { iconUrl : url } ) );
 				}}/>
 			</div>
 			<p
