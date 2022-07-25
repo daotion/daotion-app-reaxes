@@ -1,3 +1,5 @@
+import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
+
 import {Select, SelectProps} from "antd";
 
 import Tags from '@@common/Xcomponents/Tags';
@@ -8,7 +10,7 @@ const { Option: AntdOption } = Select;
 
 export const Option = AntdOption;
 
-const tagRender = (params) => {
+const tagRender = (params: CustomTagProps) => {
   const {label, closable, onClose} = params;
 
   const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
