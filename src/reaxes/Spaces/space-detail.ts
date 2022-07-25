@@ -36,6 +36,7 @@ export const reaxel_space_detail = function (){
 		 * 如果没差异则不会执行,此方法用于防止无限请求&渲染.
 		 */
 		const closuredFetchSpaceInfo = Reaxes.closuredMemo( ( spaceID:number ) => {
+			setTimeout( () => setState( { spaceInfo : null } ) );
 			fetchUpdate_space_detail( spaceID );
 		} , () => [] );
 		
