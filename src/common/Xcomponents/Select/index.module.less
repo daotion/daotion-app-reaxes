@@ -1,29 +1,25 @@
 @import "/src/styles/variable.module.less";
 
-.daotion-select-tags {
-  display: inline-block;
-
+.main {
   :global {
     .ant-select-selector {
       box-sizing: border-box !important;
       border-radius: 12px !important;
       box-shadow: none !important;
-      background-color: @grey_2 !important;
+      background-color: @neutrals_F !important;
       border: 2px solid transparent !important;
     }
 
     .ant-select.ant-select-focused .ant-select-selector {
-      background-color: @neutrals_F !important;
       border: 2px solid @neutrals_5 !important;
     }
 
     .ant-select-selection-item {
-      box-sizing: border-box;
+      box-sizing: border-box !important;
       border-radius: 8px !important;
     }
   }
 }
-
 
 :global {
   body {

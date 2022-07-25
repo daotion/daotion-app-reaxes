@@ -5,7 +5,8 @@ import {
 	Select ,
 } from 'antd';
 import spaceTags from '@@Public/space-tags.json';
-import { Img } from '@@common/Xcomponents';
+import { Img 
+} from '@@common/Xcomponents';
 
 const { Option } = Select;
 
