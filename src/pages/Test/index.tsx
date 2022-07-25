@@ -24,11 +24,13 @@ import { FileUpload } from './File-Upload';
 import InputTest from './componentTest/inputTest';
 import DarkThemeTest from './darkTheme';
 import { DxzUIKits } from './dxz-UI-kits';
-import {KaneDarkMode} from './kane-dark-mode';
+import { KaneDarkMode } from './kane-dark-mode';
 import { DxzSpaceList } from './dxz-space-list';
+import { DxzMyProfile } from './dxz-my-profile';
+
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzSpaceSettings />
+	<DxzMyProfile />
 </div>;
 
 
