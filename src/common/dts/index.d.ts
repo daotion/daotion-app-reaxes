@@ -113,7 +113,7 @@ declare interface Lifecycle {
 
 declare namespace ORZ {
 	
-	export type env = "server_dev"|"server_yang" | "default_server"  ;
+	export type env = "server_dev"|"server_yang" | "unset"  ;
 	
 	export type RequestOptions<body extends () => (Promise<F>|F) ,F = any> = Omit<RequestInit, 'body'> & {
 		env? : env,

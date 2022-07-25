@@ -4,6 +4,8 @@
 import { reaxel_user } from '@@reaxes/authurize/user';
 import { reaxel_wallet } from '@@reaxes/wallet/wallet';
 import { reaxel_space_detail } from '@@reaxes/Spaces/space-detail';
+import { reaxel_joined_Space_list } from '@@reaxes/Spaces/joined-space-list';
+
 import {
 	request_server_timestamp ,
 	request_upload_space_banner ,
@@ -30,7 +32,7 @@ export const reaxel_upload_pics = function () {
 	const uploader = ( inputOpts : {} , onChange : ( files : FileList ) => void ) => {
 		const input = document.createElement( 'input' );
 		input.type = "file";
-		input.onchange = ( { target } ) => {
+		input.onchange = ( { target = '__empty_file__' } ) => {
 			onChange( (
 				target as HTMLInputElement
 			).files );
@@ -80,11 +82,13 @@ export const reaxel_upload_pics = function () {
 				input.click();
 			} ,
 			/*上传space头像*/
-			space_settings_avatar : ( spaceID : number ):Promise<any> => {
+			space_settings_avatar : ( spaceID : number ,callback = (url?:string) => null) => {
 				const reax_user = reaxel_user();
 				const reax_wallet = reaxel_wallet();
 				const reax_space_detail = reaxel_space_detail();
-				const fetch_upload = async ( file : File ) => {
+				const reax_joined_space_list = reaxel_joined_Space_list();
+				
+				const fetch_upload = async ( file : File ):Promise<string> => {
 					
 					const createPayload = async () => {
 						const { address } = reax_wallet.account;
@@ -110,14 +114,18 @@ export const reaxel_upload_pics = function () {
 						return response.url;
 					} catch ( e ) {
 						antd.Modal.error( { title : e.toString() } );
+						throw e;
 					}
 				};
-				const asyncUpload = orzPromise();
 				const input = uploader( {} , ( [ file ] ) => {
-					asyncUpload.resolve(fetch_upload( file ));
+					fetch_upload( file ).
+					then( (url) => {
+						return reax_joined_space_list.fetchUpdate_joined_space_list().then(() => url);
+					} ).then((url) => {
+						callback(url);
+					});
 				} );
 				input.click();
-				return asyncUpload;
 			} ,
 		};
 	};
