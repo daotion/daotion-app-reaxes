@@ -48,7 +48,6 @@ export const DxzLangCurrency = () => {
 					>
 						<div
 							style = { {
-								height : "640px" ,
 								width : "346px" ,
 								display : "flex" ,
 								flexFlow : "column wrap" ,

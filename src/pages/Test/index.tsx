@@ -30,7 +30,7 @@ import { DxzMyProfile } from './dxz-my-profile';
 
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzHeaderPanel />
+	<DxzLangCurrency />
 </div>;
 
 

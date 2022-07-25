@@ -1,0 +1,42 @@
+.container {
+	box-shadow: rgb(0 0 0 / 15%) 0px 4px 20px;
+	width: 256px;
+	height: fit-content;
+	border-radius: 12px;
+	padding: 24px 16px;
+	
+	.item-text {
+		user-select: none;
+		transition: color 0.3s ease;
+		color: rgb(119, 126, 144);
+		font-size: 14px;
+		font-weight: 600;
+		margin: 2px 0px;
+		display: inline-flex;
+	}
+	
+	.item {
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-bottom: 1px solid rgb(230, 232, 236);
+		padding-top: 16px;
+		padding-bottom: 12px;
+		
+		&:hover {
+			.item-text{
+				color: #0070f3;
+			}
+		}
+		
+		&:last-child {
+			padding-bottom: 0;
+			border-bottom: none;
+		}
+		
+		&:first-child {
+			padding-top: 0;
+		}
+	}
+}
