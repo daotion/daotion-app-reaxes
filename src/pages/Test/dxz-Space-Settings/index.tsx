@@ -14,14 +14,13 @@ import {
 
 export const DxzSpaceSettings = () => {
 	
-	const [ tab , setTab ] = useState<'social' | 'general'>( 'general' );
+	const [ tab , setTab ] = useState<'social' | 'general'>( 'social' );
 	const spaceID = parseInt( useParams().spaceID );
 	const Content = {
 		social : SocialProfile ,
 		general : GeneralProfile ,
 	}[ tab ];
-	reaxel_edit_space_settings().
-	closuredFetchSpaceInfo( spaceID );
+	reaxel_edit_space_general_settings().closuredFetchSpaceInfo( spaceID );
 	return <>
 		<div
 			className = { less.container }
@@ -64,7 +63,7 @@ const GeneralProfile = ComponentWrapper( () => {
 		setEditingSpaceInfo ,
 		closuredFetchSpaceInfo ,
 		saveSpaceSettings ,
-	} = reaxel_edit_space_settings();
+	} = reaxel_edit_space_general_settings();
 	
 	[ store__space_detail.spaceInfo ];
 	
@@ -210,13 +209,12 @@ const GeneralProfile = ComponentWrapper( () => {
 					display : "flex" ,
 					alignItems : "center" ,
 					justifyContent : "center" ,
-					background : "#3772ff" ,
 				} }
 			>Save Changes</Button>
 		</div>
 	</>;
 } );
-const reaxel_edit_space_settings = function () {
+const reaxel_edit_space_general_settings = function () {
 	let ret;
 	type fields = {
 		bio : string,
@@ -236,16 +234,14 @@ const reaxel_edit_space_settings = function () {
 	let currentSpaceID : number;
 	let spaceInfo : fields;
 	let fetching = false;
-	
+	const reax_space_detail = reaxel_space_detail();
 	/*从服务器拿spaceInfo并缓存下来*/
 	const closuredSpaceInfo = Reaxes.closuredMemo( async ( spaceID : number , forceUpdate : boolean = false ) => {
 		/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
 		  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
-		const info = reaxel_space_detail().store.spaceInfo;
+		const info = reax_space_detail.store.spaceInfo;
 		currentSpaceID = spaceID;
-		if ( info && (
-			spaceID === info.spaceID
-		) && !forceUpdate ) {
+		if ( info && (spaceID === info.spaceID) && !forceUpdate ) {
 			spaceInfo = {
 				bio : info.bio ,
 				email : info.email ,
@@ -255,30 +251,23 @@ const reaxel_edit_space_settings = function () {
 			setState( spaceInfo );
 			return;
 		}
-		if ( fetching === true ) {
-			return;
-		}
-		fetching = true;
-		const createPayload = async () => {
-			return {
-				spaceID ,
-			};
-		};
-		const promise = request_space_detail( createPayload ).
-		then( ( info ) => {
-			spaceInfo = {
-				bio : info.bio ,
-				email : info.email ,
-				tags : info.tags ,
-				iconUrl : info.iconUrl ,
-			};
-			setState( spaceInfo );
-		} );
-		promise.finally( () => {
-			fetching = false;
-		} );
-		return promise;
+		
+		return reax_space_detail.getSpaceDetailMemoed(spaceID);
+		
 	} , () => [] );
+	
+	Reaxes.observedMemo(() => {
+		if((currentSpaceID) && reax_space_detail.store.spaceInfo?.spaceID === currentSpaceID){
+			const info = reax_space_detail.store.spaceInfo;
+			spaceInfo = {
+				bio : info.bio ,
+				email : info.email ,
+				tags : info.tags ,
+				iconUrl : info.iconUrl ,
+			};
+			setState( spaceInfo );
+		}
+	},() => [reax_space_detail.store.spaceInfo]);
 	
 	const omitIconUrl = () => {
 		return [
@@ -362,7 +351,16 @@ const reaxel_edit_space_settings = function () {
 }();
 
 
+
+
+
+
+
+
+
 const SocialProfile = ComponentWrapper( () => {
+	const {params} = utils.useRouter();
+	const reax_space_detail = reaxel_space_detail();	
 	return <>
 		<div
 			style = { {
@@ -373,7 +371,6 @@ const SocialProfile = ComponentWrapper( () => {
 			} }
 		>
 			<ProfileTitle title = "Social Profiles"></ProfileTitle>
-			
 			<ItemWithSubTitle title = "Homepage"></ItemWithSubTitle>
 			<SubItemInput/>
 			<ItemWithSubTitle title = "Twitter"></ItemWithSubTitle>
@@ -389,6 +386,41 @@ const SocialProfile = ComponentWrapper( () => {
 		</div>
 	</>;
 } );
+export const reaxel_edit_space_social_settings = function(){
+	let ret;
+	/*从后端请求到的social-list*/
+	let spaceSocialList = null;
+	const {
+		store ,
+		setState,
+	} = orzMobx( {
+		socialList : [] ,
+		
+	} );
+	const reax_space_detail = reaxel_space_detail();
+	
+	const clousred = Reaxes.closuredMemo(() => {
+		
+	},() => [reaxel_space_detail().store.spaceInfo?.links]);
+	
+	return () => {
+		
+		return {
+			
+		}
+	}
+}();
+
+
+
+
+
+
+
+
+
+
+
 
 
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
@@ -444,35 +476,7 @@ type SpaceSettingTabsProps = {
 	tab : 'social' | 'general',
 	setTab : ( tab : 'social' | 'general' ) => void;
 };
-const ItemWithSubTitle = ( props : React.PropsWithChildren<{
-	title : string;
-}> ) => {
-	return <>
-		<span className = { less.subTitle }>{ props.title }</span>
-		{ props.children }
-	</>;
-};
 
-const SubItemInput = () => {
-	return<>
-		<Input
-			placeholder='Please enter'
-			style = { {
-				background : "#f4f4f4" ,
-				borderRadius : "12px" ,
-				width : "100%" ,
-				height : "48px" ,
-				padding : "12px" ,
-				border : "none" ,
-				fontWeight : "600" ,
-				fontSize : "14px" ,
-				lineHeight : "24px" ,
-				color : "#33383f" ,
-			} }
-		/>
-	</>
-	
-};
 const UploadBtn = ( props : { onClick? : () => void } ) => {
 	return <>
 		<Button
@@ -727,6 +731,36 @@ const SVGClear = () => {
 };
 
 
+
+const ItemWithSubTitle = ( props : React.PropsWithChildren<{
+	title : string;
+}> ) => {
+	return <>
+		<span className = { less.subTitle }>{ props.title }</span>
+		{ props.children }
+	</>;
+};
+
+const SubItemInput = () => {
+	return<>
+		<Input
+			placeholder='Please enter'
+			style = { {
+				background : "#f4f4f4" ,
+				borderRadius : "12px" ,
+				width : "100%" ,
+				height : "48px" ,
+				padding : "12px" ,
+				border : "none" ,
+				fontWeight : "600" ,
+				fontSize : "14px" ,
+				lineHeight : "24px" ,
+				color : "#33383f" ,
+			} }
+		/>
+	</>
+	
+};
 
 
 

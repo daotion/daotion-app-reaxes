@@ -18,7 +18,7 @@ import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzSpaceHomeJoined } from './dxz-space-info-homepage';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
-import { DxzSpaceSettings } from './dxz-social-general';
+import { DxzSpaceSettings } from './dxz-Space-Settings';
 import { DxzEditProfilePop } from './dxz-edit-profile-pop';
 import { FileUpload } from './File-Upload';
 import InputTest from './componentTest/inputTest';

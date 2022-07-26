@@ -8,8 +8,16 @@ export const Profile = ComponentWrapper( class extends ReactComponentClass {
 	
 	
 	render() {
-		const {Modal} = antd;
+		const {Button,Modal} = antd;
 		const navigate = useNavigate();
+		
+		return <>
+			this is my profile~
+			<br />
+			<Button
+				onClick = { () => navigate( 'edit' ) }
+			>edit</Button>
+		</>;
 		
 		return <Modal
 			onCancel={() => {
@@ -20,9 +28,6 @@ export const Profile = ComponentWrapper( class extends ReactComponentClass {
 			xxxxxxx
 		</Modal>
 		
-		return <>
-			this is my profile~
-		</>;
 	}
 } );
 import {useNavigate} from 'react-router-dom';

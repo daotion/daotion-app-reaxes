@@ -2,7 +2,7 @@
 
 export const KaneDarkMode = ComponentWrapper(() => {
 	
-	const reax_switch_theme  = reaxel_switch_theme();
+	const reax_theme  = reaxel_theme();
 	
 	return <div
 		className={less.bg}
@@ -13,14 +13,14 @@ export const KaneDarkMode = ComponentWrapper(() => {
 		/>
 		
 		<footer>
-			<p>current theme : {reax_switch_theme.theme} </p>
-			<button onClick={() => reax_switch_theme.switch(reax_switch_theme.theme === "light" && "dark" || "light")}>switch</button>
+			<p>current theme : {reax_theme.theme} </p>
+			<button onClick={() => reax_theme.switch(reax_theme.theme === "light" && "dark" || "light")}>switch</button>
 		</footer>
 	</div>
 })
 
 
-const reaxel_switch_theme = function(){
+export const reaxel_theme = function(){
 	const {
 		store ,
 		setState,
@@ -37,7 +37,7 @@ const reaxel_switch_theme = function(){
 	Reaxes.observedMemo(async () => {
 		
 		const LessModule = await import('./dark.theme.less');
-		console.log( LessModule , LessModule.default[ 0 ][ 1 ] , LessModule.default.toString() );
+		// console.log( LessModule , LessModule.default[ 0 ][ 1 ] , LessModule.default.toString() );
 		if ( store.theme === "dark" ) {
 			document.body.className = "dark";
 			style.innerHTML = await import('./dark.theme.less').then((module) => module.default[ 0 ][ 1 ]);
@@ -52,10 +52,17 @@ const reaxel_switch_theme = function(){
 			get theme (){
 				return store.theme
 			},
-			switch(theme:theme){
-				setState( {
-					theme ,
-				} );
+			/*如果不传theme则自动切换为另一种*/
+			switch(theme?:theme){
+				if(!theme){
+					return setState( {
+						theme : store.theme === "light" ? "dark" : "light" ,
+					} );
+				}else {
+					setState( {
+						theme ,
+					} );
+				}
 			}
 		}
 	}
