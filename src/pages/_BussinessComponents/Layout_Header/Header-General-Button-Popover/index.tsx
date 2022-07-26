@@ -109,7 +109,7 @@ const GeneralMenuList = ComponentWrapper( () => {
 
 export const reaxel_general_button = function(){
 	const {store,setState} = orzMobx({
-		general_popover_visible : true,
+		general_popover_visible : false,
 		language_currency_visible : false ,
 	});
 	

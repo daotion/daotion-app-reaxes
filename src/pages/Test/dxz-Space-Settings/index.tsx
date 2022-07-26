@@ -360,7 +360,7 @@ const reaxel_edit_space_general_settings = function () {
 
 const SocialProfile = ComponentWrapper( () => {
 	const {params} = utils.useRouter();
-	const reax_space_detail = reaxel_space_detail();	
+	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
 		<div
 			style = { {
@@ -371,8 +371,20 @@ const SocialProfile = ComponentWrapper( () => {
 			} }
 		>
 			<ProfileTitle title = "Social Profiles"></ProfileTitle>
-			<ItemWithSubTitle title = "Homepage"></ItemWithSubTitle>
-			<SubItemInput/>
+			
+			{reax_edit_space_social_settings.store.socialList.map((item) => {
+				
+				return <EditSocialItem
+					title = {item.type}
+					value = {item.link}
+					onChange = { (text) => {
+						
+					} }
+					key = { 1 }
+				
+				/>;
+			})}
+			
 			<ItemWithSubTitle title = "Twitter"></ItemWithSubTitle>
 			<SubItemInput/>
 			<ItemWithSubTitle title = "Discord"></ItemWithSubTitle>
@@ -393,25 +405,52 @@ export const reaxel_edit_space_social_settings = function(){
 	const {
 		store ,
 		setState,
-	} = orzMobx( {
+	} = orzMobx<store>( {
 		socialList : [] ,
 		
 	} );
 	const reax_space_detail = reaxel_space_detail();
 	
 	const clousred = Reaxes.closuredMemo(() => {
-		
+		if(!reaxel_space_detail().store.spaceInfo?.links){
+			setState( {
+				socialList : [] ,
+			} );
+		}else {
+			setState( {
+				socialList : JSON.parse( reaxel_space_detail().store.spaceInfo.links).map((item) => {
+					return {
+						...item,
+						key : Math.random().toString(),
+					};
+				}) as (spaceSocialItem&{key:string})[],
+			} );
+		}
 	},() => [reaxel_space_detail().store.spaceInfo?.links]);
 	
 	return () => {
 		
 		return {
-			
+			get store (){
+				return store;
+			},
+			setSocialData(){
+				
+			}
 		}
-	}
+	};
+	type store = {
+		socialList : (spaceSocialItem&{key:string})[];
+		
+	};
 }();
 
-
+type spaceSocialItem = {
+	/*社交媒体类型的字符串  如twitter*/
+	type : string;
+	/*社交媒体的链接*/
+	link : string;
+};
 
 
 
@@ -762,6 +801,47 @@ const SubItemInput = () => {
 	
 };
 
+const EditSocialItem = ComponentWrapper( ( props:EditSocialItemProps ) => {
+	const mixedProps = Object.assign<Partial<EditSocialItemProps>,EditSocialItemProps>( {
+		placeholder : "Please enter",
+	},{ ...props });
+	return <>
+		<div
+			style = { {
+				display : "flex" ,
+				flexFlow : "column nowrap" ,
+			} }
+		>
+			<span className = { less.subTitle }>{ mixedProps.title }</span>
+			<Input
+				value = {mixedProps.value}
+				onChange={(e) => {
+					mixedProps.onChange( e.target.value );
+				}}
+				placeholder = {mixedProps.placeholder}
+				style = { {
+					background : "#f4f4f4" ,
+					borderRadius : "12px" ,
+					width : "100%" ,
+					height : "48px" ,
+					padding : "12px" ,
+					border : "none" ,
+					fontWeight : "600" ,
+					fontSize : "14px" ,
+					lineHeight : "24px" ,
+					color : "#33383f" ,
+				} }
+			/>
+		</div>
+	</>;
+} );
+
+type EditSocialItemProps = {
+	title : React.ReactNode;
+	value : string;
+	onChange : (text:string) => void;
+	placeholder? : string;
+};
 
 
 
