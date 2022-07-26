@@ -27,10 +27,10 @@ import { DxzUIKits } from './dxz-UI-kits';
 import { KaneDarkMode } from './kane-dark-mode';
 import { DxzSpaceList } from './dxz-space-list';
 import { DxzMyProfile } from './dxz-my-profile';
-
+import { DxzSocialSelectModal } from './dxz-social-select-modal';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzLangCurrency />
+	<DxzSocialSelectModal />
 </div>;
 
 
