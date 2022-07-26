@@ -1,19 +1,40 @@
-.lang-currency-box {
-	.LC-selected-item{
-		&:last-child{
-				color: #3772ff;
-			}
-		
-	}
-	span:hover{
-		color: #d2e3fc;
-	}
-	span{
-		cursor: pointer;
+.container {
+	padding:24px 16px;
+	.item{
+		.style(){
+			width: 161px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			color: rgb(119, 126, 144);
+		}
+		.style();
+		&:first-child{
+			color:#3772ff;
+		}
+		&:hover{
+			border-radius: 12px;
+			background: #f4f5f6;
+		}
+		}
+	
+	.list{
+		padding: 0px;
+		width: 346px;
+		height: fit-content;
+		display: flex;
+		flex-flow: row wrap;
+		align-items: center;
+		justify-content: space-between;
+		font-weight: 600;
+		font-size: 14px;
+		margin-top: 8px;
+		user-select: none;
 	}
 	& {
-		
-		.LC-divide{
+		.divider{
 			content: "";
 			background-color: #e6e8ec;
 			width: 1px;
@@ -33,7 +54,6 @@
 				width: 346px;
 				padding: 0 32px;
 				height: 40px;
-				
 			}
 			.ant-tabs-nav:before{
 				width: 0;
@@ -50,6 +70,7 @@
 				color: #3772ff;
 			}
 			.ant-tabs-tab-btn{
+				user-select: none;
 				font-weight: 600;
 			}
 			.ant-tabs-ink-bar.ant-tabs-ink-bar-animated{
