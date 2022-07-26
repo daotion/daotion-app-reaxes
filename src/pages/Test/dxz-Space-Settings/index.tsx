@@ -418,12 +418,7 @@ export const reaxel_edit_space_social_settings = function(){
 			} );
 		}else {
 			setState( {
-				socialList : JSON.parse( reaxel_space_detail().store.spaceInfo.links).map((item) => {
-					return {
-						...item,
-						key : Math.random().toString(),
-					};
-				}) as (spaceSocialItem&{key:string})[],
+				socialList : (JSON.parse( reaxel_space_detail().store.spaceInfo.links)) as spaceSocialItem[],
 			} );
 		}
 	},() => [reaxel_space_detail().store.spaceInfo?.links]);
@@ -434,9 +429,20 @@ export const reaxel_edit_space_social_settings = function(){
 			get store (){
 				return store;
 			},
-			setSocialData(){
-				
-			}
+			/*通过key编辑单个item*/
+			editSocialItem(key:string,value:string){
+				setState({
+					socialList : store.socialList.map((item) => {
+						if(item.key === key){
+							return {
+								...item,
+								link : value,
+							} as spaceSocialItem
+						}else return item;
+					})
+				})
+			},
+			
 		}
 	};
 	type store = {
@@ -450,6 +456,8 @@ type spaceSocialItem = {
 	type : string;
 	/*社交媒体的链接*/
 	link : string;
+	
+	key : string;
 };
 
 
