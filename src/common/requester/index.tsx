@@ -78,17 +78,11 @@ export const request = new class {
 							} else {
 								/*如果没有指定requester.env*/
 								if ( !orignal_options.env ) {
-									/*根据node_env生成proxy代理路径*/
-									return {
-										"development" : global_env_config[ env ].proxy_dev ,
-										"production" : global_env_config[ env ].proxy_server ,
-									}[ __NODE_ENV__ ];
+									/*则使用npm.env*/
+									return global_env_config[ env ].proxy_dev;
 								} else {
 									/*如果指定了requester.env就用它*/
-									return {
-										"development" : global_env_config[ orignal_options.env ].proxy_dev ,
-										"production" : global_env_config[ orignal_options.env ].proxy_server ,
-									}[ __NODE_ENV__ ];
+									return global_env_config[ orignal_options.env ].proxy_dev;
 								}
 							}
 						}

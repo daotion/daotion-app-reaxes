@@ -14,6 +14,7 @@ import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import {SpaceInfo} from '@@pages/Space-Info';
 import { SpaceSettings } from '@@pages/Space-Settings';
 import { Profile } from '@@pages/Profile';
+import { EditProfile } from '@@pages/Edit-Profile';
 import {createBrowserHistory} from 'history';
 
 
@@ -64,7 +65,12 @@ export const MainContentRouting = ( props ) => <Routes>
 		<Route
 			path = "profile"
 			element = { utils.withOutlet( <Profile /> ) }
-		/>
+		>
+			<Route
+				path = "edit"
+				element = { utils.withOutlet( <EditProfile /> ) }
+			/>
+		</Route>
 		<Route
 			path = "space:spaceID/*"
 		>
@@ -107,5 +113,12 @@ export const MainContentRouting = ( props ) => <Routes>
 
 </Routes>;
 
+
+export const ProfileEditRouting = () => <Routes>
+	<Route
+		path = "/profile/edit"
+		element = { utils.withOutlet( <Sider_Space_Plugin_List /> ) }
+	/>
+</Routes>;
 
 // import {PluginTokenOverviewLaunch} from '@@pages/_SvgComponents';

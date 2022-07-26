@@ -1,4 +1,8 @@
 export const UserButtonDropdown = ComponentWrapper( () => {
+	const {
+		Button ,
+		Switch,
+	} = antd;
 	const reax_wallet = reaxel_wallet();
 	const [ visible , setVisible ] = useState( false );
 	useEffect( () => {
@@ -7,6 +11,8 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 			setVisible( false );
 		} , root_click_symbol );
 	} , [] );
+	const { navigate } = utils.useRouter();
+	
 	if ( !reax_wallet.wallet ) return null;
 	const btnStyle : React.CSSProperties = {
 		...headerBtnStyle,
@@ -19,10 +25,6 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 		fontWeight : "bold" ,
 		
 	};
-	const {
-		Button ,
-		Switch,
-	} = antd;
 	return <>
 		<XPopover
 			overlayClassName = { less.userinfoPopoverContainer }
@@ -81,39 +83,16 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 				
 				<div
 					className = { less.userPopoverMenuItem }
+					onClick={(e) => {
+						setVisible( false );
+						navigate('/profile');
+					}}
 				>
 					<div>
 						<ItemIconProfileSvgComponent />
 						<span>My profile</span>
 					</div>
 				</div>
-				
-				<div
-					className = { less.userPopoverMenuItem }
-				>
-					<div>
-						<ItemIconI18nSvgComponent />
-						<span>Language/Currency</span>
-					</div>
-				</div>
-				
-				<div
-					className = { less.userPopoverMenuItem }
-				>
-					<div>
-						<ItemIconThemeSvgComponent />
-						<span>Dark theme</span>
-					</div>
-					<Switch
-						size = "small"
-						checked = { {
-							light : false ,
-							dark : true ,
-						}[ globalStore.theme ] }
-					/>
-				</div>
-				
-				
 				<div
 					className = { less.userPopoverMenuItem }
 					onClick = { () => {

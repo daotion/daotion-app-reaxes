@@ -1,7 +1,7 @@
 import less from './index.module.less';
 import { Button } from 'antd';
-import { AddSocialBtn } from '../dxz-social-general';
-import { ProfileFooterBtn } from '../dxz-social-general';
+import { AddSocialBtn } from '../dxz-Space-Settings';
+import { ProfileFooterBtn } from '../dxz-Space-Settings';
 import { Input } from 'antd';
 
 export const DxzEditProfilePop = () => {

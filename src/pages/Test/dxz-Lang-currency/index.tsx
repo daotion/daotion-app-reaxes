@@ -1,6 +1,6 @@
 import less from './index.module.less';
 import { Tabs } from 'antd';
-
+import { reaxel_general_button } from '@@pages/_BussinessComponents/Layout_Header/Header-General-Button-Popover';
 const { TabPane } = Tabs;
 import React from 'react';
 
@@ -14,6 +14,7 @@ const onChange = ( key : string ) => {
 >
 </Tabs>;
 export const DxzLangCurrency = ComponentWrapper(() => {
+	const reax_general_button = reaxel_general_button();
 	return <>
 		<div
 			className = { less.container }

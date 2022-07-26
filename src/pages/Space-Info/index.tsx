@@ -15,7 +15,6 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 	reax_user_join_or_leave_space = reaxel_user_join_or_leave_space();
 	
 	render() {
-		
 		return utils.withRouter( ( {params} ) => {
 			const spaceID = parseInt( params.spaceID );
 			this.reax_space_detail.getSpaceDetailMemoed( spaceID );
