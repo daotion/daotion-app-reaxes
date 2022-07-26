@@ -8,8 +8,11 @@ import {
 	reaxel_joined_Space_list ,
 	reaxel_upload_pics ,
 } from '@@reaxes';
-
-
+import { Tabs } from 'antd';
+const { TabPane } = Tabs;
+const onChange = (key: string) => {
+	console.log(key);
+};
 import { Space___get_space_detail } from '@@requests/Spaces/types';
 
 export const DxzMyProfile = () => {
@@ -17,74 +20,24 @@ export const DxzMyProfile = () => {
 	return <>
 		<div
 			className = { less.spaceInfo }
-			style = { {
-				background : "#f4f5f6" ,
-				display : "flex" ,
-				justifyContent : "center" ,
-				flexFlow : "column wrap" ,
-				width : "100%" ,
-				minHeight : "fit-content" ,
-				paddingBottom : "64px" ,
-			} }
 		>
 			<div
 				className = { less.banner }
-				style = { {
-					position : "relative" ,
-					width : "1200px" ,
-					display : "flex" ,
-					justifyContent : "center" ,
-					borderRadius : "12px 12px 0px 0px" ,
-				} }
 			>
-				<Img
+				<Img className={less.cover}
 					width = "1200px"
 					height = "300px"
-					alt = ""
-					style = { {
-						borderRadius : "12px 12px 0px 0px" ,
-						minWidth : "100%" ,
-						height : "300px" ,
-						objectFit : "cover" ,
-						objectPosition : "50% 50%" ,
-					} }
-				/>
-				<div
-					style = { {
-						position : "absolute" ,
-						top : "189px" ,
-						left : "32px" ,
-						backgroundColor : "#eeeeee" ,
-						borderRadius : "132px" ,
-						border : "4px solid #ffffff" ,
-					} }
-				>
-					<Img
-						style = { {
-							borderRadius : "132px" ,
-							width : "132px" ,
-							height : "132px" ,
-							objectFit : "cover" ,
-							objectPosition : "50% 50%" ,
-						} }
-					/>
+					alt = ""/>
+				<div className={less.myAvatarContainer}>
+					<Img className={less.myAcatar}/>
 				</div>
 				<div
-					className = { less.editCover }
-				>
+					className = { less.editCover }>
 					Edit cover
 				</div>
 			</div>
 			<div
-				className = "info-box"
-				style = { {
-					padding : "0 32px 34px 32px" ,
-					width : "1200px" ,
-					borderRadius : "0px 0px 12px 12px" ,
-					backgroundColor : "#ffffff" ,
-					display : "block" ,
-				} }
-			>
+				className = {less.infoBox}>
 				<div
 					className = { less.spaceJoin }
 				>
@@ -98,7 +51,7 @@ export const DxzMyProfile = () => {
 							justifyContent : "space-between" ,
 						} }
 					>
-						<ShareIcon></ShareIcon>
+						<SVGShareIcon></SVGShareIcon>
 						<MyProfileSettingButton />
 					</div>
 				</div>
@@ -115,7 +68,6 @@ export const DxzMyProfile = () => {
 								display : "flex" ,
 								flexDirection : "row" ,
 								alignItems : "center" ,
-								
 							} }
 						>
 							<WalletAddressCopyBox
@@ -124,8 +76,7 @@ export const DxzMyProfile = () => {
 							<SVGSocialShare />
 						</div>
 						<p
-							className = { less.bios }
-						>
+							className = { less.bios }>
 							Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam
 						</p>
 					</div>
@@ -135,11 +86,26 @@ export const DxzMyProfile = () => {
 					</div>
 				</div>
 			</div>
-		
+			<div className={less.tabsBox}>
+				<Tabs defaultActiveKey="1" onChange={onChange}>
+					<TabPane tab="Joined Spaces" key="1">
+						Content of Tab Pane 1
+					</TabPane>
+					<TabPane tab="NFTs" key="2">
+						Content of Tab Pane 2
+					</TabPane>
+					<TabPane tab="SBTs" key="3">
+						Content of Tab Pane 3
+					</TabPane>
+					<TabPane tab="Tokens" key="4">
+						Content of Tab Pane 4
+					</TabPane>
+				</Tabs>
+			</div>
 		</div>
 	</>;
 };
-const SettingIcon = () => {
+const SVGSettingIcon = () => {
 	return <>
 		<svg
 			style = { {
@@ -186,12 +152,12 @@ const MyProfileSettingButton = () => {
 				boxShadow : "unset" ,
 			} }
 		>
-			<SettingIcon />
+			<SVGSettingIcon />
 			<span>Setting</span>
 		</Button>
 	</>;
 };
-const ShareIcon = () => {
+const SVGShareIcon = () => {
 	return <>
 		<svg
 			style = { {

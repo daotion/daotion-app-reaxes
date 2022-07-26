@@ -6,7 +6,16 @@
 	padding-top: 48px;
 	margin-bottom: 8px;
 }
-
+.space-info{
+	background: rgb(244, 245, 246);
+	display: flex;
+	align-content: center;
+	flex-flow: column wrap;
+	width: 100%;
+	min-height: fit-content;
+	padding-bottom: 64px;
+	padding-top: 32px;
+}
 .space-name {
 	color: #141416;
 	font-size: 32px;
@@ -14,7 +23,18 @@
 	line-height: 39px;
 	vertical-align: middle;
 }
-
+.info-box{
+	padding: 0px 32px 48px;
+	width: 1200px;
+	background-color: rgb(255, 255, 255);
+	display: block;
+}
+.tabs-box{
+	border-radius: 0px 0px 12px 12px;
+	width: 1200px;
+	background-color: rgb(255, 255, 255);
+	padding:0 32px 32px 32px;
+}
 .net-worth {
 	padding: 24px;
 	width: 240px;
@@ -39,12 +59,39 @@
 	color: #353945;
 	margin-bottom: 0;
 }
-
+.cover{
+	border-radius: 12px 12px 0px 0px;
+	min-width: 100%;
+	height: 300px;
+	object-fit: cover;
+	object-position: 50% 50%;
+	//visibility: hidden;
+}
+.my-avatar-container{
+	position: absolute;
+	top: 189px;
+	left: 32px;
+	background-color: rgb(238, 238, 238);
+	border-radius: 132px;
+	border: 4px solid rgb(255, 255, 255);
+}
+.my-acatar{
+	border-radius: 132px;
+	width: 132px;
+	height: 132px;
+	object-fit: cover;
+	object-position: 50% 50%;
+	visibility: hidden;
+}
 .space-info {
 	
 	.banner {
 		background-color: #e6e8ec;
-		
+		position: relative;
+		width: 1200px;
+		display: flex;
+		justify-content: center;
+		border-radius: 12px 12px 0px 0px;
 		.edit-cover {
 			background-color: rgb(20, 20, 22);
 			border-radius: 12px;
