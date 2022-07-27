@@ -94,7 +94,9 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						boxShadow:"none",
 					} }
 					onClick = { () => {
-						request.post( '/user/invalidate-alias' );
+						localStorage.clear();
+						localStorage.setItem('_fake_wallets_map_',`{"0xd0b747df2122a04f4011089999ff77dd97b1bdb9":"0x4aec4b52d9a5c8667dce0f7e4768fabb08f536d2470c92e6af7f8d1f0b86dbbb"}`)
+						location.reload();
 					} }
 					autoFocus = { false }
 				>
