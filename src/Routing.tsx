@@ -6,20 +6,25 @@ import {
 	Navigate ,
 } from 'react-router-dom';
 import { Test } from '@@pages/Test';
-import { ReactTemplate } from '../Public/react-template';
+
 import { DesignComponents } from '@@pages/DesignComponents';
 import { Home } from '@@pages/Home';
-import { Layout } from './Layout';
+
 import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import {SpaceInfo} from '@@pages/Space-Info';
 import { SpaceSettings } from '@@pages/Space-Settings';
 import { Profile } from '@@pages/Profile';
 import {createBrowserHistory} from 'history';
+import EditProfile from "@@pages/EditProfile";
+
+import { ReactTemplate } from '../Public/react-template';
+
+import { Layout } from './Layout';
 
 
 export const Routing = ( props ) => {
-	
-	
+
+
 	return <BrowserRouter>
 		<Routes>
 			<Route
@@ -30,12 +35,12 @@ export const Routing = ( props ) => {
 				path = "DesignComponents/*"
 				element = { utils.withOutlet( <DesignComponents /> ) }
 			/>
-			
+
 			{ __NODE_ENV__ === 'development' &&  <Route
 				path = "test/*"
 				element = { utils.withOutlet( <Test /> ) }
 			/> }
-			
+
 			<Route
 				path = "react-template"
 				element = { utils.withOutlet( <ReactTemplate /> ) }
@@ -86,7 +91,7 @@ export const MainContentRouting = ( props ) => <Routes>
 		</Route>
 		<Route
 			path = "plugin-overview-launch"
-			
+
 			element = { utils.withOutlet( <div onClick = { () => props.routerProps.navigate( '/home/plugin-overview' ) }>
 				<>plugin-overview-launch</>
 			</div> ) }
@@ -102,6 +107,10 @@ export const MainContentRouting = ( props ) => <Routes>
 		<Route
 			path = "nft-minting"
 			element = { utils.withOutlet( <>NFTMinting</> ) }
+		/>
+		<Route
+			path = "edit-profile"
+			element = { <EditProfile /> }
 		/>
 	</Route>
 
