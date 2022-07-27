@@ -15,7 +15,7 @@ export const reaxel_blockies = function(){
 		if(address && !reax_wallet.account?.ens){
 			if(ref) return renderIcon( {
 				seed : reax_wallet.account.address.toLowerCase() ,
-				scale : 4.5 ,
+				scale : 2.5 ,
 			} , ref.current );
 			
 			for(const {current:canvasElement} of canvasRefs){
@@ -23,7 +23,7 @@ export const reaxel_blockies = function(){
 				if(canvasElement){
 					renderIcon( {
 						seed : reax_wallet.account.address.toLowerCase() ,
-						scale : 4.5 ,
+						scale : 2.5 ,
 					} , canvasElement );
 				}
 			}
@@ -44,7 +44,7 @@ export const reaxel_blockies = function(){
 					closured(() => [reax_wallet.account?.address,Math.random()])(reax_wallet.account?.address,canvasRef);
 					return () => _.remove(canvasRefs,canvasRef);
 				},[]);
-				return <canvas width={36} height={36} ref = { canvasRef } style={{borderRadius : "50%",marginLeft : "8px" ,}}></canvas>;
+				return <canvas width={20} height={20} ref = { canvasRef } style={{borderRadius : "50%",marginLeft : "8px" ,}}></canvas>;
 			},
 		}
 	}

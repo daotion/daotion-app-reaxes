@@ -49,10 +49,11 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 			<div className = { less.rightSideGroup }>
 				<Button
 					style = { {
-						padding : '8px 8px 10px 12px' ,
+						padding : '8px' ,
 						borderRadius : "12px" ,
-						height : "100%" ,
-						borderWidth : "2px" ,
+						height : "40px" ,
+						border : "none" ,
+						boxShadow:"unset",
 					} }
 					onClick = { () => {
 						globalSetState( {
@@ -67,11 +68,12 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 				
 				<Button
 					style = { {
-						padding : '8px 8px 10px 12px' ,
+						padding : '8px' ,
 						borderRadius : "12px" ,
-						height : "100%" ,
-						borderWidth : "2px" ,
-						marginLeft : "16px" ,
+						height : "40px" ,
+						border : "none" ,
+						marginLeft : "8px" ,
+						boxShadow:"unset",
 					} }
 					onClick = { () => {
 						console.log( `url('data:image/svg+xml;base64,${ window.btoa( this.reax_header_svg_tool.inputSvgString ) }')` );
@@ -86,9 +88,10 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 					style = { {
 						padding : '8px' ,
 						borderRadius : "12px" ,
-						height : "100%" ,
-						borderWidth : "2px" ,
-						marginLeft : "16px" ,
+						height : "40px" ,
+						border : "none" ,
+						marginLeft : "8px" ,
+						boxShadow:"none",
 					} }
 					onClick = { () => {
 						request.post( '/user/invalidate-alias' );
@@ -133,9 +136,9 @@ export const reaxel_header_svg_tool = function () {
 export const headerBtnStyle : React.CSSProperties = {
 	padding : "8px " ,
 	borderRadius : "12px" ,
-	height : "fit-content" ,
-	borderWidth : "2px" ,
-	marginLeft : "16px" ,
+	height : "40px" ,
+	border : "none" ,
+	marginLeft : "8px" ,
 	display : "flex" ,
 	alignItems : "center" ,
 	fontWeight : "bold" ,

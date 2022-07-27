@@ -1,3 +1,29 @@
+
+.antd-social-media-modal {
+	> div {
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		max-width: 100%;
+		padding: 0;
+		
+		:global {
+			border-radius: 20px;
+			padding: 32px;
+			.ant-modal-content {
+				width: fit-content;
+			}
+			.ant-modal-body{
+				padding: 0;
+			}
+			.ant-modal-close{
+				top:32px;
+				right: 24px;
+			}
+			
+		}
+	}
+}
 .setting-tab {
 	.style() {
 		display: flex;
@@ -28,7 +54,6 @@
 		background: #efefef;
 	}
 }
-
 
 
 .sub-title {
@@ -126,7 +151,8 @@
 					border: 1px solid #e6e8ec;
 					padding: 1px 2px;
 					border-radius: 12px;
-					height: 48px;}
+					height: 48px;
+				}
 				
 				&::placeholder {
 					font-weight: 600;
