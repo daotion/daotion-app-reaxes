@@ -164,3 +164,21 @@ export namespace Space__general_modify {
 		
 	};
 }
+
+export namespace Space__edit_space_social_list {
+	
+	
+	export type payload = {
+		"address": string,
+		"data": {
+			"spaceID": number,
+			"socialLinks": string,
+			"modifyAddress": string,
+			"timestamp": number
+		},
+		"signature" : string;
+	};
+	export type response = {
+		
+	};
+}

@@ -195,7 +195,7 @@ export const request = new class {
 		}
 	};
 	
-	post = async <response = any , request extends () => ( Promise<ORZ.RequestOptions<any>> | ORZ.RequestOptions<any> ) = any>(
+	post = async <response = any , request extends () => ( Promise<any> | any ) = any>(
 		url : string ,
 		options : ORZ.RequestOptions<request> = {} ,
 	) : Promise<response> => {
