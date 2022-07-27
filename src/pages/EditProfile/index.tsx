@@ -263,7 +263,7 @@ const EditProfile = ComponentWrapper(() => {
             <ProfileFooterBtn
               text="Update Profile"
               htmlType="submit"
-              // onClick={onFinish}
+              onClick={onFinish}
             />
           </div>
         </Form>
