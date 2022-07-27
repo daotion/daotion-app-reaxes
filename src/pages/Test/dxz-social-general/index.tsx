@@ -576,7 +576,7 @@ export const AddSocialBtn = (props) => {
 				width : "fit-content" ,
 				background : "#ffffff" ,
 			} }
-			{...props}
+			onClick={props.onClick}
 		>
 			<SVGGrayAdd></SVGGrayAdd>
 			<span>
@@ -624,7 +624,8 @@ export const ProfileFooterBtn = ( props ) => {
 				alignItems : "center" ,
 				justifyContent : "center" ,
 			} }
-			{...props}
+			loading={props.loading}
+			onClick={props.onFinish}
 		>{ props.text }</Button>
 	</>;
 };

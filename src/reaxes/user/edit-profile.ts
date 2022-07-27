@@ -11,15 +11,14 @@ import { request_server_timestamp } from "@@requests";
 
 export const reaxel_edit_profile = (function () {
   const { store, setState } = orzMobx({
-    fetchedUserInfo: null,
     userInfo: {
-      address: "aaa", // 钱包地址
-      iconUrl: "aaa", // 头像
-      bgUrl: "aaa", // 背景图片
-      customUrl: "aaa", // 用户主页自定义后缀
-      displayName: "aaa", // 用户昵称
-      bio: "aaa", // 简介
-      links: "", // 个人portfolio或者网站
+      address: "", // 钱包地址
+      iconUrl: "", // 头像
+      bgUrl: "", // 背景图片
+      customUrl: "", // 用户主页自定义后缀
+      displayName: "", // 用户昵称
+      bio: "", // 简介
+      socialLinks: "", // 个人portfolio或者网站
       exist: true, // 该账户是否存在
     },
   });
@@ -34,40 +33,44 @@ export const reaxel_edit_profile = (function () {
         };
       };
 
-      request_user_profile_info(createPayload).then((fetchedUserInfo) => {
-        setState({ fetchedUserInfo });
+      request_user_profile_info(createPayload).then((userInfo) => {
+        setState({ userInfo });
       });
     }
   });
 
   const saveProfile = async (data) => {
-    // return new Promise(async (resolve, reject) => {
-    const { address } = reax_wallet.account;
+    return new Promise(async (resolve, reject) => {
+      // 如果用户没有连接钱包，自动跳出钱包连接弹窗
+      if (!reax_wallet?.account) {
+        reax_wallet.connectWallet();
+      }
 
-    if (address) {
-      const payload = {
-        ...data,
-        setAddress: address,
-        // timestamp: Date.now(),
-        timestamp: await request_server_timestamp(),
-      };
+      const { address } = reax_wallet?.account;
 
-      const createPayload = async () => {
-        return {
-          address,
-          data: payload,
-          signature: await reax_user.signByFakeWallet(payload),
-        } as User_account_update.payload;
-      };
+      if (address) {
+        const payload = {
+          ...data,
+          setAddress: address,
+          timestamp: await request_server_timestamp(),
+        };
 
-      request_user_account_update(createPayload).then((data) => {
-        setState({ userInfo: data });
-        // resolve(data);
-      });
-    } else {
-      // reject();
-    }
-    // })
+        const createPayload = async () => {
+          return {
+            address,
+            data: payload,
+            signature: await reax_user.signByFakeWallet(payload),
+          } as User_account_update.payload;
+        };
+
+        request_user_account_update(createPayload).then((data) => {
+          setState({ userInfo: data });
+          resolve(data);
+        });
+      } else {
+        reject();
+      }
+    })
   };
 
   const uploadImage = (file: File) => {

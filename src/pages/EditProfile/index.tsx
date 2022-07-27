@@ -2,7 +2,6 @@ import { Button, Input, Form, Upload, message } from "antd";
 
 import { ComponentWrapper } from "@@common/ReactComponentWrapper";
 import { reaxel_edit_profile } from "@@reaxes/user/edit-profile";
-import { reaxel_wallet } from "@@reaxes/wallet/wallet";
 
 import { AddSocialBtn, ProfileFooterBtn } from "../Test/dxz-social-general";
 
@@ -16,14 +15,27 @@ const Subtitle = (props) => {
   );
 };
 
+const INPUT_STYLE = {
+  background: "#f4f4f4",
+  borderRadius: "12px",
+  width: "100%",
+  height: "48px",
+  padding: "12px",
+  border: "none",
+  color: "#777e91",
+  fontSize: "14px",
+};
+
 const EditProfile = ComponentWrapper(() => {
   const [form] = Form.useForm();
 
   const reax_edit_profile = reaxel_edit_profile();
   const { userInfo } = reax_edit_profile.editProfileStore;
 
+  const [socialLinksArr, setSocialLinksArr] = useState<string[]>([]);
   const [avatarSrc, setAvatarSrc] = useState("");
   const [loading, setLoading] = useState(false);
+  const [avatarLoading, setAvatarLoading] = useState(false);
   const [initialValues, setInitialValues] = useState(null);
 
   const onFinish = useCallback(() => {
@@ -34,18 +46,27 @@ const EditProfile = ComponentWrapper(() => {
       .then((data) => {
         if (!data) return;
 
-        const { displayName, bio, customUrl, socialLinks } = data;
+        const { displayName, bio, customUrl, links, website } = data;
 
-        // 过滤冗余字段
+        const socialLinks = links.reduce((acc, curr) => {
+          const currKey = Object.keys(curr)[0];
+          acc[currKey] = curr[currKey];
+          return acc;
+        }, {})
+
         const payload = {
-          ...(displayName ? { displayName } : null),
-          ...(bio ? { bio } : null),
-          ...(customUrl ? { customUrl } : null),
-          ...(socialLinks ? { socialLinks } : null),
+          displayName: displayName || "",
+          bio: bio || "",
+          customUrl: customUrl || "",
+          socialLinks: JSON.stringify({
+            website,
+            ...socialLinks,
+          }),
         };
 
-        reax_edit_profile.saveProfile(payload);
-        setLoading(false);
+        reax_edit_profile.saveProfile(payload).then(() => {
+          setLoading(false);
+        });
       })
       .catch((e) => {
         console.error(e);
@@ -54,7 +75,9 @@ const EditProfile = ComponentWrapper(() => {
   }, [form, reax_edit_profile]);
 
   const onAddSocialAccount = () => {
-    console.log("add more");
+    // 模拟社交账号选择弹窗
+    const choose = window.prompt();
+    setSocialLinksArr((prev) => [...prev, choose]);
   };
 
   const verifyImageBeforeSubmit = useCallback((file) => {
@@ -78,17 +101,17 @@ const EditProfile = ComponentWrapper(() => {
       const { file } = option;
       if (file instanceof File || file.data) {
         if (verifyImageBeforeSubmit(file)) {
-          setLoading(true);
+          setAvatarLoading(true);
 
           reax_edit_profile.uploadImage(file).then(() => {
-            setLoading(false);
+            setAvatarLoading(false);
             const data = reax_edit_profile.editProfileStore;
             const { userInfo } = data;
             setAvatarSrc(userInfo.iconUrl);
           });
         }
       } else {
-        setLoading(false);
+        setAvatarLoading(false);
         return false;
       }
     },
@@ -103,6 +126,10 @@ const EditProfile = ComponentWrapper(() => {
   useEffect(() => {
     if (!userInfo) return;
     setInitialValues(userInfo);
+
+    const { iconUrl } = userInfo;
+    // 头像的更新与提交表单的接口不是同一个，初始的展示需要单独设置一下
+    setAvatarSrc(iconUrl);
   }, [userInfo]);
 
   return (
@@ -133,11 +160,10 @@ const EditProfile = ComponentWrapper(() => {
             </p>
             <Upload showUploadList={false} customRequest={customRequest}>
               <Button
-                loading={loading}
+                loading={avatarLoading}
                 style={{
                   border: "2px solid #e6e8ec",
                   padding: "12px 16px",
-                  // width: "81px",
                   height: "40px",
                   borderRadius: "12px",
                   display: "flex",
@@ -153,6 +179,7 @@ const EditProfile = ComponentWrapper(() => {
             </Upload>
           </div>
         </div>
+
         <Form
           form={form}
           name="profile-form"
@@ -169,18 +196,10 @@ const EditProfile = ComponentWrapper(() => {
               <Input
                 className={less.editInput}
                 placeholder="Enter your display name"
-                style={{
-                  background: "#f4f4f4",
-                  borderRadius: "12px",
-                  width: "100%",
-                  height: "48px",
-                  padding: "12px",
-                  border: "none",
-                  color: "#777e91",
-                  fontSize: "14px",
-                }}
+                style={INPUT_STYLE}
               />
             </Form.Item>
+
             <Subtitle title="Custom url"></Subtitle>
             <Form.Item
               name="customUrl"
@@ -190,16 +209,7 @@ const EditProfile = ComponentWrapper(() => {
                 className={less.editInput}
                 prefix="Daotion.io/"
                 placeholder="Your custom URL"
-                style={{
-                  background: "#f4f4f4",
-                  borderRadius: "12px",
-                  width: "100%",
-                  height: "48px",
-                  padding: "12px",
-                  border: "none",
-                  color: "#777e91",
-                  fontSize: "14px",
-                }}
+                style={INPUT_STYLE}
               />
             </Form.Item>
             <Subtitle title="Bio"></Subtitle>
@@ -207,54 +217,44 @@ const EditProfile = ComponentWrapper(() => {
               <Input
                 className={less.editInput}
                 placeholder="About yourself in a few words"
-                style={{
-                  background: "#f4f4f4",
-                  borderRadius: "12px",
-                  width: "100%",
-                  height: "48px",
-                  padding: "12px",
-                  border: "none",
-                  color: "#777e91",
-                  fontSize: "14px",
-                }}
+                style={INPUT_STYLE}
               />
             </Form.Item>
             <p className={less.accountTitle_2}>Social</p>
             <Subtitle title="Portfolio or website"></Subtitle>
-            <Form.Item name="socialLinks">
+            <Form.Item name="website">
               <Input
                 className={less.editInput}
                 placeholder="Enter URL"
-                style={{
-                  background: "#f4f4f4",
-                  borderRadius: "12px",
-                  width: "100%",
-                  height: "48px",
-                  padding: "12px",
-                  border: "none",
-                  color: "#777e91",
-                  fontSize: "14px",
-                }}
+                style={INPUT_STYLE}
               />
             </Form.Item>
-            <Subtitle title="Twitter"></Subtitle>
-            <Form.Item name="twitter">
-              <Input
-                className={less.editInput}
-                placeholder="@twitter username"
-                style={{
-                  background: "#f4f4f4",
-                  borderRadius: "12px",
-                  width: "100%",
-                  height: "48px",
-                  padding: "12px",
-                  border: "none",
-                  color: "#777e91",
-                  fontSize: "14px",
-                }}
-              />
-            </Form.Item>
-            <AddSocialBtn onClick={onAddSocialAccount} />
+            <Form.List name="links">
+              {(fields, { add, remove }, { errors }) => (
+                <>
+                  {fields.map((field, idx) => (
+                    <Form.Item required={false} key={field.key}>
+                      <Subtitle title={socialLinksArr[idx]}></Subtitle>
+                      <Form.Item
+                        {...field}
+                        noStyle
+                        name={[field.name, socialLinksArr[idx]]}
+                      >
+                        <Input placeholder="Enter URL" style={INPUT_STYLE} />
+                      </Form.Item>
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    <AddSocialBtn
+                      onClick={() => {
+                        add();
+                        onAddSocialAccount();
+                      }}
+                    />
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
             <footer className={less.lastIntro}>
               To update your settings you should sign message through your
               wallet. Click 'Update profile' then sign the message
@@ -263,7 +263,8 @@ const EditProfile = ComponentWrapper(() => {
             <ProfileFooterBtn
               text="Update Profile"
               htmlType="submit"
-              onClick={onFinish}
+              onFinish={onFinish}
+              loading={loading}
             />
           </div>
         </Form>
