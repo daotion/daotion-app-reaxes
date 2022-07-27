@@ -1,5 +1,5 @@
 import less from './index.module.less';
-
+import { SVGClose } from '../dxz-social-select-modal';
 import spaceTags from '@@Public/space-tags.json';
 import {
 	Img ,
@@ -20,7 +20,8 @@ export const DxzSpaceSettings = () => {
 		social : SocialProfile ,
 		general : GeneralProfile ,
 	}[ tab ];
-	reaxel_edit_space_general_settings().closuredFetchSpaceInfo( spaceID );
+	reaxel_edit_space_general_settings().
+	closuredFetchSpaceInfo( spaceID );
 	return <>
 		<div
 			className = { less.container }
@@ -97,9 +98,9 @@ const GeneralProfile = ComponentWrapper( () => {
 				</div>
 				<UploadBtn
 					onClick = { () => {
-						reax_upload_avatar( spaceID , ( url :string) =>
-							setEditingSpaceInfo( { iconUrl : url } ));
-						}  }
+						reax_upload_avatar( spaceID , ( url : string ) =>
+							setEditingSpaceInfo( { iconUrl : url } ) );
+					} }
 				/>
 			</div>
 			<p
@@ -239,7 +240,9 @@ const reaxel_edit_space_general_settings = function () {
 		  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
 		const info = reax_space_detail.store.spaceInfo;
 		currentSpaceID = spaceID;
-		if ( info && (spaceID === info.spaceID) && !forceUpdate ) {
+		if ( info && (
+			spaceID === info.spaceID
+		) && !forceUpdate ) {
 			spaceInfo = {
 				bio : info.bio ,
 				email : info.email ,
@@ -250,12 +253,14 @@ const reaxel_edit_space_general_settings = function () {
 			return;
 		}
 		
-		return reax_space_detail.getSpaceDetailMemoed(spaceID , forceUpdate);
+		return reax_space_detail.getSpaceDetailMemoed( spaceID , forceUpdate );
 		
 	} , () => [] );
 	
-	Reaxes.observedMemo(() => {
-		if((currentSpaceID) && reax_space_detail.store.spaceInfo?.spaceID === currentSpaceID){
+	Reaxes.observedMemo( () => {
+		if ( (
+			currentSpaceID
+		) && reax_space_detail.store.spaceInfo?.spaceID === currentSpaceID ) {
 			const info = reax_space_detail.store.spaceInfo;
 			spaceInfo = {
 				bio : info.bio ,
@@ -265,7 +270,7 @@ const reaxel_edit_space_general_settings = function () {
 			};
 			setState( spaceInfo );
 		}
-	},() => [reax_space_detail.store.spaceInfo]);
+	} , () => [ reax_space_detail.store.spaceInfo ] );
 	
 	const omitIconUrl = () => {
 		return [
@@ -349,21 +354,8 @@ const reaxel_edit_space_general_settings = function () {
 }();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const SocialProfile = ComponentWrapper( () => {
-	const {params} = utils.useRouter();
+	const { params } = utils.useRouter();
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
 		<div
@@ -374,29 +366,29 @@ const SocialProfile = ComponentWrapper( () => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<ProfileTitle title = "Social Profiles"/>
+			<ProfileTitle title = "Social Profiles" />
 			
 			<div
-				style={{
-					minHeight : "250px",
-				}}
+				style = { {
+					minHeight : "250px" ,
+				} }
 			>
-				{reax_edit_space_social_settings.store.socialList.map((item) => {
+				{ reax_edit_space_social_settings.store.socialList.map( ( item ) => {
 					
 					return <EditSocialItem
-						title = {item.type}
-						value = {item.link}
-						onChange = { (text) => {
-							reax_edit_space_social_settings.editSocialItem(item.key,text);
+						title = { item.type }
+						value = { item.link }
+						onChange = { ( text ) => {
+							reax_edit_space_social_settings.editSocialItem( item.key , text );
 						} }
 						key = { item.type }
 					
 					/>;
-				})}
+				} ) }
 			</div>
-			<AddSocialBtn/>
+			<AddSocialBtn />
 			<div className = { less.divider }></div>
-			<ProfileFooterBtn 
+			<ProfileFooterBtn
 				text = "Update Social Profiles"
 			/>
 		</div>
@@ -404,7 +396,7 @@ const SocialProfile = ComponentWrapper( () => {
 } );
 
 
-export const AddSocialBtn = ComponentWrapper(() => {
+export const AddSocialBtn = ComponentWrapper( () => {
 	const { Modal } = antd;
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
@@ -434,30 +426,27 @@ export const AddSocialBtn = ComponentWrapper(() => {
 		</Button>
 		<Modal
 			visible = { reax_edit_space_social_settings.store.selectModalVisible }
-			onCancel={() => reax_edit_space_social_settings.setSelectModalVisible(false)}
-			footer={null}
+			onCancel = { () => reax_edit_space_social_settings.setSelectModalVisible( false ) }
+			footer = { null }
+			className = { less.antdSocialMediaModal }
+			// centered
+			maskClosable
+			mask = { true }
+			width = "480px"
+			closeIcon = { <SVGClose /> }
+			maskStyle={{
+				background:'rgba(244, 244, 244, 0.4)',
+				backdropFilter:'blur(50px)',
+			}}
 		>
-			<DxzSocialSelectModal/>
+			<DxzSocialSelectModal />
 		</Modal>
 	</>;
-});
+} );
 
 
 import { DxzSocialSelectModal } from '@@pages/Test/dxz-social-select-modal';
-import {reaxel_edit_space_social_settings} from './reaxel_edit_space_social_settings';
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { reaxel_edit_space_social_settings } from './reaxel_edit_space_social_settings';
 
 
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
@@ -619,17 +608,18 @@ const SVGGrayAdd = () => {
 		</svg>
 	</>;
 };
-export const ProfileFooterBtn = ComponentWrapper(( props ) => {
+export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 	
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
 		<Button
 			className = "profile-footer-btn"
-			onClick={() => {
-				reax_edit_space_social_settings.fetchEditSocial().then(() => {
+			onClick = { () => {
+				reax_edit_space_social_settings.fetchEditSocial().
+				then( () => {
 					
-				});
-			}}
+				} );
+			} }
 			style = { {
 				background : "#3772ff" ,
 				borderRadius : "12px" ,
@@ -646,7 +636,7 @@ export const ProfileFooterBtn = ComponentWrapper(( props ) => {
 			} }
 		>{ props.text }</Button>
 	</>;
-});
+} );
 const CurrentNet = ( props ) => {
 	return <>
 		<div
@@ -748,7 +738,6 @@ const SVGClear = () => {
 };
 
 
-
 const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 	title : string;
 }> ) => {
@@ -759,9 +748,9 @@ const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 };
 
 const SubItemInput = () => {
-	return<>
+	return <>
 		<Input
-			placeholder='Please enter'
+			placeholder = "Please enter"
 			style = { {
 				background : "#f4f4f4" ,
 				borderRadius : "12px" ,
@@ -775,14 +764,14 @@ const SubItemInput = () => {
 				color : "#33383f" ,
 			} }
 		/>
-	</>
+	</>;
 	
 };
 
-const EditSocialItem = ComponentWrapper( ( props:EditSocialItemProps ) => {
-	const mixedProps = Object.assign<Partial<EditSocialItemProps>,EditSocialItemProps>( {
-		placeholder : "Please enter",
-	},{ ...props });
+const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
+	const mixedProps = Object.assign<Partial<EditSocialItemProps> , EditSocialItemProps>( {
+		placeholder : "Please enter" ,
+	} , { ...props } );
 	return <>
 		<div
 			style = { {
@@ -792,11 +781,11 @@ const EditSocialItem = ComponentWrapper( ( props:EditSocialItemProps ) => {
 		>
 			<span className = { less.subTitle }>{ mixedProps.title }</span>
 			<Input
-				value = {mixedProps.value}
-				onChange={(e) => {
+				value = { mixedProps.value }
+				onChange = { ( e ) => {
 					mixedProps.onChange( e.target.value );
-				}}
-				placeholder = {mixedProps.placeholder}
+				} }
+				placeholder = { mixedProps.placeholder }
 				style = { {
 					background : "#f4f4f4" ,
 					borderRadius : "12px" ,
@@ -817,10 +806,9 @@ const EditSocialItem = ComponentWrapper( ( props:EditSocialItemProps ) => {
 type EditSocialItemProps = {
 	title : React.ReactNode;
 	value : string;
-	onChange : (text:string) => void;
+	onChange : ( text : string ) => void;
 	placeholder? : string;
 };
-
 
 
 /*

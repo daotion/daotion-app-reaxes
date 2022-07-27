@@ -1,38 +1,35 @@
 import less from './index.module.less';
-import {reaxel_edit_space_social_settings} from '@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings';
+import { reaxel_edit_space_social_settings } from '@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings';
 
-export const DxzSocialSelectModal = ComponentWrapper(() => {
+export const DxzSocialSelectModal = ComponentWrapper( () => {
 	
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	
 	return <>
 		<div className = { less.content }>
-			<div className = { less.titleCloseBox }>
-				<h1 className = { less.mainTitle }>Socials</h1>
-				<SVGClose />
-			</div>
+			<h1 className = { less.mainTitle }>Socials</h1>
 			<p className = { less.intro }>Select the social media you want to add</p>
 			<div className = { less.divider }></div>
 			<div className = { less.socialMediaBox }>
-				{reax_edit_space_social_settings.staticSocialList.map((item) => {
+				{ reax_edit_space_social_settings.staticSocialList.map( ( item ) => {
 					return <MenuItem
-						onClick = {() => {
-							reax_edit_space_social_settings.addSocialItem(item.type);
-						}}
-						key = {item.type}
-						text = {item.type}
+						onClick = { () => {
+							reax_edit_space_social_settings.addSocialItem( item.type );
+						} }
+						key = { item.type }
+						text = { item.type }
 						icon = { item.icon }
 					/>;
-				})}
+				} ) }
 			</div>
 		</div>
 	</>;
-});
+} );
 const MenuItem = ComponentWrapper( ( props : MenuItem ) => {
 	return <>
 		<div
 			className = { less.socialMedia }
-			onClick={props.onClick}
+			onClick = { props.onClick }
 		>
 			{ props.icon }
 			<span className = { less.itemText }>
@@ -474,7 +471,7 @@ const SVGClubHouse = () => {
 		</svg>
 	</>;
 };
-const SVGClose = () => {
+export const SVGClose = () => {
 	return <>
 		<svg
 			width = "40"
@@ -504,43 +501,43 @@ const SVGClose = () => {
 
 const socialList = [
 	{
-		text : "Mirror",
-		icon : <SVGMirror />,
-	},
+		text : "Mirror" ,
+		icon : <SVGMirror /> ,
+	} ,
 	{
-		text : "Telegram",
-		icon : <SVGTelegram />,
-	},
+		text : "Telegram" ,
+		icon : <SVGTelegram /> ,
+	} ,
 	{
-		text : "Notion",
-		icon : <SVGNotion />,
-	},
+		text : "Notion" ,
+		icon : <SVGNotion /> ,
+	} ,
 	{
-		text : "Youtube",
-		icon : <SVGYoutube />,
-	},
+		text : "Youtube" ,
+		icon : <SVGYoutube /> ,
+	} ,
 	{
-		text : "Medium",
-		icon : <SVGMedium />,
-	},
+		text : "Medium" ,
+		icon : <SVGMedium /> ,
+	} ,
 	{
-		text : "ClubHouse",
-		icon : <SVGClubHouse />,
-	},
+		text : "ClubHouse" ,
+		icon : <SVGClubHouse /> ,
+	} ,
 	{
-		text : "Reddit",
-		icon : <SVGReddit />,
-	},
+		text : "Reddit" ,
+		icon : <SVGReddit /> ,
+	} ,
 	{
-		text : "Instagram",
-		icon : <SVGInstagram />,
-	},
+		text : "Instagram" ,
+		icon : <SVGInstagram /> ,
+	} ,
 	{
-		text : "Tik tok",
-		icon : <SVGTikTok />,
-	},
+		text : "Tik tok" ,
+		icon : <SVGTikTok /> ,
+	} ,
 	{
-		text : "Facebook",
-		icon : <SVGFacebook />,
-	},
+		text : "Facebook" ,
+		icon : <SVGFacebook /> ,
+	} ,
 ];
