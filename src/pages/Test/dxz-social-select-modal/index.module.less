@@ -37,7 +37,7 @@
 .item-text{
 	padding-left: 16px;
 }
-.social-media{
+.social-media {
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 24px;
@@ -53,9 +53,13 @@
 	border-radius: 12px;
 	user-select: none;
 	border: 2px solid transparent;
-	&:hover{
-		background: #F4F5F6;
-		border: 2px solid #F4F5F6;
+	cursor: pointer;
+	transition: background-color .15s ease;
+	
+	
+	&:hover {
+		background: #f4f5f6;
+		border: 2px solid #f4f5f6;
 	}
 }
 .social-media-box{
@@ -64,4 +68,5 @@
 	justify-content: space-between;
 	display: flex;
 	flex-flow: row wrap;
+	align-content: flex-start;
 }

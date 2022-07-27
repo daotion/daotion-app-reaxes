@@ -65,8 +65,6 @@ const GeneralProfile = ComponentWrapper( () => {
 		saveSpaceSettings ,
 	} = reaxel_edit_space_general_settings();
 	
-	[ store__space_detail.spaceInfo ];
-	
 	return <>
 		<div
 			style = { {
@@ -252,7 +250,7 @@ const reaxel_edit_space_general_settings = function () {
 			return;
 		}
 		
-		return reax_space_detail.getSpaceDetailMemoed(spaceID);
+		return reax_space_detail.getSpaceDetailMemoed(spaceID , forceUpdate);
 		
 	} , () => [] );
 	
@@ -358,6 +356,12 @@ const reaxel_edit_space_general_settings = function () {
 
 
 
+
+
+
+
+
+
 const SocialProfile = ComponentWrapper( () => {
 	const {params} = utils.useRouter();
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
@@ -370,95 +374,81 @@ const SocialProfile = ComponentWrapper( () => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<ProfileTitle title = "Social Profiles"></ProfileTitle>
+			<ProfileTitle title = "Social Profiles"/>
 			
-			{reax_edit_space_social_settings.store.socialList.map((item) => {
-				
-				return <EditSocialItem
-					title = {item.type}
-					value = {item.link}
-					onChange = { (text) => {
-						
-					} }
-					key = { 1 }
-				
-				/>;
-			})}
-			
-			<ItemWithSubTitle title = "Twitter"></ItemWithSubTitle>
-			<SubItemInput/>
-			<ItemWithSubTitle title = "Discord"></ItemWithSubTitle>
-			<SubItemInput/>
-			<ItemWithSubTitle title = "GitHub"></ItemWithSubTitle>
-			<SubItemInput/>
-			
-			<AddSocialBtn></AddSocialBtn>
+			<div
+				style={{
+					minHeight : "250px",
+				}}
+			>
+				{reax_edit_space_social_settings.store.socialList.map((item) => {
+					
+					return <EditSocialItem
+						title = {item.type}
+						value = {item.link}
+						onChange = { (text) => {
+							reax_edit_space_social_settings.editSocialItem(item.key,text);
+						} }
+						key = { item.type }
+					
+					/>;
+				})}
+			</div>
+			<AddSocialBtn/>
 			<div className = { less.divider }></div>
-			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
+			<ProfileFooterBtn 
+				text = "Update Social Profiles"
+			/>
 		</div>
 	</>;
 } );
-export const reaxel_edit_space_social_settings = function(){
-	let ret;
-	/*从后端请求到的social-list*/
-	let spaceSocialList = null;
-	const {
-		store ,
-		setState,
-	} = orzMobx<store>( {
-		socialList : [] ,
-		
-	} );
-	const reax_space_detail = reaxel_space_detail();
-	
-	const clousred = Reaxes.closuredMemo(() => {
-		if(!reaxel_space_detail().store.spaceInfo?.links){
-			setState( {
-				socialList : [] ,
-			} );
-		}else {
-			setState( {
-				socialList : (JSON.parse( reaxel_space_detail().store.spaceInfo.links)) as spaceSocialItem[],
-			} );
-		}
-	},() => [reaxel_space_detail().store.spaceInfo?.links]);
-	
-	return () => {
-		
-		return {
-			get store (){
-				return store;
-			},
-			/*通过key编辑单个item*/
-			editSocialItem(key:string,value:string){
-				setState({
-					socialList : store.socialList.map((item) => {
-						if(item.key === key){
-							return {
-								...item,
-								link : value,
-							} as spaceSocialItem
-						}else return item;
-					})
-				})
-			},
-			
-		}
-	};
-	type store = {
-		socialList : (spaceSocialItem&{key:string})[];
-		
-	};
-}();
 
-type spaceSocialItem = {
-	/*社交媒体类型的字符串  如twitter*/
-	type : string;
-	/*社交媒体的链接*/
-	link : string;
-	
-	key : string;
-};
+
+export const AddSocialBtn = ComponentWrapper(() => {
+	const { Modal } = antd;
+	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
+	return <>
+		<Button
+			style = { {
+				color : "#777e90" ,
+				fontWeight : "700" ,
+				fontSize : "14px" ,
+				lineHeight : "16px" ,
+				border : "2px solid #e6e8ec" ,
+				display : "flex" ,
+				alignItems : "center" ,
+				justifyContent : "center" ,
+				padding : "12px 16px" ,
+				borderRadius : "12px" ,
+				height : "40px" ,
+				marginTop : "32px" ,
+				width : "fit-content" ,
+				background : "#ffffff" ,
+			} }
+			onClick = { () => reax_edit_space_social_settings.setSelectModalVisible( true ) }
+		>
+			<SVGGrayAdd></SVGGrayAdd>
+			<span>
+				Add more social account
+			</span>
+		</Button>
+		<Modal
+			visible = { reax_edit_space_social_settings.store.selectModalVisible }
+			onCancel={() => reax_edit_space_social_settings.setSelectModalVisible(false)}
+			footer={null}
+		>
+			<DxzSocialSelectModal/>
+		</Modal>
+	</>;
+});
+
+
+import { DxzSocialSelectModal } from '@@pages/Test/dxz-social-select-modal';
+import {reaxel_edit_space_social_settings} from './reaxel_edit_space_social_settings';
+
+
+
+
 
 
 
@@ -608,33 +598,6 @@ const ProfileTitle = ( props ) => {
 		</h1>
 	</>;
 };
-export const AddSocialBtn = () => {
-	return <>
-		<Button
-			style = { {
-				color : "#777e90" ,
-				fontWeight : "700" ,
-				fontSize : "14px" ,
-				lineHeight : "16px" ,
-				border : "2px solid #e6e8ec" ,
-				display : "flex" ,
-				alignItems : "center" ,
-				justifyContent : "center" ,
-				padding : "12px 16px" ,
-				borderRadius : "12px" ,
-				height : "40px" ,
-				marginTop : "32px" ,
-				width : "fit-content" ,
-				background : "#ffffff" ,
-			} }
-		>
-			<SVGGrayAdd></SVGGrayAdd>
-			<span>
-				Add more social account
-			</span>
-		</Button>
-	</>;
-};
 const SVGGrayAdd = () => {
 	return <>
 		<svg
@@ -656,10 +619,17 @@ const SVGGrayAdd = () => {
 		</svg>
 	</>;
 };
-export const ProfileFooterBtn = ( props ) => {
+export const ProfileFooterBtn = ComponentWrapper(( props ) => {
+	
+	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
 		<Button
 			className = "profile-footer-btn"
+			onClick={() => {
+				reax_edit_space_social_settings.fetchEditSocial().then(() => {
+					
+				});
+			}}
 			style = { {
 				background : "#3772ff" ,
 				borderRadius : "12px" ,
@@ -676,7 +646,7 @@ export const ProfileFooterBtn = ( props ) => {
 			} }
 		>{ props.text }</Button>
 	</>;
-};
+});
 const CurrentNet = ( props ) => {
 	return <>
 		<div

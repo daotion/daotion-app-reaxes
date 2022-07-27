@@ -1,52 +1,3 @@
-import less from './index.module.less';
-import {reaxel_edit_space_social_settings} from '@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings';
-
-export const DxzSocialSelectModal = ComponentWrapper(() => {
-	
-	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
-	
-	return <>
-		<div className = { less.content }>
-			<div className = { less.titleCloseBox }>
-				<h1 className = { less.mainTitle }>Socials</h1>
-				<SVGClose />
-			</div>
-			<p className = { less.intro }>Select the social media you want to add</p>
-			<div className = { less.divider }></div>
-			<div className = { less.socialMediaBox }>
-				{reax_edit_space_social_settings.staticSocialList.map((item) => {
-					return <MenuItem
-						onClick = {() => {
-							reax_edit_space_social_settings.addSocialItem(item.type);
-						}}
-						key = {item.type}
-						text = {item.type}
-						icon = { item.icon }
-					/>;
-				})}
-			</div>
-		</div>
-	</>;
-});
-const MenuItem = ComponentWrapper( ( props : MenuItem ) => {
-	return <>
-		<div
-			className = { less.socialMedia }
-			onClick={props.onClick}
-		>
-			{ props.icon }
-			<span className = { less.itemText }>
-				{ props.text }
-			</span>
-		</div>
-	</>;
-} );
-
-type MenuItem = {
-	icon : React.ReactElement;
-	text : React.ReactNode;
-	onClick? : () => any;
-};
 const SVGLink = () => {
 	return <>
 		<svg
@@ -502,45 +453,175 @@ const SVGClose = () => {
 	</>;
 };
 
-const socialList = [
-	{
-		text : "Mirror",
-		icon : <SVGMirror />,
-	},
-	{
-		text : "Telegram",
-		icon : <SVGTelegram />,
-	},
-	{
-		text : "Notion",
-		icon : <SVGNotion />,
-	},
-	{
-		text : "Youtube",
-		icon : <SVGYoutube />,
-	},
-	{
-		text : "Medium",
-		icon : <SVGMedium />,
-	},
-	{
-		text : "ClubHouse",
-		icon : <SVGClubHouse />,
-	},
-	{
-		text : "Reddit",
-		icon : <SVGReddit />,
-	},
-	{
-		text : "Instagram",
-		icon : <SVGInstagram />,
-	},
-	{
-		text : "Tik tok",
-		icon : <SVGTikTok />,
-	},
-	{
-		text : "Facebook",
-		icon : <SVGFacebook />,
-	},
-];
+
+export const reaxel_edit_space_social_settings = function(){
+	let ret;
+	/*从后端请求到的social-list*/
+	let spaceSocialList = null;
+	const staticSocialList = [
+		{
+			type : "Mirror",
+			icon : <SVGMirror />,
+		},
+		{
+			type : "Telegram",
+			icon : <SVGTelegram />,
+		},
+		{
+			type : "Notion",
+			icon : <SVGNotion />,
+		},
+		{
+			type : "Youtube",
+			icon : <SVGYoutube />,
+		},
+		{
+			type : "Medium",
+			icon : <SVGMedium />,
+		},
+		{
+			type : "ClubHouse",
+			icon : <SVGClubHouse />,
+		},
+		{
+			type : "Reddit",
+			icon : <SVGReddit />,
+		},
+		{
+			type : "Instagram",
+			icon : <SVGInstagram />,
+		},
+		{
+			type : "Tik tok",
+			icon : <SVGTikTok />,
+		},
+		{
+			type : "Facebook",
+			icon : <SVGFacebook />,
+		},
+	];
+	const {
+		store ,
+		setState,
+	} = orzMobx<store>( {
+		socialList : [] ,
+		selectModalVisible : false,
+	} );
+	const reax_space_detail = reaxel_space_detail();
+	const reax_wallet = reaxel_wallet();
+	const reax_user = reaxel_user();
+	
+	const fetchEditSocial = async () => {
+		return request_edit_space_social_list( async () => {
+			const data = {
+				spaceID : reax_space_detail.store.spaceInfo.spaceID ,
+				socialLinks : JSON.stringify( store.socialList ) ,
+				modifyAddress : reax_wallet.account.address ,
+				timestamp : await request_server_timestamp() ,
+			};
+			return {
+				address : reax_wallet.account.address ,
+				data ,
+				signature : await reax_user.signByFakeWallet( data ) ,
+			};
+		} ).
+		catch( ( e ) : never => {
+			throw e;
+		} ).
+		then( () => {
+			if ( __EXPERIMENTAL__ ) {
+				antd.message.success( 'update successful!' );
+			}
+			reax_space_detail.getSpaceDetailMemoed( reax_space_detail.store.spaceInfo.spaceID , true );
+		} );
+	};
+	
+	
+	const clousred = Reaxes.closuredMemo(() => {
+		if(!reax_space_detail.store.spaceInfo?.links){
+			setState( {
+				socialList : [] ,
+			} );
+		}else {
+			setState( {
+				socialList : (JSON.parse( reax_space_detail.store.spaceInfo.links)) as spaceSocialItem[],
+			} );
+		}
+	},() => [reax_space_detail.store.spaceInfo?.links]);
+	Reaxes.observedMemo( () => {
+		
+		clousred(() => [reax_space_detail.store.spaceInfo?.links])()
+	} , () => [reax_space_detail.store.spaceInfo] );
+	
+	
+	return () => {
+		
+		return {
+			get store() {
+				return store;
+			},
+			get staticSocialList(){
+				return staticSocialList.filter(({type}) => {
+					return !store.socialList.some( ( item ) => item.type === type );
+				});
+			},
+			/*通过key编辑单个item*/
+			editSocialItem(key:string,value:string){
+				setState({
+					socialList : store.socialList.map((item) => {
+						if(item.key === key){
+							return {
+								...item,
+								link : value,
+							} as spaceSocialItem
+						}else return item;
+					})
+				})
+			},
+			/*添加一个社媒*/
+			addSocialItem(type:string){
+				setState( {
+					socialList : [
+						...store.socialList ,
+						{
+							link : '' ,
+							type ,
+							key : Math.random().
+							toString() ,
+						} ,
+					] ,
+				} );
+				if(staticSocialList.length === store.socialList.length){
+					setState( {
+						selectModalVisible : false ,
+					} );
+				}
+			},
+			setSelectModalVisible( selectModalVisible = !store.selectModalVisible ) {
+				setState( {
+					selectModalVisible ,
+				} );
+			},
+			fetchEditSocial,
+		}
+	};
+	type store = {
+		socialList : (spaceSocialItem&{key:string})[];
+		selectModalVisible : boolean;
+	};
+	type spaceSocialItem = {
+		/*社交媒体类型的字符串  如twitter*/
+		type : string;
+		/*社交媒体的链接*/
+		link : string;
+		
+		key : string;
+	};
+}();
+
+import {
+	reaxel_wallet ,
+	reaxel_user,
+} from '@@reaxes';
+import { reaxel_space_detail } from '@@reaxes/Spaces/space-detail';
+import { request_edit_space_social_list ,request_server_timestamp} from '@@requests';

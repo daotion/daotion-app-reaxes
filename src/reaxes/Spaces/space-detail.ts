@@ -2,7 +2,8 @@ import { request_space_detail } from '@@requests';
 import { Space___get_space_detail } from '@@requests/Spaces/types';
 
 export const reaxel_space_detail = function (){
-	
+	/*缓存上一次强制刷新的参数 , 避免不需要强制刷新时没传第二个deps导致不必要刷新*/
+	let prevForceUpdate = null;
 	const {
 		store ,
 		setState,
@@ -33,7 +34,7 @@ export const reaxel_space_detail = function (){
 	 * 如果没差异则不会执行,此方法用于防止无限请求&渲染.
 	 */
 	const closuredFetchSpaceInfo = Reaxes.closuredMemo( ( spaceID:number ) => {
-		setTimeout( () => setState( { spaceInfo : null } ) );
+		// setTimeout( () => setState( { spaceInfo : null } ) );
 		fetchUpdate_space_detail( spaceID );
 	} , () => [] );
 	
@@ -61,8 +62,8 @@ export const reaxel_space_detail = function (){
 					} ,
 				} );
 			},
-			getSpaceDetailMemoed( spaceID : number ) {
-				return closuredFetchSpaceInfo( ( prevDeps ) => [ spaceID ] )( spaceID );
+			getSpaceDetailMemoed( spaceID : number , forceUpdate = false ) {
+				return closuredFetchSpaceInfo( ( prevDeps ) => [ spaceID , ...(forceUpdate ? [prevForceUpdate = Math.random()] : [prevForceUpdate]) ] )( spaceID );
 			},
 		};
 	};
