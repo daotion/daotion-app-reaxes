@@ -30,7 +30,7 @@ import { DxzMyProfile } from './dxz-my-profile';
 import { DxzSocialSelectModal } from './dxz-social-select-modal';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzSocialSelectModal />
+	<DxzMyProfile />
 </div>;
 
 
