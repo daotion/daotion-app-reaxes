@@ -26,12 +26,13 @@ export const SelectNetworkButtonDropdown = ComponentWrapper( () => {
 	
 	const btnStyle : React.CSSProperties = {
 		...headerBtnStyle,
-		padding : "12px 12px 12px 12px" ,
+		padding : "8px" ,
 		borderRadius : "12px" ,
-		borderWidth : "2px" ,
-		marginLeft : "16px" ,
+		border : "none" ,
+		marginLeft : "8px" ,
 		display : "flex" ,
 		alignItems : "center" ,
+		height:"40px"
 	};
 	const { Button } = antd;
 	if ( !reax_wallet.wallet ) {

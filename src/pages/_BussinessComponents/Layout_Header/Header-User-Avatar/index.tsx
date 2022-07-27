@@ -13,8 +13,8 @@ export const UserAvatar = ComponentWrapper( () => {
 				backgroundImage : `url("${ reax_wallet.account.ens.avatar.url }")` ,
 				backgroundColor : "#eeeeee" ,
 				display : "flex" ,
-				width : 36 ,
-				height : 36 ,
+				width : 20 ,
+				height : 20 ,
 				borderRadius : "50%" ,
 			} }
 		/>;

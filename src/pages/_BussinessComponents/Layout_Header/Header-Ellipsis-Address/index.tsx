@@ -8,6 +8,7 @@ export const EllipsisAddress = ComponentWrapper( () => {
 			overflow : "hidden" ,
 			whiteSpace : "nowrap" ,
 			display : "flex" ,
+			lineHeight:"20px",
 		} }
 	>
 		<span
