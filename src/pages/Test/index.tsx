@@ -16,7 +16,6 @@ import { DxzDAOList } from './dxz-DAO-list';
 import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
-import { DxzSpaceHomeJoined } from './dxz-space-info-homepage';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import { DxzSpaceSettings } from './dxz-Space-Settings';
 import { DxzEditProfilePop } from './dxz-edit-profile-pop';
