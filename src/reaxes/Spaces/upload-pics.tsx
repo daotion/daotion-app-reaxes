@@ -1,7 +1,7 @@
 /**
  * 上传profile/space-avatar头像等
  */
-import { reaxel_user } from '@@reaxes/authurize/user';
+import { reaxel_user } from '@@reaxes/user/auth';
 import { reaxel_wallet } from '@@reaxes/wallet/wallet';
 import { reaxel_space_detail } from '@@reaxes/Spaces/space-detail';
 import { reaxel_joined_Space_list } from '@@reaxes/Spaces/joined-space-list';

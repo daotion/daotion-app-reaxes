@@ -5,7 +5,7 @@ import {
 	Reaxlass ,
 } from 'reaxes';
 import {reaxel_wallet} from '@@reaxes/wallet/wallet';
-import {reaxel_user} from '@@reaxes/authurize/user';
+import {reaxel_user} from '@@reaxes/user/auth';
 import {reaxel_space_list} from '@@reaxes/Spaces/all-space-list';
 
 import less from '../../styles/reaxels.module.less';
