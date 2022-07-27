@@ -1,21 +1,15 @@
-import {
-	Reaxes ,
-	Reaxper ,
-	orzMobx ,
-	Reaxlass ,
-} from 'reaxes';
-import {reaxel_wallet} from '@@reaxes/wallet/wallet';
-import {reaxel_user} from '@@reaxes/user/auth';
-import {reaxel_space_list} from '@@reaxes/Spaces/all-space-list';
+import { reaxel_wallet } from '@@reaxes/wallet/wallet';
+import { reaxel_user } from '@@reaxes/user/auth';
+import { reaxel_space_list } from '@@reaxes/Spaces/all-space-list';
+import { reaxel_i18n } from '@@reaxes/i18n';
 
 import less from '../../styles/reaxels.module.less';
 import spaceTags from '@@Public/space-tags.json';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import { SpaceFactoryAbi } from '@@common/contract/abi';
 import { SpaceFactoryAddress } from '@@common/contract/address';
 import {
-	request_server_timestamp ,
 	request_create_space ,
+	request_server_timestamp ,
 } from '@@requests';
 import { ethers } from 'ethers';
 
@@ -54,9 +48,9 @@ export const reaxel_create_space = function () {
 					address ,
 					data : data ,
 					signature : await reax_user.signByFakeWallet( data ) ,
-				}
-			}
-			return request_create_space( createPayload);
+				};
+			};
+			return request_create_space( createPayload );
 		};
 		
 		const contract_create = async ( spaceID : number ) => {
@@ -77,7 +71,7 @@ export const reaxel_create_space = function () {
 					Modal.success( {
 						title : "transaction success !" ,
 					} );
-					reaxel_space_list
+					reaxel_space_list;
 					setState( {
 						visible : false ,
 						modal_showing : false ,
@@ -154,7 +148,7 @@ export const reaxel_create_space = function () {
 				return store;
 			} ,
 			setCreateModalVisible : ( visible : boolean ) => setState( { visible } ) ,
-			CreateSpaceModal : Reaxper( class extends Reaxlass {
+			CreateSpaceModal : ComponentWrapper( class extends ReactComponentClass {
 				
 				render() {
 					const {
@@ -164,13 +158,17 @@ export const reaxel_create_space = function () {
 						Input ,
 						Select ,
 					} = antd;
+					const {
+						I18n ,
+						i18n ,
+					} = reaxel_i18n();
 					return <>
 						<Modal
 							visible = { store.visible }
 							// visible = { true }
 							centered
 							maskClosable
-							closeIcon={ <SVGCloseIcon/> }
+							closeIcon = { <SVGCloseIcon /> }
 							mask = { true }
 							className = { less.antdCreateSpaceModal }
 							onCancel = { () => setState( { visible : false } ) }
@@ -196,11 +194,13 @@ export const reaxel_create_space = function () {
 										color : "#ffffff" ,
 										fontSize : "15px" ,
 										fontWeight : "700" ,
-										lineHeight : "24px",
-										marginTop:'24px',
+										lineHeight : "24px" ,
+										marginTop : '24px' ,
 									} }
 								>
-									Create
+									<I18n>
+										Create
+									</I18n>
 								</Button>
 							</> }
 							width = "800px"
@@ -212,18 +212,34 @@ export const reaxel_create_space = function () {
 							<div
 								className = { less.modalContent }
 								style = { {
-									height : "fit-content",
+									height : "fit-content" ,
 								} }
 							>
-								<h1 className = { less.mainTitle }>Create your Space</h1>
-								<h5 className = { less.decTitle }>Create your own organization in a few minutes!</h5>
-								<h3 className = { less.subTitle }>Space Information</h3>
+								<h1 className = { less.mainTitle }>
+									<I18n>
+										Create your Space
+									</I18n>
+								</h1>
+								<h5 className = { less.decTitle }>
+									<I18n>
+										Create your own organization in a few minutes!
+									</I18n>
+								</h5>
+								<h3 className = { less.subTitle }>
+									<I18n>
+										Space Information
+									</I18n>
+								</h3>
 								<div className = { less.formList }>
 									<div className = { less.formItem }>
-										<p>Name</p>
+										<p>
+											<I18n>
+												Name
+											</I18n>
+										</p>
 										<Input
 											className = { less.mInput }
-											placeholder = "Name your Space"
+											placeholder = { i18n( "Name your Space" ) }
 											value = { store.input_space_name }
 											onChange = { ( e ) => {
 												setState( {
@@ -239,7 +255,11 @@ export const reaxel_create_space = function () {
 												justifyContent : "space-between" ,
 											} }
 										>
-											<span>Type</span>
+											<span>
+												<I18n>
+													Type
+												</I18n>
+											</span>
 											<span
 												style = { {
 													color : "#b1b5c3" ,
@@ -247,14 +267,14 @@ export const reaxel_create_space = function () {
 												} }
 											>
 												<span style = { { color : "#313436" } }>{ store.select_types.length }</span>
-												/3 Types
+												/3
 											</span>
 										</p>
 										<Select
 											mode = "tags"
 											allowClear
 											className = { less.mSelect }
-											placeholder = "Please select"
+											placeholder = {i18n("Please select")}
 											value = { store.select_types }
 											onChange = { ( selectedTypes ) => {
 												if ( selectedTypes.length < 4 ) {
@@ -270,7 +290,10 @@ export const reaxel_create_space = function () {
 									</div>
 									<div className = { less.formItem }>
 										<div className = { less.titleWrp }>
-											<p>Network</p>
+											<p>
+												<I18n>
+													Network
+												</I18n></p>
 										</div>
 										<Select
 											defaultValue = "Ethereum"
@@ -280,10 +303,14 @@ export const reaxel_create_space = function () {
 										</Select>
 									</div>
 									<div className = { less.formItem }>
-										<p>Email</p>
+										<p>
+											<I18n>
+												Email
+											</I18n>
+										</p>
 										<Input
 											className = { less.mInput }
-											placeholder = "Enter your email"
+											placeholder = { i18n("Enter your email") }
 											value = { store.input_email }
 											onChange = { ( e ) => {
 												setState( { input_email : e.target.value } );
@@ -307,11 +334,30 @@ export const reaxel_create_space = function () {
 		};
 	};
 }();
-const SVGCloseIcon=()=>{
-	return<>
-		<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path fillRule="evenodd" clipRule="evenodd" d="M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z" fill="#313436"/>
-			<rect x="1" y="1" width="38" height="38" rx="19" stroke="#E6E8EC" strokeWidth="2"/>
+const SVGCloseIcon = () => {
+	return <>
+		<svg
+			width = "40"
+			height = "40"
+			viewBox = "0 0 40 40"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z"
+				fill = "#313436"
+			/>
+			<rect
+				x = "1"
+				y = "1"
+				width = "38"
+				height = "38"
+				rx = "19"
+				stroke = "#E6E8EC"
+				strokeWidth = "2"
+			/>
 		</svg>
-	</>
-}
+	</>;
+};
