@@ -3,8 +3,8 @@ import {
 	reaxel_user_join_or_leave_space,
 } from '@@reaxes';
 import {ButtonProps} from 'antd';
-
-import less from '@@RootPath/src/styles/reaxels.module.less';
+import less from '../../Space-Info/index.module.less'
+// import less from '@@RootPath/src/styles/reaxels.module.less';
 /*返回join or leave button但是如果用户是controller则变为设置按钮*/
 export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps ) => {
 	const { Button } = antd;
@@ -19,6 +19,7 @@ export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps 
 	if(!joinedSpaceInfo){
 		Object.assign<ButtonProps , ButtonProps>( ButtonProps , {
 			children : "Join",
+			className : less.joinBtn,
 			onClick : ( e ) => {
 				e.stopPropagation();
 				reaxel_user_join_or_leave_space().
@@ -91,10 +92,10 @@ export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps 
 		>Join</Button>;*/
 	}
 	
-	return <Button { ...ButtonProps } style={props.style} />;
+	return <Button { ...ButtonProps } />;
 } );
 
 type JoinedBtnProps = {
 	spaceID : number;
-	style : React.CSSProperties;
+	// style? : React.CSSProperties;
 };
