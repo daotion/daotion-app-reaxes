@@ -2,7 +2,6 @@ import { DxzTokenOverview } from '../dxz-Token-overview';
 import {
 	Img ,
 	WalletAddressCopyBox ,
-	
 } from '@@common/Xcomponents';
 import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
 import less from './index.module.less';
@@ -16,6 +15,8 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 	
 	const { spaceInfo } = props;
 	if(!spaceInfo) return null;
+	/*todo stash*/
+	if(spaceInfo.spaceID !== null)
 	
 	const reax_upload_banner = reaxel_upload_pics();
 	const reax_joined_Space_list = reaxel_joined_Space_list();
