@@ -27,6 +27,8 @@ export const reaxel_user_profile = function(){
 			throw e;
 		}).then((profile) =>{
 			setState( { profile } );
+		}).finally(() => {
+			setState( { loading : false } );
 		});
 	};
 	
