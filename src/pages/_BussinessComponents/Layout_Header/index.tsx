@@ -12,6 +12,8 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 	
 	reax_blockies = reaxel_blockies();
 	
+	reax_theme = reaxel_theme();
+	
 	render() {
 		const {
 			Input ,
@@ -47,33 +49,16 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 				/>
 			</div> }
 			<div className = { less.rightSideGroup }>
-				<Button
-					style = { {
-						padding : '8px' ,
-						borderRadius : "12px" ,
-						height : "40px" ,
-						border : "none" ,
-						boxShadow:"unset",
-					} }
-					onClick = { () => {
-						globalSetState( {
-							theme : globalStore.theme === "dark" ? "light" : "dark" ,
-						} );
-						navigate( '/profile' );
-					} }
-					autoFocus = { false }
-				>
-					<HeaderToggleThemeIconSvgComponent />
-				</Button>
 				
 				<Button
 					style = { {
-						padding : '8px' ,
+						padding : '6px 6px 8px 8px' ,
 						borderRadius : "12px" ,
 						height : "40px" ,
 						border : "none" ,
 						marginLeft : "8px" ,
 						boxShadow:"unset",
+						backgroundColor : this.reax_theme.theme === "light" ? "" : "black"
 					} }
 					onClick = { () => {
 						console.log( `url('data:image/svg+xml;base64,${ window.btoa( this.reax_header_svg_tool.inputSvgString ) }')` );
@@ -176,6 +161,7 @@ import {
 	reaxel_blockies ,
 	reaxel_user ,
 	reaxel_wallet ,
+	reaxel_theme
 } from '@@reaxes';
 import { UserButtonDropdown } from './Header-User-Button-Popover';
 import { GeneralMenuButtonDropdown } from './Header-General-Button-Popover';

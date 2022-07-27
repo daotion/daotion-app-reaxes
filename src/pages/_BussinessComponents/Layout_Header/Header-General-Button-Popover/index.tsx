@@ -167,10 +167,12 @@ const MenuItem = ComponentWrapper( ( props : MenuItem ) => {
 	</>;
 } );
 
-import {reaxel_theme} from '@@pages/Test/kane-dark-mode';
 import {DxzLangCurrency} from '@@pages/Test/dxz-Lang-currency';
 import { headerBtnStyle } from '../';
-import { reaxel_wallet } from '@@reaxes';
+import {
+	reaxel_wallet ,
+	reaxel_theme,
+} from '@@reaxes';
 import {
 	invoke_root_click ,
 	root_click_symbol ,
