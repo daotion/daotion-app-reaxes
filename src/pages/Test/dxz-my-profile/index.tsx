@@ -1,24 +1,19 @@
-import { DxzTokenOverview } from '../dxz-Token-overview';
+import less from './index.module.less';
 import {
 	Img ,
 	WalletAddressCopyBox ,
-	
+	Button ,
 } from '@@common/Xcomponents';
-import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
-import less from './index.module.less';
 import {
 	reaxel_joined_Space_list ,
 	reaxel_upload_pics ,
 } from '@@reaxes';
+
+
 import { Space___get_space_detail } from '@@requests/Spaces/types';
 
-export const DxzSpaceHomeJoined = ( props : props ) => {
-	
-	const { spaceInfo } = props;
-	if(!spaceInfo) return null;
-	
+export const DxzMyProfile = () => {
 	const reax_upload_banner = reaxel_upload_pics();
-	const reax_joined_Space_list = reaxel_joined_Space_list();
 	return <>
 		<div
 			className = { less.spaceInfo }
@@ -27,17 +22,11 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 				display : "flex" ,
 				justifyContent : "center" ,
 				flexFlow : "column wrap" ,
-				minWidth : "fit-content" ,
-				minHeight:"fit-content",
-				paddingBottom:"64px",
+				width : "100%" ,
+				minHeight : "fit-content" ,
+				paddingBottom : "64px" ,
 			} }
 		>
-			<header
-				className = { less.tabSettingNav }
-			>
-				<DxzTokenOverview />
-				<SettingIcon />
-			</header>
 			<div
 				className = { less.banner }
 				style = { {
@@ -49,7 +38,6 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 				} }
 			>
 				<Img
-					src = { spaceInfo?.bgUrl }
 					width = "1200px"
 					height = "300px"
 					alt = ""
@@ -57,44 +45,35 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 						borderRadius : "12px 12px 0px 0px" ,
 						minWidth : "100%" ,
 						height : "300px" ,
-						objectFit:"cover",
-						objectPosition:"50% 50%"
+						objectFit : "cover" ,
+						objectPosition : "50% 50%" ,
 					} }
 				/>
 				<div
-					style={{
+					style = { {
 						position : "absolute" ,
-						top : "204px" ,
+						top : "189px" ,
 						left : "32px" ,
-						backgroundColor : "#eee",
-						borderRadius : "16px" ,
-					}}
+						backgroundColor : "#eeeeee" ,
+						borderRadius : "132px" ,
+						border : "4px solid #ffffff" ,
+					} }
 				>
 					<Img
-						src = { spaceInfo?.iconUrl }
 						style = { {
-							borderRadius : "16px" ,
-							width : "116px" ,
-							height : "116px" ,
+							borderRadius : "132px" ,
+							width : "132px" ,
+							height : "132px" ,
 							objectFit : "cover" ,
 							objectPosition : "50% 50%" ,
-							border:"4px solid #ffffff"
 						} }
 					/>
 				</div>
-				
-				{ reax_joined_Space_list.joined_space_list?.some((space) => {
-					if(space.spaceID === spaceInfo.spaceID && space.role === 3){
-						return true;
-					}
-				}) && <div
+				<div
 					className = { less.editCover }
-					onClick = { () => {
-						reax_upload_banner.space_info_banner( spaceInfo.spaceID );
-					} }
 				>
 					Edit cover
-				</div> }
+				</div>
 			</div>
 			<div
 				className = "info-box"
@@ -111,221 +90,148 @@ export const DxzSpaceHomeJoined = ( props : props ) => {
 				>
 					<span
 						className = { less.spaceName }
-					>{ spaceInfo?.name }
+					>{ 'Hillen.eth' }
 					</span>
 					<div
 						style = { {
 							display : "flex" ,
-							justifyContent:"space-between",
+							justifyContent : "space-between" ,
 						} }
 					>
 						<ShareIcon></ShareIcon>
-						<BtnSpaceJoinedSetting
-							spaceID = {spaceInfo?.spaceID}
-							style = { {
-								width : "140px" ,
-								height : "48px" ,
-								borderRadius : "12px" ,
-								fontSize : "16px" ,
-								fontWeight : "600" ,
-								background:"#0070f3",
-								color:"#ffffff",
-							} }
-						/>
+						<MyProfileSettingButton />
 					</div>
 				</div>
+				
 				<div
-					className = "sharing-box"
 					style = { {
 						display : "flex" ,
-						alignItems : "center" ,
+						justifyContent : "space-between",
 					} }
 				>
-					<WalletAddressCopyBox
-						walletAddr = { spaceInfo?.addrChain }
-					/>
-					<div
-						style = { {
-							display : "flex" ,
-							flexDirection : "row" ,
-							alignItems : "flex-start" ,
-						} }
-					>
-						<SVGSocialShare />
+					<div>
+						<div
+							style = { {
+								display : "flex" ,
+								flexDirection : "row" ,
+								alignItems : "center" ,
+								
+							} }
+						>
+							<WalletAddressCopyBox
+								walletAddr = { '0x7b.....72f7' }
+							/>
+							<SVGSocialShare />
+						</div>
+						<p
+							className = { less.bios }
+						>
+							Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam
+						</p>
 					</div>
-				</div>
-				<p
-					className = { less.bios }
-				>
-					{ spaceInfo?.bio }
-				</p>
-			</div>
-			<div
-				className = { less.contentBox }
-			>
-				<div
-					className = { less.contentLeft }
-				>
-					<ContentListFirst></ContentListFirst>
-					<ContentListSecond></ContentListSecond>
-				</div>
-				<div
-					className = "content-right"
-					style = { {
-						width : "340px" ,
-						backgroundColor : "#ffffff" ,
-						borderRadius : "12px" ,
-						padding : "24px 24px 24px 24px" ,
-						display : "block" ,
-						position : "relative" ,
-					} }
-				>
-					<TitleEdit></TitleEdit>
-					<div
-						className = { less.memberLists }
-						style = { {
-							marginTop : "32px" ,
-							display : "block" ,
-							overflow : "auto" ,
-							flex : "1" ,
-							height : "775px" ,
-							userSelect : "none" ,
-							position : "absolute" ,
-							right : '0' ,
-							width : "316px" ,
-						} }
-					>
-						{ new Array( 44 ).fill( '' ).map( ( v , i ) =>
-							<MemberItem
-								key = { i }
-							></MemberItem> ,
-						) }
+					<div className = { less.netWorth }>
+						<p className = { less.netWorthTitle }>Net Worth</p>
+						<p className = { less.netWorthMoney }>$18,494,958.15</p>
 					</div>
 				</div>
 			</div>
+		
 		</div>
 	</>;
 };
-
-
-const MemberItem = () => {
+const SettingIcon = () => {
 	return <>
-		<div
-			className = { less.memberItem }
+		<svg
 			style = { {
-				height : "24px" ,
-				width : "100%" ,
 				display : "flex" ,
-				flexFlow : "row nowrap" ,
+				marginRight : "8px" ,
 				alignItems : "center" ,
-				
+				cursor : "pointer" ,
 			} }
+			width = "24"
+			height = "24"
+			viewBox = "0 0 24 24"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
 		>
-			<Img
-				src = "data:image/png;base64,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"
-				alt = "avater"
-				width = "24px"
-				height = "24px"
-				style = { {
-					borderRadius : "32px" ,
-				} }
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14ZM16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
+				fill = "#6F767E"
 			/>
-			<span
-				style = { {
-					fontSize : "14px" ,
-					fontWeight : '600' ,
-					marginLeft : "16px" ,
-				} }
-			>Hillen
-			</span>
-		</div>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M11.3791 3L10.9915 4.16266C10.6165 5.28756 9.79908 6.07025 8.96536 6.53447C8.90606 6.56749 8.84735 6.60145 8.78923 6.63634C7.96925 7.12859 6.88111 7.44611 5.71804 7.20811L4.51627 6.96218L4.91723 5.00278L6.11901 5.24871C6.68428 5.36439 7.26514 5.21857 7.75983 4.9216C7.83655 4.87554 7.91408 4.83069 7.9924 4.78709C8.49591 4.50673 8.91189 4.07694 9.09413 3.53021L9.48168 2.36754C9.75391 1.55086 10.5182 1 11.3791 1H12.621C13.4819 1 14.2462 1.55086 14.5184 2.36754L14.9059 3.53021C15.0882 4.07694 15.5042 4.50673 16.0077 4.78709C16.086 4.83069 16.1635 4.87554 16.2402 4.92159C16.7349 5.21857 17.3158 5.36438 17.881 5.2487L19.0828 5.00279C19.9262 4.8302 20.7854 5.21666 21.2158 5.96218L21.8368 7.03775C22.2672 7.78328 22.1723 8.72059 21.6011 9.36469L20.7862 10.2838C20.4042 10.7144 20.2392 11.2888 20.2483 11.8644C20.2497 11.9548 20.2497 12.0452 20.2483 12.1356C20.2392 12.7111 20.4042 13.2855 20.7862 13.7162L21.6011 14.6352C22.1723 15.2793 22.2672 16.2167 21.8368 16.9622L21.2158 18.0378C20.7854 18.7833 19.9262 19.1697 19.0828 18.9971L17.8811 18.7512C17.3158 18.6356 16.735 18.7814 16.2403 19.0784C16.1635 19.1244 16.086 19.1693 16.0077 19.2129C15.5042 19.4933 15.0882 19.9231 14.9059 20.4698L14.5184 21.6325C14.2462 22.4491 13.4819 23 12.621 23H11.3791C10.5182 23 9.75391 22.4491 9.48169 21.6325L9.09413 20.4698C8.91189 19.9231 8.49591 19.4933 7.9924 19.2129C7.91406 19.1693 7.83651 19.1244 7.75977 19.0784C7.26507 18.7814 6.68421 18.6356 6.11892 18.7512L4.91723 18.9971C4.07385 19.1697 3.21465 18.7833 2.78422 18.0378L2.16324 16.9622C1.73281 16.2167 1.82773 15.2793 2.39888 14.6352L3.89529 15.9622L4.51627 17.0378L5.71796 16.7918C6.88105 16.5538 7.9692 16.8714 8.78918 17.3636C8.84732 17.3985 8.90605 17.4325 8.96536 17.4655C9.79908 17.9298 10.6165 18.7124 10.9915 19.8373L11.3791 21L12.621 21L13.0086 19.8373C13.3835 18.7124 14.201 17.9298 15.0347 17.4655C15.094 17.4325 15.1527 17.3985 15.2109 17.3636C16.0309 16.8714 17.119 16.5538 18.2821 16.7919L19.4837 17.0378L20.1047 15.9622L19.2898 15.0431C18.505 14.1581 18.2334 13.0606 18.2486 12.1039C18.2497 12.0346 18.2497 11.9653 18.2486 11.8961C18.2334 10.9394 18.505 9.8418 19.2898 8.95681L20.1047 8.03775L19.4837 6.96218L18.282 7.2081C17.1189 7.4461 16.0308 7.12858 15.2108 6.63633C15.1527 6.60145 15.094 6.56749 15.0347 6.53447C14.201 6.07025 13.3835 5.28756 13.0086 4.16266L12.621 3L11.3791 3ZM2.39888 14.6352L3.89529 15.9622L4.71031 15.0431C5.49507 14.1581 5.76666 13.0605 5.75151 12.1039C5.75041 12.0346 5.75041 11.9653 5.75151 11.8961C5.76667 10.9394 5.49508 9.84185 4.71032 8.95687L3.89529 8.03775L4.51627 6.96218L4.91723 5.00278C4.07385 4.8302 3.21465 5.21665 2.78422 5.96218L2.16324 7.03775C1.73281 7.78328 1.82773 8.72059 2.39888 9.36469L3.21391 10.2838C3.59582 10.7145 3.76088 11.2889 3.75176 11.8644C3.75033 11.9548 3.75033 12.0452 3.75176 12.1355C3.76087 12.7111 3.59582 13.2854 3.21391 13.7161L2.39888 14.6352Z"
+				fill = "#6F767E"
+			/>
+		</svg>
 	</>;
 };
-
-type props = {
-	spaceInfo : Space___get_space_detail.response;
-};
-
-
-const TitleEdit = () => {
+const MyProfileSettingButton = () => {
 	return <>
-		<div
+		<Button
 			style = { {
 				display : "flex" ,
-				justifyContent : "space-between" ,
-				width : "100%" ,
-				height : "fit-content" ,
+				alignItems : "center" ,
+				borderRadius : "12px" ,
+				width : "fit-content" ,
+				height : "48px" ,
+				fontSize : "15px" ,
+				fontWeight : "600" ,
+				background : "#f4f5f6" ,
+				color : "#777e90" ,
+				padding : "12px 20px" ,
+				boxShadow : "unset" ,
 			} }
 		>
-			<span
-				style = { {
-					fontWeight : "600" ,
-					fontSize : "20px" ,
-					lineHeight : "32px" ,
-					color : "#1a1d1f" ,
-				} }
-			>
-				Title
-			</span>
-			<svg
-				width = "24"
-				height = "24"
-				viewBox = "0 0 24 24"
-				fill = "none"
-				xmlns = "http://www.w3.org/2000/svg"
-			>
-				<rect
-					width = "24"
-					height = "24"
-					fill = "white"
-				/>
-				<path
-					d = "M3 22C3 21.4477 3.44772 21 4 21H20C20.5523 21 21 21.4477 21 22C21 22.5523 20.5523 23 20 23H4C3.44772 23 3 22.5523 3 22Z"
-					fill = "#777E91"
-				/>
-				<path
-					fillRule = "evenodd"
-					clipRule = "evenodd"
-					d = "M16.7071 3.12102C16.3166 2.73049 15.6834 2.73049 15.2929 3.12102L14.4142 3.99967L18 7.58545L18.8787 6.7068C19.2692 6.31628 19.2692 5.68312 18.8787 5.29259L16.7071 3.12102ZM6.91425 11.4997L13 5.41388L16.5858 8.99967L10.5 15.0855L6.91425 11.4997ZM5.50003 12.9139L5 13.4139V16.9997H8.58579L9.08582 16.4997L5.50003 12.9139ZM13.8787 1.7068C15.0503 0.535232 16.9497 0.535232 18.1213 1.7068L20.2929 3.87838C21.4645 5.04995 21.4645 6.94945 20.2929 8.12102L10 18.4139C9.62493 18.789 9.11622 18.9997 8.58579 18.9997H5C3.89543 18.9997 3 18.1043 3 16.9997V13.4139C3 12.8835 3.21071 12.3748 3.58579 11.9997L13.8787 1.7068Z"
-					fill = "#777E91"
-				/>
-			</svg>
-		</div>
+			<SettingIcon />
+			<span>Setting</span>
+		</Button>
 	</>;
 };
-const ContentListFirst = () => {
+const ShareIcon = () => {
 	return <>
-		<div
-			className = "content-list_first"
+		<svg
 			style = { {
-				width : "840px" ,
-				height : "504px" ,
-				backgroundColor : "#ffffff" ,
-				marginBottom : "16px" ,
-				borderRadius : "12px" ,
-				padding : "24px" ,
-				
+				marginRight : "20px" ,
 			} }
+			width = "48"
+			height = "48"
+			viewBox = "0 0 48 48"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
 		>
-			<TitleEdit></TitleEdit>
-		</div>
-	</>;
-};
-const ContentListSecond = () => {
-	return <>
-		<div
-			className = "content-list_second"
-			style = { {
-				width : "840px" ,
-				height : "367px" ,
-				backgroundColor : "#ffffff" ,
-				borderRadius : "12px" ,
-				padding : "24px" ,
-				
-			} }
-		>
-			<TitleEdit></TitleEdit>
-		</div>
+			<rect
+				x = "0.5"
+				y = "0.5"
+				width = "47"
+				height = "47"
+				rx = "11.5"
+				fill = "#F4F5F6"
+			/>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M20.9986 22.0398C21.028 22.5913 20.6047 23.0622 20.0532 23.0916C19.3005 23.1318 18.7044 23.1808 18.2385 23.23C17.6129 23.2959 17.2328 23.6802 17.1696 24.233C17.0789 25.0267 17 26.2277 17 27.9999C17 29.7722 17.0789 30.9732 17.1696 31.7669C17.2329 32.3206 17.6121 32.7038 18.2368 32.7697C19.3308 32.8852 21.1392 32.9999 24 32.9999C26.8608 32.9999 28.6692 32.8852 29.7632 32.7697C30.3879 32.7038 30.7671 32.3206 30.8304 31.7669C30.9211 30.9732 31 29.7722 31 27.9999C31 26.2277 30.9211 25.0267 30.8304 24.233C30.7672 23.6802 30.3871 23.2959 29.7615 23.23C29.2956 23.1808 28.6995 23.1318 27.9468 23.0916C27.3953 23.0622 26.972 22.5913 27.0014 22.0398C27.0308 21.4883 27.5017 21.0651 28.0532 21.0945C28.8361 21.1362 29.4669 21.1878 29.9712 21.241C31.4556 21.3975 32.6397 22.4506 32.8175 24.0059C32.9188 24.8922 33 26.1715 33 27.9999C33 29.8284 32.9188 31.1077 32.8175 31.994C32.6398 33.5483 31.4585 34.6019 29.9732 34.7587C28.7919 34.8834 26.9108 34.9999 24 34.9999C21.0892 34.9999 19.2081 34.8834 18.0268 34.7587C16.5415 34.6019 15.3602 33.5483 15.1825 31.994C15.0812 31.1077 15 29.8284 15 27.9999C15 26.1715 15.0812 24.8922 15.1825 24.0059C15.3603 22.4506 16.5444 21.3975 18.0288 21.241C18.5331 21.1878 19.1639 21.1362 19.9468 21.0945C20.4983 21.0651 20.9692 21.4883 20.9986 22.0398Z"
+				fill = "#777E91"
+			/>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M21.2071 18.2071C20.8166 18.5976 20.1834 18.5976 19.7929 18.2071C19.4024 17.8166 19.4024 17.1834 19.7929 16.7929L23.2929 13.2929C23.6834 12.9024 24.3166 12.9024 24.7071 13.2929L28.2071 16.7929C28.5976 17.1834 28.5976 17.8166 28.2071 18.2071C27.8166 18.5976 27.1834 18.5976 26.7929 18.2071L25 16.4142V26C25 26.5523 24.5523 27 24 27C23.4477 27 23 26.5523 23 26V16.4142L21.2071 18.2071Z"
+				fill = "#777E91"
+			/>
+			<rect
+				x = "0.5"
+				y = "0.5"
+				width = "47"
+				height = "47"
+				rx = "11.5"
+				stroke = "#F4F5F6"
+			/>
+		</svg>
 	</>;
 };
 const SVGSocialShare = () => {
@@ -514,97 +420,3 @@ const SVGSocialShare = () => {
 		</svg>
 	</>;
 };
-const SpaceJoinAvater = () => {
-	return <>
-		<img
-			src = "https://s1.ax1x.com/2022/07/11/j6YgIg.png"
-			alt = "avater"
-			style = { {
-				borderRadius : "16px" ,
-				position : "absolute" ,
-				top : "204px" ,
-				left : "32px" ,
-				width : "124px" ,
-				height : "124px" ,
-			} }
-		/>
-	</>;
-};
-const ShareIcon = () => {
-	return <>
-		<svg
-			style = { {
-				marginRight : "20px" ,
-			} }
-			width = "48"
-			height = "48"
-			viewBox = "0 0 48 48"
-			fill = "none"
-			xmlns = "http://www.w3.org/2000/svg"
-		>
-			<rect
-				x = "0.5"
-				y = "0.5"
-				width = "47"
-				height = "47"
-				rx = "11.5"
-				fill = "#F4F5F6"
-			/>
-			<path
-				fillRule = "evenodd"
-				clipRule = "evenodd"
-				d = "M20.9986 22.0398C21.028 22.5913 20.6047 23.0622 20.0532 23.0916C19.3005 23.1318 18.7044 23.1808 18.2385 23.23C17.6129 23.2959 17.2328 23.6802 17.1696 24.233C17.0789 25.0267 17 26.2277 17 27.9999C17 29.7722 17.0789 30.9732 17.1696 31.7669C17.2329 32.3206 17.6121 32.7038 18.2368 32.7697C19.3308 32.8852 21.1392 32.9999 24 32.9999C26.8608 32.9999 28.6692 32.8852 29.7632 32.7697C30.3879 32.7038 30.7671 32.3206 30.8304 31.7669C30.9211 30.9732 31 29.7722 31 27.9999C31 26.2277 30.9211 25.0267 30.8304 24.233C30.7672 23.6802 30.3871 23.2959 29.7615 23.23C29.2956 23.1808 28.6995 23.1318 27.9468 23.0916C27.3953 23.0622 26.972 22.5913 27.0014 22.0398C27.0308 21.4883 27.5017 21.0651 28.0532 21.0945C28.8361 21.1362 29.4669 21.1878 29.9712 21.241C31.4556 21.3975 32.6397 22.4506 32.8175 24.0059C32.9188 24.8922 33 26.1715 33 27.9999C33 29.8284 32.9188 31.1077 32.8175 31.994C32.6398 33.5483 31.4585 34.6019 29.9732 34.7587C28.7919 34.8834 26.9108 34.9999 24 34.9999C21.0892 34.9999 19.2081 34.8834 18.0268 34.7587C16.5415 34.6019 15.3602 33.5483 15.1825 31.994C15.0812 31.1077 15 29.8284 15 27.9999C15 26.1715 15.0812 24.8922 15.1825 24.0059C15.3603 22.4506 16.5444 21.3975 18.0288 21.241C18.5331 21.1878 19.1639 21.1362 19.9468 21.0945C20.4983 21.0651 20.9692 21.4883 20.9986 22.0398Z"
-				fill = "#777E91"
-			/>
-			<path
-				fillRule = "evenodd"
-				clipRule = "evenodd"
-				d = "M21.2071 18.2071C20.8166 18.5976 20.1834 18.5976 19.7929 18.2071C19.4024 17.8166 19.4024 17.1834 19.7929 16.7929L23.2929 13.2929C23.6834 12.9024 24.3166 12.9024 24.7071 13.2929L28.2071 16.7929C28.5976 17.1834 28.5976 17.8166 28.2071 18.2071C27.8166 18.5976 27.1834 18.5976 26.7929 18.2071L25 16.4142V26C25 26.5523 24.5523 27 24 27C23.4477 27 23 26.5523 23 26V16.4142L21.2071 18.2071Z"
-				fill = "#777E91"
-			/>
-			<rect
-				x = "0.5"
-				y = "0.5"
-				width = "47"
-				height = "47"
-				rx = "11.5"
-				stroke = "#F4F5F6"
-			/>
-		</svg>
-	</>;
-};
-const SettingIcon = ComponentWrapper(() => {
-	const {navigate,params} = utils.useRouter();
-	return <>
-		<svg
-			onClick={() => {
-				navigate( `/space${ params.spaceID }/settings` );
-			}}
-			style = { {
-				display : "flex" ,
-				alignItems : "center" ,
-				marginLeft : "17px" ,
-				marginTop : "20px" ,
-				cursor : "pointer",
-			} }
-			width = "24"
-			height = "24"
-			viewBox = "0 0 24 24"
-			fill = "none"
-			xmlns = "http://www.w3.org/2000/svg"
-		>
-			<path
-				fillRule = "evenodd"
-				clipRule = "evenodd"
-				d = "M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14ZM16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
-				fill = "#6F767E"
-			/>
-			<path
-				fillRule = "evenodd"
-				clipRule = "evenodd"
-				d = "M11.3791 3L10.9915 4.16266C10.6165 5.28756 9.79908 6.07025 8.96536 6.53447C8.90606 6.56749 8.84735 6.60145 8.78923 6.63634C7.96925 7.12859 6.88111 7.44611 5.71804 7.20811L4.51627 6.96218L4.91723 5.00278L6.11901 5.24871C6.68428 5.36439 7.26514 5.21857 7.75983 4.9216C7.83655 4.87554 7.91408 4.83069 7.9924 4.78709C8.49591 4.50673 8.91189 4.07694 9.09413 3.53021L9.48168 2.36754C9.75391 1.55086 10.5182 1 11.3791 1H12.621C13.4819 1 14.2462 1.55086 14.5184 2.36754L14.9059 3.53021C15.0882 4.07694 15.5042 4.50673 16.0077 4.78709C16.086 4.83069 16.1635 4.87554 16.2402 4.92159C16.7349 5.21857 17.3158 5.36438 17.881 5.2487L19.0828 5.00279C19.9262 4.8302 20.7854 5.21666 21.2158 5.96218L21.8368 7.03775C22.2672 7.78328 22.1723 8.72059 21.6011 9.36469L20.7862 10.2838C20.4042 10.7144 20.2392 11.2888 20.2483 11.8644C20.2497 11.9548 20.2497 12.0452 20.2483 12.1356C20.2392 12.7111 20.4042 13.2855 20.7862 13.7162L21.6011 14.6352C22.1723 15.2793 22.2672 16.2167 21.8368 16.9622L21.2158 18.0378C20.7854 18.7833 19.9262 19.1697 19.0828 18.9971L17.8811 18.7512C17.3158 18.6356 16.735 18.7814 16.2403 19.0784C16.1635 19.1244 16.086 19.1693 16.0077 19.2129C15.5042 19.4933 15.0882 19.9231 14.9059 20.4698L14.5184 21.6325C14.2462 22.4491 13.4819 23 12.621 23H11.3791C10.5182 23 9.75391 22.4491 9.48169 21.6325L9.09413 20.4698C8.91189 19.9231 8.49591 19.4933 7.9924 19.2129C7.91406 19.1693 7.83651 19.1244 7.75977 19.0784C7.26507 18.7814 6.68421 18.6356 6.11892 18.7512L4.91723 18.9971C4.07385 19.1697 3.21465 18.7833 2.78422 18.0378L2.16324 16.9622C1.73281 16.2167 1.82773 15.2793 2.39888 14.6352L3.89529 15.9622L4.51627 17.0378L5.71796 16.7918C6.88105 16.5538 7.9692 16.8714 8.78918 17.3636C8.84732 17.3985 8.90605 17.4325 8.96536 17.4655C9.79908 17.9298 10.6165 18.7124 10.9915 19.8373L11.3791 21L12.621 21L13.0086 19.8373C13.3835 18.7124 14.201 17.9298 15.0347 17.4655C15.094 17.4325 15.1527 17.3985 15.2109 17.3636C16.0309 16.8714 17.119 16.5538 18.2821 16.7919L19.4837 17.0378L20.1047 15.9622L19.2898 15.0431C18.505 14.1581 18.2334 13.0606 18.2486 12.1039C18.2497 12.0346 18.2497 11.9653 18.2486 11.8961C18.2334 10.9394 18.505 9.8418 19.2898 8.95681L20.1047 8.03775L19.4837 6.96218L18.282 7.2081C17.1189 7.4461 16.0308 7.12858 15.2108 6.63633C15.1527 6.60145 15.094 6.56749 15.0347 6.53447C14.201 6.07025 13.3835 5.28756 13.0086 4.16266L12.621 3L11.3791 3ZM2.39888 14.6352L3.89529 15.9622L4.71031 15.0431C5.49507 14.1581 5.76666 13.0605 5.75151 12.1039C5.75041 12.0346 5.75041 11.9653 5.75151 11.8961C5.76667 10.9394 5.49508 9.84185 4.71032 8.95687L3.89529 8.03775L4.51627 6.96218L4.91723 5.00278C4.07385 4.8302 3.21465 5.21665 2.78422 5.96218L2.16324 7.03775C1.73281 7.78328 1.82773 8.72059 2.39888 9.36469L3.21391 10.2838C3.59582 10.7145 3.76088 11.2889 3.75176 11.8644C3.75033 11.9548 3.75033 12.0452 3.75176 12.1355C3.76087 12.7111 3.59582 13.2854 3.21391 13.7161L2.39888 14.6352Z"
-				fill = "#6F767E"
-			/>
-		</svg>
-	</>;
-});

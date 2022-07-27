@@ -8,7 +8,7 @@ import less from './index.module.less';
 
 const { Option: AntdOption } = Select;
 
-export const Option = AntdOption;
+const Option = AntdOption;
 
 const tagRender = (params: CustomTagProps) => {
   const {label, closable, onClose} = params;

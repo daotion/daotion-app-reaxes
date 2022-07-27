@@ -1,0 +1,86 @@
+.space-join {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgb(255, 255, 255);
+	padding-top: 48px;
+	margin-bottom: 8px;
+}
+
+.space-name {
+	color: #141416;
+	font-size: 32px;
+	font-weight: 600;
+	line-height: 39px;
+	vertical-align: middle;
+}
+
+.net-worth {
+	padding: 24px;
+	width: 240px;
+	height: fit-content;
+	border: 2px solid #e6e8ec;
+	border-radius: 24px;
+	margin-top: 8px;
+}
+
+.net-worth-title {
+	font-weight: 500;
+	font-size: 16px;
+	line-height:normal;
+	color: #777e91;
+}
+
+.net-worth-money {
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 21px;
+	text-align: right;
+	color: #353945;
+	margin-bottom: 0;
+}
+
+.space-info {
+	
+	.banner {
+		background-color: #e6e8ec;
+		
+		.edit-cover {
+			background-color: rgb(20, 20, 22);
+			border-radius: 12px;
+			padding: 16px;
+			display: none;
+			align-items: center;
+			height: 48px;
+			font-weight: 700;
+			font-size: 14px;
+			line-height: 16px;
+			color: rgb(252, 252, 253);
+			position: absolute;
+			bottom: 24px;
+			right: 32px;
+			top: 228px;
+			flex-flow: row nowrap;
+			user-select: none;
+			cursor: pointer;
+			transition: opacity ease 0.3s;
+		}
+		
+		&:hover {
+			.edit-cover {
+				display: flex;
+			}
+		}
+	}
+	
+	.bios {
+		font-size: 14px;
+		color: rgb(119, 126, 145);
+		font-weight: 500;
+		margin-top: 16px;
+		height: 66px;
+		width: 568px;
+		margin-bottom: 0;
+	}
+	
+}
