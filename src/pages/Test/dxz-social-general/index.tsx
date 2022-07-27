@@ -11,7 +11,7 @@ const { Option } = Select;
 
 const { TextArea } = Input;
 export const DxzSpaceSettings = () => {
-	
+
 	const [ tab , setTab ] = useState<'social' | 'general'>( 'general' );
 	const spaceID = parseInt(useParams().spaceID);
 	const Content = {
@@ -38,7 +38,7 @@ import {
 	reaxel_space_detail,
 	reaxel_wallet,
 	reaxel_user,
-	
+
 } from '@@reaxes';
 import {useParams} from 'react-router-dom';
 import {request_space_detail , request_space_general_modify,request_server_timestamp} from '@@requests';
@@ -54,9 +54,9 @@ const GeneralProfile = ComponentWrapper(() => {
 		closuredFetchSpaceInfo,
 		saveSpaceSettings,
 	} = reaxel_edit_space_settings();
-	
+
 	[ store__space_detail.spaceInfo ];
-	
+
 	return <>
 		<div
 			style = { {
@@ -135,7 +135,7 @@ const GeneralProfile = ComponentWrapper(() => {
 						width : "100%" ,
 						color : "#9a9fa5" ,
 						height : "48px" ,
-						
+
 					} }
 					removeIcon = { <SVGClear /> }
 					mode = "multiple"
@@ -219,7 +219,7 @@ const reaxel_edit_space_settings = function(){
 	let currentSpaceID : number;
 	let spaceInfo:fields;
 	let fetching = false;
-	
+
 	/*从服务器拿spaceInfo并缓存下来*/
 	const closuredSpaceInfo = Reaxes.closuredMemo(async (spaceID:number , forceUpdate:boolean = false) => {
 		/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
@@ -260,13 +260,13 @@ const reaxel_edit_space_settings = function(){
 		});
 		return promise;
 	},() => []);
-	
+
 	const omitIconUrl = () => {
 		return [_.omit(store,'iconUrl'),_.omit(spaceInfo,'iconUrl')] as [Omit<fields,"iconUrl">,Omit<fields,'iconUrl'>];
 	};
-	
+
 	return () => {
-		
+
 		return ret = {
 			closuredFetchSpaceInfo(spaceID:number,forceUpdate:boolean = false){
 				const force = forceUpdate ? [Math.random()] : [];
@@ -274,7 +274,7 @@ const reaxel_edit_space_settings = function(){
 			},
 			get InfoEquals (){
 				/*_.isEqual()深度对比*/
-				return _.isEqual( ...omitIconUrl() );				
+				return _.isEqual( ...omitIconUrl() );
 			},
 			get editingStore() {
 				return store;
@@ -370,7 +370,7 @@ const SocialProfile = ComponentWrapper(() => {
 
 
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
-	
+
 	return <>
 		<div
 			style = { {
@@ -457,7 +457,7 @@ const SVGWhiteAdd = () => {
 		<svg
 			style = { {
 				marginRight : "8px" ,
-				
+
 			} }
 			width = "24"
 			height = "24"
@@ -509,7 +509,7 @@ const ProfileTitle = ( props ) => {
 		</h1>
 	</>;
 };
-export const AddSocialBtn = () => {
+export const AddSocialBtn = (props) => {
 	return <>
 		<Button
 			style = { {
@@ -527,6 +527,7 @@ export const AddSocialBtn = () => {
 				marginTop : "32px" ,
 				width : "fit-content",
 			} }
+			{...props}
 		>
 			<SVGGrayAdd></SVGGrayAdd>
 			<span>
@@ -574,6 +575,7 @@ export const ProfileFooterBtn = ( props ) => {
 				alignItems : "center" ,
 				justifyContent : "center" ,
 			} }
+			{...props}
 		>{ props.text }</Button>
 	</>;
 };
@@ -680,7 +682,7 @@ const SVGClear = () => {
 				fill = "white"
 			/>
 		</svg>
-	
+
 	</>;
 };
 
@@ -697,7 +699,7 @@ const reaxel_edit_profile = function(){
 		input_name : '',
 	});
 	const reax_wallet = reaxel_wallet();
-	
+
 	/!*当address变化时会自动执行,*!/
 	reax_wallet.address_memoed_reaction((address) => {
 		if(address){
@@ -706,14 +708,14 @@ const reaxel_edit_profile = function(){
 			})
 		}
 	});
-	
+
 	const saveProfile = () => {
 		//保存逻辑
 	}
-	
-	
+
+
 	return () => {
-		
+
 		return ret = {
 			get editProfileStore (){
 				return store;
@@ -725,11 +727,11 @@ const reaxel_edit_profile = function(){
 }();
 
 const EditProfile = ComponentWrapper(() => {
-	
+
 	const reax_edit_profile = reaxel_edit_profile();
-	
+
 	if(!reax_edit_profile.editProfileStore.fetchedUserInfo) return null;
-	
+
 	return <>
 		<Input onInput={(e) =>{
 			reax_edit_profile.setState({input_name : e.target.value})
