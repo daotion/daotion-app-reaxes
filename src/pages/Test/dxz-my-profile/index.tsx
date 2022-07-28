@@ -122,7 +122,7 @@ const JoinedSpaceCard=()=>{
 		<div className={less.joinedSpaceCard}>
 			<CardTop/>
 			<SVGAvatar/>
-			<div className={less.space_name}>Aave</div>
+			<div className={less.cardSpaceName}>Aave</div>
 		</div>
 	</>
 }

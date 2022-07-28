@@ -30,7 +30,11 @@ import { DxzSocialSelectModal } from './dxz-social-select-modal';
 import {Test_Reaxel_i18n} from './I18n';
 
 export const Test = () => <div className = { less.HomeRoot }>
+<<<<<<< HEAD
 	<Test_Reaxel_i18n />
+=======
+	<DxzMyProfile />
+>>>>>>> Ferry/my-profile
 </div>;
 
 
