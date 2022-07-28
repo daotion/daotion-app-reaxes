@@ -34,6 +34,7 @@ export const WalletAddressCopyBox = ( props : { walletAddr : string, prefixLengt
 				marginRight : "16px" ,
 				userSelect : "none" ,
 				whiteSpace : "nowrap" ,
+				lineHeight:"normal",
 			} }
 		>
 			{ result }

@@ -621,7 +621,6 @@ export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 				} );
 			} }
 			style = { {
-				background : "#3772ff" ,
 				borderRadius : "12px" ,
 				color : "#ffffff" ,
 				padding : "12px 20px" ,
