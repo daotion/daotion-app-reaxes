@@ -1,2 +1,2 @@
 export * from './Spaces/types';
-export * from './authorize/types';
+export * from './user/types';

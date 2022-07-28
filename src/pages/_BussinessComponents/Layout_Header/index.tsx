@@ -12,13 +12,28 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 	
 	reax_blockies = reaxel_blockies();
 	
+	reax_theme = reaxel_theme();
+	
+	reax_i18n = reaxel_i18n();
+	
 	render() {
 		const {
 			Input ,
 			Button ,
+			Switch ,
 		} = antd;
 		const { navigate } = utils.useRouter();
 		return <div className = { less.topBanner }>
+			{__EXPERIMENTAL__ && <span>
+				en-us
+				<Switch
+					checked={this.reax_i18n.language === "zh-CN"}
+					onChange={(checked) => {
+						this.reax_i18n.changeLang( checked ? "zh-CN" : "en" );
+					}}
+				/>
+				zh-cn
+			</span>}
 			{ __EXPERIMENTAL__ && <div>
 				<Input.TextArea
 					value = { this.reax_header_svg_tool.inputSvgString }
@@ -47,33 +62,16 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 				/>
 			</div> }
 			<div className = { less.rightSideGroup }>
-				<Button
-					style = { {
-						padding : '8px' ,
-						borderRadius : "12px" ,
-						height : "40px" ,
-						border : "none" ,
-						boxShadow:"unset",
-					} }
-					onClick = { () => {
-						globalSetState( {
-							theme : globalStore.theme === "dark" ? "light" : "dark" ,
-						} );
-						navigate( '/profile' );
-					} }
-					autoFocus = { false }
-				>
-					<HeaderToggleThemeIconSvgComponent />
-				</Button>
 				
 				<Button
 					style = { {
-						padding : '8px' ,
+						padding : '6px 6px 8px 8px' ,
 						borderRadius : "12px" ,
 						height : "40px" ,
 						border : "none" ,
 						marginLeft : "8px" ,
 						boxShadow:"unset",
+						backgroundColor : this.reax_theme.theme === "light" ? "" : "black"
 					} }
 					onClick = { () => {
 						console.log( `url('data:image/svg+xml;base64,${ window.btoa( this.reax_header_svg_tool.inputSvgString ) }')` );
@@ -94,7 +92,9 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 						boxShadow:"none",
 					} }
 					onClick = { () => {
-						request.post( '/user/invalidate-alias' );
+						localStorage.clear();
+						localStorage.setItem('_fake_wallets_map_',`{"0xd0b747df2122a04f4011089999ff77dd97b1bdb9":"0x4aec4b52d9a5c8667dce0f7e4768fabb08f536d2470c92e6af7f8d1f0b86dbbb"}`)
+						location.reload();
 					} }
 					autoFocus = { false }
 				>
@@ -174,6 +174,8 @@ import {
 	reaxel_blockies ,
 	reaxel_user ,
 	reaxel_wallet ,
+	reaxel_theme ,
+	reaxel_i18n,
 } from '@@reaxes';
 import { UserButtonDropdown } from './Header-User-Button-Popover';
 import { GeneralMenuButtonDropdown } from './Header-General-Button-Popover';

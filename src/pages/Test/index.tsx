@@ -27,9 +27,10 @@ import { KaneDarkMode } from './kane-dark-mode';
 import { DxzSpaceList } from './dxz-space-list';
 import { DxzMyProfile } from './dxz-my-profile';
 import { DxzSocialSelectModal } from './dxz-social-select-modal';
+import {Test_Reaxel_i18n} from './I18n';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzSpaceSettings />
+	<Test_Reaxel_i18n />
 </div>;
 
 

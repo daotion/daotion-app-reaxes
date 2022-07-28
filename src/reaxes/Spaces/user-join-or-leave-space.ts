@@ -88,5 +88,5 @@ import {
 	request_server_timestamp
 } from '@@requests';
 import { reaxel_joined_Space_list } from '@@reaxes/Spaces/joined-space-list';
-import {reaxel_user,} from '@@reaxes/authurize';
+import {reaxel_user,} from '@@reaxes/user';
 import {reaxel_wallet,} from '@@reaxes/wallet';
