@@ -1,4 +1,5 @@
-import { Button, Input, Form, Upload, message } from "antd";
+import { Button, Form, Input, message, Upload } from "antd";
+import { MinusCircleOutlined } from "@ant-design/icons";
 
 import { ComponentWrapper } from "@@common/ReactComponentWrapper";
 import { reaxel_edit_profile } from "@@reaxes/user/edit-profile";
@@ -46,21 +47,24 @@ const EditProfile = ComponentWrapper(() => {
       .then((data) => {
         if (!data) return;
 
-        const { displayName, bio, customUrl, links, website } = data;
+        const { displayName, bio, customUrl, links, website, twitter } = data;
 
         const socialLinks = links.reduce((acc, curr) => {
           const currKey = Object.keys(curr)[0];
-          acc[currKey] = curr[currKey];
+          if (currKey !== "website") {
+            acc[currKey] = curr[currKey];
+          }
           return acc;
-        }, {})
+        }, {});
 
         const payload = {
           displayName: displayName || "",
           bio: bio || "",
           customUrl: customUrl || "",
           socialLinks: JSON.stringify({
-            website,
             ...socialLinks,
+            website,
+            twitter,
           }),
         };
 
@@ -120,14 +124,42 @@ const EditProfile = ComponentWrapper(() => {
 
   // 初始化表单信息
   useEffect(() => {
+    if (!initialValues) return;
     form.setFieldsValue(initialValues);
   }, [form, initialValues]);
 
   useEffect(() => {
     if (!userInfo) return;
-    setInitialValues(userInfo);
 
-    const { iconUrl } = userInfo;
+    const { iconUrl, socialLinks } = userInfo;
+
+    const objSocialLinks =
+      socialLinks.length > 0 ? JSON.parse(socialLinks) : {};
+    setSocialLinksArr(
+      Object.keys(objSocialLinks).filter(
+        (each) => each !== "website" && each !== "twitter"
+      )
+    );
+    const links = Object.keys(objSocialLinks).reduce((acc, curr) => {
+      if (curr !== "website" && curr !== "twitter") {
+        acc.push({
+          [curr]: objSocialLinks[curr],
+        });
+      }
+
+      return acc;
+    }, []);
+
+    // setInitialValues(userInfo);
+    setInitialValues(() => {
+      return {
+        ...userInfo,
+        website: objSocialLinks.website,
+        twitter: objSocialLinks.twitter,
+        links,
+      };
+    });
+
     // 头像的更新与提交表单的接口不是同一个，初始的展示需要单独设置一下
     setAvatarSrc(iconUrl);
   }, [userInfo]);
@@ -229,12 +261,23 @@ const EditProfile = ComponentWrapper(() => {
                 style={INPUT_STYLE}
               />
             </Form.Item>
+            <Subtitle title="Twitter"></Subtitle>
+            <Form.Item name="twitter">
+              <Input
+                className={less.editInput}
+                placeholder="@twitter username"
+                style={INPUT_STYLE}
+              />
+            </Form.Item>
             <Form.List name="links">
               {(fields, { add, remove }, { errors }) => (
                 <>
                   {fields.map((field, idx) => (
-                    <Form.Item required={false} key={field.key}>
-                      <Subtitle title={socialLinksArr[idx]}></Subtitle>
+                    <Form.Item
+                      required={false}
+                      key={field.key + socialLinksArr[idx]}
+                    >
+                      <Subtitle title={socialLinksArr[idx]} />
                       <Form.Item
                         {...field}
                         noStyle
@@ -242,6 +285,24 @@ const EditProfile = ComponentWrapper(() => {
                       >
                         <Input placeholder="Enter URL" style={INPUT_STYLE} />
                       </Form.Item>
+                      {fields.length >= 1 ? (
+                        <MinusCircleOutlined
+                          style={{
+                            position: "absolute",
+                            right: -18,
+                            bottom: 18,
+                          }}
+                          className="dynamic-delete-button"
+                          onClick={() => {
+                            setSocialLinksArr((prev) => {
+                              return prev.filter(
+                                (each) => each !== socialLinksArr[idx]
+                              );
+                            });
+                            remove(field.name);
+                          }}
+                        />
+                      ) : null}
                     </Form.Item>
                   ))}
                   <Form.Item>
