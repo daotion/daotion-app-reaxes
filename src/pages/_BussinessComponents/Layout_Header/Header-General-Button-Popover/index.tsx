@@ -59,22 +59,22 @@ export const GeneralMenuButtonDropdown = ComponentWrapper( () => {
 const GeneralMenuList = ComponentWrapper( () => {
 	const reax_general_button = reaxel_general_button();
 	const reax_theme = reaxel_theme();
-	
+	const { i18n } = reaxel_i18n();
 	const { Switch } = antd;
 	return <>
 		<div
 			className = { less.container }
 		>
 			<MenuItem
-				text = "About"
+				text = {i18n("About")}
 				icon = { <SVGAbout /> }
 			/>
 			<MenuItem
-				text = "Help Center"
+				text = {i18n("Help Center")}
 				icon = { <SVGHelp /> }
 			/>
 			<MenuItem
-				text = "Language/Currency"
+				text = {i18n("Language/Currency")}
 				icon = { <SVGLang /> }
 				onClick = {(e) => {
 					e.stopPropagation();
@@ -86,7 +86,7 @@ const GeneralMenuList = ComponentWrapper( () => {
 				}}
 			/>
 			<MenuItem
-				text = "Dark theme"
+				text = {i18n("Dark theme")}
 				icon = { <Switch
 					onChange = { ( e ) => {
 						reax_theme.switch();
@@ -95,11 +95,11 @@ const GeneralMenuList = ComponentWrapper( () => {
 				/> }
 			/>
 			<MenuItem
-				text = "Docs"
+				text = {i18n("Docs")}
 				icon = { <SVGDocs /> }
 			/>
 			<MenuItem
-				text = "Request Features"
+				text = {i18n("Request Features")}
 				icon = { <SVGRequest /> }
 			/>
 		</div>
@@ -172,6 +172,7 @@ import { headerBtnStyle } from '../';
 import {
 	reaxel_wallet ,
 	reaxel_theme,
+	reaxel_i18n ,
 } from '@@reaxes';
 import {
 	invoke_root_click ,
