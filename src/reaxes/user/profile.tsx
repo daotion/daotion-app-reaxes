@@ -4,7 +4,8 @@
 
 
 import { reaxel_wallet } from '@@reaxes/wallet/wallet';
-import { request_user_profile } from '@@requests';
+// @ts-ignore
+import { request_user_profile } from '@@requests/user/index.tsx';
 
 
 export const reaxel_user_profile = function(){
@@ -17,7 +18,7 @@ export const reaxel_user_profile = function(){
 		profile : null,
 		loading : false ,
 	} );
-	
+
 	const reax_wallet = reaxel_wallet();
 	const fetchUpdate = async ( address : string ) => {
 		setState( { loading : true  } );
@@ -31,7 +32,7 @@ export const reaxel_user_profile = function(){
 			setState( { loading : false } );
 		});
 	};
-	
+
 	const closuredFetchProfile = Reaxes.closuredMemo( (address = reax_wallet.account.address ) => {
 		if(reax_wallet.account?.address){
 			fetchUpdate(address);
@@ -39,15 +40,15 @@ export const reaxel_user_profile = function(){
 			reax_wallet.connectWallet();
 		}
 	} , () => [] );
-	
+
 	Reaxes.observedMemo( () => {
 		if(reax_wallet.account?.address){
 			closuredFetchProfile(() => [reax_wallet.account.address,prevForceUpdate])(reax_wallet.account.address);
 		}
 	} , () => [reax_wallet.account?.address] );
-	
+
 	return () => {
-		
+
 		return ret = {
 			get profileStore(){
 				return store;
@@ -61,7 +62,7 @@ export const reaxel_user_profile = function(){
 					),
 				] )( address );
 			},
-			
+
 		}
 	}
 }();

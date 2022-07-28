@@ -22,19 +22,19 @@ export const reaxel_user = function () {
 	let ret;
 	const reax_wallet = reaxel_wallet();
 	const symbol__storage_key_fake_wallets_secret_map_ = Symbol( '_fake_wallets_map_' );
-	
+
 	/*从storage获取私钥*/
 	const checkAddressIsLoggedIn = ( address : string ) => {
 		const walletsMap : string = orzLocalstroage.get<string>( symbol__storage_key_fake_wallets_secret_map_.description ) || '{}';
 		const privateKey : string = (typeof walletsMap === "string" ? JSON.parse( walletsMap )[ address ] : walletsMap[address]) ?? null;
-		
+
 		return privateKey;
 	};
 	/*用于操作localstorage存的私钥组*/
 	const address_map_private_key_utils = {
 		add( [ address , privateKey ] : [ string , string ] ) {
 			// if ( address_map_private_key_utils.getAll().hasOwnProperty( address ) ) {
-			//	
+			//
 			// }
 			const pairs = address_map_private_key_utils.getAll();
 			pairs[address] = privateKey;
@@ -55,7 +55,7 @@ export const reaxel_user = function () {
 		} ,
 		checkAddressIsLoggedIn ,
 	};
-	
+
 	reax_wallet.address_memoed_reaction( ( address ) => {
 		if ( address ) {
 			setState( { real_address : address } );
@@ -67,9 +67,9 @@ export const reaxel_user = function () {
 			}
 		}
 	} );
-	
+
 	return () => {
-		
+
 		return ret = {
 			get storage_key_fake_wallets_secret_map() {
 				return symbol__storage_key_fake_wallets_secret_map_.description;
@@ -86,14 +86,14 @@ export const reaxel_user = function () {
 						privateKey : fakePrivateKey ,
 					} = fakeWallet;
 					const real_address = store.real_address || reax_wallet.account.address;
-					
+
 					const message = {
 						from : real_address ,
 						alias : fakeAddress ,
 						/*所有接口只有这里用string的时间戳.*/
 						timestamp : (await request_server_timestamp()).toString(),
 					};
-					
+
 					const data = (
 						{
 							types : {
@@ -105,8 +105,8 @@ export const reaxel_user = function () {
 							message : message ,
 						}
 					);
-					
-					
+
+
 					const createPayload = async () => {
 						const signature:string = await reax_wallet.web3Provider.send( 'eth_signTypedData_v3' , [
 							store.real_address.toLowerCase() ,
@@ -118,9 +118,9 @@ export const reaxel_user = function () {
 							signature ,
 						};
 					};
-					
+
 					await request_user_address_alias( createPayload);
-					
+
 					address_map_private_key_utils.add( [
 						reax_wallet.account.address ,
 						fakePrivateKey,
@@ -135,7 +135,7 @@ export const reaxel_user = function () {
 			} ,
 			sign712(){
 				/*todo to be continued*/
-				
+
 			},
 			/*传入要被签名的对象或字符串*/
 			async signByFakeWallet(data:any){
@@ -151,7 +151,7 @@ export const reaxel_user = function () {
 				}
 				return store.fakeWallet.signMessage( JSON.stringify( data ) );
 			},
-			
+
 			/*登录失效时清空状态,不会清除localstorage*/
 			clearInvalidFakeWallet() {
 				setState( {
@@ -161,7 +161,7 @@ export const reaxel_user = function () {
 					fakeWallet : null ,
 				} );
 			},
-			
+
 		};
 	};
 }();
@@ -171,7 +171,8 @@ import {
 	ethers ,
 	Wallet ,
 } from 'ethers';
-import { request_user_address_alias } from '@@requests';
+// @ts-ignore
+import { request_user_address_alias } from '@@requests/user/index.tsx';
 import {reaxel_wallet} from '@@reaxes/wallet/wallet';
 /*address-privateKey映射*/
 type member = { [ p : string ] : string };

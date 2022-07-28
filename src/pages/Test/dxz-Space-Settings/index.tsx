@@ -420,7 +420,6 @@ export const AddSocialBtn = ComponentWrapper( (props) => {
 			onClick = {
 				() => {
 					reax_edit_space_social_settings.setSelectModalVisible( true )
-					props.onClick();
 				}
 			}
 		>
@@ -444,7 +443,7 @@ export const AddSocialBtn = ComponentWrapper( (props) => {
 				backdropFilter:'blur(50px)',
 			}}
 		>
-			<DxzSocialSelectModal />
+			<DxzSocialSelectModal onAdd={props.onAdd} />
 		</Modal>
 	</>;
 } );

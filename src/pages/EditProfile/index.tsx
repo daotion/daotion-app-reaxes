@@ -4,9 +4,13 @@ import { MinusCircleOutlined } from "@ant-design/icons";
 import { ComponentWrapper } from "@@common/ReactComponentWrapper";
 import { reaxel_edit_profile } from "@@reaxes/user/edit-profile";
 
-import { AddSocialBtn, ProfileFooterBtn } from "../Test/dxz-social-general";
+import {
+  AddSocialBtn,
+  ProfileFooterBtn,
+} from "@@pages/Test/dxz-Space-Settings";
 
 import less from "./index.module.less";
+import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
 
 const Subtitle = (props) => {
   return (
@@ -30,6 +34,7 @@ const INPUT_STYLE = {
 const EditProfile = ComponentWrapper(() => {
   const [form] = Form.useForm();
 
+  const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
   const reax_edit_profile = reaxel_edit_profile();
   const { userInfo } = reax_edit_profile.editProfileStore;
 
@@ -78,10 +83,9 @@ const EditProfile = ComponentWrapper(() => {
       });
   }, [form, reax_edit_profile]);
 
-  const onAddSocialAccount = () => {
+  const onAddSocialAccount = (type: string) => {
     // 模拟社交账号选择弹窗
-    const choose = window.prompt();
-    setSocialLinksArr((prev) => [...prev, choose]);
+    setSocialLinksArr((prev) => [...prev, type]);
   };
 
   const verifyImageBeforeSubmit = useCallback((file) => {
@@ -135,6 +139,7 @@ const EditProfile = ComponentWrapper(() => {
 
     const objSocialLinks =
       socialLinks.length > 0 ? JSON.parse(socialLinks) : {};
+
     setSocialLinksArr(
       Object.keys(objSocialLinks).filter(
         (each) => each !== "website" && each !== "twitter"
@@ -163,6 +168,13 @@ const EditProfile = ComponentWrapper(() => {
     // 头像的更新与提交表单的接口不是同一个，初始的展示需要单独设置一下
     setAvatarSrc(iconUrl);
   }, [userInfo]);
+
+  // 初始化社交媒体选择弹窗内容
+  useEffect(() => {
+    socialLinksArr.forEach((each) => {
+      reax_edit_space_social_settings.addSocialItem(each);
+    });
+  }, [socialLinksArr]);
 
   return (
     <div className={less.editProfileBox}>
@@ -299,6 +311,9 @@ const EditProfile = ComponentWrapper(() => {
                                 (each) => each !== socialLinksArr[idx]
                               );
                             });
+                            reax_edit_space_social_settings.deleteSocialItem(
+                              socialLinksArr[idx]
+                            );
                             remove(field.name);
                           }}
                         />
@@ -307,9 +322,9 @@ const EditProfile = ComponentWrapper(() => {
                   ))}
                   <Form.Item>
                     <AddSocialBtn
-                      onClick={() => {
+                      onAdd={(type) => {
                         add();
-                        onAddSocialAccount();
+                        onAddSocialAccount(type);
                       }}
                     />
                   </Form.Item>

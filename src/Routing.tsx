@@ -14,7 +14,6 @@ import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import {SpaceInfo} from '@@pages/Space-Info';
 import { SpaceSettings } from '@@pages/Space-Settings';
 import { Profile } from '@@pages/Profile';
-import { EditProfile } from '@@pages/Edit-Profile';
 import {createBrowserHistory} from 'history';
 import EditProfile from "@@pages/EditProfile";
 

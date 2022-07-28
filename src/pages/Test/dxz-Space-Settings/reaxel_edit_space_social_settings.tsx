@@ -72,7 +72,7 @@ const SVGMirror = () => {
 				</linearGradient>
 			</defs>
 		</svg>
-	
+
 	</>;
 };
 const SVGVK = () => {
@@ -510,7 +510,7 @@ export const reaxel_edit_space_social_settings = function(){
 	const reax_space_detail = reaxel_space_detail();
 	const reax_wallet = reaxel_wallet();
 	const reax_user = reaxel_user();
-	
+
 	const fetchEditSocial = async () => {
 		return request_edit_space_social_list( async () => {
 			const data = {
@@ -535,8 +535,8 @@ export const reaxel_edit_space_social_settings = function(){
 			reax_space_detail.getSpaceDetailMemoed( reax_space_detail.store.spaceInfo.spaceID , true );
 		} );
 	};
-	
-	
+
+
 	const clousred = Reaxes.closuredMemo(() => {
 		if(!reax_space_detail.store.spaceInfo?.links){
 			setState( {
@@ -549,13 +549,13 @@ export const reaxel_edit_space_social_settings = function(){
 		}
 	},() => [reax_space_detail.store.spaceInfo?.links]);
 	Reaxes.observedMemo( () => {
-		
+
 		clousred(() => [reax_space_detail.store.spaceInfo?.links])()
 	} , () => [reax_space_detail.store.spaceInfo] );
-	
-	
+
+
 	return () => {
-		
+
 		return {
 			get store() {
 				return store;
@@ -597,6 +597,11 @@ export const reaxel_edit_space_social_settings = function(){
 					} );
 				}
 			},
+			deleteSocialItem(type: string) {
+				setState({
+					socialList: store.socialList.filter((each) => each.type !== type),
+				})
+			},
 			setSelectModalVisible( selectModalVisible = !store.selectModalVisible ) {
 				setState( {
 					selectModalVisible ,
@@ -614,7 +619,7 @@ export const reaxel_edit_space_social_settings = function(){
 		type : string;
 		/*社交媒体的链接*/
 		link : string;
-		
+
 		key : string;
 	};
 }();

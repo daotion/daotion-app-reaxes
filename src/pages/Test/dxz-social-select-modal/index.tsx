@@ -1,10 +1,10 @@
 import less from './index.module.less';
 import { reaxel_edit_space_social_settings } from '@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings';
 
-export const DxzSocialSelectModal = ComponentWrapper( () => {
-	
+export const DxzSocialSelectModal = ComponentWrapper( ({ onAdd }) => {
+
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
-	
+
 	return <>
 		<div className = { less.content }>
 			<h1 className = { less.mainTitle }>Socials</h1>
@@ -15,6 +15,7 @@ export const DxzSocialSelectModal = ComponentWrapper( () => {
 					return <MenuItem
 						onClick = { () => {
 							reax_edit_space_social_settings.addSocialItem( item.type );
+							onAdd(item.type);
 						} }
 						key = { item.type }
 						text = { item.type }
@@ -118,7 +119,7 @@ const SVGMirror = () => {
 				</linearGradient>
 			</defs>
 		</svg>
-	
+
 	</>;
 };
 const SVGVK = () => {
