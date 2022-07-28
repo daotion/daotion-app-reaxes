@@ -26,8 +26,9 @@ export const reaxel_edit_profile = (function () {
   const reax_wallet = reaxel_wallet();
   const reax_user = reaxel_user();
 
-  reax_wallet.address_memoed_reaction((address) => {
-    if (address) {
+  reax_wallet.address_memoed_reaction(async (address) => {
+    if (!reax_wallet?.account) return;
+    if (address && address.length > 0) {
       const createPayload = async () => {
         return {
           address,
