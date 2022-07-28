@@ -1,3 +1,8 @@
+import { Tabs } from 'antd';
+const { TabPane } = Tabs;
+const onChange = (key: string) => {
+	console.log(key);
+};
 export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any , any> {
 	
 	reax_space_detail = reaxel_space_detail();
@@ -91,23 +96,29 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							{ this.reax_space_detail.store.spaceInfo.bio }
 						</p>
 					</div>
-					<div className = { less.contentBox }>
-						<div className = { less.contentLeft }>
-							<ContentListFirst></ContentListFirst>
-							<ContentListSecond></ContentListSecond>
-						</div>
-						<div className = { less.contentRight }>
-							<TitleEdit></TitleEdit>
-							<div className = { less.memberLists }>
-								{ new Array( 44 ).fill( '' ).
-								map( ( v , i ) =>
-									<MemberItem
-										key = { i }
-									></MemberItem> ,
-								) }
-							</div>
-						</div>
+					
+					
+					<div className={less.tabsBox}>
+						<Tabs defaultActiveKey="1" onChange={onChange}>
+							<TabPane tab="OverView" key="1">
+								<SpaceOverViewContainer/>
+							</TabPane>
+							<TabPane tab="Articles" key="2">
+								Content of Tab Pane 2
+							</TabPane>
+							<TabPane tab="Tab3" key="3">
+								Content of Tab Pane 3
+							</TabPane>
+							<TabPane tab="Tab4" key="4">
+								Content of Tab Pane 4
+							</TabPane>
+						</Tabs>
 					</div>
+					
+					
+					
+					
+					
 				</div>
 			</div>
 		</>;
@@ -130,7 +141,27 @@ import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
 import { DxzTokenOverview } from '@@pages/Test/dxz-Token-overview';
 import less from './index.module.less';
 
-
+const SpaceOverViewContainer=ComponentWrapper(()=>{
+	return<>
+		<div className = { less.contentBox }>
+			<div className = { less.contentLeft }>
+				<ContentListFirst></ContentListFirst>
+				<ContentListSecond></ContentListSecond>
+			</div>
+			<div className = { less.contentRight }>
+				<TitleEdit></TitleEdit>
+				<div className = { less.memberLists }>
+					{ new Array( 44 ).fill( '' ).
+					map( ( v , i ) =>
+						<MemberItem
+							key = { i }
+						></MemberItem> ,
+					) }
+				</div>
+			</div>
+		</div>
+	</>
+})
 const MemberItem = ComponentWrapper( () => {
 	return <>
 		<div
@@ -215,13 +246,13 @@ const ContentListFirst = ComponentWrapper( () => {
 		<div
 			className = "content-list_first"
 			style = { {
-				width : "840px" ,
+				width : "820px" ,
 				height : "504px" ,
 				backgroundColor : "#ffffff" ,
 				marginBottom : "16px" ,
 				borderRadius : "12px" ,
 				padding : "24px" ,
-				
+				border: '1px solid #E6E8EC',
 			} }
 		>
 			<TitleEdit></TitleEdit>
@@ -233,7 +264,7 @@ const ContentListSecond = ComponentWrapper( () => {
 		<div
 			className = "content-list_second"
 			style = { {
-				width : "840px" ,
+				width : "820px" ,
 				height : "367px" ,
 				backgroundColor : "#ffffff" ,
 				borderRadius : "12px" ,
