@@ -62,7 +62,6 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 								<ShareIcon></ShareIcon>
 								<BtnSpaceJoinedSetting 
 									spaceID = {this.reax_space_detail.store.spaceInfo.spaceID}
-									
 								/>
 							</div>
 						</div>
