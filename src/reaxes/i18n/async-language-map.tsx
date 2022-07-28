@@ -8,7 +8,7 @@ export const asyncLangMap = {
 				import('@@Public/lang/lang_zh-TC.json').then( ( module ) => {
 					resolve( module );
 				} );
-			} , 6000 );
+			} , 2500 );
 		})
 	},
 };
