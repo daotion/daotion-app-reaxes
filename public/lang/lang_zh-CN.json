@@ -1,6 +1,7 @@
 {
 	"By stakeholders, for stakeholders." : "由利益攸关者为利益攸关者执行。",
 	"We bring DAOs and Stakeholders together." : "我们把DAOs和利益攸关方聚集在一起。",
+	
 	"Create" : "创建",
 	"Space Information" : "空间信息",
 	"Name" : "名称",
@@ -20,5 +21,16 @@
 	"Disconnect" : "断开钱包",
 	"Select a network" : "选择网络",
 	"Connect Wallet" : "连接钱包",
+	"Edit cover" : "编辑封面",
+	"About" : "关于",
+	"Help Center" : "帮助",
+	"Language/Currency" : "语言/货币",
+	"Dark theme" : "深色模式",
+	"Docs" : "文档",
+	"Request Features" : "功能建议",
+	"Search" : "搜索",
+	"Type" : "类型",
+	"Language" : "语言",
+	"Currency" : "货币",
 	"Create your Space" : "创建您的空间"
 }

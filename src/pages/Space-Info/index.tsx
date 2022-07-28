@@ -1,5 +1,3 @@
-
-
 export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any , any> {
 	
 	reax_space_detail = reaxel_space_detail();
@@ -10,71 +8,85 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 	
 	reax_joined_Space_list = reaxel_joined_Space_list();
 	
+	reax_I18n = reaxel_i18n();
+	
 	render() {
-		const {params} = utils.useRouter();
+		const { params } = utils.useRouter();
 		const spaceID = parseInt( params.spaceID );
-		
+		const { I18n } = this.reax_I18n;
 		this.reax_space_detail.getSpaceDetailMemoed( spaceID );
 		
-		if(!this.reax_space_detail.store.spaceInfo) return null;
+		if ( !this.reax_space_detail.store.spaceInfo ) return null;
 		/*todo 骨架屏*/
-		if(this.reax_space_detail.store.spaceInfo.spaceID !== spaceID) return null;
+		if ( this.reax_space_detail.store.spaceInfo.spaceID !== spaceID ) return null;
 		
 		return <>
 			<div>
 				<div
-					className = { less.spaceInfo }>
+					className = { less.spaceInfo }
+				>
 					<header
-						className = { less.tabSettingNav }>
+						className = { less.tabSettingNav }
+					>
 						<DxzTokenOverview />
 						<SettingIcon />
 					</header>
 					<div className = { less.banner }>
-						<Img className={less.coverImg}
+						<Img
+							className = { less.coverImg }
 							src = { this.reax_space_detail.store.spaceInfo.bgUrl }
 							width = "1200px"
 							height = "300px"
-							alt = ""/>
-						<div className={less.avatarBox}>
-							<Img className={less.spaceAvatar}
-								src = { this.reax_space_detail.store.spaceInfo.iconUrl }/>
+							alt = ""
+						/>
+						<div className = { less.avatarBox }>
+							<Img
+								className = { less.spaceAvatar }
+								src = { this.reax_space_detail.store.spaceInfo.iconUrl }
+							/>
 						</div>
 						
-						{ this.reax_joined_Space_list.joined_space_list?.some((space) => {
-							if(space.spaceID === this.reax_space_detail.store.spaceInfo.spaceID && space.role === 3){
+						{ this.reax_joined_Space_list.joined_space_list?.some( ( space ) => {
+							if ( space.spaceID === this.reax_space_detail.store.spaceInfo.spaceID && space.role === 3 ) {
 								return true;
 							}
-						}) && <div
+						} ) && <div
 							className = { less.editCover }
 							onClick = { () => {
 								this.reax_upload_banner.space_info_banner( this.reax_space_detail.store.spaceInfo.spaceID );
 							} }
 						>
-							Edit cover
+							<I18n>
+								Edit cover
+							</I18n>
+						
 						</div> }
 					</div>
-					<div className = {less.infoBox}>
+					<div className = { less.infoBox }>
 						<div className = { less.spaceJoin }>
-							<span className = { less.spaceName }
+							<span
+								className = { less.spaceName }
 							>{ this.reax_space_detail.store.spaceInfo.name }
 							</span>
-							<div className={less.share_joinBox}>
+							<div className = { less.share_joinBox }>
 								<ShareIcon></ShareIcon>
-								<BtnSpaceJoinedSetting 
-									spaceID = {this.reax_space_detail.store.spaceInfo.spaceID}
+								<BtnSpaceJoinedSetting
+									spaceID = { this.reax_space_detail.store.spaceInfo.spaceID }
 								/>
 							</div>
 						</div>
 						<div
-							className = {less.sharingBox}>
+							className = { less.sharingBox }
+						>
 							<WalletAddressCopyBox
 								walletAddr = { this.reax_space_detail.store.spaceInfo.addrChain }
 							/>
-							<div className={less.socialMedias}>
+							<div className = { less.socialMedias }>
 								<SVGSocialShare />
 							</div>
 						</div>
-						<p className = { less.bios }
+						<p
+							className = { less.bios }
 						>
 							{ this.reax_space_detail.store.spaceInfo.bio }
 						</p>
@@ -84,10 +96,11 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							<ContentListFirst></ContentListFirst>
 							<ContentListSecond></ContentListSecond>
 						</div>
-						<div className = {less.contentRight}>
+						<div className = { less.contentRight }>
 							<TitleEdit></TitleEdit>
 							<div className = { less.memberLists }>
-								{ new Array( 44 ).fill( '' ).map( ( v , i ) =>
+								{ new Array( 44 ).fill( '' ).
+								map( ( v , i ) =>
 									<MemberItem
 										key = { i }
 									></MemberItem> ,
@@ -106,7 +119,8 @@ import {
 	reaxel_joined_Space_list ,
 	reaxel_upload_pics ,
 	reaxel_user_join_or_leave_space ,
-	reaxel_space_detail
+	reaxel_space_detail ,
+	reaxel_i18n ,
 } from '@@reaxes';
 import {
 	Img ,
@@ -117,7 +131,7 @@ import { DxzTokenOverview } from '@@pages/Test/dxz-Token-overview';
 import less from './index.module.less';
 
 
-const MemberItem =ComponentWrapper( () => {
+const MemberItem = ComponentWrapper( () => {
 	return <>
 		<div
 			className = { less.memberItem }
@@ -149,8 +163,8 @@ const MemberItem =ComponentWrapper( () => {
 			</span>
 		</div>
 	</>;
-});
-const TitleEdit = ComponentWrapper(() => {
+} );
+const TitleEdit = ComponentWrapper( () => {
 	return <>
 		<div
 			style = { {
@@ -195,8 +209,8 @@ const TitleEdit = ComponentWrapper(() => {
 			</svg>
 		</div>
 	</>;
-});
-const ContentListFirst =ComponentWrapper( () => {
+} );
+const ContentListFirst = ComponentWrapper( () => {
 	return <>
 		<div
 			className = "content-list_first"
@@ -213,8 +227,8 @@ const ContentListFirst =ComponentWrapper( () => {
 			<TitleEdit></TitleEdit>
 		</div>
 	</>;
-});
-const ContentListSecond =ComponentWrapper( () => {
+} );
+const ContentListSecond = ComponentWrapper( () => {
 	return <>
 		<div
 			className = "content-list_second"
@@ -230,23 +244,23 @@ const ContentListSecond =ComponentWrapper( () => {
 			<TitleEdit></TitleEdit>
 		</div>
 	</>;
-});
+} );
 
-const SVGSocialShare = ComponentWrapper(() => {
+const SVGSocialShare = ComponentWrapper( () => {
 	return <>
-		<SVGLink/>
-		<SVGTwitter/>
-		<SVGIns/>
-		<SVGDiscord/>
-		<SVGTelegram/>
-		<SVGGithub/>
-		<SVGYoutube/>
-		<SVGVK/>
-		<SVGReddit/>
-		<SVGFacebook/>
+		<SVGLink />
+		<SVGTwitter />
+		<SVGIns />
+		<SVGDiscord />
+		<SVGTelegram />
+		<SVGGithub />
+		<SVGYoutube />
+		<SVGVK />
+		<SVGReddit />
+		<SVGFacebook />
 	</>;
-});
-const SpaceJoinAvater = ComponentWrapper(() => {
+} );
+const SpaceJoinAvater = ComponentWrapper( () => {
 	return <>
 		<img
 			src = "https://s1.ax1x.com/2022/07/11/j6YgIg.png"
@@ -261,8 +275,8 @@ const SpaceJoinAvater = ComponentWrapper(() => {
 			} }
 		/>
 	</>;
-});
-const ShareIcon = ComponentWrapper(() => {
+} );
+const ShareIcon = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -304,20 +318,23 @@ const ShareIcon = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SettingIcon = ComponentWrapper(() => {
-	const {navigate,params} = utils.useRouter();
+} );
+const SettingIcon = ComponentWrapper( () => {
+	const {
+		navigate ,
+		params,
+	} = utils.useRouter();
 	return <>
 		<svg
-			onClick={() => {
+			onClick = { () => {
 				navigate( `/space${ params.spaceID }/settings` );
-			}}
+			} }
 			style = { {
 				display : "flex" ,
 				alignItems : "center" ,
 				marginLeft : "17px" ,
 				marginTop : "20px" ,
-				cursor : "pointer",
+				cursor : "pointer" ,
 			} }
 			width = "24"
 			height = "24"
@@ -339,8 +356,8 @@ const SettingIcon = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGLink = ComponentWrapper(() => {
+} );
+const SVGLink = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -372,8 +389,8 @@ const SVGLink = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGTwitter = ComponentWrapper(() => {
+} );
+const SVGTwitter = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -393,8 +410,8 @@ const SVGTwitter = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGIns = ComponentWrapper(() => {
+} );
+const SVGIns = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -424,8 +441,8 @@ const SVGIns = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGDiscord = ComponentWrapper(() => {
+} );
+const SVGDiscord = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -445,8 +462,8 @@ const SVGDiscord = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGTelegram = ComponentWrapper(() => {
+} );
+const SVGTelegram = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -466,8 +483,8 @@ const SVGTelegram = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGGithub = ComponentWrapper(() => {
+} );
+const SVGGithub = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -485,8 +502,8 @@ const SVGGithub = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGYoutube =ComponentWrapper( () => {
+} );
+const SVGYoutube = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -504,8 +521,8 @@ const SVGYoutube =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
-const SVGVK = ComponentWrapper(() => {
+} );
+const SVGVK = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -523,8 +540,8 @@ const SVGVK = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGReddit = ComponentWrapper(() => {
+} );
+const SVGReddit = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -542,8 +559,8 @@ const SVGReddit = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-const SVGFacebook =ComponentWrapper( () => {
+} );
+const SVGFacebook = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "24"
@@ -560,4 +577,4 @@ const SVGFacebook =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
+} );

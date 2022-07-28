@@ -6,13 +6,14 @@ import {
 } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import { Space_List_Item } from '@@pages/_BussinessComponents';
-import less from'./index.module.less'
+import less from './index.module.less';
 import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
 import spaceTags from '@@Public/space-tags.json';
 import {
-	reaxel_space_list ,
 	reaxel_scrollParentRef ,
+	reaxel_space_list ,
 	reaxel_wallet ,
+	reaxel_i18n,
 } from '@@reaxes';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -23,6 +24,8 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 	scrollParentRef = reaxel_scrollParentRef();
 	// signMsg = reaxel_sign_via_wallet( this.lifecycle );
 	reax_spaces_list = reaxel_space_list( this.lifecycle );
+	
+	reax_i18n = reaxel_i18n();
 	
 	JSX = {
 		InfiniteSpacesList : () => {
@@ -61,6 +64,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 	
 	render() {
 		const reax_wallet = this.reax_wallet;
+		const { i18n } = this.reax_i18n;
 		return <>
 			<div
 				style = { {
@@ -115,7 +119,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 										marginRight:"16px",
 									} }
 									value = { this.reax_spaces_list.store.searchText }
-									placeholder = "Search"
+									placeholder = {i18n("Search")}
 									onInput = { ( e ) => {
 										const text = e.target.value;
 										this.reax_spaces_list.setSearchingText( text );
@@ -124,7 +128,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 								/>
 								<Select
 									value = { this.reax_spaces_list.store.searchTagSelection }
-									placeholder = "Type"
+									placeholder = {i18n("Type")}
 									suffixIcon = { <SelectArrowIconSvgComponent /> }
 									onSelect = { ( text ) => {
 										if ( text === "null" ) text = null;

@@ -1,35 +1,36 @@
 import less from './index.module.less';
 import { Switch } from 'antd';
 
-import {} from '@@reaxes';
+import { reaxel_i18n } from '@@reaxes';
 
 export const DxzHeaderPanel = ComponentWrapper( () => {
+	const {i18n} = reaxel_i18n();
 	return <>
 		<div
 			className = { less.container }
 		>
 			<MenuItem
-				text = "About"
+				text = {i18n("About")}
 				icon = { <SVGAbout /> }
 			/>
 			<MenuItem
-				text = "Help Center"
+				text = {i18n("Help Center")}
 				icon = { <SVGHelp /> }
 			/>
 			<MenuItem
-				text = "Language/Currency"
+				text = {i18n("Language/Currency")}
 				icon = { <SVGLang /> }
 			/>
 			<MenuItem
-				text = "Dark theme"
+				text = {i18n("Dark theme")}
 				icon = { <Switch /> }
 			/>
 			<MenuItem
-				text = "Docs"
+				text = {i18n("Docs")}
 				icon = { <SVGDocs /> }
 			/>
 			<MenuItem
-				text = "Request Features"
+				text = {i18n("Request Features")}
 				icon = { <SVGRequest /> }
 			/>
 		</div>

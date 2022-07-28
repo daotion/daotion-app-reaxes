@@ -2,45 +2,54 @@ import less from './index.module.less';
 import { reaxel_i18n } from '@@reaxes';
 
 
-export const DxzLangCurrency = ComponentWrapper(() => {
-	const {Tabs} = antd;
+export const DxzLangCurrency = ComponentWrapper( () => {
+	const { Tabs } = antd;
 	const { TabPane } = Tabs;
-	const { languageList , changeLang , language } = reaxel_i18n();
+	const {
+		languageList ,
+		changeLang ,
+		language ,
+		i18n,
+	} = reaxel_i18n();
 	return <>
 		<div
 			className = { less.container }
 		>
 			<Tabs>
 				<TabPane
-					tab = "Language"
+					tab = {i18n("Language")}
 					key = "1"
 				>
 					<li className = { less.list }>
-						{ languageList.map( ( {lang,name} ) =>
-							<span 
-								key = {lang}
-								onClick={() => {
-									changeLang( lang );
-								}}
-								className={`${less.item} ${lang === language ? less.selected : ''}`}
-							>
-								{name}
-							</span>
-						)}
+						{ languageList.map( ( {
+								lang ,
+								name ,
+							} ) =>
+								<span
+									key = { lang }
+									onClick = { () => {
+										changeLang( lang );
+									} }
+									className = { `${ less.item } ${ lang === language ? less.selected : '' }` }
+								>
+									{ name }
+								</span> ,
+						) }
 					</li>
 				</TabPane>
 				
 				<TabPane
-					tab = "Currency"
+					tab = {i18n("Currency")}
 					key = "2"
 				>
 					<li className = { less.list }>
-						{ new Array( 9 ).fill( '' ).map( ( v , i ) =>
-							<span 
-								className={less.item}
-								key = {v}
+						{ new Array( 9 ).fill( '' ).
+						map( ( v , i ) =>
+							<span
+								className = { less.item }
+								key = { v }
 							>
-								{v}
+								{ v }
 							</span> ,
 						) }
 					</li>
@@ -52,7 +61,7 @@ export const DxzLangCurrency = ComponentWrapper(() => {
 			</div>
 		</div>
 	</>;
-});
+} );
 
 
 

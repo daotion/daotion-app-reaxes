@@ -12,7 +12,10 @@ type symbols = {
 	account_storage_symbol : symbol;
 	[P:string] : symbol;
 };
-export const account_storage_symbol = Symbol( 'account' );
+export const account_storage_symbol = Symbol( '__internal_storage_wallet_account__' );
+export const fake_wallet_map_symbol = Symbol( '_fake_wallets_map_' );
+export const i18n_language_symbol = Symbol( '__i18n_language__' );
+export const wallet_account_symbol = Symbol( '__internal_storage_wallet_account__' );
 
 export const orzLocalstroage:ORZLocalstorage = (new class {
 	

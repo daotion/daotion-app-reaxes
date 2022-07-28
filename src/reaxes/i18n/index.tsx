@@ -1,6 +1,9 @@
+import { asyncLangMap } from './async-language-map';
+import { reaxel_i18n_storage } from './i18n-storage';
 
 /**
  * 分布式I18n reaxel
+ * 如果不需要storage , 把reaxel_i18n_storage相关的部分移除即可.
  */
 export const reaxel_i18n = function(){
 	
@@ -28,6 +31,12 @@ export const reaxel_i18n = function(){
 				setState( { loading : false } );
 			});
 		}
+	}
+	
+	const changeLang = ( lang : string ) => {
+		setState( {lang} );
+		asyncLangLoader();
+		setTimeout(() => i18n_storage.writeToStorage(lang));
 	}
 	
 	const i18n = function(){
@@ -68,13 +77,15 @@ export const reaxel_i18n = function(){
 			return <>{children}</> ;
 		};
 		if(!loadedLangMap[store.lang]){
-			return <>{ prevLangText.current }</>;
+			return <>{ prevLangText.current || children }</>;
 		}else {
 			prevLangText.current = loadedLangMap[store.lang][children];
 			prevLang.current = store.lang;
 			return <>{loadedLangMap[store.lang][children]}</>;
 		}
 	});
+	
+	const i18n_storage = reaxel_i18n_storage(changeLang);
 	
 	return () => {
 		
@@ -92,10 +103,7 @@ export const reaxel_i18n = function(){
 			},
 			i18n,
 			/*修改语言方法,会重新渲染所有使用了此闭包内I18n的组件*/
-			changeLang : ( lang : string ) => {
-				setState( {lang} );
-				asyncLangLoader();
-			},
+			changeLang ,
 			/*I18n组件,children直接放英语自然文本.*/
 			I18n ,
 		}
@@ -117,17 +125,3 @@ const languageList = [
 	},
 ];
 /*维护一个加载lang-json的列表,惰性加载*/
-const asyncLangMap = {
-	"zh-CN" : () => import('@@Public/lang/lang_zh-CN.json'),
-	/*模拟测试: 当异步加载一个语言包很慢时,实现了先渲染上一次语言的缓存(防止空白),待加载lang-json成功后再渲染*/
-	"zh-TC": () => {
-		/*todo 产品经理认为如果切换慢时禁用切换功能即可.*/
-		return orzPromise((resolve) => {
-			setTimeout( () => {
-				import('@@Public/lang/lang_zh-TC.json').then( ( module ) => {
-					resolve( module );
-				} );
-			} , 6000 );
-		})
-	},
-};
