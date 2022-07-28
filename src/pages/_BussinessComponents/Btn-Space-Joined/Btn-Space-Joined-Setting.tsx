@@ -1,6 +1,7 @@
 import {
 	reaxel_joined_Space_list ,
-	reaxel_user_join_or_leave_space,
+	reaxel_user_join_or_leave_space ,
+	reaxel_i18n,
 } from '@@reaxes';
 import {ButtonProps} from 'antd';
 
@@ -9,12 +10,10 @@ import less from '@@RootPath/src/styles/reaxels.module.less';
 export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps ) => {
 	const { Button } = antd;
 	const { joined_space_list } = reaxel_joined_Space_list();
+	const {i18n,language,loading} = reaxel_i18n();
 	const {navigate} = utils.useRouter();
-	
 	const joinedSpaceInfo = joined_space_list.find( ( item ) => item.spaceID == props.spaceID );
-	const ButtonProps : ButtonProps  = {
-		
-	};
+	const ButtonProps : ButtonProps  = {};
 	
 	if(!joinedSpaceInfo){
 		Object.assign<ButtonProps , ButtonProps>( ButtonProps , {
@@ -33,7 +32,7 @@ export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps 
 	}else {
 		if(joinedSpaceInfo.role === 3){
 			Object.assign<ButtonProps,ButtonProps>( ButtonProps , {
-				children : "Settings",
+				children : [i18n("Settings")],
 				onClick : () => {
 					navigate( `../settings` );
 				},
@@ -98,3 +97,4 @@ type JoinedBtnProps = {
 	spaceID : number;
 	style : React.CSSProperties;
 };
+

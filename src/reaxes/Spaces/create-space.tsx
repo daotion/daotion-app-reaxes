@@ -161,6 +161,8 @@ export const reaxel_create_space = function () {
 					const {
 						I18n ,
 						i18n ,
+						language,
+						changeLang ,
 					} = reaxel_i18n();
 					return <>
 						<Modal
@@ -323,7 +325,9 @@ export const reaxel_create_space = function () {
 												color : "red" ,
 												fontWeight : "normal" ,
 											} }
-										>email address is not valid</p> }
+										>
+											<I18n>email address is not valid</I18n>
+										</p> }
 									</div>
 								</div>
 							</div>

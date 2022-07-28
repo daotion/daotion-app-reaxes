@@ -1,21 +1,24 @@
 export const UserButtonDropdown = ComponentWrapper( () => {
 	const {
 		Button ,
-		Switch,
+		Switch ,
 	} = antd;
 	const reax_wallet = reaxel_wallet();
+	const { I18n } = reaxel_i18n();
 	const [ visible , setVisible ] = useState( false );
+	const { navigate } = utils.useRouter();
+	
+	
 	useEffect( () => {
 		
 		return subscribe_root_click( () => {
 			setVisible( false );
 		} , root_click_symbol );
 	} , [] );
-	const { navigate } = utils.useRouter();
 	
 	if ( !reax_wallet.wallet ) return null;
 	const btnStyle : React.CSSProperties = {
-		...headerBtnStyle,
+		...headerBtnStyle ,
 		padding : "8px" ,
 		borderRadius : "12px" ,
 		border : "none" ,
@@ -83,14 +86,18 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 				
 				<div
 					className = { less.userPopoverMenuItem }
-					onClick={(e) => {
+					onClick = { ( e ) => {
 						setVisible( false );
-						navigate('/profile');
-					}}
+						navigate( '/profile' );
+					} }
 				>
 					<div>
 						<ItemIconProfileSvgComponent />
-						<span>My profile</span>
+						<span>
+							<I18n>
+								My profile
+							</I18n>
+						</span>
 					</div>
 				</div>
 				<div
@@ -102,7 +109,11 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 				>
 					<div>
 						<ItemIconDisconnectSvgComponent />
-						<span>Disconnect</span>
+						<span>
+							<I18n>
+								Disconnect
+							</I18n>
+						</span>
 					</div>
 				</div>
 			
@@ -135,7 +146,6 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 import less from '../index.module.less';
 
 import {
-	globalStore ,
 	invoke_root_click ,
 	root_click_symbol ,
 	subscribe_root_click ,
@@ -146,12 +156,13 @@ import {
 	BtnIconCopySvgComponent ,
 	BtnIconRenameSvgComponent ,
 	ItemIconDisconnectSvgComponent ,
-	ItemIconI18nSvgComponent ,
 	ItemIconProfileSvgComponent ,
-	ItemIconThemeSvgComponent ,
 } from '@@pages/_SvgComponents';
 import { headerBtnStyle } from '../';
 import { UserAvatar } from '../Header-User-Avatar';
 import { EllipsisAddress } from '../Header-Ellipsis-Address';
 
-import { reaxel_wallet  } from '@@reaxes';
+import {
+	reaxel_wallet ,
+	reaxel_i18n ,
+} from '@@reaxes';

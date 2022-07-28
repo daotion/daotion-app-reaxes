@@ -24,16 +24,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 		} = antd;
 		const { navigate } = utils.useRouter();
 		return <div className = { less.topBanner }>
-			{__EXPERIMENTAL__ && <span>
-				en-us
-				<Switch
-					checked={this.reax_i18n.language === "zh-CN"}
-					onChange={(checked) => {
-						this.reax_i18n.changeLang( checked ? "zh-CN" : "en" );
-					}}
-				/>
-				zh-cn
-			</span>}
 			{ __EXPERIMENTAL__ && <div>
 				<Input.TextArea
 					value = { this.reax_header_svg_tool.inputSvgString }

@@ -11,5 +11,14 @@
 	"Email" : "电子邮件",
 	"Enter your email" : "输入邮件地址",
 	"Create your own organization in a few minutes!" : "只需几分钟就可以创建您自己的组织!",
+	"email address is not valid" : "无效的邮件地址",
+	"Settings" : "设置",
+	"Joined" : "已加入",
+	"Join" : "加入",
+	"leave" : "离开",
+	"My profile" : "个人信息",
+	"Disconnect" : "断开钱包",
+	"Select a network" : "选择网络",
+	"Connect Wallet" : "连接钱包",
 	"Create your Space" : "创建您的空间"
 }

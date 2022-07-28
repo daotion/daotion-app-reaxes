@@ -1,20 +1,11 @@
 import less from './index.module.less';
-import { Tabs } from 'antd';
-import { reaxel_general_button } from '@@pages/_BussinessComponents/Layout_Header/Header-General-Button-Popover';
-const { TabPane } = Tabs;
-import React from 'react';
+import { reaxel_i18n } from '@@reaxes';
 
 
-const onChange = ( key : string ) => {
-	console.log( key );
-};
-<Tabs
-	defaultActiveKey = "1"
-	onChange = { onChange }
->
-</Tabs>;
 export const DxzLangCurrency = ComponentWrapper(() => {
-	const reax_general_button = reaxel_general_button();
+	const {Tabs} = antd;
+	const { TabPane } = Tabs;
+	const { languageList , changeLang , language } = reaxel_i18n();
 	return <>
 		<div
 			className = { less.container }
@@ -25,12 +16,17 @@ export const DxzLangCurrency = ComponentWrapper(() => {
 					key = "1"
 				>
 					<li className = { less.list }>
-						{ new Array( 9 ).fill( '' ).map( ( v , i ) =>
-							<SubItem
-								key = { i }
-								text='English'
-							></SubItem> ,
-						) }
+						{ languageList.map( ( {lang,name} ) =>
+							<span 
+								key = {lang}
+								onClick={() => {
+									changeLang( lang );
+								}}
+								className={`${less.item} ${lang === language ? less.selected : ''}`}
+							>
+								{name}
+							</span>
+						)}
 					</li>
 				</TabPane>
 				
@@ -40,10 +36,12 @@ export const DxzLangCurrency = ComponentWrapper(() => {
 				>
 					<li className = { less.list }>
 						{ new Array( 9 ).fill( '' ).map( ( v , i ) =>
-							<SubItem
-								key = { i }
-								text='USD-$'
-							></SubItem> ,
+							<span 
+								className={less.item}
+								key = {v}
+							>
+								{v}
+							</span> ,
 						) }
 					</li>
 				</TabPane>
@@ -56,12 +54,5 @@ export const DxzLangCurrency = ComponentWrapper(() => {
 	</>;
 });
 
-const SubItem=(props)=>{
-	return<>
-	<span className={less.item}>
-		{props.text}
-	</span>
-	</>
-}
 
 

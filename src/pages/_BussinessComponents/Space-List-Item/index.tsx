@@ -2,6 +2,7 @@ import { Space__all_spaces } from '@@reaxes/Spaces/types';
 import {
 	reaxel_joined_Space_list ,
 	reaxel_user_join_or_leave_space ,
+	reaxel_i18n,
 } from '@@reaxes';
 import chainIconMap from '@@Public/chain-icon-map.json';
 import { message } from 'antd';
@@ -14,12 +15,20 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 	
 	reax_user_join_or_leave_space = reaxel_user_join_or_leave_space();
 	
+	reax_i18n = reaxel_i18n();
+	
 	JSX = {
 		
 		join_or_leave : () => {
+			const [mouseEntered , setMouseEntered] = useState(false);
 			const { spaceID } = this.props.info;
+			const { I18n } = this.reax_i18n;
 			return this.reax_joined_spaces_list.joined_space_list.some( ( item ) => item.spaceID === this.props.info.spaceID ) ? <div
 				className = { less.spaceListItemBtnJoined }
+				onMouseEnter={() => {
+					setMouseEntered(true);
+				}}
+				onMouseLeave={() => setMouseEntered(false)}
 				onClick = { ( e ) => {
 					e.stopPropagation();
 					this.reax_user_join_or_leave_space.leave_space( spaceID ).
@@ -29,7 +38,9 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 						}
 					} );
 				} }
-			/> : <div
+			>
+				<I18n>{mouseEntered ? "leave" : "Joined"}</I18n>
+			</div> : <div
 				onClick = { ( e ) => {
 					e.stopPropagation();
 					this.reax_user_join_or_leave_space.join_space( spaceID ).
@@ -40,7 +51,10 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 					} );
 				} }
 				className = { less.spaceListItemBtnLeaved }
-			>Join</div>;
+			>
+				<I18n>
+					Join
+				</I18n></div>;
 		} ,
 	};
 	

@@ -1,5 +1,5 @@
 import { Button } from "@@common/Xcomponents/Button";
-import { SelectTags, Option } from "@@common/Xcomponents/SelectTags";
+import { SelectTags , Option } from "@@common/Xcomponents";
 import { BtnCreateSpaceSvgComponent } from "@@pages/_SvgComponents/Btn-Create-Space.svg-component";
 import { HeaderToggleThemeIconSvgComponent } from "@@pages/_SvgComponents";
 import { Select } from "@@common/Xcomponents/Select";
