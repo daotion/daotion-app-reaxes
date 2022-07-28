@@ -78,17 +78,11 @@ export const request = new class {
 							} else {
 								/*如果没有指定requester.env*/
 								if ( !orignal_options.env ) {
-									/*根据node_env生成proxy代理路径*/
-									return {
-										"development" : global_env_config[ env ].proxy_dev ,
-										"production" : global_env_config[ env ].proxy_server ,
-									}[ __NODE_ENV__ ];
+									/*则使用npm.env*/
+									return global_env_config[ env ].proxy_dev;
 								} else {
 									/*如果指定了requester.env就用它*/
-									return {
-										"development" : global_env_config[ orignal_options.env ].proxy_dev ,
-										"production" : global_env_config[ orignal_options.env ].proxy_server ,
-									}[ __NODE_ENV__ ];
+									return global_env_config[ orignal_options.env ].proxy_dev;
 								}
 							}
 						}
@@ -201,7 +195,7 @@ export const request = new class {
 		}
 	};
 	
-	post = async <response = any , request extends () => ( Promise<ORZ.RequestOptions<any>> | ORZ.RequestOptions<any> ) = any>(
+	post = async <response = any , request extends () => ( Promise<any> | any ) = any>(
 		url : string ,
 		options : ORZ.RequestOptions<request> = {} ,
 	) : Promise<response> => {
@@ -234,6 +228,6 @@ export const request = new class {
 
 
 const symbol_no_authorized = Symbol( 'no_authorized' );
-import { reaxel_user } from '@@reaxes/authurize/user';
+import { reaxel_user } from '@@reaxes/user/auth';
 import { orzLocalstroage } from '@@common/storages';
 

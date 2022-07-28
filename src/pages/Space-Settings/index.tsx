@@ -1,4 +1,4 @@
-import { DxzSpaceSettings } from '@@pages/Test/dxz-social-general';
+import { DxzSpaceSettings } from '@@pages/Test/dxz-Space-Settings';
 
 
 export const SpaceSettings = ComponentWrapper(class extends ReactComponentClass{

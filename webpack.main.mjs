@@ -60,7 +60,7 @@ export let {
 	} ,
 	{
 		/*网络请求环境*/
-		regExp : /\bserver_yang|server_dev\b/ ,
+		regExp : /\bserver_yang|server_dev|server_production\b/ ,
 		key : "env" ,
 	} ,
 	{
@@ -76,10 +76,7 @@ export let {
 ]);
 
 {
-	/*如果是dev环境则默认开启实验特性,除非明确说明*/
-	if ( !experimental ) {
-		node_env === 'development' ? experimental = 'experimental' : experimental = 'non-exp';
-	}
+	
 	/*如果没有明确指定node_env:  npm.server下自动dev,npm.build是production*/
 	if ( !node_env ) {
 		if(method === "server"){
@@ -87,8 +84,15 @@ export let {
 		}else {
 			node_env = 'production';
 		}
+	}else if(node_env === "production"){
+		
+	}
+	/*如果是dev环境则默认开启实验特性,除非明确说明*/
+	if ( !experimental ) {
+		node_env === 'development' ? experimental = 'experimental' : experimental = 'non-exp';
 	}
 }
+
 const analysis = analyze ? [new BundleAnalyzerPlugin()] : [];
 
 const devConfig = developmentConfig$Fn({

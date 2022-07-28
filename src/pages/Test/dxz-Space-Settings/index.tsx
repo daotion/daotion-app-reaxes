@@ -1,5 +1,5 @@
 import less from './index.module.less';
-
+import { SVGClose } from '../dxz-social-select-modal';
 import spaceTags from '@@Public/space-tags.json';
 import {
 	Img ,
@@ -20,7 +20,7 @@ export const DxzSpaceSettings = () => {
 		social : SocialProfile ,
 		general : GeneralProfile ,
 	}[ tab ];
-	reaxel_edit_space_settings().
+	reaxel_edit_space_general_settings().
 	closuredFetchSpaceInfo( spaceID );
 	return <>
 		<div
@@ -64,9 +64,7 @@ const GeneralProfile = ComponentWrapper( () => {
 		setEditingSpaceInfo ,
 		closuredFetchSpaceInfo ,
 		saveSpaceSettings ,
-	} = reaxel_edit_space_settings();
-
-	[ store__space_detail.spaceInfo ];
+	} = reaxel_edit_space_general_settings();
 
 	return <>
 		<div
@@ -100,9 +98,9 @@ const GeneralProfile = ComponentWrapper( () => {
 				</div>
 				<UploadBtn
 					onClick = { () => {
-						reax_upload_avatar( spaceID , ( url :string) =>
-							setEditingSpaceInfo( { iconUrl : url } ));
-						}  }
+						reax_upload_avatar( spaceID , ( url : string ) =>
+							setEditingSpaceInfo( { iconUrl : url } ) );
+					} }
 				/>
 			</div>
 			<p
@@ -210,13 +208,12 @@ const GeneralProfile = ComponentWrapper( () => {
 					display : "flex" ,
 					alignItems : "center" ,
 					justifyContent : "center" ,
-					background : "#3772ff" ,
 				} }
 			>Save Changes</Button>
 		</div>
 	</>;
 } );
-const reaxel_edit_space_settings = function () {
+const reaxel_edit_space_general_settings = function () {
 	let ret;
 	type fields = {
 		bio : string,
@@ -236,12 +233,12 @@ const reaxel_edit_space_settings = function () {
 	let currentSpaceID : number;
 	let spaceInfo : fields;
 	let fetching = false;
-
+	const reax_space_detail = reaxel_space_detail();
 	/*从服务器拿spaceInfo并缓存下来*/
 	const closuredSpaceInfo = Reaxes.closuredMemo( async ( spaceID : number , forceUpdate : boolean = false ) => {
 		/*当前逻辑是进入space:spaceID路由下会自动请求space的detail,而settings页面一定在space:spaceID路由下的
 		  所以可以认为编辑中的spaceInfo和自动请求到的spaceInfo是同一套.判断一下,如果spaceID相同就不请求后端了*/
-		const info = reaxel_space_detail().store.spaceInfo;
+		const info = reax_space_detail.store.spaceInfo;
 		currentSpaceID = spaceID;
 		if ( info && (
 			spaceID === info.spaceID
@@ -255,17 +252,16 @@ const reaxel_edit_space_settings = function () {
 			setState( spaceInfo );
 			return;
 		}
-		if ( fetching === true ) {
-			return;
-		}
-		fetching = true;
-		const createPayload = async () => {
-			return {
-				spaceID ,
-			};
-		};
-		const promise = request_space_detail( createPayload ).
-		then( ( info ) => {
+
+		return reax_space_detail.getSpaceDetailMemoed( spaceID , forceUpdate );
+
+	} , () => [] );
+
+	Reaxes.observedMemo( () => {
+		if ( (
+			currentSpaceID
+		) && reax_space_detail.store.spaceInfo?.spaceID === currentSpaceID ) {
+			const info = reax_space_detail.store.spaceInfo;
 			spaceInfo = {
 				bio : info.bio ,
 				email : info.email ,
@@ -273,12 +269,8 @@ const reaxel_edit_space_settings = function () {
 				iconUrl : info.iconUrl ,
 			};
 			setState( spaceInfo );
-		} );
-		promise.finally( () => {
-			fetching = false;
-		} );
-		return promise;
-	} , () => [] );
+		}
+	} , () => [ reax_space_detail.store.spaceInfo ] );
 
 	const omitIconUrl = () => {
 		return [
@@ -363,6 +355,8 @@ const reaxel_edit_space_settings = function () {
 
 
 const SocialProfile = ComponentWrapper( () => {
+	const { params } = utils.useRouter();
+	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
 		<div
 			style = { {
@@ -372,23 +366,92 @@ const SocialProfile = ComponentWrapper( () => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<ProfileTitle title = "Social Profiles"></ProfileTitle>
+			<ProfileTitle title = "Social Profiles" />
 
-			<ItemWithSubTitle title = "Homepage"></ItemWithSubTitle>
-			<SubItemInput/>
-			<ItemWithSubTitle title = "Twitter"></ItemWithSubTitle>
-			<SubItemInput/>
-			<ItemWithSubTitle title = "Discord"></ItemWithSubTitle>
-			<SubItemInput/>
-			<ItemWithSubTitle title = "GitHub"></ItemWithSubTitle>
-			<SubItemInput/>
+			<div
+				style = { {
+					minHeight : "250px" ,
+				} }
+			>
+				{ reax_edit_space_social_settings.store.socialList.map( ( item ) => {
 
-			<AddSocialBtn></AddSocialBtn>
+					return <EditSocialItem
+						title = { item.type }
+						value = { item.link }
+						onChange = { ( text ) => {
+							reax_edit_space_social_settings.editSocialItem( item.key , text );
+						} }
+						key = { item.type }
+
+					/>;
+				} ) }
+			</div>
+			<AddSocialBtn />
 			<div className = { less.divider }></div>
-			<ProfileFooterBtn text = "Update Social Profiles"></ProfileFooterBtn>
+			<ProfileFooterBtn
+				text = "Update Social Profiles"
+			/>
 		</div>
 	</>;
 } );
+
+
+export const AddSocialBtn = ComponentWrapper( (props) => {
+	const { Modal } = antd;
+	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
+	return <>
+		<Button
+			style = { {
+				color : "#777e90" ,
+				fontWeight : "700" ,
+				fontSize : "14px" ,
+				lineHeight : "16px" ,
+				border : "2px solid #e6e8ec" ,
+				display : "flex" ,
+				alignItems : "center" ,
+				justifyContent : "center" ,
+				padding : "12px 16px" ,
+				borderRadius : "12px" ,
+				height : "40px" ,
+				marginTop : "32px" ,
+				width : "fit-content" ,
+				background : "#ffffff" ,
+			} }
+			onClick = {
+				() => {
+					reax_edit_space_social_settings.setSelectModalVisible( true )
+					props.onClick();
+				}
+			}
+		>
+			<SVGGrayAdd></SVGGrayAdd>
+			<span>
+				Add more social account
+			</span>
+		</Button>
+		<Modal
+			visible = { reax_edit_space_social_settings.store.selectModalVisible }
+			onCancel = { () => reax_edit_space_social_settings.setSelectModalVisible( false ) }
+			footer = { null }
+			className = { less.antdSocialMediaModal }
+			// centered
+			maskClosable
+			mask = { true }
+			width = "480px"
+			closeIcon = { <SVGClose /> }
+			maskStyle={{
+				background:'rgba(244, 244, 244, 0.4)',
+				backdropFilter:'blur(50px)',
+			}}
+		>
+			<DxzSocialSelectModal />
+		</Modal>
+	</>;
+} );
+
+
+import { DxzSocialSelectModal } from '@@pages/Test/dxz-social-select-modal';
+import { reaxel_edit_space_social_settings } from './reaxel_edit_space_social_settings';
 
 
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
@@ -444,35 +507,7 @@ type SpaceSettingTabsProps = {
 	tab : 'social' | 'general',
 	setTab : ( tab : 'social' | 'general' ) => void;
 };
-const ItemWithSubTitle = ( props : React.PropsWithChildren<{
-	title : string;
-}> ) => {
-	return <>
-		<span className = { less.subTitle }>{ props.title }</span>
-		{ props.children }
-	</>;
-};
 
-const SubItemInput = () => {
-	return<>
-		<Input
-			placeholder='Please enter'
-			style = { {
-				background : "#f4f4f4" ,
-				borderRadius : "12px" ,
-				width : "100%" ,
-				height : "48px" ,
-				padding : "12px" ,
-				border : "none" ,
-				fontWeight : "600" ,
-				fontSize : "14px" ,
-				lineHeight : "24px" ,
-				color : "#33383f" ,
-			} }
-		/>
-	</>
-
-};
 const UploadBtn = ( props : { onClick? : () => void } ) => {
 	return <>
 		<Button
@@ -557,34 +592,6 @@ const ProfileTitle = ( props ) => {
 		</h1>
 	</>;
 };
-export const AddSocialBtn = (props) => {
-	return <>
-		<Button
-			style = { {
-				color : "#777e90" ,
-				fontWeight : "700" ,
-				fontSize : "14px" ,
-				lineHeight : "16px" ,
-				border : "2px solid #e6e8ec" ,
-				display : "flex" ,
-				alignItems : "center" ,
-				justifyContent : "center" ,
-				padding : "12px 16px" ,
-				borderRadius : "12px" ,
-				height : "40px" ,
-				marginTop : "32px" ,
-				width : "fit-content" ,
-				background : "#ffffff" ,
-			} }
-			onClick={props.onClick}
-		>
-			<SVGGrayAdd></SVGGrayAdd>
-			<span>
-				Add more social account
-			</span>
-		</Button>
-	</>;
-};
 const SVGGrayAdd = () => {
 	return <>
 		<svg
@@ -606,12 +613,19 @@ const SVGGrayAdd = () => {
 		</svg>
 	</>;
 };
-export const ProfileFooterBtn = ( props ) => {
+export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
+
+	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
 		<Button
 			className = "profile-footer-btn"
+			onClick = { () => {
+				reax_edit_space_social_settings.fetchEditSocial().
+				then( () => {
+
+				} );
+			} }
 			style = { {
-				background : "#3772ff" ,
 				borderRadius : "12px" ,
 				color : "#ffffff" ,
 				padding : "12px 20px" ,
@@ -628,7 +642,7 @@ export const ProfileFooterBtn = ( props ) => {
 			onClick={props.onFinish}
 		>{ props.text }</Button>
 	</>;
-};
+} );
 const CurrentNet = ( props ) => {
 	return <>
 		<div
@@ -730,8 +744,77 @@ const SVGClear = () => {
 };
 
 
+const ItemWithSubTitle = ( props : React.PropsWithChildren<{
+	title : string;
+}> ) => {
+	return <>
+		<span className = { less.subTitle }>{ props.title }</span>
+		{ props.children }
+	</>;
+};
 
+const SubItemInput = () => {
+	return <>
+		<Input
+			placeholder = "Please enter"
+			style = { {
+				background : "#f4f4f4" ,
+				borderRadius : "12px" ,
+				width : "100%" ,
+				height : "48px" ,
+				padding : "12px" ,
+				border : "none" ,
+				fontWeight : "600" ,
+				fontSize : "14px" ,
+				lineHeight : "24px" ,
+				color : "#33383f" ,
+			} }
+		/>
+	</>;
 
+};
+
+const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
+	const mixedProps = Object.assign<Partial<EditSocialItemProps> , EditSocialItemProps>( {
+		placeholder : "Please enter" ,
+	} , { ...props } );
+	return <>
+		<div
+			style = { {
+				display : "flex" ,
+				flexFlow : "column nowrap" ,
+			} }
+		>
+			<span className = { less.subTitle }>{ mixedProps.title }</span>
+			<Input
+				value = { mixedProps.value }
+				onChange = { ( e ) => {
+					mixedProps.onChange( e.target.value );
+				} }
+				placeholder = { mixedProps.placeholder }
+				style = { {
+					background : "#f4f4f4" ,
+					borderRadius : "12px" ,
+					width : "100%" ,
+					height : "48px" ,
+					padding : "12px" ,
+					border : "none" ,
+					fontWeight : "600" ,
+					fontSize : "14px" ,
+					lineHeight : "24px" ,
+					color : "#33383f" ,
+				} }
+			/>
+		</div>
+	</>;
+} );
+
+type EditSocialItemProps = {
+	title : React.ReactNode;
+	value : string;
+	onChange : ( text : string ) => void;
+	placeholder? : string;
+};
 
 
 /*

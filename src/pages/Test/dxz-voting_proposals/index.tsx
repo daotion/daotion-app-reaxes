@@ -1,10 +1,13 @@
 import less from './index.module.less';
-import { Select } from 'antd';
-import { Button } from 'antd';
+import {
+	Button ,
+	Select,
+} from 'antd';
+import { reaxel_i18n } from '@@reaxes';
 
 const { Option } = Select;
 
-export const DxzVotingProposals = () => {
+export const DxzVotingProposals = (() => {
 	
 	
 	const JSX = {
@@ -125,6 +128,7 @@ export const DxzVotingProposals = () => {
 		},
 	};
 	
+	const {} = reaxel_i18n();
 	return <>
 		<div className = { less.voting_proposalsContainer }
 			style = { {
@@ -312,4 +316,4 @@ export const DxzVotingProposals = () => {
 		</div>
 	
 	</>;
-};
+});

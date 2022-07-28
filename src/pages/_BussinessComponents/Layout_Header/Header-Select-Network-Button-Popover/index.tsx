@@ -1,20 +1,30 @@
 import {
 	headerBtnStyle ,
-	reaxel_header_svg_tool,
+	reaxel_header_svg_tool ,
 } from '../';
-import { reaxel_wallet  } from '@@reaxes';
+import {
+	reaxel_wallet ,
+	reaxel_i18n,
+} from '@@reaxes';
 import {
 	invoke_root_click ,
 	subscribe_root_click ,
 } from '@@common/global-controller';
-import {ItemIconEthNode,BtnIconShare} from '@@pages/_SvgComponents';
+import {
+	BtnIconShare ,
+	ItemIconEthNode,
+} from '@@pages/_SvgComponents';
 import less from '../index.module.less';
 
 import { XPopover } from '@@common/Xcomponents';
+
 export const SelectNetworkButtonDropdown = ComponentWrapper( () => {
-	const [ visible , setVisible ] = useState( false );
+	const { Button } = antd;
 	const reax_wallet = reaxel_wallet();
+	const { I18n } = reaxel_i18n();
 	const reax_header_svg_tool = reaxel_header_svg_tool();
+	
+	const [ visible , setVisible ] = useState( false );
 	useEffect( () => {
 		const symbol = Symbol();
 		const subscription = () => {
@@ -26,25 +36,32 @@ export const SelectNetworkButtonDropdown = ComponentWrapper( () => {
 	
 	const btnStyle : React.CSSProperties = {
 		...headerBtnStyle,
-		padding : "12px 12px 12px 12px" ,
+		padding : "8px 16px" ,
 		borderRadius : "12px" ,
-		borderWidth : "2px" ,
-		marginLeft : "16px" ,
+		border : "none" ,
+		marginLeft : "8px" ,
 		display : "flex" ,
 		alignItems : "center" ,
+		height:"40px"
 	};
-	const { Button } = antd;
 	if ( !reax_wallet.wallet ) {
 		return <>
 			<Button
 				type = "primary"
-				style = { btnStyle }
+				style = { {
+					...btnStyle,
+					// minWidth : "120px",
+					
+				} }
 				onClick = { () => {
 					reaxel_wallet().
 					connectWallet();
 				} }
 			>
-				Connect Wallet
+				<I18n>
+					Connect Wallet
+				</I18n>
+			
 			</Button>
 		</>;
 	}
@@ -80,7 +97,10 @@ export const SelectNetworkButtonDropdown = ComponentWrapper( () => {
 						color : "#353945" ,
 					} }
 				>
-					Select a network
+					<I18n>
+						Select a network
+					</I18n>
+				
 				</div>
 				{ reax_wallet.chains.map( ( chain ) => {
 					if ( chain.id === reax_wallet.chain?.id ) {

@@ -1,28 +1,33 @@
 export const UserButtonDropdown = ComponentWrapper( () => {
+	const {
+		Button ,
+		Switch ,
+	} = antd;
 	const reax_wallet = reaxel_wallet();
+	const { I18n } = reaxel_i18n();
 	const [ visible , setVisible ] = useState( false );
+	const { navigate } = utils.useRouter();
+	
+	
 	useEffect( () => {
 		
 		return subscribe_root_click( () => {
 			setVisible( false );
 		} , root_click_symbol );
 	} , [] );
+	
 	if ( !reax_wallet.wallet ) return null;
 	const btnStyle : React.CSSProperties = {
-		...headerBtnStyle,
+		...headerBtnStyle ,
 		padding : "8px" ,
 		borderRadius : "12px" ,
-		borderWidth : "2px" ,
-		marginLeft : "16px" ,
+		border : "none" ,
+		marginLeft : "8px" ,
 		display : "flex" ,
 		alignItems : "center" ,
 		fontWeight : "bold" ,
 		
 	};
-	const {
-		Button ,
-		Switch,
-	} = antd;
 	return <>
 		<XPopover
 			overlayClassName = { less.userinfoPopoverContainer }
@@ -50,7 +55,7 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 							display : "flex" ,
 							justifyContent : "center" ,
 							flexFlow : "column nowrap" ,
-							marginLeft : "16px" ,
+							marginLeft : "8px" ,
 							width : "100px" ,
 							lineHeight : "normal" ,
 							
@@ -81,39 +86,20 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 				
 				<div
 					className = { less.userPopoverMenuItem }
+					onClick = { ( e ) => {
+						setVisible( false );
+						navigate( '/profile' );
+					} }
 				>
 					<div>
 						<ItemIconProfileSvgComponent />
-						<span>My profile</span>
+						<span>
+							<I18n>
+								My profile
+							</I18n>
+						</span>
 					</div>
 				</div>
-				
-				<div
-					className = { less.userPopoverMenuItem }
-				>
-					<div>
-						<ItemIconI18nSvgComponent />
-						<span>Language/Currency</span>
-					</div>
-				</div>
-				
-				<div
-					className = { less.userPopoverMenuItem }
-				>
-					<div>
-						<ItemIconThemeSvgComponent />
-						<span>Dark theme</span>
-					</div>
-					<Switch
-						size = "small"
-						checked = { {
-							light : false ,
-							dark : true ,
-						}[ globalStore.theme ] }
-					/>
-				</div>
-				
-				
 				<div
 					className = { less.userPopoverMenuItem }
 					onClick = { () => {
@@ -123,7 +109,11 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 				>
 					<div>
 						<ItemIconDisconnectSvgComponent />
-						<span>Disconnect</span>
+						<span>
+							<I18n>
+								Disconnect
+							</I18n>
+						</span>
 					</div>
 				</div>
 			
@@ -156,7 +146,6 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 import less from '../index.module.less';
 
 import {
-	globalStore ,
 	invoke_root_click ,
 	root_click_symbol ,
 	subscribe_root_click ,
@@ -167,12 +156,13 @@ import {
 	BtnIconCopySvgComponent ,
 	BtnIconRenameSvgComponent ,
 	ItemIconDisconnectSvgComponent ,
-	ItemIconI18nSvgComponent ,
 	ItemIconProfileSvgComponent ,
-	ItemIconThemeSvgComponent ,
 } from '@@pages/_SvgComponents';
 import { headerBtnStyle } from '../';
 import { UserAvatar } from '../Header-User-Avatar';
 import { EllipsisAddress } from '../Header-Ellipsis-Address';
 
-import { reaxel_wallet  } from '@@reaxes';
+import {
+	reaxel_wallet ,
+	reaxel_i18n ,
+} from '@@reaxes';
