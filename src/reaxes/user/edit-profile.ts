@@ -21,12 +21,14 @@ export const reaxel_edit_profile = (function () {
       socialLinks: "", // 个人portfolio或者网站
       exist: true, // 该账户是否存在
     },
+    loading: false, // 按钮loading状态
   });
   const reax_wallet = reaxel_wallet();
   const reax_user = reaxel_user();
 
-  reax_wallet.address_memoed_reaction((address) => {
-    if (address) {
+  reax_wallet.address_memoed_reaction(async (address) => {
+    if (!reax_wallet?.account) return;
+    if (address && address.length > 0) {
       const createPayload = async () => {
         return {
           address,
@@ -40,10 +42,18 @@ export const reaxel_edit_profile = (function () {
   });
 
   const saveProfile = async (data) => {
+    setState({
+      loading: true,
+    });
     return new Promise(async (resolve, reject) => {
       // 如果用户没有连接钱包，自动跳出钱包连接弹窗
       if (!reax_wallet?.account) {
-        reax_wallet.connectWallet();
+        reax_wallet.connectWallet().then(() => {
+          setState({
+            loading: false,
+          });
+        });
+        return;
       }
 
       const { address } = reax_wallet?.account;
@@ -63,18 +73,36 @@ export const reaxel_edit_profile = (function () {
           } as User_account_update.payload;
         };
 
-        request_user_account_update(createPayload).then((data) => {
-          setState({ userInfo: data });
-          resolve(data);
-        });
+        request_user_account_update(createPayload)
+          .then((data) => {
+            setState({ userInfo: data });
+            resolve(data);
+            setState({
+              loading: false,
+            });
+          })
+          .catch(() => {
+            setState({
+              loading: false,
+            });
+          });
       } else {
+        setState({
+          loading: false,
+        });
         reject();
       }
-    })
+    });
   };
 
   const uploadImage = (file: File) => {
     return new Promise(async (resolve, reject) => {
+      // 如果用户没有连接钱包，自动跳出钱包连接弹窗
+      if (!reax_wallet?.account) {
+        reax_wallet.connectWallet();
+        return;
+      }
+
       const { address } = reax_wallet.account;
 
       if (address) {

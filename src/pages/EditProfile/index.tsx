@@ -3,6 +3,7 @@ import { MinusCircleOutlined } from "@ant-design/icons";
 
 import { ComponentWrapper } from "@@common/ReactComponentWrapper";
 import { reaxel_edit_profile } from "@@reaxes/user/edit-profile";
+import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
 
 import {
   AddSocialBtn,
@@ -10,7 +11,7 @@ import {
 } from "@@pages/Test/dxz-Space-Settings";
 
 import less from "./index.module.less";
-import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
+import { reaxel_wallet } from "@@reaxes";
 
 const Subtitle = (props) => {
   return (
@@ -36,16 +37,17 @@ const EditProfile = ComponentWrapper(() => {
 
   const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
   const reax_edit_profile = reaxel_edit_profile();
+  const reax_wallet = reaxel_wallet();
+
   const { userInfo } = reax_edit_profile.editProfileStore;
 
   const [socialLinksArr, setSocialLinksArr] = useState<string[]>([]);
   const [avatarSrc, setAvatarSrc] = useState("");
-  const [loading, setLoading] = useState(false);
   const [avatarLoading, setAvatarLoading] = useState(false);
   const [initialValues, setInitialValues] = useState(null);
 
   const onFinish = useCallback(() => {
-    setLoading(true);
+    if (avatarLoading || reax_edit_profile.editProfileStore.loading) return;
 
     form
       .validateFields()
@@ -73,13 +75,19 @@ const EditProfile = ComponentWrapper(() => {
           }),
         };
 
-        reax_edit_profile.saveProfile(payload).then(() => {
-          setLoading(false);
-        });
+        reax_edit_profile
+          .saveProfile(payload)
+          .then(() => {
+            message.success("Update success");
+          })
+          .catch((e) => {
+            message.error("Update failed");
+            console.error(e);
+          });
       })
       .catch((e) => {
         console.error(e);
-        setLoading(false);
+        message.error("Update failed");
       });
   }, [form, reax_edit_profile]);
 
@@ -89,12 +97,18 @@ const EditProfile = ComponentWrapper(() => {
   };
 
   const verifyImageBeforeSubmit = useCallback((file) => {
+    if (!reax_wallet?.account) {
+      reax_wallet.connectWallet().then(() => {
+        // setLoading(false);
+      });
+      return false;
+    }
     if (file instanceof File || file.data) {
       if (!/^.*\.(jpg|gif|jpeg|png|webp)$/.test(file.name)) {
-        message.warning("Please upload the correct format");
+        message.warning("Please upload the correct format").then(() => {});
         return false;
       } else if (file.size / 1024 / 1024 > 15) {
-        message.warning("Image must smaller than 15MB!");
+        message.warning("Image must smaller than 15MB!").then(() => {});
         return false;
       } else {
         return true;
@@ -111,12 +125,19 @@ const EditProfile = ComponentWrapper(() => {
         if (verifyImageBeforeSubmit(file)) {
           setAvatarLoading(true);
 
-          reax_edit_profile.uploadImage(file).then(() => {
-            setAvatarLoading(false);
-            const data = reax_edit_profile.editProfileStore;
-            const { userInfo } = data;
-            setAvatarSrc(userInfo.iconUrl);
-          });
+          reax_edit_profile
+            .uploadImage(file)
+            .then(() => {
+              setAvatarLoading(false);
+              const data = reax_edit_profile.editProfileStore;
+              const { userInfo } = data;
+              setAvatarSrc(userInfo.iconUrl);
+              message.success("Upload success");
+            })
+            .catch((e) => {
+              console.error(e);
+              message.error("Upload failed");
+            });
         }
       } else {
         setAvatarLoading(false);
@@ -138,7 +159,7 @@ const EditProfile = ComponentWrapper(() => {
     const { iconUrl, socialLinks } = userInfo;
 
     const objSocialLinks =
-      socialLinks.length > 0 ? JSON.parse(socialLinks) : {};
+      socialLinks?.length > 0 ? JSON.parse(socialLinks) : {};
 
     setSocialLinksArr(
       Object.keys(objSocialLinks).filter(
@@ -282,7 +303,7 @@ const EditProfile = ComponentWrapper(() => {
               />
             </Form.Item>
             <Form.List name="links">
-              {(fields, { add, remove }, { errors }) => (
+              {(fields, { add, remove }) => (
                 <>
                   {fields.map((field, idx) => (
                     <Form.Item
@@ -340,7 +361,7 @@ const EditProfile = ComponentWrapper(() => {
               text="Update Profile"
               htmlType="submit"
               onFinish={onFinish}
-              loading={loading}
+              loading={reax_edit_profile.editProfileStore.loading}
             />
           </div>
         </Form>
