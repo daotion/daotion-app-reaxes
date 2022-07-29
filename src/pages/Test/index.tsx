@@ -31,8 +31,8 @@ import {Test_Reaxel_i18n} from './I18n';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	<Test_Reaxel_i18n />
-</div>;
+	<DxzMyProfile />
 
-
+</div>
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
