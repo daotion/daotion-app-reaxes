@@ -104,7 +104,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							onChange = { onChange }
 						>
 							<TabPane
-								tab = "OverView"
+								tab = {<span>OverView<SVGSettingTabs/></span>}
 								key = "1"
 							>
 								<SpaceOverViewContainer />
@@ -164,6 +164,7 @@ import {
 	SVGTwitter ,
 	SVGYoutube ,
 	SVGSocialShare ,
+	SVGSettingTabs ,
 } from '@@common/Xcomponents/svg/space-info-svg';
 
 import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
