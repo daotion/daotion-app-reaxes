@@ -1,12 +1,13 @@
-import type { User_account_update } from "@@requests/user/types";
+//@ts-nocheck
+
+import type { User__update_profile } from "@@requests/user/types";
 
 import { reaxel_wallet } from "@@reaxes/wallet/wallet";
 import {
-  request_user_account_update,
-  request_user_profile_info,
-  request_user_upload_profile,
+	request_user_account_update ,
+	request_user_upload_profile ,
 } from "@@requests/user";
-import { reaxel_user } from "@@reaxes";
+import { reaxel_user } from "@@reaxes/user/auth";
 import { request_server_timestamp } from "@@requests";
 
 export const reaxel_edit_profile = (function () {
@@ -70,7 +71,7 @@ export const reaxel_edit_profile = (function () {
             address,
             data: payload,
             signature: await reax_user.signByFakeWallet(payload),
-          } as User_account_update.payload;
+          } as User__update_profile.payload;
         };
 
         request_user_account_update(createPayload)

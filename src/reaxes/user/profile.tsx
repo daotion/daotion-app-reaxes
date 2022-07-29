@@ -4,8 +4,8 @@
 
 
 import { reaxel_wallet } from '@@reaxes/wallet/wallet';
-// @ts-ignore
-import { request_user_profile } from '@@requests/user/index.tsx';
+import { request_user_profile } from '@@requests/user';
+import {User__profile_info} from '@@requests/types';
 
 
 export const reaxel_user_profile = function(){
@@ -15,16 +15,15 @@ export const reaxel_user_profile = function(){
 		store ,
 		setState,
 	} = orzMobx( {
-		profile : null,
+		profile : null as User__profile_info.response,
 		loading : false ,
 	} );
 
 	const reax_wallet = reaxel_wallet();
 	const fetchUpdate = async ( address : string ) => {
 		setState( { loading : true  } );
-		request_user_profile( async () => (
-			{ address }
-		) ).catch((e):never => {
+		request_user_profile( async () => ({ address })).
+		catch((e):never => {
 			throw e;
 		}).then((profile) =>{
 			setState( { profile } );
@@ -66,3 +65,37 @@ export const reaxel_user_profile = function(){
 		}
 	}
 }();
+
+
+
+
+
+export const reaxel_edit_profile = function(){
+	const {} = orzMobx({
+		input_display_name : null,
+		input_bio : null,
+		input_portfolio_website : null,
+		input_twitter : null,
+		social_list : [],
+	});
+	
+	const reax_user_profile = reaxel_user_profile();
+	
+	Reaxes.observedMemo(() => {
+		if(reax_user_profile.profileStore.profile){
+			console.log(logProxy(reax_user_profile.profileStore.profile));
+		}
+		
+		reax_user_profile.profileStore.profile
+	},() => [reax_user_profile.profileStore.profile?.address]);
+	
+	
+	return () => {
+		
+		return {
+			updateProfile(){
+				
+			},
+		};
+	}
+}(); 

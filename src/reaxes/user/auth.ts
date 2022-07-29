@@ -167,13 +167,12 @@ export const reaxel_user = function () {
 }();
 
 import { orzLocalstroage } from '@@common/storages';
+import { Wallet  } from 'ethers';
 import {
-	ethers ,
-	Wallet ,
-} from 'ethers';
-// @ts-ignore
-import { request_user_address_alias } from '@@requests/user/index.tsx';
-import {reaxel_wallet} from '@@reaxes/wallet/wallet';
+	request_server_timestamp ,
+	request_user_address_alias,
+} from '@@requests';
+import { reaxel_wallet } from '@@reaxes/wallet/wallet';
 /*address-privateKey映射*/
 type member = { [ p : string ] : string };
 const domainTypes = [
@@ -209,4 +208,3 @@ const messageTypes = [
 		type : "string" ,
 	} ,
 ];
-import {request_server_timestamp} from '@@requests';

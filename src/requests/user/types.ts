@@ -1,9 +1,9 @@
 export namespace User__is_signed {
-
+	
 	export interface payload {
 		address : string;
 	}
-
+	
 	export interface response {
 		address : string;
 		isSigned : boolean;
@@ -11,7 +11,7 @@ export namespace User__is_signed {
 }
 
 export namespace User__address_alias {
-
+	
 	export interface payload {
 		address : string;
 		data : {
@@ -21,7 +21,7 @@ export namespace User__address_alias {
 		};
 		signature : string;
 	}
-
+	
 	export interface response {
 		result : boolean;
 	}
@@ -29,49 +29,60 @@ export namespace User__address_alias {
 
 
 export namespace User__profile_info {
-
-	export interface payload {
+	
+	export type payload = {
 		address : string;
 	}
-
-	export interface response {
-		"address": string,
-		"iconUrl": string,
-		"bgUrl": string,
-		"displayName": string,
-		"bio": string,
-		"customUrl": string,
-		"links": string,
+	
+	export type response = {
+		"address" : string;
+		"iconUrl" : string;
+		"bgUrl" : string;
+		"displayName" : string;
+		"bio" : string;
+		"customUrl" : string;
+		"links" : string;
 		/*用户是否曾经登陆过*/
-		"exist": true
+		"exist" : true;
 	}
 }
 
-export namespace User_account_update {
+export namespace User__update_profile {
+	
+	export type response = {};
+	
 	export type payload = {
-		address: string;
-		data: {
-			displayName?: string;
-			bio?: string;
-			customUrl?: string;
-			setAddress?: string;
-			timestamp?: number;
+		"address" : string;
+		"data" : {
+			"displayName" : string;
+			"bio" : string;
+			"customUrl" : string;
+			"setAddress" : string;
+			"timestamp" : number;
 		};
-		signature: string;
+		"signature" : string;
 	};
 }
 
-export namespace User_upload_profile {
+export namespace User__upload_avatar {
+	
+	export type response = {
+		"address" : string;
+		"profileType" : number;
+		"url" : string;
+		"ipfsHash" : string;
+	};
+	
 	export type payload = {
-		address: string;
-		data: {
-			address: string;
-			profileType: number;
-			timestamp: number;
-			socialLinks: string;
+		address : string;
+		data : {
+			address : string;
+			profileType : number;
+			timestamp : number;
+			socialLinks : string;
 		}
 		// todo 要改掉
-		signature: any;
-		file: File;
+		signature : any;
+		file : File;
 	}
 }

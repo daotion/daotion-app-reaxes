@@ -2,7 +2,7 @@ import { Button, Form, Input, message, Upload } from "antd";
 import { MinusCircleOutlined } from "@ant-design/icons";
 
 import { ComponentWrapper } from "@@common/ReactComponentWrapper";
-import { reaxel_edit_profile } from "@@reaxes/user/edit-profile";
+import { reaxel_edit_profile } from "@@reaxes/user/_deprecated_edit-profile";
 import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
 
 import {

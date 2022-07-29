@@ -62,7 +62,7 @@
 		"noUnusedLocals" : false ,
 		"noUnusedParameters" : false ,
 		"paths" : {
-			"@@RootPath/*" : ["/*"] ,
+			"@@RootPath/*" : ["*"] ,
 			"@@common/*" : [
 				"src/common/*"
 			] ,

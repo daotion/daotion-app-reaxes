@@ -451,10 +451,14 @@ export const AddSocialBtn = ComponentWrapper( (props) => {
 
 import { DxzSocialSelectModal } from '@@pages/Test/dxz-social-select-modal';
 import { reaxel_edit_space_social_settings } from './reaxel_edit_space_social_settings';
+import { reaxel_i18n } from '@@reaxes';
 
 
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
-
+	const {
+		i18n ,
+		I18n,
+	} = reaxel_i18n();
 	return <>
 		<div
 			style = { {
@@ -619,10 +623,7 @@ export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 		<Button
 			className = "profile-footer-btn"
 			onClick = { () => {
-				reax_edit_space_social_settings.fetchEditSocial().
-				then( () => {
-
-				} );
+				reax_edit_space_social_settings.fetchEditSocial();
 			} }
 			style = { {
 				borderRadius : "12px" ,
@@ -637,8 +638,6 @@ export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 				alignItems : "center" ,
 				justifyContent : "center" ,
 			} }
-			loading={props.loading}
-			onClick={props.onFinish}
 		>{ props.text }</Button>
 	</>;
 } );

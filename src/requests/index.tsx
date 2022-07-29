@@ -7,7 +7,7 @@ export * from './Spaces';
  */
 export const request_server_timestamp = () => {
 	
-	return request.post( `/tools/get-server-timestamp` ).
+	return request.post<{timestamp:number},any>( `/tools/get-server-timestamp` ).
 	then( ( data ) => {
 		return data.timestamp as number;
 	} );

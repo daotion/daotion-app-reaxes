@@ -30,25 +30,6 @@ export default util = Object.freeze( new class {
 	};
 	
 	shallowEqual = shallowequal;
-	
-	__temp__Token_rect_bgc = (activing) => {
-		
-		try {
-			activing && this.__temp__NFT_rect_bgc( false );
-			/*@ts-ignore*/
-			document.getElementsByClassName( 'Plugin-SideBar_component_svg__token' )[ 0 ].style.fill = activing ? '#F5F5F6' : '';
-		} catch ( e ) {
-		}
-	};
-	__temp__NFT_rect_bgc = (activing) => {
-		try {
-			activing && this.__temp__Token_rect_bgc( false );
-			/*@ts-ignore*/
-			document.getElementsByClassName( 'Plugin-SideBar_component_svg__nft' )[ 0 ].style.fill = activing ? '#F5F5F6' : '';
-		} catch ( e ) {
-		}
-	};
-	
 } );
 
 

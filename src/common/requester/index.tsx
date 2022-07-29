@@ -16,9 +16,9 @@ export const request = new class {
 	/*测试是否是绝对地址*/
 	#testHTTP = /^https?:\/\//;
 	
-	fetch = async <response , request extends () => ( Promise<ORZ.RequestOptions<any>> | ORZ.RequestOptions<any> )>(
+	fetch = async <response , payload extends () => Promise<any> >(
 		orignal_url : string ,
-		orignal_options : ORZ.RequestOptions<request> & { method : string } = { method : 'GET' },
+		orignal_options : ORZ.RequestOptions<payload> & { method : string } = { method : 'GET' },
 	) : Promise<response> => {
 		
 		let
@@ -92,9 +92,8 @@ export const request = new class {
 			}
 		)();
 		
-		
 		/*把GET请求的body对象转成queryString.去除body属性*/
-		const payload = await orignal_options.body?.();
+		const payload : ReturnType<payload> = await orignal_options.body?.();
 		if ( /GET/i.test( options.method ) ) {
 			/*检测绝对地址中是否存在qs并警告*/
 			if ( url.includes( '?' ) && orignal_options.hasOwnProperty( 'body' ) ) crayon.warn( 'url参数中不应包含queryString!' );
@@ -112,7 +111,7 @@ export const request = new class {
 			if ( _.isObject( payload ) && payload instanceof FormData ) {
 				options.body = payload;
 			} else if ( _.isPlainObject( payload ) ) {
-				options.body = JSON.stringify( payload || {} ) as request & string;
+				options.body = JSON.stringify( payload || {} ) as payload & string;
 			} else if ( !payload ) {
 				
 			} else {
@@ -143,7 +142,7 @@ export const request = new class {
 				credentials : 'include' ,
 				mode : 'cors' ,
 				...options ,
-				body : options.body as request & string ,
+				body : options.body as payload & string ,
 				headers : {
 					/*没有devserver真实请求的地址*/
 					...real_address,
@@ -195,7 +194,7 @@ export const request = new class {
 		}
 	};
 	
-	post = async <response = any , request extends () => ( Promise<any> | any ) = any>(
+	post = async <response , request extends () => Promise<F> = any, F = any>(
 		url : string ,
 		options : ORZ.RequestOptions<request> = {} ,
 	) : Promise<response> => {
@@ -205,7 +204,7 @@ export const request = new class {
 		} );
 	};
 	
-	get = async <response = any , request extends () => Promise<any> | any = any>(
+	get = async <response = any , request extends () => Promise<any> = any>(
 		url : string ,
 		options : ORZ.RequestOptions<request> = {} ,
 	) : Promise<response> => {

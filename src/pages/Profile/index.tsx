@@ -3,7 +3,6 @@ import {
 } from '@@reaxes';
 
 
-
 export const Profile = ComponentWrapper( class extends ReactComponentClass {
 	
 	reax_user_profile = reaxel_user_profile();
@@ -24,14 +23,17 @@ export const Profile = ComponentWrapper( class extends ReactComponentClass {
 			>edit</Button>
 		</>;
 		
-		return <Modal
-			onCancel={() => {
-				navigate( '../' , { replace : true } );
-			}}
-			visible={true}
-		>
-			xxxxxxx
-		</Modal>
+		return <>
+			<Modal
+				onCancel = { () => {
+					navigate( '../' , { replace : true } );
+				} }
+				visible = { true }
+			>
+				xxxxxxx
+			</Modal>
+		</>
+		
 		
 	}
 } );
