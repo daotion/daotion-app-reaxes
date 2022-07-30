@@ -77,7 +77,7 @@ export const reaxel_i18n = function(){
 			return <>{children}</> ;
 		};
 		if(!loadedLangMap[store.lang]){
-			return <>{ prevLangText.current }</>;
+			return <>{ prevLangText.current || children }</>;
 		}else {
 			prevLangText.current = loadedLangMap[store.lang][children];
 			prevLang.current = store.lang;
