@@ -1,12 +1,17 @@
 
 .pop-list{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	user-select: none;
 	color : #777e90;
 }
 .pop-list:not(:last-child){
 	margin-bottom: 24px;
 }
 .pop-list{
-	&:first-child{
+	&:hover{
+		transition: color .3s ease;
 		color:#414141;
 	}
 }

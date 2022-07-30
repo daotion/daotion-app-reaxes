@@ -62,10 +62,10 @@ export const DxzDAODropdownPop = () => {
 					</defs>
 				</svg>
 			</div>
-			<PopupLi title = "Mute Notification">
+			<PopupLi text = "Mute Notification">
 				<Switch />
 			</PopupLi>
-			<PopupLi title = "Leave Space">
+			<PopupLi text = "Leave Space">
 				<svg
 					width = "20"
 					height = "20"
@@ -86,8 +86,6 @@ export const DxzDAODropdownPop = () => {
 						fill = "#EF466F"
 					/>
 				</svg>
-			
-			
 			</PopupLi>
 		</div>
 	</>;
@@ -95,11 +93,6 @@ export const DxzDAODropdownPop = () => {
 const PopupLi = ( props ) => {
 	return <>
 		<div className={less.popList}
-			style = { {
-				display : "flex" ,
-				justifyContent : "space-between" ,
-				alignItems : "center" ,
-			} }
 		>
 			<p
 				style = { {
@@ -108,7 +101,7 @@ const PopupLi = ( props ) => {
 					fontSize : "14px" ,
 					
 				} }
-			>{ props.title }
+			>{ props.text }
 			</p>
 			{ props.children }
 		</div>
