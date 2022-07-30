@@ -115,7 +115,17 @@ export const reaxel_edit_space_social_settings = function () {
 
 
 	return () => {
-
+		if(store.socialList?.length === 0){
+			setState({
+				socialList : ['twitter','Official website',].map((type) => {
+					return {
+						type,
+						link : '',
+						key : Math.random(),
+					}
+				}),
+			})
+		}
 		return {
 			get store() {
 				return store;
@@ -126,7 +136,7 @@ export const reaxel_edit_space_social_settings = function () {
 				} );
 			} ,
 			/*通过key编辑单个item*/
-			editSocialItem( key : string , value : string ) {
+			editSocialItem( key : string|number , value : string ) {
 				setState( {
 					socialList : store.socialList.map( ( item ) => {
 						if ( item.key === key ) {
@@ -172,7 +182,7 @@ export const reaxel_edit_space_social_settings = function () {
 		};
 	};
 	type store = {
-		socialList : ( spaceSocialItem & { key : string } )[];
+		socialList : ( spaceSocialItem & { key? : string|number } )[];
 		selectModalVisible : boolean;
 	};
 	type spaceSocialItem = {
@@ -181,7 +191,7 @@ export const reaxel_edit_space_social_settings = function () {
 		/*社交媒体的链接*/
 		link : string;
 
-		key : string;
+		key? : string|number;
 	};
 }();
 

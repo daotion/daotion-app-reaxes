@@ -3,6 +3,7 @@ export const SelectSocialModalBtn = ComponentWrapper( (props:AddSocialBtn) => {
 	const social_list = props.socialList ?? staticSocialList;
 	return <>
 		<Button
+			disabled={props.socialList?.length === 0}
 			style = { {
 				color : "#777e90" ,
 				fontWeight : "700" ,
@@ -52,8 +53,8 @@ export const SelectSocialModalBtn = ComponentWrapper( (props:AddSocialBtn) => {
 								props.onSelect( item );
 								
 							} }
-							key = { item.text }
-							text = { item.text }
+							key = { item.type }
+							text = { item.type }
 							icon = { item.icon }
 						/>;
 					} ) }
@@ -85,7 +86,7 @@ import {
 } from './svg';
 
 type SocialItem = {
-	text : string;
+	type : string;
 	icon :React.ReactElement;
 }
 

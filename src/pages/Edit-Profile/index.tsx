@@ -35,11 +35,10 @@ export const EditProfile = ComponentWrapper( () => {
 		I18n ,
 		i18n,
 	} = reaxel_i18n();
-	;[reax_edit_profile.editProfileStore.input_display_name];
+	
 	if(!reax_edit_profile.originalProfile){
 		return null;
 	}
-	
 	
 	
 	return <div className = { less.editProfileBox }>
@@ -139,27 +138,32 @@ export const EditProfile = ComponentWrapper( () => {
 					/>
 					<p className = { less.accountTitle_2 }>Social</p>
 					
-					{function(){
-						if(reax_edit_profile.editProfileStore.social_list.length === 0){
-							
-						}
-						reax_edit_profile.editProfileStore.social_list.map((item) => {
-							
-							return <EditSocialItem
-								key = {item.type}
-								onChange = {(text) => {
-									reax_edit_profile.setProfileData( {
-										input_twitter : text,
-									} );
-								}}
-								value = {reax_edit_profile.editProfileStore.input_twitter}
-								title = {i18n("Twitter")}
-								placeholder = {i18n("@twitter username")}
-							/>
-						})
-					}()}
+					{reax_edit_profile.editProfileStore.social_list.map((item) => {
+						
+						return <EditSocialItem
+							key = {item.type}
+							onChange = {(text) => {
+								reax_edit_profile.editSocialItem( item.type , text );
+							}}
+							value = {item.link}
+							title = {item.type}
+							placeholder = {i18n("please input")}
+						/>
+					})}
 					
-					
+					<SelectSocialModalBtn
+						socialList = {reax_edit_profile.staticSocialList}
+						onClick = {() => {
+							reax_edit_profile.setSelectSocialVisible( true );
+						}}
+						onSelect = {(item) => {
+							reax_edit_profile.addSocialItem( item.type );
+						}}
+						onModalCancel = {() => {
+							reax_edit_profile.setSelectSocialVisible( false );
+						}}
+						modalVisible = {reax_edit_profile.editProfileStore.selectSocialVisible}
+					/>
 					<footer className = { less.lastIntro }>
 						To update your settings you should sign message through your
 						wallet. Click 'Update profile' then sign the message
@@ -168,7 +172,11 @@ export const EditProfile = ComponentWrapper( () => {
 					<Button
 						className = "profile-footer-btn"
 						onClick = { () => {
-							reax_edit_space_social_settings.fetchEditSocial();
+							reax_edit_profile.fetchUpdateUserProfile().then(() =>{
+								if(__EXPERIMENTAL__){
+									antd.message.success( 'update successful' );
+								}
+							});
 						} }
 						style = { {
 							borderRadius : "12px" ,

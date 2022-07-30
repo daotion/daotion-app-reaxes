@@ -41,7 +41,7 @@ export namespace User__profile_info {
 		"displayName" : string;
 		"bio" : string;
 		"customUrl" : string;
-		"links" : string;
+		"socialLinks" : string;
 		/*用户是否曾经登陆过*/
 		"exist" : true;
 	}
@@ -57,6 +57,7 @@ export namespace User__update_profile {
 			"displayName" : string;
 			"bio" : string;
 			"customUrl" : string;
+			"socialLinks" : string;
 			"setAddress" : string;
 			"timestamp" : number;
 		};

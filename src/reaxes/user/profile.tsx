@@ -5,6 +5,7 @@
 
 import { reaxel_wallet } from '@@reaxes/wallet/wallet';
 import { request_user_profile } from '@@requests';
+import {User__profile_info} from '@@requests/types';
 
 
 export const reaxel_user_profile = function(){
@@ -14,7 +15,7 @@ export const reaxel_user_profile = function(){
 		store ,
 		setState,
 	} = orzMobx( {
-		profile : null,
+		profile : null as User__profile_info.response,
 		loading : false ,
 	} );
 
@@ -61,7 +62,14 @@ export const reaxel_user_profile = function(){
 					),
 				] )( address );
 			},
-
+			setProfileAvatar(url:string){
+				setState( {
+					profile : {
+						...store.profile ,
+						iconUrl : url ,
+					} ,
+				} );
+			},
 		}
 	}
 }();

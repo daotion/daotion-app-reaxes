@@ -364,11 +364,12 @@ const SocialProfile = ComponentWrapper( () => {
 				} ) }
 			</div>
 			<SelectSocialModalBtn 
+				socialList = {reax_edit_space_social_settings.staticSocialList}
 				onClick = {() => {
 					reax_edit_space_social_settings.setSelectModalVisible(true);
 				}}
 				onSelect = {(item) => {
-					reax_edit_space_social_settings.addSocialItem(item.text);
+					reax_edit_space_social_settings.addSocialItem(item.type);
 				}}
 				onModalCancel = {() => {
 					reax_edit_space_social_settings.setSelectModalVisible(false)

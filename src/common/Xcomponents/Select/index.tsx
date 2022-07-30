@@ -7,7 +7,6 @@ const { Option: AntdOption } = AntdSelect;
 export const Option = AntdOption;
 
 export const Select: React.FC<SelectProps> = (props) => {
-  console.log('less', less);
   return (
     <div className={less.main}>
       <AntdSelect
