@@ -135,7 +135,7 @@ export const SVGSettingSpaceProfile = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGLink = ComponentWrapper( () => {
+export const SVGSpaceLink = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -168,7 +168,7 @@ export const SVGLink = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGTwitter = ComponentWrapper( () => {
+export const SVGSpaceTwitter = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -189,7 +189,7 @@ export const SVGTwitter = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGIns = ComponentWrapper( () => {
+export const SVGSpaceIns = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -220,7 +220,7 @@ export const SVGIns = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGDiscord = ComponentWrapper( () => {
+export const SVGSpaceDiscord = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -241,7 +241,7 @@ export const SVGDiscord = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGTelegram = ComponentWrapper( () => {
+export const SVGSpaceTelegram = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -262,7 +262,7 @@ export const SVGTelegram = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGGithub = ComponentWrapper( () => {
+export const SVGSpaceGithub = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -281,7 +281,7 @@ export const SVGGithub = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGYoutube = ComponentWrapper( () => {
+export const SVGSpaceYoutube = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -300,7 +300,7 @@ export const SVGYoutube = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGVK = ComponentWrapper( () => {
+export const SVGSpaceVK = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -319,7 +319,7 @@ export const SVGVK = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGReddit = ComponentWrapper( () => {
+export const SVGSpaceReddit = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -338,7 +338,7 @@ export const SVGReddit = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGFacebook = ComponentWrapper( () => {
+export const SVGSpaceFacebook = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "24"
@@ -358,15 +358,15 @@ export const SVGFacebook = ComponentWrapper( () => {
 } );
 export const SVGSocialShare = ComponentWrapper( () => {
 	return <>
-		<SVGLink />
-		<SVGTwitter />
-		<SVGIns />
-		<SVGDiscord />
-		<SVGTelegram />
-		<SVGGithub />
-		<SVGYoutube />
-		<SVGVK />
-		<SVGReddit />
-		<SVGFacebook />
+		<SVGSpaceLink />
+		<SVGSpaceTwitter />
+		<SVGSpaceIns />
+		<SVGSpaceDiscord />
+		<SVGSpaceTelegram />
+		<SVGSpaceGithub />
+		<SVGSpaceYoutube />
+		<SVGSpaceVK />
+		<SVGSpaceReddit />
+		<SVGSpaceFacebook />
 	</>;
 } );

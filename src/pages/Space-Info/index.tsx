@@ -153,19 +153,19 @@ import {
 	SVGEditTabIcon ,
 	SVGDeleteTabIcon ,
 	SVGSettingSpaceProfile ,
-	SVGVK ,
-	SVGFacebook ,
-	SVGIns ,
-	SVGDiscord ,
-	SVGLink ,
-	SVGReddit ,
-	SVGGithub ,
-	SVGTelegram ,
-	SVGTwitter ,
-	SVGYoutube ,
+	SVGSpaceVK ,
+	SVGSpaceFacebook ,
+	SVGSpaceIns ,
+	SVGSpaceDiscord ,
+	SVGSpaceLink ,
+	SVGSpaceReddit ,
+	SVGSpaceGithub ,
+	SVGSpaceTelegram ,
+	SVGSpaceTwitter ,
+	SVGSpaceYoutube ,
 	SVGSocialShare ,
 	SVGSettingTabs ,
-} from '@@common/Xcomponents/svg';
+} from '@@pages/_SvgComponents/space-info-svg';
 
 import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
 import { DxzTokenOverview } from '@@pages/Test/dxz-Token-overview';
