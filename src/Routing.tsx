@@ -1,30 +1,22 @@
 import {
-	// BrowserRouter ,
-	Route ,
-	Routes ,
 	BrowserRouter ,
 	Navigate ,
+	Route ,
+	Routes ,
 } from 'react-router-dom';
 import { Test } from '@@pages/Test';
-
 import { DesignComponents } from '@@pages/DesignComponents';
 import { Home } from '@@pages/Home';
-
 import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import { SpaceInfo } from '@@pages/Space-Info';
 import { SpaceSettings } from '@@pages/Space-Settings';
 import { Profile } from '@@pages/Profile';
-import { createBrowserHistory } from 'history';
 import { EditProfile } from "@@pages/Edit-Profile";
-
 import { ReactTemplate } from '../Public/react-template';
-
 import { Layout } from './Layout';
 
 
 export const Routing = ( props ) => {
-	
-	
 	return <BrowserRouter>
 		<Routes>
 			<Route
@@ -60,10 +52,7 @@ export const MainContentRouting = ( props ) => <Routes>
 	<Route path = "/*">
 		<Route
 			index
-			element = { <Navigate
-				to = "/home"
-				replace
-			/> }
+			element = { <Navigate to = "/home" replace /> }
 		/>
 		<Route
 			path = "home"
@@ -100,27 +89,5 @@ export const MainContentRouting = ( props ) => <Routes>
 				element = { <SpaceSettings /> }
 			/>
 		</Route>
-		<Route
-			path = "plugin-overview-launch"
-			
-			element = { utils.withOutlet( <div onClick = { () => props.routerProps.navigate( '/home/plugin-overview' ) }>
-				<>plugin-overview-launch</>
-			</div> ) }
-		/>
-		<Route
-			path = "plugin-overview"
-			element = { utils.withOutlet( <>PluginTokenOverview</> ) }
-		/>
-		<Route
-			path = "plugin-center"
-			element = { utils.withOutlet( <>PluginCenter</> ) }
-		/>
-		<Route
-			path = "nft-minting"
-			element = { utils.withOutlet( <>NFTMinting</> ) }
-		/>
 	</Route>
 </Routes>;
-
-
-// import {PluginTokenOverviewLaunch} from '@@pages/_SvgComponents';

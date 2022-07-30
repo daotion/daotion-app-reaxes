@@ -4,15 +4,16 @@ import {
 	// reaxel_edit_profile ,
 	reaxel_wallet ,
 	reaxel_i18n,
+	reaxel_user_profile ,
 } from "@@reaxes";
 import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
 
 import {
-	AddSocialBtn ,
 	ProfileFooterBtn ,
 } from "@@pages/Test/dxz-Space-Settings";
+
 import { Img ,} from '@@common/Xcomponents';
-import { EditSocialItem } from '@@pages/_BussinessComponents';
+import { EditSocialItem ,SelectSocialModalBtn  } from '@@pages/_BussinessComponents';
 import less from "./index.module.less";
 import { reaxel_edit_profile } from './reaxel-edit-profile';
 
@@ -27,9 +28,9 @@ export const EditProfile = ComponentWrapper( () => {
 		Upload ,
 	} = antd;
 	
-	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	const reax_edit_profile = reaxel_edit_profile();
 	const reax_wallet = reaxel_wallet();
+	const reax_user_profile = reaxel_user_profile();
 	const {
 		I18n ,
 		i18n,
@@ -38,7 +39,9 @@ export const EditProfile = ComponentWrapper( () => {
 	if(!reax_edit_profile.originalProfile){
 		return null;
 	}
-	return console.log(reax_edit_profile.originalProfile),11111;
+	
+	
+	
 	return <div className = { less.editProfileBox }>
 		<h1 className = { less.Title }>Edit profile</h1>
 		<p className = { less.intro }>
@@ -49,18 +52,21 @@ export const EditProfile = ComponentWrapper( () => {
 		</p>
 		<div className = { less.mainField }>
 			<div className = { less.profilePhoto }>
-				<Img
-					src = { reax_edit_profile.originalProfile.iconUrl }
-				/>
-				{/*{ reax_edit_profile.originalProfile ? (
-					<img
-						src = { avatarSrc }
-						alt = "avatar"
-						className = { less.profilePhotoLeft }
+				{/*todo 图片变形*/}
+				<div
+					className = { less.profilePhotoLeft }
+				>
+					<Img
+						src = { reax_user_profile.profileStore.profile.iconUrl }
+						style = {{
+							width : "100%",
+							height : "100%",
+							borderRadius : "16px",
+							
+						}}
+						
 					/>
-				) : (
-					<div className = { less.profilePhotoLeftEmpty } />
-				) }*/}
+				</div>
 				<div className = { less.profilePhotoRight }>
 					<span className = { less.photoTitle }>Profile photo</span>
 					<p className = { less.avatarRule }>
@@ -82,7 +88,9 @@ export const EditProfile = ComponentWrapper( () => {
 							color : "#23262f" ,
 						} }
 						onClick={() => {
-							
+							reax_edit_profile.uploadProfileAvatar(() => {
+								console.log( 111111111 );
+							})
 						}}
 						
 					>
@@ -94,133 +102,64 @@ export const EditProfile = ComponentWrapper( () => {
 			<Form>
 				<div className = { less.accountInfo }>
 					<p className = { less.accountTitle_1 }>Account info</p>
-					<span className = { less.subtitle }>display name</span>
-					<Form.Item
-						name = "displayName"
-						rules = { [
-							{
-								max : 32 ,
-								message : "32 max" ,
-							} ,
-						] }
-					>
-						<Input
-							className = { less.editInput }
-							placeholder = "Enter your display name"
-							style = { INPUT_STYLE }
-						/>
-					</Form.Item>
+					<EditSocialItem
+						onChange = {(text) => {
+							reax_edit_profile.setProfileData({
+								input_display_name : text,
+							})
+						}}
+						value = {reax_edit_profile.editProfileStore.input_display_name}
+						title = {i18n("Display name")}
+						placeholder = {i18n("Enter your display name")}
+					/>
 					
-					<Subtitle title = "Custom url"></Subtitle>
-					<Form.Item
-						name = "customUrl"
-						rules = { [
-							{
-								max : 100 ,
-								message : "100 max" ,
-							} ,
-						] }
-					>
-						<Input
-							className = { less.editInput }
-							prefix = "Daotion.io/"
-							placeholder = "Your custom URL"
-							style = { INPUT_STYLE }
-						/>
-					</Form.Item>
-					<Subtitle title = "Bio"></Subtitle>
-					<Form.Item
-						name = "bio"
-						rules = { [
-							{
-								max : 160 ,
-								message : "160 max" ,
-							} ,
-						] }
-					>
-						<Input
-							className = { less.editInput }
-							placeholder = "About yourself in a few words"
-							style = { INPUT_STYLE }
-						/>
-					</Form.Item>
+					<EditSocialItem
+						onChange = {(text) => {
+							reax_edit_profile.setProfileData( {
+								input_bio : text ,
+							} );
+						}}
+						value = {reax_edit_profile.editProfileStore.input_bio}
+						title = {i18n("Bio")}
+						placeholder = {i18n("About yourself in a few words")}
+					/>
+					
+					
+					
+					
+					<EditSocialItem
+						onChange = {(text) => {
+							reax_edit_profile.setProfileData( {
+								input_portfolio_website : text ,
+							} );
+						}}
+						value = {reax_edit_profile.editProfileStore.input_portfolio_website}
+						title = {i18n("Portfolio or website")}
+						placeholder = {i18n("Enter URL")}
+					/>
 					<p className = { less.accountTitle_2 }>Social</p>
-					<Subtitle title = "Portfolio or website"></Subtitle>
-					<Form.Item name = "website">
-						<Input
-							className = { less.editInput }
-							placeholder = "Enter URL"
-							style = { INPUT_STYLE }
-						/>
-					</Form.Item>
-					<Subtitle title = "Twitter"></Subtitle>
-					<Form.Item name = "twitter">
-						<Input
-							className = { less.editInput }
-							placeholder = "@twitter username"
-							style = { INPUT_STYLE }
-						/>
-					</Form.Item>
-					<Form.List name = "links">
-						{ (
-							fields , {
-								add ,
-								remove ,
-							} ) => (
-							<>
-								{ fields.map( ( field , idx ) => (
-									<Form.Item
-										required = { false }
-										key = { field.key + socialLinksArr[ idx ] }
-									>
-										<Subtitle title = { socialLinksArr[ idx ] } />
-										<Form.Item
-											{ ...field }
-											noStyle
-											name = { [
-												field.name ,
-												socialLinksArr[ idx ] ,
-											] }
-										>
-											<Input
-												placeholder = "Enter URL"
-												style = { INPUT_STYLE }
-											/>
-										</Form.Item>
-										{ fields.length >= 1 ? (
-											<MinusCircleOutlined
-												style = { {
-													position : "absolute" ,
-													right : -18 ,
-													bottom : 18 ,
-												} }
-												className = "dynamic-delete-button"
-												onClick = { () => {
-													setSocialLinksArr( ( prev ) => {
-														return prev.filter(
-															( each ) => each !== socialLinksArr[ idx ] ,
-														);
-													} );
-													reax_edit_space_social_settings.deleteSocialItem(
-														socialLinksArr[ idx ] ,
-													);
-													remove( field.name );
-												} }
-											/>
-										) : null }
-									</Form.Item>
-								) ) }
-								<Form.Item>
-									<AddSocialBtn
-										onAdd = { ( type ) => {
-											add();
-											onAddSocialAccount( type );
-										} }
-									/>
-								</Form.Item>
-							</>
-						) }
-					</Form.List>
+					
+					{function(){
+						if(reax_edit_profile.editProfileStore.social_list.length === 0){
+							
+						}
+						reax_edit_profile.editProfileStore.social_list.map((item) => {
+							
+							return <EditSocialItem
+								key = {item.type}
+								onChange = {(text) => {
+									reax_edit_profile.setProfileData( {
+										input_twitter : text,
+									} );
+								}}
+								value = {reax_edit_profile.editProfileStore.input_twitter}
+								title = {i18n("Twitter")}
+								placeholder = {i18n("@twitter username")}
+							/>
+						})
+					}()}
+					
+					
 					<footer className = { less.lastIntro }>
 						To update your settings you should sign message through your
 						wallet. Click 'Update profile' then sign the message

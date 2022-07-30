@@ -5,11 +5,14 @@ import { reaxel_user } from '@@reaxes/user/auth';
 import { reaxel_wallet } from '@@reaxes/wallet/wallet';
 import { reaxel_space_detail } from '@@reaxes/Spaces/space-detail';
 import { reaxel_joined_Space_list } from '@@reaxes/Spaces/joined-space-list';
+import { reaxel_user_profile } from '@@reaxes/user/profile';
 
 import {
 	request_server_timestamp ,
 	request_upload_space_banner ,
 	request_upload_space_avatar,
+	request_user_upload_avatar ,
+	
 } from '@@requests';
 
 
@@ -29,6 +32,7 @@ export const reaxel_upload_pics = function () {
 			return formdata;
 		} , formdata ?? new FormData );
 	};
+	/*生成一个上传的input*/
 	const uploader = ( inputOpts : {} , onChange : ( files : FileList ) => void ) => {
 		const input = document.createElement( 'input' );
 		input.type = "file";
@@ -127,6 +131,50 @@ export const reaxel_upload_pics = function () {
 				} );
 				input.click();
 			} ,
+			/*上传用户头像*/
+			user_profile_upload_avatar(callback = (url?:string) => null ){
+				const reax_user = reaxel_user();
+				const reax_wallet = reaxel_wallet();
+				const reax_user_profile = reaxel_user_profile();
+				
+				const fetch_upload = async ( file : File ):Promise<string> => {
+					
+					const createPayload = async () => {
+						const { address } = reax_wallet.account;
+						const data = {
+							address ,
+							profileType : 1 ,
+							timestamp : await request_server_timestamp() ,
+						};
+						const signature = await reax_user.signByFakeWallet( data );
+						return formater( {
+							address ,
+							data ,
+							signature ,
+							file ,
+						} );
+					};
+					
+					try {
+						const response = await request_user_upload_avatar( createPayload);
+						reax_user_profile.setProfileAvatar( response.url );
+						antd.Modal.success( { title : "upload successful!" } );
+						return response.url;
+					} catch ( e ) {
+						antd.Modal.error( { title : e.toString() } );
+						throw e;
+					}
+				};
+				const input = uploader( {} , ( [ file ] ) => {
+					fetch_upload( file ).
+					then( (url) => {
+						return reax_user_profile.setProfileAvatar(url),url;
+					} ).then((url) => {
+						callback(url);
+					});
+				} );
+				input.click();
+			},
 		};
 	};
 }();

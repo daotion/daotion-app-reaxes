@@ -1,21 +1,15 @@
-import less from './index.module.less';
-import { SVGClose } from '../dxz-social-select-modal';
-import spaceTags from '@@Public/space-tags.json';
 import {
-	Img ,
-	Button ,
-	InputTextarea ,
-	Input ,
-	Option ,
-	Select ,
-} from '@@common/Xcomponents';
-
-// const { Option } = Select;
+	reaxel_i18n ,
+	reaxel_space_detail ,
+	reaxel_upload_pics ,
+	reaxel_user ,
+	reaxel_wallet ,
+} from '@@reaxes';
+import { reaxel_edit_space_social_settings } from './reaxel_edit_space_social_settings';
 
 export const DxzSpaceSettings = () => {
-
 	const [ tab , setTab ] = useState<'social' | 'general'>( 'general' );
-	const spaceID = parseInt( useParams().spaceID );
+	const spaceID = parseInt( utils.useRouter().params.spaceID );
 	const Content = {
 		social : SocialProfile ,
 		general : GeneralProfile ,
@@ -35,24 +29,8 @@ export const DxzSpaceSettings = () => {
 	</>;
 };
 
-
-import {
-	reaxel_upload_pics ,
-	reaxel_space_detail ,
-	reaxel_wallet ,
-	reaxel_user ,
-
-} from '@@reaxes';
-import { useParams } from 'react-router-dom';
-import {
-	request_space_detail ,
-	request_space_general_modify ,
-	request_server_timestamp ,
-} from '@@requests';
-import { Space___get_space_detail } from '@@requests/Spaces/types';
-
 const GeneralProfile = ComponentWrapper( () => {
-	const spaceID = parseInt( useParams().spaceID );
+	const spaceID = parseInt( utils.useRouter().params.spaceID );
 	const {
 		getSpaceDetailMemoed ,
 		store : store__space_detail ,
@@ -353,7 +331,6 @@ const reaxel_edit_space_general_settings = function () {
 	};
 }();
 
-
 const SocialProfile = ComponentWrapper( () => {
 	const { params } = utils.useRouter();
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
@@ -386,7 +363,18 @@ const SocialProfile = ComponentWrapper( () => {
 					/>;
 				} ) }
 			</div>
-			<AddSocialBtn />
+			<SelectSocialModalBtn 
+				onClick = {() => {
+					reax_edit_space_social_settings.setSelectModalVisible(true);
+				}}
+				onSelect = {(item) => {
+					reax_edit_space_social_settings.addSocialItem(item.text);
+				}}
+				onModalCancel = {() => {
+					reax_edit_space_social_settings.setSelectModalVisible(false)
+				}}
+				modalVisible = {reax_edit_space_social_settings.store.selectModalVisible}
+			/>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn
 				text = "Update Social Profiles"
@@ -394,65 +382,6 @@ const SocialProfile = ComponentWrapper( () => {
 		</div>
 	</>;
 } );
-
-
-export const AddSocialBtn = ComponentWrapper( (props) => {
-	const { Modal } = antd;
-	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
-	return <>
-		<Button
-			style = { {
-				color : "#777e90" ,
-				fontWeight : "700" ,
-				fontSize : "14px" ,
-				lineHeight : "16px" ,
-				border : "2px solid #e6e8ec" ,
-				display : "flex" ,
-				alignItems : "center" ,
-				justifyContent : "center" ,
-				padding : "12px 16px" ,
-				borderRadius : "12px" ,
-				height : "40px" ,
-				marginTop : "32px" ,
-				width : "fit-content" ,
-				background : "#ffffff" ,
-			} }
-			onClick = {
-				() => {
-					reax_edit_space_social_settings.setSelectModalVisible( true )
-				}
-			}
-		>
-			<SVGGrayAdd></SVGGrayAdd>
-			<span>
-				Add more social account
-			</span>
-		</Button>
-		<Modal
-			visible = { reax_edit_space_social_settings.store.selectModalVisible }
-			onCancel = { () => reax_edit_space_social_settings.setSelectModalVisible( false ) }
-			footer = { null }
-			className = { less.antdSocialMediaModal }
-			// centered
-			maskClosable
-			mask = { true }
-			width = "480px"
-			closeIcon = { <SVGClose /> }
-			maskStyle={{
-				background:'rgba(244, 244, 244, 0.4)',
-				backdropFilter:'blur(50px)',
-			}}
-		>
-			<DxzSocialSelectModal onAdd={props.onAdd} />
-		</Modal>
-	</>;
-} );
-
-
-import { DxzSocialSelectModal } from '@@pages/Test/dxz-social-select-modal';
-import { reaxel_edit_space_social_settings } from './reaxel_edit_space_social_settings';
-import { reaxel_i18n } from '@@reaxes';
-
 
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
 	const {
@@ -503,12 +432,6 @@ const SpaceSettingTabPane = ( props : React.PropsWithChildren<{ selected? : bool
 	>
 		{ props.children }
 	</span>;
-};
-
-
-type SpaceSettingTabsProps = {
-	tab : 'social' | 'general',
-	setTab : ( tab : 'social' | 'general' ) => void;
 };
 
 const UploadBtn = ( props : { onClick? : () => void } ) => {
@@ -595,27 +518,7 @@ const ProfileTitle = ( props ) => {
 		</h1>
 	</>;
 };
-const SVGGrayAdd = () => {
-	return <>
-		<svg
-			style = { {
-				marginRight : '12px' ,
-			} }
-			width = "16"
-			height = "16"
-			viewBox = "0 0 16 16"
-			fill = "none"
-			xmlns = "http://www.w3.org/2000/svg"
-		>
-			<path
-				fillRule = "evenodd"
-				clipRule = "evenodd"
-				d = "M12.6667 7.99967C12.6667 10.577 10.5773 12.6663 8.00001 12.6663C5.42268 12.6663 3.33334 10.577 3.33334 7.99967C3.33334 5.42235 5.42268 3.33301 8.00001 3.33301C10.5773 3.33301 12.6667 5.42235 12.6667 7.99967ZM14.6667 7.99967C14.6667 11.6816 11.6819 14.6663 8.00001 14.6663C4.31811 14.6663 1.33334 11.6816 1.33334 7.99967C1.33334 4.31778 4.31811 1.33301 8.00001 1.33301C11.6819 1.33301 14.6667 4.31778 14.6667 7.99967ZM8.00001 3.66634C8.55229 3.66634 9.00001 4.11406 9.00001 4.66634V6.99967H11.3333C11.8856 6.99967 12.3333 7.44739 12.3333 7.99967C12.3333 8.55196 11.8856 8.99967 11.3333 8.99967H9.00001V11.333C9.00001 11.8853 8.55229 12.333 8.00001 12.333C7.44773 12.333 7.00001 11.8853 7.00001 11.333V8.99967H4.66668C4.11439 8.99967 3.66668 8.55196 3.66668 7.99967C3.66668 7.44739 4.11439 6.99967 4.66668 6.99967H7.00001V4.66634C7.00001 4.11406 7.44773 3.66634 8.00001 3.66634Z"
-				fill = "#777E91"
-			/>
-		</svg>
-	</>;
-};
+1
 export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
@@ -720,7 +623,6 @@ const SVGNet = () => {
 	</>;
 };
 
-
 const SVGClear = () => {
 	return <>
 		<svg
@@ -740,7 +642,6 @@ const SVGClear = () => {
 
 	</>;
 };
-
 
 const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 	title : string;
@@ -813,56 +714,23 @@ type EditSocialItemProps = {
 	onChange : ( text : string ) => void;
 	placeholder? : string;
 };
+type SpaceSettingTabsProps = {
+	tab : 'social' | 'general',
+	setTab : ( tab : 'social' | 'general' ) => void;
+};
+import less from './index.module.less';
+import spaceTags from '@@Public/space-tags.json';
+import {
+	Button ,
+	Img ,
+	Input ,
+	InputTextarea ,
+	Option ,
+	Select ,
+} from '@@common/Xcomponents';
 
-
-/*
-const reaxel_edit_profile = function(){
-	let ret;
-	const {store,setState}= orzMobx({
-		fetchedUserInfo : null,
-		input_name : '',
-	});
-	const reax_wallet = reaxel_wallet();
-
-	/!*当address变化时会自动执行,*!/
-	reax_wallet.address_memoed_reaction((address) => {
-		if(address){
-			request.post().then((fetchedUserInfo) => {
-				setState({fetchedUserInfo})
-			})
-		}
-	});
-
-	const saveProfile = () => {
-		//保存逻辑
-	}
-
-
-	return () => {
-
-		return ret = {
-			get editProfileStore (){
-				return store;
-			},
-			setState ,
-			saveProfile,
-		}
-	}
-}();
-
-const EditProfile = ComponentWrapper(() => {
-
-	const reax_edit_profile = reaxel_edit_profile();
-
-	if(!reax_edit_profile.editProfileStore.fetchedUserInfo) return null;
-
-	return <>
-		<Input onInput={(e) =>{
-			reax_edit_profile.setState({input_name : e.target.value})
-		}}/>
-		<Button onClick={() =>{
-			reax_edit_profile.saveProfile()
-		}}/>
-	</>
-})
-*/
+import {
+	request_server_timestamp ,
+	request_space_general_modify ,
+} from '@@requests';
+import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';

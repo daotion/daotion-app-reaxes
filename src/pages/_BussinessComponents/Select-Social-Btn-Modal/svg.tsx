@@ -1,51 +1,4 @@
-import less from './index.module.less';
-import { reaxel_edit_space_social_settings } from '@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings';
-
-export const DxzSocialSelectModal = ComponentWrapper( ({ onAdd }) => {
-
-	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
-
-	return <>
-		<div className = { less.content }>
-			<h1 className = { less.mainTitle }>Socials</h1>
-			<p className = { less.intro }>Select the social media you want to add</p>
-			<div className = { less.divider }></div>
-			<div className = { less.socialMediaBox }>
-				{ reax_edit_space_social_settings.staticSocialList.map( ( item ) => {
-					return <MenuItem
-						onClick = { () => {
-							reax_edit_space_social_settings.addSocialItem( item.type );
-							onAdd(item.type);
-						} }
-						key = { item.type }
-						text = { item.type }
-						icon = { item.icon }
-					/>;
-				} ) }
-			</div>
-		</div>
-	</>;
-} );
-const MenuItem = ComponentWrapper( ( props : MenuItem ) => {
-	return <>
-		<div
-			className = { less.socialMedia }
-			onClick = { props.onClick }
-		>
-			{ props.icon }
-			<span className = { less.itemText }>
-				{ props.text }
-			</span>
-		</div>
-	</>;
-} );
-
-type MenuItem = {
-	icon : React.ReactElement;
-	text : React.ReactNode;
-	onClick? : () => any;
-};
-const SVGLink = () => {
+export const SVGLink = () => {
 	return <>
 		<svg
 			width = "24"
@@ -63,7 +16,7 @@ const SVGLink = () => {
 		</svg>
 	</>;
 };
-const SVGDiscord = () => {
+export const SVGDiscord = () => {
 	return <>
 		<svg
 			width = "28"
@@ -79,7 +32,7 @@ const SVGDiscord = () => {
 		</svg>
 	</>;
 };
-const SVGMirror = () => {
+export const SVGMirror = () => {
 	return <>
 		<svg
 			width = "28"
@@ -119,10 +72,10 @@ const SVGMirror = () => {
 				</linearGradient>
 			</defs>
 		</svg>
-
+	
 	</>;
 };
-const SVGVK = () => {
+export const SVGVK = () => {
 	return <>
 		<svg
 			width = "28"
@@ -142,7 +95,7 @@ const SVGVK = () => {
 		</svg>
 	</>;
 };
-const SVGTwitter = () => {
+export const SVGTwitter = () => {
 	return <>
 		<svg
 			width = "28"
@@ -158,7 +111,7 @@ const SVGTwitter = () => {
 		</svg>
 	</>;
 };
-const SVGInstagram = () => {
+export const SVGInstagram = () => {
 	return <>
 		<svg
 			width = "28"
@@ -182,7 +135,7 @@ const SVGInstagram = () => {
 		</svg>
 	</>;
 };
-const SVGGithub = () => {
+export const SVGGithub = () => {
 	return <>
 		<svg
 			width = "28"
@@ -239,7 +192,7 @@ const SVGGithub = () => {
 		</svg>
 	</>;
 };
-const SVGMedium = () => {
+export const SVGMedium = () => {
 	return <>
 		<svg
 			width = "28"
@@ -263,7 +216,7 @@ const SVGMedium = () => {
 		</svg>
 	</>;
 };
-const SVGFacebook = () => {
+export const SVGFacebook = () => {
 	return <>
 		<svg
 			width = "28"
@@ -283,7 +236,7 @@ const SVGFacebook = () => {
 		</svg>
 	</>;
 };
-const SVGTelegram = () => {
+export const SVGTelegram = () => {
 	return <>
 		<svg
 			width = "28"
@@ -321,7 +274,7 @@ const SVGTelegram = () => {
 		</svg>
 	</>;
 };
-const SVGReddit = () => {
+export const SVGReddit = () => {
 	return <>
 		<svg
 			width = "28"
@@ -341,7 +294,7 @@ const SVGReddit = () => {
 		</svg>
 	</>;
 };
-const SVGYoutube = () => {
+export const SVGYoutube = () => {
 	return <>
 		<svg
 			width = "28"
@@ -372,7 +325,7 @@ const SVGYoutube = () => {
 		</svg>
 	</>;
 };
-const SVGTikTok = () => {
+export const SVGTikTok = () => {
 	return <>
 		<svg
 			width = "28"
@@ -396,7 +349,7 @@ const SVGTikTok = () => {
 		</svg>
 	</>;
 };
-const SVGTumblr = () => {
+export const SVGTumblr = () => {
 	return <>
 		<svg
 			width = "28"
@@ -424,7 +377,7 @@ const SVGTumblr = () => {
 		</svg>
 	</>;
 };
-const SVGNotion = () => {
+export const SVGNotion = () => {
 	return <>
 		<svg
 			width = "28"
@@ -452,7 +405,7 @@ const SVGNotion = () => {
 		</svg>
 	</>;
 };
-const SVGClubHouse = () => {
+export const SVGClubHouse = () => {
 	return <>
 		<svg
 			width = "28"
@@ -468,6 +421,27 @@ const SVGClubHouse = () => {
 			<path
 				d = "M27.0473 3.11133L14.2529 7.19466V3.15994L0.457031 7.56411V19.2599L12.357 15.4585V19.4738L28.0001 14.4863L23.7612 10.3447L27.0473 3.11133ZM12.357 13.4558L2.36259 16.6447V8.95438L12.357 5.7655V13.4558ZM24.4612 13.621L14.2529 16.878V9.19744L23.6543 6.19327L21.4959 10.7433L24.4612 13.621Z"
 				fill = "#6515DD"
+			/>
+		</svg>
+	</>;
+};
+export const SVGGrayAdd = () => {
+	return <>
+		<svg
+			style = { {
+				marginRight : '12px' ,
+			} }
+			width = "16"
+			height = "16"
+			viewBox = "0 0 16 16"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M12.6667 7.99967C12.6667 10.577 10.5773 12.6663 8.00001 12.6663C5.42268 12.6663 3.33334 10.577 3.33334 7.99967C3.33334 5.42235 5.42268 3.33301 8.00001 3.33301C10.5773 3.33301 12.6667 5.42235 12.6667 7.99967ZM14.6667 7.99967C14.6667 11.6816 11.6819 14.6663 8.00001 14.6663C4.31811 14.6663 1.33334 11.6816 1.33334 7.99967C1.33334 4.31778 4.31811 1.33301 8.00001 1.33301C11.6819 1.33301 14.6667 4.31778 14.6667 7.99967ZM8.00001 3.66634C8.55229 3.66634 9.00001 4.11406 9.00001 4.66634V6.99967H11.3333C11.8856 6.99967 12.3333 7.44739 12.3333 7.99967C12.3333 8.55196 11.8856 8.99967 11.3333 8.99967H9.00001V11.333C9.00001 11.8853 8.55229 12.333 8.00001 12.333C7.44773 12.333 7.00001 11.8853 7.00001 11.333V8.99967H4.66668C4.11439 8.99967 3.66668 8.55196 3.66668 7.99967C3.66668 7.44739 4.11439 6.99967 4.66668 6.99967H7.00001V4.66634C7.00001 4.11406 7.44773 3.66634 8.00001 3.66634Z"
+				fill = "#777E91"
 			/>
 		</svg>
 	</>;
@@ -499,46 +473,3 @@ export const SVGClose = () => {
 		</svg>
 	</>;
 };
-
-const socialList = [
-	{
-		text : "Mirror" ,
-		icon : <SVGMirror /> ,
-	} ,
-	{
-		text : "Telegram" ,
-		icon : <SVGTelegram /> ,
-	} ,
-	{
-		text : "Notion" ,
-		icon : <SVGNotion /> ,
-	} ,
-	{
-		text : "Youtube" ,
-		icon : <SVGYoutube /> ,
-	} ,
-	{
-		text : "Medium" ,
-		icon : <SVGMedium /> ,
-	} ,
-	{
-		text : "ClubHouse" ,
-		icon : <SVGClubHouse /> ,
-	} ,
-	{
-		text : "Reddit" ,
-		icon : <SVGReddit /> ,
-	} ,
-	{
-		text : "Instagram" ,
-		icon : <SVGInstagram /> ,
-	} ,
-	{
-		text : "Tik tok" ,
-		icon : <SVGTikTok /> ,
-	} ,
-	{
-		text : "Facebook" ,
-		icon : <SVGFacebook /> ,
-	} ,
-];

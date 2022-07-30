@@ -586,8 +586,7 @@ export const reaxel_edit_space_social_settings = function(){
 						{
 							link : '' ,
 							type ,
-							key : Math.random().
-							toString() ,
+							key : Math.random().toString() ,
 						} ,
 					] ,
 				} );
