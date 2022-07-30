@@ -28,11 +28,11 @@ import { DxzSpaceList } from './dxz-space-list';
 import { DxzMyProfile } from './dxz-my-profile';
 import { DxzSocialSelectModal } from './dxz-social-select-modal';
 import {Test_Reaxel_i18n} from './I18n';
+import {DxzButton} from './dxz-button';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<Test_Reaxel_i18n />
-	<DxzMyProfile />
-
+	
+	<DxzButton/>
 </div>
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

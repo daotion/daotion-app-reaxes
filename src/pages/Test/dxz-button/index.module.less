@@ -1,0 +1,37 @@
+
+
+.xcom-btn:global(.ant-btn.ant-btn) {
+	&-link{
+		color : red;
+	}
+	&-ghost{
+		color : blue;
+		border-radius: 16px;
+		background: #f4f5f6;
+		border: 2px solid #f21361;
+	}
+	
+}
+
+/*primary*/
+:global{
+	.ant-btn.ant-btn-primary {
+		&:local(.primary){
+			
+			background-color: #f21361;
+		}
+		&:local(.leave){
+			padding: 12px 20px;
+			width: 140px;
+			height: 48px;
+			background: #FFE6EA;
+			border: 1px solid #F21361;
+			border-radius: 12px;
+			font-weight: 700;
+			font-size: 15px;
+			line-height: 24px;
+			color: #F21361;
+		}
+	}
+	
+}

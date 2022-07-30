@@ -165,7 +165,7 @@ import {
 	SVGYoutube ,
 	SVGSocialShare ,
 	SVGSettingTabs ,
-} from '@@common/Xcomponents/svg/space-info-svg';
+} from '@@common/Xcomponents/svg';
 
 import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
 import { DxzTokenOverview } from '@@pages/Test/dxz-Token-overview';

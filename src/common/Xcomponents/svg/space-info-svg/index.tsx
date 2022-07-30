@@ -1,6 +1,4 @@
-export const SpaceInfoSvg=()=>{
 
-}
 export const SVGShareIcon = ComponentWrapper( () => {
 	return <>
 		<svg
