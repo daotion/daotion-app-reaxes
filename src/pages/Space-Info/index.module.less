@@ -423,7 +423,7 @@
 	font-size: 12px;
 	font-weight: 700;
 	color: #141416;
-	
+	transition: all .25s ease;
 	span {
 		margin-right: 16px;
 		user-select: none;
@@ -596,9 +596,18 @@
 			color: #6f767e;
 			user-select: none;
 			justify-content: center;
-			
+			transition: all .25s ease;
+			svg{
+				transition: opacity .25s ease;
+				opacity: 0;
+				margin-left: 16px;
+				margin-bottom: -3px;
+			}
 			&:hover {
 				color: #141416;
+				svg{
+					opacity: 1;
+				}
 			}
 		}
 		

@@ -104,25 +104,25 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							onChange = { onChange }
 						>
 							<TabPane
-								tab = {<span>OverView<SVGSettingTabs/></span>}
+								tab = {<span>OverView</span>}
 								key = "1"
 							>
 								<SpaceOverViewContainer />
 							</TabPane>
 							<TabPane
-								tab = "Articles"
+								tab = {<span>Articles<SVGSettingTabs/></span>}
 								key = "2"
 							>
 								Content of Tab Pane 22222
 							</TabPane>
 							<TabPane
-								tab = "Tab3"
+								tab = {<span>Tab3<SVGSettingTabs/></span>}
 								key = "3"
 							>
 								Content of Tab Pane 33333
 							</TabPane>
 							<TabPane
-								tab = "Tab4"
+								tab = {<span>Tab4<SVGSettingTabs/></span>}
 								key = "4"
 							>
 								Content of Tab Pane 44444
