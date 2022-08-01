@@ -17,7 +17,6 @@ import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
-import { DxzSpaceSettings } from './dxz-Space-Settings';
 import { FileUpload } from './File-Upload';
 import InputTest from './componentTest/inputTest';
 import DarkThemeTest from './darkTheme';
