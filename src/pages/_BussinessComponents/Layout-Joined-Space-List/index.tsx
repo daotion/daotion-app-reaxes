@@ -33,12 +33,10 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 	
 	memoSetSelectingSpaceIDFromRoute = Reaxes.closuredMemo((routeSpaceID:number) => {
 		if(typeof routeSpaceID === "number" && !_.isNaN(routeSpaceID)){
-			// console.log( routeSpaceID );
 			setTimeout( () => this.setState( {
 				selectingSpaceID : routeSpaceID ,
 			} ) );
 		}else if(this.state.selectingSpaceID !== null) {
-			console.log( routeSpaceID );
 			setTimeout( () => this.setState( {
 				selectingSpaceID : null ,
 			} ) );
