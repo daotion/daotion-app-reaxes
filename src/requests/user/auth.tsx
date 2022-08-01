@@ -3,7 +3,7 @@
  *
  */
 export const request_user_address_alias = (payload:PayloadBody<User__address_alias.payload>) => {
-	return request.post<User__address_alias.response , typeof payload>( `/user/address-alias` , {
+	return request.post<User__address_alias.response , typeof payload>( `/user/substitute-user-wallet` , {
 		body : payload ,
 	} ).then((res) => {
 		if(res.result !== true){

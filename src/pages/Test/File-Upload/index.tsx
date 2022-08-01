@@ -67,7 +67,7 @@ const reaxel_upload = function(){
 				};
 				reax_user.signByFakeWallet( data ).then((signature) => {
 					
-					return request.post( `https://192.168.0.4:8199/space/space-upload-icon` , {
+					return request.post( `https://192.168.0.4:8199/space/space-upload-avatar` , {
 						method : "post" ,
 						body : formater( {
 							address : reaxel_wallet().account.address ,

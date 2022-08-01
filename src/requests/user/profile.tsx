@@ -6,7 +6,7 @@ import {
 
 
 export const request_user_profile = ( payload : PayloadBody<User__profile_info.payload> ) => {
-	return request.post<User__profile_info.response , typeof payload>( `/user/user-profile-info` , {
+	return request.post<User__profile_info.response , typeof payload>( `/user/user-profile-detail` , {
 		body : payload ,
 	} ).
 	then( ( res ) => {
@@ -18,7 +18,7 @@ export const request_user_profile = ( payload : PayloadBody<User__profile_info.p
 export const request_user_update_profile = (
 	payload : PayloadBody<User__update_profile.payload> ,
 ) => {
-	return request.post( `/user/user-account-update` , {
+	return request.post( `/user/user-update-profile` , {
 		body : payload ,
 	} );
 };
@@ -26,7 +26,7 @@ export const request_user_update_profile = (
 export const request_user_upload_avatar = (
 	payload : PayloadBody<User__upload_avatar.payload> ,
 ) => {
-	return request.post<User__upload_avatar.response>( `/user/user-upload-profile` , {
+	return request.post<User__upload_avatar.response>( `/user/user-upload-avatar` , {
 		body : payload ,
 	} );
 };

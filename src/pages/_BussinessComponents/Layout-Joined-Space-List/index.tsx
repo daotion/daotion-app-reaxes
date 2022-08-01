@@ -113,12 +113,6 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 						
 						
 						
-						
-						
-						
-						
-						
-						
 						return <div
 							key = { spaceInfo.spaceID }
 							onClick = { () => {
