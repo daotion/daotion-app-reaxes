@@ -241,33 +241,27 @@
 	}
 }
 
-.share-icon {
-	:global {
-		.ant-btn {
-			width: 48px;
-			height: 48px;
-			background: #f4f5f6;
-			border-radius: 12px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-right: 20px;
-			box-shadow: unset;
-			padding: 0;
-			&:hover{
-				background: #f4f5f6;
-			}
-		}
-		.ant-btn:focus{
-			background: #f4f5f6;
-		}
-	}
-	
+.share-btn:global(.ant-btn) {
+	width: 48px;
+	height: 48px;
+	background: #f4f5f6;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 20px;
+	box-shadow: unset;
+	padding: 0;
+	border: none;
 	&:hover {
+		background: #f4f5f6;
 		svg path {
 			transition: all .3s ease;
 			fill: #141416;
 		}
+	}
+	&:focus {
+		background: #f4f5f6;
 	}
 }
 

@@ -6,7 +6,8 @@
 	padding-top: 48px;
 	margin-bottom: 8px;
 }
-.space-info{
+
+.space-info {
 	background: rgb(244, 245, 246);
 	display: flex;
 	align-items: center;
@@ -16,6 +17,7 @@
 	padding-bottom: 100px;
 	padding-top: 40px;
 }
+
 .space-name {
 	color: #141416;
 	font-size: 32px;
@@ -24,18 +26,21 @@
 	vertical-align: middle;
 	user-select: none;
 }
-.info-box{
+
+.info-box {
 	padding: 0px 32px 48px;
 	width: 1200px;
 	background-color: rgb(255, 255, 255);
 	display: block;
 }
-.tabs-box{
+
+.tabs-box {
 	border-radius: 0px 0px 12px 12px;
 	width: 1200px;
 	background-color: rgb(255, 255, 255);
-	padding:0 32px 32px 32px;
+	padding: 0 32px 32px 32px;
 }
+
 .net-worth {
 	padding: 24px;
 	width: 240px;
@@ -44,19 +49,89 @@
 	border-radius: 24px;
 	margin-top: 8px;
 }
+
+.my-profile-setting-btn:global(.ant-btn) {
+	display: flex;
+	align-items: center;
+	border-radius: 12px;
+	width: fit-content;
+	height: 48px;
+	font-size: 15px;
+	font-weight: 600;
+	background: rgb(244, 245, 246);
+	color: rgb(119, 126, 144);
+	padding: 12px 20px;
+	box-shadow: unset;
+	line-height: normal;
+	border: none;
+	&:hover {
+		transition: all .25s ease;
+		background: #f4f5f6;
+		color: #1a1d1f;
+		svg path {
+			transition: all .25s ease;
+			fill: #141416;
+		}
+	}
+	&:focus {
+		background: #f4f5f6;
+		color: rgb(119, 126, 144);
+		svg path{
+			fill: rgb(119, 126, 144);
+		}
+	}
+}
+
+.share-btn:global(.ant-btn) {
+	width: 48px;
+	height: 48px;
+	background: #f4f5f6;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 20px;
+	box-shadow: unset;
+	padding: 0;
+	border: none;
+	&:hover {
+		background: #f4f5f6;
+		svg path {
+			transition: all .3s ease;
+			fill: #141416;
+		}
+	}
+	&:focus {
+		background: #f4f5f6;
+	}
+}
+.social-medias {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	
+	svg:hover {
+		path {
+			fill: #141416;
+		}
+	}
+}
 .sharing-box {
 	display: flex;
 	align-items: center;
 }
+
 .share_join-box {
 	display: flex;
 	align-items: center;
 }
+
 .net-worth-title {
 	font-weight: 500;
 	font-size: 16px;
-	line-height:normal;
+	line-height: normal;
 	color: #777e91;
+	user-select: none;
 }
 
 .net-worth-money {
@@ -66,8 +141,10 @@
 	text-align: right;
 	color: #353945;
 	margin-bottom: 0;
+	user-select: none;
 }
-.cover{
+
+.cover {
 	border-radius: 12px 12px 0px 0px;
 	min-width: 100%;
 	height: 300px;
@@ -75,7 +152,8 @@
 	object-position: 50% 50%;
 	//visibility: hidden;
 }
-.my-avatar-container{
+
+.my-avatar-container {
 	position: absolute;
 	top: 189px;
 	left: 32px;
@@ -83,7 +161,8 @@
 	border-radius: 132px;
 	border: 4px solid rgb(255, 255, 255);
 }
-.my-avatar{
+
+.my-avatar {
 	border-radius: 132px;
 	width: 132px;
 	height: 132px;
@@ -91,7 +170,8 @@
 	object-position: 50% 50%;
 	visibility: hidden;
 }
-.card-top{
+
+.card-top {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
@@ -102,18 +182,21 @@
 	color: #353945;
 	align-items: center;
 }
-.gray-box{
+
+.gray-box {
 	height: 24px;
 	display: flex;
 	align-items: center;
-	background: #E6E8EC;
+	background: #e6e8ec;
 	border-radius: 24px;
 	width: fit-content;
 	padding: 2px 8px;
 }
-.text{
+
+.text {
 	margin-left: 4px;
 }
+
 .space-info {
 	.banner {
 		background-color: #e6e8ec;
@@ -122,6 +205,7 @@
 		display: flex;
 		justify-content: center;
 		border-radius: 12px 12px 0px 0px;
+		
 		.edit-cover {
 			background-color: rgb(20, 20, 22);
 			border-radius: 12px;
@@ -149,6 +233,7 @@
 			}
 		}
 	}
+	
 	.bios {
 		font-size: 14px;
 		color: rgb(119, 126, 145);
@@ -158,7 +243,8 @@
 		width: 568px;
 		margin-bottom: 0;
 	}
-	.joined-space-box{
+	
+	.joined-space-box {
 		width: 1136px;
 		height: 428px;
 		display: flex;
@@ -167,20 +253,23 @@
 		flex-flow: row wrap;
 		margin-top: 24px;
 	}
-	.joined-space-card{
+	
+	.joined-space-card {
 		padding: 16px;
 		width: 214.4px;
 		height: 206px;
-		background: #FFFFFF;
-		border: 1px solid #E6E8EC;
+		background: #ffffff;
+		border: 1px solid #e6e8ec;
 		border-radius: 12px;
 		display: block;
 		text-align: center;
-		&:hover{
+		
+		&:hover {
 			box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 		}
 	}
-	.card-space-name{
+	
+	.card-space-name {
 		font-weight: 600;
 		font-size: 16px;
 		line-height: 24px;
@@ -188,30 +277,36 @@
 		color: #141416;
 		margin-top: 16px;
 	}
-	:global{
-		.ant-tabs-tab{
-			padding:0 0 0 0;
+	
+	:global {
+		.ant-tabs-tab {
+			padding: 0 0 0 0;
 		}
-		.ant-tabs-nav-list{
-			width:426px ;
+		
+		.ant-tabs-nav-list {
+			width: 426px;
 			display: flex;
 			justify-content: space-between;
 		}
-		.ant-tabs-tab-btn{
+		
+		.ant-tabs-tab-btn {
 			font-weight: 600;
 			font-size: 16px;
 			line-height: 48px;
 			text-align: center;
-			color: #6F767E;
+			color: #6f767e;
 			user-select: none;
-			&:hover{
+			
+			&:hover {
 				color: #141416;
 			}
 		}
-		.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+		
+		.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
 			color: #141416;
 		}
-		.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar{
+		
+		.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar {
 			background: #141416;
 			height: 2px;
 		}
@@ -219,7 +314,7 @@
 	
 }
 
-.my-profile-NFTs-card-field{
+.my-profile-NFTs-card-field {
 	height: 776px;
 	width: 1136px;
 	display: flex;
@@ -227,20 +322,26 @@
 	align-content: space-between;
 	flex-flow: row wrap;
 }
-.my-profile-NFTs-box{
+
+.my-profile-NFTs-box {
 	margin-top: 24px;
 	width: 1136px;
 	height: 856px;
 }
-.my-profile-NFTs-card{
+
+.my-profile-NFTs-card {
 	width: 272px;
 	height: 380px;
-	border: 1px solid #E6E8EC;
+	border: 1px solid #e6e8ec;
 	border-radius: 12px;
 	display: inline-block;
 	overflow: hidden;
+	&:hover{
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+	}
 }
-.NFTs-card-info{
+
+.NFTs-card-info {
 	width: 272px;
 	height: 108px;
 	z-index: 1;
@@ -249,8 +350,8 @@
 	display: flex;
 	flex-flow: column wrap;
 }
-	
-.NFTs-collect-name{
+
+.NFTs-collect-name {
 	font-family: 'Inter';
 	font-style: normal;
 	font-weight: 600;
@@ -262,7 +363,8 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.NFTs-card-main{
+
+.NFTs-card-main {
 	width: 270px;
 	height: 270px;
 	display: flex;
@@ -271,8 +373,11 @@
 	background-position: 50%;
 	background-repeat: no-repeat;
 	transition: ease-in-out all .2s;
+	flex-flow: row nowrap;
+	position: relative;
 }
-.NFTs-card-main:hover{
+
+.NFTs-card-main:hover {
 	background-size: 108% 108%;
 }
 
@@ -290,15 +395,17 @@
 	justify-content: space-between;
 	font-weight: 700;
 	font-size: 14px;
-	line-height:normal;
+	line-height: normal;
 	margin-top: 250px;
-	margin-left: -34px;
-	transition:all .25s ease;
-	svg path{
+	transition: all .25s ease;
+	margin-left: auto;
+	margin-right: auto;
+	svg path {
 		fill: #3772ff;
 	}
 }
-.NFTs-link-box{
+
+.NFTs-link-box {
 	width: 20px;
 	height: 20px;
 	background: #ffffff;
@@ -307,19 +414,23 @@
 	align-items: center;
 	justify-content: center;
 }
-.NFTs-card-main:hover .NFTs-view-on{
-	transition:all .25s ease;
+
+.NFTs-card-main:hover .NFTs-view-on {
+	transition: all .25s ease;
 	z-index: 2;
 	opacity: 1;
 	margin-top: 208px;
-	margin-left: -34px;
+	margin-left: auto;
+	margin-right: auto;
 }
-.NFTs-card-polygon{
+
+.NFTs-card-polygon {
+	position: absolute;
 	padding: 4px 8px;
 	width: 94px;
 	height: 24px;
-	margin-left: 12px;
-	margin-top: 12px;
+	left: 12px;
+	top: 12px;
 	background: rgba(255, 255, 255, 0.7);
 	backdrop-filter: blur(20px);
 	border-radius: 26px;
@@ -330,25 +441,28 @@
 	align-items: center;
 	justify-content: space-between;
 }
-.NFTs-price-box{
+
+.NFTs-price-box {
 	padding: 12px;
 	width: 248px;
 	height: 58px;
-	background: #F4F5F6;
+	background: #f4f5f6;
 	border-radius: 12px;
 	margin-top: 10px;
 }
-.NFTs-price-title{
+
+.NFTs-price-title {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	font-weight: 500;
 	font-size: 12px;
 	line-height: 16px;
-	color: #777E91;
+	color: #777e91;
 	margin-bottom: 4px;
 }
-.NFTs-price-number{
+
+.NFTs-price-number {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -358,22 +472,147 @@
 	color: #353945;
 	margin-bottom: 0;
 }
-.my-profile-tab-subtitle{
+
+.my-profile-tab-subtitle {
 	display: block;
+	user-select: none;
 }
-.my-profile-tab-price-title{
+
+.my-profile-tab-price-title {
 	width: fit-content;
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 24px;
-	color: #777E91;
+	color: #777e91;
 	margin-bottom: 8px;
 	
 }
-.my-profile-tab-price-number{
+
+.my-profile-tab-price-number {
 	width: fit-content;
 	font-weight: 600;
 	font-size: 24px;
 	line-height: 24px;
-	color: #16161A;
+	color: #16161a;
+}
+.my-profile-SBTs-box{
+	width: 1136px;
+	height: 830px;
+	display: flex;
+	justify-content: space-between;
+	align-content: space-between;
+	flex-flow: row wrap;
+	margin-top: 24px;
+}
+.my-profile-SBTs-card{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 0px;
+	width: 272px;
+	height: 407px;
+	border: 1px solid #E6E8EC;
+	border-radius: 12px;
+	overflow: hidden;
+	&:hover{
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+	}
+}
+.SBTs-card-info{
+	padding: 12px;
+	width: 272px;
+	height: 135px;
+	background: #FFFFFF;
+	
+}
+.card-logo-name-box{
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	margin-top: 12px;
+}
+.SBTs-card-space-logo{
+	width: 32px;
+	height: 32px;
+	border-radius: 8px;
+}
+.SBTs-card-space-name{
+	font-weight: 500;
+	font-size: 14px;
+	color: #353945;
+	margin-left: 10px;
+}
+.divider{
+	width: 100%;
+	height: 1px;
+	background: #e6e8ec;
+	margin: 10px 0;
+}
+.SBTs-card-op{
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	font-weight: 500;
+	font-size: 14px;
+	color: #777E91;
+	span{
+		margin-left: 8px;
+	}
+}
+.my-profile-Tokens-box{
+	width: 1136px;
+	height: fit-content;
+	display: flex;
+	justify-content: flex-start;
+	flex-flow: column wrap;
+	margin-top: 24px;
+}
+.my-profile-Tokens-list{
+	padding: 16px;
+	width: 1136px;
+	height: 75px;
+	border: 1px solid #E6E8EC;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	&:hover{
+		background: #F4F5F6;
+		width: 1136px;
+		height: 75px;
+	}
+	&:not(:last-child){
+		margin-bottom: 16px;
+	}
+	svg{
+		width: 32px;
+		height: 32px;
+	}
+	svg path{
+		fill:  #FF0420;
+	}
+}
+.Tokens-price-box{
+	margin-left: 16px;
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	p{
+		margin-bottom: 0;
+	}
+}
+.Tokens-price-name{
+	width: 100%;
+	font-weight: 500;
+	font-size: 16px;
+	color: #002237;
+}
+.Tokens-price-addition{
+	width: 100%;
+	font-weight: 400;
+	font-size: 14px;
+	color: #777E91;
+	&:last-child{
+		text-align: right;
+	}
 }
