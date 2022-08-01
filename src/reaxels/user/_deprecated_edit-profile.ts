@@ -2,12 +2,12 @@
 
 import type { User__update_profile } from "@@requests/user/types";
 
-import { reaxel_wallet } from "@@reaxes/wallet/wallet";
+import { reaxel_wallet } from "@@RootPath/src/reaxels/wallet/wallet";
 import {
 	request_user_account_update ,
 	request_user_upload_profile ,
 } from "@@requests/user";
-import { reaxel_user } from "@@reaxes/user/auth";
+import { reaxel_user } from "@@RootPath/src/reaxels/user/auth";
 import { request_server_timestamp } from "@@requests";
 
 export const reaxel_edit_profile = (function () {

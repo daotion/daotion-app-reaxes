@@ -2,7 +2,7 @@ import {
 	Reaxlass ,
 	Reaxper ,
 } from 'reaxes';
-import { reaxel_create_space } from '@@reaxes';
+import { reaxel_create_space } from '@@RootPath/src/reaxels';
 
 
 export const ModalCreateSpace = Reaxper(class extends Reaxlass{

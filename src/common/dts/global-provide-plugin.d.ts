@@ -31,5 +31,5 @@ declare const decodeQueryString : typeof import('@@utils/queryString.utility').d
 declare const encodeQueryString : typeof import('@@utils/queryString.utility').encodeQueryString;
 declare const stringify : typeof import('@@utils/stringify.utility').stringify;
 declare const utils : typeof import('@@utils');
-declare const Reaxes : typeof import('../../reaxes').Reaxes;
+declare const Reaxes : typeof import('../../reaxels').Reaxes;
 declare const antd : typeof import('antd');

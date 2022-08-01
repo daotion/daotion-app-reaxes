@@ -1,7 +1,7 @@
 import {
 	reaxel_wallet ,
 	reaxel_user,
-} from "@@reaxes";
+} from "@@RootPath/src/reaxels";
 
 export const FileUpload = ComponentWrapper( () => {
 	const {store,upload} = reaxel_upload();

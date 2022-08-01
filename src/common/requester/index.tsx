@@ -227,6 +227,6 @@ export const request = new class {
 
 
 const symbol_no_authorized = Symbol( 'no_authorized' );
-import { reaxel_user } from '@@reaxes/user/auth';
+import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
 import { orzLocalstroage } from '@@common/storages';
 

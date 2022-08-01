@@ -27,4 +27,4 @@ export const UserAvatar = ComponentWrapper( () => {
 import {
 	reaxel_blockies ,
 	reaxel_wallet ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';

@@ -3,7 +3,7 @@ import {
 	reaxel_upload_pics,
 	reaxel_wallet ,
 	reaxel_user,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {
 	request_user_update_profile ,
 	request_server_timestamp,

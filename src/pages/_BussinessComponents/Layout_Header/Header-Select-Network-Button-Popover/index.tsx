@@ -5,7 +5,7 @@ import {
 import {
 	reaxel_wallet ,
 	reaxel_i18n,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {
 	invoke_root_click ,
 	subscribe_root_click ,

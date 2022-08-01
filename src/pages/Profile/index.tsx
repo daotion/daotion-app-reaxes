@@ -1,6 +1,6 @@
 import {
 	reaxel_user_profile,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 
 
 export const Profile = ComponentWrapper( class extends ReactComponentClass {

@@ -3,7 +3,7 @@
  */
 
 
-import { reaxel_wallet } from '@@reaxes/wallet/wallet';
+import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
 import { request_user_profile } from '@@requests';
 import {User__profile_info} from '@@requests/types';
 

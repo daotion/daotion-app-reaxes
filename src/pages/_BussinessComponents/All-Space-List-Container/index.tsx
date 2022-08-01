@@ -14,7 +14,7 @@ import {
 	reaxel_space_list ,
 	reaxel_wallet ,
 	reaxel_i18n,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import InfiniteScroll from 'react-infinite-scroller';
 
 const { Option } = Select;

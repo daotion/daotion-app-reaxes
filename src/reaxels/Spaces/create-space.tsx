@@ -1,7 +1,7 @@
-import { reaxel_wallet } from '@@reaxes/wallet/wallet';
-import { reaxel_user } from '@@reaxes/user/auth';
-import { reaxel_space_list } from '@@reaxes/Spaces/all-space-list';
-import { reaxel_i18n } from '@@reaxes/i18n';
+import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
+import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
+import { reaxel_space_list } from '@@RootPath/src/reaxels/Spaces/all-space-list';
+import { reaxel_i18n } from '@@RootPath/src/reaxels/i18n';
 
 import less from '../../styles/reaxels.module.less';
 import spaceTags from '@@Public/space-tags.json';

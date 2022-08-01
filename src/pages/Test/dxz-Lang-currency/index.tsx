@@ -1,5 +1,5 @@
 import less from './index.module.less';
-import { reaxel_i18n } from '@@reaxes';
+import { reaxel_i18n } from '@@RootPath/src/reaxels';
 
 
 export const DxzLangCurrency = ComponentWrapper( () => {

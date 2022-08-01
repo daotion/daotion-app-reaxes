@@ -166,7 +166,7 @@ import {
 	reaxel_wallet ,
 	reaxel_theme ,
 	reaxel_i18n,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import { UserButtonDropdown } from './Header-User-Button-Popover';
 import { GeneralMenuButtonDropdown } from './Header-General-Button-Popover';
 

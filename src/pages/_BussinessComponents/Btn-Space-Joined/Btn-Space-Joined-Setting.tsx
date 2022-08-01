@@ -2,7 +2,7 @@ import {
 	reaxel_joined_Space_list ,
 	reaxel_user_join_or_leave_space ,
 	reaxel_i18n,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import { ButtonProps } from 'antd';
 import less from '../../Space-Info/index.module.less';
 // import less from '@@RootPath/src/styles/reaxels.module.less';

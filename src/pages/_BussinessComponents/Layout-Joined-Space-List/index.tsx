@@ -3,7 +3,7 @@ import {
 	reaxel_create_space ,
 	reaxel_joined_Space_list ,
 	reaxel_wallet ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {Img} from '@@common/Xcomponents';
 import {useParams} from 'react-router-dom';
 /**

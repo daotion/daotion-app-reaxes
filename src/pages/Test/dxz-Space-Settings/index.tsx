@@ -4,7 +4,7 @@ import {
 	reaxel_upload_pics ,
 	reaxel_user ,
 	reaxel_wallet ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import { reaxel_edit_space_social_settings } from './reaxel_edit_space_social_settings';
 
 export const DxzSpaceSettings = () => {

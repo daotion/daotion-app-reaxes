@@ -172,7 +172,7 @@ import {
 	request_server_timestamp ,
 	request_user_address_alias,
 } from '@@requests';
-import { reaxel_wallet } from '@@reaxes/wallet/wallet';
+import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
 /*address-privateKey映射*/
 type member = { [ p : string ] : string };
 const domainTypes = [

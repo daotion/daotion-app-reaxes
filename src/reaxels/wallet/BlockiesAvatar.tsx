@@ -51,4 +51,4 @@ export const reaxel_blockies = function(){
 }();
 
 import {renderIcon} from '@download/blockies';
-import {reaxel_wallet} from '@@reaxes/wallet/wallet';
+import {reaxel_wallet} from '@@RootPath/src/reaxels/wallet/wallet';

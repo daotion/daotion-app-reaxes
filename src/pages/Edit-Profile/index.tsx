@@ -5,7 +5,7 @@ import {
 	reaxel_wallet ,
 	reaxel_i18n,
 	reaxel_user_profile ,
-} from "@@reaxes";
+} from "@@RootPath/src/reaxels";
 import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
 
 import {

@@ -12,4 +12,4 @@ export const BlockiesIdenticon = ( class extends ReactComponentClass {
 } );
 
 
-import {reaxel_blockies} from '@@reaxes';
+import {reaxel_blockies} from '@@RootPath/src/reaxels';

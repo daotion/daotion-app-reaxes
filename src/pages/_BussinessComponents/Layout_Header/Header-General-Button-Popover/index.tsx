@@ -162,7 +162,7 @@ import {
 	reaxel_wallet ,
 	reaxel_theme,
 	reaxel_i18n ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {
 	invoke_root_click ,
 	root_click_symbol ,

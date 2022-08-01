@@ -7,7 +7,7 @@ import {
 import {
 	reaxel_joined_Space_list ,
 	reaxel_upload_pics ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import { Tabs } from 'antd';
 const { TabPane } = Tabs;
 const onChange = (key: string) => {

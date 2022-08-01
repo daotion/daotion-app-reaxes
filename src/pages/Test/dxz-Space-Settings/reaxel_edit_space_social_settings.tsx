@@ -198,8 +198,8 @@ export const reaxel_edit_space_social_settings = function () {
 import {
 	reaxel_wallet ,
 	reaxel_user ,
-} from '@@reaxes';
-import { reaxel_space_detail } from '@@reaxes/Spaces/space-detail';
+} from '@@RootPath/src/reaxels';
+import { reaxel_space_detail } from '@@RootPath/src/reaxels/Spaces/space-detail';
 import {
 	request_edit_space_social_list ,
 	request_server_timestamp,

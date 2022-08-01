@@ -1,11 +1,11 @@
 /**
  * 上传profile/space-avatar头像等
  */
-import { reaxel_user } from '@@reaxes/user/auth';
-import { reaxel_wallet } from '@@reaxes/wallet/wallet';
-import { reaxel_space_detail } from '@@reaxes/Spaces/space-detail';
-import { reaxel_joined_Space_list } from '@@reaxes/Spaces/joined-space-list';
-import { reaxel_user_profile } from '@@reaxes/user/profile';
+import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
+import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
+import { reaxel_space_detail } from '@@RootPath/src/reaxels/Spaces/space-detail';
+import { reaxel_joined_Space_list } from '@@RootPath/src/reaxels/Spaces/joined-space-list';
+import { reaxel_user_profile } from '@@RootPath/src/reaxels/user/profile';
 
 import {
 	request_server_timestamp ,

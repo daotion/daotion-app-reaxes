@@ -165,4 +165,4 @@ import { EllipsisAddress } from '../Header-Ellipsis-Address';
 import {
 	reaxel_wallet ,
 	reaxel_i18n ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';

@@ -136,7 +136,7 @@ import {
 	reaxel_user_join_or_leave_space ,
 	reaxel_space_detail ,
 	reaxel_i18n ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {
 	Img ,
 	WalletAddressCopyBox ,

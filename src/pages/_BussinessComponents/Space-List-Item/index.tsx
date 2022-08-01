@@ -1,9 +1,9 @@
-import { Space__all_spaces } from '@@reaxes/Spaces/types';
+import { Space__all_spaces } from '@@RootPath/src/reaxels/Spaces/types';
 import {
 	reaxel_joined_Space_list ,
 	reaxel_user_join_or_leave_space ,
 	reaxel_i18n ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import chainIconMap from '@@Public/chain-icon-map.json';
 import { message } from 'antd';
 
