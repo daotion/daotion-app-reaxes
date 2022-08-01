@@ -126,3 +126,9 @@ const languageList = [
 	},
 ];
 /*维护一个加载lang-json的列表,惰性加载*/
+
+
+export const {
+	i18n ,
+	I18n,
+} = reaxel_i18n();

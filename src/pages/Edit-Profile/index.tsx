@@ -3,7 +3,6 @@ import { MinusCircleOutlined } from "@ant-design/icons";
 import {
 	// reaxel_edit_profile ,
 	reaxel_wallet ,
-	reaxel_i18n,
 	reaxel_user_profile ,
 } from "@@RootPath/src/reaxels";
 import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
@@ -31,10 +30,7 @@ export const EditProfile = ComponentWrapper( () => {
 	const reax_edit_profile = reaxel_edit_profile();
 	const reax_wallet = reaxel_wallet();
 	const reax_user_profile = reaxel_user_profile();
-	const {
-		I18n ,
-		i18n,
-	} = reaxel_i18n();
+
 	
 	if(!reax_edit_profile.originalProfile){
 		return null;

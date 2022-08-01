@@ -2,7 +2,6 @@ import { Space__all_spaces } from '@@RootPath/src/reaxels/Spaces/types';
 import {
 	reaxel_joined_Space_list ,
 	reaxel_user_join_or_leave_space ,
-	reaxel_i18n ,
 } from '@@RootPath/src/reaxels';
 import chainIconMap from '@@Public/chain-icon-map.json';
 import { message } from 'antd';
@@ -15,14 +14,11 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 	
 	reax_user_join_or_leave_space = reaxel_user_join_or_leave_space();
 	
-	reax_i18n = reaxel_i18n();
-	
 	JSX = {
 		
 		Join_or_leave : ComponentWrapper(() => {
 			const [ mouseEntered , setMouseEntered ] = useState( false );
 			const { spaceID } = this.props.info;
-			const { I18n } = this.reax_i18n;
 			const role = this.reax_joined_spaces_list.joined_space_list.find((item) => item.spaceID === spaceID)?.role;
 			return this.reax_joined_spaces_list.joined_space_list.some( ( item ) => item.spaceID === this.props.info.spaceID ) ? <div
 				className = { less.spaceListItemBtnJoined }

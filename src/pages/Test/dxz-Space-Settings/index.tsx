@@ -1,5 +1,4 @@
 import {
-	reaxel_i18n ,
 	reaxel_space_detail ,
 	reaxel_upload_pics ,
 	reaxel_user ,
@@ -391,10 +390,6 @@ import {
 	SVGWhiteAdd ,
 }from '@@pages/_SvgComponents/space-setting-svg';
 const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
-	const {
-		i18n ,
-		I18n,
-	} = reaxel_i18n();
 	return <>
 		<div
 			style = { {

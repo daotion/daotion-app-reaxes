@@ -14,8 +14,6 @@ export const Layout_Header = ComponentWrapper( class extends ReactComponentClass
 	
 	reax_theme = reaxel_theme();
 	
-	reax_i18n = reaxel_i18n();
-	
 	render() {
 		const {
 			Input ,
@@ -165,7 +163,6 @@ import {
 	reaxel_user ,
 	reaxel_wallet ,
 	reaxel_theme ,
-	reaxel_i18n,
 } from '@@RootPath/src/reaxels';
 import { UserButtonDropdown } from './Header-User-Button-Popover';
 import { GeneralMenuButtonDropdown } from './Header-General-Button-Popover';

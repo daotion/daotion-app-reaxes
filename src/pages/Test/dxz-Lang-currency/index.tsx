@@ -9,7 +9,6 @@ export const DxzLangCurrency = ComponentWrapper( () => {
 		languageList ,
 		changeLang ,
 		language ,
-		i18n,
 	} = reaxel_i18n();
 	return <>
 		<div

@@ -128,7 +128,6 @@ export const DxzVotingProposals = (() => {
 		},
 	};
 	
-	const {} = reaxel_i18n();
 	return <>
 		<div className = { less.voting_proposalsContainer }
 			style = { {

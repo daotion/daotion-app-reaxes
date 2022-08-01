@@ -14,12 +14,10 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 	
 	reax_joined_Space_list = reaxel_joined_Space_list();
 	
-	reax_I18n = reaxel_i18n();
 	
 	render() {
 		const { params } = utils.useRouter();
 		const spaceID = parseInt( params.spaceID );
-		const { I18n } = this.reax_I18n;
 		this.reax_space_detail.getSpaceDetailMemoed( spaceID );
 		
 		if ( !this.reax_space_detail.store.spaceInfo ) return null;
@@ -135,7 +133,6 @@ import {
 	reaxel_upload_pics ,
 	reaxel_user_join_or_leave_space ,
 	reaxel_space_detail ,
-	reaxel_i18n ,
 } from '@@RootPath/src/reaxels';
 import {
 	Img ,

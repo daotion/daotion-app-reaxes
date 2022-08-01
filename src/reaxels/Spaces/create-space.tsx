@@ -159,8 +159,6 @@ export const reaxel_create_space = function () {
 						Select ,
 					} = antd;
 					const {
-						I18n ,
-						i18n ,
 						language,
 						changeLang ,
 					} = reaxel_i18n();

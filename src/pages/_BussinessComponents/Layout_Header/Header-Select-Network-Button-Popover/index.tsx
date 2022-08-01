@@ -4,7 +4,6 @@ import {
 } from '../';
 import {
 	reaxel_wallet ,
-	reaxel_i18n,
 } from '@@RootPath/src/reaxels';
 import {
 	invoke_root_click ,
@@ -21,7 +20,6 @@ import { XPopover } from '@@common/Xcomponents';
 export const SelectNetworkButtonDropdown = ComponentWrapper( () => {
 	const { Button } = antd;
 	const reax_wallet = reaxel_wallet();
-	const { I18n } = reaxel_i18n();
 	const reax_header_svg_tool = reaxel_header_svg_tool();
 	
 	const [ visible , setVisible ] = useState( false );

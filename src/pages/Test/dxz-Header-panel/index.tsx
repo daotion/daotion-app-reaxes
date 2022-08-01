@@ -1,7 +1,6 @@
 import less from './index.module.less';
 import { Switch } from 'antd';
 
-import { reaxel_i18n } from '@@RootPath/src/reaxels';
 import {
 	SVGAbout ,
 	SVGHelp,
@@ -11,7 +10,6 @@ import {
 } from '@@pages/_SvgComponents/header-panel-svg';
 
 export const DxzHeaderPanel = ComponentWrapper( () => {
-	const { i18n } = reaxel_i18n();
 	return <>
 		<div
 			className = { less.container }

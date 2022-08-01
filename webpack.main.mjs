@@ -275,6 +275,8 @@ function getProvidePlugin (config = {}) {
 			"request",
 		] ,
 		Reaxes : ["@@RootPath/src/Reaxes.core","Reaxes"] ,
+		I18n : ["@@reaxels/i18n","I18n"] ,
+		i18n : ["@@reaxels/i18n","i18n"] ,
 		env : [
 			"@@requester" ,
 			"request",

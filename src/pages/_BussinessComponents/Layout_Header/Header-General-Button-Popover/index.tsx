@@ -48,7 +48,6 @@ export const GeneralMenuButtonDropdown = ComponentWrapper( () => {
 const GeneralMenuList = ComponentWrapper( () => {
 	const reax_general_button = reaxel_general_button();
 	const reax_theme = reaxel_theme();
-	const { i18n } = reaxel_i18n();
 	const { Switch } = antd;
 	return <>
 		<div
@@ -161,7 +160,6 @@ import { headerBtnStyle } from '../';
 import {
 	reaxel_wallet ,
 	reaxel_theme,
-	reaxel_i18n ,
 } from '@@RootPath/src/reaxels';
 import {
 	invoke_root_click ,
