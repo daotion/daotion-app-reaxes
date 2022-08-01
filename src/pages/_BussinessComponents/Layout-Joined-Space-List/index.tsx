@@ -157,11 +157,6 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 					/>
 					<BtnCreateSpaceSvgComponent />
 				</div>
-				{/* todo <CreateModalContent
-						modalVisible = { this.state.createSpaceModalShowing }
-						setModalVisible = { () => this.setState( { createSpaceModalShowing : !this.state.createSpaceModalShowing } ) }
-						provider = { this.reax_wallet.web3Provider }
-					/>*/ }
 			</div>
 		</>;
 	}

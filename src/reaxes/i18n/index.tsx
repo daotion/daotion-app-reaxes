@@ -36,6 +36,7 @@ export const reaxel_i18n = function(){
 	const changeLang = ( lang : string ) => {
 		setState( {lang} );
 		asyncLangLoader();
+		document.documentElement.lang = lang.slice(0,2);
 		setTimeout(() => i18n_storage.writeToStorage(lang));
 	}
 	

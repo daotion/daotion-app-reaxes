@@ -1,19 +1,8 @@
 import {
-	Modal ,
-	Input,
-	Select,
-	Button ,
-	
-} from 'antd';
-import {
-	Reaxper ,
 	Reaxlass ,
-	orzMobx ,
-	Reaxes,
+	Reaxper ,
 } from 'reaxes';
-import {reaxel_create_space} from '@@reaxes';
-
-
+import { reaxel_create_space } from '@@reaxes';
 
 
 export const ModalCreateSpace = Reaxper(class extends Reaxlass{
