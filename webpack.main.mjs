@@ -8,6 +8,11 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
 import { envConfig } from './build/.mix.js';
 
+import SpeedMeasurePlugin from 'speed-measure-webpack-plugin'
+const smp = new SpeedMeasurePlugin({
+	outputFormat : "humanVerbose"
+});
+
 import {
 	port ,
 	rootPath ,
@@ -160,7 +165,7 @@ function start(){
 /* 注入plugin并启动dev-server */
 function devServer () {
 	try {
-		const compiler = webpack(devConfig);
+		const compiler = webpack(smp.wrap(devConfig));
 		const webpackServer = new WebpackDevServer(
 			devConfig.devServer,
 			compiler ,
@@ -336,5 +341,7 @@ function generateRouteMap () {
 	
 	return JSON.stringify(Route_Map);
 };
+
+
 
 

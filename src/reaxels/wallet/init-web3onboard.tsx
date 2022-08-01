@@ -1,11 +1,8 @@
 import type {
 	InitOptions ,
 	OnboardAPI ,
-	ConnectOptions ,
-	DisconnectOptions ,
-	WalletState ,
-	ConnectedChain ,
 } from '@web3-onboard/core';
+import Web3Onboard from '@web3-onboard/core';
 import fortmaticModule from '@web3-onboard/fortmatic';
 import gnosisModule from '@web3-onboard/gnosis';
 import injectedModule from '@web3-onboard/injected-wallets';
@@ -18,8 +15,7 @@ import trezorModule from '@web3-onboard/trezor';
 import walletConnectModule from '@web3-onboard/walletconnect';
 import walletLinkModule from '@web3-onboard/walletlink';
 import magicModule from '@web3-onboard/magic';
-import { init } from '@web3-onboard/react';
-import Web3Onboard from '@web3-onboard/core';
+
 
 // import blocknativeIcon from './icon/blocknatieIcon.svg';
 // import blocknativeLogo from './icon/blocknativeLogo.svg';
@@ -61,10 +57,10 @@ const options:InitOptions =  {
 	accountCenter : {
 		desktop : {
 			enabled : false ,
-		},
+		} as any,
 		mobile : {
 			enabled : false,
-		}
+		} as any ,
 	} ,
 	// An array of wallet modules that you would like to be presented to the user to select from when connecting a wallet.
 	wallets : [
@@ -180,7 +176,7 @@ export const web3onboard = new class web3Onboard {
 			return this.#web3Onboard;
 		} else {
 			this.initialized = true;
-			this.#web3Onboard = init( options ) as OnboardAPI;
+			this.#web3Onboard = Web3Onboard( options ) as OnboardAPI;
 			return this.#web3Onboard;
 		}
 	}

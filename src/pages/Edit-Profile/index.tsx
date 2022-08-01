@@ -1,15 +1,10 @@
 import { MinusCircleOutlined } from "@ant-design/icons";
 
 import {
-	// reaxel_edit_profile ,
 	reaxel_wallet ,
 	reaxel_user_profile ,
 } from "@@RootPath/src/reaxels";
-import { reaxel_edit_space_social_settings } from "@@pages/Test/dxz-Space-Settings/reaxel_edit_space_social_settings";
 
-import {
-	ProfileFooterBtn ,
-} from "@@pages/Test/dxz-Space-Settings";
 
 import { Img ,} from '@@common/Xcomponents';
 import { EditSocialItem ,SelectSocialModalBtn  } from '@@pages/_BussinessComponents';

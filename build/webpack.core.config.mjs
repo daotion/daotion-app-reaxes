@@ -70,7 +70,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'.json',
 		] ,
 	} ,
-	devtool : 'source-map' , 
+	devtool : 'cheap-source-map' , 
 	// cache : {
 	// 	type : "filesystem",
 	// 	allowCollectingMemory: true, 
@@ -81,9 +81,6 @@ export const basicConfig$Fn = (plugins = []) => ({
 				test : /\.(jsx?|tsx?)$/ ,
 				use : {
 					loader : 'babel-loader' ,
-					options : {
-						sourceMap : true ,
-					} ,
 				} ,
 				exclude : /node_modules/ ,
 			} ,
