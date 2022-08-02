@@ -330,7 +330,7 @@ const SpaceJoinAvater = ComponentWrapper( () => {
 } );
 const ShareBtn = ComponentWrapper( () => {
 	return <>
-			<Button className = { less.ShareBtn}>
+			<Button className = { less.shareBtn}>
 				<SVGShareIcon />
 			</Button>
 	</>;
