@@ -141,7 +141,6 @@
 	text-align: right;
 	color: #353945;
 	margin-bottom: 0;
-	user-select: none;
 }
 
 .cover {
@@ -263,13 +262,15 @@
 		border-radius: 12px;
 		display: block;
 		text-align: center;
-		
+		user-select: none;
 		&:hover {
+			transition: box-shadow .3s ease;
 			box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 		}
 	}
 	
 	.card-space-name {
+		user-select: text;
 		font-weight: 600;
 		font-size: 16px;
 		line-height: 24px;
@@ -330,13 +331,16 @@
 }
 
 .my-profile-NFTs-card {
+	user-select: none;
 	width: 272px;
 	height: 380px;
 	border: 1px solid #e6e8ec;
 	border-radius: 12px;
 	display: inline-block;
 	overflow: hidden;
+	transition: box-shadow .3s ease;
 	&:hover{
+		transition: box-shadow .3s ease;
 		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 	}
 }
@@ -356,12 +360,12 @@
 	font-style: normal;
 	font-weight: 600;
 	font-size: 14px;
-	line-height: 16px;
 	width: 248px;
 	height: 16px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	user-select: none;
 }
 
 .NFTs-card-main {
@@ -440,6 +444,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	user-select: none;
 }
 
 .NFTs-price-box {
@@ -475,7 +480,6 @@
 
 .my-profile-tab-subtitle {
 	display: block;
-	user-select: none;
 }
 
 .my-profile-tab-price-title {
@@ -485,7 +489,7 @@
 	line-height: 24px;
 	color: #777e91;
 	margin-bottom: 8px;
-	
+	user-select: none;
 }
 
 .my-profile-tab-price-number {
@@ -505,16 +509,19 @@
 	margin-top: 24px;
 }
 .my-profile-SBTs-card{
+	user-select: none;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	padding: 0px;
 	width: 272px;
-	height: 407px;
+	height: fit-content;
 	border: 1px solid #E6E8EC;
 	border-radius: 12px;
 	overflow: hidden;
+	transition: box-shadow .3s ease;
 	&:hover{
+		transition: box-shadow .3s ease;
 		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 	}
 }
@@ -523,7 +530,9 @@
 	width: 272px;
 	height: 135px;
 	background: #FFFFFF;
-	
+	z-index: 1;
+	display: flex;
+	flex-flow: column wrap;
 }
 .card-logo-name-box{
 	display: flex;
@@ -541,6 +550,7 @@
 	font-size: 14px;
 	color: #353945;
 	margin-left: 10px;
+	user-select: text;
 }
 .divider{
 	width: 100%;
@@ -568,6 +578,7 @@
 	margin-top: 24px;
 }
 .my-profile-Tokens-list{
+	user-select: none;
 	padding: 16px;
 	width: 1136px;
 	height: 75px;

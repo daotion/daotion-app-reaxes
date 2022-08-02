@@ -35,10 +35,13 @@ export const DxzButton = () => {
 		<Space>
 			<Btn
 				type = "primary"
-			></Btn>
+				onClick={()=>{
+					<EditTabsNamePop />}
+				}
+			>joined</Btn>
 			<Btn
 				type = "leave"
-			>22222</Btn>
+			>leave</Btn>
 			
 			
 			<Button
@@ -80,3 +83,16 @@ export const DxzButton = () => {
 		</Space>
 	</>;
 };
+const EditTabsNamePop = ComponentWrapper( () => {
+	return <>
+		<div className = { less.editTabsNamePop }>
+			<div className = { less.editTabsTitle }>TabsName</div>
+			<div className = { less.editTabsBox }>
+				<span>Edit</span>
+			</div>
+			<div className = { less.deleteTabsBox }>
+				<span>Delete</span>
+			</div>
+		</div>
+	</>;
+} );
