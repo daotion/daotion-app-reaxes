@@ -29,7 +29,7 @@ import {DxzButton} from './dxz-button';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzDAODropdownPop/>
+	<DxzMyProfile/>
 </div>
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

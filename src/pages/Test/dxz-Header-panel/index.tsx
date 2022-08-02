@@ -28,7 +28,7 @@ export const DxzHeaderPanel = ComponentWrapper( () => {
 			/>
 			<MenuItem
 				text = { i18n( "Dark theme" ) }
-				icon = { <Switch /> }
+				icon = { <Switch className={less.popSwitch}/> }
 			/>
 			<MenuItem
 				text = { i18n( "Docs" ) }

@@ -76,6 +76,7 @@ const GeneralMenuList = ComponentWrapper( () => {
 			<MenuItem
 				text = {i18n("Dark theme")}
 				icon = { <Switch
+					className={less.popSwitch}
 					onChange = { ( e ) => {
 						reax_theme.switch();
 					} }

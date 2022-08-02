@@ -67,7 +67,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							>{ this.reax_space_detail.store.spaceInfo.name }
 							</span>
 							<div className = { less.share_joinBox }>
-								<ShareIcon></ShareIcon>
+								<ShareBtn></ShareBtn>
 								<BtnSpaceJoinedSetting
 									spaceID = { this.reax_space_detail.store.spaceInfo.spaceID }
 								/>
@@ -303,13 +303,11 @@ const ContentListSecond = ComponentWrapper( () => {
 	</>;
 } );
 
-const ShareIcon = ComponentWrapper( () => {
+const ShareBtn = ComponentWrapper( () => {
 	return <>
-		<div className = { less.shareIcon }>
-			<Button>
+			<Button className = { less.shareBtn}>
 				<SVGShareIcon />
 			</Button>
-		</div>
 	</>;
 } );
 
