@@ -16,7 +16,7 @@ import { ReactTemplate } from '../Public/react-template';
 import { Routing } from './Routing';
 import { Home } from '@@pages/Home';
 import {reaxel_i18n} from '@@reaxels';
-import 'antd/dist/antd.less';
+// import 'antd/dist/antd.less';
 import "./styles/main.module.less";
 import './styles/web3-onboard.cover.less';
 
