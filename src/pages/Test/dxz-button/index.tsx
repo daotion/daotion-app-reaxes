@@ -5,6 +5,7 @@ export const Btn = ( props ) => {
 		Button ,
 		Space ,
 		Input ,
+		
 	} = antd;
 	
 	return <Button
@@ -30,9 +31,14 @@ export const DxzButton = () => {
 	const {
 		Button ,
 		Space ,
+		Popover ,
 	} = antd;
 	return <>
 		<Space>
+			<Popover content={<EditTabsNamePop />} trigger="click">
+				<button>click me</button>
+			</Popover>
+			
 			<Btn
 				type = "primary"
 				onClick={()=>{
@@ -42,6 +48,14 @@ export const DxzButton = () => {
 			<Btn
 				type = "leave"
 			>leave</Btn>
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			<Button

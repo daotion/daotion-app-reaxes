@@ -242,8 +242,8 @@
 }
 
 .share-btn:global(.ant-btn) {
-	width: 48px;
-	height: 48px;
+	width: 46px;
+	height: 46px;
 	background: #f4f5f6;
 	border-radius: 12px;
 	display: flex;
@@ -252,7 +252,7 @@
 	margin-right: 20px;
 	box-shadow: unset;
 	padding: 0;
-	border: none;
+	border: 1px solid #f4f5f6;
 	&:hover {
 		background: #f4f5f6;
 		svg path {
@@ -343,8 +343,50 @@
 	vertical-align: middle;
 	user-select: none;
 }
+.edit-tabs-name-popover:global(.ant-popover){
+	position: absolute;
+	width: fit-content;
+	height: fit-content;
+	background: unset;
+	border: none;
+	border-radius: 12px;
+	padding-top:18px;
+	:global(.ant-popover-arrow){
+		display: none;
+	}
+	:global(.ant-popover-inner-content){
+		border-radius: 12px;
+		width: fit-content;
+		height: 120px;
+		padding:8px;
+		box-shadow: 0px 4px 20px rgb(0 0 0 / 15%);
+	}
 
 
+}  
+.edit-tabs-name-btn:global(.ant-btn){
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	border: unset;
+	background: transparent;
+	box-shadow: unset;
+	vertical-align: middle;
+	margin-bottom: 4px;
+	margin-left: 16px;
+	svg{
+		min-width: 16px;
+		height: 16px;
+	}
+	
+	&:active{
+		outline: transparent;
+	}
+	&:focus{
+		color: transparent;
+		border-color: transparent;
+	}
+}
 .space-info {
 	background: rgb(244, 245, 246);
 	display: flex;
@@ -577,7 +619,7 @@
 		}
 		
 		.ant-tabs-nav-list {
-			width: 500px;
+			width: 520px;
 			display: flex;
 			justify-content: space-between;
 		}
@@ -592,11 +634,13 @@
 			user-select: none;
 			justify-content: center;
 			transition: all .25s ease;
+			display: flex;
+			align-items: center;
 			svg{
+				width: 16px;
+				height: 16px;
 				transition: opacity .25s ease;
 				opacity: 0;
-				margin-left: 16px;
-				margin-bottom: -3px;
 			}
 			&:hover {
 				color: #141416;
@@ -616,20 +660,15 @@
 		}
 	}
 }
-.edit-tabs-name-pop{
-	width: 160px;
-	height: 120px;
-	background: #FFFFFF;
-	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-	border-radius: 12px;
-	padding: 8px;
-	user-select: none;
-}
+
 .edit-tabs-title{
 	font-weight: 600;
 	font-size: 14px;
 	line-height: 24px;
 	color: #1A1D1F;
+	width: 72px;
+	height: 24px;
+	user-select: none;
 }
 .edit-tabs-box{
 	width: 144px;
@@ -643,6 +682,7 @@
 	color: #777E91;
 	border-radius: 8px;
 	justify-content: flex-start;
+	user-select: none;
 	span{
 		margin-left: 8px;
 	}
@@ -656,6 +696,7 @@
 	}
 }
 .delete-tabs-box{
+	user-select: none;
 	width: 144px;
 	height: 40px;
 	padding-left: 8px;
