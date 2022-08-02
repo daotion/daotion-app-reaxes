@@ -32,5 +32,6 @@
 	"Type" : "类型",
 	"Language" : "语言",
 	"Currency" : "货币",
+	"Owner" : "创建者",
 	"Create your Space" : "创建您的空间"
 }

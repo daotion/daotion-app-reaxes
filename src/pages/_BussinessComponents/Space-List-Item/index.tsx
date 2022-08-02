@@ -42,7 +42,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 					} );
 				} }
 			>
-				<I18n>{ mouseEntered ? "leave" : "Joined" }</I18n>
+				<I18n>{ mouseEntered ? "leave" : (role === 3 ? "Owner" : "Joined") }</I18n>
 			</div> : <div
 				onClick = { ( e ) => {
 					e.stopPropagation();

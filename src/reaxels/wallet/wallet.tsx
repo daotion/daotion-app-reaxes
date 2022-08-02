@@ -39,9 +39,7 @@ const connect_wallet_from_storage = function() {
 						disableModals : true ,
 					} ,
 				} ).then(() => {
-					globalSetState( {
-						walletConnecting : true ,
-					} );
+					
 				}).catch(() => {
 					crayon.gold( '222cannot get previous wallet info' );
 				});
@@ -137,8 +135,8 @@ export const reaxel_wallet = function () {
 			/*连接钱包,此promise完成不代表连接完成*/
 			connectWallet( options : ConnectOptions = {} ) {
 				setState( { connecting : true } );
-				return web3Onboard.connectWallet( options ).
-				then( () => {
+				return web3Onboard.connectWallet( null).
+				finally( () => {
 					setState( { connecting : false } );
 				} );
 			} ,
@@ -147,9 +145,11 @@ export const reaxel_wallet = function () {
 				setState( { connecting : true } );
 				web3Onboard.disconnectWallet( { label } ).
 				then( () => {
-					setState( { connecting : false } );
 					orzLocalstroage.remove( account_storage_symbol );
-				} );
+				} ).finally(() => {
+					
+					setState( { connecting : false } );
+				});
 			} ,
 			/*通过web3onboard.setChain来修改当前钱包的链,需要钱包确认才能被确认*/
 			selectChain( options : SetChainOptions , walletLabel? : string ) {
