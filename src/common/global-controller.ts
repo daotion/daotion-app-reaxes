@@ -33,11 +33,7 @@ export const {
 	} ,
 } );
 
-/*@ts-ignore*/
-window.store = globalStore;
 const subscribe_symbol_map: { [ p: symbol ]: Function[] } = {};
-/*@ts-ignore*/
-window.subscribe_symbol_map = subscribe_symbol_map;
 /**
  * 创建一个订阅状态机
  */

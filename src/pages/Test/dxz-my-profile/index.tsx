@@ -6,7 +6,7 @@ import {
 import {
 	reaxel_joined_Space_list ,
 	reaxel_upload_pics ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {
 	Tabs ,
 	Button,
@@ -22,7 +22,6 @@ import {
 	SVGShareIcon ,
 } from '@@pages/_SvgComponents/my-profile-tabs-svg';
 import { SVGSocialShare  } from '@@pages/_SvgComponents/space-info-svg';
-
 const { TabPane } = Tabs;
 const onChange = ( key : string ) => {
 	console.log( key );

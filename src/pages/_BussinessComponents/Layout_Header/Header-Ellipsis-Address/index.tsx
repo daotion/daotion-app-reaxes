@@ -23,4 +23,4 @@ export const EllipsisAddress = ComponentWrapper( () => {
 } );
 
 
-import { reaxel_wallet  } from '@@reaxes';
+import { reaxel_wallet  } from '@@RootPath/src/reaxels';

@@ -4,9 +4,9 @@
 		"allowSyntheticDefaultImports" : true ,
 		"allowUnusedLabels" : true ,
 		"baseUrl" : "." ,
-		"declaration" : true ,
+		"declaration" : false ,
 		"declarationDir" : "src/common/Global DTS" ,
-		"declarationMap" : true ,
+		"declarationMap" : false ,
 		"esModuleInterop" : true ,
 		"experimentalDecorators" : true ,
 		"jsx" : "react" ,
@@ -62,7 +62,7 @@
 		"noUnusedLocals" : false ,
 		"noUnusedParameters" : false ,
 		"paths" : {
-			"@@RootPath/*" : ["/*"] ,
+			"@@RootPath/*" : ["*"] ,
 			"@@common/*" : [
 				"src/common/*"
 			] ,
@@ -99,11 +99,11 @@
 			"@@pages/*" : [
 				"src/pages/*"
 			],
-			"@@reaxes" : [
-				"src/reaxes/index"
+			"@@reaxels" : [
+				"src/reaxels/index"
 			],
-			"@@reaxes/*" : [
-				"src/reaxes/*"
+			"@@reaxels/*" : [
+				"src/reaxels/*"
 			],
 			"@@mobxState" : [
 				"src/common/MobxState.ts"

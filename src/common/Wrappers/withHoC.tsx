@@ -30,7 +30,6 @@ export function withHoC<T extends ( React.Component & React.FC )>( OriginalCompo
 		return baseRender.call(instance);
 	}
 	
-	// @ts-ignore  
 	const componentName = OriginalComponent.displayName || OriginalComponent.name || 'Component';
 	HooksProvider.displayName = componentName + 'Hooks';
 	const H = parentObserver( HooksProvider );

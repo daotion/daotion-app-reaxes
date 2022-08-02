@@ -3,7 +3,7 @@ import {
 	Button ,
 	Select,
 } from 'antd';
-import { reaxel_i18n } from '@@reaxes';
+import { reaxel_i18n } from '@@RootPath/src/reaxels';
 
 const { Option } = Select;
 
@@ -128,7 +128,6 @@ export const DxzVotingProposals = (() => {
 		},
 	};
 	
-	const {} = reaxel_i18n();
 	return <>
 		<div className = { less.voting_proposalsContainer }
 			style = { {

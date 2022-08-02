@@ -97,4 +97,4 @@ export const HeaderNotificationIconSvgComponent = ComponentWrapper(( props: prop
 	
 	
 });
-import {reaxel_theme} from '@@reaxes';
+import {reaxel_theme} from '@@RootPath/src/reaxels';

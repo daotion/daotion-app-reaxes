@@ -1,5 +1,5 @@
 import less from './index.module.less';
-import {reaxel_joined_Space_list} from '@@reaxes';
+import {reaxel_joined_Space_list} from '@@RootPath/src/reaxels';
 
 export const DxzSpaceList = ComponentWrapper(() => {
 	

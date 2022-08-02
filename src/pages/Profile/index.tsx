@@ -1,7 +1,6 @@
 import {
 	reaxel_user_profile,
-} from '@@reaxes';
-
+} from '@@RootPath/src/reaxels';
 
 
 export const Profile = ComponentWrapper( class extends ReactComponentClass {
@@ -15,23 +14,26 @@ export const Profile = ComponentWrapper( class extends ReactComponentClass {
 		
 		if(!profileStore.profile) return null;
 		
-		return <>
+		return <div>
 			this is my profile~
 			<br />
 			<pre>{JSON.stringify(profileStore.profile,null,3)}</pre>
 			<Button
 				onClick = { () => navigate( 'edit' ) }
 			>edit</Button>
-		</>;
+		</div>;
 		
-		return <Modal
-			onCancel={() => {
-				navigate( '../' , { replace : true } );
-			}}
-			visible={true}
-		>
-			xxxxxxx
-		</Modal>
+		return <>
+			<Modal
+				onCancel = { () => {
+					navigate( '../' , { replace : true } );
+				} }
+				visible = { true }
+			>
+				xxxxxxx
+			</Modal>
+		</>
+		
 		
 	}
 } );

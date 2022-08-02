@@ -3,7 +3,7 @@ import {
 	Spin ,
 } from 'antd';
 import { invoke_root_click } from '@@common/global-controller';
-import { reaxel_scrollParentRef } from '@@reaxes';
+import { reaxel_scrollParentRef } from '@@RootPath/src/reaxels';
 import {
 	MainContentRouting ,
 	SiderPluginListRouting ,

@@ -1,7 +1,7 @@
 import {
 	reaxel_joined_Space_list ,
 	reaxel_user_join_or_leave_space,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 
 import less from '@@RootPath/src/styles/reaxels.module.less';
 /*返回join or leave button*/

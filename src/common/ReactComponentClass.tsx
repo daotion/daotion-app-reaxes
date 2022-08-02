@@ -27,7 +27,7 @@ export class ReactComponentClass<Tprops = {}, Tstate = {}> extends Component<Tpr
 	
 	renderedStack:{callback():any,id:string}[] = [];
 	
-	lifecycle:Lifecycle = {
+	lifecycle/*:Lifecycle*/ = {
 		/**
 		 * 只执行某些生命周期
 		 */

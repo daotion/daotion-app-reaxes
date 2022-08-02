@@ -54,8 +54,8 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'@@components' : path.resolve(rootPath , 'src/utils/components/index.ts') ,
 			'@@components/*' : path.resolve(rootPath , 'src/utils/components/*') ,
 			'@@pages' : path.resolve(rootPath , 'src/pages') ,
-			'@@reaxes' : path.resolve(rootPath , 'src/reaxes') ,
-			'@@reaxes/*' : path.resolve(rootPath , 'src/reaxes/*') ,
+			'@@reaxels' : path.resolve(rootPath , 'src/reaxels') ,
+			'@@reaxels/*' : path.resolve(rootPath , 'src/reaxels/*') ,
 			'@@requester' : path.resolve(rootPath , 'src/common/requester') ,
 			'@@requests' : path.resolve(rootPath , 'src/requests') ,
 			'@@requests/*' : path.resolve(rootPath , 'src/requests/*') ,
@@ -70,7 +70,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'.json',
 		] ,
 	} ,
-	devtool : 'source-map' , 
+	devtool : 'cheap-source-map' , 
 	// cache : {
 	// 	type : "filesystem",
 	// 	allowCollectingMemory: true, 
@@ -81,9 +81,6 @@ export const basicConfig$Fn = (plugins = []) => ({
 				test : /\.(jsx?|tsx?)$/ ,
 				use : {
 					loader : 'babel-loader' ,
-					options : {
-						sourceMap : true ,
-					} ,
 				} ,
 				exclude : /node_modules/ ,
 			} ,

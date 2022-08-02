@@ -13,8 +13,7 @@ import {
 	reaxel_scrollParentRef ,
 	reaxel_space_list ,
 	reaxel_wallet ,
-	reaxel_i18n,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import InfiniteScroll from 'react-infinite-scroller';
 
 const { Option } = Select;
@@ -24,8 +23,6 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 	scrollParentRef = reaxel_scrollParentRef();
 	// signMsg = reaxel_sign_via_wallet( this.lifecycle );
 	reax_spaces_list = reaxel_space_list( this.lifecycle );
-	
-	reax_i18n = reaxel_i18n();
 	
 	JSX = {
 		InfiniteSpacesList : () => {
@@ -64,7 +61,6 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 	
 	render() {
 		const reax_wallet = this.reax_wallet;
-		const { i18n } = this.reax_i18n;
 		return <>
 			<div
 				style = { {

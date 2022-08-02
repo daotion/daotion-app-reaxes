@@ -14,12 +14,10 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 	
 	reax_joined_Space_list = reaxel_joined_Space_list();
 	
-	reax_I18n = reaxel_i18n();
 	
 	render() {
 		const { params } = utils.useRouter();
 		const spaceID = parseInt( params.spaceID );
-		const { I18n } = this.reax_I18n;
 		this.reax_space_detail.getSpaceDetailMemoed( spaceID );
 		
 		if ( !this.reax_space_detail.store.spaceInfo ) return null;
@@ -31,12 +29,6 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 				<div
 					className = { less.spaceInfo }
 				>
-					<header
-						className = { less.tabSettingNav }
-					>
-						<DxzTokenOverview />
-						<SVGSettingSpaceProfile />
-					</header>
 					<div className = { less.banner }>
 						<Img
 							className = { less.coverImg }
@@ -141,8 +133,7 @@ import {
 	reaxel_upload_pics ,
 	reaxel_user_join_or_leave_space ,
 	reaxel_space_detail ,
-	reaxel_i18n ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {
 	Img ,
 	WalletAddressCopyBox ,
@@ -312,22 +303,6 @@ const ContentListSecond = ComponentWrapper( () => {
 	</>;
 } );
 
-const SpaceJoinAvater = ComponentWrapper( () => {
-	return <>
-		<img
-			src = "https://s1.ax1x.com/2022/07/11/j6YgIg.png"
-			alt = "avater"
-			style = { {
-				borderRadius : "16px" ,
-				position : "absolute" ,
-				top : "204px" ,
-				left : "32px" ,
-				width : "124px" ,
-				height : "124px" ,
-			} }
-		/>
-	</>;
-} );
 const ShareBtn = ComponentWrapper( () => {
 	return <>
 			<Button className = { less.shareBtn}>

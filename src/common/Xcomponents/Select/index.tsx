@@ -19,7 +19,7 @@ export const Select: React.FC<SelectProps> = (props) => {
         }}
         showArrow={true}
         {...props}
-      >s
+      >
         {props.children}
       </AntdSelect>
     </div>

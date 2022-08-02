@@ -21,5 +21,5 @@ export const KaneDarkMode = ComponentWrapper(() => {
 		</footer>
 	</div>;
 })
-import { reaxel_theme } from '@@reaxes';
+import { reaxel_theme } from '@@RootPath/src/reaxels';
 import less from './index.module.less';

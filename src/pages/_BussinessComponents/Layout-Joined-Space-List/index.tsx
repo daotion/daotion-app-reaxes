@@ -3,7 +3,7 @@ import {
 	reaxel_create_space ,
 	reaxel_joined_Space_list ,
 	reaxel_wallet ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import {Img} from '@@common/Xcomponents';
 import {useParams} from 'react-router-dom';
 /**
@@ -33,12 +33,10 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 	
 	memoSetSelectingSpaceIDFromRoute = Reaxes.closuredMemo((routeSpaceID:number) => {
 		if(typeof routeSpaceID === "number" && !_.isNaN(routeSpaceID)){
-			// console.log( routeSpaceID );
 			setTimeout( () => this.setState( {
 				selectingSpaceID : routeSpaceID ,
 			} ) );
 		}else if(this.state.selectingSpaceID !== null) {
-			console.log( routeSpaceID );
 			setTimeout( () => this.setState( {
 				selectingSpaceID : null ,
 			} ) );
@@ -115,12 +113,6 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 						
 						
 						
-						
-						
-						
-						
-						
-						
 						return <div
 							key = { spaceInfo.spaceID }
 							onClick = { () => {
@@ -157,11 +149,6 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 					/>
 					<BtnCreateSpaceSvgComponent />
 				</div>
-				{/* todo <CreateModalContent
-						modalVisible = { this.state.createSpaceModalShowing }
-						setModalVisible = { () => this.setState( { createSpaceModalShowing : !this.state.createSpaceModalShowing } ) }
-						provider = { this.reax_wallet.web3Provider }
-					/>*/ }
 			</div>
 		</>;
 	}

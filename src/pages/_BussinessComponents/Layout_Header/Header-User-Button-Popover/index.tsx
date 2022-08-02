@@ -4,7 +4,6 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 		Switch ,
 	} = antd;
 	const reax_wallet = reaxel_wallet();
-	const { I18n } = reaxel_i18n();
 	const [ visible , setVisible ] = useState( false );
 	const { navigate } = utils.useRouter();
 	
@@ -164,5 +163,4 @@ import { EllipsisAddress } from '../Header-Ellipsis-Address';
 
 import {
 	reaxel_wallet ,
-	reaxel_i18n ,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';

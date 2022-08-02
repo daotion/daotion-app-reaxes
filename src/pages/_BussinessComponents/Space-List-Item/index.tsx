@@ -1,9 +1,8 @@
-import { Space__all_spaces } from '@@reaxes/Spaces/types';
+import { Space__all_spaces } from '@@RootPath/src/reaxels/Spaces/types';
 import {
 	reaxel_joined_Space_list ,
 	reaxel_user_join_or_leave_space ,
-	reaxel_i18n,
-} from '@@reaxes';
+} from '@@RootPath/src/reaxels';
 import chainIconMap from '@@Public/chain-icon-map.json';
 import { message } from 'antd';
 
@@ -15,22 +14,26 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 	
 	reax_user_join_or_leave_space = reaxel_user_join_or_leave_space();
 	
-	reax_i18n = reaxel_i18n();
-	
 	JSX = {
 		
-		join_or_leave : () => {
-			const [mouseEntered , setMouseEntered] = useState(false);
+		Join_or_leave : ComponentWrapper(() => {
+			const [ mouseEntered , setMouseEntered ] = useState( false );
 			const { spaceID } = this.props.info;
-			const { I18n } = this.reax_i18n;
+			const role = this.reax_joined_spaces_list.joined_space_list.find((item) => item.spaceID === spaceID)?.role;
 			return this.reax_joined_spaces_list.joined_space_list.some( ( item ) => item.spaceID === this.props.info.spaceID ) ? <div
 				className = { less.spaceListItemBtnJoined }
-				onMouseEnter={() => {
-					setMouseEntered(true);
-				}}
-				onMouseLeave={() => setMouseEntered(false)}
+				onMouseEnter = { () => {
+					if(role === 3){
+						return;
+					}
+					setMouseEntered( true );
+				} }
+				onMouseLeave = { () => setMouseEntered( false ) }
 				onClick = { ( e ) => {
 					e.stopPropagation();
+					if(role === 3){
+						return;
+					}
 					this.reax_user_join_or_leave_space.leave_space( spaceID ).
 					then( () => {
 						if ( __EXPERIMENTAL__ ) {
@@ -39,7 +42,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 					} );
 				} }
 			>
-				<I18n>{mouseEntered ? "leave" : "Joined"}</I18n>
+				<I18n>{ mouseEntered ? "leave" : "Joined" }</I18n>
 			</div> : <div
 				onClick = { ( e ) => {
 					e.stopPropagation();
@@ -54,11 +57,12 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 			>
 				<I18n>
 					Join
-				</I18n></div>;
-		} ,
+				</I18n>
+			</div>;
+		}) ,
 	};
-	
 	render() {
+		const {Join_or_leave} = this.JSX;
 		const { info } = this.props;
 		const { navigate } = utils.useRouter();
 		return <>
@@ -77,19 +81,19 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 							justifyContent : "center" ,
 							alignItems : "center" ,
 							marginTop : "24px" ,
-							width : "100%",
+							width : "100%" ,
 						} }
 					>
 						<span
 							style = { {
 								fontSize : "16px" ,
 								fontWeight : "bold" ,
-								display:"block",
-								textAlign:"center",
-								whiteSpace:"nowrap",
-								overflow:"hidden",
-								textOverflow:"ellipsis",
-								width : "180px",
+								display : "block" ,
+								textAlign : "center" ,
+								whiteSpace : "nowrap" ,
+								overflow : "hidden" ,
+								textOverflow : "ellipsis" ,
+								width : "180px" ,
 							} }
 						>{ info.name }</span>
 					
@@ -104,7 +108,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 						/> ) }
 					</div>
 					
-					{ this.JSX.join_or_leave() }
+					<Join_or_leave/>
 				</div>
 			</div>
 		</>;
@@ -131,7 +135,7 @@ export const Space_Item_Name_Icon = ( props : { src : string } ) => {
 				backgroundColor : "#f4f5f6" ,
 				flex : "0 0 auto" ,
 				backgroundSize : "cover" ,
-				objectPosition : "50% 50%",
+				objectPosition : "50% 50%" ,
 			} }
 		/>
 	</>;
@@ -176,7 +180,7 @@ export const Space_Item_Tag = ( props : { text : string } ) => {
 			height : "16px" ,
 			lineHeight : "normal" ,
 			width : "fit-content" ,
-			alignItems : "center",
+			alignItems : "center" ,
 		} }
 	>{ props.text }</span>;
 };

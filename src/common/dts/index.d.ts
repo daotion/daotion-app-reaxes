@@ -115,7 +115,7 @@ declare namespace ORZ {
 	
 	export type env = "server_dev"|"server_yang" | "unset"  ;
 	
-	export type RequestOptions<body extends () => (Promise<F>|F) ,F = any> = Omit<RequestInit, 'body'> & {
+	export type RequestOptions<body extends () => Promise<F> ,F = any> = Omit<RequestInit, 'body'> & {
 		env? : env,
 		body?: body;
 		mock? : boolean ;
@@ -135,4 +135,6 @@ declare module 'mobx-react-lite' {
 }
 
 
-declare type PayloadBody<T> = () => (Promise<T> | T); 
+declare type PayloadBody<T> = () => Promise<T>; 
+/*从Promise里获取then的值*/
+declare type PromiseValue<P> = P extends Promise<infer V> ? V : never; 

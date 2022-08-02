@@ -1,6 +1,7 @@
 import { hot } from 'react-hot-loader/root';
 import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
+import zhTW from 'antd/lib/locale/zh_TW';
 import {
 	Button ,
 	ConfigProvider ,
@@ -14,7 +15,8 @@ import { Test } from '@@pages/Test';
 import { ReactTemplate } from '../Public/react-template';
 import { Routing } from './Routing';
 import { Home } from '@@pages/Home';
-import 'antd/dist/antd.less';
+import {reaxel_i18n} from '@@reaxels';
+// import 'antd/dist/antd.less';
 import "./styles/main.module.less";
 import './styles/web3-onboard.cover.less';
 
@@ -33,17 +35,18 @@ export const App = ComponentWrapper(class extends ReactComponentClass {
 		} );
 		
 	}
+	reax_i18n = reaxel_i18n();
 	
 	render() {
-		[ globalStore.theme ];
-		
 		
 		return <>
 			<ConfigProvider
 				locale = { {
-					"zhCN" : zhCN ,
+					"zh-CN" : zhCN ,
+					"zh-TC" : zhTW ,
 					"enUS" : enUS ,
-				}[ globalStore.language ] }
+					"en" : enUS ,
+				}[ this.reax_i18n.language ] }
 			
 			>
 				<Routing />

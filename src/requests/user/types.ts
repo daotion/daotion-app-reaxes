@@ -30,20 +30,60 @@ export namespace User__address_alias {
 
 export namespace User__profile_info {
 	
-	export interface payload {
+	export type payload = {
 		address : string;
 	}
 	
-	export interface response {
-		"address": string,
-		"iconUrl": string,
-		"bgUrl": string,
-		"displayName": string,
-		"bio": string,
-		"customUrl": string,
-		"links": string,
+	export type response = {
+		"address" : string;
+		"iconUrl" : string;
+		"bgUrl" : string;
+		"displayName" : string;
+		"bio" : string;
+		"customUrl" : string;
+		"socialLinks" : string;
 		/*用户是否曾经登陆过*/
-		"exist": true
+		"exist" : true;
 	}
 }
 
+export namespace User__update_profile {
+	
+	export type response = {};
+	
+	export type payload = {
+		"address" : string;
+		"data" : {
+			"displayName" : string;
+			"bio" : string;
+			"customUrl" : string;
+			"socialLinks" : string;
+			"setAddress" : string;
+			"timestamp" : number;
+		};
+		"signature" : string;
+	};
+}
+
+export namespace User__upload_avatar {
+	
+	export type response = {
+		"address" : string;
+		"profileType" : number;
+		"url" : string;
+		"ipfsHash" : string;
+	};
+	
+	export type payload = {
+		address : string;
+		data : {
+			address : string;
+			profileType : number;
+			timestamp : number;
+			socialLinks : string;
+		}
+		// todo 要改掉
+		signature : any;
+		file : File;
+	}
+}
