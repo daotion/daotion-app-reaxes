@@ -96,25 +96,25 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							onChange = { onChange }
 						>
 							<TabPane
-								tab = {<span>OverView</span>}
+								tab = { <span>OverView</span> }
 								key = "1"
 							>
 								<SpaceOverViewContainer />
 							</TabPane>
 							<TabPane
-								tab = {<span>Articles<SVGSettingTabs/></span>}
+								tab = { <span>Articles<EditTabsNamePopover /></span> }
 								key = "2"
 							>
 								Content of Tab Pane 22222
 							</TabPane>
 							<TabPane
-								tab = {<span>Tab3<SVGSettingTabs/></span>}
+								tab = { <span>Tab3<EditTabsNamePopover /></span> }
 								key = "3"
 							>
 								Content of Tab Pane 33333
 							</TabPane>
 							<TabPane
-								tab = {<span>Tab4<SVGSettingTabs/></span>}
+								tab = { <span>Tab4<EditTabsNamePopover /></span> }
 								key = "4"
 							>
 								Content of Tab Pane 44444
@@ -127,7 +127,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 	}
 } );
 
-
+import { XPopover } from '@@common/Xcomponents';
 import {
 	reaxel_joined_Space_list ,
 	reaxel_space_settings_upload_pictures ,
@@ -138,35 +138,42 @@ import {
 	Img ,
 	WalletAddressCopyBox ,
 } from '@@common/Xcomponents';
-import {
-	SVGShareIcon ,
-	SVGAddNewIcon ,
-	SVGEditTabIcon ,
-	SVGDeleteTabIcon ,
-	SVGSettingSpaceProfile ,
-	SVGSpaceVK ,
-	SVGSpaceFacebook ,
-	SVGSpaceIns ,
-	SVGSpaceDiscord ,
-	SVGSpaceLink ,
-	SVGSpaceReddit ,
-	SVGSpaceGithub ,
-	SVGSpaceTelegram ,
-	SVGSpaceTwitter ,
-	SVGSpaceYoutube ,
-	SVGSocialShare ,
-	SVGSettingTabs ,
-} from '@@pages/_SvgComponents/space-info-svg';
 
 import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
-import { DxzTokenOverview } from '@@pages/Test/dxz-Token-overview';
 import less from './index.module.less';
-import { Button } from 'antd';
+import {
+	Button ,
+} from 'antd';
 
-
-const EditTabsNamePop = ComponentWrapper( () => {
+const EditTabsNameBtn = ComponentWrapper( () => {
 	return <>
-		<div className = { less.editTabsNamePop }>
+		<Button
+			className = { less.editTabsNameBtn }
+			shape="round">
+			<SVGSettingTabs />
+		</Button>
+	</>;
+} );
+
+const EditTabsNamePopover = ComponentWrapper( () => {
+	return <>
+		<XPopover
+			content = { <EditTabsNameContent /> }
+			trigger = "click"
+			placement={"bottom"}
+			overlayClassName={less.editTabsNamePopover}
+		>
+			<Button
+				className = { less.editTabsNameBtn }
+				shape="round">
+				<SVGSettingTabs />
+			</Button>
+		</XPopover>
+	</>;
+} );
+const EditTabsNameContent = ComponentWrapper( () => {
+	return <>
+		<div>
 			<div className = { less.editTabsTitle }>TabsName</div>
 			<div className = { less.editTabsBox }>
 				<SVGEditTabIcon />
@@ -181,34 +188,13 @@ const EditTabsNamePop = ComponentWrapper( () => {
 } );
 const AddNewTabBtn = ComponentWrapper( () => {
 	return <>
-		<div
-			className = { less.addNewTabBtn }
-		>
 			<Button
-				id = "addTabBtn"
-				style = { {
-					borderColor : "#e6e8ec" ,
-				} }
-				onMouseOver = { AddTabMouseOver }
-				onMouseLeave = { AddTabMouseOut }
-			>
+				className={less.addNewTabBtn}>
 				<SVGAddNewIcon />
 				<span>New</span>
 			</Button>
-		</div>
 	</>;
 } );
-
-function AddTabMouseOver() {
-	const AddBtn = document.getElementById( 'addTabBtn' );
-	AddBtn.style.border = '2px solid #b1b5c3';
-}
-
-function AddTabMouseOut() {
-	const AddBtn = document.getElementById( 'addTabBtn' );
-	AddBtn.style.border = '2px solid #e6e8ec';
-}
-
 const SpaceOverViewContainer = ComponentWrapper( () => {
 	return <>
 		<div className = { less.contentBox }>
@@ -291,7 +277,6 @@ const ContentListFirst = ComponentWrapper( () => {
 	return <>
 		<div className = { less.contentListFirst }>
 			<OverViewTitle />
-			<EditTabsNamePop />
 		</div>
 	</>;
 } );
@@ -305,11 +290,31 @@ const ContentListSecond = ComponentWrapper( () => {
 
 const ShareBtn = ComponentWrapper( () => {
 	return <>
-			<Button className = { less.shareBtn}>
-				<SVGShareIcon />
-			</Button>
+		<Button className = { less.shareBtn }>
+			<SVGShareIcon />
+		</Button>
 	</>;
 } );
+
+import {
+	SVGShareIcon ,
+	SVGAddNewIcon ,
+	SVGEditTabIcon ,
+	SVGDeleteTabIcon ,
+	SVGSettingSpaceProfile ,
+	SVGSpaceVK ,
+	SVGSpaceFacebook ,
+	SVGSpaceIns ,
+	SVGSpaceDiscord ,
+	SVGSpaceLink ,
+	SVGSpaceReddit ,
+	SVGSpaceGithub ,
+	SVGSpaceTelegram ,
+	SVGSpaceTwitter ,
+	SVGSpaceYoutube ,
+	SVGSocialShare ,
+	SVGSettingTabs ,
+} from '@@pages/_SvgComponents/space-info-svg';
 
 
 

@@ -5,6 +5,7 @@ export const Btn = ( props ) => {
 		Button ,
 		Space ,
 		Input ,
+		
 	} = antd;
 	
 	return <Button
@@ -30,15 +31,31 @@ export const DxzButton = () => {
 	const {
 		Button ,
 		Space ,
+		Popover ,
 	} = antd;
 	return <>
 		<Space>
+			<Popover content={<EditTabsNamePop />} trigger="click">
+				<button>click me</button>
+			</Popover>
+			
 			<Btn
 				type = "primary"
-			></Btn>
+				onClick={()=>{
+					<EditTabsNamePop />}
+				}
+			>joined</Btn>
 			<Btn
 				type = "leave"
-			>22222</Btn>
+			>leave</Btn>
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			<Button
@@ -80,3 +97,16 @@ export const DxzButton = () => {
 		</Space>
 	</>;
 };
+const EditTabsNamePop = ComponentWrapper( () => {
+	return <>
+		<div className = { less.editTabsNamePop }>
+			<div className = { less.editTabsTitle }>TabsName</div>
+			<div className = { less.editTabsBox }>
+				<span>Edit</span>
+			</div>
+			<div className = { less.deleteTabsBox }>
+				<span>Delete</span>
+			</div>
+		</div>
+	</>;
+} );
