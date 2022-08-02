@@ -21,12 +21,15 @@
 .setting-btn.setting-btn {
 	border: none;
 	background: #f4f5f6;
+	
 	span {
 		color: #777e90;
 	}
+	
 	svg {
 		margin-right: 8px;
 	}
+	
 	&:hover {
 		background: #d9d9d9;
 		
@@ -41,36 +44,43 @@
 		}
 	}
 }
+
 /*类名重复写一次可提高优先级*/
-.join-btn.join-btn{
+.join-btn.join-btn {
 	background: #0070f3;
 	color: #ffffff;
 }
-.join-btn.join-btn.join-btn:hover{
+
+.join-btn.join-btn.join-btn:hover {
 	transition: all 0.3s ease;
 	background: #0099ff;
 	color: #ffffff;
 }
-.join-btn.join-btn:active{
+
+.join-btn.join-btn:active {
 	transition: all 0.3s ease;
 	background: #0070f3;
 	color: #ffffff;
 }
-.join-btn.join-btn:focus{
+
+.join-btn.join-btn:focus {
 	transition: all 0.3s ease;
 	background: #0070f3;
 	color: #ffffff;
 }
-.joined-btn.joined-btn.joined-btn{
+
+.joined-btn.joined-btn.joined-btn {
 	background: #f4f5f6;
 	box-shadow: 0 0 0 1px #f4f5f6;
 }
+
 .joined-btn.joined-btn:hover {
 	transition: all 0.3s ease;
 	background: #ffe6ea;
 	box-shadow: 0 0 0 1px #f21361;
 }
-.joined-btn.joined-btn{
+
+.joined-btn.joined-btn {
 	&:hover {
 		> span {
 			&::after {
@@ -242,8 +252,8 @@
 }
 
 .share-btn:global(.ant-btn) {
-	width: 46px;
-	height: 46px;
+	width: 48px;
+	height: 48px;
 	background: #f4f5f6;
 	border-radius: 12px;
 	display: flex;
@@ -253,13 +263,16 @@
 	box-shadow: unset;
 	padding: 0;
 	border: 1px solid #f4f5f6;
+	
 	&:hover {
 		background: #f4f5f6;
+		
 		svg path {
 			transition: all .3s ease;
 			fill: #141416;
 		}
 	}
+	
 	&:focus {
 		background: #f4f5f6;
 	}
@@ -343,28 +356,29 @@
 	vertical-align: middle;
 	user-select: none;
 }
-.edit-tabs-name-popover:global(.ant-popover){
+
+.edit-tabs-name-popover:global(.ant-popover) {
 	position: absolute;
 	width: fit-content;
 	height: fit-content;
-	background: unset;
 	border: none;
-	border-radius: 12px;
-	padding-top:18px;
-	:global(.ant-popover-arrow){
+	
+	:global(.ant-popover-arrow) {
 		display: none;
 	}
-	:global(.ant-popover-inner-content){
+	
+	:global(.ant-popover-inner-content) {
 		border-radius: 12px;
 		width: fit-content;
 		height: 120px;
-		padding:8px;
+		padding: 8px;
 		box-shadow: 0px 4px 20px rgb(0 0 0 / 15%);
 	}
+	
+	
+}
 
-
-}  
-.edit-tabs-name-btn:global(.ant-btn){
+.edit-tabs-name-btn:global(.ant-btn) {
 	width: 16px;
 	height: 16px;
 	padding: 0;
@@ -374,19 +388,22 @@
 	vertical-align: middle;
 	margin-bottom: 4px;
 	margin-left: 16px;
-	svg{
+	
+	svg {
 		min-width: 16px;
 		height: 16px;
 	}
 	
-	&:active{
+	&:active {
 		outline: transparent;
 	}
-	&:focus{
+	
+	&:focus {
 		color: transparent;
 		border-color: transparent;
 	}
 }
+
 .space-info {
 	background: rgb(244, 245, 246);
 	display: flex;
@@ -461,6 +478,7 @@
 	font-weight: 700;
 	color: #141416;
 	transition: all .25s ease;
+	
 	span {
 		margin-right: 16px;
 		user-select: none;
@@ -564,43 +582,42 @@
 	border: 1px solid rgb(230, 232, 236);
 }
 
-.add-new-tab-btn {
-	:global {
-		.ant-btn.ant-btn-default {
-			display: flex;
-			align-items: center;
-			padding: 8px 12px;
-			width: 82px;
-			height: 32px;
-			border-radius: 8px;
-			font-weight: 700;
-			font-size: 14px;
-			line-height: normal;
-			float: right;
-			margin-top: 10px;
-			box-shadow: unset;
-			justify-content: space-between;
-			color: #777e90;
-		}
-		
-		.ant-btn:hover {
+.add-new-tab-btn:global(.ant-btn) {
+	display: flex;
+	align-items: center;
+	padding: 8px 12px;
+	width: 82px;
+	height: 32px;
+	border-radius: 8px;
+	font-weight: 700;
+	font-size: 14px;
+	line-height: normal;
+	float: right;
+	margin-top: 10px;
+	box-shadow: unset;
+	justify-content: space-between;
+	color: #777e90;
+	border: 2px solid #e6e8ec;
+	transition: all .2s ease;
+	&:hover {
+		transition: all .2s ease;
+		color: #141416;
+		border-color: #b1b5c3;
+		svg path {
 			transition: all .2s ease;
-			color: #141416;
-			border-color: #b1b5c3;
-			
-			svg path {
-				transition: all .2s ease;
-				fill: #141416;
-			}
+			fill: #141416;
 		}
 	}
 }
+	
+
 
 .space-info {
 	:global {
 		.ant-tabs-tab {
 			padding: 0 0 0 0;
 		}
+		
 		.ant-tabs-content-holder {
 			width: 1136px;
 			height: 887px;
@@ -636,15 +653,18 @@
 			transition: all .25s ease;
 			display: flex;
 			align-items: center;
-			svg{
+			
+			svg {
 				width: 16px;
 				height: 16px;
 				transition: opacity .25s ease;
 				opacity: 0;
 			}
+			
 			&:hover {
 				color: #141416;
-				svg{
+				
+				svg {
 					opacity: 1;
 				}
 			}
@@ -661,16 +681,17 @@
 	}
 }
 
-.edit-tabs-title{
+.edit-tabs-title {
 	font-weight: 600;
 	font-size: 14px;
 	line-height: 24px;
-	color: #1A1D1F;
+	color: #1a1d1f;
 	width: 72px;
 	height: 24px;
 	user-select: none;
 }
-.edit-tabs-box{
+
+.edit-tabs-box {
 	width: 144px;
 	height: 40px;
 	padding-left: 8px;
@@ -679,23 +700,27 @@
 	line-height: 24px;
 	display: flex;
 	align-items: center;
-	color: #777E91;
+	color: #777e91;
 	border-radius: 8px;
 	justify-content: flex-start;
 	user-select: none;
-	span{
+	
+	span {
 		margin-left: 8px;
 	}
-	&:hover{
+	
+	&:hover {
 		transition: all .3s ease;
 		background: #f4f5f6;
 		color: #4f4f4f;
-		svg path{
+		
+		svg path {
 			fill: #4f4f4f;
 		}
 	}
 }
-.delete-tabs-box{
+
+.delete-tabs-box {
 	user-select: none;
 	width: 144px;
 	height: 40px;
@@ -705,17 +730,20 @@
 	line-height: 24px;
 	display: flex;
 	align-items: center;
-	color: #F21361;
+	color: #f21361;
 	border-radius: 8px;
 	justify-content: flex-start;
-	span{
+	
+	span {
 		margin-left: 8px;
 	}
-	&:hover{
+	
+	&:hover {
 		transition: all .2s ease;
-		background: #F21361;
+		background: #f21361;
 		color: #ffffff;
-		svg path{
+		
+		svg path {
 			fill: #ffffff;
 		}
 	}

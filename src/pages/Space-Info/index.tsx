@@ -188,21 +188,15 @@ const EditTabsNameContent = ComponentWrapper( () => {
 } );
 const AddNewTabBtn = ComponentWrapper( () => {
 	return <>
-		<div
-			className = { less.addNewTabBtn }
-		>
 			<Button
-				id = "addTabBtn"
-				style = { {
-					borderColor : "#e6e8ec" ,
-				} }
-				onMouseOver = { AddTabMouseOver }
-				onMouseLeave = { AddTabMouseOut }
+				className={less.addNewTabBtn}
+				// id = "addTabBtn"
+				// onMouseOver = { AddTabMouseOver }
+				// onMouseLeave = { AddTabMouseOut }
 			>
 				<SVGAddNewIcon />
 				<span>New</span>
 			</Button>
-		</div>
 	</>;
 } );
 
@@ -298,7 +292,6 @@ const ContentListFirst = ComponentWrapper( () => {
 	return <>
 		<div className = { less.contentListFirst }>
 			<OverViewTitle />
-			<EditTabsNameContent />
 		</div>
 	</>;
 } );
