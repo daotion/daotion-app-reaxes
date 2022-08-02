@@ -189,27 +189,12 @@ const EditTabsNameContent = ComponentWrapper( () => {
 const AddNewTabBtn = ComponentWrapper( () => {
 	return <>
 			<Button
-				className={less.addNewTabBtn}
-				// id = "addTabBtn"
-				// onMouseOver = { AddTabMouseOver }
-				// onMouseLeave = { AddTabMouseOut }
-			>
+				className={less.addNewTabBtn}>
 				<SVGAddNewIcon />
 				<span>New</span>
 			</Button>
 	</>;
 } );
-
-function AddTabMouseOver() {
-	const AddBtn = document.getElementById( 'addTabBtn' );
-	AddBtn.style.border = '2px solid #b1b5c3';
-}
-
-function AddTabMouseOut() {
-	const AddBtn = document.getElementById( 'addTabBtn' );
-	AddBtn.style.border = '2px solid #e6e8ec';
-}
-
 const SpaceOverViewContainer = ComponentWrapper( () => {
 	return <>
 		<div className = { less.contentBox }>
