@@ -10,7 +10,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 	
 	reax_user_join_or_leave_space = reaxel_user_join_or_leave_space();
 	
-	reax_upload_banner = reaxel_upload_pics();
+	reax_upload_banner = reaxel_space_settings_upload_pictures();
 	
 	reax_joined_Space_list = reaxel_joined_Space_list();
 	
@@ -130,7 +130,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 
 import {
 	reaxel_joined_Space_list ,
-	reaxel_upload_pics ,
+	reaxel_space_settings_upload_pictures ,
 	reaxel_user_join_or_leave_space ,
 	reaxel_space_detail ,
 } from '@@RootPath/src/reaxels';

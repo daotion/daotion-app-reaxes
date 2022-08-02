@@ -4,7 +4,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 		getSpaceDetailMemoed ,
 		store : store__space_detail ,
 	} = reaxel_space_detail();
-	const { space_settings_avatar : reax_upload_avatar } = reaxel_upload_pics();
+	const { space_settings_avatar : reax_upload_avatar } = reaxel_space_settings_upload_pictures();
 	const {
 		InfoEquals ,
 		editingStore ,
@@ -231,7 +231,7 @@ const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 import {
 	reaxel_edit_space_general_settings ,
 	reaxel_space_detail ,
-	reaxel_upload_pics,
+	reaxel_space_settings_upload_pictures,
 } from '@@reaxels';
 import {
 	SVGClear ,

@@ -1,22 +1,22 @@
 /**
  * 上传profile/space-avatar头像等
  */
-import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
-import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
-import { reaxel_space_detail } from '@@RootPath/src/reaxels/Spaces/space-detail';
-import { reaxel_joined_Space_list } from '@@RootPath/src/reaxels/Spaces/joined-space-list';
-import { reaxel_user_profile } from '@@RootPath/src/reaxels/user/profile';
+import { reaxel_user } from '@@reaxels/user/auth';
+import { reaxel_wallet } from '@@reaxels/wallet/wallet';
+import { reaxel_space_detail } from '@@reaxels/Spaces/space-detail';
+import { reaxel_joined_Space_list } from '@@reaxels/Spaces/joined-space-list';
+import { reaxel_user_profile } from '@@reaxels/user/profile-info';
 
 import {
 	request_server_timestamp ,
 	request_upload_space_banner ,
 	request_upload_space_avatar,
-	request_user_upload_avatar ,
+	request_user_upload_profile_pictures ,
 	
 } from '@@requests';
 
 
-export const reaxel_upload_pics = function () {
+export const reaxel_space_settings_upload_pictures = function () {
 	let ret;
 	
 	/*递归对象转换成data[subKey][subsubkey]的formdata*/
@@ -131,50 +131,6 @@ export const reaxel_upload_pics = function () {
 				} );
 				input.click();
 			} ,
-			/*上传用户头像*/
-			user_profile_upload_avatar(callback = (url?:string) => null ){
-				const reax_user = reaxel_user();
-				const reax_wallet = reaxel_wallet();
-				const reax_user_profile = reaxel_user_profile();
-				
-				const fetch_upload = async ( file : File ):Promise<string> => {
-					
-					const createPayload = async () => {
-						const { address } = reax_wallet.account;
-						const data = {
-							address ,
-							profileType : 1 ,
-							timestamp : await request_server_timestamp() ,
-						};
-						const signature = await reax_user.signByFakeWallet( data );
-						return formater( {
-							address ,
-							data ,
-							signature ,
-							file ,
-						} );
-					};
-					
-					try {
-						const response = await request_user_upload_avatar( createPayload);
-						reax_user_profile.setProfileAvatar( response.url );
-						antd.Modal.success( { title : "upload successful!" } );
-						return response.url;
-					} catch ( e ) {
-						antd.Modal.error( { title : e.toString() } );
-						throw e;
-					}
-				};
-				const input = uploader( {} , ( [ file ] ) => {
-					fetch_upload( file ).
-					then( (url) => {
-						return reax_user_profile.setProfileAvatar(url),url;
-					} ).then((url) => {
-						callback(url);
-					});
-				} );
-				input.click();
-			},
 		};
 	};
 }();

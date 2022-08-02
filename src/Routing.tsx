@@ -69,6 +69,10 @@ export const MainContentRouting = ( props ) => <Routes>
 				path = "edit"
 				element = { utils.withOutlet( <EditProfile /> ) }
 			/>
+			<Route
+				path = ":address"
+				element = { utils.withOutlet( <Profile /> ) }
+			/>
 		</Route>
 		<Route
 			path = "space:spaceID/*"

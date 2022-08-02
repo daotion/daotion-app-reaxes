@@ -25,6 +25,7 @@ export const orzMobx = <S extends object>(state: S) => {
 	};
 };
 
+
 const makePartialState = state => {};
 
 const setMobxState = action(<S extends {}>(store, partialState: Partial<S>) => {

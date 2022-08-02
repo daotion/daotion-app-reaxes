@@ -2,9 +2,10 @@ import {
 	User__profile_info ,
 	User__update_profile ,
 	User__upload_avatar ,
+	User__profile_joined_list ,
 } from './types';
 
-
+/*获取用户profile信息*/
 export const request_user_profile = ( payload : PayloadBody<User__profile_info.payload> ) => {
 	return request.post<User__profile_info.response , typeof payload>( `/user/user-profile-detail` , {
 		body : payload ,
@@ -14,19 +15,11 @@ export const request_user_profile = ( payload : PayloadBody<User__profile_info.p
 	} );
 };
 
-
-export const request_user_update_profile = (
-	payload : PayloadBody<User__update_profile.payload> ,
-) => {
-	return request.post( `/user/user-update-profile` , {
+/*获取用户主页里用户加入的space list*/
+export const request_user_profile_joined_list = (payload : PayloadBody<User__profile_joined_list.payload>) => {
+	
+	
+	return request.post<User__profile_joined_list.response , typeof payload>( '/user/user-profile-joined-space-list-paged' , {
 		body : payload ,
 	} );
-};
-
-export const request_user_upload_avatar = (
-	payload : PayloadBody<User__upload_avatar.payload> ,
-) => {
-	return request.post<User__upload_avatar.response>( `/user/user-upload-avatar` , {
-		body : payload ,
-	} );
-};
+}

@@ -1,15 +1,16 @@
-import { MinusCircleOutlined } from "@ant-design/icons";
-
 import {
-	reaxel_wallet ,
+	reaxel_edit_profile ,
 	reaxel_user_profile ,
-} from "@@RootPath/src/reaxels";
+	reaxel_wallet ,
+} from "@@reaxels";
 
 
-import { Img ,} from '@@common/Xcomponents';
-import { EditSocialItem ,SelectSocialModalBtn  } from '@@pages/_BussinessComponents';
+import { Img  } from '@@common/Xcomponents';
+import {
+	EditSocialItem ,
+	SelectSocialModalBtn,
+} from '@@pages/_BussinessComponents';
 import less from "./index.module.less";
-import { reaxel_edit_profile } from './reaxel-edit-profile';
 
 
 export const EditProfile = ComponentWrapper( () => {
@@ -19,7 +20,6 @@ export const EditProfile = ComponentWrapper( () => {
 		Form ,
 		Input ,
 		message ,
-		Upload ,
 	} = antd;
 	
 	const reax_edit_profile = reaxel_edit_profile();

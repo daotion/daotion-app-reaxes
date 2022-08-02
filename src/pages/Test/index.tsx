@@ -23,13 +23,12 @@ import DarkThemeTest from './darkTheme';
 import { DxzUIKits } from './dxz-UI-kits';
 import { KaneDarkMode } from './kane-dark-mode';
 import { DxzSpaceList } from './dxz-space-list';
-import { DxzMyProfile } from './dxz-my-profile';
 import {Test_Reaxel_i18n} from './I18n';
 import {DxzButton} from './dxz-button';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzMyProfile/>
+	<DxzButton/>
 </div>
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

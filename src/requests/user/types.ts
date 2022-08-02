@@ -87,3 +87,20 @@ export namespace User__upload_avatar {
 		file : File;
 	}
 }
+
+export namespace User__profile_joined_list {
+	
+	export type payload = {
+		address : string;
+	};
+	
+	export type response = {
+		infos : {
+			spaceID : number ,
+			address : string,
+			icon : string,
+			contributionVal : 0 ,
+			rank : 0,
+		}[];
+	}
+}

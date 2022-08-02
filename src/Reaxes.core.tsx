@@ -54,6 +54,21 @@ export const Reaxes:Reaxes = new class {
 		};
 	}
 	
+	/*手动收集依赖,使组件响应store的值变化. keys是要指定响应的属性
+	 *如果不传propKeys则整个store的变化都会引起重新渲染*/
+	collectDeps = (store , propKeys : (string|number|symbol)[] = []) => {
+		if(typeof store !== "object" || store == null ) return;
+		if(propKeys.length){
+			propKeys.forEach( ( key ) => {
+				store[ key ];
+			} );
+		}else {
+			Object.getOwnPropertyNames( store ).forEach( ( key ) => {
+				store[ key ];
+			} );
+		}
+	};
+	
 	/**
 	 * 为reaxel在hooks中使用提供支持
 	 */
@@ -82,6 +97,7 @@ export const Reaxes:Reaxes = new class {
 };
 
 type Reaxes = {
+	collectDeps(store:object , propKeys? : (string|number|symbol)[]):void;
 	renderAction() : (callback:Function) => any;
 	/*自动收集dependencies里的依赖, 当依赖变化时自动*/
 	observedMemo<F extends ( first : boolean, disposer?:IReactionDisposer ) => any>( callback : F , dependencies ) : ReturnType<F>;
