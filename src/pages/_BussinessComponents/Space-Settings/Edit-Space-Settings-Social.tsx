@@ -10,7 +10,11 @@ export const SocialProfile = ComponentWrapper( () => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<ProfileTitle title = "Social Profiles" />
+			<ProfileTitle>
+				<I18n>
+					Social Profiles
+				</I18n>
+			</ProfileTitle>
 			
 			<div
 				style = { {
@@ -45,7 +49,7 @@ export const SocialProfile = ComponentWrapper( () => {
 			/>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn
-				text = "Update Social Profiles"
+				text = {i18n("Update Social Profiles")}
 			/>
 		</div>
 	</>;

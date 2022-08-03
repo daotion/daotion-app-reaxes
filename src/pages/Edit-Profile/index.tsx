@@ -33,12 +33,25 @@ export const EditProfile = ComponentWrapper( () => {
 	
 	
 	return <div className = { less.editProfileBox }>
-		<h1 className = { less.Title }>Edit profile</h1>
+		<h1 className = { less.Title }>
+			<I18n>
+				Edit profile
+			</I18n>
+		</h1>
 		<p className = { less.intro }>
-			You can set preferred display name, create{ " " }
-			<span className = { less.boldSpan }> your profile URL</span>
-			and manage
-			other personal settings.
+			<I18n>
+				You can set preferred display name, create
+			</I18n>
+			
+			<span className = { less.boldSpan }>
+				<I18n>
+					your profile URL
+				</I18n>
+			</span>
+			<I18n>
+				and manage other personal settings.
+			</I18n>
+		
 		</p>
 		<div className = { less.mainField }>
 			<div className = { less.profilePhoto }>
@@ -58,11 +71,21 @@ export const EditProfile = ComponentWrapper( () => {
 					/>
 				</div>
 				<div className = { less.profilePhotoRight }>
-					<span className = { less.photoTitle }>Profile photo</span>
+					<span className = { less.photoTitle }>
+						<I18n>
+							Profile photo
+						</I18n>
+					</span>
 					<p className = { less.avatarRule }>
-						We recommend an image of at least 400x400.
+						<I18n>
+							We recommend an image of at least 400x400.
+						</I18n>
+						
 						<br />
-						Gifs work too 🙌
+						<I18n>
+							Gifs work too 🙌
+						</I18n>
+					
 					</p>
 					<Button
 						style = { {
@@ -91,7 +114,11 @@ export const EditProfile = ComponentWrapper( () => {
 			
 			<Form>
 				<div className = { less.accountInfo }>
-					<p className = { less.accountTitle_1 }>Account info</p>
+					<p className = { less.accountTitle_1 }>
+						<I18n>
+							Account info
+						</I18n>
+					</p>
 					<EditSocialItem
 						onChange = {(text) => {
 							reax_edit_profile.setProfileData({
@@ -127,7 +154,11 @@ export const EditProfile = ComponentWrapper( () => {
 						title = {i18n("Portfolio or website")}
 						placeholder = {i18n("Enter URL")}
 					/>
-					<p className = { less.accountTitle_2 }>Social</p>
+					<p className = { less.accountTitle_2 }>
+						<I18n>
+							Social
+						</I18n>
+					</p>
 					
 					{reax_edit_profile.editProfileStore.social_list.map((item) => {
 						
@@ -156,8 +187,10 @@ export const EditProfile = ComponentWrapper( () => {
 						modalVisible = {reax_edit_profile.editProfileStore.selectSocialVisible}
 					/>
 					<footer className = { less.lastIntro }>
-						To update your settings you should sign message through your
-						wallet. Click 'Update profile' then sign the message
+						<I18n>
+							To update your settings you should sign message through your wallet. Click 'Update profile' then sign the message
+						</I18n>
+					
 					</footer>
 					<div className = { less.divider }></div>
 					<Button

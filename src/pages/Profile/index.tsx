@@ -138,7 +138,11 @@ export const Profile = ComponentWrapper(() => {
 						</p>
 					</div>
 					<div className = { less.netWorth }>
-						<p className = { less.netWorthTitle }>Net Worth</p>
+						<p className = { less.netWorthTitle }>
+							<I18n>
+								Net Worth
+							</I18n>
+						</p>
 						<p className = { less.netWorthMoney }>$18,494,958.15</p>
 					</div>
 				</div>
@@ -149,7 +153,7 @@ export const Profile = ComponentWrapper(() => {
 					onChange = { onChange }
 				>
 					<TabPane
-						tab = "Joined Spaces"
+						tab = {i18n("Joined Spaces")}
 						key = "1"
 					>
 						<div className = { less.joinedSpaceBox }>

@@ -22,7 +22,11 @@ export const GeneralProfile = ComponentWrapper( () => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<ProfileTitle title = "General"></ProfileTitle>
+			<ProfileTitle>
+				<I18n>
+					General
+				</I18n>
+			</ProfileTitle>
 			<div
 				className = { less.picBox }
 			>
@@ -59,13 +63,19 @@ export const GeneralProfile = ComponentWrapper( () => {
 						userSelect : 'none' ,
 					} }
 				>
-					The current deployed network
+					<I18n>
+						The current deployed network
+					</I18n>
 				</span>
 				<SVGTooltip></SVGTooltip>
 			</p>
 			<CurrentNet></CurrentNet>
 			<div className = { less.subTitle }>
-				<span>Bio</span>
+				<span>
+					<I18n>
+						Bio
+					</I18n>
+				</span>
 				<SVGTooltip></SVGTooltip>
 			</div>
 			<InputTextarea
@@ -87,7 +97,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 					} );
 				} }
 			/>
-			<ItemWithSubTitle title = "Type">
+			<ItemWithSubTitle title = {i18n('Type')}>
 				<Select
 					className = { less.votingType_box }
 					style = { {
@@ -115,7 +125,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 				</Select>
 			</ItemWithSubTitle>
 			<ItemWithSubTitle
-				title = "Email"
+				title = {i18n("Email")}
 			>
 				<Input
 					style = { {
@@ -156,7 +166,11 @@ export const GeneralProfile = ComponentWrapper( () => {
 					alignItems : "center" ,
 					justifyContent : "center" ,
 				} }
-			>Save Changes</Button>
+			>
+				<I18n>
+					Save Changes
+				</I18n>
+			</Button>
 		</div>
 	</>;
 } );
@@ -165,30 +179,32 @@ export const GeneralProfile = ComponentWrapper( () => {
 
 
 const UploadBtn = ( props : { onClick? : () => void } ) => {
-	return <>
-		<Button
-			onClick = { props.onClick }
-			style = { {
-				marginLeft : "29px" ,
-				display : "inline-flex" ,
-				alignItems : "center" ,
-				borderRadius : "8px" ,
-				padding : "8px 16px" ,
-				backgroundColor : "#3772ff" ,
-				color : "#ffffff" ,
-				width : "fit-content" ,
-				height : "40px" ,
-				fontSize : '13px' ,
-				fontWeight : '700' ,
-				lineHeight : '24px' ,
-				justifyContent : "15px" ,
-			} }
-		>
-			<SVGWhiteAdd></SVGWhiteAdd>
-			<span>
+	return <Button
+		onClick = { props.onClick }
+		style = { {
+			marginLeft : "29px" ,
+			display : "inline-flex" ,
+			alignItems : "center" ,
+			borderRadius : "8px" ,
+			padding : "8px 16px" ,
+			backgroundColor : "#3772ff" ,
+			color : "#ffffff" ,
+			width : "fit-content" ,
+			height : "40px" ,
+			fontSize : '13px' ,
+			fontWeight : '700' ,
+			lineHeight : '24px' ,
+			justifyContent : "15px" ,
+		} }
+	>
+		<SVGWhiteAdd></SVGWhiteAdd>
+		<span>
+			<I18n>
 				Upload
-			</span>
-		</Button></>;
+			</I18n>
+		
+		</span>
+	</Button>;
 };
 const CurrentNet = ( props ) => {
 	return <>
