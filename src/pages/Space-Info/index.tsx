@@ -96,13 +96,13 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							onChange = { onChange }
 						>
 							<TabPane
-								tab = { <span>OverView</span> }
+								tab = { <span><I18n>OverView</I18n></span> }
 								key = "1"
 							>
 								<SpaceOverViewContainer />
 							</TabPane>
 							<TabPane
-								tab = { <span>Articles<EditTabsNamePopover /></span> }
+								tab = { <span><I18n>Articles</I18n><EditTabsNamePopover /></span> }
 								key = "2"
 							>
 								Content of Tab Pane 22222
@@ -191,7 +191,11 @@ const AddNewTabBtn = ComponentWrapper( () => {
 			<Button
 				className={less.addNewTabBtn}>
 				<SVGAddNewIcon />
-				<span>New</span>
+				<span>
+					<I18n>
+						New
+					</I18n>
+				</span>
 			</Button>
 	</>;
 } );

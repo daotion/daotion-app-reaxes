@@ -88,7 +88,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 					height : "112px" ,
 					border : "2px solid rgba(154, 159, 165, 0.25)" ,
 				} }
-				placeholder = "Tell about your Space in a few words"
+				placeholder = {i18n("Tell about your Space in a few words")}
 				value = { editingStore.bio }
 				maxLength = { 160 }
 				onChange = { ( e ) => {

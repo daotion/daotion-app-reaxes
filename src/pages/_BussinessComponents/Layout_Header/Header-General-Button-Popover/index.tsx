@@ -8,7 +8,7 @@ export const GeneralMenuButtonDropdown = ComponentWrapper( () => {
 	return <>
 		<XPopover
 			overlayClassName = { less.userinfoPopoverContainer }
-			align = { { targetOffset : [ 105 ] } }
+			align = { { targetOffset : [ reax_general_button.language_currency_visible ? 145 : 105 ] } }
 			autoAdjustOverflow = { true }
 			visible = { reax_general_button.general_popover_visible }
 			trigger = { [ 'click' ] }
