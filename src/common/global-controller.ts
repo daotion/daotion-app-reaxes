@@ -6,7 +6,7 @@ const subscribe_symbol_map: { [ p: symbol ]: Function[] } = {};
  * 创建一个订阅状态机
  */
 export const createSubscriber = ( description?: string ): [
-	( callback: Function , symbol: Symbol ) => void ,
+	( callback: Function , symbol: Symbol ) => Function ,
 	{ (): void; then( callback: Function ): void; } ,
 	Symbol
 ] => {

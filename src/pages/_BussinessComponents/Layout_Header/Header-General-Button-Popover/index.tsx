@@ -1,10 +1,7 @@
-
-
-
 export const GeneralMenuButtonDropdown = ComponentWrapper( () => {
-	const reax_general_button = reaxel_general_button(Reaxes.hooks);
+	const reax_general_button = reaxel_general_button( Reaxes.hooks );
 	
-		const {
+	const {
 		Button ,
 		Switch ,
 	} = antd;
@@ -19,26 +16,26 @@ export const GeneralMenuButtonDropdown = ComponentWrapper( () => {
 				reax_general_button.setVisible( {
 					general_popover_visible : visible ,
 				} );
-				setTimeout(() => {
-					if(!visible){
-						reax_general_button.setVisible({
+				setTimeout( () => {
+					if ( !visible ) {
+						reax_general_button.setVisible( {
 							language_currency_visible : false ,
-						})
+						} );
 					}
-				},300);
+				} , 300 );
 			} ) }
-			content = { reax_general_button.language_currency_visible ? <DxzLangCurrency/> : <GeneralMenuList /> }
+			content = { reax_general_button.language_currency_visible ? <DxzLangCurrency /> : <GeneralMenuList /> }
 		>
 			<Button
 				style = { headerBtnStyle }
-				onClick = { (e) => {
+				onClick = { ( e ) => {
 					e.stopPropagation();
 					reax_general_button.setVisible( {
 						general_popover_visible : true ,
 					} );
 				} }
 			>
-				<BtnGeneralMenuSvg/>
+				<BtnGeneralMenuSvg />
 			</Button>
 		</XPopover>
 	</>;
@@ -54,41 +51,41 @@ const GeneralMenuList = ComponentWrapper( () => {
 			className = { less.container }
 		>
 			<MenuItem
-				text = {i18n("About")}
+				text = { i18n( "About" ) }
 				icon = { <SVGAbout /> }
 			/>
 			<MenuItem
-				text = {i18n("Help Center")}
+				text = { i18n( "Help Center" ) }
 				icon = { <SVGHelp /> }
 			/>
 			<MenuItem
-				text = {i18n("Language/Currency")}
+				text = { i18n( "Language/Currency" ) }
 				icon = { <SVGLang /> }
-				onClick = {(e) => {
+				onClick = { ( e ) => {
 					e.stopPropagation();
 					
 					reax_general_button.setVisible( {
 						general_popover_visible : true ,
 						language_currency_visible : true ,
 					} );
-				}}
+				} }
 			/>
 			<MenuItem
-				text = {i18n("Dark theme")}
+				text = { i18n( "Dark theme" ) }
 				icon = { <Switch
-					className={less.popSwitch}
+					className = { less.popSwitch }
 					onChange = { ( e ) => {
 						reax_theme.switch();
 					} }
-					checked={reax_theme.theme === "dark"}
+					checked = { reax_theme.theme === "dark" }
 				/> }
 			/>
 			<MenuItem
-				text = {i18n("Docs")}
+				text = { i18n( "Docs" ) }
 				icon = { <SVGDocs /> }
 			/>
 			<MenuItem
-				text = {i18n("Request Features")}
+				text = { i18n( "Request Features" ) }
 				icon = { <SVGRequest /> }
 			/>
 		</div>
@@ -96,18 +93,21 @@ const GeneralMenuList = ComponentWrapper( () => {
 } );
 
 
-export const reaxel_general_button = function(){
-	const {store,setState} = orzMobx({
-		general_popover_visible : false,
+export const reaxel_general_button = function () {
+	const {
+		store ,
+		setState,
+	} = orzMobx( {
+		general_popover_visible : false ,
 		language_currency_visible : false ,
-	});
+	} );
 	
 	const reax_theme = reaxel_theme();
 	
-	return (lifecycle?: Lifecycle) => {
+	return ( lifecycle? : Lifecycle ) => {
 		
-		lifecycle?.mounted(() => {
-			subscribe_root_click( () => {
+		lifecycle?.mounted( () => {
+			const unsubscribe = subscribe_root_click( () => {
 				setTimeout( () => {
 					setState( {
 						general_popover_visible : false ,
@@ -116,27 +116,28 @@ export const reaxel_general_button = function(){
 						setState({
 							language_currency_visible : false ,
 						})
-					} , 300 );
-				} , 350 );
-			} , root_click_symbol )
-		})
+					} , 200 );
+				} , 50 );
+			} , root_click_symbol );
+			return unsubscribe;
+		} );
 		
 		return {
-			get general_popover_visible(){
+			get general_popover_visible() {
 				return store.general_popover_visible;
-			},
-			get language_currency_visible(){
+			} ,
+			get language_currency_visible() {
 				return store.language_currency_visible;
-			},
+			} ,
 			setVisible( visible : {
 				general_popover_visible? : boolean,
 				language_currency_visible? : boolean,
 			} ) {
 				setState( visible );
-			},
+			} ,
 			
-		}
-	}
+		};
+	};
 }();
 
 
@@ -144,9 +145,9 @@ const MenuItem = ComponentWrapper( ( props : MenuItem ) => {
 	return <>
 		<div
 			className = { less.item }
-			onClick={(e) => {
-				props.onClick?.(e);
-			}}
+			onClick = { ( e ) => {
+				props.onClick?.( e );
+			} }
 		>
 			<span className = { less.itemText }>
 				{ props.text }
@@ -156,11 +157,11 @@ const MenuItem = ComponentWrapper( ( props : MenuItem ) => {
 	</>;
 } );
 
-import {DxzLangCurrency} from '@@pages/Test/dxz-Lang-currency';
+import { DxzLangCurrency } from '@@pages/Test/dxz-Lang-currency';
 import { headerBtnStyle } from '../';
 import {
 	reaxel_wallet ,
-	reaxel_theme,
+	reaxel_theme ,
 } from '@@RootPath/src/reaxels';
 import {
 	invoke_root_click ,
@@ -171,18 +172,19 @@ import { XPopover } from '@@common/Xcomponents';
 import less from './index.module.less';
 import {
 	SVGAbout ,
-	SVGHelp,
+	SVGHelp ,
 	SVGLang ,
-	SVGDocs,
+	SVGDocs ,
 	SVGRequest ,
 } from '@@pages/_SvgComponents/header-panel-svg';
-import{
-	BtnGeneralMenuSvg
+import {
+	BtnGeneralMenuSvg,
 } from '@@pages/_SvgComponents/Btn-general-menu-svg';
+
 type MenuItem = {
 	icon : React.ReactElement;
 	text : React.ReactNode;
-	onClick? : (e:React.MouseEvent<HTMLDivElement>) => any;
+	onClick? : ( e : React.MouseEvent<HTMLDivElement> ) => any;
 };
 
 

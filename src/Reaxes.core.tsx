@@ -91,7 +91,9 @@ export const Reaxes:Reaxes = new class {
 			useEffect(() => cb() , deps());
 		},
 		unmount <T extends Function,F extends () => any[]>(cb:T,deps:F){
-			useEffect(() => cb() , []);
+			useEffect(() => {
+				return () => cb();
+			} , []);
 		},
 	} as Lifecycle;
 };
