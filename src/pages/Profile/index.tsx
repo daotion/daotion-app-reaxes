@@ -49,8 +49,8 @@ export const Profile = ComponentWrapper(() => {
 	};
 	
 	if(!othersProfileStore.profile){
-		console.log(address);
-		memorizedFetchUpdateOthersProfile(() => [address])(address)
+		const selfAddress = reax_wallet.account?.address;
+		memorizedFetchUpdateOthersProfile(() => [address||selfAddress])(address||selfAddress)
 		return null;
 	}
 	
