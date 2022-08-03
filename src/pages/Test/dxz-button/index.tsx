@@ -26,7 +26,6 @@ const object = {
 let prop = 'a';
 console.log( object[ prop ] );
 
-
 export const DxzButton = () => {
 	const {
 		Button ,
@@ -35,20 +34,15 @@ export const DxzButton = () => {
 	} = antd;
 	return <>
 		<Space>
-			<Popover content={<EditTabsNamePop />} trigger="click">
-				<button>click me</button>
-			</Popover>
-			
 			<Btn
-				type = "primary"
-				onClick={()=>{
-					<EditTabsNamePop />}
-				}
+				type = "joined"
 			>joined</Btn>
 			<Btn
 				type = "leave"
 			>leave</Btn>
-			
+			<Btn
+				type = "primary"
+			>leave</Btn>
 			
 			
 			
@@ -97,16 +91,4 @@ export const DxzButton = () => {
 		</Space>
 	</>;
 };
-const EditTabsNamePop = ComponentWrapper( () => {
-	return <>
-		<div className = { less.editTabsNamePop }>
-			<div className = { less.editTabsTitle }>TabsName</div>
-			<div className = { less.editTabsBox }>
-				<span>Edit</span>
-			</div>
-			<div className = { less.deleteTabsBox }>
-				<span>Delete</span>
-			</div>
-		</div>
-	</>;
-} );
+

@@ -31,17 +31,17 @@ export const SocialProfile = ComponentWrapper( () => {
 				} ) }
 			</div>
 			<SelectSocialModalBtn
-				socialList = {reax_edit_space_social_settings.staticSocialList}
-				onClick = {() => {
-					reax_edit_space_social_settings.setSelectModalVisible(true);
-				}}
-				onSelect = {(item) => {
-					reax_edit_space_social_settings.addSocialItem(item.type);
-				}}
-				onModalCancel = {() => {
-					reax_edit_space_social_settings.setSelectModalVisible(false)
-				}}
-				modalVisible = {reax_edit_space_social_settings.store.selectModalVisible}
+				socialList = { reax_edit_space_social_settings.staticSocialList }
+				onClick = { () => {
+					reax_edit_space_social_settings.setSelectModalVisible( true );
+				} }
+				onSelect = { ( item ) => {
+					reax_edit_space_social_settings.addSocialItem( item.type );
+				} }
+				onModalCancel = { () => {
+					reax_edit_space_social_settings.setSelectModalVisible( false );
+				} }
+				modalVisible = { reax_edit_space_social_settings.store.selectModalVisible }
 			/>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn
@@ -50,7 +50,6 @@ export const SocialProfile = ComponentWrapper( () => {
 		</div>
 	</>;
 } );
-
 
 
 const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
@@ -65,25 +64,13 @@ const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
 			} }
 		>
 			<span className = { less.subTitle }>{ mixedProps.title }</span>
-			<Input
+			<PrimaryInput
+				type = "primary"
 				value = { mixedProps.value }
 				onChange = { ( e ) => {
 					mixedProps.onChange( e.target.value );
 				} }
-				placeholder = { mixedProps.placeholder }
-				style = { {
-					background : "#f4f4f4" ,
-					borderRadius : "12px" ,
-					width : "100%" ,
-					height : "48px" ,
-					padding : "12px" ,
-					border : "none" ,
-					fontWeight : "600" ,
-					fontSize : "14px" ,
-					lineHeight : "24px" ,
-					color : "#33383f" ,
-				} }
-			/>
+				placeholder = { mixedProps.placeholder }/>
 		</div>
 	</>;
 } );
@@ -94,38 +81,27 @@ type EditSocialItemProps = {
 	placeholder? : string;
 };
 
-
 export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 	
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
-		<Button
+		<Btn
 			className = "profile-footer-btn"
 			onClick = { () => {
 				reax_edit_space_social_settings.fetchEditSocial();
 			} }
-			style = { {
-				borderRadius : "12px" ,
-				color : "#ffffff" ,
-				padding : "12px 20px" ,
-				fontSize : '15px' ,
-				fontWeight : '700' ,
-				lineHeight : "24px" ,
-				height : "48px" ,
-				width : 'fit-content' ,
-				display : "flex" ,
-				alignItems : "center" ,
-				justifyContent : "center" ,
-			} }
-		>{ props.text }</Button>
+			type='primary'
+		>{ props.text }</Btn>
 	</>;
 } );
 
 import { reaxel_edit_space_social_settings } from '@@reaxels';
 import less from './index.module.less';
 import {
-	Button ,
-	Input ,
-} from '@@common/Xcomponents';
+	PrimaryInput
+}from'../../Test/dxz-input'
+import {
+	Btn ,
+} from '../../Test/dxz-button';
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';

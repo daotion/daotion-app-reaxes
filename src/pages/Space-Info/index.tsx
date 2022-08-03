@@ -102,19 +102,19 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 								<SpaceOverViewContainer />
 							</TabPane>
 							<TabPane
-								tab = { <span>Articles<EditTabsNamePopover /></span> }
+								tab = { <span>Articles</span> }
 								key = "2"
 							>
 								Content of Tab Pane 22222
 							</TabPane>
 							<TabPane
-								tab = { <span>Tab3<EditTabsNamePopover /></span> }
+								tab = { <span>Tab3</span> }
 								key = "3"
 							>
 								Content of Tab Pane 33333
 							</TabPane>
 							<TabPane
-								tab = { <span>Tab4<EditTabsNamePopover /></span> }
+								tab = { <span>Tab4</span> }
 								key = "4"
 							>
 								Content of Tab Pane 44444

@@ -52,7 +52,8 @@ export const EditProfile = ComponentWrapper( () => {
 							width : "100%",
 							height : "100%",
 							borderRadius : "16px",
-							
+							objectFit:"cover",
+							objectPosition:"50% 50%",
 						}}
 						
 					/>
