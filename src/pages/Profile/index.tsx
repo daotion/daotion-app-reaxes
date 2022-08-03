@@ -1,12 +1,13 @@
 
 export const Profile = ComponentWrapper(() => {
-	
+	const { Empty } = antd;
 	const {
 		params ,
 		navigate,
 	} = utils.useRouter();
 	const {
 		othersProfileStore ,
+		clearOthersProfile ,
 		memorizedFetchUpdateJoinedSpaceList,
 		memorizedFetchUpdateOthersProfile,
 	} = reaxel_user_profile_lists();
@@ -47,17 +48,34 @@ export const Profile = ComponentWrapper(() => {
 		}
 	};
 	
+	/*既没有钱包地址也没有路由地址 , 说明用户在访问/profile,且没链接钱包*/
+	if(!address && !reax_wallet.connecting){
+		/*如果访问的是/profile:断开钱包后清除自己的pofileList*/
+		clearOthersProfile();
+		memorizedFetchUpdateJoinedSpaceList(() => [])(null);
+		reax_wallet.connectWallet().
+		then( () => {
+			if ( !reax_wallet.account ) {
+				navigate( '/' );
+			}
+		} );
+		return <Empty/>;
+	}
+	
 	if(!othersProfileStore.profile){
 		memorizedFetchUpdateOthersProfile( () => [ address ] )( address );
-		return 11111;
+		return <Empty/>;
 	}
 	
 	if(!othersProfileStore.profile_joined_space_list_paged.length){
 		if(params['*'] === 'profile'){
+			console.log( reax_wallet.account?.address );
 			memorizedFetchUpdateJoinedSpaceList(() => [reax_wallet.account?.address])(reax_wallet.account?.address);
 		}else if(params.address) {
 			memorizedFetchUpdateJoinedSpaceList(() => [address])(address);
 		}
+		
+		console.log([reax_wallet.account?.address,address]);
 		return 2222222;
 	}
 	

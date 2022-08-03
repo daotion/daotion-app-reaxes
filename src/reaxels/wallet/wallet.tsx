@@ -106,12 +106,11 @@ export const reaxel_wallet = function () {
 			} );
 			return;
 		} else {
-			
 			memoedLogWalletInfo( () => [ connectedWallet ] )(connectedWallet);
-			setState( {
+			queueMicrotask(() => setState( {
 				wallet : connectedWallet ,
 				account : connectedWallet.accounts[0] ,
-			} );
+			} ));
 			setWalletToLocalstorage( connectedWallet );
 			memedChain( () => [ connectedWallet.chains?.[ 0 ]?.id ] )( connectedWallet.chains?.[ 0 ] );
 			return;
@@ -121,6 +120,7 @@ export const reaxel_wallet = function () {
 	const connectWalletFromStorage = () =>  {
 		const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
 		if ( wallet !== null && store.wallet === null ) {
+			setState( { connecting : true } );
 			web3onboard.instance.connectWallet( {
 				autoSelect : {
 					label : wallet.label ,
@@ -130,6 +130,8 @@ export const reaxel_wallet = function () {
 				
 			}).catch(() => {
 				crayon.gold( '222cannot get previous wallet info' );
+			}).finally(() => {
+				setState( { connecting : false } );
 			});
 		} else {
 			crayon.gold( 'cannot get previous wallet info' );
@@ -144,6 +146,9 @@ export const reaxel_wallet = function () {
 	connectWalletFromStorage();
 	return () => {
 		return ret = {
+			get connecting (){
+				return store.connecting;
+			},
 			get wallet() {
 				return store.wallet;
 			} ,
@@ -207,10 +212,15 @@ export const reaxel_wallet = function () {
 			/*连接钱包,此promise完成不代表连接完成*/
 			connectWallet( options : ConnectOptions = {} ) {
 				setState( { connecting : true } );
-				return web3Onboard.connectWallet( null).
+				const ret = web3Onboard.connectWallet( null);
+				ret.
+				then((wallet) => {
+					
+				}).
 				finally( () => {
 					setState( { connecting : false } );
 				} );
+				return ret;
 			} ,
 			address_memoed_reaction( cb : ( address : string ) => any ) {
 				const lazyInvoke = Reaxes.closuredMemo( () => cb( store.account?.address ) , () => [] );

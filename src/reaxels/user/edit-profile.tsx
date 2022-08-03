@@ -235,7 +235,7 @@ export const reaxel_upload_profile_pics = function () {
 					
 					try {
 						const response = await request_user_upload_profile_pictures( createPayload);
-						reax_user_profile.setProfileAvatar( response.url );
+						reax_user_profile.setProfileBanner( response.url );
 						antd.Modal.success( { title : "upload successful!" } );
 						return response.url;
 					} catch ( e ) {

@@ -21,6 +21,7 @@ export const reaxel_user_profile = function () {
 	const {
 		store ,
 		setState ,
+		mutatePartialState,
 	} = orzMobx( {
 		profile : null as User__profile_info.response ,
 		loading : false as { address : string; promise : Promise<any> } | false ,
@@ -86,17 +87,15 @@ export const reaxel_user_profile = function () {
 				] )( address );
 			} ,
 			setProfileAvatar( url : string ) {
-				setState( {
+				mutatePartialState( {
 					profile : {
-						...store.profile ,
 						iconUrl : url ,
 					} ,
 				} );
 			} ,
 			setProfileBanner( url : string ) {
-				setState( {
+				mutatePartialState( {
 					profile : {
-						...store.profile ,
 						bgUrl : url ,
 					} ,
 				} );
@@ -191,6 +190,15 @@ export const reaxel_user_profile_lists = function () {
 			get othersProfileStore() {
 				return store;
 			} ,
+			clearOthersProfile(){
+				setState({
+					profile : null ,
+					profile_joined_space_list_paged : [] ,
+					NFTs : [] ,
+					Tokens : [] ,
+					SBTs : [] ,
+				})
+			},
 			memorizedFetchUpdateJoinedSpaceList ,
 			memorizedFetchUpdateOthersProfile ,
 		};
