@@ -1,17 +1,18 @@
 import less from './index.module.less';
 
-export const Btn = ( props ) => {
+export const PrimaryBtn = ( props ) => {
 	const {
 		Button ,
 		Space ,
 		Input ,
 		
 	} = antd;
-	
 	return <Button
 		type = "primary"
 		onClick = { props.onClick }
 		className = { less[ props.type ] }
+		style={props.style}
+		{...props}
 	>
 		{ props.children }
 	</Button>;
@@ -34,15 +35,15 @@ export const DxzButton = () => {
 	} = antd;
 	return <>
 		<Space>
-			<Btn
+			<PrimaryBtn
 				type = "joined"
-			>joined</Btn>
-			<Btn
+			>joined</PrimaryBtn>
+			<PrimaryBtn
 				type = "leave"
-			>leave</Btn>
-			<Btn
+			>leave</PrimaryBtn>
+			<PrimaryBtn
 				type = "primary"
-			>leave</Btn>
+			>leave</PrimaryBtn>
 			
 			
 			
@@ -60,7 +61,7 @@ export const DxzButton = () => {
 			</Button>
 			<Button
 				type = "ghost"
-				className = { less.xcomBtn }
+				className = { less.xcomPrimaryBtn }
 			>
 				type:ghost
 			</Button>

@@ -70,7 +70,8 @@ const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
 				onChange = { ( e ) => {
 					mixedProps.onChange( e.target.value );
 				} }
-				placeholder = { mixedProps.placeholder }/>
+				placeholder = { mixedProps.placeholder }
+			/>
 		</div>
 	</>;
 } );
@@ -85,23 +86,18 @@ export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 	
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
-		<Btn
-			className = "profile-footer-btn"
+		<PrimaryBtn
 			onClick = { () => {
 				reax_edit_space_social_settings.fetchEditSocial();
 			} }
-			type='primary'
-		>{ props.text }</Btn>
+			type = "primary"
+		>{ props.text }</PrimaryBtn>
 	</>;
 } );
 
 import { reaxel_edit_space_social_settings } from '@@reaxels';
 import less from './index.module.less';
-import {
-	PrimaryInput
-}from'../../Test/dxz-input'
-import {
-	Btn ,
-} from '../../Test/dxz-button';
+import { PrimaryBtn  } from '../../Test/dxz-button';
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
+import { PrimaryInput } from '@@pages/Test/dxz-input';

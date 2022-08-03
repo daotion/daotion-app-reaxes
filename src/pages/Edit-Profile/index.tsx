@@ -36,9 +36,7 @@ export const EditProfile = ComponentWrapper( () => {
 		<h1 className = { less.Title }>Edit profile</h1>
 		<p className = { less.intro }>
 			You can set preferred display name, create{ " " }
-			<span className = { less.boldSpan }> your profile URL</span>
-			and manage
-			other personal settings.
+			<span className = { less.boldSpan }> your profile URL</span>and manage other personal settings.
 		</p>
 		<div className = { less.mainField }>
 			<div className = { less.profilePhoto }>
@@ -48,15 +46,7 @@ export const EditProfile = ComponentWrapper( () => {
 				>
 					<Img
 						src = { reax_user_profile.profileStore.profile.iconUrl }
-						style = {{
-							width : "100%",
-							height : "100%",
-							borderRadius : "16px",
-							objectFit:"cover",
-							objectPosition:"50% 50%",
-						}}
-						
-					/>
+						className={less.profilePhoto}/>
 				</div>
 				<div className = { less.profilePhotoRight }>
 					<span className = { less.photoTitle }>Profile photo</span>
@@ -91,8 +81,6 @@ export const EditProfile = ComponentWrapper( () => {
 			</div>
 			
 			<Form>
-				<div className = { less.accountInfo }>
-					<p className = { less.accountTitle_1 }>Account info</p>
 					<EditSocialItem
 						onChange = {(text) => {
 							reax_edit_profile.setProfileData({
@@ -115,9 +103,6 @@ export const EditProfile = ComponentWrapper( () => {
 						placeholder = {i18n("About yourself in a few words")}
 					/>
 					
-					
-					
-					
 					<EditSocialItem
 						onChange = {(text) => {
 							reax_edit_profile.setProfileData( {
@@ -128,10 +113,8 @@ export const EditProfile = ComponentWrapper( () => {
 						title = {i18n("Portfolio or website")}
 						placeholder = {i18n("Enter URL")}
 					/>
-					<p className = { less.accountTitle_2 }>Social</p>
 					
 					{reax_edit_profile.editProfileStore.social_list.map((item) => {
-						
 						return <EditSocialItem
 							key = {item.type}
 							onChange = {(text) => {
@@ -161,36 +144,22 @@ export const EditProfile = ComponentWrapper( () => {
 						wallet. Click 'Update profile' then sign the message
 					</footer>
 					<div className = { less.divider }></div>
-					<Button
-						className = "profile-footer-btn"
+					<PrimaryBtn
+						type='primary'
 						onClick = { () => {
 							reax_edit_profile.fetchUpdateUserProfile().then(() =>{
 								if(__EXPERIMENTAL__){
 									antd.message.success( 'update successful' );
 								}
 							});
-						} }
-						style = { {
-							borderRadius : "12px" ,
-							color : "#ffffff" ,
-							padding : "12px 20px" ,
-							fontSize : '15px' ,
-							fontWeight : '700' ,
-							lineHeight : "24px" ,
-							height : "48px" ,
-							width : 'fit-content' ,
-							display : "flex" ,
-							alignItems : "center" ,
-							justifyContent : "center" ,
-						} }
-					>
+						} }>
 						<I18n>
-							Update Profile
+							Update
 						</I18n>
-					</Button>
-				</div>
+					</PrimaryBtn>
 			</Form>
 		</div>
 	</div>;
 	
 } );
+import{PrimaryBtn}from'../../pages/Test/dxz-button';

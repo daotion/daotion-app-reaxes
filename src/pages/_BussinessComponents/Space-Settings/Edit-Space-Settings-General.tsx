@@ -33,7 +33,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 						width : "96px" ,
 						height : "96px" ,
 						marginRight : "28px" ,
-						userSelect:"none"
+						userSelect : "none",
 					} }
 				>
 					<Img
@@ -45,7 +45,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 							objectFit : "cover" ,
 							objectPosition : "50% 50%" ,
 							marginRight : "28px" ,
-							userSelect:"none"
+							userSelect : "none",
 						} }
 					/>
 				</div>
@@ -111,9 +111,9 @@ export const GeneralProfile = ComponentWrapper( () => {
 			<ItemWithSubTitle
 				title = "Email"
 			>
-				<Input
+				<PrimaryInput
+					type='primary'
 					placeholder = "Enter your email"
-					className = { less.generalEmailInput }
 					value = { editingStore.email }
 					onChange = { ( e ) => {
 						setEditingSpaceInfo( { email : e.target.value } );
@@ -135,7 +135,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 
 const UploadBtn = ( props : { onClick? : () => void } ) => {
 	return <>
-		<Btn
+		<PrimaryBtn
 			onClick = { props.onClick }
 			type = "primary"
 		>
@@ -143,7 +143,7 @@ const UploadBtn = ( props : { onClick? : () => void } ) => {
 			<span>
 				Upload
 			</span>
-		</Btn></>;
+		</PrimaryBtn></>;
 };
 const CurrentNet = ( props ) => {
 	return <>
@@ -209,6 +209,7 @@ const { Option } = Select;
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
 
+import { PrimaryBtn } from '@@pages/Test/dxz-button';
 import {
-	Btn ,
-} from '../../Test/dxz-button';
+	PrimaryInput ,
+} from '@@pages/Test/dxz-input';

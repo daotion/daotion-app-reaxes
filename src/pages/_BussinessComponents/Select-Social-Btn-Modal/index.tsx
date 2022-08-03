@@ -8,7 +8,7 @@ export const SelectSocialModalBtn = ComponentWrapper( (props:AddSocialBtn) => {
 				color : "#777e90" ,
 				fontWeight : "700" ,
 				fontSize : "14px" ,
-				lineHeight : "16px" ,
+				lineHeight : "normal" ,
 				border : "2px solid #e6e8ec" ,
 				display : "flex" ,
 				alignItems : "center" ,

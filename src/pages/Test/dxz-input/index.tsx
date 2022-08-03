@@ -1,14 +1,16 @@
 export const PrimaryInput = ( props ) => {
 	return <Input
 		className = { less[ props.type ] }
-		placeholder='please enter'
+		placeholder={props.placeholder}
 		size="large"
+		{...props}
 	/>;
 	
 };
 export const PrimaryTextArea = ( props ) => {
 	return <TextArea
 		className = { less[ props.type ] }
+		style={props.style}
 		size="large"
 	/>;
 	
