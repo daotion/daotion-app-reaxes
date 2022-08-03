@@ -1,38 +1,6 @@
 // import { orzPromise } from '@@utils';
 
 
-/*存储全局性状态*/
-export const {
-	store : globalStore ,
-	setState : globalSetState ,
-} = orzMobx<globalStoreType>( {
-	experimental : __EXPERIMENTAL__ ,
-	theme : "light" ,
-	language : "zhCN" ,
-	/* null:第一次还没连接, false:已断开连接 */
-	walletConnecting : null ,
-	/*已连接的钱包*/
-	wallet : null ,
-	// /*?*/
-	// wallets : null ,
-	/*正在切换线路*/
-	settingChain : false ,
-	/*可以选择的线路*/
-	chains : [],
-	/*已连接的线路*/
-	chain : null ,
-	
-	account : null ,
-	
-	walletAddress : null ,
-	
-	/*窗口级别的loading*/
-	windowLoading : {
-		isLoading : false ,
-		tipNode : "loading..."
-	} ,
-} );
-
 const subscribe_symbol_map: { [ p: symbol ]: Function[] } = {};
 /**
  * 创建一个订阅状态机

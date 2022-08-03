@@ -26,7 +26,6 @@ export const reaxel_edit_profile = function(){
 	const reax_user = reaxel_user();
 	Reaxes.observedMemo(() => {
 		if(reax_user_profile.profileStore.profile){
-			console.log(logProxy(reax_user_profile.profileStore.profile));
 			const {profile} = reax_user_profile.profileStore;
 			originalProfile = Object.freeze(_.cloneDeep(profile));
 			setState({

@@ -5,7 +5,6 @@ export const Profile = ComponentWrapper(() => {
 		params ,
 		navigate,
 	} = utils.useRouter();
-	const address = params.address?.toLowerCase();
 	const {
 		othersProfileStore ,
 		memorizedFetchUpdateJoinedSpaceList,
@@ -17,10 +16,10 @@ export const Profile = ComponentWrapper(() => {
 	Reaxes.collectDeps(othersProfileStore);
 	Reaxes.collectDeps(reax_wallet.account);
 	
+	const address = params.address?.toLowerCase() ?? reax_wallet.account?.address;
 	/*如果访问的是用户本人的profile则显示settings*/
 	const UserSelfSettingsBtn = () => {
-		crayon.green(reax_wallet.account.address , address)
-		if(reax_wallet.account.address === address){
+		if(reax_wallet.account?.address === address){
 			return <Button 
 				className = { less.myProfileSettingBtn }
 				onClick={() => navigate('/profile/edit')}
@@ -36,7 +35,7 @@ export const Profile = ComponentWrapper(() => {
 	};
 	/*如果是用户本人就显示edit cover*/
 	const UserSelfEditCoverBtn = () => {
-		if(reax_wallet.account.address === address){
+		if(reax_wallet.account?.address === address){
 			return <div
 				className = { less.editCover }
 				onClick = {() => uploadProfileBanner()}
@@ -49,23 +48,19 @@ export const Profile = ComponentWrapper(() => {
 	};
 	
 	if(!othersProfileStore.profile){
-		const selfAddress = reax_wallet.account?.address;
-		memorizedFetchUpdateOthersProfile(() => [address||selfAddress])(address||selfAddress)
-		return null;
+		memorizedFetchUpdateOthersProfile( () => [ address ] )( address );
+		return 11111;
 	}
 	
 	if(!othersProfileStore.profile_joined_space_list_paged.length){
-		console.log( params );
-		console.log(222222222);
 		if(params['*'] === 'profile'){
 			memorizedFetchUpdateJoinedSpaceList(() => [reax_wallet.account?.address])(reax_wallet.account?.address);
 		}else if(params.address) {
 			memorizedFetchUpdateJoinedSpaceList(() => [address])(address);
 		}
-		return null;
+		return 2222222;
 	}
 	
-	console.log( 'ggggggggggggggggg' );
 	return <>
 		<div
 			className = { less.spaceInfo }

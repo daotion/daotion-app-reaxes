@@ -247,14 +247,6 @@ function getProvidePlugin (config = {}) {
 			"orzPromise",
 		] ,
 		utils : ["@@utils"] ,
-		globalStore : [
-			"@@common/global-controller" ,
-			"globalStore",
-		] ,
-		globalSetState : [
-			"@@common/global-controller" ,
-			"globalSetState",
-		] ,
 		crayon : [
 			"@@utils" ,
 			"crayon",

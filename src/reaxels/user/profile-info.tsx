@@ -143,9 +143,10 @@ export const reaxel_user_profile_lists = function () {
 	const fetchUpdateOthersProfile = async ( address : string ) => {
 		if(address){
 			if(address === reax_user_profile.profileStore.profile?.address){
-				setState( {
+				/*组件在渲染阶段的setState不会再触发更新了, 放在异步里面更新*/
+				queueMicrotask( () => setState( {
 					profile : reax_user_profile.profileStore.profile ,
-				} );
+				} ) );
 				return;
 				/*从如果正在请求此用户的profile信息, 就等他完成用他的结果*/
 			} else if ( reax_user_profile.profileStore.loading !== false &&
@@ -173,7 +174,6 @@ export const reaxel_user_profile_lists = function () {
 	
 	/*获取其他用户(或自己)profile主页加入了的space的列表*/
 	const memorizedFetchUpdateOthersProfile = Reaxes.closuredMemo( ( address : string ) => {
-		
 		if ( address ) {
 			fetchUpdateOthersProfile( address );
 		}

@@ -27,27 +27,32 @@ const web3Onboard = web3onboard.instance;
 /*当链接钱包和获取ens完成时存入storage*/
 const connect_wallet_from_storage = function() {
 	
-	return {
-		/*从localstorage读入缓存并链接钱包*/
-		connectWalletFromStorage() {
-			const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
-			if ( wallet !== null && globalStore.wallet === null ) {
-				// crayon.blue( 'connectWalletFromStorage:' , wallet );
-				web3onboard.instance.connectWallet( {
-					autoSelect : {
-						label : wallet.label ,
-						disableModals : true ,
-					} ,
-				} ).then(() => {
-					
-				}).catch(() => {
-					crayon.gold( '222cannot get previous wallet info' );
-				});
-			} else {
-				crayon.gold( 'cannot get previous wallet info' );
-			}
-		} ,
-	};
+	return () => {
+		
+		
+		return {
+			/*从localstorage读入缓存并链接钱包*/
+			connectWalletFromStorage() {
+				const reax_wallet = reaxel_wallet?.();
+				const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
+				if ( wallet !== null && reax_wallet?.wallet === null ) {
+					// crayon.blue( 'connectWalletFromStorage:' , wallet );
+					web3onboard.instance.connectWallet( {
+						autoSelect : {
+							label : wallet.label ,
+							disableModals : true ,
+						} ,
+					} ).then(() => {
+						
+					}).catch(() => {
+						crayon.gold( '222cannot get previous wallet info' );
+					});
+				} else {
+					crayon.gold( 'cannot get previous wallet info' );
+				}
+			} ,
+		};
+	}
 }();
 
 
@@ -57,7 +62,7 @@ const connect_wallet_from_storage = function() {
 
 
 export const reaxel_wallet = function () {
-	
+	let ret;
 	const {
 		store ,
 		setState ,
@@ -95,11 +100,6 @@ export const reaxel_wallet = function () {
 	web3Onboard.state.select( "wallets" ).
 	subscribe( ( [ connectedWallet ] ) => {
 		if ( connectedWallet == undefined ) {
-			globalSetState( {
-				wallet : null ,
-				walletConnecting : false ,
-				account : null ,
-			} );
 			setState( {
 				wallet : null ,
 				account : null ,
@@ -108,11 +108,6 @@ export const reaxel_wallet = function () {
 		} else {
 			
 			memoedLogWalletInfo( () => [ connectedWallet ] )(connectedWallet);
-			globalSetState( {
-				wallet : connectedWallet ,
-				walletConnecting : false ,
-				account : connectedWallet.accounts[0],
-			} );
 			setState( {
 				wallet : connectedWallet ,
 				account : connectedWallet.accounts[0] ,
@@ -123,49 +118,32 @@ export const reaxel_wallet = function () {
 		}
 	} );
 	
-	connect_wallet_from_storage.connectWalletFromStorage();
+	const connectWalletFromStorage = () =>  {
+		const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
+		if ( wallet !== null && store.wallet === null ) {
+			web3onboard.instance.connectWallet( {
+				autoSelect : {
+					label : wallet.label ,
+					disableModals : true ,
+				} ,
+			} ).then(() => {
+				
+			}).catch(() => {
+				crayon.gold( '222cannot get previous wallet info' );
+			});
+		} else {
+			crayon.gold( 'cannot get previous wallet info' );
+		}
+	};
 	
 	let web3provider:ethers.providers.Web3Provider = Reaxes.observedMemo( ( first ) => {
 		if ( !store.wallet ) return web3provider = null;
 		return web3provider = new ethers.providers.Web3Provider( store.wallet?.provider ?? null , 'any' );
 	} , () => [ store.wallet ] );
 	
+	connectWalletFromStorage();
 	return () => {
-		return {
-			/*连接钱包,此promise完成不代表连接完成*/
-			connectWallet( options : ConnectOptions = {} ) {
-				setState( { connecting : true } );
-				return web3Onboard.connectWallet( null).
-				finally( () => {
-					setState( { connecting : false } );
-				} );
-			} ,
-			/*断开与钱包的链接*/
-			disconnectWallet( label : string ) {
-				setState( { connecting : true } );
-				web3Onboard.disconnectWallet( { label } ).
-				then( () => {
-					orzLocalstroage.remove( account_storage_symbol );
-				} ).finally(() => {
-					
-					setState( { connecting : false } );
-				});
-			} ,
-			/*通过web3onboard.setChain来修改当前钱包的链,需要钱包确认才能被确认*/
-			selectChain( options : SetChainOptions , walletLabel? : string ) {
-				if ( !walletLabel && store.wallet ) {
-					walletLabel = store.wallet.label;
-				}
-				setState( { settingChain : true } );
-				return web3Onboard.setChain( {
-					...options ,
-					wallet : walletLabel ,
-				} );
-			} ,
-			/*传入链对象来修改store的chain对象*/
-			setChain( chain : ConnectedChain ) {
-				setState( { chain } );
-			} ,
+		return ret = {
 			get wallet() {
 				return store.wallet;
 			} ,
@@ -200,7 +178,40 @@ export const reaxel_wallet = function () {
 					};
 				});
 			} ,
-			/*当钱包地址发生变化时自动执行*/
+			/*传入链对象来修改store的chain对象*/
+			setChain( chain : ConnectedChain ) {
+				setState( { chain } );
+			} ,
+			/*通过web3onboard.setChain来修改当前钱包的链,需要钱包确认才能被确认*/
+			selectChain( options : SetChainOptions , walletLabel? : string ) {
+				if ( !walletLabel && store.wallet ) {
+					walletLabel = store.wallet.label;
+				}
+				setState( { settingChain : true } );
+				return web3Onboard.setChain( {
+					...options ,
+					wallet : walletLabel ,
+				} );
+			} ,
+			/*断开与钱包的链接*/
+			disconnectWallet( label : string ) {
+				setState( { connecting : true } );
+				web3Onboard.disconnectWallet( { label } ).
+				then( () => {
+					orzLocalstroage.remove( account_storage_symbol );
+				} ).finally(() => {
+					
+					setState( { connecting : false } );
+				});
+			} ,
+			/*连接钱包,此promise完成不代表连接完成*/
+			connectWallet( options : ConnectOptions = {} ) {
+				setState( { connecting : true } );
+				return web3Onboard.connectWallet( null).
+				finally( () => {
+					setState( { connecting : false } );
+				} );
+			} ,
 			address_memoed_reaction( cb : ( address : string ) => any ) {
 				const lazyInvoke = Reaxes.closuredMemo( () => cb( store.account?.address ) , () => [] );
 				const memo = Reaxes.observedMemo( () => {
@@ -208,6 +219,8 @@ export const reaxel_wallet = function () {
 				} , () => [ store.account?.address ] );
 				
 			} ,
+			/*当钱包地址发生变化时自动执行*/
+			connectWalletFromStorage,
 		};
 	};
 }();

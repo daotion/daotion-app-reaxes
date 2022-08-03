@@ -15,8 +15,6 @@ declare const useRef : typeof React.useRef;
 declare const useLayoutEffect : typeof React.useLayoutEffect;
 declare const useMemo : typeof React.useMemo;
 declare const useCallback : typeof React.useCallback;
-declare const globalStore : globalStoreType;
-declare const globalSetState : typeof import('@@common/global-controller').globalSetState;
 declare const orzMobx : typeof import('@@mobxState').orzMobx;
 
 declare const ComponentWrapper : typeof import('../ReactComponentWrapper').ComponentWrapper;

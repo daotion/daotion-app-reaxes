@@ -139,8 +139,6 @@ export const headerBtnStyle : React.CSSProperties = {
 import less from './index.module.less';
 
 import {
-	globalSetState ,
-	globalStore ,
 	invoke_root_click ,
 	root_click_symbol ,
 	subscribe_root_click ,

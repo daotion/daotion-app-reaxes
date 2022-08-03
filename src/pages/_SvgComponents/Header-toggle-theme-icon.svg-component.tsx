@@ -2,11 +2,11 @@ type props = {
 	theme?: globalStoreType["theme"]
 };
 export const HeaderToggleThemeIconSvgComponent = ComponentWrapper( ( props?: props ) => {
-	
+	const { theme } = reaxel_theme();
 	const scheme = {
 		"light" : "#6f767e" ,
 		"dark" : "#ffffff" ,
-	}[ globalStore.theme ] || "#6f767e";
+	}[ theme ] || "#6f767e";
 	return <svg
 		width = "24"
 		height = "24"
@@ -23,3 +23,4 @@ export const HeaderToggleThemeIconSvgComponent = ComponentWrapper( ( props?: pro
 	</svg>;
 	
 } );
+import {reaxel_theme} from '@@reaxels';
