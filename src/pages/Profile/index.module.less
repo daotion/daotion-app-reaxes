@@ -187,19 +187,29 @@
 	color: #353945;
 	align-items: center;
 }
-
+.profile-avatar-box{
+	display: inline-block;
+	background: #f4f5f6;
+	width: 110px;
+	height: 110px;
+	border-radius: 50%;
+}
 .gray-box {
 	height: 24px;
 	display: flex;
 	align-items: center;
 	background: #e6e8ec;
 	border-radius: 24px;
-	width: fit-content;
+	width: 68px;
 	padding: 2px 8px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 }
 
-.text {
+.gray-text {
 	margin-left: 4px;
+	line-height: normal;
 }
 
 .space-info {
@@ -251,14 +261,15 @@
 	
 	.joined-space-box {
 		width: 1136px;
-		height: 428px;
+		height: fit-content;
 		display: flex;
-		justify-content: space-between;
-		align-content: space-between;
+		justify-content: flex-start;
 		flex-flow: row wrap;
 		margin-top: 24px;
 	}
-	
+	.joined-space-card+.joined-space-card{
+		margin-left: 16px;
+	}
 	.joined-space-card {
 		padding: 16px;
 		width: 214.4px;
@@ -270,6 +281,10 @@
 		text-align: center;
 		user-select: none;
 		transition: box-shadow .3s ease;
+		margin-bottom: 16px;
+		&:nth-child(5n+1){
+			margin-left: 0;
+		}
 		&:hover {
 			transition: box-shadow .3s ease;
 			box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
@@ -284,6 +299,10 @@
 		text-align: center;
 		color: #141416;
 		margin-top: 16px;
+		width: 182px;
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
 	}
 	
 	:global {
@@ -323,20 +342,21 @@
 }
 
 .my-profile-NFTs-card-field {
-	height: 776px;
+	height: fit-content;
 	width: 1136px;
 	display: flex;
-	justify-content: space-between;
-	align-content: space-between;
 	flex-flow: row wrap;
 }
 
 .my-profile-NFTs-box {
 	margin-top: 24px;
 	width: 1136px;
-	height: 856px;
+	height: fit-content;
+	justify-content: flex-start;
 }
-
+.my-profile-NFTs-card+.my-profile-NFTs-card{
+	margin-left: 16px;
+}
 .my-profile-NFTs-card {
 	user-select: none;
 	width: 272px;
@@ -346,6 +366,10 @@
 	display: inline-block;
 	overflow: hidden;
 	transition: box-shadow .3s ease;
+	margin-bottom: 16px;
+	&:nth-child(4n+1){
+		margin-left: 0;
+	}
 	&:hover {
 		transition: box-shadow .3s ease;
 		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
@@ -376,8 +400,8 @@
 }
 
 .NFTs-card-main {
-	width: 270px;
-	height: 270px;
+	width: 272px;
+	height: 272px;
 	display: flex;
 	background: url("https://img2.baidu.com/it/u=1937777404,856192910&fm=253&fmt=auto&app=120&f=JPEG?w=505&h=500");
 	background-size: 100% 100%;
@@ -510,14 +534,14 @@
 
 .my-profile-SBTs-box {
 	width: 1136px;
-	height: 830px;
+	height: fit-content;
 	display: flex;
-	justify-content: space-between;
-	align-content: space-between;
 	flex-flow: row wrap;
 	margin-top: 24px;
 }
-
+.my-profile-SBTs-card+.my-profile-SBTs-card{
+	margin-left: 16px;
+}
 .my-profile-SBTs-card {
 	user-select: none;
 	display: flex;
@@ -530,7 +554,10 @@
 	border-radius: 12px;
 	overflow: hidden;
 	transition: box-shadow .3s ease;
-	
+	margin-bottom: 16px;
+	&:nth-child(4n+1){
+		margin-left: 0;
+	}
 	&:hover {
 		transition: box-shadow .3s ease;
 		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
@@ -606,7 +633,6 @@
 	border-radius: 12px;
 	display: flex;
 	align-items: center;
-	
 	&:hover {
 		background: #f4f5f6;
 		width: 1136px;

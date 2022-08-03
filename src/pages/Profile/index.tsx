@@ -214,7 +214,7 @@ const MyProfileTokensBox = () => {
 	return <>
 		<div className = { less.myProfileTokensBox }>
 			<MyprofileTabSubTitle />
-			{ new Array( 5 ).fill( '' ).
+			{ new Array( 6 ).fill( '' ).
 			map( ( a , i ) => {
 				return <MyprofileTokensList
 					key = { Math.random() }
@@ -248,7 +248,7 @@ const MyprofileTokensList = () => {
 const MyProfileSBTsBox = () => {
 	return <>
 		<div className = { less.myProfileSBTsBox }>
-			{ new Array( 8 ).fill( '' ).
+			{ new Array( 7 ).fill( '' ).
 			map( ( a , i ) => {
 				return <MyProfileSBTsCard
 					key = { Math.random() }
@@ -292,7 +292,7 @@ const MyProfileNFTsBox = () => {
 		<div className = { less.myProfileNFTsBox }>
 			<MyprofileTabSubTitle />
 			<div className = { less.myProfileNFTsCardField }>
-				{ new Array( 8 ).fill( '' ).
+				{ new Array( 9 ).fill( '' ).
 				map( ( a , i ) => {
 					return <MyProfileNFTsCard
 						key = { Math.random() }
@@ -348,15 +348,19 @@ const JoinedSpaceCard = (props:JoinedSpaceCardProps) => {
 					icon = { <SVGCup /> }
 				/>
 			</div>
-			<Img
-				width = {110}
-				height = {110}
-				src = {props.icon}
-				style = {{
-					borderRadius : "50%",
-					objectFit : "cover",
-				}}
-			/>
+			
+			<div className={less.profileAvatarBox}>
+				<Img
+					width = { 110 }
+					height = { 110 }
+					src = { props.icon }
+					style = { {
+						borderRadius : "50%" ,
+						objectFit : "cover" ,
+					} }
+				/>
+			</div>
+			
 			<div className = { less.cardSpaceName }>
 				{props.address}
 			</div>
@@ -405,7 +409,7 @@ const GrayBox = ( props ) => {
 	return <>
 		<div className = { less.grayBox }>
 			{ props.icon }
-			<span className = { less.text }>
+			<span className = { less.grayText }>
 				{ props.text }
 			</span>
 		</div>
