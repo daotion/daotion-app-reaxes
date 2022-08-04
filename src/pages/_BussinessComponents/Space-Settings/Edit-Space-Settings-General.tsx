@@ -98,6 +98,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 			/>
 			<ItemWithSubTitle title = {i18n('Type')}>
 				<Select
+					dropdownClassName = { less.dropDownMenu }
 					className = { less.votingType_box }
 					removeIcon = { <SVGClear /> }
 					mode = "multiple"
@@ -223,12 +224,10 @@ import {
 	Select ,
 	Button ,
 } from 'antd';
-
 const { Option } = Select;
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
-
 import { PrimaryBtn } from '@@pages/Test/dxz-button';
 import {
 	PrimaryInput ,
-} from '@@pages/Test/dxz-input';
+} from '../../Test/dxz-input';

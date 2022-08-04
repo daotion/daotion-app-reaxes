@@ -135,6 +135,7 @@
 		box-shadow: unset;
 	}
 }
+
 .settings-title {
 	user-select: none;
 	margin-bottom: 8px;
@@ -143,7 +144,26 @@
 	font-weight: 700;
 	line-height: 16px;
 }
-
+.drop-down-menu {
+	padding: 8px;
+	background: #ffffff;
+	border: 2px solid #e6e8ec;
+	border-radius: 12px;
+	
+	:global(.ant-select-item-option) {
+		height: 48px;
+		background: #ffffff;
+		border-radius: 12px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		padding: 12px;
+		
+		&:hover {
+			background: #f4f5f6;
+		}
+	}
+}
 :global(.ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector){
 	border-radius: 12px;
 	height: 48px;
