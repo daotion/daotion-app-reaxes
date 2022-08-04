@@ -31,12 +31,16 @@
 }
 
 .title-with-delete{
+	padding-right: 4px;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	height: 28px;
 	margin: 32px 0 12px 0;
+	svg{
+		cursor:pointer;
+	}
 	svg:hover{
 		path{
 			fill:#f21361 ;
@@ -51,6 +55,7 @@
 	color: #33383f;
 	width: fit-content;
 	display: inline-block;
+	margin: 32px 0 12px 0;
 }
 
 .divider {
@@ -148,8 +153,7 @@
 	align-items: center;
 }
 .container {
-	:global {
-		.ant-select-multiple span.ant-select-selection-item {
+	:global(.ant-select-selection-item) {
 			padding: 0px 0px;
 			margin: 0px 2px 0px 0px;
 			background-color: #3772ff;
@@ -163,8 +167,6 @@
 			font-size: 16px;
 			justify-content: space-around;
 			min-width: 30px;
-		}
-		
 		& {
 			.ant-select.ant-select-multiple.ant-select-allow-clear.ant-select-show-search.voting-type_box--RRbA .ant-select-selector {
 				width: 100%;
