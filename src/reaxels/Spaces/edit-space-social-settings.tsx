@@ -118,9 +118,9 @@ export const reaxel_edit_space_social_settings = function () {
 	
 	const clousred = Reaxes.closuredMemo(() => {
 		if(!reax_space_detail.store.spaceInfo?.socialLinks){
-			setState( {
-				socialList : [] ,
-			} );
+			// setState( {
+			// 	socialList : [] ,
+			// } );
 		} else {
 			setState( {
 				socialList : (
@@ -136,18 +136,7 @@ export const reaxel_edit_space_social_settings = function () {
 	
 	
 	return () => {
-		if(store.socialList?.length === 0){
-			setState({
-				socialList : ['twitter','Official website',].map((type) => {
-					return {
-						type,
-						link : '',
-						key : Math.random(),
-					}
-				}),
-			})
-		}
-		return {
+		return {  
 			get store() {
 				return store;
 			} ,
