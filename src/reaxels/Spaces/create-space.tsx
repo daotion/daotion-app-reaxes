@@ -369,7 +369,7 @@ const SVGCloseIcon = () => {
 	</>;
 };
 import { PrimaryInput } from '@@pages/Test/dxz-input';
-import less from '@@styles/reaxels.module.less';
+import less from '../../styles/reaxels.module.less';
 import { SVGClear } from '@@pages/_SvgComponents/space-setting-svg';
 
 const SVGSelectArrowIcon = () => {
