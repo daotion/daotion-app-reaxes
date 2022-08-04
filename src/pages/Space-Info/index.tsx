@@ -218,6 +218,7 @@ const SpaceOverViewContainer = ComponentWrapper( () => {
 				</div>
 			</div>
 		</div>
+		
 	</>;
 } );
 
@@ -279,16 +280,19 @@ const OverViewTitle = ComponentWrapper( () => {
 } );
 const ContentListFirst = ComponentWrapper( () => {
 	return <>
-		<div className = { less.contentListFirst }>
+		{/*<div className = { less.contentListFirst }>
 			<OverViewTitle />
-		</div>
+		</div>*/}
+		
+		<Contributions/>
 	</>;
 } );
 const ContentListSecond = ComponentWrapper( () => {
 	return <>
-		<div className = { less.contentListSecond }>
+		{/*<div className = { less.contentListSecond }>
 			<OverViewTitle />
-		</div>
+		</div>*/}
+		<Intensity/>
 	</>;
 } );
 
@@ -322,3 +326,5 @@ import {
 
 
 
+import Contributions from '@@Public/svg/Space-Info-Overview-Contributions.component.svg';
+import Intensity from '@@Public/svg/Space-Info-Overview-Intensity.component.svg';
