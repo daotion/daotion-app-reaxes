@@ -274,8 +274,7 @@ export const reaxel_create_space = function () {
 											suffixIcon = { <SVGSelectArrowIcon /> }
 											removeIcon = { <SVGClear /> }
 											mode = "tags"
-											showArrow={false}
-											// allowClear
+											allowClear
 											className = { less.antdNetSelect }
 											placeholder = { i18n( "Please select" ) }
 											value = { store.select_types }
