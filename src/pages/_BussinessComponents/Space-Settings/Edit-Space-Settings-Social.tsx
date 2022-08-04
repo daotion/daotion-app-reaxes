@@ -15,7 +15,6 @@ export const SocialProfile = ComponentWrapper( () => {
 					Social Profiles
 				</I18n>
 			</ProfileTitle>
-			
 			<div
 				style = { {
 					minHeight : "250px" ,

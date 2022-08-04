@@ -18,6 +18,20 @@
 	}
 }
 
+.member-name {
+	font-size: 14px;
+	font-weight: 600;
+	margin-left: 16px;
+	width: 204px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.member-avatar {
+	border-radius: 32px;
+}
+
 .setting-btn.setting-btn {
 	border: none;
 	background: #f4f5f6;
@@ -605,17 +619,18 @@
 	color: #777e90;
 	border: 2px solid #e6e8ec;
 	transition: all .2s ease;
+	
 	&:hover {
 		transition: all .2s ease;
 		color: #141416;
 		border-color: #b1b5c3;
+		
 		svg path {
 			transition: all .2s ease;
 			fill: #141416;
 		}
 	}
 }
-	
 
 
 .space-info {
@@ -660,6 +675,7 @@
 			display: flex;
 			align-items: center;
 			padding: 0 4px;
+			
 			svg {
 				width: 16px;
 				height: 16px;

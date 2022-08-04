@@ -6,12 +6,13 @@ export const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) 
 	const mixedProps = Object.assign<Partial<EditSocialItemProps> , EditSocialItemProps>( {
 		placeholder : "Please enter" ,
 	} , { ...props } );
-	const { Input } = antd;
 	return <>
 		<div
 			className = { less.editSocialItem }
 		>
-			<span className = { less.subTitle }>{ mixedProps.title }</span>
+			<span className = { less.subTitle }>
+				{ mixedProps.title }
+			</span>
 			<PrimaryInput
 				type='primary'
 				value = { mixedProps.value }
@@ -31,6 +32,7 @@ type EditSocialItemProps = {
 	placeholder? : string;
 };
 
+import{SVGSocialItemDelete}from'../../_SvgComponents/space-setting-svg'
 
 import less from './index.module.less';
 import { PrimaryInput } from '@@pages/Test/dxz-input';
