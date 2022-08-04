@@ -124,7 +124,7 @@ export const Profile = ComponentWrapper(() => {
 				>
 					<div>
 						<div className = { less.sharingBox }>
-							<WalletAddressCopyBox walletAddr = { '0x7b.....72f7' } />
+							<WalletAddressCopyBox walletAddr = { reax_wallet.account.address } />
 							<div className = { less.socialMedias }>
 								<SVGSocialShare />
 							</div>
