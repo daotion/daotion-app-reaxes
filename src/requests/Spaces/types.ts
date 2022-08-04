@@ -182,3 +182,23 @@ export namespace Space__edit_space_social_list {
 		
 	};
 }
+/*请求space成员列表*/
+export namespace Space__member_list {
+	
+	export type payload = {
+		"spaceID": number,
+		"indexStart": number,
+		"count": number,
+		"firstTimestamp": number
+	};
+	export type response = {
+		"indexEnd": number,
+		"count": number,
+		"firstTimestamp": number,
+		"userInfos" : {
+			"address" : string,
+			"icon" : string,
+			"name" : string;
+		}[];
+	};
+}

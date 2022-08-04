@@ -185,20 +185,22 @@ export const reaxel_user_profile_lists = function () {
 		}
 	} , () => [] );
 	
+	const closuredClearOthersProfile = Reaxes.closuredMemo( (address:string) => {
+		setState({
+			profile : null ,
+			profile_joined_space_list_paged : [] ,
+			NFTs : [] ,
+			Tokens : [] ,
+			SBTs : [] ,
+		})
+	} , () => [] );
+	
 	return () => {
 		return {
 			get othersProfileStore() {
 				return store;
 			} ,
-			clearOthersProfile(){
-				setState({
-					profile : null ,
-					profile_joined_space_list_paged : [] ,
-					NFTs : [] ,
-					Tokens : [] ,
-					SBTs : [] ,
-				})
-			},
+			closuredClearOthersProfile ,
 			memorizedFetchUpdateJoinedSpaceList ,
 			memorizedFetchUpdateOthersProfile ,
 		};

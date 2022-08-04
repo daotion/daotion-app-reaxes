@@ -7,7 +7,7 @@ export const Profile = ComponentWrapper(() => {
 	} = utils.useRouter();
 	const {
 		othersProfileStore ,
-		clearOthersProfile ,
+		closuredClearOthersProfile ,
 		memorizedFetchUpdateJoinedSpaceList,
 		memorizedFetchUpdateOthersProfile,
 	} = reaxel_user_profile_lists();
@@ -18,6 +18,8 @@ export const Profile = ComponentWrapper(() => {
 	Reaxes.collectDeps(reax_wallet.account);
 	
 	const address = params.address?.toLowerCase() ?? reax_wallet.account?.address;
+	closuredClearOthersProfile(() => [address])(address);
+	memorizedFetchUpdateOthersProfile( () => [ address ] )( address );
 	/*如果访问的是用户本人的profile则显示settings*/
 	const UserSelfSettingsBtn = () => {
 		if(reax_wallet.account?.address === address){
@@ -51,7 +53,7 @@ export const Profile = ComponentWrapper(() => {
 	/*既没有钱包地址也没有路由地址 , 说明用户在访问/profile,且没链接钱包*/
 	if(!address && !reax_wallet.connecting){
 		/*如果访问的是/profile:断开钱包后清除自己的pofileList*/
-		clearOthersProfile();
+		clearOthersProfile(() => [address])(address);
 		memorizedFetchUpdateJoinedSpaceList(() => [])(null);
 		reax_wallet.connectWallet().
 		then( () => {
@@ -63,7 +65,6 @@ export const Profile = ComponentWrapper(() => {
 	}
 	
 	if(!othersProfileStore.profile){
-		memorizedFetchUpdateOthersProfile( () => [ address ] )( address );
 		return <Empty/>;
 	}
 	
