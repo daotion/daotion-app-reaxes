@@ -1,4 +1,28 @@
-
+.antd-social-media-modal {
+	> div {
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		max-width: 100%;
+		padding: 0;
+		
+		:global {
+			border-radius: 20px;
+			padding: 32px;
+			.ant-modal-content {
+				width: fit-content;
+			}
+			.ant-modal-body{
+				padding: 0;
+			}
+			.ant-modal-close{
+				top:32px;
+				right: 24px;
+			}
+			
+		}
+	}
+}
 .main-title{
 	font-weight: 700;
 	font-size: 32px;
@@ -44,8 +68,6 @@
 	border: 2px solid transparent;
 	cursor: pointer;
 	transition: background-color .15s ease;
-	
-	
 	&:hover {
 		background: #f4f5f6;
 		border: 2px solid #f4f5f6;

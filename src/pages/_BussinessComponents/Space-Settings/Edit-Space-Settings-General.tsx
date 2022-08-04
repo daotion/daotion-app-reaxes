@@ -178,10 +178,13 @@ const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 	title : string;
 }> ) => {
 	return <>
-		<span className = { less.subTitle }>{ props.title }</span>
+		<span className = { less.subTitle }>
+			{ props.title }
+		</span>
 		{ props.children }
 	</>;
 };
+import{SVGSocialItemDelete}from'../../_SvgComponents/space-setting-svg'
 
 import {
 	reaxel_edit_space_general_settings ,

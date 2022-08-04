@@ -32,7 +32,7 @@ export const SelectSocialModalBtn = ComponentWrapper( (props:AddSocialBtn) => {
 			onCancel = { props.onModalCancel }
 			footer = { null }
 			className = { less.antdSocialMediaModal }
-			// centered
+			centered
 			maskClosable
 			mask = { true }
 			width = "480px"
