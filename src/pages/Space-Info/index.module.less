@@ -81,19 +81,20 @@
 }
 
 .joined-btn.joined-btn {
+	transition-duration: .25s;
+	transition-timing-function: ease;
+	transition-property: border, background-color;
 	&:hover {
+		
+		color: #ef466f;
 		> span {
 			&::after {
-				content: "leave";
-				color: #ef466f;
 			}
 		}
 	}
 	
 	> span {
 		&::after {
-			transition: all .5s ease;
-			content: "joined";
 			color: #777e90;
 		}
 	}
