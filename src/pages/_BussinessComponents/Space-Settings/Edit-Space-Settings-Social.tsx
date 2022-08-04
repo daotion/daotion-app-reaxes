@@ -20,8 +20,14 @@ export const SocialProfile = ComponentWrapper( () => {
 					minHeight : "250px" ,
 				} }
 			>
+				
 				{ reax_edit_space_social_settings.store.socialList.map( ( item ) => {
-					
+					const props = {} as any;
+					if(!["Homepage","Twitter","Discord","GitHub"].includes(item.type)){
+						props.onDelete = () => {
+							reax_edit_space_social_settings.deleteSocialItem( item.type );
+						} 
+					}
 					return <EditSocialItem
 						title = { item.type }
 						value = { item.link }
@@ -29,7 +35,7 @@ export const SocialProfile = ComponentWrapper( () => {
 							reax_edit_space_social_settings.editSocialItem( item.key , text );
 						} }
 						key = { item.type }
-					
+						{...props}
 					/>;
 				} ) }
 			</div>
@@ -66,7 +72,10 @@ const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<span className = { less.subTitle }>{ mixedProps.title }</span>
+			<span
+				className = { less.subTitle }
+				onClick={ () => props.onDelete?.() }
+			>{ mixedProps.title }</span>
 			<PrimaryInput
 				type = "primary"
 				value = { mixedProps.value }
@@ -82,6 +91,7 @@ type EditSocialItemProps = {
 	title : React.ReactNode;
 	value : string;
 	onChange : ( text : string ) => void;
+	onDelete : () => void;
 	placeholder? : string;
 };
 

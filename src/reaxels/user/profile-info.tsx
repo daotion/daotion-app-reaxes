@@ -186,13 +186,13 @@ export const reaxel_user_profile_lists = function () {
 	} , () => [] );
 	
 	const closuredClearOthersProfile = Reaxes.closuredMemo( (address:string) => {
-		setState({
+		setState( {
 			profile : null ,
 			profile_joined_space_list_paged : [] ,
 			NFTs : [] ,
 			Tokens : [] ,
 			SBTs : [] ,
-		})
+		} );
 	} , () => [] );
 	
 	return () => {

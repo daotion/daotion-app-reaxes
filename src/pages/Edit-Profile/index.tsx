@@ -25,7 +25,7 @@ export const EditProfile = ComponentWrapper( () => {
 	const reax_edit_profile = reaxel_edit_profile();
 	const reax_wallet = reaxel_wallet();
 	const reax_user_profile = reaxel_user_profile();
-
+	Reaxes.collectDeps( reax_user_profile.profileStore );
 	
 	if(!reax_edit_profile.originalProfile){
 		return null;
@@ -144,6 +144,10 @@ export const EditProfile = ComponentWrapper( () => {
 							key = {item.type}
 							onChange = {(text) => {
 								reax_edit_profile.editSocialItem( item.type , text );
+							}}
+							onDelete = {() => {
+								if(item.type === 'twitter') return;
+								reax_edit_profile.deleteSocialItem( item.type );
 							}}
 							value = {item.link}
 							title = {item.type}

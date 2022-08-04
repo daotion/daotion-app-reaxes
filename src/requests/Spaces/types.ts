@@ -61,7 +61,7 @@ export namespace Space___get_space_detail{
 		"email" : string;
 		"iconUrl": string,
 		/*添加的社交账户组字符串:[{social:"",address:""}]*/
-		"links": string,
+		"socialLinks": string,
 		"name": string,
 		"spaceID": number,
 		"tabs" : string[];
