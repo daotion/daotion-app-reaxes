@@ -62,7 +62,10 @@ const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<span className = { less.subTitle }>{ mixedProps.title }</span>
+			<div className={less.titleWithDelete}>
+				<span className = { less.subTitle }>{ mixedProps.title }</span>
+				<SVGSocialItemDelete/>
+			</div>
 			<PrimaryInput
 				type = "primary"
 				value = { mixedProps.value }
@@ -100,3 +103,4 @@ import { PrimaryBtn  } from '../../Test/dxz-button';
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
 import { PrimaryInput } from '@@pages/Test/dxz-input';
+import{SVGSocialItemDelete}from'../../_SvgComponents/space-setting-svg'
