@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * 编辑社媒条目
  */
 export const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
@@ -9,30 +9,16 @@ export const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) 
 	const { Input } = antd;
 	return <>
 		<div
-			style = { {
-				display : "flex" ,
-				flexFlow : "column nowrap" ,
-			} }
+			className = { less.editSocialItem }
 		>
 			<span className = { less.subTitle }>{ mixedProps.title }</span>
-			<Input
+			<PrimaryInput
+				type='primary'
 				value = { mixedProps.value }
 				onChange = { ( e ) => {
 					mixedProps.onChange( e.target.value );
 				} }
 				placeholder = { mixedProps.placeholder }
-				style = { {
-					background : "#f4f4f4" ,
-					borderRadius : "12px" ,
-					width : "100%" ,
-					height : "48px" ,
-					padding : "12px" ,
-					border : "none" ,
-					fontWeight : "600" ,
-					fontSize : "14px" ,
-					lineHeight : "24px" ,
-					color : "#33383f" ,
-				} }
 			/>
 		</div>
 	</>;
@@ -46,5 +32,5 @@ type EditSocialItemProps = {
 };
 
 
-
 import less from './index.module.less';
+import { PrimaryInput } from '@@pages/Test/dxz-input';

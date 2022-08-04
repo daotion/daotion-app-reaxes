@@ -356,11 +356,11 @@ const JoinedSpaceCard = (props:JoinedSpaceCardProps) => {
 	return <>
 		<div className = { less.joinedSpaceCard }>
 			<div className = { less.cardTop }>
-				<GrayBox
+				<GrayBoxVal
 					text = {props.contributionVal}
 					icon = { <SVGLightning /> }
 				/>
-				<GrayBox
+				<GrayBoxRank
 					text = {props.rank}
 					icon = { <SVGCup /> }
 				/>
@@ -411,25 +411,34 @@ const ShareBtn = ComponentWrapper( () => {
 const CardTop = () => {
 	return <>
 		<div className = { less.cardTop }>
-			<GrayBox
+			<GrayBoxVal
 				text = "1.2"
 				icon = { <SVGLightning /> }
 			/>
-			<GrayBox
+			<GrayBoxVal
 				text = "999+"
 				icon = { <SVGCup /> }
 			/>
 		</div>
 	</>;
 };
-const GrayBox = ( props ) => {
+const GrayBoxVal = ( props ) => {
 	return <>
-		<div className = { less.grayBox }>
+		<div className = { less.grayBoxVal }>
 			{ props.icon }
-			<span className = { less.grayText }>
+			<span className = { less.grayTextVal }>
 				{ props.text }
 			</span>
 		</div>
 	</>;
 };
-
+const GrayBoxRank = ( props ) => {
+	return <>
+		<div className = { less.grayBoxRank }>
+			{ props.icon }
+			<span className = { less.grayTextRank }>
+				{ props.text }
+			</span>
+		</div>
+	</>;
+};

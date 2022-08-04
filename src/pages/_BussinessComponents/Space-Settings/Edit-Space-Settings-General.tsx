@@ -34,6 +34,10 @@ export const GeneralProfile = ComponentWrapper( () => {
 					style = { {
 						backgroundColor : "#eeeeee" ,
 						borderRadius : "12px" ,
+						width : "96px" ,
+						height : "96px" ,
+						marginRight : "28px" ,
+						userSelect : "none",
 					} }
 				>
 					<Img
@@ -44,6 +48,8 @@ export const GeneralProfile = ComponentWrapper( () => {
 							borderRadius : "12px" ,
 							objectFit : "cover" ,
 							objectPosition : "50% 50%" ,
+							marginRight : "28px" ,
+							userSelect : "none",
 						} }
 					/>
 				</div>
@@ -78,16 +84,9 @@ export const GeneralProfile = ComponentWrapper( () => {
 				</span>
 				<SVGTooltip></SVGTooltip>
 			</div>
-			<InputTextarea
+			<Input.TextArea
 				rows = { 4 }
-				style = { {
-					background : "#f4f4f4" ,
-					borderRadius : "12px" ,
-					width : "100%" ,
-					padding : "4px" ,
-					height : "112px" ,
-					border : "2px solid rgba(154, 159, 165, 0.25)" ,
-				} }
+				className = { less.generalBioTextArea }
 				placeholder = {i18n("Tell about your Space in a few words")}
 				value = { editingStore.bio }
 				maxLength = { 160 }
@@ -100,11 +99,6 @@ export const GeneralProfile = ComponentWrapper( () => {
 			<ItemWithSubTitle title = {i18n('Type')}>
 				<Select
 					className = { less.votingType_box }
-					style = { {
-						width : "100%" ,
-						color : "#9a9fa5" ,
-						height : "48px" ,
-					} }
 					removeIcon = { <SVGClear /> }
 					mode = "multiple"
 					allowClear
@@ -127,19 +121,8 @@ export const GeneralProfile = ComponentWrapper( () => {
 			<ItemWithSubTitle
 				title = {i18n("Email")}
 			>
-				<Input
-					style = { {
-						background : "#f4f4f4" ,
-						borderRadius : "12px" ,
-						width : "100%" ,
-						height : "48px" ,
-						padding : "12px" ,
-						border : "none" ,
-						fontWeight : "600" ,
-						fontSize : "14px" ,
-						lineHeight : "24px" ,
-						color : "#33383f" ,
-					} }
+				<PrimaryInput
+					type='primary'
 					placeholder = "Enter your email"
 					value = { editingStore.email }
 					onChange = { ( e ) => {
@@ -150,21 +133,9 @@ export const GeneralProfile = ComponentWrapper( () => {
 			<div className = { less.divider }></div>
 			<Button
 				disabled = { InfoEquals }
-				type = "primary"
+				className = { less.generalSaveBtn }
 				onClick = { () => {
 					saveSpaceSettings();
-				} }
-				style = { {
-					borderRadius : "12px" ,
-					padding : "12px 20px" ,
-					fontSize : '15px' ,
-					fontWeight : '700' ,
-					lineHeight : "24px" ,
-					height : "48px" ,
-					width : 'fit-content' ,
-					display : "flex" ,
-					alignItems : "center" ,
-					justifyContent : "center" ,
 				} }
 			>
 				<I18n>
@@ -176,26 +147,10 @@ export const GeneralProfile = ComponentWrapper( () => {
 } );
 
 
-
-
 const UploadBtn = ( props : { onClick? : () => void } ) => {
-	return <Button
+	return <PrimaryBtn
 		onClick = { props.onClick }
-		style = { {
-			marginLeft : "29px" ,
-			display : "inline-flex" ,
-			alignItems : "center" ,
-			borderRadius : "8px" ,
-			padding : "8px 16px" ,
-			backgroundColor : "#3772ff" ,
-			color : "#ffffff" ,
-			width : "fit-content" ,
-			height : "40px" ,
-			fontSize : '13px' ,
-			fontWeight : '700' ,
-			lineHeight : '24px' ,
-			justifyContent : "15px" ,
-		} }
+		type = "primary"
 	>
 		<SVGWhiteAdd></SVGWhiteAdd>
 		<span>
@@ -204,7 +159,7 @@ const UploadBtn = ( props : { onClick? : () => void } ) => {
 			</I18n>
 		
 		</span>
-	</Button>;
+	</PrimaryBtn>;
 };
 const CurrentNet = ( props ) => {
 	return <>
@@ -247,7 +202,7 @@ const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 import {
 	reaxel_edit_space_general_settings ,
 	reaxel_space_detail ,
-	reaxel_space_settings_upload_pictures,
+	reaxel_space_settings_upload_pictures ,
 } from '@@reaxels';
 import {
 	SVGClear ,
@@ -258,12 +213,19 @@ import {
 import less from './index.module.less';
 import spaceTags from '@@Public/space-tags.json';
 import {
-	Button ,
 	Img ,
-	Input ,
-	InputTextarea ,
-	Option ,
-	Select ,
 } from '@@common/Xcomponents';
+import {
+	Input ,
+	Select ,
+	Button ,
+} from 'antd';
+
+const { Option } = Select;
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
-import {ProfileTitle} from './Profile-Title';
+import { ProfileTitle } from './Profile-Title';
+
+import { PrimaryBtn } from '@@pages/Test/dxz-button';
+import {
+	PrimaryInput ,
+} from '@@pages/Test/dxz-input';

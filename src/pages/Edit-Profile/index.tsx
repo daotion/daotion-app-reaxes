@@ -61,14 +61,7 @@ export const EditProfile = ComponentWrapper( () => {
 				>
 					<Img
 						src = { reax_user_profile.profileStore.profile.iconUrl }
-						style = {{
-							width : "100%",
-							height : "100%",
-							borderRadius : "16px",
-							
-						}}
-						
-					/>
+						className={less.profilePhoto}/>
 				</div>
 				<div className = { less.profilePhotoRight }>
 					<span className = { less.photoTitle }>
@@ -113,12 +106,6 @@ export const EditProfile = ComponentWrapper( () => {
 			</div>
 			
 			<Form>
-				<div className = { less.accountInfo }>
-					<p className = { less.accountTitle_1 }>
-						<I18n>
-							Account info
-						</I18n>
-					</p>
 					<EditSocialItem
 						onChange = {(text) => {
 							reax_edit_profile.setProfileData({
@@ -141,9 +128,6 @@ export const EditProfile = ComponentWrapper( () => {
 						placeholder = {i18n("About yourself in a few words")}
 					/>
 					
-					
-					
-					
 					<EditSocialItem
 						onChange = {(text) => {
 							reax_edit_profile.setProfileData( {
@@ -154,14 +138,8 @@ export const EditProfile = ComponentWrapper( () => {
 						title = {i18n("Portfolio or website")}
 						placeholder = {i18n("Enter URL")}
 					/>
-					<p className = { less.accountTitle_2 }>
-						<I18n>
-							Social
-						</I18n>
-					</p>
 					
 					{reax_edit_profile.editProfileStore.social_list.map((item) => {
-						
 						return <EditSocialItem
 							key = {item.type}
 							onChange = {(text) => {
@@ -193,36 +171,22 @@ export const EditProfile = ComponentWrapper( () => {
 					
 					</footer>
 					<div className = { less.divider }></div>
-					<Button
-						className = "profile-footer-btn"
+					<PrimaryBtn
+						type='primary'
 						onClick = { () => {
 							reax_edit_profile.fetchUpdateUserProfile().then(() =>{
 								if(__EXPERIMENTAL__){
 									antd.message.success( 'update successful' );
 								}
 							});
-						} }
-						style = { {
-							borderRadius : "12px" ,
-							color : "#ffffff" ,
-							padding : "12px 20px" ,
-							fontSize : '15px' ,
-							fontWeight : '700' ,
-							lineHeight : "24px" ,
-							height : "48px" ,
-							width : 'fit-content' ,
-							display : "flex" ,
-							alignItems : "center" ,
-							justifyContent : "center" ,
-						} }
-					>
+						} }>
 						<I18n>
-							Update Profile
+							Update
 						</I18n>
-					</Button>
-				</div>
+					</PrimaryBtn>
 			</Form>
 		</div>
 	</div>;
 	
 } );
+import{PrimaryBtn}from'../../pages/Test/dxz-button';

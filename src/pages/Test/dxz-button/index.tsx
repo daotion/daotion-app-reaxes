@@ -1,22 +1,22 @@
 import less from './index.module.less';
 
-export const Btn = ( props ) => {
+export const PrimaryBtn = ( props ) => {
 	const {
 		Button ,
 		Space ,
 		Input ,
 		
 	} = antd;
-	
 	return <Button
 		type = "primary"
 		onClick = { props.onClick }
 		className = { less[ props.type ] }
+		style={props.style}
+		{...props}
 	>
 		{ props.children }
 	</Button>;
 };
-
 
 export const DxzButton = () => {
 	const {
@@ -26,20 +26,15 @@ export const DxzButton = () => {
 	} = antd;
 	return <>
 		<Space>
-			<Popover content={<EditTabsNamePop />} trigger="click">
-				<button>click me</button>
-			</Popover>
-			
-			<Btn
-				type = "primary"
-				onClick={()=>{
-					<EditTabsNamePop />}
-				}
-			>joined</Btn>
-			<Btn
+			<PrimaryBtn
+				type = "joined"
+			>joined</PrimaryBtn>
+			<PrimaryBtn
 				type = "leave"
-			>leave</Btn>
-			
+			>leave</PrimaryBtn>
+			<PrimaryBtn
+				type = "primary"
+			>leave</PrimaryBtn>
 			
 			
 			
@@ -57,7 +52,7 @@ export const DxzButton = () => {
 			</Button>
 			<Button
 				type = "ghost"
-				className = { less.xcomBtn }
+				className = { less.xcomPrimaryBtn }
 			>
 				type:ghost
 			</Button>
@@ -88,16 +83,4 @@ export const DxzButton = () => {
 		</Space>
 	</>;
 };
-const EditTabsNamePop = ComponentWrapper( () => {
-	return <>
-		<div className = { less.editTabsNamePop }>
-			<div className = { less.editTabsTitle }>TabsName</div>
-			<div className = { less.editTabsBox }>
-				<span>Edit</span>
-			</div>
-			<div className = { less.deleteTabsBox }>
-				<span>Delete</span>
-			</div>
-		</div>
-	</>;
-} );
+
