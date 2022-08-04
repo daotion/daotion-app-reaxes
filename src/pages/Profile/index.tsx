@@ -124,7 +124,7 @@ export const Profile = ComponentWrapper(() => {
 				>
 					<div>
 						<div className = { less.sharingBox }>
-							<WalletAddressCopyBox walletAddr = { reax_wallet.account.address } />
+							<WalletAddressCopyBox walletAddr = { othersProfileStore.profile.address } />
 							<div className = { less.socialMedias }>
 								<SVGSocialShare />
 							</div>
@@ -351,20 +351,24 @@ const MyProfileNFTsCard = () => {
 };
 
 const JoinedSpaceCard = (props:JoinedSpaceCardProps) => {
+	const { navigate } = utils.useRouter();
 	return <>
-		<div className = { less.joinedSpaceCard }>
+		<div
+			className = { less.joinedSpaceCard }
+			onClick = { () => navigate( '/space' + props.spaceID ) }
+		>
 			<div className = { less.cardTop }>
 				<GrayBoxVal
-					text = {props.contributionVal}
+					text = { props.contributionVal }
 					icon = { <SVGLightning /> }
 				/>
 				<GrayBoxRank
-					text = {props.rank}
+					text = { props.rank }
 					icon = { <SVGCup /> }
 				/>
 			</div>
 			
-			<div className={less.profileAvatarBox}>
+			<div className = { less.profileAvatarBox }>
 				<Img
 					width = { 110 }
 					height = { 110 }
@@ -376,19 +380,23 @@ const JoinedSpaceCard = (props:JoinedSpaceCardProps) => {
 				/>
 			</div>
 			
-			<div className = { less.cardSpaceName }>
-				{props.address}
+			<div
+				className = { less.cardSpaceName }
+				title = { props.address }
+				onClick={(e) => e.stopPropagation()}
+			>
+				{ props.spaceName || props.address }
 			</div>
 		</div>
 	</>;
 };
 type JoinedSpaceCardProps = {
-	
-	"spaceID": number,
-	"address": string,
-	"icon": string,
-	"contributionVal": number,
-	"rank": number
+	spaceName : string;
+	spaceID: number,
+	address: string,
+	icon: string,
+	contributionVal: number,
+	rank: number
 };
 const MyprofileTabSubTitle = () => {
 	return <>
