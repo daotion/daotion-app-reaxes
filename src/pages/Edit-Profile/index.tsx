@@ -31,7 +31,6 @@ export const EditProfile = ComponentWrapper( () => {
 		return null;
 	}
 	
-	
 	return <div className = { less.editProfileBox }>
 		<h1 className = { less.Title }>
 			<I18n>
@@ -140,18 +139,22 @@ export const EditProfile = ComponentWrapper( () => {
 					/>
 					
 					{reax_edit_profile.editProfileStore.social_list.map((item) => {
+						const props = {} as any;
+						if(!(item.type === "Twitter")){
+							props.onDelete = () => {
+								if(item.type === 'twitter') return;
+								reax_edit_profile.deleteSocialItem( item.type );
+							}
+						}
 						return <EditSocialItem
 							key = {item.type}
 							onChange = {(text) => {
 								reax_edit_profile.editSocialItem( item.type , text );
 							}}
-							onDelete = {() => {
-								if(item.type === 'twitter') return;
-								reax_edit_profile.deleteSocialItem( item.type );
-							}}
 							value = {item.link}
 							title = {item.type}
 							placeholder = {i18n("please input")}
+							{...props}
 						/>
 					})}
 					

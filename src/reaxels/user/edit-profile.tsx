@@ -23,7 +23,7 @@ export const reaxel_edit_profile = function(){
 			{
 				key : Math.random(),
 				link : '',
-				type : 'twitter',
+				type : 'Twitter',
 			},
 		] as LinkSocialItem[],
 	});

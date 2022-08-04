@@ -159,7 +159,7 @@ export const reaxel_create_space = function () {
 						Select ,
 					} = antd;
 					const {
-						language,
+						language ,
 						changeLang ,
 					} = reaxel_i18n();
 					return <>
@@ -196,6 +196,7 @@ export const reaxel_create_space = function () {
 										fontWeight : "700" ,
 										lineHeight : "24px" ,
 										marginTop : '24px' ,
+										border:"none",
 									} }
 								>
 									<I18n>
@@ -204,7 +205,6 @@ export const reaxel_create_space = function () {
 								</Button>
 							</> }
 							width = "800px"
-							// wrapClassName = {less.antdCreateSpaceModal}
 							maskStyle = { {
 								background : "#f4f4f4" ,
 							} }
@@ -237,8 +237,9 @@ export const reaxel_create_space = function () {
 												Name
 											</I18n>
 										</p>
-										<Input
-											className = { less.mInput }
+										<PrimaryInput
+											// className = { less.mInput }
+											type="primary"
 											placeholder = { i18n( "Name your Space" ) }
 											value = { store.input_space_name }
 											onChange = { ( e ) => {
@@ -274,7 +275,7 @@ export const reaxel_create_space = function () {
 											mode = "tags"
 											allowClear
 											className = { less.mSelect }
-											placeholder = {i18n("Please select")}
+											placeholder = { i18n( "Please select" ) }
 											value = { store.select_types }
 											onChange = { ( selectedTypes ) => {
 												if ( selectedTypes.length < 4 ) {
@@ -308,9 +309,10 @@ export const reaxel_create_space = function () {
 												Email
 											</I18n>
 										</p>
-										<Input
-											className = { less.mInput }
-											placeholder = { i18n("Enter your email") }
+										<PrimaryInput
+											type="primary"
+											// className = { less.mInput }
+											placeholder = { i18n( "Enter your email" ) }
 											value = { store.input_email }
 											onChange = { ( e ) => {
 												setState( { input_email : e.target.value } );
@@ -363,3 +365,5 @@ const SVGCloseIcon = () => {
 		</svg>
 	</>;
 };
+import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
+import { PrimaryInput } from '@@pages/Test/dxz-input';

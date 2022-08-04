@@ -10,14 +10,15 @@ export const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) 
 		<div
 			className = { less.editSocialItem }
 		>
-			<span
-				className = { less.subTitle }
-				onClick={ props.onDelete }
-			>
-				{ mixedProps.title }
-			</span>
+			<div className = { less.titleWithDelete }>
+				<span
+					className = { less.subTitle }
+					onClick = { props.onDelete }
+				>{ mixedProps.title }</span>
+				{ props.onDelete && <SVGSocialItemDelete onClick = {props.onDelete} /> }
+			</div>
 			<PrimaryInput
-				type='primary'
+				type = "primary"
 				value = { mixedProps.value }
 				onChange = { ( e ) => {
 					mixedProps.onChange( e.target.value );
