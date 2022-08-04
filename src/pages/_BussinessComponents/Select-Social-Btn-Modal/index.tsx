@@ -24,7 +24,9 @@ export const SelectSocialModalBtn = ComponentWrapper( (props:AddSocialBtn) => {
 		>
 			<SVGGrayAdd/>
 			<span>
-				Add more social account
+				<I18n>
+					Add more social account
+				</I18n>
 			</span>
 		</Button>
 		<Modal

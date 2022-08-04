@@ -18,15 +18,6 @@ export const PrimaryBtn = ( props ) => {
 	</Button>;
 };
 
-const object = {
-	a : 1 ,
-	b : 2 ,
-	c : 3 ,
-};
-
-let prop = 'a';
-console.log( object[ prop ] );
-
 export const DxzButton = () => {
 	const {
 		Button ,

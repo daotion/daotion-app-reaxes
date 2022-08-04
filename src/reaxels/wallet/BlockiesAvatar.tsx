@@ -42,7 +42,7 @@ export const reaxel_blockies = function(){
 					canvasRefs.push(canvasRef);
 					/*挂载时检测到deps没有变化是不会渲染的,所以多传入random来强制渲染一次*/
 					closured(() => [reax_wallet.account?.address,Math.random()])(reax_wallet.account?.address,canvasRef);
-					return () => _.remove(canvasRefs,canvasRef);
+					return () => _.remove(canvasRefs,canvasRef),null;
 				},[]);
 				return <canvas width={20} height={20} ref = { canvasRef } style={{borderRadius : "50%",marginLeft : "8px" ,}}></canvas>;
 			},

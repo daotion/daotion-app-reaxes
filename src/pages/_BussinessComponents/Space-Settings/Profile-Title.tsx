@@ -8,7 +8,8 @@ export const ProfileTitle = ( props ) => {
 				userSelect : 'none' ,
 				marginBottom : "4px" ,
 			} }
-		>{ props.title }
+		>
+			{ props.children }
 		</h1>
 	</>;
 };

@@ -11,11 +11,20 @@ export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps 
 	const { joined_space_list } = reaxel_joined_Space_list();
 	const { navigate } = utils.useRouter();
 	const joinedSpaceInfo = joined_space_list.find( ( item ) => item.spaceID == props.spaceID );
-	const ButtonProps : ButtonProps  = {};
+	const ButtonProps : ButtonProps  = {
+		onMouseEnter : () => {
+			setMouseEntered( true );
+		},
+		onMouseLeave : () => {
+			setMouseEntered( false );
+		},
+	};
+	
+	const [mouseEntered , setMouseEntered] = useState(false);
 	
 	if ( !joinedSpaceInfo ) {
 		Object.assign<ButtonProps , ButtonProps>( ButtonProps , {
-			children : "Join" ,
+			children : i18n("Join") ,
 			className : less.joinBtn ,
 			onClick : ( e ) => {
 				e.stopPropagation();
@@ -43,7 +52,7 @@ export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps 
 		} else {
 			Object.assign<ButtonProps , ButtonProps>( ButtonProps , {
 				className : less.joinedBtn ,
-				children : <span /> ,
+				children : <span><I18n>{mouseEntered ? "leave" : "Joined"}</I18n></span> ,
 				onClick : ( e ) => {
 					e.stopPropagation();
 					reaxel_user_join_or_leave_space().

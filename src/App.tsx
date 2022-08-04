@@ -7,10 +7,6 @@ import {
 	ConfigProvider ,
 	message ,
 } from 'antd';
-import {
-	globalSetState ,
-	globalStore ,
-} from '@@common/global-controller';
 import { Test } from '@@pages/Test';
 import { ReactTemplate } from '../Public/react-template';
 import { Routing } from './Routing';

@@ -25,18 +25,32 @@ export const EditProfile = ComponentWrapper( () => {
 	const reax_edit_profile = reaxel_edit_profile();
 	const reax_wallet = reaxel_wallet();
 	const reax_user_profile = reaxel_user_profile();
-
+	Reaxes.collectDeps( reax_user_profile.profileStore );
 	
 	if(!reax_edit_profile.originalProfile){
 		return null;
 	}
 	
-	
 	return <div className = { less.editProfileBox }>
-		<h1 className = { less.Title }>Edit profile</h1>
+		<h1 className = { less.Title }>
+			<I18n>
+				Edit profile
+			</I18n>
+		</h1>
 		<p className = { less.intro }>
-			You can set preferred display name, create{ " " }
-			<span className = { less.boldSpan }> your profile URL</span>and manage other personal settings.
+			<I18n>
+				You can set preferred display name, create
+			</I18n>
+			
+			<span className = { less.boldSpan }>
+				<I18n>
+					your profile URL
+				</I18n>
+			</span>
+			<I18n>
+				and manage other personal settings.
+			</I18n>
+		
 		</p>
 		<div className = { less.mainField }>
 			<div className = { less.profilePhoto }>
@@ -49,11 +63,21 @@ export const EditProfile = ComponentWrapper( () => {
 						className={less.profilePhoto}/>
 				</div>
 				<div className = { less.profilePhotoRight }>
-					<span className = { less.photoTitle }>Profile photo</span>
+					<span className = { less.photoTitle }>
+						<I18n>
+							Profile photo
+						</I18n>
+					</span>
 					<p className = { less.avatarRule }>
-						We recommend an image of at least 400x400.
+						<I18n>
+							We recommend an image of at least 400x400.
+						</I18n>
+						
 						<br />
-						Gifs work too 🙌
+						<I18n>
+							Gifs work too 🙌
+						</I18n>
+					
 					</p>
 					<Button
 						style = { {
@@ -115,6 +139,13 @@ export const EditProfile = ComponentWrapper( () => {
 					/>
 					
 					{reax_edit_profile.editProfileStore.social_list.map((item) => {
+						const props = {} as any;
+						if(!(item.type === "Twitter")){
+							props.onDelete = () => {
+								if(item.type === 'twitter') return;
+								reax_edit_profile.deleteSocialItem( item.type );
+							}
+						}
 						return <EditSocialItem
 							key = {item.type}
 							onChange = {(text) => {
@@ -123,6 +154,7 @@ export const EditProfile = ComponentWrapper( () => {
 							value = {item.link}
 							title = {item.type}
 							placeholder = {i18n("please input")}
+							{...props}
 						/>
 					})}
 					
@@ -140,8 +172,10 @@ export const EditProfile = ComponentWrapper( () => {
 						modalVisible = {reax_edit_profile.editProfileStore.selectSocialVisible}
 					/>
 					<footer className = { less.lastIntro }>
-						To update your settings you should sign message through your
-						wallet. Click 'Update profile' then sign the message
+						<I18n>
+							To update your settings you should sign message through your wallet. Click 'Update profile' then sign the message
+						</I18n>
+					
 					</footer>
 					<div className = { less.divider }></div>
 					<PrimaryBtn

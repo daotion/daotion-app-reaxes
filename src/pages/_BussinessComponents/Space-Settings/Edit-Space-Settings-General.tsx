@@ -22,7 +22,11 @@ export const GeneralProfile = ComponentWrapper( () => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<ProfileTitle title = "General"></ProfileTitle>
+			<ProfileTitle>
+				<I18n>
+					General
+				</I18n>
+			</ProfileTitle>
 			<div
 				className = { less.picBox }
 			>
@@ -65,19 +69,25 @@ export const GeneralProfile = ComponentWrapper( () => {
 						userSelect : 'none' ,
 					} }
 				>
-					The current deployed network
+					<I18n>
+						The current deployed network
+					</I18n>
 				</span>
 				<SVGTooltip></SVGTooltip>
 			</p>
 			<CurrentNet></CurrentNet>
 			<div className = { less.subTitle }>
-				<span>Bio</span>
+				<span>
+					<I18n>
+						Bio
+					</I18n>
+				</span>
 				<SVGTooltip></SVGTooltip>
 			</div>
 			<Input.TextArea
 				rows = { 4 }
-				placeholder = "Tell about your Space in a few words"
 				className = { less.generalBioTextArea }
+				placeholder = {i18n("Tell about your Space in a few words")}
 				value = { editingStore.bio }
 				maxLength = { 160 }
 				onChange = { ( e ) => {
@@ -86,7 +96,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 					} );
 				} }
 			/>
-			<ItemWithSubTitle title = "Type">
+			<ItemWithSubTitle title = {i18n('Type')}>
 				<Select
 					className = { less.votingType_box }
 					removeIcon = { <SVGClear /> }
@@ -109,7 +119,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 				</Select>
 			</ItemWithSubTitle>
 			<ItemWithSubTitle
-				title = "Email"
+				title = {i18n("Email")}
 			>
 				<PrimaryInput
 					type='primary'
@@ -127,23 +137,29 @@ export const GeneralProfile = ComponentWrapper( () => {
 				onClick = { () => {
 					saveSpaceSettings();
 				} }
-			>Save Changes</Button>
+			>
+				<I18n>
+					Save Changes
+				</I18n>
+			</Button>
 		</div>
 	</>;
 } );
 
 
 const UploadBtn = ( props : { onClick? : () => void } ) => {
-	return <>
-		<PrimaryBtn
-			onClick = { props.onClick }
-			type = "primary"
-		>
-			<SVGWhiteAdd></SVGWhiteAdd>
-			<span>
+	return <PrimaryBtn
+		onClick = { props.onClick }
+		type = "primary"
+	>
+		<SVGWhiteAdd></SVGWhiteAdd>
+		<span>
+			<I18n>
 				Upload
-			</span>
-		</PrimaryBtn></>;
+			</I18n>
+		
+		</span>
+	</PrimaryBtn>;
 };
 const CurrentNet = ( props ) => {
 	return <>

@@ -19,21 +19,26 @@ export const reaxel_edit_profile = function(){
 		input_display_name : null,
 		input_bio : null,
 		input_portfolio_website : null,
-		social_list : [] as LinkSocialItem[],
+		social_list : [
+			{
+				key : Math.random(),
+				link : '',
+				type : 'Twitter',
+			},
+		] as LinkSocialItem[],
 	});
 	const reax_user_profile = reaxel_user_profile();
 	const reax_wallet = reaxel_wallet();
 	const reax_user = reaxel_user();
 	Reaxes.observedMemo(() => {
 		if(reax_user_profile.profileStore.profile){
-			console.log(logProxy(reax_user_profile.profileStore.profile));
 			const {profile} = reax_user_profile.profileStore;
 			originalProfile = Object.freeze(_.cloneDeep(profile));
 			setState({
 				input_display_name : profile.displayName,
 				input_bio : profile.bio,
 				input_portfolio_website : profile.customUrl,
-				social_list : JSON.parse(profile.socialLinks || '[]'),
+				social_list : profile.socialLinks ? JSON.parse(profile.socialLinks) : store.social_list,
 			});
 		}
 		
@@ -64,17 +69,6 @@ export const reaxel_edit_profile = function(){
 	
 	return () => {
 		const {user_profile_upload_avatar , user_profile_upload_banner} = reaxel_upload_profile_pics();
-		if(store.social_list.length === 0 ){
-			setState( {
-				social_list : [
-					{
-						link : '' ,
-						type : "twitter" ,
-						key : Math.random() ,
-					},
-				] ,
-			} );
-		}
 		return ret = {
 			get originalProfile(){
 				return originalProfile;
@@ -116,6 +110,11 @@ export const reaxel_edit_profile = function(){
 				if(ret.staticSocialList.length === 0){
 					setState( { selectSocialVisible : false } );
 				}
+			},
+			deleteSocialItem(type : string){
+				setState( {
+					social_list : store.social_list.filter( ( item ) => item.type !== type ) ,
+				} );
 			},
 			editSocialItem(type : string, text){
 				setState( {
@@ -236,7 +235,7 @@ export const reaxel_upload_profile_pics = function () {
 					
 					try {
 						const response = await request_user_upload_profile_pictures( createPayload);
-						reax_user_profile.setProfileAvatar( response.url );
+						reax_user_profile.setProfileBanner( response.url );
 						antd.Modal.success( { title : "upload successful!" } );
 						return response.url;
 					} catch ( e ) {

@@ -101,6 +101,7 @@ export namespace User__profile_joined_list {
 			icon : string,
 			contributionVal : 0 ,
 			rank : 0,
+			spaceName : string;
 		}[];
 	}
 }

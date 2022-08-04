@@ -1,14 +1,35 @@
-export const SVGSocialItemDelete=ComponentWrapper(()=>{
-	return<>
-		<svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path fillRule="evenodd" clipRule="evenodd" d="M8.33333 8.33398C8.79357 8.33398 9.16667 8.70708 9.16667 9.16732V13.334C9.16667 13.7942 8.79357 14.1673 8.33333 14.1673C7.8731 14.1673 7.5 13.7942 7.5 13.334V9.16732C7.5 8.70708 7.8731 8.33398 8.33333 8.33398Z" fill="#313436"/>
-			<path fillRule="evenodd" clipRule="evenodd" d="M11.6673 8.33398C12.1276 8.33398 12.5007 8.70708 12.5007 9.16732V13.334C12.5007 13.7942 12.1276 14.1673 11.6673 14.1673C11.2071 14.1673 10.834 13.7942 10.834 13.334V9.16732C10.834 8.70708 11.2071 8.33398 11.6673 8.33398Z" fill="#313436"/>
-			<path fillRule="evenodd" clipRule="evenodd" d="M8.33268 1.66602C6.95197 1.66602 5.83268 2.7853 5.83268 4.16602H3.33268H2.49935C2.03911 4.16602 1.66602 4.53911 1.66602 4.99935C1.66602 5.45959 2.03911 5.83268 2.49935 5.83268H3.33268V15.8327C3.33268 17.2134 4.45197 18.3327 5.83268 18.3327H14.166C15.5467 18.3327 16.666 17.2134 16.666 15.8327V5.83268H17.4993C17.9596 5.83268 18.3327 5.45959 18.3327 4.99935C18.3327 4.53911 17.9596 4.16602 17.4993 4.16602H16.666H14.166C14.166 2.7853 13.0467 1.66602 11.666 1.66602H8.33268ZM12.4993 4.16602C12.4993 3.70578 12.1263 3.33268 11.666 3.33268H8.33268C7.87245 3.33268 7.49935 3.70578 7.49935 4.16602H12.4993ZM5.83268 5.83268H4.99935V15.8327C4.99935 16.2929 5.37245 16.666 5.83268 16.666H14.166C14.6263 16.666 14.9993 16.2929 14.9993 15.8327V5.83268H14.166H5.83268Z" fill="#313436"/>
+export const SVGSocialItemDelete = ComponentWrapper( ( props ) => {
+	return <>
+		<svg
+			onClick = { props.onClick }
+			width = "20"
+			height = "20"
+			viewBox = "0 0 20 20"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M8.33333 8.33398C8.79357 8.33398 9.16667 8.70708 9.16667 9.16732V13.334C9.16667 13.7942 8.79357 14.1673 8.33333 14.1673C7.8731 14.1673 7.5 13.7942 7.5 13.334V9.16732C7.5 8.70708 7.8731 8.33398 8.33333 8.33398Z"
+				fill = "#313436"
+			/>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M11.6673 8.33398C12.1276 8.33398 12.5007 8.70708 12.5007 9.16732V13.334C12.5007 13.7942 12.1276 14.1673 11.6673 14.1673C11.2071 14.1673 10.834 13.7942 10.834 13.334V9.16732C10.834 8.70708 11.2071 8.33398 11.6673 8.33398Z"
+				fill = "#313436"
+			/>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M8.33268 1.66602C6.95197 1.66602 5.83268 2.7853 5.83268 4.16602H3.33268H2.49935C2.03911 4.16602 1.66602 4.53911 1.66602 4.99935C1.66602 5.45959 2.03911 5.83268 2.49935 5.83268H3.33268V15.8327C3.33268 17.2134 4.45197 18.3327 5.83268 18.3327H14.166C15.5467 18.3327 16.666 17.2134 16.666 15.8327V5.83268H17.4993C17.9596 5.83268 18.3327 5.45959 18.3327 4.99935C18.3327 4.53911 17.9596 4.16602 17.4993 4.16602H16.666H14.166C14.166 2.7853 13.0467 1.66602 11.666 1.66602H8.33268ZM12.4993 4.16602C12.4993 3.70578 12.1263 3.33268 11.666 3.33268H8.33268C7.87245 3.33268 7.49935 3.70578 7.49935 4.16602H12.4993ZM5.83268 5.83268H4.99935V15.8327C4.99935 16.2929 5.37245 16.666 5.83268 16.666H14.166C14.6263 16.666 14.9993 16.2929 14.9993 15.8327V5.83268H14.166H5.83268Z"
+				fill = "#313436"
+			/>
 		</svg>
-	
-	</>
-})
-export const SVGWhiteAdd = ComponentWrapper(() => {
+	</>;
+} );
+export const SVGWhiteAdd = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -29,8 +50,8 @@ export const SVGWhiteAdd = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGTooltip =ComponentWrapper( () => {
+} );
+export const SVGTooltip = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -51,9 +72,9 @@ export const SVGTooltip =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
+} );
 
-export const SVGGrayAdd =ComponentWrapper( () => {
+export const SVGGrayAdd = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -73,8 +94,8 @@ export const SVGGrayAdd =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGNet =ComponentWrapper( () => {
+} );
+export const SVGNet = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "16"
@@ -123,8 +144,8 @@ export const SVGNet =ComponentWrapper( () => {
 			</defs>
 		</svg>
 	</>;
-});
-export  const SVGClear =ComponentWrapper( () => {
+} );
+export const SVGClear = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "24"
@@ -142,9 +163,9 @@ export  const SVGClear =ComponentWrapper( () => {
 		</svg>
 	
 	</>;
-});
+} );
 
-export const SVGLink = ComponentWrapper(() => {
+export const SVGLink = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "24"
@@ -161,8 +182,8 @@ export const SVGLink = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGDiscord =ComponentWrapper( () => {
+} );
+export const SVGDiscord = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -177,8 +198,8 @@ export const SVGDiscord =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGMirror =ComponentWrapper( () => {
+} );
+export const SVGMirror = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -220,8 +241,8 @@ export const SVGMirror =ComponentWrapper( () => {
 		</svg>
 	
 	</>;
-});
-export const SVGVK =ComponentWrapper( () => {
+} );
+export const SVGVK = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -240,8 +261,8 @@ export const SVGVK =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGTwitter =ComponentWrapper( () => {
+} );
+export const SVGTwitter = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -256,8 +277,8 @@ export const SVGTwitter =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGInstagram =ComponentWrapper( () => {
+} );
+export const SVGInstagram = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -280,8 +301,8 @@ export const SVGInstagram =ComponentWrapper( () => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGGithub = ComponentWrapper(() => {
+} );
+export const SVGGithub = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -337,8 +358,8 @@ export const SVGGithub = ComponentWrapper(() => {
 			</defs>
 		</svg>
 	</>;
-});
-export const SVGMedium = ComponentWrapper(() => {
+} );
+export const SVGMedium = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -361,8 +382,8 @@ export const SVGMedium = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGFacebook = ComponentWrapper(() => {
+} );
+export const SVGFacebook = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -381,8 +402,8 @@ export const SVGFacebook = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGTelegram = ComponentWrapper(() => {
+} );
+export const SVGTelegram = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -419,8 +440,8 @@ export const SVGTelegram = ComponentWrapper(() => {
 			</defs>
 		</svg>
 	</>;
-});
-export const SVGReddit = ComponentWrapper(() => {
+} );
+export const SVGReddit = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -439,8 +460,8 @@ export const SVGReddit = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGYoutube = ComponentWrapper(() => {
+} );
+export const SVGYoutube = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -470,8 +491,8 @@ export const SVGYoutube = ComponentWrapper(() => {
 			</defs>
 		</svg>
 	</>;
-});
-export const SVGTikTok = ComponentWrapper(() => {
+} );
+export const SVGTikTok = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -494,8 +515,8 @@ export const SVGTikTok = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGTumblr = ComponentWrapper(() => {
+} );
+export const SVGTumblr = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -522,8 +543,8 @@ export const SVGTumblr = ComponentWrapper(() => {
 			</defs>
 		</svg>
 	</>;
-});
-export const SVGNotion = ComponentWrapper(() => {
+} );
+export const SVGNotion = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -550,8 +571,8 @@ export const SVGNotion = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGClubHouse = ComponentWrapper(() => {
+} );
+export const SVGClubHouse = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "28"
@@ -570,8 +591,8 @@ export const SVGClubHouse = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
-export const SVGClose = ComponentWrapper(() => {
+} );
+export const SVGClose = ComponentWrapper( () => {
 	return <>
 		<svg
 			width = "40"
@@ -597,4 +618,4 @@ export const SVGClose = ComponentWrapper(() => {
 			/>
 		</svg>
 	</>;
-});
+} );

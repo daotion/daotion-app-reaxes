@@ -7,7 +7,6 @@ import {
 	reaxel_wallet,
 } from '@@RootPath/src/reaxels';
 import { request_user_address_alias } from '@@requests';
-import { globalStore } from '@@common/global-controller';
 import { Button } from 'antd';
 
 const randomWallet = Wallet.createRandom();

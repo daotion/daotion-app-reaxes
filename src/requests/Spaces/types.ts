@@ -61,7 +61,7 @@ export namespace Space___get_space_detail{
 		"email" : string;
 		"iconUrl": string,
 		/*添加的社交账户组字符串:[{social:"",address:""}]*/
-		"links": string,
+		"socialLinks": string,
 		"name": string,
 		"spaceID": number,
 		"tabs" : string[];
@@ -180,5 +180,25 @@ export namespace Space__edit_space_social_list {
 	};
 	export type response = {
 		
+	};
+}
+/*请求space成员列表*/
+export namespace Space__member_list {
+	
+	export type payload = {
+		"spaceID": number,
+		"indexStart": number,
+		"count": number,
+		"firstTimestamp": number
+	};
+	export type response = {
+		"indexEnd": number,
+		"count": number,
+		"firstTimestamp": number,
+		"userInfos" : {
+			"address" : string,
+			"icon" : string,
+			"name" : string;
+		}[];
 	};
 }

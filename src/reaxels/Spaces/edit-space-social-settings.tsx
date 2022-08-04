@@ -62,7 +62,28 @@ export const reaxel_edit_space_social_settings = function () {
 		store ,
 		setState ,
 	} = orzMobx<store>( {
-		socialList : [] ,
+		socialList : [
+			{
+				key : Math.random() ,
+				type : "Homepage" ,
+				link : '' ,
+			} ,
+			{
+				key : Math.random() ,
+				type : "Twitter" ,
+				link : '' ,
+			} ,
+			{
+				key : Math.random() ,
+				type : "Discord" ,
+				link : '' ,
+			} ,
+			{
+				key : Math.random() ,
+				type : "GitHub" ,
+				link : '' ,
+			} ,
+		] ,
 		selectModalVisible : false ,
 	} );
 	const reax_space_detail = reaxel_space_detail();
@@ -96,21 +117,21 @@ export const reaxel_edit_space_social_settings = function () {
 	
 	
 	const clousred = Reaxes.closuredMemo(() => {
-		if(!reax_space_detail.store.spaceInfo?.links){
+		if(!reax_space_detail.store.spaceInfo?.socialLinks){
 			setState( {
 				socialList : [] ,
 			} );
 		} else {
 			setState( {
 				socialList : (
-					JSON.parse( reax_space_detail.store.spaceInfo.links )
+					JSON.parse( reax_space_detail.store.spaceInfo.socialLinks )
 				) as spaceSocialItem[] ,
 			} );
 		}
-	} , () => [ reax_space_detail.store.spaceInfo?.links ] );
+	} , () => [ reax_space_detail.store.spaceInfo?.socialLinks ] );
 	Reaxes.observedMemo( () => {
 		
-		clousred( () => [ reax_space_detail.store.spaceInfo?.links ] )();
+		clousred( () => [ reax_space_detail.store.spaceInfo?.socialLinks ] )();
 	} , () => [reax_space_detail.store.spaceInfo] );
 	
 	
@@ -169,9 +190,9 @@ export const reaxel_edit_space_social_settings = function () {
 				}
 			} ,
 			deleteSocialItem(type: string) {
-				setState({
-					socialList: store.socialList.filter((each) => each.type !== type),
-				})
+				setState( {
+					socialList : store.socialList.filter( ( each ) => each.type !== type ) ,
+				} );
 			},
 			setSelectModalVisible( selectModalVisible = !store.selectModalVisible ) {
 				setState( {

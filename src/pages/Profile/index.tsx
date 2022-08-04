@@ -1,13 +1,13 @@
 
 export const Profile = ComponentWrapper(() => {
-	
+	const { Empty } = antd;
 	const {
 		params ,
 		navigate,
 	} = utils.useRouter();
-	const address = params.address?.toLowerCase();
 	const {
 		othersProfileStore ,
+		closuredClearOthersProfile ,
 		memorizedFetchUpdateJoinedSpaceList,
 		memorizedFetchUpdateOthersProfile,
 	} = reaxel_user_profile_lists();
@@ -17,10 +17,12 @@ export const Profile = ComponentWrapper(() => {
 	Reaxes.collectDeps(othersProfileStore);
 	Reaxes.collectDeps(reax_wallet.account);
 	
+	const address = params.address?.toLowerCase() ?? reax_wallet.account?.address;
+	closuredClearOthersProfile(() => [address])(address);
+	memorizedFetchUpdateOthersProfile( () => [ address ] )( address );
 	/*如果访问的是用户本人的profile则显示settings*/
 	const UserSelfSettingsBtn = () => {
-		crayon.green(reax_wallet.account.address , address)
-		if(reax_wallet.account.address === address){
+		if(reax_wallet.account?.address === address){
 			return <Button 
 				className = { less.myProfileSettingBtn }
 				onClick={() => navigate('/profile/edit')}
@@ -36,7 +38,7 @@ export const Profile = ComponentWrapper(() => {
 	};
 	/*如果是用户本人就显示edit cover*/
 	const UserSelfEditCoverBtn = () => {
-		if(reax_wallet.account.address === address){
+		if(reax_wallet.account?.address === address){
 			return <div
 				className = { less.editCover }
 				onClick = {() => uploadProfileBanner()}
@@ -48,24 +50,33 @@ export const Profile = ComponentWrapper(() => {
 		}
 	};
 	
+	/*既没有钱包地址也没有路由地址 , 说明用户在访问/profile,且没链接钱包*/
+	if(!address && !reax_wallet.connecting){
+		/*如果访问的是/profile:断开钱包后清除自己的pofileList*/
+		closuredClearOthersProfile(() => [address])(address);
+		memorizedFetchUpdateJoinedSpaceList(() => [])(null);
+		reax_wallet.connectWallet().
+		then( () => {
+			if ( !reax_wallet.account ) {
+				navigate( '/' );
+			}
+		} );
+		return <Empty/>;
+	}
+	
 	if(!othersProfileStore.profile){
-		const selfAddress = reax_wallet.account?.address;
-		memorizedFetchUpdateOthersProfile(() => [address||selfAddress])(address||selfAddress)
-		return null;
+		return <Empty/>;
 	}
 	
 	if(!othersProfileStore.profile_joined_space_list_paged.length){
-		console.log( params );
-		console.log(222222222);
 		if(params['*'] === 'profile'){
 			memorizedFetchUpdateJoinedSpaceList(() => [reax_wallet.account?.address])(reax_wallet.account?.address);
 		}else if(params.address) {
 			memorizedFetchUpdateJoinedSpaceList(() => [address])(address);
 		}
-		return null;
+		return 2222222;
 	}
 	
-	console.log( 'ggggggggggggggggg' );
 	return <>
 		<div
 			className = { less.spaceInfo }
@@ -113,7 +124,7 @@ export const Profile = ComponentWrapper(() => {
 				>
 					<div>
 						<div className = { less.sharingBox }>
-							<WalletAddressCopyBox walletAddr = { '0x7b.....72f7' } />
+							<WalletAddressCopyBox walletAddr = { othersProfileStore.profile.address } />
 							<div className = { less.socialMedias }>
 								<SVGSocialShare />
 							</div>
@@ -125,7 +136,11 @@ export const Profile = ComponentWrapper(() => {
 						</p>
 					</div>
 					<div className = { less.netWorth }>
-						<p className = { less.netWorthTitle }>Net Worth</p>
+						<p className = { less.netWorthTitle }>
+							<I18n>
+								Net Worth
+							</I18n>
+						</p>
 						<p className = { less.netWorthMoney }>$18,494,958.15</p>
 					</div>
 				</div>
@@ -136,7 +151,7 @@ export const Profile = ComponentWrapper(() => {
 					onChange = { onChange }
 				>
 					<TabPane
-						tab = "Joined Spaces"
+						tab = {i18n("Joined Spaces")}
 						key = "1"
 					>
 						<div className = { less.joinedSpaceBox }>
@@ -336,20 +351,24 @@ const MyProfileNFTsCard = () => {
 };
 
 const JoinedSpaceCard = (props:JoinedSpaceCardProps) => {
+	const { navigate } = utils.useRouter();
 	return <>
-		<div className = { less.joinedSpaceCard }>
+		<div
+			className = { less.joinedSpaceCard }
+			onClick = { () => navigate( '/space' + props.spaceID ) }
+		>
 			<div className = { less.cardTop }>
 				<GrayBoxVal
-					text = {props.contributionVal}
+					text = { props.contributionVal }
 					icon = { <SVGLightning /> }
 				/>
 				<GrayBoxRank
-					text = {props.rank}
+					text = { props.rank }
 					icon = { <SVGCup /> }
 				/>
 			</div>
 			
-			<div className={less.profileAvatarBox}>
+			<div className = { less.profileAvatarBox }>
 				<Img
 					width = { 110 }
 					height = { 110 }
@@ -361,19 +380,23 @@ const JoinedSpaceCard = (props:JoinedSpaceCardProps) => {
 				/>
 			</div>
 			
-			<div className = { less.cardSpaceName }>
-				{props.address}
+			<div
+				className = { less.cardSpaceName }
+				title = { props.address }
+				onClick={(e) => e.stopPropagation()}
+			>
+				{ props.spaceName || props.address }
 			</div>
 		</div>
 	</>;
 };
 type JoinedSpaceCardProps = {
-	
-	"spaceID": number,
-	"address": string,
-	"icon": string,
-	"contributionVal": number,
-	"rank": number
+	spaceName : string;
+	spaceID: number,
+	address: string,
+	icon: string,
+	contributionVal: number,
+	rank: number
 };
 const MyprofileTabSubTitle = () => {
 	return <>

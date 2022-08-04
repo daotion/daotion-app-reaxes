@@ -1,12 +1,19 @@
-import { request_space_detail } from '@@requests';
-import { Space___get_space_detail } from '@@requests/Spaces/types';
+import {
+	request_space_detail ,
+	request_space_member_list ,
+	request_server_timestamp,
+} from '@@requests';
+import {
+	Space___get_space_detail ,
+	Space__member_list,
+} from '@@requests/Spaces/types';
 
 export const reaxel_space_detail = function (){
 	/*缓存上一次强制刷新的参数 , 避免不需要强制刷新时没传第二个deps导致不必要刷新*/
 	let prevForceUpdate = null;
 	const {
 		store ,
-		setState,
+		setState ,
 	} = orzMobx( {
 		spaceInfo : null as Space___get_space_detail.response ,
 		loading : true ,
@@ -65,6 +72,57 @@ export const reaxel_space_detail = function (){
 			getSpaceDetailMemoed( spaceID : number , forceUpdate = false ) {
 				return closuredFetchSpaceInfo( ( prevDeps ) => [ spaceID , ...(forceUpdate ? [prevForceUpdate = Math.random()] : [prevForceUpdate]) ] )( spaceID );
 			},
+		};
+	};
+}();
+
+
+export const reaxel_space_member_list = function(){
+	
+	const {
+		store ,
+		setState,
+	} = orzMobx( {
+		memberList : [] as Space__member_list.response['userInfos'] ,
+		loading : false ,
+	} );
+	
+	const fetchUpdateMemberList = async (spaceID:number) => {
+		const payload = async () => {
+			return {
+				spaceID ,
+				indexStart : 0 ,
+				count : 10000 ,
+				firstTimestamp : await request_server_timestamp(),
+			};
+		};
+		setState( { loading : true } );
+		const ret = request_space_member_list(payload);
+		ret.finally( () => {
+			setState( { loading : false } );
+		} );
+		return ret;
+	};
+	
+	const closuredFetchUpdateMemberList = Reaxes.closuredMemo( ( spaceID : number ) => {
+		
+		if(spaceID){
+			fetchUpdateMemberList( spaceID ).then( ( res ) => {
+				setState( {
+					memberList : res.userInfos ,
+				} );
+			} );
+		}
+		
+	} , () => [] );
+	
+	return () => {
+		
+		return {
+			get spaceMemberList(){
+				return store.memberList;
+			},
+			closuredFetchUpdateMemberList,
 		};
 	};
 }();

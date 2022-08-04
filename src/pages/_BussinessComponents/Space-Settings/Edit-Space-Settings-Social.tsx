@@ -10,14 +10,24 @@ export const SocialProfile = ComponentWrapper( () => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<ProfileTitle title = "Social Profiles" />
+			<ProfileTitle>
+				<I18n>
+					Social Profiles
+				</I18n>
+			</ProfileTitle>
 			<div
 				style = { {
 					minHeight : "250px" ,
 				} }
 			>
+				
 				{ reax_edit_space_social_settings.store.socialList.map( ( item ) => {
-					
+					const props = {} as any;
+					if(!["Homepage","Twitter","Discord","GitHub"].includes(item.type)){
+						props.onDelete = () => {
+							reax_edit_space_social_settings.deleteSocialItem( item.type );
+						} 
+					}
 					return <EditSocialItem
 						title = { item.type }
 						value = { item.link }
@@ -25,7 +35,7 @@ export const SocialProfile = ComponentWrapper( () => {
 							reax_edit_space_social_settings.editSocialItem( item.key , text );
 						} }
 						key = { item.type }
-					
+						{...props}
 					/>;
 				} ) }
 			</div>
@@ -44,7 +54,7 @@ export const SocialProfile = ComponentWrapper( () => {
 			/>
 			<div className = { less.divider }></div>
 			<ProfileFooterBtn
-				text = "Update Social Profiles"
+				text = { i18n( "Update Social Profiles" ) }
 			/>
 		</div>
 	</>;
@@ -62,9 +72,13 @@ const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
 				flexFlow : "column nowrap" ,
 			} }
 		>
-			<div className={less.titleWithDelete}>
-				<span className = { less.subTitle }>{ mixedProps.title }</span>
-				<SVGSocialItemDelete/>
+			<div className = { less.titleWithDelete }>
+				<span
+					className = { less.subTitle }
+				>{ mixedProps.title }</span>
+				{ props.onDelete && <SVGSocialItemDelete
+					onClick = { () => props.onDelete() }
+				/> }
 			</div>
 			<PrimaryInput
 				type = "primary"
@@ -81,6 +95,7 @@ type EditSocialItemProps = {
 	title : React.ReactNode;
 	value : string;
 	onChange : ( text : string ) => void;
+	onDelete : () => void;
 	placeholder? : string;
 };
 

@@ -10,12 +10,15 @@ export const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) 
 		<div
 			className = { less.editSocialItem }
 		>
-			<div className={less.titleWithDelete}>
-				<span className = { less.subTitle }>{ mixedProps.title }</span>
-				<SVGSocialItemDelete/>
+			<div className = { less.titleWithDelete }>
+				<span
+					className = { less.subTitle }
+					onClick = { props.onDelete }
+				>{ mixedProps.title }</span>
+				{ props.onDelete && <SVGSocialItemDelete onClick = {props.onDelete} /> }
 			</div>
 			<PrimaryInput
-				type='primary'
+				type = "primary"
 				value = { mixedProps.value }
 				onChange = { ( e ) => {
 					mixedProps.onChange( e.target.value );
@@ -30,10 +33,11 @@ type EditSocialItemProps = {
 	title : React.ReactNode;
 	value : string;
 	onChange : ( text : string ) => void;
+	onDelete? : () => void;
 	placeholder? : string;
 };
 
-import{SVGSocialItemDelete}from'../../_SvgComponents/space-setting-svg'
+import { SVGSocialItemDelete } from '../../_SvgComponents/space-setting-svg';
 
 import less from './index.module.less';
 import { PrimaryInput } from '@@pages/Test/dxz-input';

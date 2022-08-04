@@ -1,14 +1,14 @@
 export const SpaceSettings = ComponentWrapper( class extends ReactComponentClass {
 	
 	state = {
-		tab : "general" as 'social' | 'general',
+		tab : "General" as 'Social' | 'General',
 	};
 	
 	render() {
 		const spaceID = parseInt( utils.useRouter().params.spaceID );
 		const {} = antd;const Content = {
-			social : SocialProfile ,
-			general : GeneralProfile ,
+			Social : SocialProfile ,
+			General : GeneralProfile ,
 		}[ this.state.tab ];
 		reaxel_edit_space_general_settings().closuredFetchSpaceInfo( spaceID );
 		return <>
@@ -40,7 +40,10 @@ const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => 
 		>
 			<span
 				className = { less.settingsTitle }
-			>Space Settings
+			>
+				<I18n>
+					Space Settings
+				</I18n>ne
 			</span>
 			<ul
 				style = { {
@@ -52,8 +55,8 @@ const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => 
 			>
 				{ (
 					[
-						'general' ,
-						'social' ,
+						'General' ,
+						'Social' ,
 					] as const
 				).map( ( tab ) => <SpaceSettingTabPane
 					key = { tab }
@@ -73,15 +76,18 @@ const SpaceSettingTabPane = ( props : React.PropsWithChildren<{ selected? : bool
 		className = { props.selected ? less.settingTabSelected : less.settingTab }
 		onClick = { () => props.onClick() }
 	>
-		{ props.children }
+		<I18n>
+			{ props.children }
+		</I18n>
+	
 	</span>;
 };
 
 
 
 type SpaceSettingTabsProps = {
-	tab : 'social' | 'general',
-	setTab : ( tab : 'social' | 'general' ) => void;
+	tab : 'Social' | 'General',
+	setTab : ( tab : 'Social' | 'General' ) => void;
 };
 
 import {
