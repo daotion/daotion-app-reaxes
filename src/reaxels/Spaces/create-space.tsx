@@ -3,7 +3,6 @@ import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
 import { reaxel_space_list } from '@@RootPath/src/reaxels/Spaces/all-space-list';
 import { reaxel_i18n } from '@@RootPath/src/reaxels/i18n';
 
-import less from '../../styles/reaxels.module.less';
 import spaceTags from '@@Public/space-tags.json';
 import { SpaceFactoryAbi } from '@@common/contract/abi';
 import { SpaceFactoryAddress } from '@@common/contract/address';
@@ -196,7 +195,7 @@ export const reaxel_create_space = function () {
 										fontWeight : "700" ,
 										lineHeight : "24px" ,
 										marginTop : '24px' ,
-										border:"none",
+										border : "none" ,
 									} }
 								>
 									<I18n>
@@ -204,7 +203,7 @@ export const reaxel_create_space = function () {
 									</I18n>
 								</Button>
 							</> }
-							width = "800px"
+							width = "596px"
 							maskStyle = { {
 								background : "#f4f4f4" ,
 							} }
@@ -239,7 +238,7 @@ export const reaxel_create_space = function () {
 										</p>
 										<PrimaryInput
 											// className = { less.mInput }
-											type="primary"
+											type = "primary"
 											placeholder = { i18n( "Name your Space" ) }
 											value = { store.input_space_name }
 											onChange = { ( e ) => {
@@ -272,9 +271,10 @@ export const reaxel_create_space = function () {
 											</span>
 										</p>
 										<Select
+											removeIcon = { <SVGClear /> }
 											mode = "tags"
 											allowClear
-											className = { less.mSelect }
+											className = { less.votingType_box }
 											placeholder = { i18n( "Please select" ) }
 											value = { store.select_types }
 											onChange = { ( selectedTypes ) => {
@@ -310,7 +310,7 @@ export const reaxel_create_space = function () {
 											</I18n>
 										</p>
 										<PrimaryInput
-											type="primary"
+											type = "primary"
 											// className = { less.mInput }
 											placeholder = { i18n( "Enter your email" ) }
 											value = { store.input_email }
@@ -367,3 +367,5 @@ const SVGCloseIcon = () => {
 };
 import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
 import { PrimaryInput } from '@@pages/Test/dxz-input';
+import less from '../../styles/reaxels.module.less';
+import { SVGClear  } from '@@pages/_SvgComponents/space-setting-svg';
