@@ -163,8 +163,8 @@ export const reaxel_create_space = function () {
 					} = reaxel_i18n();
 					return <>
 						<Modal
-							// visible = { store.visible }
-							visible = { true }
+							visible = { store.visible }
+							// visible = { true }
 							centered
 							maskClosable
 							closeIcon = { <SVGCloseIcon /> }
