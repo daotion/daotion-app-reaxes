@@ -114,8 +114,8 @@ export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 
 import { reaxel_edit_space_social_settings } from '@@reaxels';
 import less from './index.module.less';
-import { PrimaryBtn  } from '../../Test/dxz-button';
+import { PrimaryBtn  } from '@@pages/Test/dxz-button';
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
 import { PrimaryInput } from '@@pages/Test/dxz-input';
-import{SVGSocialItemDelete}from'../../_SvgComponents/space-setting-svg'
+import{SVGSocialItemDelete}from'@@pages/_SvgComponents/space-setting-svg'

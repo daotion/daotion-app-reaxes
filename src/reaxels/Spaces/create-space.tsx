@@ -368,8 +368,8 @@ const SVGCloseIcon = () => {
 		</svg>
 	</>;
 };
-import { PrimaryInput } from '../../pages/Test/dxz-input';
-import less from '../../styles/reaxels.module.less';
+import { PrimaryInput } from '@@pages/Test/dxz-input';
+import less from '@@styles/reaxels.module.less';
 import { SVGClear } from '@@pages/_SvgComponents/space-setting-svg';
 
 const SVGSelectArrowIcon = () => {

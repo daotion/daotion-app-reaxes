@@ -201,7 +201,7 @@ const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 		{ props.children }
 	</>;
 };
-import{SVGSocialItemDelete}from'../../_SvgComponents/space-setting-svg'
+import{SVGSocialItemDelete}from'@@pages/_SvgComponents/space-setting-svg'
 
 import {
 	reaxel_edit_space_general_settings ,
@@ -230,4 +230,4 @@ import { ProfileTitle } from './Profile-Title';
 import { PrimaryBtn } from '@@pages/Test/dxz-button';
 import {
 	PrimaryInput ,
-} from '../../Test/dxz-input';
+} from '@@pages/Test/dxz-input';

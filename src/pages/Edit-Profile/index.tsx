@@ -196,4 +196,4 @@ export const EditProfile = ComponentWrapper( () => {
 	</div>;
 	
 } );
-import{PrimaryBtn}from'../../pages/Test/dxz-button';
+import{PrimaryBtn}from'@@pages/Test/dxz-button';
