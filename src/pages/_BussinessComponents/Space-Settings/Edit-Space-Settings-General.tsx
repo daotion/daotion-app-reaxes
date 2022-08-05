@@ -99,10 +99,6 @@ export const GeneralProfile = ComponentWrapper( () => {
 			<ItemWithSubTitle title = { i18n( 'Type' ) }>
 				<MultipleSelect
 					dropdownClassName = { less.dropDownMenu }
-					className = { less.votingType_box }
-					removeIcon = { <SVGClear /> }
-					mode = "multiple"
-					allowClear
 					placeholder = "Enter or select tags"
 					value = { editingStore.tags }
 					onChange = { ( tags ) => {

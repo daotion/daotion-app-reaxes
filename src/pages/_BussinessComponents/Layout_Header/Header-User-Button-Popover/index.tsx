@@ -78,7 +78,7 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 							
 						} }
 					>
-						<BtnIconRenameSvgComponent />
+						{/*<BtnIconRenameSvgComponent />*/}
 						<BtnIconCopySvgComponent />
 					</div>
 				</div>
