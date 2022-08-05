@@ -1,5 +1,5 @@
 
-export const UserAvatar = ComponentWrapper( () => {
+export const UserAvatar = ComponentWrapper( (props) => {
 	const reax_wallet = reaxel_wallet();
 	const reax_blockies = reaxel_blockies();
 	
@@ -13,8 +13,8 @@ export const UserAvatar = ComponentWrapper( () => {
 				backgroundImage : `url("${ reax_wallet.account.ens.avatar.url }")` ,
 				backgroundColor : "#eeeeee" ,
 				display : "flex" ,
-				width : 20 ,
-				height : 20 ,
+				width : props.width || 40 ,
+				height : props.height || 40 ,
 				borderRadius : "50%" ,
 			} }
 		/>;

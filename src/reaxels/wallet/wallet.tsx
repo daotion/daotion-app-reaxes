@@ -16,7 +16,7 @@ import {
 import { Chain } from '@web3-onboard/common';
 import {
 	web3onboard ,
-} from './init-web3onboard';
+} from '@@reaxels/wallet/init-web3onboard';
 
 const web3Onboard = web3onboard.instance;
 
@@ -252,50 +252,4 @@ function setWalletToLocalstorage( connectWallet : WalletState ) {
 	orzLocalstroage.set( account_storage_symbol , stringify( _.omit( connectWallet , [ "provider" ] ) ) );
 }
 
-function fetchENS( address : string , chain : Chain ) {
-	const provider = new providers.StaticJsonRpcProvider( chain.rpcUrl );
-	const ens = {} as ArrayElement<WalletState['accounts']>["ens"];
-	return provider.lookupAddress( address ).
-	then( ( name ) => {
-		if ( name ) {
-			_.assign(
-				ens ,
-				{ name } ,
-			);
-			return provider.getResolver( name );
-		} else {
-			crayon.warn( 'there is no "ens:name" , will show address directly' );
-			return null;
-		}
-		
-	} ).
-	then( ( resolver ) => {
-		if ( resolver ) {
-			return Promise.all( [
-				resolver.getContentHash() ,
-				resolver.getAvatar() ,
-				resolver ,
-			] );
-		} else {
-			throw null;
-		}
-	} ).
-	then( ( [ contentHash , avatar , resolver ] ) => {
-		
-		const res = _.assign(
-			ens ,
-			{
-				avatar ,
-				contentHash ,
-				getText : resolver.getText.bind( resolver ) ,
-			} ,
-		);
-		console.log( logProxy( res ) );
-		return res;
-	} ).
-	catch( ( e ) => {
-		if ( e === null ) {
-			return null;
-		}
-	} );
-}
+

@@ -118,7 +118,7 @@ export const Profile = ComponentWrapper(() => {
 				>
 					<span
 						className = { less.spaceName }
-					>{ profile.displayName }
+					>{ profile.displayName || profile.address }
 					</span>
 					<div className = { less.share_joinBox }>
 						<ShareBtn />
