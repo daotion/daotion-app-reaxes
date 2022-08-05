@@ -1,29 +1,68 @@
-
+/**/
 export const Profile = ComponentWrapper(() => {
 	const { Empty } = antd;
+	/*声明profileStore,如果是本人的则直接用reax_user_profile.profile,否则用othersProfile*/
+	let profile : User__profile_info.response;
 	const {
 		params ,
 		navigate,
 	} = utils.useRouter();
 	const {
-		othersProfileStore ,
+		othersProfile ,
+		profile_joined_space_list_paged,
 		closuredClearOthersProfile ,
 		memorizedFetchUpdateJoinedSpaceList,
 		memorizedFetchUpdateOthersProfile,
 	} = reaxel_user_profile_lists();
 	const reax_wallet = reaxel_wallet();
 	const { uploadProfileBanner } = reaxel_edit_profile();
+	const reax_user_profile = reaxel_user_profile();
 	
-	Reaxes.collectDeps(othersProfileStore);
+	Reaxes.collectDeps(othersProfile);
+	Reaxes.collectDeps(reax_user_profile.profileStore.profile);
 	Reaxes.collectDeps(reax_wallet.account);
 	
-	const address = params.address?.toLowerCase() ?? reax_wallet.account?.address;
-	closuredClearOthersProfile(() => [address])(address);
-	memorizedFetchUpdateOthersProfile( () => [ address ] )( address );
+	const address = reax_wallet.account?.address;
+	const qsAddress = params.address?.toLowerCase();
+	
+	/*当address或qsAdress变化时清除othersProfile*/
+	closuredClearOthersProfile(() => [qsAddress||address])(qsAddress||address);
+	
+	/* 访问的是/profile/:address    */
+	if ( qsAddress ) {
+		profile = othersProfile;
+		memorizedFetchUpdateOthersProfile( () => [ qsAddress ] )( qsAddress );
+		memorizedFetchUpdateJoinedSpaceList(() => [qsAddress])(qsAddress);
+		if(qsAddress !== profile?.address){
+			return null;
+		}
+	} else /*访问的是/profile  */  {
+		profile = reax_user_profile.profileStore.profile;
+		memorizedFetchUpdateJoinedSpaceList(() => [address])(address);
+		/*既没有钱包地址也没有路由地址 , 说明用户在访问/profile,且没链接钱包*/
+		if (!reax_wallet.connecting && !address){
+			/*清除掉获取到的列表*/
+			memorizedFetchUpdateJoinedSpaceList(() => [])(null);
+			reax_wallet.connectWallet().then( () => {
+				if ( !reax_wallet.account ) {
+					navigate( '/' );
+				}
+			} );
+			console.log(1111111111,profile);
+			return <Empty/>;
+		}
+	}
+	
+	if(!profile){
+		console.log( 222222222 ,profile);
+		return <Empty/>;
+	}
+	
+	
 	/*如果访问的是用户本人的profile则显示settings*/
 	const UserSelfSettingsBtn = () => {
-		if(reax_wallet.account?.address === address){
-			return <Button 
+		if(!qsAddress || (address === qsAddress)){
+			return <Button
 				className = { less.myProfileSettingBtn }
 				onClick={() => navigate('/profile/edit')}
 			>
@@ -38,7 +77,7 @@ export const Profile = ComponentWrapper(() => {
 	};
 	/*如果是用户本人就显示edit cover*/
 	const UserSelfEditCoverBtn = () => {
-		if(reax_wallet.account?.address === address){
+		if(!qsAddress || (address === qsAddress)){
 			return <div
 				className = { less.editCover }
 				onClick = {() => uploadProfileBanner()}
@@ -49,33 +88,6 @@ export const Profile = ComponentWrapper(() => {
 			return null;
 		}
 	};
-	
-	/*既没有钱包地址也没有路由地址 , 说明用户在访问/profile,且没链接钱包*/
-	if(!address && !reax_wallet.connecting){
-		/*如果访问的是/profile:断开钱包后清除自己的pofileList*/
-		closuredClearOthersProfile(() => [address])(address);
-		memorizedFetchUpdateJoinedSpaceList(() => [])(null);
-		reax_wallet.connectWallet().
-		then( () => {
-			if ( !reax_wallet.account ) {
-				navigate( '/' );
-			}
-		} );
-		return <Empty/>;
-	}
-	
-	if(!othersProfileStore.profile){
-		return <Empty/>;
-	}
-	
-	if(!othersProfileStore.profile_joined_space_list_paged.length){
-		if(params['*'] === 'profile'){
-			memorizedFetchUpdateJoinedSpaceList(() => [reax_wallet.account?.address])(reax_wallet.account?.address);
-		}else if(params.address) {
-			memorizedFetchUpdateJoinedSpaceList(() => [address])(address);
-		}
-		return 2222222;
-	}
 	
 	return <>
 		<div
@@ -88,12 +100,12 @@ export const Profile = ComponentWrapper(() => {
 					className = { less.cover }
 					width = "1200px"
 					height = "300px"
-					src = {othersProfileStore.profile.bgUrl}
+					src = {profile.bgUrl}
 				/>
 				<div className = { less.myAvatarContainer }>
 					<Img
 						className = { less.myAvatar }
-						src = {othersProfileStore.profile.iconUrl}
+						src = {profile.iconUrl}
 					/>
 				</div>
 				{ UserSelfEditCoverBtn() }
@@ -106,7 +118,7 @@ export const Profile = ComponentWrapper(() => {
 				>
 					<span
 						className = { less.spaceName }
-					>{ othersProfileStore.profile.displayName }
+					>{ profile.displayName }
 					</span>
 					<div className = { less.share_joinBox }>
 						<ShareBtn />
@@ -124,7 +136,7 @@ export const Profile = ComponentWrapper(() => {
 				>
 					<div>
 						<div className = { less.sharingBox }>
-							<WalletAddressCopyBox walletAddr = { othersProfileStore.profile.address } />
+							<WalletAddressCopyBox walletAddr = { profile.address } />
 							<div className = { less.socialMedias }>
 								<SVGSocialShare />
 							</div>
@@ -132,7 +144,7 @@ export const Profile = ComponentWrapper(() => {
 						<p
 							className = { less.bios }
 						>
-							{othersProfileStore.profile.bio}
+							{profile.bio}
 						</p>
 					</div>
 					<div className = { less.netWorth }>
@@ -155,8 +167,7 @@ export const Profile = ComponentWrapper(() => {
 						key = "1"
 					>
 						<div className = { less.joinedSpaceBox }>
-							{ othersProfileStore.
-							profile_joined_space_list_paged.
+							{ profile_joined_space_list_paged.
 							map( ( item ) => {
 								return <JoinedSpaceCard
 									key = {item.address}
@@ -195,11 +206,12 @@ import {
 	WalletAddressCopyBox ,
 } from '@@common/Xcomponents';
 import {
+	reaxel_edit_profile ,
 	reaxel_user_profile ,
-	reaxel_user_profile_lists,
+	reaxel_user_profile_lists ,
 	reaxel_wallet,
-	reaxel_edit_profile
 } from '@@reaxels';
+import {User__profile_info} from '@@requests/types';
 import less from './index.module.less';
 
 import {
@@ -207,7 +219,6 @@ import {
 	Tabs ,
 } from 'antd';
 import {
-	SVGCardAvatar ,
 	SVGCup ,
 	SVGLightning ,
 	SVGMyProfileCardOp ,

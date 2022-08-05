@@ -18,9 +18,14 @@ export const orzMobx = <S extends object>( state : S ) => {
 		for ( const key in partialState ) {
 			const value = partialState[ key ];
 			if ( _.isPlainObject( value ) ) {
-				mutatePartialState( value , deepStore[key]);
+				if(_.isPlainObject(deepStore[key])){
+					mutatePartialState( value , deepStore[key]);	
+				}
 			} else if ( isBasicType(value) ) {
-				action(() => deepStore[key] = value)();
+				action(() => {
+					
+					deepStore[key] = value
+				})();
 			}
 		}
 		

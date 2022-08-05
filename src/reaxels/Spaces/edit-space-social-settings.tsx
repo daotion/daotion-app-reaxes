@@ -136,7 +136,7 @@ export const reaxel_edit_space_social_settings = function () {
 	
 	
 	return () => {
-		return {  
+		return ret = {  
 			get store() {
 				return store;
 			} ,
@@ -172,7 +172,7 @@ export const reaxel_edit_space_social_settings = function () {
 						} ,
 					] ,
 				} );
-				if ( staticSocialList.length === store.socialList.length ) {
+				if ( ret.staticSocialList.length === 0  ) {
 					setState( {
 						selectModalVisible : false ,
 					} );
