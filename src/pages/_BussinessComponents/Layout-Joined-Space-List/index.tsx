@@ -169,6 +169,7 @@ export const Homepage_Avatar = ComponentWrapper( ( props : { url : string } ) =>
 			backgroundRepeat : "no-repeat" ,
 			backgroundSize : "100%" ,
 			marginTop : 0 ,
+			cursor:"pointer"
 		} }
 	/>;
 } );

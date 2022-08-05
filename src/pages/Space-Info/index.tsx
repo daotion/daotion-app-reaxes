@@ -271,6 +271,7 @@ const OverViewTitle = ComponentWrapper( () => {
 				justifyContent : "space-between" ,
 				width : "100%" ,
 				height : "fit-content" ,
+				userSelect:"none",
 			} }
 		>
 			<span
