@@ -237,7 +237,6 @@ export const reaxel_create_space = function () {
 											</I18n>
 										</p>
 										<PrimaryInput
-											// className = { less.mInput }
 											type = "primary"
 											placeholder = { i18n( "Name your Space" ) }
 											value = { store.input_space_name }
@@ -270,13 +269,12 @@ export const reaxel_create_space = function () {
 												/3
 											</span>
 										</p>
-										<Select
-											dropdownClassName = { less.dropDownMenu }
+										<MultipleSelect
+											type='primary'
 											suffixIcon = { <SVGSelectArrowIcon /> }
 											removeIcon = { <SVGClear /> }
 											mode = "tags"
 											dropdownMatchSelectWidth = { true }
-											className = { less.votingType_box }
 											placeholder = { i18n( "Please select" ) }
 											value = { store.select_types }
 											onChange = { ( selectedTypes ) => {
@@ -289,7 +287,7 @@ export const reaxel_create_space = function () {
 										>
 											{ spaceTags.filter( ( text ) => !store.select_types.includes( text ) ).
 											map( ( text ) => <Select.Option key = { text }>{ text }</Select.Option> ) }
-										</Select>
+										</MultipleSelect>
 									</div>
 									<div className = { less.formItem }>
 										<div className = { less.titleWrp }>
@@ -299,10 +297,10 @@ export const reaxel_create_space = function () {
 												</I18n></p>
 										</div>
 										<Select
-											dropdownClassName = { less.dropDownMenu }
 											suffixIcon = { <SVGSelectArrowIcon /> }
 											defaultValue = "Ethereum"
 											className = { less.antdNetSelect }
+											dropdownClassName={less.dropDownMenu}
 										>
 											<Select.Option value = "Ethereum">Ethereum</Select.Option>
 										</Select>
@@ -369,6 +367,7 @@ const SVGCloseIcon = () => {
 	</>;
 };
 import { PrimaryInput } from '@@pages/Test/dxz-input';
+import { MultipleSelect } from '@@pages/Test/dxz-select';
 import less from '../../styles/reaxels.module.less';
 import { SVGClear } from '@@pages/_SvgComponents/space-setting-svg';
 

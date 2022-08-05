@@ -107,7 +107,7 @@ export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 			onClick = { () => {
 				reax_edit_space_social_settings.fetchEditSocial();
 			} }
-			type = "primary"
+			className={less.socialUploadBtn}
 		>{ props.text }</PrimaryBtn>
 	</>;
 } );

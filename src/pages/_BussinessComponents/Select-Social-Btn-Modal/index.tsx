@@ -4,22 +4,7 @@ export const SelectSocialModalBtn = ComponentWrapper( (props:AddSocialBtn) => {
 	return <>
 		<Button
 			disabled={props.socialList?.length === 0}
-			style = { {
-				color : "#777e90" ,
-				fontWeight : "700" ,
-				fontSize : "14px" ,
-				lineHeight : "normal" ,
-				border : "2px solid #e6e8ec" ,
-				display : "flex" ,
-				alignItems : "center" ,
-				justifyContent : "center" ,
-				padding : "12px 16px" ,
-				borderRadius : "12px" ,
-				height : "40px" ,
-				marginTop : "32px" ,
-				width : "fit-content" ,
-				background : "#ffffff" ,
-			} }
+			className={less.selectSocialBtn}
 			onClick = { props.onClick }
 		>
 			<SVGGrayAdd/>

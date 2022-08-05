@@ -26,10 +26,12 @@ import { DxzSpaceList } from './dxz-space-list';
 import { Test_Reaxel_i18n } from './I18n';
 import { DxzButton } from './dxz-button';
 import { DxzInput } from './dxz-input';
+import { DxzSwitch } from './dxz-switch';
+import { DxzSelect } from './dxz-select';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzInput />
+	<DxzSelect />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

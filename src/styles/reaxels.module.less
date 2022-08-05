@@ -99,28 +99,17 @@
 		}
 	}
 }
-
-:global(.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant- select-customize-input).ant-select-selector) {
+:global(.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input).ant-select-selector){
 	border-color: #777e90;
 	box-shadow: unset;
 }
 
-:global(.ant-select) {
-	&:hover {
-		border-color: #777e90;
-	}
-}
-:global(.ant-select-multiple .ant-select-selection-item-remove) {
-	display: flex;
-	align-items: center;
-}
-
 .antd-net-select:global(.ant-select) {
 	box-shadow: unset;
-	&:hover {
+	width: 100%;
+	&:hover{
 		border-color: #777e90;
 	}
-	width: 100%;
 	:global {
 		.ant-select-selector {
 			border: 2px solid #e6e8ec;
@@ -128,6 +117,7 @@
 			border-radius: 12px;
 			height: 48px;
 			width: 100%;
+			box-shadow: unset;
 			&:hover {
 				border-color: #777e90;
 			}
@@ -137,83 +127,10 @@
 			align-items: center;
 			padding-left: 6px;
 		}
-	}
-}
-
-:global {
-	.ant-select {
-		width: 100%;
-	}
-	
-	.ant-select-selector {
-		&::placeholder {
-			font-weight: 600;
-			font-size: 14px;
-			line-height: 24px;
-			color: #777e90;
-		}
-	}
-	
-	.ant-select-multiple span.ant-select-selection-item {
-		padding: 0px 0px;
-		margin: 0px 2px 0px 0px;
-		background-color: #3772ff;
-		color: white;
-		padding: 6px 16px;
-		border-radius: 12px;
-		height: 40px;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		font-size: 16px;
-		justify-content: center;
-		min-width: 30px;
-	}
-	
-	.ant-select-multiple .ant-select-selection-item-remove svg {
-		margin-left: 8px;
-	}
-	
-	.ant-select.ant-select-multiple.ant-select-allow-clear.ant-select-show-search {
-		&:local(.voting-type_box) {
-			.ant-select-selector {
-				border: 2px solid #e6e8ec;
-				padding: 1px 2px;
-				border-radius: 12px;
-				height: 48px;
-				width: 100%;
-			}
-			
-			&::placeholder {
-				font-weight: 600;
-				font-size: 14px;
-				line-height: 24px;
-				color: #777e91;
-			}
-		}
-	}
-}
-.selectbox select:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-item {
-	border-radius: 12px;
-	line-height: 42px;
-	height: 40px;
-	width: 100%;
-}
-
-.ant-select.ant-select-multiple.ant-select-allow-clear.ant-select-show-search {
-	&:local(.voting-type_box) {
-		.ant-select-selector {
-			border: 2px solid #e6e8ec;
-			padding: 1px 2px;
-			border-radius: 12px;
-			height: 48px;
-		}
 		
-		.ant-select-selection-item-remove {
-			display: flex;
-		}
 	}
 }
+
 
 
 .antd-create-space-modal {
