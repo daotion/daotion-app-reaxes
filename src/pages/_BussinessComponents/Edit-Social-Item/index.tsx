@@ -37,7 +37,7 @@ type EditSocialItemProps = {
 	placeholder? : string;
 };
 
-import { SVGSocialItemDelete } from '../../_SvgComponents/space-setting-svg';
+import { SVGSocialItemDelete } from '@@pages/_SvgComponents/space-setting-svg';
 
 import less from './index.module.less';
 import { PrimaryInput } from '@@pages/Test/dxz-input';

@@ -3,7 +3,7 @@ import {
 	reaxel_user_join_or_leave_space ,
 } from '@@RootPath/src/reaxels';
 import { ButtonProps } from 'antd';
-import less from '../../Space-Info/index.module.less';
+import less from '@@pages/Space-Info/index.module.less';
 // import less from '@@RootPath/src/styles/reaxels.module.less';
 /*返回join or leave button但是如果用户是controller则变为设置按钮*/
 export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps ) => {

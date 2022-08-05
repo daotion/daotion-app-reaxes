@@ -5,7 +5,6 @@ export const PrimaryBtn = ( props ) => {
 		Button ,
 		Space ,
 		Input ,
-		
 	} = antd;
 	return <Button
 		type = "primary"

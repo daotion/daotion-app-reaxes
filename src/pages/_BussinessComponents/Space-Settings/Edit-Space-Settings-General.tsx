@@ -37,7 +37,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 						width : "96px" ,
 						height : "96px" ,
 						marginRight : "28px" ,
-						userSelect : "none",
+						userSelect : "none" ,
 					} }
 				>
 					<Img
@@ -49,7 +49,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 							objectFit : "cover" ,
 							objectPosition : "50% 50%" ,
 							marginRight : "28px" ,
-							userSelect : "none",
+							userSelect : "none" ,
 						} }
 					/>
 				</div>
@@ -87,7 +87,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 			<Input.TextArea
 				rows = { 4 }
 				className = { less.generalBioTextArea }
-				placeholder = {i18n("Tell about your Space in a few words")}
+				placeholder = { i18n( "Tell about your Space in a few words" ) }
 				value = { editingStore.bio }
 				maxLength = { 160 }
 				onChange = { ( e ) => {
@@ -96,12 +96,9 @@ export const GeneralProfile = ComponentWrapper( () => {
 					} );
 				} }
 			/>
-			<ItemWithSubTitle title = {i18n('Type')}>
-				<Select
-					className = { less.votingType_box }
-					removeIcon = { <SVGClear /> }
-					mode = "multiple"
-					allowClear
+			<ItemWithSubTitle title = { i18n( 'Type' ) }>
+				<MultipleSelect
+					dropdownClassName = { less.dropDownMenu }
 					placeholder = "Enter or select tags"
 					value = { editingStore.tags }
 					onChange = { ( tags ) => {
@@ -116,13 +113,13 @@ export const GeneralProfile = ComponentWrapper( () => {
 							{ tag }
 						</Option>;
 					} ) }
-				</Select>
+				</MultipleSelect>
 			</ItemWithSubTitle>
 			<ItemWithSubTitle
-				title = {i18n("Email")}
+				title = { i18n( "Email" ) }
 			>
 				<PrimaryInput
-					type='primary'
+					type = "primary"
 					placeholder = "Enter your email"
 					value = { editingStore.email }
 					onChange = { ( e ) => {
@@ -200,7 +197,7 @@ const ItemWithSubTitle = ( props : React.PropsWithChildren<{
 		{ props.children }
 	</>;
 };
-import{SVGSocialItemDelete}from'../../_SvgComponents/space-setting-svg'
+import { SVGSocialItemDelete } from '@@pages/_SvgComponents/space-setting-svg';
 
 import {
 	reaxel_edit_space_general_settings ,
@@ -213,6 +210,7 @@ import {
 	SVGTooltip ,
 	SVGWhiteAdd ,
 } from '@@pages/_SvgComponents/space-setting-svg';
+import { MultipleSelect } from '@@pages/Test/dxz-select';
 import less from './index.module.less';
 import spaceTags from '@@Public/space-tags.json';
 import {
@@ -227,7 +225,6 @@ import {
 const { Option } = Select;
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
-
 import { PrimaryBtn } from '@@pages/Test/dxz-button';
 import {
 	PrimaryInput ,
