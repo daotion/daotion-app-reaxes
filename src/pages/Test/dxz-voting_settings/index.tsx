@@ -1,12 +1,14 @@
 import less from './index.module.less';
-import { Button } from 'antd';
-import { Switch } from 'antd';
-import { Select } from 'antd';
+import {
+	Button ,
+	Switch,
+	Select
+} from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import {
 	Cascader ,
 	Input ,
-	Space,
+	Space ,
 } from 'antd';
 
 const { Option } = Select;
@@ -356,13 +358,13 @@ export const DxzVoting_Settings = () => {
 						<AddButton text = "">Add Strategie</AddButton>
 						<p
 							
-								style = { {
+							style = { {
 								fontSize : "14px" ,
 								lineHeight : "24px" ,
 								fontWeight : "600" ,
 								marginBottom : "12px" ,
 							} }
-								>
+						>
 							
 							Voting delay
 						</p>
@@ -390,8 +392,8 @@ export const DxzVoting_Settings = () => {
 						>
 							Proposal validity threshold
 						</p>
-						<Select
-							className = { less.votingType_box }
+						<MultipleSelect
+							// className = { less.votingType_box }
 							style = { {
 								width : "100%" ,
 								color : "#9a9fa5" ,
@@ -409,7 +411,7 @@ export const DxzVoting_Settings = () => {
 							placeholder = "Select VotingType"
 						>{ children }
 						
-						</Select>
+						</MultipleSelect>
 					
 					
 					</Block>
@@ -623,16 +625,17 @@ const IptSelect = () => {
 		<Input
 			addonAfter = { selectAfter }
 			placeholder = { 'please input' }
-			bordered={true}
-			size="large"
-			style={{
+			bordered = { true }
+			size = "large"
+			style = { {
 				// backgroundColor:"#f4f4f4",
-				height:"48px",
-				width:"100%",
-				marginBottom:"32px",
-		}}		
+				height : "48px" ,
+				width : "100%" ,
+				marginBottom : "32px" ,
+			} }
 		/>
 		
 		{/*</div>*/ }
 	</>;
 };
+import { MultipleSelect } from '@@pages/Test/dxz-select';
