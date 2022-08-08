@@ -28,10 +28,11 @@ import { DxzButton } from './dxz-button';
 import { DxzInput } from './dxz-input';
 import { DxzSwitch } from './dxz-switch';
 import { DxzSelect } from './dxz-select';
+import { DxzCreateSBT } from './dxz-create-SBT';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSelect />
+	<DxzCreateSBT />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
