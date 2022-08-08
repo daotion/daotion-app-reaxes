@@ -72,8 +72,11 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 					{ this.reax_joined_space_list.joined_space_list.map( ( spaceInfo , index ) => {
 						
 						
-						return <Tooltip
-							title={spaceInfo.name || '__TEST__'}
+						return <Tooltip overlayClassName={less.joinedSpaceTooltip}
+							style={{
+								left:"48px"
+							}}
+							title={spaceInfo.name || 'spacename33333'}
 							placement="right"
 							key = {spaceInfo.spaceID}
 						>
