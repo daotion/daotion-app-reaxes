@@ -118,9 +118,30 @@ export const reaxel_edit_space_social_settings = function () {
 	
 	const clousred = Reaxes.closuredMemo(() => {
 		if(!reax_space_detail.store.spaceInfo?.socialLinks){
-			// setState( {
-			// 	socialList : [] ,
-			// } );
+			setState( {
+				socialList : [
+					{
+						key : Math.random() ,
+						type : "Homepage" ,
+						link : '' ,
+					} ,
+					{
+						key : Math.random() ,
+						type : "Twitter" ,
+						link : '' ,
+					} ,
+					{
+						key : Math.random() ,
+						type : "Discord" ,
+						link : '' ,
+					} ,
+					{
+						key : Math.random() ,
+						type : "GitHub" ,
+						link : '' ,
+					} ,
+				],
+			} );
 		} else {
 			setState( {
 				socialList : (
@@ -129,6 +150,7 @@ export const reaxel_edit_space_social_settings = function () {
 			} );
 		}
 	} , () => [ reax_space_detail.store.spaceInfo?.socialLinks ] );
+	
 	Reaxes.observedMemo( () => {
 		
 		clousred( () => [ reax_space_detail.store.spaceInfo?.socialLinks ] )();
