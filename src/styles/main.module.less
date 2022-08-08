@@ -78,22 +78,15 @@
 	display: flex;
 	height: 100%;
 	overflow: auto;
-	
-	//div {
-	//	
-	//	display: flex;
-	//}
-	
+	background: rgba(244, 244, 244, 0.8);
 	
 	.left-side {
-		background-color: white;
 		height: 100%;
 		display: flex;
-		justify-content: space-between;
+		margin: 8px 0 8px 4px;
 	}
 	
 	.main-content {
-		background-color: rgb(244, 244, 244);
 		flex: 1 0 auto;
 		flex-flow: column nowrap;
 		width: min-content;
@@ -115,7 +108,7 @@
 				float: right;
 			}
 			
-			&::before{
+			&::before {
 				content: '';
 				display: flex;
 				
@@ -124,7 +117,7 @@
 	}
 	
 	:global {
-		span.ant-tree-switcher_,.ant-tree-switcher {
+		span.ant-tree-switcher_, .ant-tree-switcher {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -156,13 +149,13 @@
 }
 
 
-
 .global-window-loading {
-	flex-grow : 1 ;
+	flex-grow: 1;
 	
-	:global{
+	:global {
 		.ant-spin-container.ant-spin-blur {
 			opacity: .2;
+			
 			&:after {
 				opacity: .6;
 				
@@ -176,7 +169,7 @@
 		
 		.ant-spin-container {
 			flex-grow: 1;
-			display:flex;
+			display: flex;
 			justify-content: flex-start;
 			flex-flow: row nowrap;
 			height: 100%;
