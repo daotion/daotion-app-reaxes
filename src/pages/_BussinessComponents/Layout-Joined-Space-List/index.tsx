@@ -4,8 +4,9 @@ import {
 	reaxel_joined_Space_list ,
 	reaxel_wallet ,
 } from '@@RootPath/src/reaxels';
-import {Img} from '@@common/Xcomponents';
-import {useParams} from 'react-router-dom';
+import { Img } from '@@common/Xcomponents';
+import less from './index.module.less';
+
 /**
  * 左侧的space list和Plugin list
  */
@@ -50,6 +51,8 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 		} = utils.useRouter();
 		
 		this.memoSetSelectingSpaceIDFromRoute(() => [this.getSpaceIDFromUrl()])(this.getSpaceIDFromUrl());
+		
+		const {Tooltip} = antd;
 		return <>
 			{/*左侧第一竖栏,用户已加入的space列表*/ }
 			<div
@@ -85,30 +88,35 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 					{ this.reax_joined_space_list.joined_space_list.map( ( spaceInfo , index ) => {
 						
 						
-						return <div
-							onClick={() => {
-								this.setState({
-									selectingSpaceID : spaceInfo.spaceID
-								});
-								navigate( `./space${ spaceInfo.spaceID }/info` );
-							}}
+						return <Tooltip
+							title={spaceInfo.name || '__TEST__'}
+							placement="right"
 							key = {spaceInfo.spaceID}
-							className = { less.spaceItem }
 						>
-							<Img
-								style = { {
-									borderRadius : "12px" ,
-								} }
-								src = {spaceInfo.icon}
-								alt = "Space"
-								width = "40px"
-								height = "40px"
-								className={less.spaceAvatar}
-							/>
 							<div
-								className = { this.state.selectingSpaceID === spaceInfo.spaceID ? less.selectVisionSelected : less.selectVision  }
-							/>
-						</div>;
+								onClick={() => {
+									this.setState({
+										selectingSpaceID : spaceInfo.spaceID
+									});
+									navigate( `./space${ spaceInfo.spaceID }/info` );
+								}}
+								className = { less.spaceItem }
+							>
+								<Img
+									style = { {
+										borderRadius : "12px" ,
+									} }
+									src = {spaceInfo.icon}
+									alt = "Space"
+									width = "40px"
+									height = "40px"
+									className={less.spaceAvatar}
+								/>
+								<div
+									className = { this.state.selectingSpaceID === spaceInfo.spaceID ? less.selectVisionSelected : less.selectVision  }
+								/>
+							</div>
+						</Tooltip>;
 						
 						
 						
@@ -174,4 +182,3 @@ export const Homepage_Avatar = ComponentWrapper( ( props : { url : string } ) =>
 	/>;
 } );
 
-import less from './index.module.less';
