@@ -65,7 +65,7 @@ export const EditProfile = ComponentWrapper( () => {
 						src = { reax_user_profile.profileStore.profile.iconUrl }
 						className = { less.profilePhoto }
 						fallback = { <BlokiesAvatar
-							size = { 64 }
+							size = { 128 }
 							address = { reax_user_profile.profileStore.profile.address }
 							canvasStyle = { {
 								borderRadius : "12px" ,
