@@ -32,6 +32,7 @@ export namespace Space__user_joined_Space_list {
 		infos : {
 			"spaceID" : number,
 			"address" : string,
+			"spaceName" : string,
 			"icon" : string,
 			/*space通知数量:-1静音*/
 			"notifyNums" : 0;

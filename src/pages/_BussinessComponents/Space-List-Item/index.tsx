@@ -70,49 +70,40 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
 		const { info } = this.props;
 		const { navigate } = utils.useRouter();
 		return <>
-			<div
-				className = { less.spaceListCard }
-				onClick = { () => {
+			<div className = { less.spaceListCard }
+					onClick = { () => {
 					navigate( `/space${ info.spaceID }/info` );
-				} }
-			>
-				<div>
-					<Space_Item_Name_Icon src = { info.iconUrl }/>
-					<div
-						style = { {
-							display : "flex" ,
-							justifyContent : "center" ,
-							alignItems : "center" ,
-							marginTop : "24px" ,
-							width : "100%" ,
-						} }
-					>
-						<span
+				} }>
+				<div className={less.spaceItemIconBox}>
+					<Img
+						className = { less.spaceItemIcon }
+						src = { info.iconUrl }
+						fallback = { <div
 							style = { {
-								fontSize : "16px" ,
-								fontWeight : "bold" ,
-								display : "block" ,
-								textAlign : "center" ,
-								whiteSpace : "nowrap" ,
-								overflow : "hidden" ,
-								textOverflow : "ellipsis" ,
-								width : "180px" ,
+								height : "76px" ,
+								borderRadius : "50%" ,
+								backgroundColor : "black" ,
+								display : "flex" ,
+								justifyContent : "center" ,
+								alignItems : "center" ,
+								width : "76px",
 							} }
-						>{ info.name }</span>
-					
-					</div>
-					
-					<div
-						className = { less.spaceListItemTagContainer }
-					>
-						{ info.tags.map( text => <Space_Item_Tag
-							key = { text }
-							text = { text }
-						/> ) }
-					</div>
-					
-					<Join_or_leave />
+						>
+							<span className = { less.theFirstLetter }>
+								{ info.name.slice( 0 , 1 ).
+								toUpperCase() }
+							</span>
+						</div> }
+					/>
 				</div>
+				<span className = { less.spaceItemName }>{ info.name }</span>
+				<div className = { less.spaceListItemTagContainer }>
+					{ info.tags.map( text => <Space_Item_Tag
+						key = { text }
+						text = { text }
+					/> ) }
+				</div>
+				<Join_or_leave />
 			</div>
 		</>;
 	}
@@ -125,35 +116,7 @@ export const Space_List_Item = ComponentWrapper( class extends ReactComponentCla
  * <Space_Item_Name_Icon src="url('https://xxx.png')"/>
  *
  */
-export const Space_Item_Name_Icon = ( props : { src : string } ) => {
-	return <>
-		<div
-		style={{
-			backgroundColor : "#f4f5f6" ,
-			borderRadius : "50%" ,
-		}}
-		>
-			<Img
-				src = { props.src }
-				style = { {
-					display : "inline-flex" ,
-					width : "76px" ,
-					height : "76px" ,
-					borderRadius : "50%" ,
-					objectFit : "cover" ,
-					objectPosition : "50% 50%" ,
-				} }
-			/>
-		</div>
-	</>;
-};
 
-/**
- * @example
- * <Space_Item_Name_Chain_Icon src="url('data:image/svg...')"/>
- * <Space_Item_Name_Chain_Icon src="url('https://xxx.png')"/>
- *
- */
 export const Space_Item_Name_Chain_Icon = ( props : { src : string } ) => {
 	
 	return <>
@@ -174,22 +137,7 @@ export const Space_Item_Name_Chain_Icon = ( props : { src : string } ) => {
 
 export const Space_Item_Tag = ( props : { text : string } ) => {
 	
-	return <span
-		style = { {
-			display : "flex" ,
-			padding : "0px 4px" ,
-			backgroundColor : "#e6e8ec" ,
-			color : "#777e91" ,
-			fontSize : "12px" ,
-			margin : "2px 2px 2px 2px" ,
-			borderRadius : "4px" ,
-			flex : "0 0 auto" ,
-			height : "16px" ,
-			lineHeight : "normal" ,
-			width : "fit-content" ,
-			alignItems : "center" ,
-		} }
-	>{ props.text }</span>;
+	return <span className={less.spaceItemTag}>{ props.text }</span>;
 };
 
 import less from './style.module.less';

@@ -21,8 +21,6 @@
 	
 	> div {
 		flex: 0 0 auto;
-		display: flex;
-		flex-flow: column nowrap;
 		align-items: center;
 	}
 	
@@ -33,18 +31,38 @@
 		}
 	}
 }
-
 .space-list-item-tag-container {
+	width: 100%;
 	height: 34px;
-	display: flex;
-	flex-flow: row wrap;
 	margin-top: 30px;
-	justify-content: center;
-	flex-flow: row wrap;
 	text-align: center;
 }
-
-
+.space-item-tag{
+	display: inline-block;
+	padding: 0px 4px;
+	background-color: rgb(230, 232, 236);
+	color: rgb(119, 126, 145);
+	font-size: 12px;
+	margin: 2px;
+	border-radius: 4px;
+	height: 15px;
+	line-height: normal;
+	width: fit-content;
+}
+.the-first-letter{
+	background : linear-gradient(90deg, #24FFC3 -0.001%, #42FF40 13.00%, #FCFD43 99.99%);
+	height: 40px;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	font-family: "Microsoft YaHei";
+	font-weight: bold;
+	font-size: 50px;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+}
 .space-list-item-btn {
 	color: #1a1d1f;
 	font-weight: 700;
@@ -79,7 +97,6 @@
 			
 			&::after {
 				//content: "leave";
-				
 			}
 		}
 		
@@ -97,5 +114,27 @@
 			border: none;
 		}
 	}
-	
+}
+.space-item-icon{
+	display: inline-flex;
+	width: 76px;
+	height: 76px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: 50% 50%;
+}
+.space-item-icon-box{
+	background-color: rgb(244, 245, 246);
+	border-radius: 50%;
+}
+.space-item-name{
+	font-size: 16px;
+	font-weight: bold;
+	display: block;
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 180px;
+	margin-top: 24px;
 }

@@ -28,7 +28,9 @@ export const reaxel_user_profile = function () {
 	} );
 	
 	const reax_wallet = reaxel_wallet();
-	const fetchUpdate = async ( address : string ) => {
+	
+	
+	const fetchUpdateUserProfile = async ( address : string ) => {
 		/*防止重复请求*/
 		if ( store.loading && address === store.loading.address ) {
 			return;
@@ -44,6 +46,7 @@ export const reaxel_user_profile = function () {
 					throw e;
 				} ).
 				then( ( profile ) => {
+					// mutatePartialState( { profile } );
 					setState( { profile } );
 				} ).
 				finally( () => {
@@ -54,11 +57,11 @@ export const reaxel_user_profile = function () {
 		
 	};
 	
-	const closuredFetchProfile = Reaxes.closuredMemo( ( address = reax_wallet.account.address ) => {
-		if ( reax_wallet.account?.address ) {
-			fetchUpdate( address );
+	const closuredFetchProfile = Reaxes.closuredMemo( ( address? ) => {
+		if ( address ) {
+			fetchUpdateUserProfile( address );
 		} else {
-			reax_wallet.connectWallet();
+			// reax_wallet.connectWallet();
 		}
 	} , () => [] );
 	
@@ -68,6 +71,10 @@ export const reaxel_user_profile = function () {
 				reax_wallet.account.address ,
 				prevForceUpdate,
 			] )( reax_wallet.account.address );
+		}else {
+			/*清空缓存*/
+			closuredFetchProfile(() => [])()
+			setState({profile:null,loading:false});
 		}
 	} , () => [ reax_wallet.account?.address ] );
 	
@@ -137,38 +144,17 @@ export const reaxel_user_profile_lists = function () {
 		return;
 	};
 	
-	/*获取其他人(或自己)的profile信息*/	
-	/*根据传入的address做静止缓存. 如果address和钱包地址一致说明是用户本人, 那么尝试从个人profile中直接拿信息,而不再重新请求*/
+	/*获取其他人的profile信息*/	
 	const fetchUpdateOthersProfile = async ( address : string ) => {
 		if(address){
-			if(address === reax_user_profile.profileStore.profile?.address){
-				/*组件在渲染阶段的setState不会再触发更新了, 放在异步里面更新*/
-				queueMicrotask( () => setState( {
-					profile : reax_user_profile.profileStore.profile ,
-				} ) );
-				return;
-				/*从如果正在请求此用户的profile信息, 就等他完成用他的结果*/
-			} else if ( reax_user_profile.profileStore.loading !== false &&
-				reax_user_profile.profileStore.loading.address === address
-			) {
-				reax_user_profile.profileStore.loading.promise.then( () => {
-					setState( {
-						profile : reax_user_profile.profileStore.profile ,
-					} );
-				} );
-			}else {
-				const createPayload = async () => {
-					return { address };
-				};
-				request_user_profile( createPayload ).
-				then( ( res ) => {
-					setState( {
-						profile : res ,
-					} );
-				} );
-			}
+			const createPayload = async () => {
+				return { address };
+			};
+			request_user_profile( createPayload ).
+			then( ( res ) => {
+				setState( {profile : res } );
+			} );
 		}
-		
 	};
 	
 	/*获取其他用户(或自己)profile主页加入了的space的列表*/
@@ -197,6 +183,12 @@ export const reaxel_user_profile_lists = function () {
 	
 	return () => {
 		return {
+			get othersProfile(){
+				return store.profile;
+			},
+			get profile_joined_space_list_paged(){
+				return store.profile_joined_space_list_paged;
+			},
 			get othersProfileStore() {
 				return store;
 			} ,

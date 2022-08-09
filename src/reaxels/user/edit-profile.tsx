@@ -63,6 +63,7 @@ export const reaxel_edit_profile = function(){
 		}
 		return request_user_update_profile( createPayload ).
 		then( ( res ) => {
+			reax_user_profile.memoedFetchProfile( address , true );
 			crayon.orange( res );
 		} );
 	}

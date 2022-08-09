@@ -1,5 +1,35 @@
-import { Tabs } from 'antd';
+import {
+	Img ,
+	WalletAddressCopyBox ,
+	XPopover,
+} from '@@common/Xcomponents';
+import {
+	reaxel_joined_Space_list ,
+	reaxel_space_detail ,
+	reaxel_space_member_list ,
+	reaxel_space_settings_upload_pictures ,
+	reaxel_user_join_or_leave_space ,
+} from '@@RootPath/src/reaxels';
+import { Space__member_list } from '@@requests/types';
+import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
+import less from './index.module.less';
+import {
+	SVGAddNewIcon ,
+	SVGDeleteTabIcon ,
+	SVGEditTabIcon ,
+	SVGSettingTabs ,
+	SVGShareIcon ,
+	SVGSocialShare ,
+} from '@@pages/_SvgComponents/space-info-svg';
 
+
+import Contributions from '@@Public/svg/Space-Info-Overview-Contributions.component.svg';
+import Intensity from '@@Public/svg/Space-Info-Overview-Intensity.component.svg';
+
+const {
+	Tabs ,
+	Button,
+} = antd;
 const { TabPane } = Tabs;
 const onChange = ( key : string ) => {
 	console.log( key );
@@ -43,6 +73,20 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 							<Img
 								className = { less.spaceAvatar }
 								src = { this.reax_space_detail.store.spaceInfo.iconUrl }
+								fallback = { <div
+									style = { {
+										height : "100%" ,
+										borderRadius : "16px" ,
+										backgroundColor : "black" ,
+										display:"flex",
+										justifyContent:"center",
+										alignItems:"center",
+										} }
+								>
+									<span className={less.theFirstLetter}>
+										{ this.reax_space_detail.store.spaceInfo.name.slice( 0 , 1 ).toUpperCase() }
+									</span>
+								</div> }
 							/>
 						</div>
 						
@@ -101,7 +145,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 								tab = { <span><I18n>OverView</I18n></span> }
 								key = "1"
 							>
-								<SpaceOverViewContainer memberList = {this.reax_space_member_list.spaceMemberList} />
+								<SpaceOverViewContainer memberList = { this.reax_space_member_list.spaceMemberList } />
 							</TabPane>
 							<TabPane
 								tab = { <span><I18n>Articles</I18n></span> }
@@ -128,25 +172,6 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 		</>;
 	}
 } );
-
-import { XPopover } from '@@common/Xcomponents';
-import {
-	reaxel_joined_Space_list ,
-	reaxel_space_settings_upload_pictures ,
-	reaxel_user_join_or_leave_space ,
-	reaxel_space_detail ,
-	reaxel_space_member_list,
-} from '@@RootPath/src/reaxels';
-import {
-	Img ,
-	WalletAddressCopyBox ,
-} from '@@common/Xcomponents';
-import { Space__member_list } from '@@requests/types';
-import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
-import less from './index.module.less';
-import {
-	Button ,
-} from 'antd';
 
 const EditTabsNameBtn = ComponentWrapper( () => {
 	return <>
@@ -315,27 +340,3 @@ const ShareBtn = ComponentWrapper( () => {
 	</>;
 } );
 
-import {
-	SVGShareIcon ,
-	SVGAddNewIcon ,
-	SVGEditTabIcon ,
-	SVGDeleteTabIcon ,
-	SVGSettingSpaceProfile ,
-	SVGSpaceVK ,
-	SVGSpaceFacebook ,
-	SVGSpaceIns ,
-	SVGSpaceDiscord ,
-	SVGSpaceLink ,
-	SVGSpaceReddit ,
-	SVGSpaceGithub ,
-	SVGSpaceTelegram ,
-	SVGSpaceTwitter ,
-	SVGSpaceYoutube ,
-	SVGSocialShare ,
-	SVGSettingTabs ,
-} from '@@pages/_SvgComponents/space-info-svg';
-
-
-
-import Contributions from '@@Public/svg/Space-Info-Overview-Contributions.component.svg';
-import Intensity from '@@Public/svg/Space-Info-Overview-Intensity.component.svg';

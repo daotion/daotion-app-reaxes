@@ -119,7 +119,28 @@ export const reaxel_edit_space_social_settings = function () {
 	const clousred = Reaxes.closuredMemo(() => {
 		if(!reax_space_detail.store.spaceInfo?.socialLinks){
 			setState( {
-				socialList : [] ,
+				socialList : [
+					{
+						key : Math.random() ,
+						type : "Homepage" ,
+						link : '' ,
+					} ,
+					{
+						key : Math.random() ,
+						type : "Twitter" ,
+						link : '' ,
+					} ,
+					{
+						key : Math.random() ,
+						type : "Discord" ,
+						link : '' ,
+					} ,
+					{
+						key : Math.random() ,
+						type : "GitHub" ,
+						link : '' ,
+					} ,
+				],
 			} );
 		} else {
 			setState( {
@@ -129,6 +150,7 @@ export const reaxel_edit_space_social_settings = function () {
 			} );
 		}
 	} , () => [ reax_space_detail.store.spaceInfo?.socialLinks ] );
+	
 	Reaxes.observedMemo( () => {
 		
 		clousred( () => [ reax_space_detail.store.spaceInfo?.socialLinks ] )();
@@ -136,18 +158,7 @@ export const reaxel_edit_space_social_settings = function () {
 	
 	
 	return () => {
-		if(store.socialList?.length === 0){
-			setState({
-				socialList : ['twitter','Official website',].map((type) => {
-					return {
-						type,
-						link : '',
-						key : Math.random(),
-					}
-				}),
-			})
-		}
-		return {
+		return ret = {  
 			get store() {
 				return store;
 			} ,
@@ -183,7 +194,7 @@ export const reaxel_edit_space_social_settings = function () {
 						} ,
 					] ,
 				} );
-				if ( staticSocialList.length === store.socialList.length ) {
+				if ( ret.staticSocialList.length === 0  ) {
 					setState( {
 						selectModalVisible : false ,
 					} );

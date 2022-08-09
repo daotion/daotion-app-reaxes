@@ -1,9 +1,15 @@
-:global{
-	.ant-switch{
-		&:local(.primary){
-			width: 48px;
-			height: 24px;
-			border-radius: 32px;
+
+.primary:global(.ant-switch){
+	width: 48px;
+	height: 24px;
+	border-radius: 32px;
+	background: #F4F4F4;
+	&-checked{
+		background: #2a85ff;
+	}
+	:global{
+		.ant-switch-handle::before{
+			box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1);
 		}
 	}
 }

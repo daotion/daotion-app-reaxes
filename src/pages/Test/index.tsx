@@ -32,7 +32,7 @@ import { DxzCreateSBT } from './dxz-create-SBT';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzCreateSBT />
+	<DxzSwitch />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

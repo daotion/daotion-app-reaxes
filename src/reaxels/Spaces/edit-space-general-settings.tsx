@@ -1,11 +1,5 @@
 export const reaxel_edit_space_general_settings = function () {
 	let ret;
-	type fields = {
-		bio : string,
-		email : string,
-		tags : string[],
-		iconUrl : string;
-	};
 	const {
 		store ,
 		setState ,
@@ -64,6 +58,12 @@ export const reaxel_edit_space_general_settings = function () {
 		] as [ Omit<fields , "iconUrl"> , Omit<fields , 'iconUrl'> ];
 	};
 	
+	type fields = {
+		bio : string,
+		email : string,
+		tags : string[],
+		iconUrl : string;
+	};
 	return () => {
 		
 		return ret = {
@@ -88,27 +88,28 @@ export const reaxel_edit_space_general_settings = function () {
 				const reax_wallet = reaxel_wallet();
 				const reax_user = reaxel_user();
 				const address = reax_wallet.account.address;
-				const data : data = {
-					spaceID : currentSpaceID ,
-					tags : store.tags.join( ',' ) ,
-					bio : store.bio ,
-					email : store.email ,
-					modifyAddress : reax_wallet.account.address ,
-					timestamp : await request_server_timestamp() ,
-				};
+				
 				/*todo 只传改变了的字段.现在没时间 后续优化*/
 				// if(!_.isEqual(store.tags,spaceInfo.tags)){
 				// 	data.tags = store.tags.join(',');
 				// }
 				//
-				const createPayload = async () => {
-					return {
-						address ,
-						data ,
-						signature : await reax_user.signByFakeWallet( data ) ,
-					};
-				};
 				const fetch_space_general_modify = async () => {
+					const createPayload = async () => {
+						const data : data = {
+							spaceID : currentSpaceID ,
+							tags : store.tags.join( ',' ) ,
+							bio : store.bio ,
+							email : store.email ,
+							modifyAddress : reax_wallet.account.address ,
+							timestamp : await request_server_timestamp() ,
+						};
+						return {
+							address ,
+							data ,
+							signature : await reax_user.signByFakeWallet( data ) ,
+						};
+					};
 					return request_space_general_modify( createPayload );
 				};
 				// ret.closuredFetchSpaceInfo(currentSpaceID,true).then(() => {

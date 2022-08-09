@@ -60,6 +60,21 @@
 	}
 	
 }
+.the-first-letter{
+	background : linear-gradient(90deg, #24FFC3 -0.001%, #42FF40 13.00%, #FCFD43 99.99%);
+	height: 40px;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	font-family: "Microsoft YaHei";
+	font-weight: bold;
+	font-size: 30px;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	margin-left: -1px;
+}
 .joined-space-container{
 	padding: 16px 8px 16px 8px;
 	display: flex;
@@ -68,6 +83,34 @@
 	width: 56px;
 	background: white;
 	border-radius: 12px 0 0 12px;
+}
+.joined-space-tooltip:global(.ant-tooltip){
+	line-height: normal;
+	height: 24px;
+	padding-left: 2px;
+	left: 30px;
+	:global(.ant-tooltip-arrow){
+		display: none;
+	}
+	:global(.ant-tooltip-content){
+		height: 24px;
+	}
+	:global(.ant-tooltip-inner){
+		min-height: 24px;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: normal;
+		height: 16px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-flow: row nowrap;
+		width: fit-content;
+		padding: 2px 8px;
+		border-radius: 4px;
+		background: #222528;
+		color: #fcfcfd;
+	}
 }
 
 .space-avatar {

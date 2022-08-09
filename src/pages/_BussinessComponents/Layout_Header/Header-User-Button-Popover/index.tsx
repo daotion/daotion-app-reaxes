@@ -48,7 +48,7 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 				<div
 					style = { { display : "flex" } }
 				>
-					<UserAvatar />
+					<UserAvatar width = {40} height={40}/>
 					<div
 						style = { {
 							display : "flex" ,
@@ -135,7 +135,7 @@ export const UserButtonDropdown = ComponentWrapper( () => {
 				>
 					{ reax_wallet.account?.ens?.name ?? <EllipsisAddress /> }
 				</span>
-				<UserAvatar />
+				<UserAvatar width={20} height={20} />
 			</Button>
 		</XPopover>
 	</>;
