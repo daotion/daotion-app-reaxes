@@ -14,6 +14,7 @@ export const Profile = ComponentWrapper(() => {
 		memorizedFetchUpdateJoinedSpaceList,
 		memorizedFetchUpdateOthersProfile,
 	} = reaxel_user_profile_lists();
+	const { BlokiesAvatar } = reaxel_profile_avatar();
 	const reax_wallet = reaxel_wallet();
 	const { uploadProfileBanner } = reaxel_edit_profile();
 	const reax_user_profile = reaxel_user_profile();
@@ -106,6 +107,10 @@ export const Profile = ComponentWrapper(() => {
 					<Img
 						className = { less.myAvatar }
 						src = {profile.iconUrl}
+						fallback={<BlokiesAvatar
+							address = {profile.address}
+							
+						/>}
 					/>
 				</div>
 				{ UserSelfEditCoverBtn() }
@@ -209,7 +214,8 @@ import {
 	reaxel_edit_profile ,
 	reaxel_user_profile ,
 	reaxel_user_profile_lists ,
-	reaxel_wallet,
+	reaxel_wallet ,
+	reaxel_profile_avatar,
 } from '@@reaxels';
 import {User__profile_info} from '@@requests/types';
 import less from './index.module.less';
