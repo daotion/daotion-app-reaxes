@@ -76,7 +76,7 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 							style={{
 								left:"48px"
 							}}
-							title={spaceInfo.name || 'spacename33333'}
+							title={spaceInfo.spaceName || 'spacename33333'}
 							placement="right"
 							key = {spaceInfo.spaceID}
 						>
