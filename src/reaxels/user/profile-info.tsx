@@ -208,16 +208,13 @@ export const reaxel_profile_avatar = function(){
 		useLayoutEffect( () => {
 			renderIcon( {
 				seed : props.address.toLowerCase() ,
-				scale : 2.5 ,
+				scale : (props.size && props.size / 8) ?? 8  ,
 			} , containerRef.current );
-		} , [ props.address ] );
+		});
 		return <canvas
-			width = { props.width ?? 20 }
-			height = { props.height ?? 20 }
 			ref = { containerRef }
 			style = { {
 				borderRadius : "50%" ,
-				marginLeft : "8px" ,
 				...props.canvasStyle,
 			} }
 		></canvas>;
@@ -231,9 +228,10 @@ export const reaxel_profile_avatar = function(){
 	};
 	
 	type BlokiesAvatarProps = {
+		/*覆盖canvas的样式*/
 		canvasStyle? : React.CSSProperties;
-		width? : string|number;
-		height? : string|number;
+		/*canvas头像的长宽px*/
+		size : number;
 		address : string;
 	}
 }();
