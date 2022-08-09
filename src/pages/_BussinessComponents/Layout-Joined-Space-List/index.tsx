@@ -89,7 +89,7 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 						
 						
 						return <Tooltip
-							title={spaceInfo.name || '__TEST__'}
+							title={spaceInfo.spaceName || '__TEST__'}
 							placement="right"
 							key = {spaceInfo.spaceID}
 						>

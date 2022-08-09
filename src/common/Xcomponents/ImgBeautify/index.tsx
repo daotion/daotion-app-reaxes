@@ -8,6 +8,11 @@ export const Img = ( props : props ) => {
 	} , [ props.src ] );
 	
 	if(!src){
+		
+		if(props.fallback){
+			return props.fallback;
+		}
+		
 		return <img src="" {...props} style={{
 			...(props.style??{}),
 			visibility : "hidden"
@@ -22,4 +27,7 @@ export const Img = ( props : props ) => {
 	/>;
 };
 
-type props = {} & React.ImgHTMLAttributes<any>;
+type props = {
+	/*当图片不可用时如果传fallback则展示fallback内容*/
+	fallback? : React.ReactElement;
+} & React.ImgHTMLAttributes<any>;
