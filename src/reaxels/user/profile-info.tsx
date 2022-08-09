@@ -198,3 +198,45 @@ export const reaxel_user_profile_lists = function () {
 		};
 	};
 }();
+
+/*做*/
+export const reaxel_profile_avatar = function(){
+	
+
+	const BlokiesAvatar = ComponentWrapper( ( props : BlokiesAvatarProps ) => {
+		const containerRef = useRef<HTMLCanvasElement>();
+		useLayoutEffect( () => {
+			renderIcon( {
+				seed : props.address.toLowerCase() ,
+				scale : 2.5 ,
+			} , containerRef.current );
+		} , [ props.address ] );
+		return <canvas
+			width = { props.width ?? 20 }
+			height = { props.height ?? 20 }
+			ref = { containerRef }
+			style = { {
+				borderRadius : "50%" ,
+				marginLeft : "8px" ,
+				...props.canvasStyle,
+			} }
+		></canvas>;
+	} );
+	
+	return () => {
+		
+		return {
+			BlokiesAvatar
+		};
+	};
+	
+	type BlokiesAvatarProps = {
+		canvasStyle? : React.CSSProperties;
+		width? : string|number;
+		height? : string|number;
+		address : string;
+	}
+}();
+
+
+import {renderIcon} from '@download/blockies';
