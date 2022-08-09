@@ -109,6 +109,7 @@ export const Profile = ComponentWrapper(() => {
 						src = {profile.iconUrl}
 						fallback={<BlokiesAvatar
 							address = {profile.address}
+							size = {124}
 						/>}
 					/>
 				</div>
