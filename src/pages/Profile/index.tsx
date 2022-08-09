@@ -109,7 +109,6 @@ export const Profile = ComponentWrapper(() => {
 						src = {profile.iconUrl}
 						fallback={<BlokiesAvatar
 							address = {profile.address}
-							
 						/>}
 					/>
 				</div>
@@ -394,6 +393,20 @@ const JoinedSpaceCard = (props:JoinedSpaceCardProps) => {
 						borderRadius : "50%" ,
 						objectFit : "cover" ,
 					} }
+					fallback = { <div
+						style = { {
+							height : "100%" ,
+							borderRadius : "50%" ,
+							backgroundColor : "black" ,
+							display:"flex",
+							justifyContent:"center",
+							alignItems:"center",
+						} }
+					>
+						<span className={less.theFirstLetter}>
+							{ props.spaceName.slice( 0 , 1 ).toUpperCase() }
+						</span>
+					</div> }
 				/>
 			</div>
 			

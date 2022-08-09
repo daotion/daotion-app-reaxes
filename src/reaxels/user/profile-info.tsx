@@ -208,7 +208,7 @@ export const reaxel_profile_avatar = function(){
 		useLayoutEffect( () => {
 			renderIcon( {
 				seed : props.address.toLowerCase() ,
-				scale : 2.5 ,
+				scale : 15.5 ,
 			} , containerRef.current );
 		} , [ props.address ] );
 		return <canvas
@@ -217,7 +217,6 @@ export const reaxel_profile_avatar = function(){
 			ref = { containerRef }
 			style = { {
 				borderRadius : "50%" ,
-				marginLeft : "8px" ,
 				...props.canvasStyle,
 			} }
 		></canvas>;
