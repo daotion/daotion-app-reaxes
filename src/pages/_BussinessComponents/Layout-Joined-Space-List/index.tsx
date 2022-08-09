@@ -96,6 +96,21 @@ export const Sider_Space_List = ComponentWrapper( class extends ReactComponentCl
 									src = {spaceInfo.icon}
 									alt = "Space"
 									className={less.spaceAvatar}
+									fallback = { <div
+										style = { {
+											height : "40px" ,
+											borderRadius : "12px" ,
+											backgroundColor : "black" ,
+											display:"flex",
+											justifyContent:"center",
+											alignItems:"center",
+											width:"40px"
+										} }
+									>
+										<span className={less.theFirstLetter}>
+											{ spaceInfo.spaceName.slice( 0 , 1 ).toUpperCase() }
+										</span>
+									</div> }
 								/>
 								<div
 									className = { this.state.selectingSpaceID === spaceInfo.spaceID ? less.selectVisionSelected : less.selectVision  }

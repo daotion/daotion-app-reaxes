@@ -76,26 +76,16 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 								fallback = { <div
 									style = { {
 										height : "100%" ,
-										borderRadius : "12px" ,
+										borderRadius : "16px" ,
 										backgroundColor : "black" ,
-									} }
-								>
-									<span
-										style = { {
-											background : "linear-gradient(90deg, #24FFC3 -0.01%, #42FF40 35.93%, #FCFD43 99.99%)" ,
-											// color : "transparent",
-											WebkitBackgroundClip : "text" ,
-											WebkitTextFillColor : "transparent" ,
-											fontFamily : "Microsoft YaHei" ,
-											fontWeight : "bold" ,
-											fontSize : "120px" ,
-											lineHeight : "normal" ,
-											verticalAlign : "middle" ,
+										display:"flex",
+										justifyContent:"center",
+										alignItems:"center",
 										} }
-									>
-										{ this.reax_space_detail.store.spaceInfo.name.slice( 0 , 1 ) }
+								>
+									<span className={less.theFirstLetter}>
+										{ this.reax_space_detail.store.spaceInfo.name.slice( 0 , 1 ).toUpperCase() }
 									</span>
-								
 								</div> }
 							/>
 						</div>

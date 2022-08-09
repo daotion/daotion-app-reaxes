@@ -60,6 +60,21 @@
 	}
 	
 }
+.the-first-letter{
+	background : linear-gradient(90deg, #24FFC3 -0.001%, #42FF40 13.00%, #FCFD43 99.99%);
+	height: 40px;
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	font-family: "Microsoft YaHei";
+	font-weight: bold;
+	font-size: 30px;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: fit-content;
+	margin-left: -1px;
+}
 .joined-space-container{
 	padding: 16px 8px 16px 8px;
 	display: flex;
@@ -71,17 +86,19 @@
 }
 .joined-space-tooltip:global(.ant-tooltip){
 	line-height: normal;
-	height: 16px;
+	height: 24px;
 	padding-left: 2px;
 	left: 30px;
 	:global(.ant-tooltip-arrow){
 		display: none;
 	}
 	:global(.ant-tooltip-content){
-		height: 16px;
+		height: 24px;
 	}
 	:global(.ant-tooltip-inner){
+		min-height: 24px;
 		font-size: 12px;
+		font-weight: 600;
 		line-height: normal;
 		height: 16px;
 		display: flex;
@@ -89,10 +106,10 @@
 		align-items: center;
 		flex-flow: row nowrap;
 		width: fit-content;
-		padding: 0;
-		border-radius: 12px;
-		background: #0070f3;
-		color: #ffffff;
+		padding: 2px 8px;
+		border-radius: 4px;
+		background: #222528;
+		color: #fcfcfd;
 	}
 }
 
