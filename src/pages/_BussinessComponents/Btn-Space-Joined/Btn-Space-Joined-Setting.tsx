@@ -66,42 +66,7 @@ export const BtnSpaceJoinedSetting = ComponentWrapper( ( props : JoinedBtnProps 
 			} );
 		}
 	}
-	if ( joinedSpaceInfo ) {
-		
-		
-		/*return <Button
-			className = { less.joinedBtn }
-			style = { props.style }
-			onClick = { ( e ) => {
-				e.stopPropagation();
-				reaxel_user_join_or_leave_space().
-				leave_space( props.spaceID ).
-				then( () => {
-					if ( __EXPERIMENTAL__ ) {
-						antd.message.success( `user leaved Space id:${ props.spaceID }` );
-					}
-				} );
-			} }
-		>
-			<span />
-		</Button>;*/
-	} else {
-		
-		/*return <Button
-			style = { props.style }
-			onClick = { ( e ) => {
-				e.stopPropagation();
-				reaxel_user_join_or_leave_space().
-				join_space( props.spaceID ).
-				then( () => {
-					if ( __EXPERIMENTAL__ ) {
-						antd.message.success( `joined Space successfuly id:${ props.spaceID }` );
-					}
-				} );
-			} }
-		>Join</Button>;*/
-	}
-	
+
 	return <Button { ...ButtonProps } />;
 } );
 

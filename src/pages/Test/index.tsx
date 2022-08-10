@@ -1,4 +1,5 @@
 import { RoutingTest } from './Routing';
+import { UploadArrayBuffer } from './Array-Buffer-JSON-Upload';
 import { ParentObserver } from './parentObserver';
 import { SetState } from './SetState';
 import { DxzHeaderPanel } from './dxz-Header-panel';
@@ -32,7 +33,7 @@ import { DxzCreateSBT } from './dxz-create-SBT';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSwitch />
+	<UploadArrayBuffer />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
