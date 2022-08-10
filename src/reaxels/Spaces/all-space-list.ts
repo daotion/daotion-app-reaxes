@@ -23,7 +23,7 @@ export const reaxel_space_list = function(){
 	
 	
 	
-	return ( lifecycle : Lifecycle ) => {
+	return ( lifecycle? : Lifecycle ) => {
 		
 		const fetch_all_spaces_list = () => {
 			return request_all_spaces_list( async() => {

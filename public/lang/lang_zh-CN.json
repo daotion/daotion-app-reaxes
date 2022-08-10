@@ -8,7 +8,8 @@
 	"To update your settings you should sign message through your wallet. Click 'Update profile' then sign the message" : "要更新您的设置，您应该通过钱包在信息上签名。单击“更新设置”，然后在消息上签名",
 	"Gifs work too \uD83D\uDE4C" : "也可以上传Gif哦 \uD83D\uDE4C",
 	
-	"Create" : "创建",
+	"Create" : "创 建",
+	"Creating..." : "创建中...",
 	"Space Information" : "空间信息",
 	"Name" : "名称",
 	"Name your Space" : "给您的空间取个名字",

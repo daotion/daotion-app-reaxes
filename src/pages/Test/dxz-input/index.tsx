@@ -1,4 +1,4 @@
-export const PrimaryInput = ( props ) => {
+export const PrimaryInput = ( props:InputProps ) => {
 	return <Input
 		className = { less[ props.type ] }
 		placeholder={props.placeholder}
@@ -28,5 +28,5 @@ export const DxzInput = ComponentWrapper( () => {
 	</>;
 } );
 import less from './index.module.less';
-import { Input } from 'antd';
+import { Input , InputProps } from 'antd';
 const { TextArea } = Input;
