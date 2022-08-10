@@ -1,13 +1,13 @@
 export const DxzCreateSBT = () => {
 	return <>
 	<div className={less.createSBTContainer}>
-		{/*createSBTContainer分为左右两部分*/}
+		{/*createSBTContainer分为左右两部分, 左边包括 h1标题 三个信息框 以及底部Create SBT框*/}
 		<div className={less.createSBT_left}>
 			<h1 className={less.mainTitle}>New SBT</h1>
 			<p className={less.someIntro}>
 				SBT is based on the ERC721 standardized protocol.
 			</p>
-			{/*左边有三个create SBT info box,样式相同,so应用一个类名*/}
+			{/*左边的三个create SBT info box,样式相同, 应用一个类名*/}
 			<div className={less.createSBTInfoBox}>
 				<SubTitleWithItem title='Upload files'>
 					<UploadFileBox/>
@@ -16,22 +16,49 @@ export const DxzCreateSBT = () => {
 					<NewSBTSelectType/>
 				</SubTitleWithItem>
 				<SubTitleWithItem title='Name'>
-					<PrimaryTextArea type = "primary"/>
+					<PrimaryInput type = "primary"/>
 				</SubTitleWithItem>
 				<SubTitleWithItem title='Description'>
 					<PrimaryTextArea type = "primary"/>
 				</SubTitleWithItem>
 			</div>
+			
+			
+			<div className={less.createSBTInfoBox}>
+				<SubTitleWithItem title='SBT access'>
+					<NewSBTSelectType/>
+					<p className={less.accessSomeIntro}>
+						每满足一次所有条件将可以领取一个数量SBT,领取不会使这些
+						条件的SBT消失，但这些SBT token id将无法再次作为领取条件。
+					</p>
+				</SubTitleWithItem>
+				<SubTitleWithItem title='Hold the upper limit of each user'>
+					<PrimaryInput type = "primary"/>
+				</SubTitleWithItem>
+				<SubTitleWithItem title='Issue quantity'>
+					<SubTitleWithItem title={<span>infinite </span>}
+						icon={<SpaceSwitch type='primary'/>}>
+						<PrimaryInput type = "primary"/>
+					</SubTitleWithItem>
+				</SubTitleWithItem>
+				<SubTitleWithItem title='Network'>
+					<NewSBTSelectNetType/>
+				</SubTitleWithItem>
+			</div>
+			
 			<div className={less.createSBTInfoBox}>
 				<SubTitleWithItem title='Destruction of rules'>
 					<CreateSBTCheckBox/>
 				</SubTitleWithItem>
 				<SubTitleWithItem title='Key features'>
-					<NewSBTSelectType/>
+					<AddNewSBTFeature/>
 				</SubTitleWithItem>
-				
 			</div>
 			
+			<div className={less.createSBTFooterBox}>
+				<PrimaryBtn type="primary">Create SBT</PrimaryBtn>  
+			</div>
+			{/*右边的preview部分*/}
 		</div>
 		<div className={less.createSBT_right}>
 			<div className={less.createSBTPreviewTitle}>
@@ -52,8 +79,15 @@ import {
 	PrimaryTextArea,
 } from "@@pages/Test/dxz-input";
 import {
+	SpaceSwitch
+} from "@@pages/Test/dxz-switch";
+import {
+	PrimaryBtn
+} from "@@pages/Test/dxz-button";
+import {
 	Checkbox ,
 	Select,
+	Button
 } from 'antd';
 
 export const CreateSBTCheckBox=(props)=>{
@@ -70,6 +104,7 @@ export const SubTitleWithItem=(props)=>{
 	<div className={less.subTitleWithItem}>
 		<span className={less.subTitle}>
 			{props.title}
+			{props.icon}
 		</span>
 		{props.children}
 	</div>
@@ -93,19 +128,101 @@ export const SVGUploadFileIcon=()=>{
 		</svg>
 	</>
 }
+
 export const NewSBTSelectType=()=>{
 	return<>
 		<Select
 			suffixIcon = { <SVGSelectArrowIcon /> }
 			className = { less.newSBTSelectType }
 			dropdownClassName={less.dropDownMenu}
+			dropdownStyle={{
+				border:"2px solid #e6e8ec",
+				borderRadius:"12px",
+				padding:"8px",
+			}}
 			placeholder = { i18n( "Please select" ) }>
-			<Select.Option value = "Ethereum">Ethereum</Select.Option>
+			<Select.Option value = "type1">type1</Select.Option>
+			<Select.Option value = "type2">type2</Select.Option>
 		</Select>
 		
 	</>
 }
-const SVGSelectArrowIcon = () => {
+export const NewSBTSelectNetType=()=>{
+	return<>
+		<Select
+			suffixIcon = { <SVGSelectArrowIcon /> }
+			className = { less.newSBTSelectType }
+			dropdownClassName={less.dropDownMenu}
+			dropdownStyle={{
+				border:"2px solid #e6e8ec",
+				borderRadius:"12px",
+				padding:"8px",
+			}}
+			placeholder = { i18n( "Please select" ) }>
+			<Select.Option value = "Ethereum"><OptionNetEthereum/></Select.Option>
+		</Select>
+	</>
+}
+export const OptionNetEthereum = ComponentWrapper( () => {
+	return <>
+		<span className={less.netEthereum}>
+			<SVGNetEthereum/>
+			Ethereum
+		</span>
+	</>;
+} );
+export const SVGNetEthereum = ComponentWrapper( () => {
+	return <>
+		<svg
+			style={{marginRight:"8px"}}
+			width = "24"
+			height = "24"
+			viewBox = "0 0 16 16"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<g clipPath = "url(#clip0_2540_29067)">
+				<path
+					d = "M0 8C0 3.5816 3.58166 0 8.00014 0C12.4186 0 16.0003 3.5816 16.0003 8C16.0003 12.4184 12.4186 16 8.00014 16C3.58166 16 0 12.4184 0 8Z"
+					fill = "#627EEA"
+				/>
+				<path
+					d = "M4 7.7243L8 9.99967V1.33301L4 7.7243Z"
+					fill = "white"
+				/>
+				<path
+					opacity = "0.8"
+					d = "M8.00041 1.33301L8 9.99967L12 7.75276L8.00041 1.33301Z"
+					fill = "#C0CBF6"
+				/>
+				<path
+					d = "M4 8.86426L7.92927 14.4003V11.1859L4 8.86466V8.86426Z"
+					fill = "white"
+				/>
+				<path
+					opacity = "0.8"
+					d = "M7.92969 11.1859V14.4003L11.8606 8.86426L7.92969 11.1859Z"
+					fill = "#C0CBF6"
+				/>
+				<path
+					opacity = "0.6"
+					d = "M8.00061 6L4 7.73966L8.00061 10L12 7.73966L8.00061 6Z"
+					fill = "#8197EE"
+				/>
+			</g>
+			<defs>
+				<clipPath id = "clip0_2540_29067">
+					<rect
+						width = "16.0003"
+						height = "16"
+						fill = "white"
+					/>
+				</clipPath>
+			</defs>
+		</svg>
+	</>;
+} );
+export const SVGSelectArrowIcon = () => {
 	return <>
 		<svg
 			width = "24"
@@ -129,6 +246,21 @@ export const SVGCreateSBTPreview=(props)=>{
 			<path fillRule="evenodd" clipRule="evenodd" d="M22 19C22 20.6569 20.6569 22 19 22H17C16.4477 22 16 21.5523 16 21C16 20.4477 16.4477 20 17 20H19C19.5523 20 20 19.5523 20 19V17C20 16.4477 20.4477 16 21 16C21.5523 16 22 16.4477 22 17V19Z" fill="#6F767E"/>
 			<path fillRule="evenodd" clipRule="evenodd" d="M22 5C22 3.34315 20.6569 2 19 2H17C16.4477 2 16 2.44772 16 3C16 3.55228 16.4477 4 17 4H19C19.5523 4 20 4.44772 20 5V7C20 7.55228 20.4477 8 21 8C21.5523 8 22 7.55228 22 7V5Z" fill="#6F767E"/>
 		</svg>
-	
+	</>
+}
+export const AddNewSBTFeature=(props)=>{
+	return<>
+		<div>
+			<PrimaryInput type = "primary" style={{width:"306px",marginRight:"12px"}} placeholder={i18n('Value')}/>
+			<PrimaryInput type = "primary" style={{width:"306px"}} placeholder={i18n('Value')}/>
+			<Button className={less.addNewSBTFeatureBtn}><SVGAddNewFeature/></Button>
+		</div>
+	</>
+}
+export const SVGAddNewFeature=(props)=>{
+	return<>
+		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M8.66602 3.33268C8.66602 2.96449 8.36754 2.66602 7.99935 2.66602C7.63116 2.66602 7.33268 2.96449 7.33268 3.33268V7.33268H3.33268C2.96449 7.33268 2.66602 7.63116 2.66602 7.99935C2.66602 8.36754 2.96449 8.66602 3.33268 8.66602H7.33268V12.666C7.33268 13.0342 7.63116 13.3327 7.99935 13.3327C8.36754 13.3327 8.66601 13.0342 8.66601 12.666V8.66602H12.666C13.0342 8.66602 13.3327 8.36754 13.3327 7.99935C13.3327 7.63116 13.0342 7.33268 12.666 7.33268H8.66602V3.33268Z" fill="#9A9FA5"/>
+		</svg>
 	</>
 }
