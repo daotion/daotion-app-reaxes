@@ -1,9 +1,9 @@
 import {
 	reaxel_i18n ,
+	reaxel_joined_Space_list ,
 	reaxel_space_list ,
 	reaxel_user ,
 	reaxel_wallet ,
-	reaxel_joined_Space_list,
 } from '@@reaxels';
 
 import spaceTags from '@@Public/space-tags.json';
@@ -17,7 +17,10 @@ import { ethers } from 'ethers';
 import { PrimaryInput } from '@@pages/Test/dxz-input';
 import { MultipleSelect } from '@@pages/Test/dxz-select';
 import less from '../../styles/reaxels.module.less';
-import { SVGClear } from '@@pages/_SvgComponents/space-setting-svg';
+import {
+	SVGSelectArrowIcon,
+} from '@@pages/_SvgComponents/space-setting-svg';
+import { OptionNetEthereum } from '@@pages/Test/dxz-create-SBT';
 
 export const reaxel_create_space = function () {
 	const {
@@ -190,6 +193,7 @@ export const reaxel_create_space = function () {
 								<Button
 									type = { "primary" }
 									loading = {store.creating}
+									className={less.createSpaceBtn}
 									onClick = { () => {
 										if ( !validations.input_email_address( store.input_email ) ) {
 											return;
@@ -198,19 +202,6 @@ export const reaxel_create_space = function () {
 											return;
 										}
 										create_space();
-									} }
-									style = { {
-										display : "flex" ,
-										alignItems : "center" ,
-										justifyContent : "center" ,
-										height : '56px' ,
-										width : "100%" ,
-										borderRadius : "12px" ,
-										fontSize : "15px" ,
-										fontWeight : "700" ,
-										lineHeight : "24px" ,
-										marginTop : '24px' ,
-										border : "none" ,
 									} }
 								>
 									{store.creating ? <I18n>
@@ -291,7 +282,6 @@ export const reaxel_create_space = function () {
 											type = "primary"
 											disabled = { store.creating }
 											suffixIcon = { <SVGSelectArrowIcon /> }
-											removeIcon = { <SVGClear /> }
 											mode = "tags"
 											dropdownMatchSelectWidth = { true }
 											placeholder = { i18n( "Please select" ) }
@@ -322,7 +312,7 @@ export const reaxel_create_space = function () {
 											className = { less.antdNetSelect }
 											dropdownClassName = { less.dropDownMenu }
 										>
-											<Select.Option value = "Ethereum">Ethereum</Select.Option>
+											<Select.Option value = "Ethereum"><OptionNetEthereum/></Select.Option>
 										</Select>
 									</div>
 									<div className = { less.formItem }>
@@ -419,19 +409,3 @@ const SVGCloseIcon = () => {
 	</>;
 };
 
-const SVGSelectArrowIcon = () => {
-	return <>
-		<svg
-			width = "24"
-			height = "24"
-			viewBox = "0 0 24 24"
-			fill = "none"
-			xmlns = "http://www.w3.org/2000/svg"
-		>
-			<path
-				d = "M6.70711 8.29289C6.31658 7.90237 5.68342 7.90237 5.29289 8.29289C4.90237 8.68342 4.90237 9.31658 5.29289 9.70711L6.70711 8.29289ZM12 15L11.2929 15.7071C11.6834 16.0976 12.3166 16.0976 12.7071 15.7071L12 15ZM18.7071 9.70711C19.0976 9.31658 19.0976 8.68342 18.7071 8.29289C18.3166 7.90237 17.6834 7.90237 17.2929 8.29289L18.7071 9.70711ZM5.29289 9.70711L11.2929 15.7071L12.7071 14.2929L6.70711 8.29289L5.29289 9.70711ZM12.7071 15.7071L18.7071 9.70711L17.2929 8.29289L11.2929 14.2929L12.7071 15.7071Z"
-				fill = "#6F767E"
-			/>
-		</svg>
-	</>;
-};

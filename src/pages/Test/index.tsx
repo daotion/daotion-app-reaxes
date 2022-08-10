@@ -30,6 +30,7 @@ import { DxzInput } from './dxz-input';
 import { DxzSwitch } from './dxz-switch';
 import { DxzSelect } from './dxz-select';
 import { DxzCreateSBT } from './dxz-create-SBT';
+import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
