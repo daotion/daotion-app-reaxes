@@ -24,12 +24,31 @@ export const MultipleSelect = ( props ) => {
 	</Select>;
 	
 };
-
+export const SingleSelect = ( props ) => {
+	return <Select
+		className = { less[ props.type ] }
+		dropdownClassName = { less.dropDownMenu }
+		dropdownStyle = { {
+			border : "2px solid #e6e8ec" ,
+			borderRadius : "12px" ,
+			padding : "8px" ,
+		} }
+		placeholder = { i18n( "All Type" ) }
+		{ ...props }
+	>
+		<Select.Option value = "type1">type1</Select.Option>
+		<Select.Option value = "type2">type2</Select.Option>
+	</Select>
+	
+};
 export const DxzSelect = ComponentWrapper( () => {
 	return <>
 		<div className = { less.box }>
 			<MultipleSelect
 				type = "primary"
+			/>
+			<SingleSelect
+			type='single-primary'
 			/>
 		</div>
 	</>;

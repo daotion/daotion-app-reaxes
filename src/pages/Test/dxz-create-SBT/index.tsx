@@ -89,6 +89,12 @@ import {
 	Select,
 	Button
 } from 'antd';
+import {
+	SVGSelectArrowIcon ,
+	SVGAddNewFeature ,
+	SVGCreateSBTPreview ,
+	SVGNetEthereum,
+} from '@@pages/_SvgComponents/all-SBT-SVG';
 
 export const CreateSBTCheckBox=(props)=>{
 	return<>
@@ -147,6 +153,15 @@ export const NewSBTSelectType=()=>{
 		
 	</>
 }
+export const AddNewSBTFeature=(props)=>{
+	return<>
+		<div>
+			<PrimaryInput type = "primary" style={{width:"306px",marginRight:"12px"}} placeholder={i18n('Value')}/>
+			<PrimaryInput type = "primary" style={{width:"306px"}} placeholder={i18n('Value')}/>
+			<Button className={less.addNewSBTFeatureBtn}><SVGAddNewFeature/></Button>
+		</div>
+	</>
+}
 export const NewSBTSelectNetType=()=>{
 	return<>
 		<Select
@@ -171,96 +186,4 @@ export const OptionNetEthereum = ComponentWrapper( () => {
 		</span>
 	</>;
 } );
-export const SVGNetEthereum = ComponentWrapper( () => {
-	return <>
-		<svg
-			style={{marginRight:"8px"}}
-			width = "24"
-			height = "24"
-			viewBox = "0 0 16 16"
-			fill = "none"
-			xmlns = "http://www.w3.org/2000/svg"
-		>
-			<g clipPath = "url(#clip0_2540_29067)">
-				<path
-					d = "M0 8C0 3.5816 3.58166 0 8.00014 0C12.4186 0 16.0003 3.5816 16.0003 8C16.0003 12.4184 12.4186 16 8.00014 16C3.58166 16 0 12.4184 0 8Z"
-					fill = "#627EEA"
-				/>
-				<path
-					d = "M4 7.7243L8 9.99967V1.33301L4 7.7243Z"
-					fill = "white"
-				/>
-				<path
-					opacity = "0.8"
-					d = "M8.00041 1.33301L8 9.99967L12 7.75276L8.00041 1.33301Z"
-					fill = "#C0CBF6"
-				/>
-				<path
-					d = "M4 8.86426L7.92927 14.4003V11.1859L4 8.86466V8.86426Z"
-					fill = "white"
-				/>
-				<path
-					opacity = "0.8"
-					d = "M7.92969 11.1859V14.4003L11.8606 8.86426L7.92969 11.1859Z"
-					fill = "#C0CBF6"
-				/>
-				<path
-					opacity = "0.6"
-					d = "M8.00061 6L4 7.73966L8.00061 10L12 7.73966L8.00061 6Z"
-					fill = "#8197EE"
-				/>
-			</g>
-			<defs>
-				<clipPath id = "clip0_2540_29067">
-					<rect
-						width = "16.0003"
-						height = "16"
-						fill = "white"
-					/>
-				</clipPath>
-			</defs>
-		</svg>
-	</>;
-} );
-export const SVGSelectArrowIcon = () => {
-	return <>
-		<svg
-			width = "24"
-			height = "24"
-			viewBox = "0 0 24 24"
-			fill = "none"
-			xmlns = "http://www.w3.org/2000/svg"
-		>
-			<path
-				d = "M6.70711 8.29289C6.31658 7.90237 5.68342 7.90237 5.29289 8.29289C4.90237 8.68342 4.90237 9.31658 5.29289 9.70711L6.70711 8.29289ZM12 15L11.2929 15.7071C11.6834 16.0976 12.3166 16.0976 12.7071 15.7071L12 15ZM18.7071 9.70711C19.0976 9.31658 19.0976 8.68342 18.7071 8.29289C18.3166 7.90237 17.6834 7.90237 17.2929 8.29289L18.7071 9.70711ZM5.29289 9.70711L11.2929 15.7071L12.7071 14.2929L6.70711 8.29289L5.29289 9.70711ZM12.7071 15.7071L18.7071 9.70711L17.2929 8.29289L11.2929 14.2929L12.7071 15.7071Z"
-				fill = "#6F767E"
-			/>
-		</svg>
-	</>;
-};
-export const SVGCreateSBTPreview=(props)=>{
-	return<>
-		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path fillRule="evenodd" clipRule="evenodd" d="M2 5C2 3.34315 3.34315 2 5 2H7C7.55228 2 8 2.44772 8 3C8 3.55228 7.55228 4 7 4H5C4.44772 4 4 4.44772 4 5V7C4 7.55228 3.55228 8 3 8C2.44772 8 2 7.55228 2 7V5Z" fill="#6F767E"/>
-			<path fillRule="evenodd" clipRule="evenodd" d="M2 19C2 20.6569 3.34315 22 5 22H7C7.55228 22 8 21.5523 8 21C8 20.4477 7.55228 20 7 20H5C4.44772 20 4 19.5523 4 19V17C4 16.4477 3.55228 16 3 16C2.44772 16 2 16.4477 2 17V19Z" fill="#6F767E"/>
-			<path fillRule="evenodd" clipRule="evenodd" d="M22 19C22 20.6569 20.6569 22 19 22H17C16.4477 22 16 21.5523 16 21C16 20.4477 16.4477 20 17 20H19C19.5523 20 20 19.5523 20 19V17C20 16.4477 20.4477 16 21 16C21.5523 16 22 16.4477 22 17V19Z" fill="#6F767E"/>
-			<path fillRule="evenodd" clipRule="evenodd" d="M22 5C22 3.34315 20.6569 2 19 2H17C16.4477 2 16 2.44772 16 3C16 3.55228 16.4477 4 17 4H19C19.5523 4 20 4.44772 20 5V7C20 7.55228 20.4477 8 21 8C21.5523 8 22 7.55228 22 7V5Z" fill="#6F767E"/>
-		</svg>
-	</>
-}
-export const AddNewSBTFeature=(props)=>{
-	return<>
-		<div>
-			<PrimaryInput type = "primary" style={{width:"306px",marginRight:"12px"}} placeholder={i18n('Value')}/>
-			<PrimaryInput type = "primary" style={{width:"306px"}} placeholder={i18n('Value')}/>
-			<Button className={less.addNewSBTFeatureBtn}><SVGAddNewFeature/></Button>
-		</div>
-	</>
-}
-export const SVGAddNewFeature=(props)=>{
-	return<>
-		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M8.66602 3.33268C8.66602 2.96449 8.36754 2.66602 7.99935 2.66602C7.63116 2.66602 7.33268 2.96449 7.33268 3.33268V7.33268H3.33268C2.96449 7.33268 2.66602 7.63116 2.66602 7.99935C2.66602 8.36754 2.96449 8.66602 3.33268 8.66602H7.33268V12.666C7.33268 13.0342 7.63116 13.3327 7.99935 13.3327C8.36754 13.3327 8.66601 13.0342 8.66601 12.666V8.66602H12.666C13.0342 8.66602 13.3327 8.36754 13.3327 7.99935C13.3327 7.63116 13.0342 7.33268 12.666 7.33268H8.66602V3.33268Z" fill="#9A9FA5"/>
-		</svg>
-	</>
-}
+
