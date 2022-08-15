@@ -30,10 +30,11 @@ import { DxzSwitch } from './dxz-switch';
 import { DxzSelect } from './dxz-select';
 import { DxzCreateSBT } from './dxz-create-SBT';
 import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
+import { DxzSBTSettings } from './dxz-SBT-settings';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzCreateSBT />
+	<DxzSBTSettings />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

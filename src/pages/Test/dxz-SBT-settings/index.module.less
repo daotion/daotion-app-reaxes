@@ -1,56 +1,17 @@
-.create-SBT-container {
+.SBT-settings-container {
 	display: flex;
-	flex-flow: row nowrap;
-	justify-content: center;
+	flex-flow: column nowrap;
 	width: 100%;
 	line-height: normal;
-}
-
-.create-SBT_left {
-	margin-right: 24px;
-	width: 836px;
-	height: fit-content;
-	margin-bottom: 48px;
-}
-
-.create-SBT_right {
-	width: 340px;
-	height: 416px;
-	background: #fcfcfc;
-	margin-top: 94px;
-	border-radius: 8px;
-	padding: 24px;
-}
-
-.create-SBT-Preview-title {
-	display: flex;
-	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 28px;
-	font-weight: 600;
-	font-size: 20px;
-	line-height: 32px;
-	color: #1a1d1f;
-	user-select: none;
 }
-
-.create-SBT-Preview-content {
-	width: 292px;
-	height: 304px;
-	font-weight: 500;
-	font-size: 14px;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	color: #777e91;
-}
-
 .main-title {
 	font-weight: 700;
 	font-size: 40px;
 	color: #313436;
 	margin-bottom: 8px;
 	user-select: none;
+	width: 1200px;
 }
 
 .some-intro {
@@ -59,27 +20,96 @@
 	color: #777e91;
 	margin-bottom: 24px;
 	user-select: none;
+	width: 1200px;
 }
-
-.create-SBT-info-box {
-	width: 836px;
-	height: fit-content;
-	background: #fcfcfc;
-	border-radius: 8px;
+.SBT-settings-info{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+}
+.current-SBT-preview{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 	padding: 24px;
-	margin-bottom: 8px;
+	width: 340px;
+	height: 496px;
+	background: #FFFFFF;
+	border-radius: 8px;
+	margin-right: 8px;
 }
-.create-SBT-footer-box{
+.edit-SBT-settings{
+	display: flex;
+	flex-direction: column;
+	
+}
+.SBT-settings-main-box{
+	padding: 24px;
+	width: 852px;
+	height: fit-content;
+	background: #FFFFFF;
+	border-radius: 8px;
+}
+.SBT-settings-footer-box{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px 24px;
+	padding:16px;
 	width: 100%;
-	height: 88px;
+	height: 80px;
 	background: #FFFFFF;
 	border-radius: 8px;
 	margin-bottom: 48px;
+	margin-top: 8px;
+}
+.SBT-settings-subtitle{
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 32px;
+	margin-bottom: 38px;
+	user-select: none;
+}
+.SBT-preview-subtitle{
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 32px;
+	margin-bottom: 24px;
+	user-select: none;
+}
+.SBT-preview-img{
+	background: #d9d9d9;
+	width: 292px;
+	height: 292px;
+	border-radius: 12px;
+	user-select: none;
+}
+.SBT-name{
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 32px;
+	margin: 24px 0 8px 0;
+	user-select: none;
+}
+.SBT-address{
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
+	color: #777E91;
+	display: flex;
+	align-items: center;
+	transition: color .2s linear;
+	user-select: none;
+	span{
+		margin-right: 8px;
+	}
+	
+	&:hover{
+		color: #222528;
+		svg path{
+			fill: #222528;
+		}
+	}
 }
 .sub-title {
 	font-weight: 600;
@@ -88,14 +118,7 @@
 	display: inline-block;
 	padding-bottom: 12px;
 	user-select: none;
-}
-.net-ethereum{
-	font-weight: 600;
-	font-size: 14px;
-	line-height: 24px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+	width: 100%;
 }
 .sub-title-with-item {
 	margin-bottom: 32px;
@@ -138,12 +161,6 @@
 	}
 }
 
-.access-some-intro{
-	font-weight: 500;
-	font-size: 13px;
-	color: #777E91;
-	margin-top: 12px;
-}
 
 .add-new-SBT-feature-btn:global(.ant-btn){
 	padding: 10px;
@@ -204,57 +221,3 @@
 		}
 	}
 }
-
-.create-SBT-check-box {
-	font-weight: 500;
-	font-size: 14px;
-	display: flex;
-	flex-flow: column wrap;
-	:global {
-		.ant-checkbox-wrapper {
-			margin-bottom: 12px;
-			&:last-child{
-				margin-bottom: 0;
-			}
-			span {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				height: 24px;
-			}
-		}
-		.ant-checkbox + span {
-			padding-right: 12px;
-			padding-left: 12px;
-		}
-		.ant-checkbox-wrapper{
-			align-items: center;
-			height: 24px;
-		}
-		.ant-checkbox-wrapper + .ant-checkbox-wrapper {
-			margin-left: 0;
-		}
-		.ant-checkbox{
-			margin-bottom: 3px;
-			&-checked{
-				.ant-checkbox-inner::after{
-					transform: rotate(45deg) scale(1.6) translate(-50%, -50%);
-				}
-			}
-		}
-		.ant-checkbox-inner {
-			width: 24px;
-			height: 24px;
-			background: #fcfcfd;
-			border: 2px solid #e6e8ec;
-			border-radius: 4px;
-			&::after{
-				top: 52%;
-				left: 22.5%;
-			}
-		}
-	}
-}
-
-
-
