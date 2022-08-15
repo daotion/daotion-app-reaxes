@@ -22,9 +22,6 @@ export const reaxel_user_join_or_leave_space = function(){
 					timestamp : await request_server_timestamp(),
 				};
 				
-				
-				
-				
 				const createPayload = async () => {
 					const signature = await reax_user.signByFakeWallet( data );
 					return {

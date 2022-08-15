@@ -9,7 +9,9 @@ const handleChange = ( value : string[] ) => {
 	console.log( `selected ${ value }` );
 };
 
-export const MultipleSelect = ( props ) => {
+export const MultipleSelect = ( props:SelectProps&{
+	type : "primary"
+} ) => {
 	return <Select
 		className = { less[ props.type ] }
 		dropdownClassName = { less.dropDownMenu }
@@ -21,6 +23,7 @@ export const MultipleSelect = ( props ) => {
 		placeholder = { i18n( "Please select" ) }
 		{ ...props }
 	>
+		{props.children}
 	</Select>;
 	
 };
@@ -54,5 +57,5 @@ export const DxzSelect = ComponentWrapper( () => {
 	</>;
 } );
 import less from './index.module.less';
-import { Select } from 'antd';
+import { Select , SelectProps } from 'antd';
 import { SVGClear } from '@@pages/_SvgComponents/space-setting-svg';

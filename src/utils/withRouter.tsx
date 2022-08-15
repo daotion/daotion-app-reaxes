@@ -25,6 +25,7 @@ export const useRouter = () => {
 		location : useLocation(),
 		
 	};
+	
 }
 
 export const withOutlet = ( ReactElement:React.ReactElement ) => {

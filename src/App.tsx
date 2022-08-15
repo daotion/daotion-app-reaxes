@@ -43,7 +43,6 @@ export const App = ComponentWrapper(class extends ReactComponentClass {
 					"enUS" : enUS ,
 					"en" : enUS ,
 				}[ this.reax_i18n.language ] }
-			
 			>
 				<Routing />
 			</ConfigProvider>

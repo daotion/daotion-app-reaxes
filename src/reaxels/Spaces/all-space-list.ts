@@ -23,13 +23,13 @@ export const reaxel_space_list = function(){
 	
 	
 	
-	return ( lifecycle : Lifecycle ) => {
+	return ( lifecycle? : Lifecycle ) => {
 		
 		const fetch_all_spaces_list = () => {
 			return request_all_spaces_list( async() => {
 				return {
-					indexStart : store.indexStart ,
-					firstTimestamp : store.firstTimestamp ,
+					indexStart : 0 ,
+					firstTimestamp : 0 ,
 					count : 20 ,
 				}
 			} ).
@@ -38,15 +38,16 @@ export const reaxel_space_list = function(){
 					infos : data.infos ,
 					firstTimestamp : data.firstTimestamp ,
 					indexStart : data.indexEnd ,
+					hasMore : data.count === 20 ,
 				} );
 			} );
 		};
 		
-		lifecycle.mounted( () => {
+		lifecycle?.mounted( () => {
 			fetch_all_spaces_list();
 		} );
 		
-		lifecycle.unmount( () => {
+		lifecycle?.unmount( () => {
 			setState( {
 				infos : [] ,
 				indexStart : 0 ,

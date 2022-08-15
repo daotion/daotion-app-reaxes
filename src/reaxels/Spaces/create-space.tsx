@@ -1,7 +1,10 @@
-import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
-import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
-import { reaxel_space_list } from '@@RootPath/src/reaxels/Spaces/all-space-list';
-import { reaxel_i18n } from '@@RootPath/src/reaxels/i18n';
+import {
+	reaxel_i18n ,
+	reaxel_joined_Space_list ,
+	reaxel_space_list ,
+	reaxel_user ,
+	reaxel_wallet ,
+} from '@@reaxels';
 
 import spaceTags from '@@Public/space-tags.json';
 import { SpaceFactoryAbi } from '@@common/contract/abi';
@@ -11,6 +14,13 @@ import {
 	request_server_timestamp ,
 } from '@@requests';
 import { ethers } from 'ethers';
+import { PrimaryInput } from '@@pages/Test/dxz-input';
+import { MultipleSelect } from '@@pages/Test/dxz-select';
+import less from '../../styles/reaxels.module.less';
+import {
+	SVGSelectArrowIcon,
+} from '@@pages/_SvgComponents/space-setting-svg';
+import { OptionNetEthereum } from '@@pages/Test/dxz-create-SBT';
 
 export const reaxel_create_space = function () {
 	const {
@@ -23,6 +33,8 @@ export const reaxel_create_space = function () {
 		select_types : [] ,
 		select_network : null ,
 		input_email : null ,
+		/*是否正在创建 , 冻结输入元素*/
+		creating : false ,
 	} );
 	let ret;
 	const { Modal } = antd;
@@ -32,6 +44,7 @@ export const reaxel_create_space = function () {
 		const reax_user = reaxel_user();
 		
 		const fetch_space_ID = async () => {
+			setState( { creating : true  } );
 			const address = reax_wallet.account.address;
 			
 			const createPayload = async () => {
@@ -53,6 +66,7 @@ export const reaxel_create_space = function () {
 		};
 		
 		const contract_create = async ( spaceID : number ) => {
+			setState( { creating : true  } );
 			const spaceName = store.input_space_name;
 			const contract = new ethers.Contract( SpaceFactoryAddress , SpaceFactoryAbi , reax_wallet.web3Provider );
 			const contractWithSigner = contract.connect( reax_wallet.web3Provider.getSigner( reax_wallet.account.address ) );
@@ -70,7 +84,7 @@ export const reaxel_create_space = function () {
 					Modal.success( {
 						title : "transaction success !" ,
 					} );
-					reaxel_space_list;
+					
 					setState( {
 						visible : false ,
 						modal_showing : false ,
@@ -83,8 +97,7 @@ export const reaxel_create_space = function () {
 				
 				return reax_wallet.web3Provider.getTransaction( hash ).
 				then( ( response ) => {
-					return response.wait().
-					then( ( receipt ) => {
+					return response.wait().then( ( receipt ) => {
 						if ( receipt?.confirmations ) {
 							Modal.success( {
 								title : "transaction success !" ,
@@ -123,11 +136,15 @@ export const reaxel_create_space = function () {
 				const spaceID = await fetch_space_ID();
 				await contract_create( spaceID );
 				ret.setCreateModalVisible( false );
+				update_space_list( spaceID );
 			} catch ( e ) {
 				console.error( e );
 				Modal.error( {
 					title : e.toString() ,
 				} );
+			}finally {
+				
+				setState( { creating : false  } );
 			}
 		}
 	};
@@ -173,6 +190,8 @@ export const reaxel_create_space = function () {
 							onCancel = { () => setState( { visible : false } ) }
 							footer = { <>
 								<Button
+									type = { "primary" }
+									loading = {store.creating}
 									className={less.createSpaceBtn}
 									onClick = { () => {
 										if ( !validations.input_email_address( store.input_email ) ) {
@@ -184,9 +203,11 @@ export const reaxel_create_space = function () {
 										create_space();
 									} }
 								>
-									<I18n>
+									{store.creating ? <I18n>
+										Creating...
+									</I18n> : <I18n>
 										Create
-									</I18n>
+									</I18n>}
 								</Button>
 							</> }
 							width = "596px"
@@ -223,6 +244,7 @@ export const reaxel_create_space = function () {
 											</I18n>
 										</p>
 										<PrimaryInput
+											disabled = { store.creating }
 											type = "primary"
 											placeholder = { i18n( "Name your Space" ) }
 											value = { store.input_space_name }
@@ -256,7 +278,8 @@ export const reaxel_create_space = function () {
 											</span>
 										</p>
 										<MultipleSelect
-											type='primary'
+											type = "primary"
+											disabled = { store.creating }
 											suffixIcon = { <SVGSelectArrowIcon /> }
 											mode = "tags"
 											dropdownMatchSelectWidth = { true }
@@ -282,10 +305,11 @@ export const reaxel_create_space = function () {
 												</I18n></p>
 										</div>
 										<Select
+											disabled = { store.creating }
 											suffixIcon = { <SVGSelectArrowIcon /> }
 											defaultValue = "Ethereum"
 											className = { less.antdNetSelect }
-											dropdownClassName={less.dropDownMenu}
+											dropdownClassName = { less.dropDownMenu }
 										>
 											<Select.Option value = "Ethereum"><OptionNetEthereum/></Select.Option>
 										</Select>
@@ -297,6 +321,7 @@ export const reaxel_create_space = function () {
 											</I18n>
 										</p>
 										<PrimaryInput
+											disabled = { store.creating }
 											type = "primary"
 											placeholder = { i18n( "Enter your email" ) }
 											value = { store.input_email }
@@ -325,10 +350,61 @@ export const reaxel_create_space = function () {
 	};
 }();
 
-import { PrimaryInput } from '@@pages/Test/dxz-input';
-import { MultipleSelect } from '@@pages/Test/dxz-select';
-import less from '../../styles/reaxels.module.less';
-import { SVGSelectArrowIcon, SVGCloseIcon} from '@@pages/_SvgComponents/space-setting-svg';
-import { OptionNetEthereum } from '@@pages/Test/dxz-create-SBT';
+const update_space_list = async (spaceID:number) => {
+	const {result} = await request.post<{result:boolean}>( '/space/query-space-created' ,{
+		body : async () => {
+			return {
+				spaceID ,
+			};
+		},
+	});
+	
+	if(result){
+		const {updateSpacesList} = reaxel_space_list();
+		const {fetchUpdate_joined_space_list} = reaxel_joined_Space_list();
+		updateSpacesList();
+		fetchUpdate_joined_space_list();
+	}else {
+		console.log( result );
+	}
+	
+	
+}
 
+
+
+
+
+
+
+
+
+
+const SVGCloseIcon = () => {
+	return <>
+		<svg
+			width = "40"
+			height = "40"
+			viewBox = "0 0 40 40"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<path
+				fillRule = "evenodd"
+				clipRule = "evenodd"
+				d = "M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z"
+				fill = "#313436"
+			/>
+			<rect
+				x = "1"
+				y = "1"
+				width = "38"
+				height = "38"
+				rx = "19"
+				stroke = "#E6E8EC"
+				strokeWidth = "2"
+			/>
+		</svg>
+	</>;
+};
 

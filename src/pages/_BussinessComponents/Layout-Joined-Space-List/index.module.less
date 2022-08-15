@@ -1,18 +1,14 @@
 .space-item {
 	user-select: none;
-	margin-bottom: 16px;
+	padding-bottom: 16px;
 	display: flex;
-	transform: translate(0);
 	align-items: center;
-	background-color: #eeeeee;
-	width: fit-content;
-	border-radius: 12px;
-	box-shadow: 0 0 10px 1px #eeeeee;
-	
-	&:first-child {
-		margin-top: 12px;
+	background-color: transparent;
+	width:100%;
+	padding-right: 4px;
+	&:last-child{
+		padding-bottom: 0;
 	}
-	
 	@keyframes expand{
 		from{
 			height : 0px;
@@ -32,23 +28,18 @@
 			animation-timing-function: ease;
 		}
 	}
-	
-	
 	.select-vision {
 		.base() {
 			transition: opacity 0.4s ease;
 			width: 4px;
 			height: 0px;
 			opacity: 1;
-			position: absolute;
 			background: #3772ff;
 			border-radius: 0px 4px 4px 0px;
-			margin-left: -7px;
 			display: block;
-			
+			margin-right: 4px;
 		}
 		.base();
-		
 		&-selected {
 			.base();
 			animation: expand1;
@@ -76,14 +67,36 @@
 	margin-left: -1px;
 }
 .joined-space-container{
-	padding: 16px 8px 16px 8px;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: space-between;
-	width: 56px;
-	background: white;
+	padding:16px 0;
 	border-radius: 12px 0 0 12px;
+	height: 100%;
+	background: white;
 }
+.joined-space-list{
+	height:763px;
+	background: white;
+	overflow: auto;
+}
+.joined-space-list::-webkit-scrollbar{
+	width:3px;
+	height:10px;
+	&:hover{
+		width: 5px;
+	}
+}
+
+.joined-space-list::-webkit-scrollbar-thumb{
+	background: #d9d9d9;
+	border-radius:10px;
+	border-color: transparent;
+}
+.joined-space-list::-webkit-scrollbar-thumb:hover{
+	background: #333;
+	width: 6px;
+	border: 1px solid #333333;
+}
+
+
 .joined-space-tooltip:global(.ant-tooltip){
 	line-height: normal;
 	height: 32px;
