@@ -84,7 +84,7 @@ export const reaxel_create_space = function () {
 					Modal.success( {
 						title : "transaction success !" ,
 					} );
-					reaxel_space_list;
+					
 					setState( {
 						visible : false ,
 						modal_showing : false ,
@@ -97,8 +97,7 @@ export const reaxel_create_space = function () {
 				
 				return reax_wallet.web3Provider.getTransaction( hash ).
 				then( ( response ) => {
-					return response.wait().
-					then( ( receipt ) => {
+					return response.wait().then( ( receipt ) => {
 						if ( receipt?.confirmations ) {
 							Modal.success( {
 								title : "transaction success !" ,
@@ -137,7 +136,7 @@ export const reaxel_create_space = function () {
 				const spaceID = await fetch_space_ID();
 				await contract_create( spaceID );
 				ret.setCreateModalVisible( false );
-				upload_space_list( spaceID );
+				update_space_list( spaceID );
 			} catch ( e ) {
 				console.error( e );
 				Modal.error( {
@@ -351,7 +350,7 @@ export const reaxel_create_space = function () {
 	};
 }();
 
-const upload_space_list = async (spaceID:number) => {
+const update_space_list = async (spaceID:number) => {
 	const {result} = await request.post<{result:boolean}>( '/space/query-space-created' ,{
 		body : async () => {
 			return {
