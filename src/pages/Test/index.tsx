@@ -1,7 +1,6 @@
 import { RoutingTest } from './Routing';
 import { ParentObserver } from './parentObserver';
 import { SetState } from './SetState';
-import { DxzHeaderPanel } from './dxz-Header-panel';
 import { DxzLangCurrency } from './dxz-Lang-currency';
 import { DxzVotingProposals } from './dxz-voting_proposals';
 import { DxzVoting_Settings } from './dxz-voting_settings';
@@ -11,8 +10,7 @@ import { UseSyncExternalStore } from './useSyncExternalStore';
 // import { TextWallet } from './reax-wallet';
 import { DxzTokenOverview } from './dxz-Token-overview';
 // import { DxzDaotionPop as DeprecatedDxzDaotionPop } from './dxz-Daotion-pop';
-import { DxzPluginBrowse } from './dxz-plugin-browse';
-import { DxzDAOList } from './dxz-DAO-list';
+import { DxzPluginCenter } from './dxz-plugin-center';
 import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
@@ -20,9 +18,8 @@ import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import { FileUpload } from './File-Upload';
 import InputTest from './componentTest/inputTest';
 import DarkThemeTest from './darkTheme';
-import { DxzUIKits } from './dxz-UI-kits';
+import { DxzDeleteModal ,  } from './dxz-delete-modal';
 import { KaneDarkMode } from './kane-dark-mode';
-import { DxzSpaceList } from './dxz-space-list';
 import { Test_Reaxel_i18n } from './I18n';
 import { DxzButton } from './dxz-button';
 import { DxzInput } from './dxz-input';
@@ -34,7 +31,7 @@ import { DxzSBTSettings } from './dxz-SBT-settings';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSBTSettings />
+	<DxzVotingProposals />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
