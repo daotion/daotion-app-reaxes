@@ -1,5 +1,4 @@
 import { RoutingTest } from './Routing';
-import { UploadArrayBuffer } from './Array-Buffer-JSON-Upload';
 import { ParentObserver } from './parentObserver';
 import { SetState } from './SetState';
 import { DxzHeaderPanel } from './dxz-Header-panel';
@@ -31,10 +30,11 @@ import { DxzSwitch } from './dxz-switch';
 import { DxzSelect } from './dxz-select';
 import { DxzCreateSBT } from './dxz-create-SBT';
 import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
+import { DxzSBTSettings } from './dxz-SBT-settings';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<UploadArrayBuffer />
+	<DxzSBTSettings />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
