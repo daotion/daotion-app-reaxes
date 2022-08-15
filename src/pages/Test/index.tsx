@@ -33,7 +33,7 @@ import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSelect />
+	<DxzCreateSBT />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

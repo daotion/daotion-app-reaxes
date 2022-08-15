@@ -27,10 +27,6 @@ export const DxzCreateSBT = () => {
 			<div className={less.createSBTInfoBox}>
 				<SubTitleWithItem title='SBT access'>
 					<NewSBTSelectType/>
-					<p className={less.accessSomeIntro}>
-						每满足一次所有条件将可以领取一个数量SBT,领取不会使这些
-						条件的SBT消失，但这些SBT token id将无法再次作为领取条件。
-					</p>
 				</SubTitleWithItem>
 				<SubTitleWithItem title='Hold the upper limit of each user'>
 					<PrimaryInput type = "primary"/>
@@ -45,31 +41,23 @@ export const DxzCreateSBT = () => {
 					<NewSBTSelectNetType/>
 				</SubTitleWithItem>
 			</div>
-			
 			<div className={less.createSBTInfoBox}>
 				<SubTitleWithItem title='Destruction of rules'>
 					<CreateSBTCheckBox/>
 				</SubTitleWithItem>
-				<SubTitleWithItem title='Key features'>
-					<AddNewSBTFeature/>
+				<SubTitleWithItem title='Features'>
+					<PrimaryInput type = "primary"  placeholder={i18n('Add features...')}/>
 				</SubTitleWithItem>
 			</div>
-			
 			<div className={less.createSBTFooterBox}>
 				<PrimaryBtn type="primary">Create SBT</PrimaryBtn>  
 			</div>
-			{/*右边的preview部分*/}
 		</div>
+		{/*右边的preview部分 :*/}
 		<div className={less.createSBT_right}>
-			<div className={less.createSBTPreviewTitle}>
-				<span>Preview</span>
-				<SVGCreateSBTPreview/>
-			</div>
-			<div className={less.createSBTPreviewContent}>
-				<p>Upload file and choose collection to preview your brand new NFT</p>
-			</div>
+			<span className = { less.createSBTPreviewTitle }>Preview</span>
+			<p className = { less.createSBTPreviewContent }>Upload file and choose collection to preview your brand new NFT</p>
 		</div>
-		
 	</div>
 	</>;
 };
@@ -94,6 +82,7 @@ import {
 	SVGAddNewFeature ,
 	SVGCreateSBTPreview ,
 	SVGNetEthereum,
+	SVGUploadFileIcon
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 
 export const CreateSBTCheckBox=(props)=>{
@@ -126,14 +115,6 @@ export const UploadFileBox=()=>{
 		</div>
 	</>
 }
-export const SVGUploadFileIcon=()=>{
-	return<>
-		<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M17.7072 9.29099C18.0977 9.68151 18.0977 10.3147 17.7072 10.7052C17.3167 11.0957 16.6835 11.0957 16.293 10.7052L13.502 7.91426V15.0005C13.502 15.5528 13.0543 16.0005 12.502 16.0005C11.9498 16.0005 11.502 15.5528 11.502 15.0005V7.91417L8.70906 10.7072C8.31854 11.0977 7.68537 11.0977 7.29485 10.7072C6.90432 10.3166 6.90432 9.68347 7.29485 9.29294L11.7949 4.79289C11.9824 4.60536 12.2368 4.5 12.502 4.5C12.7672 4.5 13.0216 4.60536 13.2091 4.79289L17.7072 9.29099Z" fill="#1A1D1F"/>
-			<path fillRule="evenodd" clipRule="evenodd" d="M4.5 14C5.05228 14 5.5 14.4477 5.5 15V17C5.5 17.5523 5.94772 18 6.5 18H18.5C19.0523 18 19.5 17.5523 19.5 17V15C19.5 14.4477 19.9477 14 20.5 14C21.0523 14 21.5 14.4477 21.5 15V17C21.5 18.6569 20.1569 20 18.5 20H6.5C4.84315 20 3.5 18.6569 3.5 17V15C3.5 14.4477 3.94772 14 4.5 14Z" fill="#1A1D1F"/>
-		</svg>
-	</>
-}
 
 export const NewSBTSelectType=()=>{
 	return<>
@@ -153,15 +134,7 @@ export const NewSBTSelectType=()=>{
 		
 	</>
 }
-export const AddNewSBTFeature=(props)=>{
-	return<>
-		<div>
-			<PrimaryInput type = "primary" style={{width:"306px",marginRight:"12px"}} placeholder={i18n('Value')}/>
-			<PrimaryInput type = "primary" style={{width:"306px"}} placeholder={i18n('Value')}/>
-			<Button className={less.addNewSBTFeatureBtn}><SVGAddNewFeature/></Button>
-		</div>
-	</>
-}
+
 export const NewSBTSelectNetType=()=>{
 	return<>
 		<Select
