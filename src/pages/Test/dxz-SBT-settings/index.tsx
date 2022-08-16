@@ -1,4 +1,4 @@
-   import less from './index.module.less';
+
 export const DxzSBTSettings=()=>{
 	return<>
 		<div className={less.SBTSettingsContainer}>
@@ -14,26 +14,32 @@ export const DxzSBTSettings=()=>{
 		</div>
 	</>
 }
-   import {
+
+import less from './index.module.less';
+import {
 	   PrimaryInput ,
 	   PrimaryTextArea,
-   } from "@@pages/Test/dxz-input";
-   import {
+} from "@@pages/Test/dxz-input";
+import {
 	   PrimaryBtn
    } from "@@pages/Test/dxz-button";
-   import {
+import {
 	   Select,
 	   Button
-   } from 'antd';
-   import {
+} from 'antd';
+import {
 	   SVGSelectArrowIcon ,
 	   SVGAddNewFeature ,
 	   SVGNetEthereum,
 	   SVGUploadFileIcon,
 	   SVGCopySBT,
-   } from '@@pages/_SvgComponents/all-SBT-SVG';
+} from '@@pages/_SvgComponents/all-SBT-SVG';
 
-   export const SubTitleWithItem=(props)=>{
+import {
+	   NewSBTSelectType ,
+	   UploadFileBox,
+} from '@@pages/Test/dxz-create-SBT';
+export const SubTitleWithItem=(props)=>{
 	   return<>
 		   <div className={less.subTitleWithItem}>
 			   <span className={less.subTitle}>
@@ -44,37 +50,7 @@ export const DxzSBTSettings=()=>{
 		   </div>
 	   </>
    }
-   export const UploadFileBox=()=>{
-	   return<>
-		   <div className={less.uploadFileBox}>
-			   <div className={less.uploadFile}>
-				   <SVGUploadFileIcon/>
-				   <span>Click or drop image</span>
-			   </div>
-		   </div>
-	   </>
-   }
-
-   export const NewSBTSelectType=()=>{
-	   return<>
-		   <Select
-			   suffixIcon = { <SVGSelectArrowIcon /> }
-			   className = { less.newSBTSelectType }
-			   dropdownClassName={less.dropDownMenu}
-			   dropdownStyle={{
-				   border:"2px solid #e6e8ec",
-				   borderRadius:"12px",
-				   padding:"8px",
-			   }}
-			   placeholder = { i18n( "Please select" ) }>
-			   <Select.Option value = "type1">type1</Select.Option>
-			   <Select.Option value = "type2">type2</Select.Option>
-		   </Select>
-	
-	   </>
-   }
-
-   export const CurrentSBTPreview=ComponentWrapper(()=>{
+export const CurrentSBTPreview=ComponentWrapper(()=>{
 	   return<>
 		   <div className={less.currentSBTPreview}>
 			   <p className={less.SBTPreviewSubtitle}>
@@ -90,7 +66,6 @@ export const DxzSBTSettings=()=>{
 			   </div>
 		   </div></>
    })
- 
 export const EditSBTSettings=()=>{
 		return<>
 			<div className={less.editSBTSettings}>
