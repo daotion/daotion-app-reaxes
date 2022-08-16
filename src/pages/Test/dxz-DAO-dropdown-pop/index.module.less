@@ -4,8 +4,9 @@
 	border-radius: 12px;
 	display: flex;
 	flex-direction: column;
-	padding: 24px 16px;
-	width: 280px;
+	padding: 12px;
+	width: 256px;
+	height: fit-content;
 }
 
 .pop-list {
@@ -23,17 +24,29 @@
 }
 
 .pop-list:not(:last-child) {
-	margin-bottom: 24px;
+	margin-bottom: 16px;
 }
 
 .pop-list {
+	transition: color .25s ease;
 	&:hover {
-		transition: color .2s ease;
 		color: #414141;
 	}
 	
 	&:last-child {
-		color: #ef466f;
+		transition: color .25s ease;
+		margin-top: 8px;
+		color: #FF3B30;
+		border-radius: 8px;
+		height: 40px;
+		padding: 8px;
+		&:hover{
+			background: #ff3b30;
+			color: #ffffff;
+			svg path{
+				fill: #ffffff;
+			}
+		}
 	}
 }
 
@@ -47,7 +60,6 @@
 	width: 100%;
 	height: 1px;
 	background: #e6e8ec;
-	margin: 0 0 16px 0;
 }
 
 //:local(.pop-switch) {

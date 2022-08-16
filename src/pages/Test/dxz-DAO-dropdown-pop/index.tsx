@@ -19,6 +19,7 @@ export const DxzDAODropdownPop = () => {
 			<PopupLi text = "Mute Notification">
 				<Switch className={less.popSwitch}/>
 			</PopupLi>
+			{/*若space-settings添加社媒,则此处添加社媒item*/}
 			<div className={less.divider}></div>
 			<PopupLi text = "Leave Space">
 				<SVGLeaveSpace />
