@@ -85,7 +85,7 @@ export const EditSBTWhitelist=ComponentWrapper(()=>{
 				</div>
 				<SBTWhiteItem/>
 				<SBTWhiteItem/>
-				<Button className = { less.addNewSBTFeatureBtn }><SVGAddNewFeature /></Button>
+				<Button className = { less.addNewSBTItemBtn }><SVGAddNewFeature /></Button>
 			</div>
 			<div className={less.SBTWhitelistFooterBox}>
 				<PrimaryBtn type="primary">Upload Whitelist</PrimaryBtn>
