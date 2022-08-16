@@ -98,6 +98,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 			/>
 			<ItemWithSubTitle title = { i18n( 'Type' ) }>
 				<MultipleSelect
+					type="primary"
 					dropdownClassName = { less.dropDownMenu }
 					placeholder = "Enter or select tags"
 					value = { editingStore.tags }

@@ -52,7 +52,7 @@ export const Layout = ComponentWrapper( class extends ReactComponentClass {
 						<div
 							style = { {
 								display : "flex" ,
-								height : "calc(100% - 80px)" ,
+								height : "fit-content" ,
 								position : "static" ,
 								transform : "translateX(0)" ,
 								width : "100%" ,
