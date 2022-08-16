@@ -14,7 +14,7 @@ import { DxzTokenOverview } from './dxz-Token-overview';
 import { DxzPluginBrowse } from './dxz-plugin-browse';
 import { DxzDAOList } from './dxz-DAO-list';
 import { BlockiesIdenticon } from './blockies-identicon';
-import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
+import { DxzSpaceDropdownPop } from './dxz-Space-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import { FileUpload } from './File-Upload';
@@ -37,7 +37,7 @@ import { DxzSBTRevocation } from './dxz-SBT-revocation';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzDAODropdownPop />
+	<DxzSpaceDropdownPop />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
