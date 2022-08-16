@@ -8,41 +8,7 @@ export const DxzSBTSettings=()=>{
 				</p>
 				<div className={less.SBTSettingsInfo}>
 					<CurrentSBTPreview/>
-					<div className={less.editSBTSettings}>
-						<div className={less.SBTSettingsMainBox}>
-							<p className={less.SBTSettingsSubtitle}>
-								Settings
-							</p>
-							<SubTitleWithItem title = "Upload files">
-								<UploadFileBox />
-							</SubTitleWithItem>
-							<SubTitleWithItem title = "Type">
-								<NewSBTSelectType />
-							</SubTitleWithItem>
-							<SubTitleWithItem title = "Description">
-								<PrimaryTextArea type = "primary" />
-							</SubTitleWithItem>
-							<SubTitleWithItem title = "Key Features">
-								<PrimaryInput
-									type = "primary"
-									style = { {
-										width : "396px" ,
-										marginRight : "12px" ,
-									} }
-									placeholder = { i18n( 'Value' ) }
-								/>
-								<PrimaryInput
-									type = "primary"
-									style = { { width : "396px" } }
-									placeholder = { i18n( 'Value' ) }
-								/>
-								<Button className = { less.addNewSBTFeatureBtn }><SVGAddNewFeature /></Button>
-							</SubTitleWithItem>
-						</div>
-						<div className={less.SBTSettingsFooterBox}>
-							<PrimaryBtn type="primary">Save settings</PrimaryBtn>
-						</div>
-					</div>
+					<EditSBTSettings/>
 				</div>
 			
 		</div>
@@ -125,3 +91,41 @@ export const DxzSBTSettings=()=>{
 		   </div></>
    })
  
+export const EditSBTSettings=()=>{
+		return<>
+			<div className={less.editSBTSettings}>
+				<div className={less.SBTSettingsMainBox}>
+					<p className={less.SBTSettingsSubtitle}>
+						Settings
+					</p>
+					<SubTitleWithItem title = "Upload files">
+						<UploadFileBox />
+					</SubTitleWithItem>
+					<SubTitleWithItem title = "Type">
+						<NewSBTSelectType />
+					</SubTitleWithItem>
+					<SubTitleWithItem title = "Description">
+						<PrimaryTextArea type = "primary" />
+					</SubTitleWithItem>
+					<SubTitleWithItem title = "Key Features">
+						<PrimaryInput
+							type = "primary"
+							style = { {
+								width : "396px" ,
+								marginRight : "12px" ,
+							} }
+							placeholder = { i18n( 'Value' ) }
+						/>
+						<PrimaryInput
+							type = "primary"
+							style = { { width : "396px" } }
+							placeholder = { i18n( 'Value' ) }
+						/>
+						<Button className = { less.addNewSBTFeatureBtn }><SVGAddNewFeature /></Button>
+					</SubTitleWithItem>
+				</div>
+				<div className={less.SBTSettingsFooterBox}>
+					<PrimaryBtn type="primary">Save settings</PrimaryBtn>
+				</div>
+			</div></>
+}
