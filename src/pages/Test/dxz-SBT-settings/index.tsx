@@ -7,19 +7,7 @@ export const DxzSBTSettings=()=>{
 					SBT is based on the ERC721 standardized protocol.
 				</p>
 				<div className={less.SBTSettingsInfo}>
-					<div className={less.currentSBTPreview}>
-						<p className={less.SBTPreviewSubtitle}>
-							Current SBT
-						</p>
-						<div className={less.SBTPreviewImg}></div>
-						<div className={less.SBTName}>SBT Name</div>
-						<div className = { less.SBTAddress }>
-							<span>
-								0xab51...9260
-							</span>
-							<SVGCopySBT />
-						</div>
-					</div>
+					<CurrentSBTPreview/>
 					<div className={less.editSBTSettings}>
 						<div className={less.SBTSettingsMainBox}>
 							<p className={less.SBTSettingsSubtitle}>
@@ -119,6 +107,21 @@ export const DxzSBTSettings=()=>{
 	
 	   </>
    }
-	
 
+   export const CurrentSBTPreview=ComponentWrapper(()=>{
+	   return<>
+		   <div className={less.currentSBTPreview}>
+			   <p className={less.SBTPreviewSubtitle}>
+				   Current SBT
+			   </p>
+			   <div className={less.SBTPreviewImg}></div>
+			   <div className={less.SBTName}>SBT Name</div>
+			   <div className = { less.SBTAddress }>
+				   <span>
+					   0xab51...9260
+				   </span>
+				   <SVGCopySBT />
+			   </div>
+		   </div></>
+   })
  

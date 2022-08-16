@@ -31,10 +31,11 @@ import { DxzSelect } from './dxz-select';
 import { DxzCreateSBT } from './dxz-create-SBT';
 import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
 import { DxzSBTSettings } from './dxz-SBT-settings';
+import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSBTSettings />
+	<DxzSBTAddWhitelist />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

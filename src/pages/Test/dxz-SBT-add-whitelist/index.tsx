@@ -1,0 +1,94 @@
+import less from './index.module.less';
+export const DxzSBTAddWhitelist=()=>{
+	return<>
+		<div className={less.SBTAddWhitelistContainer}>
+			<h1 className={less.mainTitle}>Add Whitelist</h1>
+			<p className={less.someIntro}>
+				SBT is based on the ERC721 standardized protocol.
+			</p>
+			<div className={less.SBTAddWhitelistInfo}>
+				<CurrentSBTPreview/>
+				<EditSBTWhitelist/>
+			</div>
+		</div>
+	</>
+}
+import {
+	PrimaryInput ,
+} from "@@pages/Test/dxz-input";
+import {
+	PrimaryBtn
+} from "@@pages/Test/dxz-button";
+import {
+	Button
+} from 'antd';
+import {
+	SVGAddNewFeature ,
+	SVGCopySBT,
+	SVGDeleteList
+} from '@@pages/_SvgComponents/all-SBT-SVG';
+
+export const SBTWhiteItem=ComponentWrapper(()=>{
+	return<>
+	<div className={less.SBTWhiteItem}>
+		<PrimaryInput
+			type = "primary"
+			style = { {
+				width : "566px" ,
+				marginRight : "32px" ,
+			} }
+			placeholder = { i18n( 'Make sure to enter the address, not the ENS name.' ) }
+		/>
+		<PrimaryInput
+			type = "primary"
+			style = { {
+				width : "150px" ,
+				marginRight : "32px" ,
+			} }
+			placeholder = { i18n( 'e. g. 1' ) }
+		/>
+		<SVGDeleteList/>
+	</div>
+	</>
+})
+export const CurrentSBTPreview=ComponentWrapper(()=>{
+	return<>
+		<div className={less.currentSBTPreview}>
+			<p className={less.SBTPreviewSubtitle}>
+				Current SBT
+			</p>
+			<div className={less.SBTPreviewImg}></div>
+			<div className={less.SBTName}>SBT Name</div>
+			<div className = { less.SBTAddress }>
+				<span>
+					0xab51...9260
+				</span>
+				<SVGCopySBT />
+			</div>
+		</div></>
+})
+export const EditSBTWhitelist=ComponentWrapper(()=>{
+	return<>
+		<div className={less.editSBTWhitelist}>
+			{/*编辑SBT-white-list分为main和footer两个box*/}
+			<div className={less.SBTAddWhitelistMainBox}>
+				<p className={less.SBTAddWhitelistSubtitle}>
+					Whitelist
+				</p>
+				<p className={less.someIntro}>
+					The current SBT Hold the upper limit of each user is <b style={{color:"black"}}>1</b>.
+				</p>
+				
+				<div className={less.SBTWhitelistColumnNames}>
+					<span className={less.columnNameAddress}>Address</span>
+					<span className={less.columnNameAmount}>Amount</span>
+				</div>
+				<SBTWhiteItem/>
+				<SBTWhiteItem/>
+				<Button className = { less.addNewSBTFeatureBtn }><SVGAddNewFeature /></Button>
+			</div>
+			<div className={less.SBTWhitelistFooterBox}>
+				<PrimaryBtn type="primary">Upload Whitelist</PrimaryBtn>
+			</div>
+		</div></>
+})
