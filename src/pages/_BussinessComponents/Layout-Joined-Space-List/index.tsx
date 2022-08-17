@@ -166,6 +166,7 @@ export const Homepage_Avatar = ComponentWrapper( ( props : { url : string } ) =>
 				marginTop : 0 ,
 				cursor : "pointer",
 				marginLeft : 8 ,
+				marginRight:9,
 			} }
 		/>
 		<div
