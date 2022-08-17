@@ -2,7 +2,7 @@ import less from'./index.module.less';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, Space } from 'antd';
 import { Button } from 'antd';
-export const DxzPluginBrowse=()=>{
+export const DxzPluginCenter=()=>{
 	return <>
 		<div className="browse-container"
 			style={{

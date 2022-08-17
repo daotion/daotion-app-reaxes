@@ -5,7 +5,7 @@ import {
 } from 'antd';
 import React , { useState } from 'react';
 
-export const DxzUIKits = () => {
+export const DxzDeleteModal = () => {
 	return <>
 		<Modal
 			visible = { true }

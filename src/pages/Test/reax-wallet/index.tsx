@@ -2,7 +2,7 @@ import {
 	reaxel_wallet ,
 } from '@@RootPath/src/reaxels';
 
-export const TextWallet = ComponentWrapper( class extends ReactComponentClass {
+export const TestWallet = ComponentWrapper( class extends ReactComponentClass {
 	
 	
 	render() {
