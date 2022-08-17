@@ -33,11 +33,12 @@ import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
 import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
+import { DxzSBTDetails } from './dxz-SBT-details';
 
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSpaceDropdownPop />
+	<DxzSBTDetails />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
