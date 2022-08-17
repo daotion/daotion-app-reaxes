@@ -15,12 +15,12 @@ export const reaxel_newSBT = function(){
 		input__SBT_name : null as string,
 		textarea__description : null as string,
 		select__SBT_access : null ,
-		input_number__hold_limit_number : null as number,
+		input_number__hold_limit_number : null as string,
+		input_issuance_quantity : null as string|number ,
 		
 		/*是否冻结交互状态*/
 		pending : false ,
 	} );
-	
 	
 	const verifyFields = async () => {
 		

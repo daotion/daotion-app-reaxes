@@ -11,7 +11,7 @@ import { TestWallet } from './reax-wallet';
 import { DxzTokenOverview } from './dxz-Token-overview';
 import { DxzPluginCenter } from './dxz-plugin-center';
 import { BlockiesIdenticon } from './blockies-identicon';
-import { DxzDAODropdownPop } from './dxz-DAO-dropdown-pop';
+import { DxzSpaceDropdownPop } from './dxz-Space-dropdown-pop';
 // import { BlockiesIdenticon } from './blockies-identicon';
 import { DxzConnectWalletPopup } from './dxz-connect-wallet-popup';
 import { FileUpload } from './File-Upload';
@@ -27,6 +27,9 @@ import { DxzSelect } from './dxz-select';
 import { DxzCreateSBT } from './dxz-New-SBT';
 import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
 import { DxzSBTSettings } from './dxz-SBT-settings';
+import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
+import { DxzSBTRevocation } from './dxz-SBT-revocation';
+
 import { DragDropFile } from './Drag-Drop-File';
 
 

@@ -1,173 +1,200 @@
-export const DxzCreateSBT = ComponentWrapper(() => {
+export const DxzCreateSBT = ComponentWrapper( () => {
 	
 	const reax_newSBT = reaxel_newSBT();
-	const reax_DDF = reaxel_DDF();
+	const {
+		file,
+		imgPreviewUrl
+	} = reaxel_DDF();
 	const {
 		createSBT ,
 		enum__SBT_type ,
-		newSBT_store,
-		setFields,
+		newSBT_store ,
+		setFields ,
 	} = reax_newSBT;
 	
 	Reaxes.collectDeps( newSBT_store );
-	Reaxes.collectDeps(reax_DDF);
 	
 	return <>
 		<div className = { less.createSBTContainer }>
-			{/*createSBTContainer分为左右两部分, 左边包括 h1标题 三个信息框 以及底部Create SBT框*/ }
-			<div className = { less.createSBT_left }>
-				<h1 className = { less.mainTitle }>New SBT</h1>
-				<p className = { less.someIntro }>
-					SBT is based on the ERC721 standardized protocol.
-				</p>
-				{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
-				<div className = { less.createSBTInfoBox }>
-					{/*上传图片*/}
-					<SubTitleWithItem title = "Upload files">
-						<UploadFileBox />
-					</SubTitleWithItem>
-					
-					
-					{/*表单区域*/}
-					<SubTitleWithItem 
-						title = { i18n("Type") }
-					>
-						<Select
-							value = {newSBT_store.select__SBT_type}
-							onChange={(value) => {
-								reax_newSBT.setFields( {
-									select__SBT_type : value ,
-								} );
-							}}
-							
-							suffixIcon = { <SVGSelectArrowIcon /> }
-							className = { less.newSBTSelectType }
-							dropdownClassName = { less.dropDownMenu }
-							dropdownStyle = { {
-								border : "2px solid #e6e8ec" ,
-								borderRadius : "12px" ,
-								padding : "8px" ,
-							} }
-							placeholder = { i18n( "Please select" ) }
-						>
-							{enum__SBT_type.map((text) => {
-								return <Select.Option 
-									value = {text}
-									key = {text}
-								>
-									{ text }
-								</Select.Option>;
-							})}
-						</Select>
-					</SubTitleWithItem>
-					
-					<SubTitleWithItem
-						title = "Name"
-					>
-						<PrimaryInput 
-							type = "primary"
-							value={newSBT_store.input__SBT_name}
-							onChange={(e) => {
-								setFields( {
-									input__SBT_name : e.target.value ,
-								} );
-							}}
-						/>
-					</SubTitleWithItem>
-					<SubTitleWithItem title = "Description">
-						<PrimaryTextArea type = "primary" />
-					</SubTitleWithItem>
-				</div>
-				
-				
-				<div className = { less.createSBTInfoBox }>
-					<SubTitleWithItem title = "SBT access">
-						<NewSBTSelectType />
-					</SubTitleWithItem>
-					<SubTitleWithItem title = "Hold the upper limit of each user">
-						<PrimaryInput type = "primary" />
-					</SubTitleWithItem>
-					<SubTitleWithItem title = "Issue quantity">
+			<h1 className = { less.mainTitle }>New SBT</h1>
+			<p className = { less.someIntro }>
+				SBT is based on the ERC721 standardized protocol.
+			</p>
+			<div className = { less.createSBTInfo }>
+				{/*createSBTInfo分为左右两部分, 左边包括 三个信息框 以及底部Create SBT框*/ }
+				<div className = { less.createSBT_left }>
+					{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
+					<div className = { less.createSBTInfoBox }>
+						{/*上传图片*/ }
+						<SubTitleWithItem title = "Upload files">
+							<UploadFileBox />
+						</SubTitleWithItem>
+						
+						
+						{/*表单区域*/ }
 						<SubTitleWithItem
-							title = { <span>infinite </span> }
-							icon = { <SpaceSwitch type = "primary" /> }
+							title = { i18n( "Type" ) }
 						>
+							<Select
+								value = { newSBT_store.select__SBT_type }
+								onChange = { ( value ) => {
+									reax_newSBT.setFields( {
+										select__SBT_type : value ,
+									} );
+								} }
+								
+								suffixIcon = { <SVGSelectArrowIcon /> }
+								className = { less.newSBTSelectType }
+								dropdownClassName = { less.dropDownMenu }
+								dropdownStyle = { {
+									border : "2px solid #e6e8ec" ,
+									borderRadius : "12px" ,
+									padding : "8px" ,
+								} }
+								placeholder = { i18n( "Please select" ) }
+							>
+								{ enum__SBT_type.map( ( text ) => {
+									return <Select.Option
+										value = { text }
+										key = { text }
+									>
+										{ text }
+									</Select.Option>;
+								} ) }
+							</Select>
+						</SubTitleWithItem>
+						
+						<SubTitleWithItem
+							title = "Name"
+						>
+							<PrimaryInput
+								type = "primary"
+								value = { newSBT_store.input__SBT_name }
+								onChange = { ( e ) => {
+									setFields( {
+										input__SBT_name : e.target.value ,
+									} );
+								} }
+							/>
+						</SubTitleWithItem>
+						<SubTitleWithItem title = "Description">
+							<PrimaryTextArea type = "primary" />
+						</SubTitleWithItem>
+					</div>
+					
+					
+					<div className = { less.createSBTInfoBox }>
+						<SubTitleWithItem title = "SBT access">
+							<NewSBTSelectType />
+						</SubTitleWithItem>
+						<SubTitleWithItem title = { i18n( 'Hold the upper limit of each user' ) }>
+							<PrimaryInput 
+								type = "primary"
+								value = {newSBT_store.input_number__hold_limit_number}
+								onChange={(e) => {
+									setFields({
+										input_number__hold_limit_number : e.target.value.replaceAll( /[^0-9]*/g , ''),
+									})
+								}}
+							/>
+							<p className = { less.someIntro }>
+								If the number is 1, the ERC721 standard is enabled.
+								If the number is greater than 1, the ERC1155 standard is enabled.
+							</p>
+						</SubTitleWithItem>
+						<SubTitleWithItem
+							title = { <p className = { less.issueLimitSubtitle }>
+								<span>
+									Issue quantity
+								</span>
+								<span>
+									infinite
+									<SpaceSwitch type = "secondary" />
+								</span>
+							</p> }
+						>
+							<div className = { less.divider }></div>
 							<PrimaryInput type = "primary" />
 						</SubTitleWithItem>
-					</SubTitleWithItem>
-					<SubTitleWithItem title = "Network">
-						<NewSBTSelectNetType />
-					</SubTitleWithItem>
+						<SubTitleWithItem title = { i18n( 'Network' ) }>
+							<NewSBTSelectNetType />
+						</SubTitleWithItem>
+					</div>
+					<div className = { less.createSBTInfoBox }>
+						<SubTitleWithItem title = { i18n( 'Revocation by issuer' ) }>
+							prompt text
+						</SubTitleWithItem>
+						<SubTitleWithItem title = { i18n( 'Features' ) }>
+							<TagsSelect placeholder = { i18n( 'Add Features...' ) } />
+						</SubTitleWithItem>
+					</div>
+					<div className = { less.createSBTFooterBox }>
+						<PrimaryBtn type = "primary">Create SBT</PrimaryBtn>
+					</div>
 				</div>
-				<div className = { less.createSBTInfoBox }>
-					<SubTitleWithItem title = "Destruction of rules">
-						<CreateSBTCheckBox />
-					</SubTitleWithItem>
-					<SubTitleWithItem title = "Features">
-						{/*<PrimaryInput
-							type = "primary"
-							placeholder = { i18n( 'Add features...' ) }
-						/>*/}
-						
-						<MultipleSelect
-							type="primary"
-							mode="tags"
-							allowClear={false}
-							showArrow={false}
-						/>
-					</SubTitleWithItem>
-				</div>
-				<div className = { less.createSBTFooterBox }>
-					<PrimaryBtn type = "primary">Create SBT</PrimaryBtn>
-				</div>
-			</div>
-			{/*右边的preview部分 :*/ }
-			<div className = { less.createSBT_right }>
-				<span className = { less.createSBTPreviewTitle }>Preview</span>
-				
-				
-				{ false ? <>
+				{/*右边的preview部分 :*/ }
+				<div className = { less.createSBT_right }>					
+					<span className = { less.createSBTPreviewTitle }>
+						<I18n>Preview</I18n>
+					</span>
 					
-				</> : <p className = { less.createSBTPreviewContent }>
-					Upload file and choose collection to preview your brand new NFT
-				</p> }
+					{ file ? <div>
+						<Img
+							className = { less.SBTPreviewImg }
+							src = {imgPreviewUrl}
+						/>
+						<div className = { less.SBTPreviewName }>
+							<I18n>{newSBT_store.input__SBT_name}</I18n>
+						</div>
+						<div className = { less.SBTPreviewSpace }>
+							<Img
+								className = { less.previewSpaceAvatar }
+								src = ""
+							/>
+							<span>SpaceName</span>
+						</div>
+					</div> : <p className = { less.createSBTPreviewContent }>
+						Upload file and choose collection to preview your brand new NFT
+					</p> }
+				</div>
 			</div>
 		</div>
 	</>;
-});
+} );
 
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
 import {
 	enum__SBT_type ,
-	reaxel_newSBT,
+	reaxel_newSBT ,
 } from './reaxel--new-SBT';
 
-
+import {Img} from '@@common//Xcomponents';
 import less from './index.module.less';
 import {
 	PrimaryInput ,
 	PrimaryTextArea ,
 } from "@@pages/Test/dxz-input";
+import { TagsSelect } from '@@pages/Test/dxz-select';
 import {
-	SpaceSwitch,
+	SpaceSwitch ,
 } from "@@pages/Test/dxz-switch";
 import {
-	PrimaryBtn,
+	PrimaryBtn ,
 } from "@@pages/Test/dxz-button";
 import {
-	MultipleSelect,
+	MultipleSelect ,
 } from '@@pages/Test/dxz-select';
 import {
 	Checkbox ,
 	Select ,
-	Button,
+	Button ,
 } from 'antd';
 import {
 	SVGSelectArrowIcon ,
 	SVGAddNewFeature ,
 	SVGCreateSBTPreview ,
 	SVGNetEthereum ,
-	SVGUploadFileIcon,
+	SVGUploadFileIcon ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 
 
@@ -193,9 +220,9 @@ export const SubTitleWithItem = ( props ) => {
 };
 
 
-export const UploadFileBox = ComponentWrapper(() => {
+export const UploadFileBox = ComponentWrapper( () => {
 	const fileRef = useRef<HTMLInputElement>();
-	const onUpload = async (file) => {
+	const onUpload = async ( file ) => {
 		console.log( file );
 	};
 	const {
@@ -204,7 +231,7 @@ export const UploadFileBox = ComponentWrapper(() => {
 		imgPreviewUrl ,
 		inputFileEventHandler ,
 		file ,
-		clearFile,
+		clearFile ,
 	} = reaxel_DDF( {
 		onUpload ,
 		// preventClickUpload : true,
@@ -242,12 +269,12 @@ export const UploadFileBox = ComponentWrapper(() => {
 					height : "calc(100% - 48px)" ,
 					left : "24px" ,
 					top : "24px" ,
-					backgroundSize: '100%',
-					backdropFilter : "blur(20px)",
-					background : "rgba(255, 255, 255, 0.2)",
-					display : "flex",
-					justifyContent : "center",
-					alignItems : "center",
+					backgroundSize : '100%' ,
+					backdropFilter : "blur(20px)" ,
+					background : "rgba(255, 255, 255, 0.2)" ,
+					display : "flex" ,
+					justifyContent : "center" ,
+					alignItems : "center" ,
 				} }
 			>
 				<div
@@ -279,15 +306,15 @@ export const UploadFileBox = ComponentWrapper(() => {
 	</>;
 	
 	const emptyContent = <>
-		{dragging ? null : <div
+		{ dragging ? null : <div
 			className = { less.uploadFile }
-			onClick={() => {
+			onClick = { () => {
 				fileRef.current.click();
-			}}
+			} }
 		>
 			<SVGUploadFileIcon />
 			<span>Click or drop image</span>
-		</div>}
+		</div> }
 	</>;
 	
 	return <>
@@ -328,7 +355,7 @@ export const UploadFileBox = ComponentWrapper(() => {
 			{ file ? fillingContent : emptyContent }
 		</div>
 	</>;
-});
+} );
 
 export const NewSBTSelectType = () => {
 	return <>
@@ -379,11 +406,10 @@ export const OptionNetEthereum = ComponentWrapper( () => {
 } );
 
 
-
-export const SVGClose = (props:{
-	style?:React.CSSProperties,
+export const SVGClose = ( props : {
+	style? : React.CSSProperties,
 	onClick? : React.MouseEventHandler<SVGElement>
-}) => {
+} ) => {
 	
 	return <>
 		<svg

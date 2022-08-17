@@ -135,7 +135,7 @@ export const SVGSettingSpaceProfile = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGShareLink = ComponentWrapper( () => {
+export const SVGShareWebsite = ComponentWrapper( () => {
 	return <>
 		<svg
 			style = { {
@@ -358,7 +358,7 @@ export const SVGShareFacebook = ComponentWrapper( () => {
 } );
 export const SVGSocialShare = ComponentWrapper( () => {
 	return <>
-		<SVGShareLink />
+		<SVGShareWebsite />
 		<SVGShareTwitter />
 		<SVGShareIns />
 		<SVGShareDiscord />

@@ -43,7 +43,7 @@ const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => 
 			>
 				<I18n>
 					Space Settings
-				</I18n>ne
+				</I18n>
 			</span>
 			<ul
 				style = { {

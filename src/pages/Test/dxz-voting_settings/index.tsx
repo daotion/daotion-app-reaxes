@@ -393,6 +393,7 @@ export const DxzVoting_Settings = () => {
 							Proposal validity threshold
 						</p>
 						<MultipleSelect
+							type="primary"
 							// className = { less.votingType_box }
 							type="primary"
 							style = { {
