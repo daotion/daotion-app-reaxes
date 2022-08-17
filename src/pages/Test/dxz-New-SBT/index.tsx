@@ -36,7 +36,7 @@ export const DxzCreateSBT = ComponentWrapper(() => {
 								If the number is greater than 1, the ERC1155 standard is enabled.
 							</p>
 						</SubTitleWithItem>
-						<SubTitleWithItem title = { <p className={less.issueLimitSubtitle}>
+						<SubTitleWithItem title = { <p className={less.subtitleWithSwitch}>
 							<span>
 								Issue quantity
 							</span>
@@ -53,7 +53,10 @@ export const DxzCreateSBT = ComponentWrapper(() => {
 						</SubTitleWithItem>
 					</div>
 					<div className = { less.createSBTInfoBox }>
-						<SubTitleWithItem title = { i18n('Revocation by issuer') }>
+						<SubTitleWithItem title = { <p className={less.subtitleWithSwitch}>
+							Revocation by issuer
+								<SpaceSwitch type = "secondary" />
+						</p> }>
 							prompt text
 						</SubTitleWithItem>
 						<SubTitleWithItem title = { i18n('Features') }>
