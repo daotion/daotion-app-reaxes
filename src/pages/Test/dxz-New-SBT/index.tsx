@@ -103,7 +103,7 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 							</p>
 						</SubTitleWithItem>
 						<SubTitleWithItem
-							title = { <p className = { less.issueLimitSubtitle }>
+							title = { <p className = { less.subtitleWithSwitch }>
 								<span>
 									Issue quantity
 								</span>
@@ -121,7 +121,10 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 						</SubTitleWithItem>
 					</div>
 					<div className = { less.createSBTInfoBox }>
-						<SubTitleWithItem title = { i18n( 'Revocation by issuer' ) }>
+						<SubTitleWithItem title = { <p className={less.subtitleWithSwitch}>
+							Revocation by issuer
+								<SpaceSwitch type = "secondary" />
+						</p> }>
 							prompt text
 						</SubTitleWithItem>
 						<SubTitleWithItem title = { i18n( 'Features' ) }>
