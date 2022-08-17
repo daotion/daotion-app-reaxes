@@ -12,10 +12,10 @@ export const reaxel_newSBT = function(){
 		setState,
 	} = orzMobx( {
 		select__SBT_type : null ,
-		input__SBT_name : null ,
-		textarea__description : null ,
+		input__SBT_name : null as string,
+		textarea__description : null as string,
 		select__SBT_access : null ,
-		input_number__hold_limit_number : null ,
+		input_number__hold_limit_number : null as number,
 		
 		/*是否冻结交互状态*/
 		pending : false ,
@@ -35,6 +35,9 @@ export const reaxel_newSBT = function(){
 			get enum__SBT_type() {
 				return enum__SBT_type;
 			} ,
+			setFields(partialState: Partial<typeof newSBT_store>){
+				setState( partialState );
+			},
 			async createSBT(){
 				
 			},

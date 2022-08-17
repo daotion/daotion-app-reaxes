@@ -1,4 +1,17 @@
 export const DxzCreateSBT = ComponentWrapper(() => {
+	
+	const reax_newSBT = reaxel_newSBT();
+	const reax_DDF = reaxel_DDF();
+	const {
+		createSBT ,
+		enum__SBT_type ,
+		newSBT_store,
+		setFields,
+	} = reax_newSBT;
+	
+	Reaxes.collectDeps( newSBT_store );
+	Reaxes.collectDeps(reax_DDF);
+	
 	return <>
 		<div className = { less.createSBTContainer }>
 			{/*createSBTContainer分为左右两部分, 左边包括 h1标题 三个信息框 以及底部Create SBT框*/ }
@@ -9,14 +22,57 @@ export const DxzCreateSBT = ComponentWrapper(() => {
 				</p>
 				{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
 				<div className = { less.createSBTInfoBox }>
+					{/*上传图片*/}
 					<SubTitleWithItem title = "Upload files">
 						<UploadFileBox />
 					</SubTitleWithItem>
-					<SubTitleWithItem title = "Type">
-						<NewSBTSelectType />
+					
+					
+					{/*表单区域*/}
+					<SubTitleWithItem 
+						title = { i18n("Type") }
+					>
+						<Select
+							value = {newSBT_store.select__SBT_type}
+							onChange={(value) => {
+								reax_newSBT.setFields( {
+									select__SBT_type : value ,
+								} );
+							}}
+							
+							suffixIcon = { <SVGSelectArrowIcon /> }
+							className = { less.newSBTSelectType }
+							dropdownClassName = { less.dropDownMenu }
+							dropdownStyle = { {
+								border : "2px solid #e6e8ec" ,
+								borderRadius : "12px" ,
+								padding : "8px" ,
+							} }
+							placeholder = { i18n( "Please select" ) }
+						>
+							{enum__SBT_type.map((text) => {
+								return <Select.Option 
+									value = {text}
+									key = {text}
+								>
+									{ text }
+								</Select.Option>;
+							})}
+						</Select>
 					</SubTitleWithItem>
-					<SubTitleWithItem title = "Name">
-						<PrimaryInput type = "primary" />
+					
+					<SubTitleWithItem
+						title = "Name"
+					>
+						<PrimaryInput 
+							type = "primary"
+							value={newSBT_store.input__SBT_name}
+							onChange={(e) => {
+								setFields( {
+									input__SBT_name : e.target.value ,
+								} );
+							}}
+						/>
 					</SubTitleWithItem>
 					<SubTitleWithItem title = "Description">
 						<PrimaryTextArea type = "primary" />
@@ -68,13 +124,23 @@ export const DxzCreateSBT = ComponentWrapper(() => {
 			{/*右边的preview部分 :*/ }
 			<div className = { less.createSBT_right }>
 				<span className = { less.createSBTPreviewTitle }>Preview</span>
-				<p className = { less.createSBTPreviewContent }>Upload file and choose collection to preview your brand new NFT</p>
+				
+				
+				{ false ? <>
+					
+				</> : <p className = { less.createSBTPreviewContent }>
+					Upload file and choose collection to preview your brand new NFT
+				</p> }
 			</div>
 		</div>
 	</>;
 });
 
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
+import {
+	enum__SBT_type ,
+	reaxel_newSBT,
+} from './reaxel--new-SBT';
 
 
 import less from './index.module.less';
