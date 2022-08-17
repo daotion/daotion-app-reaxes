@@ -394,6 +394,7 @@ export const DxzVoting_Settings = () => {
 						</p>
 						<MultipleSelect
 							// className = { less.votingType_box }
+							type="primary"
 							style = { {
 								width : "100%" ,
 								color : "#9a9fa5" ,
@@ -409,9 +410,7 @@ export const DxzVoting_Settings = () => {
 							mode = "multiple"
 							allowClear
 							placeholder = "Select VotingType"
-						>{ children }
-						
-						</MultipleSelect>
+						>{ children }</MultipleSelect>
 					
 					
 					</Block>
