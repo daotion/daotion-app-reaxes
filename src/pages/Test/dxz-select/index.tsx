@@ -21,6 +21,7 @@ export const TagsSelect = ( props
 		// showArrow
 		removeIcon = { <SVGTagsClear /> }
 		placeholder = { i18n( "Please select" ) }
+		optionLabelProp="label"
 		{ ...props }
 	>
 		{props.children}
@@ -39,6 +40,7 @@ export const MultipleSelect = ( props:SelectProps&{
 		showArrow
 		removeIcon = { <SVGClear /> }
 		placeholder = { i18n( "Please select" ) }
+		optionLabelProp="label"
 		{ ...props }
 	>
 		{props.children}
@@ -55,6 +57,7 @@ export const SingleSelect = ( props ) => {
 			padding : "8px" ,
 		} }
 		placeholder = { i18n( "All Type" ) }
+		optionLabelProp="label"
 		{ ...props }
 	>
 		<Select.Option value = "type1">type1</Select.Option>
