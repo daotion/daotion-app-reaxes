@@ -35,6 +35,9 @@ export const reaxel_newSBT = function(){
 			get enum__SBT_type() {
 				return enum__SBT_type;
 			} ,
+			get enum_chains (){
+				return reaxel_wallet().chains;
+			},
 			setFields(partialState: Partial<typeof newSBT_store>){
 				setState( partialState );
 			},
@@ -46,7 +49,7 @@ export const reaxel_newSBT = function(){
 }();
 
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
-
+import { reaxel_wallet } from '@@reaxels/wallet/wallet';
 
 export const enum__SBT_type = [
 	"Title",

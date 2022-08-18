@@ -21,8 +21,6 @@ export const {
 
 const { Option } = Select;
 
-/*Refactor↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓NEW↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
-
 
 export const Layout = ComponentWrapper( class extends ReactComponentClass {
 	
