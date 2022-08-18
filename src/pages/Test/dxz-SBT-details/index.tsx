@@ -8,15 +8,66 @@ export const DxzSBTDetails=()=>{
 				src = ""
 				alt = ""
 			/>
-			<SBTInfoBox title='Details'></SBTInfoBox>
-			<SBTInfoBox title='Destruction of rules'></SBTInfoBox>
-			<SBTInfoBox title='Holders'></SBTInfoBox>
+			<SBTInfoBox title='Details'>
+				<SBTDetailList/>
+			</SBTInfoBox>
+			<SBTInfoBox title='Destruction of rules'>
+				<SBTRulesCheckbox/>
+			</SBTInfoBox>
+			<SBTInfoBox title='Holders'>
+				{new Array(20).fill('').
+				map((a,i)=>{
+					return<SBTHolderItem
+					key={Math.random()}
+					/>
+				})}
+			</SBTInfoBox>
 		</div>
-		<div className={less.SBTDetailsRight}></div>
+		<div className={less.SBTDetailsRight}>
+			<div className={less.certificateTag}>Design Certificate</div>
+			<div className={less.SBTName}>SBT Name</div>
+			<div className={less.someIntro}>Amet minim mollit non deserunt ullamco 
+			     est sit aliqua dolor do amet sint. Velit 
+			     officia consequat duis enim velit mollit. 
+			     Exercitation veniam consequat sunt nostrud amet.</div>
+			<div className={less.SBTKeyInfo}>
+				<SBTInfoItem title='Creator'>
+					<div className={less.creatorBox}>
+						<img
+							className = { less.spaceAvatar }
+							src = ""
+							alt = ""
+						/>
+						<div className={less.creatorInfo}>
+							<span className = { less.spaceName }>spaceName</span>
+							<span className={less.spaceAddressBox}>
+								<span className = { less.spaceAddress }>0x7b.....72f7</span>
+								<SVGCopySBT />
+							</span>
+						</div>
+					</div>
+				</SBTInfoItem>
+				<SBTInfoItem title='Contract address'>
+					<span className={less.contractAddressBox}>
+						<span className = { less.contractAddress }>0x7b.....72f7</span>
+						<SVGCopySBT />
+					</span>
+				</SBTInfoItem>
+			</div>
+			<SBTInfoBox>
+				<XButton 
+					type="primary"
+					style={{width:'100%'}}
+					>Claim</XButton>   
+			</SBTInfoBox>
+		</div>
 	</div>
 	</>
 }
+import{XButton}from'@@pages/Test/dxz-button'
 import less from './index.module.less';
+import { SVGNetEthereum ,SVGCopySBT} from '@@pages/_SvgComponents/all-SBT-SVG';
+import { Checkbox,Col } from 'antd';
 // 每一个灰色边框盒子:
 export const SBTInfoBox=ComponentWrapper((props)=>{
 	return<>
@@ -26,12 +77,67 @@ export const SBTInfoBox=ComponentWrapper((props)=>{
 	</div>
 	</>
 })
-// 灰色subtitle和黑色content
+
+export const SBTDetailList=ComponentWrapper(()=>{
+	return<>
+		<div className={less.SBTDetailList}>
+			<SBTInfoItem title = "Minted">
+			<span className={less.mintedContent}>1,674 / ∞</span>
+			</SBTInfoItem>
+			<SBTInfoItem title = "Network">
+				<span><SVGNetEthereum/>
+					<span  className={less.itemContent}>
+						Ethereum
+					</span></span>
+			</SBTInfoItem>
+			<SBTInfoItem title = "Token Standard">
+				<span className={less.itemContent}>ERC-721</span>
+			</SBTInfoItem>
+			<SBTInfoItem title = "Features">
+				<div>
+					<span className = { less.featureItem }>Feature 1</span>
+					<span className = { less.featureItem }>Feature 2</span>
+				</div>
+			</SBTInfoItem>
+		</div>
+	</>
+})
+export const SBTRulesCheckbox=ComponentWrapper(()=>{
+	return<>
+		<Col>
+			<Checkbox>Destruction by issuer</Checkbox>
+		</Col>
+		<Col>
+			<Checkbox>Holder destruction</Checkbox>
+		</Col>
+		<Col>
+			<Checkbox>Destruction of holder's authorization contract</Checkbox>
+		</Col>
+	</>
+})
+// 灰色subtitle和黑色content组成的item :
 export const SBTInfoItem=ComponentWrapper((props)=>{
 	return<>
 		<div className={less.SBTInfoItem}>
-			<p className={less.ItemSubtitle}>{props.title}</p>
+			<span className={less.itemSubtitle}>{props.title}</span>
 			{props.children}
 		</div>
+	</>
+})
+export const SBTHolderItem=ComponentWrapper(()=>{
+	return<>
+	<div className={less.SBTHolderItem}>
+		<div className={less.SBTHolderInfo}>
+			<img
+				// 持有者头像
+				className = { less.SBTHolderAvatar }
+				src = ""
+				alt = ""
+			/>
+			<span className={less.SBTHolderName}>0x4183...4f6d</span>
+		</div>
+		<span className={less.holdSBTTime}>Feb 22, 2019 19:28</span>
+		<span className={less.holdSBTName}>SBTname#1234</span>
+	</div>
 	</>
 })

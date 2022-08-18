@@ -146,7 +146,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 
 
 const UploadBtn = ( props : { onClick? : () => void } ) => {
-	return <PrimaryBtn
+	return <XButton
 		onClick = { props.onClick }
 		type = "primary"
 	>
@@ -157,7 +157,7 @@ const UploadBtn = ( props : { onClick? : () => void } ) => {
 			</I18n>
 		
 		</span>
-	</PrimaryBtn>;
+	</XButton>;
 };
 const CurrentNet = ( props ) => {
 	return <>
@@ -226,7 +226,7 @@ import {
 const { Option } = Select;
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
-import { PrimaryBtn } from '@@pages/Test/dxz-button';
+import { XButton } from '@@pages/Test/dxz-button';
 import {
 	PrimaryInput ,
 } from '@@pages/Test/dxz-input';

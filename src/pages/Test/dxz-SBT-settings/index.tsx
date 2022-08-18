@@ -21,7 +21,7 @@ import {
 	   PrimaryTextArea,
 } from "@@pages/Test/dxz-input";
 import {
-	   PrimaryBtn
+	   XButton
    } from "@@pages/Test/dxz-button";
 import {
 	   Select,
@@ -100,7 +100,7 @@ export const EditSBTSettings=()=>{
 					</SubTitleWithItem>
 				</div>
 				<div className={less.SBTSettingsFooterBox}>
-					<PrimaryBtn type="primary">Save settings</PrimaryBtn>
+					<XButton type="primary">Save settings</XButton>
 				</div>
 			</div></>
 }

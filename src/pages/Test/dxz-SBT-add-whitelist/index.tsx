@@ -17,7 +17,7 @@ import {
 	PrimaryInput ,
 } from "@@pages/Test/dxz-input";
 import {
-	PrimaryBtn
+	XButton
 } from "@@pages/Test/dxz-button";
 import {
 	Button
@@ -88,7 +88,7 @@ export const EditSBTWhitelist=ComponentWrapper(()=>{
 				<Button className = { less.addNewSBTItemBtn }><SVGAddNewFeature /></Button>
 			</div>
 			<div className={less.SBTWhitelistFooterBox}>
-				<PrimaryBtn type="primary">Upload Whitelist</PrimaryBtn>
+				<XButton type="primary">Upload Whitelist</XButton>
 			</div>
 		</div></>
 })
