@@ -1,4 +1,4 @@
-export const DxzCreateSBT = ComponentWrapper( () => {
+export const NewSBT = ComponentWrapper( () => {
 	
 	const reax_newSBT = reaxel_newSBT();
 	const {
@@ -227,7 +227,7 @@ export const NewSBTPreview = ComponentWrapper( () => {
 				<div className = { less.SBTPreviewSpace }>
 					<Img
 						className = { less.previewSpaceAvatar }
-						src = ""
+						src = "@@pages/Plugin-SBT-Pad--New/index"
 					/>
 					<span>SpaceName</span>
 				</div>

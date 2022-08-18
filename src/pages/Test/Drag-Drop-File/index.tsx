@@ -13,6 +13,19 @@ export const DragDropFile = ComponentWrapper( (props) => {
 		preventClickUpload : true,
 	});
 	
+	return <div
+		style={{
+			width: 400,
+			height: 400,
+			border : '1px solid #eee',
+			
+		}}
+	>
+		<UploadFileBox/>
+		
+		<CropperTest/>
+	</div>
+	
 	return <>
 		<div
 			style = { {
@@ -43,7 +56,8 @@ export const DragDropFile = ComponentWrapper( (props) => {
 	</>;
 } );
 
-
+import { UploadFileBox } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
+import { CropperTest } from './Cropper-Test';
 /**
  * 拖拽上传
  * reaxel_DDF({

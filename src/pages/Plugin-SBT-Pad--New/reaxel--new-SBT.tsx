@@ -60,4 +60,10 @@ export const enum__SBT_type = [
 	"Membership card",
 ];
 
+export const enum__SBT_access = [
+	{
+		desc : "White list addresses" ,
+		access_ID : "whitelist" ,
+	},
+];
 

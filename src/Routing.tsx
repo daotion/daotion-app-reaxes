@@ -11,6 +11,7 @@ import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import { SpaceInfo } from '@@pages/Space-Info';
 import { SpaceSettings } from '@@pages/Space-Settings';
 import { Profile } from '@@pages/Profile';
+import { NewSBT } from '@@pages/Plugin-SBT-Pad--New';
 import { EditProfile } from "@@pages/Edit-Profile";
 import { ReactTemplate } from '../Public/react-template';
 import { Layout } from './Layout';
@@ -89,9 +90,42 @@ export const MainContentRouting = ( props ) => <Routes>
 				element = { <SpaceInfo /> }
 			/>
 			<Route
+				path = "sbt-pad"
+			>
+				<Route
+					index
+					element = { <>
+						<div>
+							sbt-pad/index
+						</div>
+						
+						<div>
+							<NewSBTBtn />
+						</div>
+					
+					</> }
+				/>
+				<Route
+					path = "new"
+					element = { <NewSBT/> }
+				/>
+			</Route>
+			<Route
+				path = "sbt-fusion"
+				element = { <SpaceInfo /> }
+			/>
+			<Route
 				path = "settings"
 				element = { <SpaceSettings /> }
 			/>
 		</Route>
 	</Route>
 </Routes>;
+
+	
+const NewSBTBtn = () => {
+	const {navigate} = utils.useRouter();
+	return <antd.Button onClick={() => navigate('new')}>
+		new SBT
+	</antd.Button>
+}; 

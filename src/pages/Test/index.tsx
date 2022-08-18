@@ -5,7 +5,6 @@ import { DxzLangCurrency } from './dxz-Lang-currency';
 import { DxzVotingProposals } from './dxz-voting_proposals';
 import { DxzVoting_Settings } from './dxz-voting_settings';
 import { SignTest } from './Sign';
-import { DxzPluginList } from './dxz-plugin-list';
 import { UseSyncExternalStore } from './useSyncExternalStore';
 import { TestWallet } from './reax-wallet';
 import { DxzTokenOverview } from './dxz-Token-overview';
@@ -24,7 +23,6 @@ import { DxzButton } from './dxz-button';
 import { DxzInput } from './dxz-input';
 import { DxzSwitch } from './dxz-switch';
 import { DxzSelect } from './dxz-select';
-import { DxzCreateSBT } from './dxz-New-SBT';
 import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
 import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
@@ -35,7 +33,7 @@ import { DragDropFile } from './Drag-Drop-File';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzCreateSBT />
+	<DragDropFile />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
