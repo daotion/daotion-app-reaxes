@@ -170,30 +170,7 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 					</div>
 				</div>
 				{/*右边的preview部分 :*/ }
-				<div className = { less.createSBT_right }>
-					<span className = { less.createSBTPreviewTitle }>
-						<I18n>Preview</I18n>
-					</span>
-					
-					{ file ? <div>
-						<Img
-							className = { less.SBTPreviewImg }
-							src = { imgPreviewUrl }
-						/>
-						<div className = { less.SBTPreviewName }>
-							<I18n>{ newSBT_store.input__SBT_name }</I18n>
-						</div>
-						<div className = { less.SBTPreviewSpace }>
-							<Img
-								className = { less.previewSpaceAvatar }
-								src = ""
-							/>
-							<span>SpaceName</span>
-						</div>
-					</div> : <p className = { less.createSBTPreviewContent }>
-						Upload file and choose collection to preview your brand new NFT
-					</p> }
-				</div>
+				<NewSBTPreview/>
 			</div>
 		</div>
 	</>;
@@ -221,7 +198,45 @@ import {
 	SVGSelectArrowIcon ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 
-
+export const NewSBTPreview = ComponentWrapper( () => {
+	const reax_newSBT = reaxel_newSBT();
+	const {
+		file ,
+		imgPreviewUrl,
+	} = reaxel_DDF();
+	const {
+		createSBT ,
+		enum__SBT_type ,
+		newSBT_store ,
+		setFields ,
+	} = reax_newSBT;
+	return <>
+		<div className = { less.createSBT_right }>
+			<span className = { less.createSBTPreviewTitle }>
+				<I18n>Preview</I18n>
+			</span>
+			
+			{ file ? <div>
+				<Img
+					className = { less.SBTPreviewImg }
+					src = { imgPreviewUrl }
+				/>
+				<div className = { less.SBTPreviewName }>
+					<I18n>{ newSBT_store.input__SBT_name }</I18n>
+				</div>
+				<div className = { less.SBTPreviewSpace }>
+					<Img
+						className = { less.previewSpaceAvatar }
+						src = ""
+					/>
+					<span>SpaceName</span>
+				</div>
+			</div> : <p className = { less.createSBTPreviewContent }>
+				Upload file and choose collection to preview your brand new NFT
+			</p> }
+		</div>
+	</>;
+} );
 export const SubTitleWithItem = ( props ) => {
 	return <>
 		<div className = { less.subTitleWithItem }>
@@ -245,6 +260,7 @@ export const OptionNetEthereum = ComponentWrapper( () => {
 } );
 
 
+
 export const CreateSBTCheckBox = ( props ) => {
 	return <>
 		<div className = { less.createSBTCheckBox }>
@@ -254,8 +270,6 @@ export const CreateSBTCheckBox = ( props ) => {
 		</div>
 	</>;
 };
-
-
 
 
 
