@@ -67,7 +67,7 @@ export const NewSBT = ComponentWrapper( () => {
 						<SubTitleWithItem
 							title = "Name"
 						>
-							<PrimaryInput
+							<XInput
 								type = "primary"
 								value = { newSBT_store.input__SBT_name }
 								onChange = { ( e ) => {
@@ -78,7 +78,7 @@ export const NewSBT = ComponentWrapper( () => {
 							/>
 						</SubTitleWithItem>
 						<SubTitleWithItem title = "Description">
-							<PrimaryTextArea type = "primary" />
+							<XTextArea type = "primary" />
 						</SubTitleWithItem>
 					</div>
 					
@@ -101,7 +101,7 @@ export const NewSBT = ComponentWrapper( () => {
 							</Select>
 						</SubTitleWithItem>
 						<SubTitleWithItem title = { i18n( 'Hold the upper limit of each user' ) }>
-							<PrimaryInput
+							<XInput
 								type = "primary"
 								value = { newSBT_store.input_number__hold_limit_number }
 								onChange = { ( e ) => {
@@ -122,7 +122,7 @@ export const NewSBT = ComponentWrapper( () => {
 								</span>
 								<span>
 									infinite
-									<SpaceSwitch 
+									<XSwitch 
 										type = "secondary"
 										onChange={(checked) => {
 											reax_newSBT.setFields({
@@ -134,7 +134,7 @@ export const NewSBT = ComponentWrapper( () => {
 							</p> }
 						>
 							<div className = { less.divider }></div>
-							<PrimaryInput 
+							<XInput 
 								type = "primary"
 							/>
 						</SubTitleWithItem>
@@ -163,7 +163,7 @@ export const NewSBT = ComponentWrapper( () => {
 						<SubTitleWithItem
 							title = { <p className = { less.subtitleWithSwitch }>
 								Revocation by issuer
-								<SpaceSwitch type = "secondary" />
+								<XSwitch type = "secondary" />
 							</p> }
 						>
 							prompt text
@@ -173,7 +173,7 @@ export const NewSBT = ComponentWrapper( () => {
 						</SubTitleWithItem>
 					</div>
 					<div className = { less.createSBTFooterBox }>
-						<PrimaryBtn type = "primary">Create SBT</PrimaryBtn>
+						<XButton type = "primary">Create SBT</XButton>
 					</div>
 				</div>
 				{/*右边的preview部分 :*/ }
@@ -190,12 +190,12 @@ import { reaxel_newSBT } from './reaxel--new-SBT';
 import { Img } from '@@common/Xcomponents';
 import less from './index.module.less';
 import {
-	PrimaryInput ,
-	PrimaryTextArea ,
+	XInput ,
+	XTextArea ,
 } from "@@pages/Test/dxz-input";
 import { TagsSelect } from '@@pages/Test/dxz-select';
-import { SpaceSwitch } from "@@pages/Test/dxz-switch";
-import { PrimaryBtn } from "@@pages/Test/dxz-button";
+import { XSwitch } from "@@pages/Test/dxz-switch";
+import { XButton } from "@@pages/Test/dxz-button";
 import {
 	Checkbox ,
 	Select ,
