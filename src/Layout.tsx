@@ -21,8 +21,6 @@ export const {
 
 const { Option } = Select;
 
-/*Refactor↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓NEW↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓*/
-
 
 export const Layout = ComponentWrapper( class extends ReactComponentClass {
 	
@@ -52,7 +50,7 @@ export const Layout = ComponentWrapper( class extends ReactComponentClass {
 						<div
 							style = { {
 								display : "flex" ,
-								height : "fit-content" ,
+								height : "calc(100% - 80px)" ,
 								position : "static" ,
 								transform : "translateX(0)" ,
 								width : "100%" ,
@@ -62,6 +60,7 @@ export const Layout = ComponentWrapper( class extends ReactComponentClass {
 								paddingBottom : "0" ,
 								justifyContent : "center" ,
 								flexFlow : "row nowrap" ,
+								
 							} }
 							ref = { this.scrollParentRef }
 						>

@@ -16,6 +16,9 @@ export const reaxel_newSBT = function(){
 		textarea__description : null as string,
 		select__SBT_access : null ,
 		input_number__hold_limit_number : null as string,
+		/*发行总量-无限开关*/
+		switch_issuance_quantity : null as string|number ,
+		/*发行总量-数量*/
 		input_issuance_quantity : null as string|number ,
 		
 		/*是否冻结交互状态*/
@@ -35,6 +38,9 @@ export const reaxel_newSBT = function(){
 			get enum__SBT_type() {
 				return enum__SBT_type;
 			} ,
+			get enum_chains (){
+				return reaxel_wallet().chains;
+			},
 			setFields(partialState: Partial<typeof newSBT_store>){
 				setState( partialState );
 			},
@@ -45,8 +51,8 @@ export const reaxel_newSBT = function(){
 	};
 }();
 
-import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
-
+import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
+import { reaxel_wallet } from '@@reaxels/wallet/wallet';
 
 export const enum__SBT_type = [
 	"Title",
@@ -57,4 +63,10 @@ export const enum__SBT_type = [
 	"Membership card",
 ];
 
+export const enum__SBT_access = [
+	{
+		desc : "White list addresses" ,
+		access_ID : "whitelist" ,
+	},
+];
 

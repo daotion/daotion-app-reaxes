@@ -20,7 +20,7 @@ import less from '../../styles/reaxels.module.less';
 import {
 	SVGSelectArrowIcon,
 } from '@@pages/_SvgComponents/space-setting-svg';
-import { OptionNetEthereum } from '@@pages/Test/dxz-New-SBT';
+import { OptionNetEthereum } from '@@pages/Plugin-SBT-Pad--New';
 
 export const reaxel_create_space = function () {
 	const {
