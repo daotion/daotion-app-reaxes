@@ -136,7 +136,7 @@ export const UploadFileBox = ComponentWrapper( () => {
 	</>;
 } );
 
-import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
+import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
 import less from './index.module.less';
 
 import { SVGUploadFileIcon  } from '@@pages/_SvgComponents/all-SBT-SVG';

@@ -48,7 +48,7 @@ export const reaxel_newSBT = function(){
 	};
 }();
 
-import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
+import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
 import { reaxel_wallet } from '@@reaxels/wallet/wallet';
 
 export const enum__SBT_type = [

@@ -176,7 +176,7 @@ export const NewSBT = ComponentWrapper( () => {
 	</>;
 } );
 
-import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
+import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
 import { UploadFileBox } from './Upload-Box';
 import { reaxel_newSBT } from './reaxel--new-SBT';
 

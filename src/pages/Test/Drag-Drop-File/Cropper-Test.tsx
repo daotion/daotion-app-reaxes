@@ -4,10 +4,24 @@ export const CropperTest = ComponentWrapper( () => {
 		file ,
 		imgPreviewUrl,
 		
-	} = reaxel_DDF();
+	} = reaxel_DDF({
+		onUpload( file ) {
+			console.log( file );
+		},
+		
+	});
 	
-	const CropperInstance = useRef<Cropper>();
-	const [result,setResult] = useState(null);
+	const {
+		XCropper ,
+		crop,
+	} = useRef( reaxel_fact__Cropper() ).current?.();
+	
+	
+	const [preview,setPriview] = useState(null);
+	
+	/*********************/
+	
+	/*********************/
 	
 	return <div
 		style = { {
@@ -17,23 +31,15 @@ export const CropperTest = ComponentWrapper( () => {
 			
 		} }
 	>
-		<Cropper
-			onInitialized = {(instance) => {
-				CropperInstance.current = instance;
-			}}
+		<XCropper
 			src = {imgPreviewUrl}
-			aspectRatio = {1}
-			dragMode="move"
-			guides={false}
-			cropBoxMovable={false}
-			cropBoxResizable={false}
-			width={120}
-			height={120}
-			viewMode={1}
 		/>
 		<antd.Button
 			onClick={() => {
-				console.log( CropperInstance.current.getCroppedCanvas()?.toDataURL() );
+				crop().then((blob) => {
+					const url = window.URL.createObjectURL( blob );
+					setPriview( url );
+				})
 			}}
 		>Cut</antd.Button>
 		<div
@@ -41,18 +47,17 @@ export const CropperTest = ComponentWrapper( () => {
 				width: 300,
 				height: 300,
 				backgroundColor : "#eeaabb",
-				backgroundImage : `url(${result})`,
+				backgroundImage : `url(${preview})`,
+				backgroundPosition : "center",
+				backgroundSize : "100%",
+				backgroundRepeat : "no-repeat",
 				
 			}}
-		>
-			
-		</div>
+		/>
 	</div>;
 } );
 
 
 
-import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File';
-import Cropper from 'react-cropper';
-import "cropperjs/dist/cropper.css";
-
+import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
+import { reaxel_fact__Cropper } from "@@reaxels/Reaxel-Factories/cropper.fact";

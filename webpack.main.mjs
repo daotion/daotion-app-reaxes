@@ -165,7 +165,8 @@ function start(){
 /* 注入plugin并启动dev-server */
 function devServer () {
 	try {
-		const compiler = webpack(smp.wrap(devConfig));
+		// const compiler = webpack(smp.wrap(devConfig));
+		const compiler = webpack(devConfig);
 		const webpackServer = new WebpackDevServer(
 			devConfig.devServer,
 			compiler ,

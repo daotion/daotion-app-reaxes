@@ -1,3 +1,4 @@
+import { DragDropFile } from './Drag-Drop-File';
 import { RoutingTest } from './Routing';
 import { ParentObserver } from './parentObserver';
 import { SetState } from './SetState';
@@ -28,7 +29,6 @@ import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
 
-import { DragDropFile } from './Drag-Drop-File';
 
 
 export const Test = () => <div className = { less.HomeRoot }>
