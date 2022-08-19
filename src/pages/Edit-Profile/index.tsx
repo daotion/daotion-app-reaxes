@@ -191,7 +191,7 @@ export const EditProfile = ComponentWrapper( () => {
 				
 				</footer>
 				<div className = { less.divider }></div>
-				<PrimaryBtn
+				<XButton
 					type = "primary"
 					onClick = { () => {
 						reax_edit_profile.fetchUpdateUserProfile().
@@ -205,10 +205,10 @@ export const EditProfile = ComponentWrapper( () => {
 					<I18n>
 						Update
 					</I18n>
-				</PrimaryBtn>
+				</XButton>
 			</Form>
 		</div>
 	</div>;
 	
 } );
-import{PrimaryBtn}from'@@pages/Test/dxz-button';
+import{XButton}from'@@pages/Test/dxz-button';

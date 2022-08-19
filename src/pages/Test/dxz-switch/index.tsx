@@ -1,6 +1,6 @@
 
 
-export const SpaceSwitch = ( props ) => {
+export const XSwitch = ( props ) => {
 	return <Switch
 		className = { less[ props.type ] }
 		size = "large"
@@ -11,11 +11,11 @@ export const SpaceSwitch = ( props ) => {
 
 export const DxzSwitch = ComponentWrapper( () => {
 	return <>
-		<SpaceSwitch
+		<XSwitch
 			defaultChecked={true}
 			type = "primary"
 		/>
-		<SpaceSwitch
+		<XSwitch
 			type = "secondary"
 		/>
 	</>;

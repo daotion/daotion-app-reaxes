@@ -1,6 +1,6 @@
 import less from './index.module.less';
 
-export const PrimaryBtn = ( props ) => {
+export const XButton = ( props ) => {
 	const {
 		Button ,
 		Space ,
@@ -25,15 +25,15 @@ export const DxzButton = () => {
 	} = antd;
 	return <>
 		<Space>
-			<PrimaryBtn
+			<XButton
 				type = "joined"
-			>joined</PrimaryBtn>
-			<PrimaryBtn
+			>joined</XButton>
+			<XButton
 				type = "leave"
-			>leave</PrimaryBtn>
-			<PrimaryBtn
+			>leave</XButton>
+			<XButton
 				type = "primary"
-			>leave</PrimaryBtn>
+			>leave</XButton>
 			
 			
 			

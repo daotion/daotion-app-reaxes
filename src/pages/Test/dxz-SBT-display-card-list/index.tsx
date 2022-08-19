@@ -30,7 +30,7 @@ import {
 	Input ,
 	Select }from 'antd';
 import less from './index.module.less';
-import { PrimaryBtn } from '@@pages/Test/dxz-button';
+import { XButton } from '@@pages/Test/dxz-button';
 import {} from '@@pages/Test/dxz-select';
 import {
 	SVGSearch ,
@@ -104,11 +104,11 @@ export const SBTDisplayCard = () => {
 
 export const SBTDisplayCreateBtn = () => {
 	return <>
-		<PrimaryBtn
+		<XButton
 			type = "primary"
 			className = { less.createNewBtn }
 		>
 			Create new SBT
-		</PrimaryBtn>
+		</XButton>
 	</>;
 };

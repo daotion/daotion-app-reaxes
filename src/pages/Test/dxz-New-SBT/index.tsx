@@ -26,14 +26,14 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 					{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
 					<div className = { less.createSBTInfoBox }>
 						{/*上传图片*/ }
-						<SubTitleWithItem title = "Upload files">
+						<SubTitleWithItem title = "SBT Pictures">
 							<UploadFileBox />
 						</SubTitleWithItem>
 						
 						
 						{/*表单区域*/ }
 						<SubTitleWithItem
-							title = { i18n( "Type" ) }
+							title = { i18n( "SBT type" ) }
 						>
 							<Select
 								value = { newSBT_store.select__SBT_type }
@@ -65,9 +65,22 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 						</SubTitleWithItem>
 						
 						<SubTitleWithItem
-							title = "Name"
+							title = "SBT name"
 						>
-							<PrimaryInput
+							<XInput
+								type = "primary"
+								value = { newSBT_store.input__SBT_name }
+								onChange = { ( e ) => {
+									setFields( {
+										input__SBT_name : e.target.value ,
+									} );
+								} }
+							/>
+						</SubTitleWithItem>
+						<SubTitleWithItem
+							title = "SBT symbol"
+						>
+							<XInput
 								type = "primary"
 								value = { newSBT_store.input__SBT_name }
 								onChange = { ( e ) => {
@@ -78,7 +91,7 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 							/>
 						</SubTitleWithItem>
 						<SubTitleWithItem title = "Description">
-							<PrimaryTextArea type = "primary" />
+							<XTextArea type = "primary" />
 						</SubTitleWithItem>
 					</div>
 					
@@ -88,7 +101,7 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 							<NewSBTSelectType />
 						</SubTitleWithItem>
 						<SubTitleWithItem title = { i18n( 'Hold the upper limit of each user' ) }>
-							<PrimaryInput 
+							<XInput 
 								type = "primary"
 								value = {newSBT_store.input_number__hold_limit_number}
 								onChange={(e) => {
@@ -109,12 +122,12 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 								</span>
 								<span>
 									infinite
-									<SpaceSwitch type = "secondary" />
+									<XSwitch type = "secondary" />
 								</span>
 							</p> }
 						>
 							<div className = { less.divider }></div>
-							<PrimaryInput type = "primary" />
+							<XInput type = "primary" />
 						</SubTitleWithItem>
 						<SubTitleWithItem title = { i18n( 'Network' ) }>
 							<NewSBTSelectNetType />
@@ -123,7 +136,7 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 					<div className = { less.createSBTInfoBox }>
 						<SubTitleWithItem title = { <p className={less.subtitleWithSwitch}>
 							Revocation by issuer
-								<SpaceSwitch type = "secondary" />
+								<XSwitch type = "secondary" />
 						</p> }>
 							prompt text
 						</SubTitleWithItem>
@@ -132,7 +145,7 @@ export const DxzCreateSBT = ComponentWrapper( () => {
 						</SubTitleWithItem>
 					</div>
 					<div className = { less.createSBTFooterBox }>
-						<PrimaryBtn type = "primary">Create SBT</PrimaryBtn>
+						<XButton type = "primary">Create SBT</XButton>
 					</div>
 				</div>
 				{/*右边的preview部分 :*/ }
@@ -151,18 +164,18 @@ import {
 import {Img} from '@@common//Xcomponents';
 import less from './index.module.less';
 import {
-	PrimaryInput ,
-	PrimaryTextArea ,
+	XInput ,
+	XTextArea ,
 } from "@@pages/Test/dxz-input";
 import { TagsSelect } from '@@pages/Test/dxz-select';
 import {
-	SpaceSwitch ,
+	XSwitch ,
 } from "@@pages/Test/dxz-switch";
 import {
-	PrimaryBtn ,
+	XButton ,
 } from "@@pages/Test/dxz-button";
 import {
-	MultipleSelect ,
+	XSelect ,
 } from '@@pages/Test/dxz-select';
 import {
 	Checkbox ,
