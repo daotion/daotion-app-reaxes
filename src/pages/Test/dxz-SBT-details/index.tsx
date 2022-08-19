@@ -24,12 +24,12 @@ export const DxzSBTDetails=()=>{
 			</SBTInfoBox>
 		</div>
 		<div className={less.SBTDetailsRight}>
-			<div className={less.certificateTag}>Design Certificate</div>
-			<div className={less.SBTName}>SBT Name</div>
-			<div className={less.someIntro}>Amet minim mollit non deserunt ullamco 
+			<span className={less.certificateTag}>Design Certificate</span>
+			<p className={less.SBTName}>SBT Name</p>
+			<p className={less.someIntro}>Amet minim mollit non deserunt ullamco 
 			     est sit aliqua dolor do amet sint. Velit 
 			     officia consequat duis enim velit mollit. 
-			     Exercitation veniam consequat sunt nostrud amet.</div>
+			     Exercitation veniam consequat sunt nostrud amet.</p>
 			<div className={less.SBTKeyInfo}>
 				<SBTInfoItem title='Creator'>
 					<div className={less.creatorBox}>
@@ -55,10 +55,18 @@ export const DxzSBTDetails=()=>{
 				</SBTInfoItem>
 			</div>
 			<SBTInfoBox>
+				<div className={less.SBTClaimCondition}>
+					
+					<span>
+						Airdrop
+					</span>
+				</div>
 				<XButton 
+					disabled
+					className={less.SBTClaimBtn}
 					type="primary"
 					style={{width:'100%'}}
-					>Claim</XButton>   
+					>You are not eligible</XButton>   
 			</SBTInfoBox>
 		</div>
 	</div>
@@ -104,7 +112,7 @@ export const SBTDetailList=ComponentWrapper(()=>{
 })
 export const SBTRulesCheckbox=ComponentWrapper(()=>{
 	return<>
-		<Col>
+		<Col style={{marginTop:"24px"}}>
 			<Checkbox>Destruction by issuer</Checkbox>
 		</Col>
 		<Col>
