@@ -16,6 +16,9 @@ export const reaxel_newSBT = function(){
 		textarea__description : null as string,
 		select__SBT_access : null ,
 		input_number__hold_limit_number : null as string,
+		/*发行总量-无限开关*/
+		switch_issuance_quantity : null as string|number ,
+		/*发行总量-数量*/
 		input_issuance_quantity : null as string|number ,
 		
 		/*是否冻结交互状态*/

@@ -12,7 +12,6 @@ export const NewSBT = ComponentWrapper( () => {
 		setFields ,
 		enum_chains ,
 	} = reax_newSBT;
-	console.log( enum_chains );
 	Reaxes.collectDeps( newSBT_store );
 	
 	return <>
@@ -39,7 +38,6 @@ export const NewSBT = ComponentWrapper( () => {
 							<Select
 								value = { newSBT_store.select__SBT_type }
 								onChange = { ( value ) => {
-									console.log( value );
 									reax_newSBT.setFields( {
 										select__SBT_type : value ,
 									} );
@@ -124,12 +122,21 @@ export const NewSBT = ComponentWrapper( () => {
 								</span>
 								<span>
 									infinite
-									<SpaceSwitch type = "secondary" />
+									<SpaceSwitch 
+										type = "secondary"
+										onChange={(checked) => {
+											reax_newSBT.setFields({
+												input_issuance_quantity : checked ? "infinite" : "",
+											})
+										}}
+									/>
 								</span>
 							</p> }
 						>
 							<div className = { less.divider }></div>
-							<PrimaryInput type = "primary" />
+							<PrimaryInput 
+								type = "primary"
+							/>
 						</SubTitleWithItem>
 						<SubTitleWithItem title = { i18n( 'Network' ) }>
 							<Select

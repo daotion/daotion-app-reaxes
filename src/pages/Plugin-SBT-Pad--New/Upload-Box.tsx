@@ -1,6 +1,5 @@
 /*上传区域组件*/
 export const UploadFileBox = ComponentWrapper( () => {
-	const fileRef = useRef<HTMLInputElement>();
 	const onUpload = async ( file ) => {
 		console.log( file );
 	};
@@ -11,6 +10,7 @@ export const UploadFileBox = ComponentWrapper( () => {
 		inputFileEventHandler ,
 		file ,
 		clearFile ,
+		inputFileRef,
 	} = reaxel_DDF( {
 		onUpload ,
 		// preventClickUpload : true,
@@ -33,7 +33,7 @@ export const UploadFileBox = ComponentWrapper( () => {
 		<div
 			className = { less.uploadFileFilling }
 			onClick = { () => {
-				fileRef.current.click();
+				inputFileRef.current.click();
 			} }
 			style = { {
 				justifyContent : "center" ,
@@ -88,7 +88,7 @@ export const UploadFileBox = ComponentWrapper( () => {
 		{ dragging ? null : <div
 			className = { less.uploadFile }
 			onClick = { () => {
-				fileRef.current.click();
+				inputFileRef.current.click();
 			} }
 		>
 			<SVGUploadFileIcon />
@@ -119,7 +119,6 @@ export const UploadFileBox = ComponentWrapper( () => {
 				} }
 			/>
 			<input
-				ref = { fileRef }
 				type = "file"
 				title = ""
 				style = { {

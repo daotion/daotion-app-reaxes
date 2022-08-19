@@ -19,6 +19,10 @@ export const reaxel_DDF = function(){
 		imgPreviewUrl : null ,
 		file : null ,
 	} );
+	const inputFileRef = React.createRef<HTMLInputElement>();
+	
+	const createUrl = ( blob : Blob ) => window.URL.createObjectURL( blob ); 
+	
 	return ret = ( {
 		onUpload ,
 		preventClickUpload = false ,
@@ -34,10 +38,21 @@ export const reaxel_DDF = function(){
 			get file() {
 				return store.file;
 			} ,
+			get inputFileRef (){
+				return inputFileRef;
+			},
 			clearFile : () => {
 				setState( {
 					file : null ,
 					imgPreviewUrl : null ,
+				} );
+				inputFileRef.current.value = null;
+			},
+			/*不通过input<file>的形式传入文件 , 比如剪裁*/
+			setFile(file:Blob){
+				setState( { 
+					file ,
+					imgPreviewUrl : createUrl( file ),
 				} );
 			},
 			containerEventHandler : {
@@ -52,6 +67,7 @@ export const reaxel_DDF = function(){
 				} ,
 			} as React.HTMLAttributes<any> ,
 			inputFileEventHandler : {
+				ref  : inputFileRef,
 				onClick : ( e ) => {
 					if ( preventClickUpload ) {
 						e.preventDefault();
@@ -59,6 +75,7 @@ export const reaxel_DDF = function(){
 				} ,
 				onChange : (e) => {
 					const file = e.target.files[0];
+					console.log( file );
 					if(!file) return ;
 					const objectURL = window.URL.createObjectURL( file );
 					setState( {

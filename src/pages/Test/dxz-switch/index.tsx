@@ -1,13 +1,15 @@
 
 
-export const SpaceSwitch = ( props ) => {
+export const SpaceSwitch = ( props : SpaceSwitchProps ) => {
 	return <Switch
 		className = { less[ props.type ] }
-		size = "large"
 		{ ...props }
 	/>;
 	
 };
+type SpaceSwitchProps = SwitchProps&{
+	type : "primary" | "secondary";
+}
 
 export const DxzSwitch = ComponentWrapper( () => {
 	return <>
@@ -21,4 +23,4 @@ export const DxzSwitch = ComponentWrapper( () => {
 	</>;
 } );
 import less from './index.module.less';
-import { Switch } from 'antd';
+import { Switch,SwitchProps } from 'antd';
