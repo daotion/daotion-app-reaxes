@@ -28,12 +28,12 @@ import { DxzSBTDisplayCardList } from './dxz-SBT-display-card-list';
 import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
-
+import { Validations } from './Validation-Fields';
 
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DragDropFile />
+	<Validations />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
