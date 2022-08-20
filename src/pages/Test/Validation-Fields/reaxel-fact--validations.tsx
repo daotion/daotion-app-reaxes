@@ -1,4 +1,10 @@
-export const reaxel_fact__validation = function(validator){
+/**
+ * 
+ * @param validator 
+ * @param chainReactionMode 连锁模式: 这个当其他字段改变时
+ * 就算这个字段没发生改变也会触发校验和视图更新
+ */
+export const reaxel_fact__validation = function(validator , chainReactionMode = false ){
 	
 	const {
 		store ,
@@ -12,6 +18,8 @@ export const reaxel_fact__validation = function(validator){
 	let fieldChanged = false;
 	let _value = Symbol();
 	let pending = null;
+	
+	
 	return (value) => {
 		
 		
@@ -20,7 +28,7 @@ export const reaxel_fact__validation = function(validator){
 				if(first){
 					first = false;
 					_value = value;
-				}else if(_value !== value) {
+				}else if(chainReactionMode || _value !== value) {
 					const res = pending = validator(value);
 					if(res.then && res.catch){
 						res.then( ( validation ) => {
@@ -52,14 +60,32 @@ export const reaxel_fact__validation = function(validator){
 				} );
 			},
 			validate(){
-				const res = validator(value);
+				first = false;
+				const res = pending = validator(value);
 				if(res.then && res.catch){
 					res.then( ( validation ) => {
-						setState( { valid : validation } );
+						/*如果中途再次触发了校验,则取消之前校验的结果,只取最后一次生效的promise*/
+						if(pending !== null && pending !== res){
+							return;
+						}
+						setState( { valid : true } );
+					} );
+					res.catch( () => {
+						if ( pending !== null && pending !== res ) {
+							return;
+						}
+						setState( { valid : false } );
+					} );
+					res.finally( () => {
+						if(pending === res) pending = null;
+						
 					} );
 				}else {
-					queueMicrotask( () => setState( { valid : res } ) );
+					queueMicrotask( () => {
+						setState( { valid : res } );
+					} );
 				}
+				_value = value;
 			},
 		};
 	}
