@@ -15,6 +15,7 @@ export const NewSBT = ComponentWrapper( () => {
 	Reaxes.collectDeps( newSBT_store );
 	
 	return <>
+		<ButtonGoBack/>
 		<div className = { less.createSBTContainer }>
 			<h1 className = { less.mainTitle }>New SBT</h1>
 			<p className = { less.someIntro }>
@@ -189,6 +190,7 @@ import { reaxel_newSBT } from './reaxel--new-SBT';
 
 import { Img } from '@@common/Xcomponents';
 import less from './index.module.less';
+import { ButtonGoBack } from '@@pages/DesignComponents/Button-GoBack';
 import {
 	XInput ,
 	XTextArea ,

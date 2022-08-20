@@ -197,6 +197,10 @@
 			
 			.upload-file-filling {
 				opacity: 1;
+				.upload-file-filling-button{
+					transition: margin-top .25s linear;
+					margin-top: 36px;
+				}
 			}
 		}
 	}
@@ -243,7 +247,22 @@
 	user-select: none;
 	transition: all .25s linear;
 	.upload-file-filling-button{
-		
+		transition: margin-top .25s linear;
+		margin-top: 352px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1;
+		font-weight: 700;
+		font-size: 15px;
+		flex-direction: row;
+		padding: 12px 20px;
+		width: fit-content;
+		height: 48px;
+		background: rgb(252, 252, 252);
+		border: 2px solid rgb(239, 239, 239);
+		box-shadow: rgb(0 0 0 / 4%) 0px 0px 36px 2px;
+		border-radius: 12px;
 		cursor: pointer;
 	}
 	&>.upload-file-filling-button{
