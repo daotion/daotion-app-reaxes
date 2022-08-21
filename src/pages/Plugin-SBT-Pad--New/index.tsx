@@ -9,7 +9,9 @@ export const NewSBT = ComponentWrapper( () => {
 		createSBT ,
 		enum__SBT_type ,
 		newSBT_store ,
+		validations,
 		setFields ,
+		validate,
 		enum_chains ,
 	} = reax_newSBT;
 	Reaxes.collectDeps( newSBT_store );
@@ -42,7 +44,7 @@ export const NewSBT = ComponentWrapper( () => {
 										select__SBT_type : value ,
 									} );
 								} }
-								
+								status={validations.select__SBT_type ? "" : "error"}
 								suffixIcon = { <SVGSelectArrowIcon /> }
 								className = { less.newSBTSelectType }
 								dropdownClassName = { less.dropDownMenu }
@@ -173,7 +175,12 @@ export const NewSBT = ComponentWrapper( () => {
 						</SubTitleWithItem>
 					</div>
 					<div className = { less.createSBTFooterBox }>
-						<PrimaryBtn type = "primary">Create SBT</PrimaryBtn>
+						<PrimaryBtn
+							type = "primary"
+							onClick = {() => {
+								
+							}}
+						>Create SBT</PrimaryBtn>
 					</div>
 				</div>
 				{/*右边的preview部分 :*/ }
