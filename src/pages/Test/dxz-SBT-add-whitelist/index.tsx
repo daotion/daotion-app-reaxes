@@ -14,10 +14,10 @@ export const DxzSBTAddWhitelist=()=>{
 	</>
 }
 import {
-	PrimaryInput ,
+	XInput ,
 } from "@@pages/Test/dxz-input";
 import {
-	PrimaryBtn
+	XButton
 } from "@@pages/Test/dxz-button";
 import {
 	Button
@@ -31,7 +31,7 @@ import {
 export const SBTWhiteItem=ComponentWrapper(()=>{
 	return<>
 	<div className={less.SBTWhiteItem}>
-		<PrimaryInput
+		<XInput
 			type = "primary"
 			style = { {
 				width : "566px" ,
@@ -39,7 +39,7 @@ export const SBTWhiteItem=ComponentWrapper(()=>{
 			} }
 			placeholder = { i18n( 'Make sure to enter the address, not the ENS name.' ) }
 		/>
-		<PrimaryInput
+		<XInput
 			type = "primary"
 			style = { {
 				width : "150px" ,
@@ -88,7 +88,7 @@ export const EditSBTWhitelist=ComponentWrapper(()=>{
 				<Button className = { less.addNewSBTItemBtn }><SVGAddNewFeature /></Button>
 			</div>
 			<div className={less.SBTWhitelistFooterBox}>
-				<PrimaryBtn type="primary">Upload Whitelist</PrimaryBtn>
+				<XButton type="primary">Upload Whitelist</XButton>
 			</div>
 		</div></>
 })

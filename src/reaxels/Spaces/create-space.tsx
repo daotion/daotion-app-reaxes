@@ -14,8 +14,8 @@ import {
 	request_server_timestamp ,
 } from '@@requests';
 import { ethers } from 'ethers';
-import { PrimaryInput } from '@@pages/Test/dxz-input';
-import { MultipleSelect } from '@@pages/Test/dxz-select';
+import { XInput } from '@@pages/Test/dxz-input';
+import { XSelect } from '@@pages/Test/dxz-select';
 import less from '../../styles/reaxels.module.less';
 import {
 	SVGSelectArrowIcon,
@@ -243,7 +243,7 @@ export const reaxel_create_space = function () {
 												Name
 											</I18n>
 										</p>
-										<PrimaryInput
+										<XInput
 											disabled = { store.creating }
 											type = "primary"
 											placeholder = { i18n( "Name your Space" ) }
@@ -277,7 +277,7 @@ export const reaxel_create_space = function () {
 												/3
 											</span>
 										</p>
-										<MultipleSelect
+										<XSelect
 											type = "primary"
 											disabled = { store.creating }
 											suffixIcon = { <SVGSelectArrowIcon /> }
@@ -295,7 +295,7 @@ export const reaxel_create_space = function () {
 										>
 											{ spaceTags.filter( ( text ) => !store.select_types.includes( text ) ).
 											map( ( text ) => <Select.Option key = { text }>{ text }</Select.Option> ) }
-										</MultipleSelect>
+										</XSelect>
 									</div>
 									<div className = { less.formItem }>
 										<div className = { less.titleWrp }>
@@ -320,7 +320,7 @@ export const reaxel_create_space = function () {
 												Email
 											</I18n>
 										</p>
-										<PrimaryInput
+										<XInput
 											disabled = { store.creating }
 											type = "primary"
 											placeholder = { i18n( "Enter your email" ) }

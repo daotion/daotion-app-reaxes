@@ -15,7 +15,7 @@ import {
 	Avatar,
 } from 'antd';
 import {ClockCircleOutlined} from '@ant-design/icons';
-
+import { ButtonGoBack } from './Button-GoBack';
 import {
 	Routes ,
 	Route ,

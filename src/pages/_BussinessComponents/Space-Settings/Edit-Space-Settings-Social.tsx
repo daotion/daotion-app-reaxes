@@ -80,7 +80,7 @@ const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) => {
 					onClick = { () => props.onDelete() }
 				/> }
 			</div>
-			<PrimaryInput
+			<XInput
 				type = "primary"
 				value = { mixedProps.value }
 				onChange = { ( e ) => {
@@ -103,19 +103,19 @@ export const ProfileFooterBtn = ComponentWrapper( ( props ) => {
 	
 	const reax_edit_space_social_settings = reaxel_edit_space_social_settings();
 	return <>
-		<PrimaryBtn
+		<XButton
 			onClick = { () => {
 				reax_edit_space_social_settings.fetchEditSocial();
 			} }
 			className={less.socialUploadBtn}
-		>{ props.text }</PrimaryBtn>
+		>{ props.text }</XButton>
 	</>;
 } );
 
 import { reaxel_edit_space_social_settings } from '@@reaxels';
 import less from './index.module.less';
-import { PrimaryBtn  } from '@@pages/Test/dxz-button';
+import { XButton  } from '@@pages/Test/dxz-button';
 import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social-Btn-Modal';
 import { ProfileTitle } from './Profile-Title';
-import { PrimaryInput } from '@@pages/Test/dxz-input';
+import { XInput } from '@@pages/Test/dxz-input';
 import{SVGSocialItemDelete}from'@@pages/_SvgComponents/space-setting-svg'

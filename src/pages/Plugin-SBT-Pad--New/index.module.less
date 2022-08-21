@@ -6,7 +6,7 @@
 }
 .create-SBT-info{
 	display: flex;
-	flex-flow: row wrap;
+	flex-flow: row nowrap;
 }
 .create-SBT_left {
 	margin-right: 24px;
@@ -197,6 +197,10 @@
 			
 			.upload-file-filling {
 				opacity: 1;
+				.upload-file-filling-button{
+					transition: margin-top .25s linear;
+					margin-top: 36px;
+				}
 			}
 		}
 	}
@@ -243,7 +247,22 @@
 	user-select: none;
 	transition: all .25s linear;
 	.upload-file-filling-button{
-		
+		transition: margin-top .25s linear;
+		margin-top: 352px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		z-index: 1;
+		font-weight: 700;
+		font-size: 15px;
+		flex-direction: row;
+		padding: 12px 20px;
+		width: fit-content;
+		height: 48px;
+		background: rgb(252, 252, 252);
+		border: 2px solid rgb(239, 239, 239);
+		box-shadow: rgb(0 0 0 / 4%) 0px 0px 36px 2px;
+		border-radius: 12px;
 		cursor: pointer;
 	}
 	&>.upload-file-filling-button{
@@ -330,66 +349,7 @@
 	}
 }
 
-.create-SBT-check-box {
-	font-weight: 500;
-	font-size: 14px;
-	display: flex;
-	flex-flow: column wrap;
-	
-	:global {
-		.ant-checkbox-wrapper {
-			margin-bottom: 12px;
-			
-			&:last-child {
-				margin-bottom: 0;
-			}
-			
-			span {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				height: 24px;
-			}
-		}
-		
-		.ant-checkbox + span {
-			padding-right: 12px;
-			padding-left: 12px;
-		}
-		
-		.ant-checkbox-wrapper {
-			align-items: center;
-			height: 24px;
-		}
-		
-		.ant-checkbox-wrapper + .ant-checkbox-wrapper {
-			margin-left: 0;
-		}
-		
-		.ant-checkbox {
-			margin-bottom: 3px;
-			
-			&-checked {
-				.ant-checkbox-inner::after {
-					transform: rotate(45deg) scale(1.6) translate(-50%, -50%);
-				}
-			}
-		}
-		
-		.ant-checkbox-inner {
-			width: 24px;
-			height: 24px;
-			background: #fcfcfd;
-			border: 2px solid #e6e8ec;
-			border-radius: 4px;
-			
-			&::after {
-				top: 52%;
-				left: 22.5%;
-			}
-		}
-	}
-}
+
 
 
 

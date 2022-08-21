@@ -14,10 +14,10 @@ export const DxzSBTRevocation=()=>{
 	</>
 }
 import {
-	PrimaryInput ,
+	XInput ,
 } from "@@pages/Test/dxz-input";
 import {
-	PrimaryBtn
+	XButton
 } from "@@pages/Test/dxz-button";
 import {
 	Button
@@ -31,7 +31,7 @@ import {
 export const SBTRevocationItem=ComponentWrapper(()=>{
 	return<>
 		<div className={less.SBTRevocationItem}>
-			<PrimaryInput
+			<XInput
 				type = "primary"
 				style = { {
 					width : "566px" ,
@@ -39,7 +39,7 @@ export const SBTRevocationItem=ComponentWrapper(()=>{
 				} }
 				placeholder = { i18n( 'Make sure to enter the address, not the ENS name.' ) }
 			/>
-			<PrimaryInput
+			<XInput
 				type = "primary"
 				style = { {
 					width : "150px" ,
@@ -88,7 +88,7 @@ export const EditSBTRevocationlist=ComponentWrapper(()=>{
 				<Button className = { less.addNewSBTItemBtn }><SVGAddNewFeature /></Button>
 			</div>
 			<div className={less.SBTRevocationlistFooterBox}>
-				<PrimaryBtn type="primary">Revocation SBT</PrimaryBtn>
+				<XButton type="primary">Revocation SBT</XButton>
 				<p className={less.SBTRevocationFooterMention}>
 					You are <b>Revocation SBT </b>,
 					Please ensure these values are correct before proceeding.
