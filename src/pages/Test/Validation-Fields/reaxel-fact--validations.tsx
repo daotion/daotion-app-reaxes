@@ -4,7 +4,7 @@
  * @param chainReactionMode 连锁模式: 这个当其他字段改变时
  * 就算这个字段没发生改变也会触发校验和视图更新
  */
-export const reaxel_fact__validation = function(validator , chainReactionMode = false ){
+export const reaxel_fact__validation = function<T extends (...args) => (Promise<boolean>)|(boolean) >(validator : T , chainReactionMode = false ){
 	
 	const {
 		store ,
@@ -20,8 +20,8 @@ export const reaxel_fact__validation = function(validator , chainReactionMode = 
 	let pending = null;
 	
 	
-	return (value) => {
-		
+	return (...args) => {
+		const [value] = args;
 		
 		return {
 			get valid() {
@@ -29,8 +29,8 @@ export const reaxel_fact__validation = function(validator , chainReactionMode = 
 					first = false;
 					_value = value;
 				}else if(chainReactionMode || _value !== value) {
-					const res = pending = validator(value);
-					if(res.then && res.catch){
+					const res = pending = validator(...args);
+					if(utils.isPromise(res)){
 						res.then( ( validation ) => {
 							/*如果中途再次触发了校验,则取消之前校验的结果,只取最后一次生效的promise*/
 							if(pending !== null && pending !== res){
@@ -61,8 +61,8 @@ export const reaxel_fact__validation = function(validator , chainReactionMode = 
 			},
 			validate(){
 				first = false;
-				const res = pending = validator(value);
-				if(res.then && res.catch){
+				const res = pending = validator(...args);
+				if(utils.isPromise(res)){
 					res.then( ( validation ) => {
 						/*如果中途再次触发了校验,则取消之前校验的结果,只取最后一次生效的promise*/
 						if(pending !== null && pending !== res){

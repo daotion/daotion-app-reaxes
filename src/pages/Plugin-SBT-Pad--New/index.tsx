@@ -1,3 +1,5 @@
+import { reaxel_wallet } from "@@reaxels";
+
 export const NewSBT = ComponentWrapper( () => {
 	
 	const reax_newSBT = reaxel_newSBT();
@@ -17,7 +19,7 @@ export const NewSBT = ComponentWrapper( () => {
 	Reaxes.collectDeps( newSBT_store );
 	
 	return <>
-		<ButtonGoBack/>
+		<ButtonGoBack />
 		<div className = { less.createSBTContainer }>
 			<h1 className = { less.mainTitle }>New SBT</h1>
 			<p className = { less.someIntro }>
@@ -33,10 +35,9 @@ export const NewSBT = ComponentWrapper( () => {
 							<UploadFileBox />
 						</SubTitleWithItem>
 						
-						
 						{/*表单区域*/ }
 						<SubTitleWithItem
-							title = { i18n( "Type" ) }
+							title = { i18n( "SBT type" ) }
 						>
 							<Select
 								value = { newSBT_store.select__SBT_type }
@@ -45,7 +46,7 @@ export const NewSBT = ComponentWrapper( () => {
 										select__SBT_type : value ,
 									} );
 								} }
-								status={validations.select__SBT_type ? "" : "error"}
+								status = { convert( validations.select__SBT_type ) }
 								suffixIcon = { <SVGSelectArrowIcon /> }
 								className = { less.newSBTSelectType }
 								dropdownClassName = { less.dropDownMenu }
@@ -68,17 +69,32 @@ export const NewSBT = ComponentWrapper( () => {
 						</SubTitleWithItem>
 						
 						<SubTitleWithItem
-							title = "Name"
+							title = { i18n( "SBT name" ) }
 						>
 							<XInput
 								type = "primary"
+								status = { convert( validations.input__SBT_name ) }
 								value = { newSBT_store.input__SBT_name }
 								onChange = { ( e ) => {
-									setFields( {
-										input__SBT_name : e.target.value ,
-									} );
+									setFields( { input__SBT_name : e.target.value } );
 								} }
 							/>
+							{ validations.input__SBT_name === false && <p>this filed is requested</p> }
+						</SubTitleWithItem>
+						
+						<SubTitleWithItem
+							title = { i18n( "SBT symbol" ) }
+						>
+							<XInput
+								// status={convert(validations.input__SBT_name)}
+								value = { newSBT_store.input__SBT_symbol }
+								onChange = { ( e ) => {
+									setFields( { input__SBT_symbol : e.target.value } );
+								} }
+								type = "primary"
+								placeholder = { i18n( 'e.g. "SBT"' ) }
+							/>
+							{ validations.input__SBT_name === false && <p>this filed is requested</p> }
 						</SubTitleWithItem>
 						<SubTitleWithItem title = "Description">
 							<XTextArea type = "primary" />
@@ -87,7 +103,9 @@ export const NewSBT = ComponentWrapper( () => {
 					
 					
 					<div className = { less.createSBTInfoBox }>
-						<SubTitleWithItem title = "SBT access">
+						<SubTitleWithItem
+							title = "SBT access"
+						>
 							<Select
 								suffixIcon = { <SVGSelectArrowIcon /> }
 								className = { less.newSBTSelectType }
@@ -103,7 +121,10 @@ export const NewSBT = ComponentWrapper( () => {
 								<Select.Option value = "type2">type2</Select.Option>
 							</Select>
 						</SubTitleWithItem>
-						<SubTitleWithItem title = { i18n( 'Hold the upper limit of each user' ) }>
+						
+						<SubTitleWithItem
+							title = { i18n( 'Hold the upper limit of each user' ) }
+						>
 							<XInput
 								type = "primary"
 								value = { newSBT_store.input_number__hold_limit_number }
@@ -118,6 +139,7 @@ export const NewSBT = ComponentWrapper( () => {
 								If the number is greater than 1, the ERC1155 standard is enabled.
 							</p>
 						</SubTitleWithItem>
+						
 						<SubTitleWithItem
 							title = { <p className = { less.subtitleWithSwitch }>
 								<span>
@@ -125,24 +147,30 @@ export const NewSBT = ComponentWrapper( () => {
 								</span>
 								<span>
 									infinite
-									<XSwitch 
+									<XSwitch
 										type = "secondary"
-										onChange={(checked) => {
-											reax_newSBT.setFields({
-												input_issuance_quantity : checked ? "infinite" : "",
-											})
-										}}
+										onChange = { ( checked ) => {
+											reax_newSBT.setFields( {
+												input_issuance_quantity : checked ? "infinite" : "" ,
+											} );
+										} }
 									/>
 								</span>
 							</p> }
 						>
 							<div className = { less.divider }></div>
-							<XInput 
+							<XInput
 								type = "primary"
 							/>
 						</SubTitleWithItem>
-						<SubTitleWithItem title = { i18n( 'Network' ) }>
+						<SubTitleWithItem
+							title = { i18n( 'Network' ) }
+						>
 							<Select
+								status = { convert( validations.select_network_chainID ) }
+								onChange={(value) => {
+									setFields( { select_network_chainID : value } );
+								}}
 								suffixIcon = { <SVGSelectArrowIcon /> }
 								className = { less.newSBTSelectType }
 								dropdownClassName = { less.dropDownMenu }
@@ -154,11 +182,14 @@ export const NewSBT = ComponentWrapper( () => {
 								placeholder = { i18n( "Please select" ) }
 								optionLabelProp = "label"
 							>
-								<Select.Option
-									label = "Ethereum"
-								>
-									<OptionNetEthereum />
-								</Select.Option>
+								{enum_chains.map(({id,label,}) => {
+									return <Select.Option
+										label = { label }
+										key = { id }
+									>
+										<OptionNetEthereum label = { label } />
+									</Select.Option>; 
+								})}
 							</Select>
 						</SubTitleWithItem>
 					</div>
@@ -178,14 +209,14 @@ export const NewSBT = ComponentWrapper( () => {
 					<div className = { less.createSBTFooterBox }>
 						<XButton
 							type = "primary"
-							onClick = {() => {
-								
-							}}
+							onClick = { () => {
+								validate();
+							} }
 						>Create SBT</XButton>
 					</div>
 				</div>
 				{/*右边的preview部分 :*/ }
-				<NewSBTPreview/>
+				<NewSBTPreview />
 			</div>
 		</div>
 	</>;
@@ -266,11 +297,13 @@ export const SubTitleWithItem = ( props ) => {
 };
 
 
-export const OptionNetEthereum = ComponentWrapper( () => {
+export const OptionNetEthereum = ComponentWrapper( (props : {
+	label : string;
+}) => {
 	return <>
 		<span className = { less.netEthereum }>
 			<SVGNetEthereum />
-			Ethereum
+			{ props.label }
 		</span>
 	</>;
 } );
@@ -293,7 +326,18 @@ export const CreateSBTCheckBox = ( props ) => {
 
 
 
-
+const convert = (validateResult:null|true|false) => {
+	switch(validateResult){
+		case null : 
+		case true : 
+		{
+			return '';
+		};
+		case false : {
+			return 'error';
+		}
+	}
+};
 
 
 

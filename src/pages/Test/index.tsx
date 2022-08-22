@@ -33,7 +33,7 @@ import { Validations } from './Validation-Fields';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<Validations />
+	<DxzSBTDisplayCardList />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

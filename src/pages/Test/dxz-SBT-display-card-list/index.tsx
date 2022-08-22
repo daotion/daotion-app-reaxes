@@ -1,7 +1,87 @@
+import { reaxel_wallet } from "@@reaxels";
 
+const reaxel_SBT_list = function () {
+	let firstTimestamp = 0;
+	const {
+		store ,
+		setState ,
+	} = orzMobx( {
+		SBT_list : [] ,
+		input_search : null ,
+		select_chain : null ,
+		select_type : null ,
+		
+		indexStart : 0 ,
+		
+		pending : false ,
+		
+	} );
+	const reax_wallet = reaxel_wallet();
+	const closuredFetch__SBT_Pad_list = Reaxes.closuredMemo( ( {
+			spaceID ,
+			count = 40 ,
+		} ) => {
+			console.log( spaceID );
+			request__SBT_list( async () => {
+				return {
+					indexStart : store.indexStart ,
+					count ,
+					firstTimestamp ,
+					spaceID ,
+					type : store.select_type ,
+					chainID : store.select_chain ,
+				};
+			} ).then( ( res ) => {
+				console.log( res );
+				
+			} );
+		} ,
+		() => [
+			store.input_search ,
+			store.select_chain ,
+			store.select_type ,
+			/*占位:spaceID*/
+		] ,
+	);
+	
+	
+	return () => {
+		
+		return {
+			get SBT_Pad_Store() {
+				Reaxes.collectDeps( store );
+				return store;
+			} ,
+			fetchSBTList( {
+				spaceID ,
+				count = 40 ,
+			} ) {
+				closuredFetch__SBT_Pad_list( () => [
+					store.input_search ,
+					store.select_chain ,
+					store.select_type ,
+					spaceID ,
+				] )( {
+					spaceID ,
+					count ,
+				} );
+			} ,
+		};
+	};
+}();
 
 
 export const DxzSBTDisplayCardList = () => {
+	const { params } = utils.useRouter();
+	const spaceID = parseInt( params.spaceID ) || 2;
+	
+	const {
+		fetchSBTList ,
+		SBT_Pad_Store ,
+	} = reaxel_SBT_list();
+	
+	fetchSBTList( { spaceID } );
+	
 	return <>
 		<div className = { less.allSBTsContainer }>
 			{/*分为顶部的若干个SBT索引框和下面展示的SBT card list*/ }
@@ -9,15 +89,14 @@ export const DxzSBTDisplayCardList = () => {
 				<span className = { less.SBTsTitle }>SBTs</span>
 				<div className = { less.SBTsIndexingWithBtn }>
 					<SBTsSearchInput />
-					<SBTSelectChain/>
-					<SBTSelectType/>
+					<SBTSelectChain />
+					<SBTSelectType />
 					<SBTDisplayCreateBtn />
 				</div>
 			</div>
 			
 			<div className = { less.SBTsDisplayCardList }>
-				{ new Array( 6 ).fill( '' ).
-				map( ( a , i ) => {
+				{ new Array( 6 ).fill( '' ).map( ( a , i ) => {
 					return <SBTDisplayCard
 						key = { Math.random() }
 					/>;
@@ -26,9 +105,14 @@ export const DxzSBTDisplayCardList = () => {
 		</div>
 	</>;
 };
+
+import { request__SBT_list } from './requests';
+
+
 import {
 	Input ,
-	Select }from 'antd';
+	Select ,
+} from 'antd';
 import less from './index.module.less';
 import { XButton } from '@@pages/Test/dxz-button';
 import {} from '@@pages/Test/dxz-select';
@@ -36,13 +120,13 @@ import {
 	SVGSearch ,
 	SVGSelectSuffix ,
 	SVGSBTCardPolygon ,
-	SVGSBTCardInfoLogo,
+	SVGSBTCardInfoLogo ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 
 export const SBTSelectType = () => {
 	return <>
 		<Select
-			suffixIcon={<SVGSelectSuffix/>}
+			suffixIcon = { <SVGSelectSuffix /> }
 			className = { less.SBTSelectType }
 			dropdownClassName = { less.dropDownMenu }
 			dropdownStyle = { {
@@ -60,7 +144,7 @@ export const SBTSelectType = () => {
 export const SBTSelectChain = () => {
 	return <>
 		<Select
-			suffixIcon={<SVGSelectSuffix/>}
+			suffixIcon = { <SVGSelectSuffix /> }
 			className = { less.SBTSelectType }
 			dropdownClassName = { less.dropDownMenu }
 			dropdownStyle = { {
