@@ -1,17 +1,22 @@
 import less from './index.module.less';
+import {ButtonProps} from 'antd';
 
-export const XButton = ( props ) => {
+export const XButton = ( props : Omit<ButtonProps,"type"> & {
+	type? : "joined" | "leave" | "primary";
+} ) => {
+	const a = props.type;
 	const {
 		Button ,
 		Space ,
 		Input ,
 	} = antd;
+	const {type , ...buttonProps} = props;
 	return <Button
 		type = "primary"
 		onClick = { props.onClick }
-		className = { less[ props.type ] }
-		style={props.style}
-		{...props}
+		className = { less[ type ] }
+		style = { props.style }
+		{ ...buttonProps }
 	>
 		{ props.children }
 	</Button>;
