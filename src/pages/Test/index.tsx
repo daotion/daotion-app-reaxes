@@ -32,7 +32,7 @@ import { DxzSBTDetails } from './dxz-SBT-details';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSBTDetails />
+	<DxzSBTPadList />
 	
 </div>;
 import "antd/dist/antd.less";
