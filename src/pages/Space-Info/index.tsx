@@ -332,7 +332,7 @@ const ContentListSecond = ComponentWrapper( () => {
 	</>;
 } );
 
-const ShareBtn = ComponentWrapper( () => {
+export const ShareBtn = ComponentWrapper( () => {
 	return <>
 		<Button className = { less.shareBtn }>
 			<SVGShareIcon />
