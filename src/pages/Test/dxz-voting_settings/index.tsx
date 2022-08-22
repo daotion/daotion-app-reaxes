@@ -395,7 +395,6 @@ export const DxzVoting_Settings = () => {
 						<XSelect
 							type="primary"
 							// className = { less.votingType_box }
-							type="primary"
 							style = { {
 								width : "100%" ,
 								color : "#9a9fa5" ,
