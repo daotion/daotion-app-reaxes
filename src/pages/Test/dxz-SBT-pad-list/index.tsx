@@ -1,7 +1,7 @@
 
 
 
-export const DxzSBTDisplayCardList = () => {
+export const DxzSBTPadList = () => {
 	return <>
 		<div className = { less.allSBTsContainer }>
 			{/*分为顶部的若干个SBT索引框和下面展示的SBT card list*/ }
@@ -11,7 +11,7 @@ export const DxzSBTDisplayCardList = () => {
 					<SBTsSearchInput />
 					<SBTSelectChain/>
 					<SBTSelectType/>
-					<SBTDisplayCreateBtn />
+					<SBTCreateNewBtn />
 				</div>
 			</div>
 			
@@ -102,7 +102,7 @@ export const SBTDisplayCard = () => {
 	</>;
 };
 
-export const SBTDisplayCreateBtn = () => {
+export const SBTCreateNewBtn = () => {
 	return <>
 		<XButton
 			type = "primary"
