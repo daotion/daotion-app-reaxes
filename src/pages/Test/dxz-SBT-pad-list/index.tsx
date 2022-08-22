@@ -88,9 +88,7 @@ export const DxzSBTPadList = () => {
 			<div className = { less.SBTsDisplayTopBox }>
 				<span className = { less.SBTsTitle }>SBTs</span>
 				<div className = { less.SBTsIndexingWithBtn }>
-					<SBTsSearchInput />
-					<SBTSelectChain />
-					<SBTSelectType />
+					<SBTSearchArea/>
 					<SBTCreateNewBtn />
 				</div>
 			</div>
@@ -122,7 +120,12 @@ import {
 	SVGSBTCardPolygon ,
 	SVGSBTCardInfoLogo ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
-
+export const SBTSearchArea=()=>{
+	return<>
+		<SBTsSearchInput />
+		<SBTSelectChain />
+		<SBTSelectType /></>
+}
 export const SBTSelectType = () => {
 	return <>
 		<Select
