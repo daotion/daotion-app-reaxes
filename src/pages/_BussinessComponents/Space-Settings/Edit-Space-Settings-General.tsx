@@ -97,7 +97,7 @@ export const GeneralProfile = ComponentWrapper( () => {
 				} }
 			/>
 			<ItemWithSubTitle title = { i18n( 'Type' ) }>
-				<MultipleSelect
+				<XSelect
 					type="primary"
 					dropdownClassName = { less.dropDownMenu }
 					placeholder = "Enter or select tags"
@@ -114,12 +114,12 @@ export const GeneralProfile = ComponentWrapper( () => {
 							{ tag }
 						</Option>;
 					} ) }
-				</MultipleSelect>
+				</XSelect>
 			</ItemWithSubTitle>
 			<ItemWithSubTitle
 				title = { i18n( "Email" ) }
 			>
-				<PrimaryInput
+				<XInput
 					type = "primary"
 					placeholder = "Enter your email"
 					value = { editingStore.email }
@@ -211,7 +211,7 @@ import {
 	SVGTooltip ,
 	SVGWhiteAdd ,
 } from '@@pages/_SvgComponents/space-setting-svg';
-import { MultipleSelect } from '@@pages/Test/dxz-select';
+import { XSelect } from '@@pages/Test/dxz-select';
 import less from './index.module.less';
 import spaceTags from '@@Public/space-tags.json';
 import {
@@ -228,5 +228,5 @@ import { SelectSocialModalBtn } from '@@pages/_BussinessComponents/Select-Social
 import { ProfileTitle } from './Profile-Title';
 import { XButton } from '@@pages/Test/dxz-button';
 import {
-	PrimaryInput ,
+	XInput ,
 } from '@@pages/Test/dxz-input';

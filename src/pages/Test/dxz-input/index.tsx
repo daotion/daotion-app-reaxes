@@ -1,4 +1,4 @@
-export const PrimaryInput = ( props:InputProps ) => {
+export const XInput = ( props:InputProps ) => {
 	return <Input
 		className = { less[ props.type ] }
 		placeholder={props.placeholder}
@@ -7,7 +7,7 @@ export const PrimaryInput = ( props:InputProps ) => {
 	/>;
 	
 };
-export const PrimaryTextArea = ( props ) => {
+export const XTextArea = ( props ) => {
 	return <TextArea
 		className = { less[ props.type ] }
 		style={props.style}
@@ -18,10 +18,10 @@ export const PrimaryTextArea = ( props ) => {
 export const DxzInput = ComponentWrapper( () => {
 	return <>
 		<div className={less.box}>
-			<PrimaryInput
+			<XInput
 				type = "primary"
 			/>
-			<PrimaryTextArea
+			<XTextArea
 				type = "primary"
 			/>
 		</div>

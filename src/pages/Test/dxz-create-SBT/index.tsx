@@ -50,7 +50,7 @@ export const DxzCreateSBT = () => {
 				</SubTitleWithItem>
 			</div>
 			<div className={less.createSBTFooterBox}>
-				<XButton type="primary">Create SBT</XButton>  
+				<PrimaryBtn type="primary">Create SBT</PrimaryBtn>  
 			</div>
 		</div>
 		{/*右边的preview部分 :*/}
@@ -70,7 +70,7 @@ import {
 	SpaceSwitch
 } from "@@pages/Test/dxz-switch";
 import {
-	XButton
+	PrimaryBtn
 } from "@@pages/Test/dxz-button";
 import {
 	Checkbox ,

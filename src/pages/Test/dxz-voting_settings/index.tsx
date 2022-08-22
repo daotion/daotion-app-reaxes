@@ -392,7 +392,7 @@ export const DxzVoting_Settings = () => {
 						>
 							Proposal validity threshold
 						</p>
-						<MultipleSelect
+						<XSelect
 							type="primary"
 							// className = { less.votingType_box }
 							style = { {
@@ -410,9 +410,7 @@ export const DxzVoting_Settings = () => {
 							mode = "multiple"
 							allowClear
 							placeholder = "Select VotingType"
-						>{ children }
-						
-						</MultipleSelect>
+						>{ children }</XSelect>
 					
 					
 					</Block>
@@ -639,4 +637,4 @@ const IptSelect = () => {
 		{/*</div>*/ }
 	</>;
 };
-import { MultipleSelect } from '@@pages/Test/dxz-select';
+import { XSelect } from '@@pages/Test/dxz-select';

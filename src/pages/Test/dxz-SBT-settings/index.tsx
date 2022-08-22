@@ -17,8 +17,8 @@ export const DxzSBTSettings=()=>{
 
 import less from './index.module.less';
 import {
-	   PrimaryInput ,
-	   PrimaryTextArea,
+	   XInput ,
+	   XTextArea,
 } from "@@pages/Test/dxz-input";
 import {
 	   XButton
@@ -80,10 +80,10 @@ export const EditSBTSettings=()=>{
 						<NewSBTSelectType />
 					</SubTitleWithItem>
 					<SubTitleWithItem title = "Description">
-						<PrimaryTextArea type = "primary" />
+						<XTextArea type = "primary" />
 					</SubTitleWithItem>
 					<SubTitleWithItem title = "Key Features">
-						<PrimaryInput
+						<XInput
 							type = "primary"
 							style = { {
 								width : "396px" ,
@@ -91,7 +91,7 @@ export const EditSBTSettings=()=>{
 							} }
 							placeholder = { i18n( 'Value' ) }
 						/>
-						<PrimaryInput
+						<XInput
 							type = "primary"
 							style = { { width : "396px" } }
 							placeholder = { i18n( 'Value' ) }

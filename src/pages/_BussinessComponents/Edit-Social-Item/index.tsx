@@ -17,7 +17,7 @@ export const EditSocialItem = ComponentWrapper( ( props : EditSocialItemProps ) 
 				>{ mixedProps.title }</span>
 				{ props.onDelete && <SVGSocialItemDelete onClick = {props.onDelete} /> }
 			</div>
-			<PrimaryInput
+			<XInput
 				type = "primary"
 				value = { mixedProps.value }
 				onChange = { ( e ) => {
@@ -40,4 +40,4 @@ type EditSocialItemProps = {
 import { SVGSocialItemDelete } from '@@pages/_SvgComponents/space-setting-svg';
 
 import less from './index.module.less';
-import { PrimaryInput } from '@@pages/Test/dxz-input';
+import { XInput } from '@@pages/Test/dxz-input';

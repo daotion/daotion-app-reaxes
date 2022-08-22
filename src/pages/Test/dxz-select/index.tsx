@@ -28,7 +28,7 @@ export const TagsSelect = ( props
 	</Select>;
 	
 };
-export const MultipleSelect = ( props:SelectProps&{
+export const XSelect = ( props:SelectProps&{
 	type : "primary"
 } ) => {
 	return <Select
@@ -68,7 +68,7 @@ export const SingleSelect = ( props ) => {
 export const DxzSelect = ComponentWrapper( () => {
 	return <>
 		<div className = { less.box }>
-			<MultipleSelect
+			<XSelect
 				type = "primary"
 			/>
 			<SingleSelect
