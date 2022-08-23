@@ -33,7 +33,7 @@ import { DxzModalCropper } from './dxz-modal-cropper';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzModalCropper />
+	<DxzSBTDetails />
 	
 </div>;
 import "antd/dist/antd.less";

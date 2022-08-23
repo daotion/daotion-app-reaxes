@@ -69,43 +69,19 @@ export const DxzSBTDetails=()=>{
 			</div>
 		</div>
 		
-		{/*Activity列表:*/}
-		<SBTInfoBox title = "Activi0ty">
-			<div className = { less.activityListNameBox }>
-				<span>User</span>
-				<span>Mint time</span>
-				<span>TokenID</span>
-				<span>Amount</span>
-				<span>Last state</span>
-			</div>
-			
-			{ new Array( 6 ).fill( '' ).
-			map( ( a , i ) => {
-				return <SBTActivityItem
-					key = { Math.random() }
-				/>;
-			} ) }
+		{/*Activity表格:*/}
+		<SBTInfoBox title = "Activity">
+			<Table
+				className={less.SBTActivityTable}
+				columns = { columns }
+				dataSource = { data }
+				footer = { null }
+				bordered={false}
+			/>
 		</SBTInfoBox>
 	</div>
 	</>
 }
-
-import less from './index.module.less';
-import { XPopover } from '@@common/Xcomponents';
-import{XButton}from'@@pages/Test/dxz-button'
-import {
-	SVGNetEthereum ,
-	SVGCopySBT ,
-	SVGConformingCondition ,
-	SVGNonconformingCondition,
-	SVGMoreInfo ,
-	SVGFreezeList,
-	SVGAddWhitelist,
-	SVGSettings,
-	SVGRevocation,
-} from '@@pages/_SvgComponents/all-SBT-SVG';
-import { Checkbox,Col ,Button} from 'antd';
-import { ShareBtn } from '@@pages/Space-Info/index';
 
 // 每一个灰色边框盒子:
 export const SBTInfoBox=ComponentWrapper((props)=>{
@@ -240,23 +216,74 @@ export const SBTInfoItem=ComponentWrapper((props)=>{
 	</>
 })
 
-export const SBTActivityItem=ComponentWrapper(()=>{
-	return<>
-	<div className={less.SBTActivityItem}>
-		<div className={less.SBTHolderInfo}>
-			<img
-				// 持有者头像
-				className = { less.SBTHolderAvatar }
-				src = ""
-				alt = ""
-			/>
-			<span className={less.SBTHolderName}>0x4183...4f6d</span>
-		</div>
-		<span className={less.MintTime}>4 minutes ago</span>
-		<span className={less.TokenID}>#245123</span>
-		<span className={less.SBTAmount}>3</span>
-		<span className={less.SBTLastState}>No claim</span>
-		
-	</div>
-	</>
-})
+
+
+import {Table} from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+
+interface DataType {
+	key: React.Key;
+	user: React.ReactNode;
+	amount: number;
+	time: string;
+	id:string;
+	lastState: string;
+}
+
+const columns: ColumnsType<DataType> = [
+	{
+		title: 'User',
+		dataIndex: 'user',
+	},
+	{
+		title: 'Mint time',
+		dataIndex: 'time',
+	},
+	{
+		title:'TokenID',
+		dataIndex: 'id',
+	},
+	{
+		title: 'Amount',
+		dataIndex: 'amount',
+	},
+	{
+		title: 'Last state',
+		dataIndex: 'lastState',
+	},
+
+];
+
+const data: DataType[] = [];
+for (let i = 0; i < 6; i++) {
+	data.push({
+		key : Math.random() ,
+		user:<span className={less.userInfo}><SVGLink/>0x4183...4f6d </span>,
+		amount : 2 ,
+		time : '4 minutes ago' ,
+		id : '#23451' ,
+		lastState: 'Claimed' ,
+	});
+}
+
+
+
+
+
+import less from './index.module.less';
+import { SVGLink } from '@@pages/_SvgComponents/space-setting-svg';
+import { XPopover } from '@@common/Xcomponents';
+import{XButton}from'@@pages/Test/dxz-button'
+import {
+	SVGNetEthereum ,
+	SVGCopySBT ,
+	SVGConformingCondition ,
+	SVGNonconformingCondition,
+	SVGMoreInfo ,
+	SVGFreezeList,
+	SVGAddWhitelist,
+	SVGSettings,
+	SVGRevocation,
+} from '@@pages/_SvgComponents/all-SBT-SVG';
+import { Checkbox,Col ,Button} from 'antd';
+import { ShareBtn } from '@@pages/Space-Info/index';
