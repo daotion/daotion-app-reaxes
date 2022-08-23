@@ -28,11 +28,12 @@ import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
 import { DxzSBTDetails } from './dxz-SBT-details';
+import { DxzModalCropper } from './dxz-modal-cropper';
 
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSBTSettings />
+	<DxzModalCropper />
 	
 </div>;
 import "antd/dist/antd.less";
