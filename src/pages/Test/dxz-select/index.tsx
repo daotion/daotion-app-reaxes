@@ -72,7 +72,7 @@ export const DxzSelect = ComponentWrapper( () => {
 				type = "primary"
 			/>
 			<SingleSelect
-			type='single-primary'
+			type='primary'
 			/>
 			<TagsSelect/>
 		</div>
@@ -81,6 +81,10 @@ export const DxzSelect = ComponentWrapper( () => {
 import less from './index.module.less';
 import { Select , SelectProps } from 'antd';
 import { SVGClear } from '@@pages/_SvgComponents/space-setting-svg';
+
+
+
+
 export const SVGTagsClear=ComponentWrapper(()=>{
 	return<>
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

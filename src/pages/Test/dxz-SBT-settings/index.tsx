@@ -20,11 +20,11 @@ import {
 	   XInput ,
 	   XTextArea,
 } from "@@pages/Test/dxz-input";
+import { TagsSelect ,SingleSelect} from '@@pages/Test/dxz-select';
 import {
 	   XButton
    } from "@@pages/Test/dxz-button";
 import {
-	   Select,
 	   Button
 } from 'antd';
 import {
@@ -34,11 +34,10 @@ import {
 	   SVGUploadFileIcon,
 	   SVGCopySBT,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
-
+import { NewSBTPreview } from '@@pages/Plugin-SBT-Pad--New/index';
 import {
-	   NewSBTSelectType ,
 	   UploadFileBox,
-} from '@@pages/Test/dxz-create-SBT';
+} from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
 export const SubTitleWithItem=(props)=>{
 	   return<>
 		   <div className={less.subTitleWithItem}>
@@ -77,25 +76,13 @@ export const EditSBTSettings=()=>{
 						<UploadFileBox />
 					</SubTitleWithItem>
 					<SubTitleWithItem title = "Type">
-						<NewSBTSelectType />
+						<SingleSelect type='primary' />
 					</SubTitleWithItem>
 					<SubTitleWithItem title = "Description">
 						<XTextArea type = "primary" />
 					</SubTitleWithItem>
-					<SubTitleWithItem title = "Key Features">
-						<XInput
-							type = "primary"
-							style = { {
-								width : "396px" ,
-								marginRight : "12px" ,
-							} }
-							placeholder = { i18n( 'Value' ) }
-						/>
-						<XInput
-							type = "primary"
-							style = { { width : "396px" } }
-							placeholder = { i18n( 'Value' ) }
-						/>
+					<SubTitleWithItem title = "Features">
+						<TagsSelect placeholder = { i18n( 'Add Features...' ) } />
 						<Button className = { less.addNewSBTFeatureBtn }><SVGAddNewFeature /></Button>
 					</SubTitleWithItem>
 				</div>
@@ -104,3 +91,4 @@ export const EditSBTSettings=()=>{
 				</div>
 			</div></>
 }
+

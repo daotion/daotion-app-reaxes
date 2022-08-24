@@ -240,8 +240,12 @@ export const SBTCreateNewBtn = ComponentWrapper(() => {
 	return <>
 		<XButton
 			type = "primary"
-			className = { less.createNewBtn }
-			onClick={() => navigate('new')}
+			style = { {
+				height : "40px",
+				borderRadius: '8px',
+				fontSize: "13px"
+			} }
+			onClick = { () => navigate( 'new' ) }
 		>
 			Create new SBT
 		</XButton>

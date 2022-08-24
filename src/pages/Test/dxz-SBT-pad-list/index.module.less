@@ -21,7 +21,7 @@
 	margin-bottom: 32px;
 	transition: box-shadow .3s ease;
 	&:hover {
-		box-shadow:9px 22px 6px -3px rgba(0, 0, 0, 0.15);
+		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 	}
 	&:nth-child(4n+1){
 		margin-left: 0;
@@ -82,6 +82,7 @@
 	border: 2px solid #E6E8EC;
 	border-radius: 8px;
 	height: 40px;
+	margin-right: 16px;
 }
 .SBTs-indexing-with-Btn{
 	display: flex;
@@ -98,12 +99,17 @@
 	color: #ffffff;
 	border: unset;
 	box-shadow: unset;
-	
+	&:hover{
+		background:#2a85ff;
+	}
+	&:focus{
+		background: #0070F3;
+	}
 }
 .SBT-Select-type:global(.ant-select-single:not(.ant-select-customize-input)) {
 	min-width:178px ;
 	height: 40px;
-	margin-left:16px;
+	margin-right:16px;
 	:global(.ant-select-selector) {
 		min-width:124px ;
 		height: 40px;

@@ -572,3 +572,43 @@
 		background: rgb(244, 245, 246);
 	}
 }
+.SBT-activity-table:global(.ant-table-wrapper){
+	margin-top:32px;
+	:global(.ant-table-pagination-right){
+		display: none;
+	}
+	:global(.ant-table-cell){
+		padding: 1px;
+		border-bottom: none;
+		background: #ffffff;
+		&::before{
+			display: none;
+		}
+	}
+	:global(.ant-table-thead){
+		:global(.ant-table-cell){
+			padding-bottom: 16px;
+			font-weight: 500;
+			font-size: 14px;
+			color: #777E91;
+			user-select: none;
+		}
+	}
+	:global(.ant-table-tbody){
+		:global(.ant-table-cell){
+			padding: 4px 0;
+			font-weight: 600;
+			font-size: 14px;
+			color: #353945;
+			user-select: none;
+			
+		}
+	}
+}
+.user-info{
+	display: flex;
+	align-items: center;
+	svg{
+		margin-right: 8px;
+	}
+}

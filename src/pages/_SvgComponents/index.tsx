@@ -10,3 +10,4 @@ export * from './Item-icon-eth-node.svg-component';
 export * from './Btn-icon-share.svg-component';
 export * from './Select-arrow-icon.svg-component';
 export * from './Header-notification-icon.svg-component';
+export * from './SVG-close-icon';
