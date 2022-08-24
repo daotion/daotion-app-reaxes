@@ -29,11 +29,12 @@ import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
 import { DxzSBTDetails } from './dxz-SBT-details';
 import { DxzModalCropper } from './dxz-modal-cropper';
+import { PreventDupTest } from './Reaxel-fact--prevent-dup-request';
 
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSBTDetails />
+	<DxzSBTPadList />
 	
 </div>;
 import "antd/dist/antd.less";

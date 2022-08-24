@@ -13,6 +13,7 @@ import { SpaceSettings } from '@@pages/Space-Settings';
 import { Profile } from '@@pages/Profile';
 import { NewSBT } from '@@pages/Plugin-SBT-Pad--New';
 import { EditProfile } from "@@pages/Edit-Profile";
+import { PluginSBTPadList } from '@@pages/Plugin-SBT-Pad-List';
 import { ReactTemplate } from '../Public/react-template';
 import { Layout } from './Layout';
 
@@ -95,14 +96,7 @@ export const MainContentRouting = ( props ) => <Routes>
 				<Route
 					index
 					element = { <>
-						<div>
-							sbt-pad/index
-						</div>
-						
-						<div>
-							<NewSBTBtn />
-						</div>
-					
+						<PluginSBTPadList/>
 					</> }
 				/>
 				<Route
@@ -121,11 +115,3 @@ export const MainContentRouting = ( props ) => <Routes>
 		</Route>
 	</Route>
 </Routes>;
-
-	
-const NewSBTBtn = () => {
-	const {navigate} = utils.useRouter();
-	return <antd.Button onClick={() => navigate('new')}>
-		new SBT
-	</antd.Button>
-}; 
