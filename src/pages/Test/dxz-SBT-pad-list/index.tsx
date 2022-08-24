@@ -253,7 +253,7 @@ import { reaxel_wallet } from "@@reaxels";
 import { SBT_list } from './type';
 import { request__SBT_list } from './requests';
 import { Img } from '@@common/Xcomponents';
-
+import InfiniteScroll from 'react-infinite-scroller';
 
 import {
 	Input ,
@@ -265,15 +265,3 @@ import {
 	SVGSearch ,
 	SVGSelectSuffix ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
-
-
-/*有个高阶函数wrapper , callback是什么签名wrapper就返回什么签名*/
-const wrapper = <T extends (...args : F[]) => any , F = any>(callback : T) => {
-	
-	return callback;
-};
-
-const fn = wrapper(({ a , b = '2323' , c }) => {
-	
-});
-fn({});

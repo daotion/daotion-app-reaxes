@@ -1,23 +1,3 @@
-import {
-	Empty ,
-	Input ,
-	Select ,
-	Space ,
-} from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-import { Space_List_Item } from '@@pages/_BussinessComponents';
-import less from './index.module.less';
-import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
-import spaceTags from '@@Public/space-tags.json';
-import {
-	reaxel_scrollParentRef ,
-	reaxel_space_list ,
-	reaxel_wallet ,
-} from '@@RootPath/src/reaxels';
-import InfiniteScroll from 'react-infinite-scroller';
-
-const { Option } = Select;
-
 export const All_Spaces_List_Container = ComponentWrapper( class extends ReactComponentClass {
 	
 	scrollParentRef = reaxel_scrollParentRef();
@@ -26,6 +6,7 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 	
 	JSX = {
 		InfiniteSpacesList : () => {
+			const { Empty } = antd;
 			if ( this.reax_spaces_list.store.infos.length === 0 ) {
 				return <>
 					<Empty
@@ -60,6 +41,12 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 	reax_wallet = reaxel_wallet();
 	
 	render() {
+		const {
+			Empty ,
+			Input ,
+			Select ,
+			Space ,
+		} = antd , { Option } = Select;
 		const reax_wallet = this.reax_wallet;
 		return <>
 			<div
@@ -158,3 +145,16 @@ export const All_Spaces_List_Container = ComponentWrapper( class extends ReactCo
 		</>;
 	}
 } );
+
+
+import {
+	reaxel_scrollParentRef ,
+	reaxel_space_list ,
+	reaxel_wallet ,
+} from '@@reaxels';
+import { Space_List_Item } from '@@pages/_BussinessComponents';
+import { SearchOutlined } from '@ant-design/icons';
+import spaceTags from '@@Public/space-tags.json';
+import InfiniteScroll from 'react-infinite-scroller';
+import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
+import less from './index.module.less';
