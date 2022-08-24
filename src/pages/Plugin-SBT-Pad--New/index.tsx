@@ -19,205 +19,209 @@ export const NewSBT = ComponentWrapper( () => {
 	Reaxes.collectDeps( newSBT_store );
 	
 	return <>
-		<ButtonGoBack />
 		<div className = { less.createSBTContainer }>
-			<h1 className = { less.mainTitle }>New SBT</h1>
-			<p className = { less.someIntro }>
-				SBT is based on the ERC721 standardized protocol.
-			</p>
-			<div className = { less.createSBTInfo }>
-				{/*createSBTInfo分为左右两部分, 左边包括 三个信息框 以及底部Create SBT框*/ }
-				<div className = { less.createSBT_left }>
-					{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
-					<div className = { less.createSBTInfoBox }>
-						{/*上传图片*/ }
-						<SubTitleWithItem title = "Upload files">
-							<UploadFileBox />
-						</SubTitleWithItem>
-						
-						{/*表单区域*/ }
-						<SubTitleWithItem
-							title = { i18n( "SBT type" ) }
-						>
-							<Select
-								value = { newSBT_store.select__SBT_type }
-								onChange = { ( value ) => {
-									reax_newSBT.setFields( {
-										select__SBT_type : value ,
-									} );
-								} }
-								status = { convert( validations.select__SBT_type ) }
-								suffixIcon = { <SVGSelectArrowIcon /> }
-								className = { less.newSBTSelectType }
-								dropdownClassName = { less.dropDownMenu }
-								dropdownStyle = { {
-									border : "2px solid #e6e8ec" ,
-									borderRadius : "12px" ,
-									padding : "8px" ,
-								} }
-								placeholder = { i18n( "Please select" ) }
+			
+			<Header_GoBack />
+			<div>
+				<h1 className = { less.mainTitle }>New SBT</h1>
+				<p className = { less.someIntro }>
+					SBT is based on the ERC721 standardized protocol.
+				</p>
+				<div className = { less.createSBTInfo }>
+					{/*createSBTInfo分为左右两部分, 左边包括 三个信息框 以及底部Create SBT框*/ }
+					<div className = { less.createSBT_left }>
+						{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
+						<div className = { less.createSBTInfoBox }>
+							{/*上传图片*/ }
+							<SubTitleWithItem title = "Upload files">
+								<UploadFileBox />
+							</SubTitleWithItem>
+							
+							{/*表单区域*/ }
+							<SubTitleWithItem
+								title = { i18n("SBT type") }
 							>
-								{ enum__SBT_type.map( ( text ) => {
-									return <Select.Option
-										value = { text }
-										key = { text }
-									>
-										{ text }
-									</Select.Option>;
-								} ) }
-							</Select>
-						</SubTitleWithItem>
-						
-						<SubTitleWithItem
-							title = { i18n( "SBT name" ) }
-						>
-							<XInput
-								type = "primary"
-								status = { convert( validations.input__SBT_name ) }
-								value = { newSBT_store.input__SBT_name }
-								onChange = { ( e ) => {
-									setFields( { input__SBT_name : e.target.value } );
-								} }
-							/>
-							{ validations.input__SBT_name === false && <p>this filed is requested</p> }
-						</SubTitleWithItem>
-						
-						<SubTitleWithItem
-							title = { i18n( "SBT symbol" ) }
-						>
-							<XInput
-								// status={convert(validations.input__SBT_name)}
-								value = { newSBT_store.input__SBT_symbol }
-								onChange = { ( e ) => {
-									setFields( { input__SBT_symbol : e.target.value } );
-								} }
-								type = "primary"
-								placeholder = { i18n( 'e.g. "SBT"' ) }
-							/>
-							{ validations.input__SBT_name === false && <p>this filed is requested</p> }
-						</SubTitleWithItem>
-						<SubTitleWithItem title = "Description">
-							<XTextArea type = "primary" />
-						</SubTitleWithItem>
-					</div>
-					
-					
-					<div className = { less.createSBTInfoBox }>
-						<SubTitleWithItem
-							title = "SBT access"
-						>
-							<Select
-								suffixIcon = { <SVGSelectArrowIcon /> }
-								className = { less.newSBTSelectType }
-								dropdownClassName = { less.dropDownMenu }
-								dropdownStyle = { {
-									border : "2px solid #e6e8ec" ,
-									borderRadius : "12px" ,
-									padding : "8px" ,
-								} }
-								placeholder = { i18n( "Please select" ) }
+								<Select
+									value = { newSBT_store.select__SBT_type }
+									onChange = { (value) => {
+										reax_newSBT.setFields({
+											select__SBT_type : value ,
+										});
+									} }
+									status = { convert(validations.select__SBT_type) }
+									suffixIcon = { <SVGSelectArrowIcon /> }
+									className = { less.newSBTSelectType }
+									dropdownClassName = { less.dropDownMenu }
+									dropdownStyle = { {
+										border : "2px solid #e6e8ec" ,
+										borderRadius : "12px" ,
+										padding : "8px" ,
+									} }
+									placeholder = { i18n("Please select") }
+								>
+									{ enum__SBT_type.map((text) => {
+										return <Select.Option
+											value = { text }
+											key = { text }
+										>
+											{ text }
+										</Select.Option>;
+									}) }
+								</Select>
+							</SubTitleWithItem>
+							
+							<SubTitleWithItem
+								title = { i18n("SBT name") }
 							>
-								<Select.Option value = "type1">type1</Select.Option>
-								<Select.Option value = "type2">type2</Select.Option>
-							</Select>
-						</SubTitleWithItem>
-						
-						<SubTitleWithItem
-							title = { i18n( 'Hold the upper limit of each user' ) }
-						>
-							<XInput
-								type = "primary"
-								value = { newSBT_store.input_number__hold_limit_number }
-								onChange = { ( e ) => {
-									setFields( {
-										input_number__hold_limit_number : e.target.value.replaceAll( /[^0-9]*/g , '' ) ,
-									} );
-								} }
-							/>
-							<p className = { less.someIntro }>
-								If the number is 1, the ERC721 standard is enabled.
-								If the number is greater than 1, the ERC1155 standard is enabled.
-							</p>
-						</SubTitleWithItem>
-						
-						<SubTitleWithItem
-							title = { <p className = { less.subtitleWithSwitch }>
-								<span>
-									Issue quantity
-								</span>
-								<span>
-									infinite
-									<XSwitch
-										type = "secondary"
-										onChange = { ( checked ) => {
-											reax_newSBT.setFields( {
-												input_issuance_quantity : checked ? "infinite" : "" ,
-											} );
-										} }
-									/>
-								</span>
-							</p> }
-						>
-							<div className = { less.divider }></div>
-							<XInput
-								type = "primary"
-							/>
-						</SubTitleWithItem>
-						<SubTitleWithItem
-							title = { i18n( 'Network' ) }
-						>
-							<Select
-								status = { convert( validations.select_network_chainID ) }
-								onChange={(value) => {
-									setFields( { select_network_chainID : value } );
-								}}
-								suffixIcon = { <SVGSelectArrowIcon /> }
-								className = { less.newSBTSelectType }
-								dropdownClassName = { less.dropDownMenu }
-								dropdownStyle = { {
-									border : "2px solid #e6e8ec" ,
-									borderRadius : "12px" ,
-									padding : "8px" ,
-								} }
-								placeholder = { i18n( "Please select" ) }
-								optionLabelProp = "label"
+								<XInput
+									type = "primary"
+									status = { convert(validations.input__SBT_name) }
+									value = { newSBT_store.input__SBT_name }
+									onChange = { (e) => {
+										setFields({ input__SBT_name : e.target.value });
+									} }
+								/>
+								{ validations.input__SBT_name === false && <p>this filed is requested</p> }
+							</SubTitleWithItem>
+							
+							<SubTitleWithItem
+								title = { i18n("SBT symbol") }
 							>
-								{enum_chains.map(({id,label,}) => {
-									return <Select.Option
-										label = { label }
-										key = { id }
-									>
-										<OptionNetEthereum label = { label } />
-									</Select.Option>; 
-								})}
-							</Select>
-						</SubTitleWithItem>
+								<XInput
+									// status={convert(validations.input__SBT_name)}
+									value = { newSBT_store.input__SBT_symbol }
+									onChange = { (e) => {
+										setFields({ input__SBT_symbol : e.target.value });
+									} }
+									type = "primary"
+									placeholder = { i18n('e.g. "SBT"') }
+								/>
+								{ validations.input__SBT_name === false && <p>this filed is requested</p> }
+							</SubTitleWithItem>
+							<SubTitleWithItem title = "Description">
+								<XTextArea type = "primary" />
+							</SubTitleWithItem>
+						</div>
+						
+						
+						<div className = { less.createSBTInfoBox }>
+							<SubTitleWithItem
+								title = "SBT access"
+							>
+								<Select
+									suffixIcon = { <SVGSelectArrowIcon /> }
+									className = { less.newSBTSelectType }
+									dropdownClassName = { less.dropDownMenu }
+									dropdownStyle = { {
+										border : "2px solid #e6e8ec" ,
+										borderRadius : "12px" ,
+										padding : "8px" ,
+									} }
+									placeholder = { i18n("Please select") }
+								>
+									<Select.Option value = "type1">type1</Select.Option>
+									<Select.Option value = "type2">type2</Select.Option>
+								</Select>
+							</SubTitleWithItem>
+							
+							<SubTitleWithItem
+								title = { i18n('Hold the upper limit of each user') }
+							>
+								<XInput
+									type = "primary"
+									value = { newSBT_store.input_number__hold_limit_number }
+									onChange = { (e) => {
+										setFields({
+											input_number__hold_limit_number : e.target.value.replaceAll(/[^0-9]*/g , '') ,
+										});
+									} }
+								/>
+								<p className = { less.someIntro }>
+									If the number is 1, the ERC721 standard is enabled.
+									If the number is greater than 1, the ERC1155 standard is enabled.
+								</p>
+							</SubTitleWithItem>
+							
+							<SubTitleWithItem
+								title = { <p className = { less.subtitleWithSwitch }>
+									<span>
+										Issue quantity
+									</span>
+									<span>
+										infinite
+										<XSwitch
+											type = "secondary"
+											onChange = { (checked) => {
+												reax_newSBT.setFields({
+													input_issuance_quantity : checked ? "infinite" : "" ,
+												});
+											} }
+										/>
+									</span>
+								</p> }
+							>
+								<div className = { less.divider }></div>
+								<XInput
+									type = "primary"
+								/>
+							</SubTitleWithItem>
+							<SubTitleWithItem
+								title = { i18n('Network') }
+							>
+								<Select
+									status = { convert(validations.select_network_chainID) }
+									onChange = { (value) => {
+										setFields({ select_network_chainID : value });
+									} }
+									suffixIcon = { <SVGSelectArrowIcon /> }
+									className = { less.newSBTSelectType }
+									dropdownClassName = { less.dropDownMenu }
+									dropdownStyle = { {
+										border : "2px solid #e6e8ec" ,
+										borderRadius : "12px" ,
+										padding : "8px" ,
+									} }
+									placeholder = { i18n("Please select") }
+									optionLabelProp = "label"
+								>
+									{ enum_chains.map(({ id , label  }) => {
+										return <Select.Option
+											label = { label }
+											key = { id }
+										>
+											<OptionNetEthereum label = { label } />
+										</Select.Option>;
+									}) }
+								</Select>
+							</SubTitleWithItem>
+						</div>
+						<div className = { less.createSBTInfoBox }>
+							<SubTitleWithItem
+								title = { <p className = { less.subtitleWithSwitch }>
+									Revocation by issuer
+									<XSwitch type = "secondary" />
+								</p> }
+							>
+								prompt text
+							</SubTitleWithItem>
+							<SubTitleWithItem title = { i18n('Features') }>
+								<TagsSelect placeholder = { i18n('Add Features...') } />
+							</SubTitleWithItem>
+						</div>
+						<div className = { less.createSBTFooterBox }>
+							<XButton
+								type = "primary"
+								onClick = { () => {
+									validate();
+								} }
+							>Create SBT</XButton>
+						</div>
 					</div>
-					<div className = { less.createSBTInfoBox }>
-						<SubTitleWithItem
-							title = { <p className = { less.subtitleWithSwitch }>
-								Revocation by issuer
-								<XSwitch type = "secondary" />
-							</p> }
-						>
-							prompt text
-						</SubTitleWithItem>
-						<SubTitleWithItem title = { i18n( 'Features' ) }>
-							<TagsSelect placeholder = { i18n( 'Add Features...' ) } />
-						</SubTitleWithItem>
-					</div>
-					<div className = { less.createSBTFooterBox }>
-						<XButton
-							type = "primary"
-							onClick = { () => {
-								validate();
-							} }
-						>Create SBT</XButton>
-					</div>
+					{/*右边的preview部分 :*/ }
+					<NewSBTPreview />
 				</div>
-				{/*右边的preview部分 :*/ }
-				<NewSBTPreview />
 			</div>
+		
 		</div>
 	</>;
 } );
@@ -228,7 +232,7 @@ import { reaxel_newSBT } from './reaxel--new-SBT';
 
 import { Img } from '@@common/Xcomponents';
 import less from './index.module.less';
-import { ButtonGoBack } from '@@pages/DesignComponents/Button-GoBack';
+import { Header_GoBack } from '@@pages/DesignComponents/Button-GoBack';
 import {
 	XInput ,
 	XTextArea ,
