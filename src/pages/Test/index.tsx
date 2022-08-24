@@ -28,6 +28,7 @@ import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
 import { DxzSBTDetails } from './dxz-SBT-details';
+import { PreventDupTest } from './Reaxel-fact--prevent-dup-request';
 
 
 export const Test = () => <div className = { less.HomeRoot }>

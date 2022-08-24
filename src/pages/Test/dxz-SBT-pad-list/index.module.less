@@ -71,14 +71,12 @@
 	width: 1200px;
 	display: flex;
 	justify-content: space-between;
-	flex-direction: row;
-	flex-wrap: nowrap;
 	margin-bottom: 26px;
 	align-items: center;
 }
 .SBTs-search-input:global(.ant-input-affix-wrapper){
 	padding: 10px 12px 10px 16px;
-	width: 256px;
+	min-width: 256px;
 	height: 40px;
 	background: #FFFFFF;
 	border: 2px solid #E6E8EC;
@@ -87,8 +85,6 @@
 }
 .SBTs-indexing-with-Btn{
 	display: flex;
-	justify-content: flex-start;
-	flex-direction: row;
 	flex-wrap: nowrap;
 }
 .create-new-btn:global(.ant-btn){
@@ -105,11 +101,11 @@
 	
 }
 .SBT-Select-type:global(.ant-select-single:not(.ant-select-customize-input)) {
-	width:124px ;
+	min-width:178px ;
 	height: 40px;
 	margin-left:16px;
 	:global(.ant-select-selector) {
-		width:124px ;
+		min-width:124px ;
 		height: 40px;
 		background: #ffffff;
 		border: 2px solid #e6e8ec;

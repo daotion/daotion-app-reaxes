@@ -17,11 +17,14 @@ export namespace SBT_list {
 		"spaceID" : number,
 		"type" : string;
 		"chainID" : string;
+		/*模糊搜索*/
+		"name" : string;
 	};
 	export type response = {
 		"indexEnd": number,
 		"count": number,
 		"firstTimestamp": number,
+		"total": number,
 		"infos" : SBTListItem[];
 	};
 }
