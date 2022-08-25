@@ -12,3 +12,4 @@ export * from './Select-arrow-icon.svg-component';
 export * from './Header-notification-icon.svg-component';
 export * from './SVG-close-icon';
 export * from './all-SBT-SVG';
+export * from './create-space-modal-svg';
