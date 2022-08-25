@@ -5,9 +5,11 @@ export const DxzSBTPadList = ComponentWrapper(() => {
 	const {
 		fetchSBTList ,
 		SBT_Pad_Store ,
+		scrollParentRef ,
 	} = reaxel_SBT_list();
-	
+	const ref = reaxel_scrollParentRef();
 	fetchSBTList({ spaceID });
+	console.log(ref);
 	return <>
 		<div className = { less.allSBTsContainer }>
 			{/*分为顶部的若干个SBT索引框和下面展示的SBT card list*/ }
@@ -20,15 +22,32 @@ export const DxzSBTPadList = ComponentWrapper(() => {
 			</div>
 			
 			<div className = { less.SBTsDisplayCardList }>
-				{ SBT_Pad_Store.SBT_list.map((item) => {
-					return <SBTDisplayCard
-						key = { item.SBTID }
-						chainID = { item.chainID }
-						SBT_name = { item.name }
-						type = { item.type }
-						picUrl = { 'https://www.ali213.net/images/yxlogo.png' }
-					/>;
-				}) }
+				
+				<InfiniteScroll
+					style = { {
+						display : "flex" ,
+						flexFlow : "row wrap" ,
+						justifyContent : "flex-start" ,
+					} }
+					pageStart = { 0 }
+					hasMore = { SBT_Pad_Store.hasMore }
+					loadMore = { () => {
+						fetchSBTList({ spaceID , count:20 });
+					} }
+					getScrollParent = { () => ref.current }
+					useWindow = { false }
+					threshold = { 300 }
+				>
+					{ SBT_Pad_Store.SBT_list.map((item) => {
+						return <SBTDisplayCard
+							key = { item.SBTID }
+							chainID = { item.chainID }
+							SBT_name = { item.name }
+							type = { item.type }
+							picUrl = { 'https://www.ali213.net/images/yxlogo.png' }
+						/>;
+					}) }
+				</InfiniteScroll>
 			</div>
 		</div>
 	</>;
@@ -144,9 +163,11 @@ export const SBTCreateNewBtn = ComponentWrapper(() => {
 import {
 	reaxel_SBT_list ,
 	reaxel_wallet ,
+	reaxel_scrollParentRef,
 } from "@@reaxels";
 import { Img } from '@@common/Xcomponents';
 import { XButton } from '@@pages/Test/dxz-button';
+import InfiniteScroll from 'react-infinite-scroller';
 import {
 	SVGSearch ,
 	SVGSelectSuffix ,

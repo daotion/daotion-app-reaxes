@@ -16,11 +16,11 @@ import {
 import { ethers } from 'ethers';
 import { XInput } from '@@pages/Test/dxz-input';
 import { XSelect } from '@@pages/Test/dxz-select';
-import less from '../../styles/reaxels.module.less';
 import {
 	SVGSelectArrowIcon,
 } from '@@pages/_SvgComponents/space-setting-svg';
-import { OptionNetEthereum } from '@@pages/Plugin-SBT-Pad--New';
+import less from '../../styles/reaxels.module.less';
+
 
 export const reaxel_create_space = function () {
 	const {
@@ -311,7 +311,9 @@ export const reaxel_create_space = function () {
 											className = { less.antdNetSelect }
 											dropdownClassName = { less.dropDownMenu }
 										>
-											<Select.Option value = "Ethereum"><OptionNetEthereum/></Select.Option>
+											<Select.Option value = "Ethereum">
+												<OptionNetEthereum/>
+											</Select.Option>
 										</Select>
 									</div>
 									<div className = { less.formItem }>
@@ -375,7 +377,14 @@ const update_space_list = async (spaceID:number) => {
 
 
 
-
+export const OptionNetEthereum = ComponentWrapper( () => {
+	return <>
+		<span className={less.netEthereum}>
+			<SVGNetEthereum/>
+			Ethereum
+		</span>
+	</>;
+} );
 
 
 
@@ -408,3 +417,54 @@ const SVGCloseIcon = () => {
 	</>;
 };
 
+export const SVGNetEthereum = ComponentWrapper( () => {
+	return <>
+		<svg
+			style={{marginRight:"8px"}}
+			width = "24"
+			height = "24"
+			viewBox = "0 0 16 16"
+			fill = "none"
+			xmlns = "http://www.w3.org/2000/svg"
+		>
+			<g clipPath = "url(#clip0_2540_29067)">
+				<path
+					d = "M0 8C0 3.5816 3.58166 0 8.00014 0C12.4186 0 16.0003 3.5816 16.0003 8C16.0003 12.4184 12.4186 16 8.00014 16C3.58166 16 0 12.4184 0 8Z"
+					fill = "#627EEA"
+				/>
+				<path
+					d = "M4 7.7243L8 9.99967V1.33301L4 7.7243Z"
+					fill = "white"
+				/>
+				<path
+					opacity = "0.8"
+					d = "M8.00041 1.33301L8 9.99967L12 7.75276L8.00041 1.33301Z"
+					fill = "#C0CBF6"
+				/>
+				<path
+					d = "M4 8.86426L7.92927 14.4003V11.1859L4 8.86466V8.86426Z"
+					fill = "white"
+				/>
+				<path
+					opacity = "0.8"
+					d = "M7.92969 11.1859V14.4003L11.8606 8.86426L7.92969 11.1859Z"
+					fill = "#C0CBF6"
+				/>
+				<path
+					opacity = "0.6"
+					d = "M8.00061 6L4 7.73966L8.00061 10L12 7.73966L8.00061 6Z"
+					fill = "#8197EE"
+				/>
+			</g>
+			<defs>
+				<clipPath id = "clip0_2540_29067">
+					<rect
+						width = "16.0003"
+						height = "16"
+						fill = "white"
+					/>
+				</clipPath>
+			</defs>
+		</svg>
+	</>;
+} );
