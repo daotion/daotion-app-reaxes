@@ -43,8 +43,8 @@ export const DxzConnectWalletPopup = () => {
 						xmlns = "http://www.w3.org/2000/svg"
 					>
 						<path
-							fill-rule = "evenodd"
-							clip-rule = "evenodd"
+							fillRule = "evenodd"
+							clipRule = "evenodd"
 							d = "M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z"
 							fill = "#23262F"
 						/>
@@ -55,7 +55,7 @@ export const DxzConnectWalletPopup = () => {
 							height = "38"
 							rx = "19"
 							stroke = "#E6E8EC"
-							stroke-width = "2"
+							strokeWidth = "2"
 						/>
 					</svg>
 				</h1>
@@ -115,204 +115,204 @@ export const DxzConnectWalletPopup = () => {
 									d = "M23.3954 7.89323L16.7319 12.901L17.9642 9.9465L23.3954 7.89323Z"
 									fill = "#E2761B"
 									stroke = "#E2761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M8.0127 7.89323L14.6226 12.9485L13.4507 9.9465L8.0127 7.89323Z"
 									fill = "#E4761B"
 									stroke = "#E4761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M20.9983 19.5015L19.2236 22.2526L23.0208 23.3099L24.1125 19.5624L20.9983 19.5015Z"
 									fill = "#E4761B"
 									stroke = "#E4761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M7.30908 19.5624L8.39398 23.3099L12.1912 22.2526L10.4165 19.5015L7.30908 19.5624Z"
 									fill = "#E4761B"
 									stroke = "#E4761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M11.9771 14.8528L10.9189 16.4724L14.6894 16.6418L14.5554 12.542L11.9771 14.8528Z"
 									fill = "#E4761B"
 									stroke = "#E4761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M19.4308 14.8527L16.819 12.4945L16.7319 16.6417L20.4957 16.4723L19.4308 14.8527Z"
 									fill = "#E4761B"
 									stroke = "#E4761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M12.1914 22.2526L14.455 21.1346L12.4995 19.5895L12.1914 22.2526Z"
 									fill = "#E4761B"
 									stroke = "#E4761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M16.9531 21.1346L19.2234 22.2526L18.9087 19.5895L16.9531 21.1346Z"
 									fill = "#E4761B"
 									stroke = "#E4761B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M19.2229 22.2525L16.9526 21.1344L17.1335 22.632L17.1134 23.2622L19.2229 22.2525Z"
 									fill = "#D7C1B3"
 									stroke = "#D7C1B3"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M12.1914 22.2525L14.301 23.2622L14.2876 22.632L14.455 21.1344L12.1914 22.2525Z"
 									fill = "#D7C1B3"
 									stroke = "#D7C1B3"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M14.3344 18.6002L12.4458 18.0377L13.7785 17.4211L14.3344 18.6002Z"
 									fill = "#233447"
 									stroke = "#233447"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M17.0728 18.6002L17.6286 17.4211L18.968 18.0377L17.0728 18.6002Z"
 									fill = "#233447"
 									stroke = "#233447"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M12.1912 22.2526L12.5127 19.5015L10.4165 19.5624L12.1912 22.2526Z"
 									fill = "#CD6116"
 									stroke = "#CD6116"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M18.9009 19.5015L19.2223 22.2526L20.9971 19.5624L18.9009 19.5015Z"
 									fill = "#CD6116"
 									stroke = "#CD6116"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M20.4951 16.4723L16.7314 16.6417L17.0797 18.6001L17.6355 17.421L18.9749 18.0377L20.4951 16.4723Z"
 									fill = "#CD6116"
 									stroke = "#CD6116"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M12.4449 18.0377L13.7843 17.421L14.3334 18.6001L14.6884 16.6417L10.918 16.4723L12.4449 18.0377Z"
 									fill = "#CD6116"
 									stroke = "#CD6116"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M10.9189 16.4723L12.4994 19.5895L12.4458 18.0377L10.9189 16.4723Z"
 									fill = "#E4751F"
 									stroke = "#E4751F"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M18.9752 18.0377L18.9082 19.5895L20.4954 16.4723L18.9752 18.0377Z"
 									fill = "#E4751F"
 									stroke = "#E4751F"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M14.6894 16.6418L14.3345 18.6002L14.7765 20.9109L14.8769 17.8683L14.6894 16.6418Z"
 									fill = "#E4751F"
 									stroke = "#E4751F"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M16.7316 16.6418L16.5508 17.8615L16.6311 20.9109L17.0798 18.6002L16.7316 16.6418Z"
 									fill = "#E4751F"
 									stroke = "#E4751F"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M17.0805 18.6002L16.6318 20.911L16.9533 21.1346L18.9088 19.5896L18.9758 18.0378L17.0805 18.6002Z"
 									fill = "#F6851B"
 									stroke = "#F6851B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M12.4458 18.0378L12.4994 19.5896L14.4549 21.1346L14.7764 20.911L14.3344 18.6002L12.4458 18.0378Z"
 									fill = "#F6851B"
 									stroke = "#F6851B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M17.1137 23.2623L17.1338 22.6321L16.9664 22.483H14.4416L14.2876 22.6321L14.301 23.2623L12.1914 22.2526L12.9281 22.8625L14.4215 23.913H16.9865L18.4866 22.8625L19.2233 22.2526L17.1137 23.2623Z"
 									fill = "#C0AD9E"
 									stroke = "#C0AD9E"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M16.953 21.1344L16.6316 20.9108H14.7765L14.455 21.1344L14.2876 22.632L14.4416 22.4829H16.9664L17.1338 22.632L16.953 21.1344Z"
 									fill = "#161616"
 									stroke = "#161616"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M23.6764 13.2263L24.2457 10.4615L23.3952 7.89323L16.9526 12.7316L19.4305 14.8527L22.933 15.8895L23.71 14.9746L23.3752 14.7307L23.9109 14.236L23.4955 13.9107L24.0313 13.4974L23.6764 13.2263Z"
 									fill = "#763D16"
 									stroke = "#763D16"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M7.16846 10.4615L7.7377 13.2263L7.37606 13.4974L7.91183 13.9107L7.5033 14.236L8.03906 14.7307L7.70422 14.9746L8.47437 15.8895L11.9769 14.8527L14.4548 12.7316L8.01229 7.89323L7.16846 10.4615Z"
 									fill = "#763D16"
 									stroke = "#763D16"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M22.9331 15.8897L19.4306 14.8529L20.4954 16.4724L18.9082 19.5896L20.9977 19.5625H24.1118L22.9331 15.8897Z"
 									fill = "#F6851B"
 									stroke = "#F6851B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M11.9769 14.8529L8.47435 15.8897L7.30908 19.5625H10.4165L12.4992 19.5896L10.9188 16.4724L11.9769 14.8529Z"
 									fill = "#F6851B"
 									stroke = "#F6851B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 								<path
 									d = "M16.7317 16.6418L16.9527 12.7317L17.9707 9.94661H13.4502L14.4547 12.7317L14.6891 16.6418L14.7695 17.8751L14.7762 20.9109H16.6313L16.6447 17.8751L16.7317 16.6418Z"
 									fill = "#F6851B"
 									stroke = "#F6851B"
-									stroke-linecap = "round"
-									stroke-linejoin = "round"
+									strokeLinecap = "round"
+									strokeLinejoin = "round"
 								/>
 							</svg>
 							
@@ -462,8 +462,8 @@ export const DxzConnectWalletPopup = () => {
 							xmlns = "http://www.w3.org/2000/svg"
 						>
 							<path
-								fill-rule = "evenodd"
-								clip-rule = "evenodd"
+								fillRule = "evenodd"
+								clipRule = "evenodd"
 								d = "M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z"
 								fill = "#23262F"
 							/>
@@ -474,7 +474,7 @@ export const DxzConnectWalletPopup = () => {
 								height = "38"
 								rx = "19"
 								stroke = "#E6E8EC"
-								stroke-width = "2"
+								strokeWidth = "2"
 							/>
 						</svg>
 					</h1>
@@ -563,8 +563,8 @@ export const DxzConnectWalletPopup = () => {
 							xmlns = "http://www.w3.org/2000/svg"
 						>
 							<path
-								fill-rule = "evenodd"
-								clip-rule = "evenodd"
+								fillRule = "evenodd"
+								clipRule = "evenodd"
 								d = "M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z"
 								fill = "#23262F"
 							/>
@@ -575,7 +575,7 @@ export const DxzConnectWalletPopup = () => {
 								height = "38"
 								rx = "19"
 								stroke = "#E6E8EC"
-								stroke-width = "2"
+								strokeWidth = "2"
 							/>
 						</svg>
 					</h1>
@@ -666,8 +666,8 @@ export const DxzConnectWalletPopup = () => {
 							xmlns = "http://www.w3.org/2000/svg"
 						>
 							<path
-								fill-rule = "evenodd"
-								clip-rule = "evenodd"
+								fillRule = "evenodd"
+								clipRule = "evenodd"
 								d = "M13.2929 13.2929C13.6834 12.9024 14.3166 12.9024 14.7071 13.2929L20 18.5858L25.2929 13.2929C25.6834 12.9024 26.3166 12.9024 26.7071 13.2929C27.0976 13.6834 27.0976 14.3166 26.7071 14.7071L21.4142 20L26.7071 25.2929C27.0976 25.6834 27.0976 26.3166 26.7071 26.7071C26.3166 27.0976 25.6834 27.0976 25.2929 26.7071L20 21.4142L14.7071 26.7071C14.3166 27.0976 13.6834 27.0976 13.2929 26.7071C12.9024 26.3166 12.9024 25.6834 13.2929 25.2929L18.5858 20L13.2929 14.7071C12.9024 14.3166 12.9024 13.6834 13.2929 13.2929Z"
 								fill = "#23262F"
 							/>
@@ -678,7 +678,7 @@ export const DxzConnectWalletPopup = () => {
 								height = "38"
 								rx = "19"
 								stroke = "#E6E8EC"
-								stroke-width = "2"
+								strokeWidth = "2"
 							/>
 						</svg>
 					</div>
@@ -703,14 +703,14 @@ export const DxzConnectWalletPopup = () => {
 								fill = "#0070F3"
 							/>
 							<path
-								fill-rule = "evenodd"
-								clip-rule = "evenodd"
+								fillRule = "evenodd"
+								clipRule = "evenodd"
 								d = "M47 33H33C31.8954 33 31 33.8954 31 35V45C31 46.1046 31.8954 47 33 47H47C48.1046 47 49 46.1046 49 45V35C49 33.8954 48.1046 33 47 33ZM33 31C30.7909 31 29 32.7909 29 35V45C29 47.2091 30.7909 49 33 49H47C49.2091 49 51 47.2091 51 45V35C51 32.7909 49.2091 31 47 31H33Z"
 								fill = "#FCFCFD"
 							/>
 							<path
-								fill-rule = "evenodd"
-								clip-rule = "evenodd"
+								fillRule = "evenodd"
+								clipRule = "evenodd"
 								d = "M41 40C41 37.2386 43.2386 35 46 35H50C50.5523 35 51 35.4477 51 36C51 36.5523 50.5523 37 50 37H46C44.3431 37 43 38.3431 43 40C43 41.6569 44.3431 43 46 43H50C50.5523 43 51 43.4477 51 44C51 44.5523 50.5523 45 50 45H46C43.2386 45 41 42.7614 41 40Z"
 								fill = "#FCFCFD"
 							/>
