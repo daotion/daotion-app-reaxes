@@ -60,4 +60,4 @@ export const CropperTest = ComponentWrapper( () => {
 
 
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
-import { reaxel_fact__Cropper } from "@@reaxels/Reaxel-Factories/cropper.fact";
+import { reaxel_fact__Cropper } from "@@reaxels/Reaxel-Factories/Reaxel-fact--Cropper";

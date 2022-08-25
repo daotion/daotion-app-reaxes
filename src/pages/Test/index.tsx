@@ -29,7 +29,7 @@ import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
 import { DxzSBTDetails } from './dxz-SBT-details';
 import { DxzModalCropper } from './dxz-modal-cropper';
-import { PreventDupTest } from './Reaxel-fact--prevent-dup-request';
+import { PreventDupTest } from '../../reaxels/Reaxel-Factories/Reaxel-fact--prevent-dup-request';
 
 
 export const Test = () => <div className = { less.HomeRoot }>

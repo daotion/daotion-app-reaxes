@@ -1,5 +1,5 @@
 /**
- * 当发起多个相似请求时, 只
+ * 当发起多个相似请求时, 只保留最后一个结果, 之前的then里被preventDup包裹的回调将不会运行, 防止重复渲染等.
  */
 export const reaxel_fact__prevent_dup_request = function
 	<T extends (preventDup : (callback) => Promise<F>) => (...args:A[]) => Promise<F> , F = any , A = any >
@@ -10,9 +10,6 @@ export const reaxel_fact__prevent_dup_request = function
 	} = orzMobx({
 		pending : null as Promise<F> ,
 	});
-	
-	
-	
 	return () => {
 		
 		return {
@@ -32,7 +29,7 @@ export const reaxel_fact__prevent_dup_request = function
 		};
 	};
 };
-
+/*↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓以下是使用示例*/
 
 const reaxel_fetch = function(){
 	const { store , setState } = orzMobx({
