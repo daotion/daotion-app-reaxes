@@ -238,7 +238,6 @@ import {
 const { Button } = antd;
 const PluginListItem = ( props : PluginListItemProps ) => {
 	const { navigate } = utils.useRouter();
-	console.log( props.selecting );
 	return <>
 		<div
 			onClick = { () => navigate( props.navigateTo ) }

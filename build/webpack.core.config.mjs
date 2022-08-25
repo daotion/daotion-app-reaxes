@@ -36,7 +36,9 @@ export const basicConfig$Fn = (plugins = []) => ({
 		main : '/src/main.tsx' ,
 	} ,
 	output : {
-		filename : '[name].bundle.[fullhash:6].js' ,
+		// filename : '[name].bundle.[fullhash:6].js' ,
+		/*todo*/
+		filename : method === "server" ? '[name].bundle.js' : "[name].bundle.[contenthash:6].js" ,
 		path : path.resolve(rootPath , 'dist') ,
 		// publicPath : path.resolve(rootPath , 'dist') ,
 	} ,
@@ -71,10 +73,10 @@ export const basicConfig$Fn = (plugins = []) => ({
 		] ,
 	} ,
 	devtool : 'cheap-source-map' , 
-	// cache : {
-	// 	type : "filesystem",
-	// 	allowCollectingMemory: true, 
-	// } ,
+	cache : {
+		type : "memory",
+		maxGenerations: 2, 
+	} ,
 	module : {
 		rules : [
 			{

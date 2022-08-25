@@ -71,6 +71,7 @@ export const reaxel_SBT_list = function(){
 				preventDup(() => {
 					setState({
 						SBT_list : res.infos ,
+						hasMore : res.count === count ,
 					});
 				});
 			}).finally(() => {
@@ -80,25 +81,41 @@ export const reaxel_SBT_list = function(){
 			});
 		}
 	})();
-	
+	const reax_scrollParentRef = Reaxel_fact__scrollParentRef()();
 	return () => {
 		return {
 			get SBT_Pad_Store(){
 				Reaxes.collectDeps(store);
 				return store;
 			} ,
+			get scrollParentRef(){
+				return reax_scrollParentRef;
+			},
 			setSBTSearchFields (state:Partial<typeof store>){
 				setState(state);
 			},
-			fetchSBTList({ spaceID , count = 40 }){
-				closuredFetch__SBT_Pad_list(() => [
+			fetchSBTList({ spaceID , count = 40 },fetchMore = true){
+				let indexStart = store.tailIndex;
+				let firstTimestamp = store.firstTimestamp;
+				
+				
+				/*如果用户输入没有变的情况下请求*/
+				if(utils.default.shallowEqual(prevParams,{
+					
+				})) {
+					
+				}
+				console.log(11111111111);
+				
+				
+				closuredFetch__SBT_Pad_list(([sd]) => [
 					store.input_search ,
 					store.select_chain ,
 					store.select_type ,
 					spaceID ,
 				])({
 					spaceID : 2 || spaceID ,
-					indexStart : 0 ,
+					indexStart ,
 					firstTimestamp : 0 ,
 					count : 20
 				});
@@ -106,6 +123,16 @@ export const reaxel_SBT_list = function(){
 		};
 	};
 }();
+
+
+
+/*供react-infinite-scroller使用的ref-reaxel*/
+function Reaxel_fact__scrollParentRef() {
+	const scrollParentRef = React.createRef<HTMLDivElement>();
+	return () => {
+		return scrollParentRef;
+	};
+};
 
 
 import { SBT_list } from "@@requests/SBT/type";
