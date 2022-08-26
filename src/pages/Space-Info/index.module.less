@@ -17,7 +17,17 @@
 		}
 	}
 }
-
+.overview-title{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: fit-content;
+	user-select: none;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 32px;
+	color: rgb(26, 29, 31);
+}
 .member-name {
 	font-size: 14px;
 	font-weight: 600;
@@ -313,7 +323,13 @@
 .member-item:not(:last-child) {
 	margin-bottom: 8px;
 }
-
+.member-item{
+	height: 24px;
+	width: 260px;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+}
 .member-lists {
 	margin-top: 32px;
 	display: block;
