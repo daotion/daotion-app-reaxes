@@ -5,12 +5,11 @@ import PluginCenterBtn from '@@Public/Plugin-Center-Btn.component.svg';
 
 export const Sider_Space_Plugin_List = ComponentWrapper( () => {
 	
-	
 	const {
 		navigate ,
 		params ,
 	} = utils.useRouter();
-	console.log( params );
+	// console.log( params );
 	const paramsSpaceID = parseInt( params.spaceID );
 	// const {selecting} = reaxel_plugin_routing_controller(['sbt-pad',]);
 	const paramsCategory = params['*'];
@@ -28,7 +27,8 @@ export const Sider_Space_Plugin_List = ComponentWrapper( () => {
 				<PluginListItem
 					text = "Overview"
 					icon = { <SVGPluginOverviewIcon /> }
-					selecting={false}
+					navigateTo={`/space${paramsSpaceID}/info`}
+					selecting={paramsCategory === "info" && !!params.spaceID}
 				/>
 				
 				{ enum_plugin_list.map( ( {
@@ -36,13 +36,13 @@ export const Sider_Space_Plugin_List = ComponentWrapper( () => {
 					navigateTo ,
 					text ,
 				} ) => {
-					console.log([paramsCategory,text]);
+					// console.log([paramsCategory,text]);
 					return <PluginListItem
 						key = { text }
 						text = { text }
 						icon = { icon }
 						navigateTo = { navigateTo }
-						selecting={paramsCategory === navigateTo}
+						selecting = { paramsCategory.includes(navigateTo) }
 					/>;
 				} ) }
 				{/*<PluginListItem

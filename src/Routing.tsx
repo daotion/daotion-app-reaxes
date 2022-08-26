@@ -106,7 +106,7 @@ export const MainContentRouting = ( props ) => <Routes>
 			</Route>
 			<Route
 				path = "sbt-fusion"
-				element = { <SpaceInfo /> }
+				element = { <>SBT Fusion</> }
 			/>
 			<Route
 				path = "settings"
