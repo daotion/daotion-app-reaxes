@@ -194,7 +194,6 @@ export const SBTRulesCheckbox=ComponentWrapper(()=>{
 	return<>
 		<Col style={{marginTop:"24px"}}>
 			<Checkbox
-				checked = { true }
 				className={less.SBTRulesCheckbox}>
 				Destruction by issuer</Checkbox>
 		</Col>
