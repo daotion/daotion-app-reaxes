@@ -1,27 +1,4 @@
 export const Reaxes = new (class {
-	/*渲染时触发的动作, 使用标记位来防止重复渲染*/
-	renderAction(){
-		/*null是第一次渲染状态;true是可以触发渲染轮;false是阻止渲染轮*/
-		let flag = true;
-		
-		return (action : Function , lifcecycle? : Lifecycle) => {
-			action();
-			return;
-			/*if(flag === null){
-				// action?.();
-				flag = true;
-				return;
-			}else */
-			if( flag === true ) {
-				action?.();
-				flag = false;
-				return;
-			} else {
-				flag = true;
-				return;
-			}
-		};
-	};
 	
 	observedMemo<F extends (first? : boolean , disposer? : IReactionDisposer) => any>(callback : F , dependencies) : ReturnType<F>{
 		let depList = dependencies();
@@ -101,7 +78,6 @@ export const Reaxes = new (class {
 
 type Reaxes = new () => {
 	collectDeps(store : object , propKeys? : ( string | number | symbol )[]) : void;
-	renderAction() : (callback : Function) => any;
 	/*自动收集dependencies里的依赖, 当依赖变化时自动*/
 	observedMemo<F extends (first : boolean , disposer? : IReactionDisposer) => any>(callback : F , dependencies) : ReturnType<F>;
 	/*将其返回值存储下来 , 每次调用其时传入依赖数组,当与上次浅比较不匹配时才会执行,否则忽略*/
