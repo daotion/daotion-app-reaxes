@@ -29,7 +29,7 @@ export default util = Object.freeze( new class {
 		return object as Pick<O,ArrayElement<K>> ;
 	};
 	
-	shallowEqual = shallowequal;
+	shallowEqual:(src,target) => boolean = shallowequal;
 } );
 
 

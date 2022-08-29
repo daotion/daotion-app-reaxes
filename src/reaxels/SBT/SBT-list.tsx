@@ -5,22 +5,21 @@ export const reaxel_SBT_list = function(){
 		select_chain : null ,
 		select_type : null ,
 		
-		
-		firstTimestamp : 0 ,
-		/*当前分页最后一个在总列表的索引位置*/
-		tailIndex : 0 ,
-		hasMore : null ,
+		total : 0 ,
+		hasMore : false ,
 		
 		pending : false ,
 	});
-	const prevParams = {
+	/*记录上一次请求的状态,*/
+	const [ prevParams , assignPrevParams ] = utils.makePair({
 		firstTimestamp : 0 ,
+		/*当前分页最后一个在总列表的索引位置(以1开头的),映射后端接口的indexEnd*/
 		tailIndex : 0 ,
 		
 		input_search : null ,
 		select_chain : null ,
 		select_type : null ,
-	};
+	} , (ori) => (partial:Partial<typeof ori>) => _.assign(ori , partial));
 	
 	const reax_wallet = reaxel_wallet();
 	const closuredFetch__SBT_Pad_list = Reaxes.closuredMemo((args : {
@@ -29,8 +28,10 @@ export const reaxel_SBT_list = function(){
 			count? : number;
 			firstTimestamp? : number,
 		}) => {
+		
 			return reax_fetch_SBT_list.grasp(args);
 		} , () => [
+			null,
 			store.input_search ,
 			store.select_chain ,
 			store.select_type ,
@@ -41,7 +42,7 @@ export const reaxel_SBT_list = function(){
 		return ({
 			spaceID ,
 			count = 40 ,
-			firstTimestamp = store.firstTimestamp ,
+			firstTimestamp = prevParams.firstTimestamp ,
 			indexStart ,
 		} : {
 			spaceID : number;
@@ -50,17 +51,18 @@ export const reaxel_SBT_list = function(){
 			firstTimestamp? : number,
 		}) => {
 			return request__SBT_list(async () => {
+				
 				return {
 					indexStart ,
 					count ,
-					firstTimestamp : 0 ,
+					firstTimestamp ,
 					spaceID ,
 					type : store.select_type ,
 					chainID : store.select_chain ,
 					name : store.input_search,
 				};
 			}).then((res) => {
-				_.assign(prevParams , {
+				assignPrevParams({
 					firstTimestamp : res.firstTimestamp ,
 					tailIndex : res.indexEnd ,
 					input_search : store.input_search ,
@@ -70,7 +72,10 @@ export const reaxel_SBT_list = function(){
 				
 				preventDup(() => {
 					setState({
-						SBT_list : res.infos ,
+						SBT_list : firstTimestamp ? [
+							...store.SBT_list ,
+							...res.infos,
+						] : res.infos ,
 						hasMore : res.count === count ,
 					});
 				});
@@ -94,30 +99,38 @@ export const reaxel_SBT_list = function(){
 			setSBTSearchFields (state:Partial<typeof store>){
 				setState(state);
 			},
-			fetchSBTList({ spaceID , count = 40 },fetchMore = true){
-				let indexStart = store.tailIndex;
-				let firstTimestamp = store.firstTimestamp;
-				
-				
-				/*如果用户输入没有变的情况下请求*/
-				if(utils.default.shallowEqual(prevParams,{
-					
-				})) {
-					
+			/**
+			 * 内部驱动状态的获取sbt列表封装,视图层只简单调用.
+			 */
+			fetchSBTList({ spaceID , count = 40 },fetchMore?){
+				const userInputChanged = !utils.default.shallowEqual(prevParams,{
+					...prevParams ,
+					input_search : store.input_search ,
+					select_chain : store.select_chain ,
+					select_type : store.select_type ,
+				});
+				/*如果用户输入变化 则重置请求*/
+				if(userInputChanged) {
+					assignPrevParams({
+						firstTimestamp : 0 ,
+						tailIndex : 0 ,
+					});
 				}
-				console.log(11111111111);
 				
-				
-				closuredFetch__SBT_Pad_list(([sd]) => [
-					store.input_search ,
-					store.select_chain ,
-					store.select_type ,
-					spaceID ,
-				])({
+				closuredFetch__SBT_Pad_list((prev) => {
+					const ret = [
+						fetchMore ? Math.random() : prev[0],
+						store.input_search ,
+						store.select_chain ,
+						store.select_type ,
+						spaceID ,
+					];
+					return ret;
+				})({
 					spaceID : 2 || spaceID ,
-					indexStart ,
-					firstTimestamp : 0 ,
-					count : 20
+					indexStart : prevParams.tailIndex ,
+					firstTimestamp : prevParams.firstTimestamp ,
+					count : 20 ,
 				});
 			} ,
 		};

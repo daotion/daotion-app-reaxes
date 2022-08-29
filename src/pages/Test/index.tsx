@@ -22,8 +22,6 @@ import { DxzButton } from './dxz-button';
 import { DxzInput } from './dxz-input';
 import { DxzSwitch } from './dxz-switch';
 import { DxzSelect } from './dxz-select';
-import { DxzCreateSBT } from './dxz-create-SBT';
-import { DxzSBTPadList } from './dxz-SBT-pad-list';
 import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
