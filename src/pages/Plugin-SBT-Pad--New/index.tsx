@@ -136,8 +136,13 @@ export const NewSBT = ComponentWrapper( () => {
 							<SubTitleWithItem
 								title = { `* ${i18n('Limit of Each Address')}` }
 							>
+								<p className = { less.someIntro }>
+									If the number is 1, the ERC721 standard is enabled.
+									If the number is greater than 1, the ERC1155 standard is enabled.
+								</p>
 								<XInput
 									type = "primary"
+									placeholder="e.g. 1"
 									value = { newSBT_store.input_number__hold_limit_number }
 									onChange = { (e) => {
 										setFields({
@@ -145,19 +150,19 @@ export const NewSBT = ComponentWrapper( () => {
 										});
 									} }
 								/>
-								<p className = { less.someIntro }>
-									If the number is 1, the ERC721 standard is enabled.
-									If the number is greater than 1, the ERC1155 standard is enabled.
-								</p>
 							</SubTitleWithItem>
 							
 							<SubTitleWithItem
 								title = { <p className = { less.subtitleWithSwitch }>
 									<span>
-										Issue quantity
+										* Maximun of SBT
 									</span>
 									<span>
-										infinite
+										<span className={less.infinite}>
+											infinite
+											<SVGSubtract/>
+										</span>
+			
 										<XSwitch
 											type = "secondary"
 											onChange = { (checked) => {
@@ -174,7 +179,29 @@ export const NewSBT = ComponentWrapper( () => {
 									type = "primary"
 								/>
 							</SubTitleWithItem>
+
 							<SubTitleWithItem
+								title = { <p className = { less.subtitleWithSwitch }>
+									* Revoke by Issuer
+									<XSwitch type = "secondary" />
+								</p> }
+							>
+							</SubTitleWithItem>
+
+							<SubTitleWithItem
+								title = { <p className = { less.subtitleWithSwitch }>
+									* Burned by Holder
+									<XSwitch type = "secondary" />
+								</p> }
+							>
+							</SubTitleWithItem>
+
+
+
+
+
+
+							{/* <SubTitleWithItem
 								title = { i18n('Network') }
 							>
 								<Select
@@ -202,7 +229,7 @@ export const NewSBT = ComponentWrapper( () => {
 										</Select.Option>;
 									}) }
 								</Select>
-							</SubTitleWithItem>
+							</SubTitleWithItem> */}
 						</div>
 						<div className = { less.createSBTInfoBox }>
 							<SubTitleWithItem
