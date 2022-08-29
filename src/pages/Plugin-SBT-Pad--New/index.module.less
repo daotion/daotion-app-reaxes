@@ -21,6 +21,8 @@
 	background: #ffffff;
 	border-radius: 8px;
 	padding: 24px 24px 28px;
+
+	
 }
 
 .create-SBT-Preview-title {
@@ -34,6 +36,33 @@
 	color: #1a1d1f;
 	user-select: none;
 }
+
+.create-SBT-Right-Btn-area{
+	:global{
+		.ant-btn.ant-btn-default{
+			display: flex;
+			align-items: center;
+			text-align: right;
+			width: 292px;
+			height: 48px;
+			border: 1px solid #E6E8EC;
+			border-radius: 12px;
+			color: #141416;
+			padding: 16px 24px;
+			margin-bottom: 5px;
+
+			&:hover{
+				border: 1px solid #353945;
+			}
+
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+
 .SBT-preview-img{
 	width: 292px;
 	height: 292px;
@@ -93,16 +122,7 @@
 	font-size: 40px;
 	color: #313436;
 	user-select: none;
-	margin-bottom: 0;
-}
-
-.some-intro {
-	font-weight: 500;
-	font-size: 14px;
-	color: #777e91;
-	margin-bottom: 24px;
-	user-select: none;
-	margin-top: 12px;
+	margin-bottom: 15px;
 }
 
 .create-SBT-info-box {
@@ -128,14 +148,15 @@
 }
 
 .sub-title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	width: 100%;
 	font-weight: 600;
 	font-size: 14px;
 	color: #313436;
-	display: inline-block;
-	padding-bottom: 12px;
+	margin-bottom: 12px;
 	user-select: none;
-	
 }
 
 .net-ethereum {
@@ -168,6 +189,10 @@
 	
 	&:last-child {
 		margin-bottom: 0;
+	}
+
+	SVG{
+		margin-left: 5px;
 	}
 }
 

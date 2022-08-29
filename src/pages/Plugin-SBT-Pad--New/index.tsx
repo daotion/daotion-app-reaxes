@@ -23,24 +23,28 @@ export const NewSBT = ComponentWrapper( () => {
 			
 			<Header_GoBack />
 			<div>
-				<h1 className = { less.mainTitle }>New SBT</h1>
-				<p className = { less.someIntro }>
-					SBT is based on the ERC721 standardized protocol.
-				</p>
+				<h1 className = { less.mainTitle }>Create SBT</h1>
 				<div className = { less.createSBTInfo }>
 					{/*createSBTInfo分为左右两部分, 左边包括 三个信息框 以及底部Create SBT框*/ }
 					<div className = { less.createSBT_left }>
 						{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
 						<div className = { less.createSBTInfoBox }>
+
+
 							{/*上传图片*/ }
-							<SubTitleWithItem title = "Upload files">
+							{/* <SubTitleWithItem title = "Upload files">
 								<UploadFileBox />
-							</SubTitleWithItem>
+							</SubTitleWithItem> */}
+
+
 							
 							{/*表单区域*/ }
-							<SubTitleWithItem
-								title = { i18n("SBT type") }
+							<SubTitleWithItem 
+								title = { `* ${i18n("SBT type")}` }
+								icon = {<SVGSubtract/>}
 							>
+								
+
 								<Select
 									value = { newSBT_store.select__SBT_type }
 									onChange = { (value) => {
@@ -57,7 +61,7 @@ export const NewSBT = ComponentWrapper( () => {
 										borderRadius : "12px" ,
 										padding : "8px" ,
 									} }
-									placeholder = { i18n("Please select") }
+									placeholder = { i18n("Select") }
 								>
 									{ enum__SBT_type.map((text) => {
 										return <Select.Option
@@ -71,10 +75,11 @@ export const NewSBT = ComponentWrapper( () => {
 							</SubTitleWithItem>
 							
 							<SubTitleWithItem
-								title = { i18n("SBT name") }
+								title = { `* ${i18n("SBT name")}` }
 							>
 								<XInput
 									type = "primary"
+									placeholder= {i18n('Enter the SBT name')}
 									status = { convert(validations.input__SBT_name) }
 									value = { newSBT_store.input__SBT_name }
 									onChange = { (e) => {
@@ -83,21 +88,24 @@ export const NewSBT = ComponentWrapper( () => {
 								/>
 								{ validations.input__SBT_name === false && <p>this filed is requested</p> }
 							</SubTitleWithItem>
-							
-							<SubTitleWithItem
-								title = { i18n("SBT symbol") }
-							>
-								<XInput
-									// status={convert(validations.input__SBT_name)}
-									value = { newSBT_store.input__SBT_symbol }
-									onChange = { (e) => {
-										setFields({ input__SBT_symbol : e.target.value });
-									} }
-									type = "primary"
-									placeholder = { i18n('e.g. "SBT"') }
-								/>
-								{ validations.input__SBT_name === false && <p>this filed is requested</p> }
-							</SubTitleWithItem>
+
+
+							{/* <SubTitleWithItem
+                                title = { i18n("SBT symbol") }
+                            >
+                                <XInput
+                                    // status={convert(validations.input__SBT_name)}
+                                    value = { newSBT_store.input__SBT_symbol }
+                                    onChange = { (e) => {
+                                        setFields({ input__SBT_symbol : e.target.value });
+                                    } }
+                                    type = "primary"
+                                    placeholder = { i18n('e.g. "SBT"') }
+                                />
+                                { validations.input__SBT_name === false && <p>this filed is requested</p> }
+                            </SubTitleWithItem> */}
+
+
 							<SubTitleWithItem title = "Description">
 								<XTextArea type = "primary" />
 							</SubTitleWithItem>
@@ -106,7 +114,8 @@ export const NewSBT = ComponentWrapper( () => {
 						
 						<div className = { less.createSBTInfoBox }>
 							<SubTitleWithItem
-								title = "SBT access"
+								title = {`* ${i18n('Eligible (Data Condition)')}`}
+								icon = {<SVGSubtract/>}
 							>
 								<Select
 									suffixIcon = { <SVGSelectArrowIcon /> }
@@ -117,7 +126,7 @@ export const NewSBT = ComponentWrapper( () => {
 										borderRadius : "12px" ,
 										padding : "8px" ,
 									} }
-									placeholder = { i18n("Please select") }
+									placeholder = { i18n("Select") }
 								>
 									<Select.Option value = "type1">type1</Select.Option>
 									<Select.Option value = "type2">type2</Select.Option>
@@ -125,7 +134,7 @@ export const NewSBT = ComponentWrapper( () => {
 							</SubTitleWithItem>
 							
 							<SubTitleWithItem
-								title = { i18n('Hold the upper limit of each user') }
+								title = { `* ${i18n('Limit of Each Address')}` }
 							>
 								<XInput
 									type = "primary"
@@ -241,12 +250,14 @@ import { TagsSelect } from '@@pages/Test/dxz-select';
 import { XSwitch } from "@@pages/Test/dxz-switch";
 import { XButton } from "@@pages/Test/dxz-button";
 import {
+	Button,
 	Checkbox ,
 	Select ,
 } from 'antd';
 import {
 	SVGNetEthereum ,
 	SVGSelectArrowIcon ,
+	SVGSubtract
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 
 export const NewSBTPreview = ComponentWrapper( () => {
@@ -263,28 +274,30 @@ export const NewSBTPreview = ComponentWrapper( () => {
 	} = reax_newSBT;
 	return <>
 		<div className = { less.createSBT_right }>
-			<span className = { less.createSBTPreviewTitle }>
-				<I18n>Preview</I18n>
+			<span className={less.createSBTPreviewTitle}>
+				<I18n>Recommend SBT name</I18n>
 			</span>
 			
-			{ file ? <div>
-				<Img
-					className = { less.SBTPreviewImg }
-					src = { imgPreviewUrl }
-				/>
-				<div className = { less.SBTPreviewName }>
-					<I18n>{ newSBT_store.input__SBT_name }</I18n>
-				</div>
-				<div className = { less.SBTPreviewSpace }>
-					<Img
-						className = { less.previewSpaceAvatar }
-						src = "@@pages/Plugin-SBT-Pad--New/index"
-					/>
-					<span>SpaceName</span>
-				</div>
-			</div> : <p className = { less.createSBTPreviewContent }>
-				Upload file and choose collection to preview your brand new NFT
-			</p> }
+			<div className={less.createSBTRightBtnArea}>
+				<Button>
+					Proposal Builder Medal
+				</Button>
+				<Button>
+					Quarterly service medal
+				</Button>
+				<Button>
+					Proposal Builder Medal
+				</Button>
+				<Button>
+					Outstanding students
+				</Button>
+				<Button>
+					Brand Promotion Medal
+				</Button>
+				<Button>
+					Community Contribution Medal
+				</Button>
+			</div>
 		</div>
 	</>;
 } );
