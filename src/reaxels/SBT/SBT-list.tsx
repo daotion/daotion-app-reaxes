@@ -9,6 +9,7 @@ export const reaxel_SBT_list = function(){
 		hasMore : false ,
 		
 		pending : false ,
+		create_Modal_visible : false,
 	});
 	/*记录上一次请求的状态,*/
 	const [ prevParams , assignPrevParams ] = utils.makePair({
@@ -96,7 +97,7 @@ export const reaxel_SBT_list = function(){
 			get scrollParentRef(){
 				return reax_scrollParentRef;
 			},
-			setSBTSearchFields (state:Partial<typeof store>){
+			setFields (state:Partial<typeof store>){
 				setState(state);
 			},
 			/**

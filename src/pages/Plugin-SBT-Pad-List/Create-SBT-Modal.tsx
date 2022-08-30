@@ -1,0 +1,177 @@
+import { reaxel_SBT_list } from "@@reaxels";
+
+export const CreateSBTModal = ComponentWrapper(() => {
+	
+	const { Modal } = antd;
+	const { navigate } = utils.useRouter();
+	const { SBT_template } = reaxel__SBT_template();
+	const { setFields:setFields__newSBT } = reaxel_newSBT();
+	const { setFields:setFields__SBT_list,SBT_Pad_Store } = reaxel_SBT_list();
+	return <>
+		<Modal
+			visible = { SBT_Pad_Store.create_Modal_visible }
+			onCancel={() => {
+				setFields__SBT_list({ create_Modal_visible : false });
+			}}
+			className = { less.createSBTModal }
+			centered
+			maskClosable
+			closeIcon = { <SVGCloseIcon /> }
+			mask = { true }
+			width = "448px"
+			footer = { null }
+			maskStyle = { {
+				background : 'rgba(244, 244, 244, 0.8)' ,
+				backdropFilter : "blur(50px)" ,
+			} }
+		>
+			<h1 className = { less.mainTitle }>
+				<I18n>Create SBT</I18n>
+			</h1>
+			
+			{ SBT_template.map((temp , index) => {
+				
+				return <React.Fragment key = { temp.template_name }>
+					<SBTTemplateItem
+						icon = { temp.icon }
+						text = { temp.template_name }
+						onClick = {() => {
+							if(index === 0){
+								setFields__newSBT({
+									select__SBT_type : null ,
+									input__SBT_name : null as string ,
+									input__SBT_symbol : null as string ,
+									textarea__description : null as string ,
+									select__SBT_access : null ,
+									input_number__hold_limit_number : null as string ,
+									/*发行总量-无限开关*/
+									switch_issuance_quantity : null as string | number ,
+									/*发行总量-数量*/
+									input_issuance_quantity : null as string | number ,
+									select_network_chainID : null ,
+									select_features : [] ,
+								});
+							}else {
+								/*todo*/
+								setFields__newSBT({
+									select__SBT_type : temp.SBT_type ,
+									input__SBT_name : null as string ,
+									input__SBT_symbol : null as string ,
+									textarea__description : null as string ,
+									select__SBT_access : null ,
+									input_number__hold_limit_number : temp.limit_of_each_address ,
+									/*发行总量-无限开关*/
+									switch_issuance_quantity : null as string | number ,
+									/*发行总量-数量*/
+									input_issuance_quantity : null as string | number ,
+									select_network_chainID : null ,
+									select_features : [] ,
+								});
+							}
+							setFields__SBT_list({ create_Modal_visible : false });
+							navigate('new');
+						}}
+					/>
+					{ index === 0 && <h5 className = { less.subTitle }>Start from a template</h5> }
+				</React.Fragment>;
+			}) }
+			
+			<SBTTemplateItem
+				icon = { imgHonor }
+				text = "Honorary certificate template"
+			/>
+			
+			<SBTTemplateItem
+				icon = { imgBussiness }
+				text = "Business cooperation template"
+			/>
+			
+			<SBTTemplateItem
+				icon = { imgEvent }
+				text = "Event ticket template"
+			/>
+			
+			<SBTTemplateItem
+				icon = { imgMember }
+				text = "Membership card template"
+			/>
+		
+		</Modal>
+	</>;
+});
+
+
+import SBT_template from '@@Public/SBT--create-SBT-template.json';
+export const reaxel__SBT_template = function(){
+	
+	const icon_jsx_map:icon_jsx_map = {
+		"Blank template" : {
+			icon : imgBlank,
+		},
+		"Title template" : {
+			icon : imgTitle,
+		},
+		"Work certificate template" : {
+			icon : imgWork,
+		},
+	};
+	
+	return () => {
+		
+		return {
+			get SBT_template(){
+				return SBT_template.map((temp) => {
+					return {
+						...temp,
+						...icon_jsx_map[temp.template_name]
+					}
+				});
+			} ,
+		};
+	};
+	type icon_jsx_map = {
+		[p:string] : {
+			icon : string ,
+			
+		};
+	};
+}();
+
+
+
+
+type SBTTemplateItemProps = {
+	icon : string;
+	text : string;
+	onClick? : React.BaseHTMLAttributes<HTMLDivElement>['onClick'];
+};
+export const SBTTemplateItem = ComponentWrapper((props:SBTTemplateItemProps) => {
+	return <>
+		<div
+			onClick={props.onClick}
+			className = { less.SBTCreateTemplate }
+		>
+			<Img src = { props.icon } width = "36px" height = "36px" />
+			<span className = { less.SBTTemplateText }>
+				{ props.text }
+			</span>
+			<SVGArrowTip />
+		</div>
+	</>;
+});
+
+
+import { reaxel_newSBT } from '@@pages/Plugin-SBT-Pad--New/reaxel--new-SBT';
+import {
+	SVGCloseIcon ,
+	SVGArrowTip ,
+} from '@@pages/_SvgComponents';
+import { Img } from '@@common/Xcomponents';
+import imgBlank from '@@Public/statics/create-new-SBT-template-icon/blank-template.png';
+import imgTitle from '@@Public/statics/create-new-SBT-template-icon/title-template.png';
+import imgWork from '@@Public/statics/create-new-SBT-template-icon/work-template.png';
+import imgHonor from '@@Public/statics/create-new-SBT-template-icon/honorary-template.png';
+import imgBussiness from '@@Public/statics/create-new-SBT-template-icon/bussiness-template.png';
+import imgEvent from '@@Public/statics/create-new-SBT-template-icon/event-template.png';
+import imgMember from '@@Public/statics/create-new-SBT-template-icon/member-template.png';
+import less from './index.module.less';

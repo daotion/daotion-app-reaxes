@@ -1,3 +1,4 @@
+
 export const PluginSBTPadList = ComponentWrapper(() => {
 	const { params } = utils.useRouter();
 	const spaceID = parseInt(params.spaceID) || 2;
@@ -49,18 +50,19 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 				</InfiniteScroll>
 			</div>
 		</div>
+		<CreateSBTModal/>
 	</>;
 });
 
 export const SBTSearchArea = ComponentWrapper(() => {
-	const { SBT_Pad_Store , setSBTSearchFields , fetchSBTList } = reaxel_SBT_list();
+	const { SBT_Pad_Store , setFields , fetchSBTList } = reaxel_SBT_list();
 	const { chains } = reaxel_wallet();
 	const { Input , Select } = antd , { Option } = Select;
 	return <>
 		<Input
 			value = { SBT_Pad_Store.input_search }
 			onChange = { (e) => {
-				setSBTSearchFields({
+				setFields({
 					input_search : e.target.value ,
 					
 				});
@@ -73,7 +75,7 @@ export const SBTSearchArea = ComponentWrapper(() => {
 		<Select
 			value = { SBT_Pad_Store.select_chain }
 			onChange = { (value) => {
-				setSBTSearchFields({
+				setFields({
 					select_chain : value ,
 				});
 			} }
@@ -142,7 +144,7 @@ export const SBTDisplayCard = ComponentWrapper((props : {
 
 export const SBTCreateNewBtn = ComponentWrapper(() => {
 	
-	const { navigate } = utils.useRouter();
+	const { setFields } = reaxel_SBT_list();
 	return <>
 		<XButton
 			type = "primary"
@@ -151,7 +153,9 @@ export const SBTCreateNewBtn = ComponentWrapper(() => {
 				borderRadius : '8px' ,
 				fontSize : "13px",
 			} }
-			onClick = { () => navigate('new') }
+			onClick = { () => {
+				setFields({ create_Modal_visible : true });
+			} }
 		>
 			Create new SBT
 		</XButton>
@@ -164,6 +168,7 @@ import {
 	reaxel_scrollParentRef ,
 	reaxel_wallet ,
 } from "@@reaxels";
+import { CreateSBTModal } from './Create-SBT-Modal';
 import { Img } from '@@common/Xcomponents';
 import { XButton } from '@@pages/Test/dxz-button';
 import InfiniteScroll from 'react-infinite-scroller';

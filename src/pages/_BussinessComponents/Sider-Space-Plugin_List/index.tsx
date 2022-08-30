@@ -224,7 +224,7 @@ type Enum_plugin_list_item = {
 	navigateTo : string;
 };
 
-import less from './index.module.less';
+import { reaxel_space_detail } from '@@reaxels';
 import {
 	SVGPluginDropDownIcon ,
 	SVGPluginNFTIcon ,
@@ -233,6 +233,7 @@ import {
 	SVGPluginSRMIcon ,
 	SVGPluginVotingIcon ,
 } from '@@pages/_SvgComponents/left-plugin-list';
+import less from './index.module.less';
 
 
 const { Button } = antd;
