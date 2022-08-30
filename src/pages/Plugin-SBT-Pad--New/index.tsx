@@ -29,18 +29,9 @@ export const NewSBT = ComponentWrapper( () => {
 					<div className = { less.createSBT_left }>
 						{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
 						<div className = { less.createSBTInfoBox }>
-
-
-							{/*上传图片*/ }
-							{/* <SubTitleWithItem title = "Upload files">
-								<UploadFileBox />
-							</SubTitleWithItem> */}
-
-
-							
 							{/*表单区域*/ }
 							<SubTitleWithItem 
-								title = { `* ${i18n("SBT type")}` }
+								title = { `* ${i18n("SBT Type")}` }
 								icon = {<SVGSubtract/>}
 							>
 								
@@ -75,7 +66,7 @@ export const NewSBT = ComponentWrapper( () => {
 							</SubTitleWithItem>
 							
 							<SubTitleWithItem
-								title = { `* ${i18n("SBT name")}` }
+								title = { `* ${i18n("SBT Name")}` }
 							>
 								<XInput
 									type = "primary"
@@ -196,13 +187,43 @@ export const NewSBT = ComponentWrapper( () => {
 							>
 							</SubTitleWithItem>
 
-
-
-
-
-
+						</div>
+						<div className = { less.createSBTInfoBox }>
 							{/* <SubTitleWithItem
-								title = { i18n('Network') }
+								title = { <p className = { less.subtitleWithSwitch }>
+									Revocation by issuer
+									<XSwitch type = "secondary" />
+								</p> }
+							>
+								prompt text
+							</SubTitleWithItem> */}
+							<SubTitleWithItem 
+							title = { i18n('Properties') }
+							icon = {<SVGSubtract/>}>
+								<div className={less.inputSection}>
+									<XInput									
+									type = "primary"
+									placeholder="Enter Subject..."/>
+
+									<XInput									
+									type = "primary"
+									placeholder="Enter Subject..."/>
+
+									<SVGCloseIcon/>
+								</div>
+								
+							</SubTitleWithItem>
+
+							{/* 上传图片*/ }
+							<SubTitleWithItem 
+							title = {`* ${i18n('SBT Image')}`}
+							icon = {<SVGSubtract/>}>
+								<UploadFileBox />
+							</SubTitleWithItem>
+
+							<SubTitleWithItem
+								title = { `* ${i18n('Network')}` }
+								icon = {<SVGSubtract/>}
 							>
 								<Select
 									status = { convert(validations.select_network_chainID) }
@@ -229,19 +250,6 @@ export const NewSBT = ComponentWrapper( () => {
 										</Select.Option>;
 									}) }
 								</Select>
-							</SubTitleWithItem> */}
-						</div>
-						<div className = { less.createSBTInfoBox }>
-							<SubTitleWithItem
-								title = { <p className = { less.subtitleWithSwitch }>
-									Revocation by issuer
-									<XSwitch type = "secondary" />
-								</p> }
-							>
-								prompt text
-							</SubTitleWithItem>
-							<SubTitleWithItem title = { i18n('Features') }>
-								<TagsSelect placeholder = { i18n('Add Features...') } />
 							</SubTitleWithItem>
 						</div>
 						<div className = { less.createSBTFooterBox }>
@@ -286,6 +294,8 @@ import {
 	SVGSelectArrowIcon ,
 	SVGSubtract
 } from '@@pages/_SvgComponents/all-SBT-SVG';
+import { SVGCloseIcon } from "../_SvgComponents/space-setting-svg";
+import { SVGAddNewIcon } from "../_SvgComponents/space-info-svg";
 
 export const NewSBTPreview = ComponentWrapper( () => {
 	const reax_newSBT = reaxel_newSBT();

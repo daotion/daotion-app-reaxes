@@ -1,0 +1,40 @@
+.wrapper{
+	display: flex;
+	flex-direction: column;
+	width: fit-content;
+	margin: auto;
+	background-color: white;
+	padding: 16px 24px;
+
+	:global{
+		.ant-table{
+			width: 700px;
+		}
+	}
+
+	:global{
+		.ant-table-thead .ant-table-cell{
+			&:nth-child(2){
+				text-align: center;
+			}
+		}
+	}
+
+	:global{
+		.ant-table-tbody .ant-table-cell{
+			:local(.canvas){
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+				align-items: center;
+				height: 100px;
+				padding-top: 10px;
+				padding-left: 10px;
+			}
+			// &:nth-child(2n){
+			// 	text-align: center;
+			// }
+		}
+	}
+}
+

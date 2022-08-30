@@ -80,6 +80,12 @@ export const basicConfig$Fn = (plugins = []) => ({
 	module : {
 		rules : [
 			{
+				test : /\.m?js$/ ,
+				resolve : {
+					 fullySpecified:false,
+				}
+		   } ,
+			{
 				test : /\.(jsx?|tsx?)$/ ,
 				use : {
 					loader : 'babel-loader' ,

@@ -33,7 +33,7 @@ import { SvgOverview } from '../SvgOverview';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<RoutingTest />
+	<SvgOverview />
 
 </div>;
 import "antd/dist/antd.less";

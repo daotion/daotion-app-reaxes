@@ -145,6 +145,13 @@
 	background: #ffffff;
 	border-radius: 8px;
 	margin-bottom: 48px;
+
+	:global{
+		.ant-btn.ant-btn-primary{
+			width: 192px;
+			height: 48px;
+		}
+	}
 }
 
 .sub-title {
@@ -254,6 +261,10 @@
 	
 	&:hover {
 		box-shadow: 0px 0px 36px 2px rgb(147 147 150 / 39%);
+	}
+
+	SVG{
+		margin-right: 10px;
 	}
 }
 /*已上传图片的upload button , 仅hover时显示*/
@@ -392,3 +403,18 @@
 }
 
 
+.input-section{
+	// width: 693px;
+	height: 48px;
+
+	:global{
+		.ant-input.ant-input-lg{
+			width: 340px;
+			height: 48px;
+
+			&:nth-child(1){
+				margin-right: 20px;
+			}
+		}
+	}
+}
