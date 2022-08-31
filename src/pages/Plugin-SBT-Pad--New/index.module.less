@@ -188,9 +188,13 @@
 	width: 100%;
 	margin-bottom: 0px;
 	span:last-child{
-		width: 110px;
+		// width: 110px;
 		display: flex;
 		justify-content: space-between;
+	}
+
+	:global(.ant-switch.primary--hbOR){
+		background: #B1B5C3;
 	}
 }
 .sub-title-with-item {
@@ -400,12 +404,22 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-right: 30px;
 }
 
 
 .input-section{
+	display: flex;
+	align-items: center;
 	// width: 693px;
 	height: 48px;
+
+	SVG{
+		width: 32px;
+		height: 32px;
+		margin-left: 28px;
+		cursor: pointer;
+	}
 
 	:global{
 		.ant-input.ant-input-lg{
@@ -416,5 +430,16 @@
 				margin-right: 20px;
 			}
 		}
+	}
+}
+
+.add-btn{
+	margin-top: 12px;
+
+	SVG{
+		width: 40px;
+		height: 40px;
+		margin-left: 0;
+		cursor: pointer;
 	}
 }

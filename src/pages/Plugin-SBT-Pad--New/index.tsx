@@ -155,7 +155,7 @@ export const NewSBT = ComponentWrapper( () => {
 										</span>
 			
 										<XSwitch
-											type = "secondary"
+											type = "primary"
 											onChange = { (checked) => {
 												reax_newSBT.setFields({
 													input_issuance_quantity : checked ? "infinite" : "" ,
@@ -174,7 +174,7 @@ export const NewSBT = ComponentWrapper( () => {
 							<SubTitleWithItem
 								title = { <p className = { less.subtitleWithSwitch }>
 									* Revoke by Issuer
-									<XSwitch type = "secondary" />
+									<XSwitch type = "primary" />
 								</p> }
 							>
 							</SubTitleWithItem>
@@ -182,7 +182,7 @@ export const NewSBT = ComponentWrapper( () => {
 							<SubTitleWithItem
 								title = { <p className = { less.subtitleWithSwitch }>
 									* Burned by Holder
-									<XSwitch type = "secondary" />
+									<XSwitch type = "primary" />
 								</p> }
 							>
 							</SubTitleWithItem>
@@ -211,6 +211,7 @@ export const NewSBT = ComponentWrapper( () => {
 
 									<SVGCloseIcon/>
 								</div>
+								<div className={less.addBtn}><SVGSBTAdd/></div>
 								
 							</SubTitleWithItem>
 
@@ -291,6 +292,7 @@ import {
 } from 'antd';
 import {
 	SVGNetEthereum ,
+	SVGSBTAdd,
 	SVGSelectArrowIcon ,
 	SVGSubtract
 } from '@@pages/_SvgComponents/all-SBT-SVG';

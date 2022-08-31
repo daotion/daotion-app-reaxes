@@ -15,11 +15,11 @@ export const SVGNFTsLink = ComponentWrapper( () => {
 	
 	</>;
 } );
-export const SVGCardAvatar = ComponentWrapper( () => {
+export const SVGCardAvatar = ComponentWrapper( (props:{width?:string;height?:string;}) => {
 	return <>
 		<svg
-			width = "111"
-			height = "110"
+			width = {props.width || "111"}
+			height = {props.height || "110"}
 			viewBox = "0 0 111 110"
 			fill = "none"
 			xmlns = "http://www.w3.org/2000/svg"
