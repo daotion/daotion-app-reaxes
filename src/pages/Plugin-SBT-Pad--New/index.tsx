@@ -1,6 +1,6 @@
 import { reaxel_wallet } from "@@reaxels";
 
-export const NewSBT = ComponentWrapper( () => {
+export const NewSBT = ComponentWrapper(() => {
 	
 	const reax_newSBT = reaxel_newSBT();
 	const {
@@ -11,12 +11,12 @@ export const NewSBT = ComponentWrapper( () => {
 		createSBT ,
 		enum__SBT_type ,
 		newSBT_store ,
-		validations,
+		validations ,
 		setFields ,
-		validate,
+		validate ,
 		enum_chains ,
 	} = reax_newSBT;
-	Reaxes.collectDeps( newSBT_store );
+	Reaxes.collectDeps(newSBT_store);
 	
 	return <>
 		<div className = { less.createSBTContainer }>
@@ -30,12 +30,12 @@ export const NewSBT = ComponentWrapper( () => {
 						{/*左边的三个create SBT info box,样式相同, 应用一个类名*/ }
 						<div className = { less.createSBTInfoBox }>
 							{/*表单区域*/ }
-							<SubTitleWithItem 
-								title = { `* ${i18n("SBT Type")}` }
-								icon = {<SVGSubtract/>}
+							<SubTitleWithItem
+								title = { `* ${ i18n("SBT Type") }` }
+								icon = { <SVGSubtract /> }
 							>
 								
-
+								
 								<Select
 									value = { newSBT_store.select__SBT_type }
 									onChange = { (value) => {
@@ -66,11 +66,11 @@ export const NewSBT = ComponentWrapper( () => {
 							</SubTitleWithItem>
 							
 							<SubTitleWithItem
-								title = { `* ${i18n("SBT Name")}` }
+								title = { `* ${ i18n("SBT Name") }` }
 							>
 								<XInput
 									type = "primary"
-									placeholder= {i18n('Enter the SBT name')}
+									placeholder = { i18n('Enter the SBT name') }
 									status = { convert(validations.input__SBT_name) }
 									value = { newSBT_store.input__SBT_name }
 									onChange = { (e) => {
@@ -79,8 +79,8 @@ export const NewSBT = ComponentWrapper( () => {
 								/>
 								{ validations.input__SBT_name === false && <p>this filed is requested</p> }
 							</SubTitleWithItem>
-
-
+							
+							
 							{/* <SubTitleWithItem
                                 title = { i18n("SBT symbol") }
                             >
@@ -94,9 +94,9 @@ export const NewSBT = ComponentWrapper( () => {
                                     placeholder = { i18n('e.g. "SBT"') }
                                 />
                                 { validations.input__SBT_name === false && <p>this filed is requested</p> }
-                            </SubTitleWithItem> */}
-
-
+                            </SubTitleWithItem> */ }
+							
+							
 							<SubTitleWithItem title = "Description">
 								<XTextArea type = "primary" />
 							</SubTitleWithItem>
@@ -105,8 +105,8 @@ export const NewSBT = ComponentWrapper( () => {
 						
 						<div className = { less.createSBTInfoBox }>
 							<SubTitleWithItem
-								title = {`* ${i18n('Eligible (Data Condition)')}`}
-								icon = {<SVGSubtract/>}
+								title = { `* ${ i18n('Eligible (Data Condition)') }` }
+								icon = { <SVGSubtract /> }
 							>
 								<Select
 									suffixIcon = { <SVGSelectArrowIcon /> }
@@ -125,7 +125,7 @@ export const NewSBT = ComponentWrapper( () => {
 							</SubTitleWithItem>
 							
 							<SubTitleWithItem
-								title = { `* ${i18n('Limit of Each Address')}` }
+								title = { `* ${ i18n('Limit of Each Address') }` }
 							>
 								<p className = { less.someIntro }>
 									If the number is 1, the ERC721 standard is enabled.
@@ -133,7 +133,7 @@ export const NewSBT = ComponentWrapper( () => {
 								</p>
 								<XInput
 									type = "primary"
-									placeholder="e.g. 1"
+									placeholder = "e.g. 1"
 									value = { newSBT_store.input_number__hold_limit_number }
 									onChange = { (e) => {
 										setFields({
@@ -149,11 +149,11 @@ export const NewSBT = ComponentWrapper( () => {
 										* Maximun of SBT
 									</span>
 									<span>
-										<span className={less.infinite}>
+										<span className = { less.infinite }>
 											infinite
-											<SVGSubtract/>
+											<SVGSubtract />
 										</span>
-			
+										
 										<XSwitch
 											type = "primary"
 											onChange = { (checked) => {
@@ -170,7 +170,7 @@ export const NewSBT = ComponentWrapper( () => {
 									type = "primary"
 								/>
 							</SubTitleWithItem>
-
+							
 							<SubTitleWithItem
 								title = { <p className = { less.subtitleWithSwitch }>
 									* Revoke by Issuer
@@ -178,7 +178,7 @@ export const NewSBT = ComponentWrapper( () => {
 								</p> }
 							>
 							</SubTitleWithItem>
-
+							
 							<SubTitleWithItem
 								title = { <p className = { less.subtitleWithSwitch }>
 									* Burned by Holder
@@ -186,7 +186,7 @@ export const NewSBT = ComponentWrapper( () => {
 								</p> }
 							>
 							</SubTitleWithItem>
-
+						
 						</div>
 						<div className = { less.createSBTInfoBox }>
 							{/* <SubTitleWithItem
@@ -196,35 +196,39 @@ export const NewSBT = ComponentWrapper( () => {
 								</p> }
 							>
 								prompt text
-							</SubTitleWithItem> */}
-							<SubTitleWithItem 
-							title = { i18n('Properties') }
-							icon = {<SVGSubtract/>}>
-								<div className={less.inputSection}>
-									<XInput									
-									type = "primary"
-									placeholder="Enter Subject..."/>
-
-									<XInput									
-									type = "primary"
-									placeholder="Enter Subject..."/>
-
-									<SVGCloseIcon/>
+							</SubTitleWithItem> */ }
+							<SubTitleWithItem
+								title = { i18n('Properties') }
+								icon = { <SVGSubtract /> }
+							>
+								<div className = { less.inputSection }>
+									<XInput
+										type = "primary"
+										placeholder = "Enter Subject..."
+									/>
+									
+									<XInput
+										type = "primary"
+										placeholder = "Enter Subject..."
+									/>
+									
+									<SVGCloseIcon />
 								</div>
-								<div className={less.addBtn}><SVGSBTAdd/></div>
-								
+								<div className = { less.addBtn }><SVGSBTAdd /></div>
+							
 							</SubTitleWithItem>
-
+							
 							{/* 上传图片*/ }
-							<SubTitleWithItem 
-							title = {`* ${i18n('SBT Image')}`}
-							icon = {<SVGSubtract/>}>
+							<SubTitleWithItem
+								title = { `* ${ i18n('SBT Image') }` }
+								icon = { <SVGSubtract /> }
+							>
 								<UploadFileBox />
 							</SubTitleWithItem>
-
+							
 							<SubTitleWithItem
-								title = { `* ${i18n('Network')}` }
-								icon = {<SVGSubtract/>}
+								title = { `* ${ i18n('Network') }` }
+								icon = { <SVGSubtract /> }
 							>
 								<Select
 									status = { convert(validations.select_network_chainID) }
@@ -242,7 +246,7 @@ export const NewSBT = ComponentWrapper( () => {
 									placeholder = { i18n("Please select") }
 									optionLabelProp = "label"
 								>
-									{ enum_chains.map(({ id , label  }) => {
+									{ enum_chains.map(({ id , label }) => {
 										return <Select.Option
 											label = { label }
 											key = { id }
@@ -269,7 +273,7 @@ export const NewSBT = ComponentWrapper( () => {
 		
 		</div>
 	</>;
-} );
+});
 
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
 import { UploadFileBox } from './Upload-Box';
@@ -286,24 +290,24 @@ import { TagsSelect } from '@@pages/Test/dxz-select';
 import { XSwitch } from "@@pages/Test/dxz-switch";
 import { XButton } from "@@pages/Test/dxz-button";
 import {
-	Button,
+	Button ,
 	Checkbox ,
 	Select ,
 } from 'antd';
 import {
 	SVGNetEthereum ,
-	SVGSBTAdd,
+	SVGSBTAdd ,
 	SVGSelectArrowIcon ,
-	SVGSubtract
+	SVGSubtract,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 import { SVGCloseIcon } from "../_SvgComponents/space-setting-svg";
 import { SVGAddNewIcon } from "../_SvgComponents/space-info-svg";
 
-export const NewSBTPreview = ComponentWrapper( () => {
+export const NewSBTPreview = ComponentWrapper(() => {
 	const reax_newSBT = reaxel_newSBT();
 	const {
 		file ,
-		imgPreviewUrl,
+		imgPreviewUrl ,
 	} = reaxel_DDF();
 	const {
 		createSBT ,
@@ -313,11 +317,11 @@ export const NewSBTPreview = ComponentWrapper( () => {
 	} = reax_newSBT;
 	return <>
 		<div className = { less.createSBT_right }>
-			<span className={less.createSBTPreviewTitle}>
+			<span className = { less.createSBTPreviewTitle }>
 				<I18n>Recommend SBT name</I18n>
 			</span>
 			
-			<div className={less.createSBTRightBtnArea}>
+			<div className = { less.createSBTRightBtnArea }>
 				<Button>
 					Proposal Builder Medal
 				</Button>
@@ -339,8 +343,8 @@ export const NewSBTPreview = ComponentWrapper( () => {
 			</div>
 		</div>
 	</>;
-} );
-export const SubTitleWithItem = ( props ) => {
+});
+export const SubTitleWithItem = (props) => {
 	return <>
 		<div className = { less.subTitleWithItem }>
 			<span className = { less.subTitle }>
@@ -353,7 +357,7 @@ export const SubTitleWithItem = ( props ) => {
 };
 
 
-export const OptionNetEthereum = ComponentWrapper( (props : {
+export const OptionNetEthereum = ComponentWrapper((props : {
 	label : string;
 }) => {
 	return <>
@@ -362,11 +366,10 @@ export const OptionNetEthereum = ComponentWrapper( (props : {
 			{ props.label }
 		</span>
 	</>;
-} );
+});
 
 
-
-export const CreateSBTCheckBox = ( props ) => {
+export const CreateSBTCheckBox = (props) => {
 	return <>
 		<div className = { less.createSBTCheckBox }>
 			<Checkbox>Destruction by issuer</Checkbox>
@@ -377,18 +380,13 @@ export const CreateSBTCheckBox = ( props ) => {
 };
 
 
-
-
-
-
-
-const convert = (validateResult:null|true|false) => {
-	switch(validateResult){
-		case null : 
-		case true : 
-		{
+const convert = (validateResult : null | true | false) => {
+	switch( validateResult ) {
+		case null :
+		case true : {
 			return '';
-		};
+		}
+			;
 		case false : {
 			return 'error';
 		}
