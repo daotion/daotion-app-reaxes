@@ -32,7 +32,7 @@ import { DxzCreateSBTModal } from './dxz-create-SBT-modal';
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzCreateSBTModal />
+	<DxzSBTDetails />
 
 </div>;
 import "antd/dist/antd.less";

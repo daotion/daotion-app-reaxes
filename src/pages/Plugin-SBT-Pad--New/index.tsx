@@ -81,20 +81,20 @@ export const NewSBT = ComponentWrapper(() => {
 							</SubTitleWithItem>
 							
 							
-							{/* <SubTitleWithItem
-                                title = { i18n("SBT symbol") }
-                            >
-                                <XInput
-                                    // status={convert(validations.input__SBT_name)}
-                                    value = { newSBT_store.input__SBT_symbol }
-                                    onChange = { (e) => {
-                                        setFields({ input__SBT_symbol : e.target.value });
-                                    } }
-                                    type = "primary"
-                                    placeholder = { i18n('e.g. "SBT"') }
-                                />
-                                { validations.input__SBT_name === false && <p>this filed is requested</p> }
-                            </SubTitleWithItem> */ }
+							{/*<SubTitleWithItem
+								title = { i18n("SBT symbol") }
+							>
+								<XInput
+									// status={convert(validations.input__SBT_name)}
+									value = { newSBT_store.input__SBT_symbol }
+									onChange = { (e) => {
+										setFields({ input__SBT_symbol : e.target.value });
+									} }
+									type = "primary"
+									placeholder = { i18n('e.g. "SBT"') }
+								/>
+								{ validations.input__SBT_name === false && <p>this filed is requested</p> }
+							</SubTitleWithItem> */}
 							
 							
 							<SubTitleWithItem title = "Description">
@@ -176,16 +176,14 @@ export const NewSBT = ComponentWrapper(() => {
 									* Revoke by Issuer
 									<XSwitch type = "primary" />
 								</p> }
-							>
-							</SubTitleWithItem>
+							/>
 							
 							<SubTitleWithItem
 								title = { <p className = { less.subtitleWithSwitch }>
 									* Burned by Holder
 									<XSwitch type = "primary" />
 								</p> }
-							>
-							</SubTitleWithItem>
+							/>
 						
 						</div>
 						<div className = { less.createSBTInfoBox }>
@@ -209,7 +207,7 @@ export const NewSBT = ComponentWrapper(() => {
 									
 									<XInput
 										type = "primary"
-										placeholder = "Enter Subject..."
+										placeholder = "Enter Content..."
 									/>
 									
 									<SVGCloseIcon />
@@ -266,8 +264,8 @@ export const NewSBT = ComponentWrapper(() => {
 							>Create SBT</XButton>
 						</div>
 					</div>
-					{/*右边的preview部分 :*/ }
-					<NewSBTPreview />
+					{/*右边的recommentd SBT names部分 :*/ }
+					<RecommentdSBTNameBlock />
 				</div>
 			</div>
 		
@@ -303,47 +301,6 @@ import {
 import { SVGCloseIcon } from "../_SvgComponents/space-setting-svg";
 import { SVGAddNewIcon } from "../_SvgComponents/space-info-svg";
 
-export const NewSBTPreview = ComponentWrapper(() => {
-	const reax_newSBT = reaxel_newSBT();
-	const {
-		file ,
-		imgPreviewUrl ,
-	} = reaxel_DDF();
-	const {
-		createSBT ,
-		enum__SBT_type ,
-		newSBT_store ,
-		setFields ,
-	} = reax_newSBT;
-	return <>
-		<div className = { less.createSBT_right }>
-			<span className = { less.createSBTPreviewTitle }>
-				<I18n>Recommend SBT name</I18n>
-			</span>
-			
-			<div className = { less.createSBTRightBtnArea }>
-				<Button>
-					Proposal Builder Medal
-				</Button>
-				<Button>
-					Quarterly service medal
-				</Button>
-				<Button>
-					Proposal Builder Medal
-				</Button>
-				<Button>
-					Outstanding students
-				</Button>
-				<Button>
-					Brand Promotion Medal
-				</Button>
-				<Button>
-					Community Contribution Medal
-				</Button>
-			</div>
-		</div>
-	</>;
-});
 export const SubTitleWithItem = (props) => {
 	return <>
 		<div className = { less.subTitleWithItem }>
@@ -355,6 +312,37 @@ export const SubTitleWithItem = (props) => {
 		</div>
 	</>;
 };
+
+const RecommentdSBTNameBlock = ComponentWrapper(() => {
+	const { Button } = antd;
+	
+	return <div className = { less.createSBT_right }>
+		<span className = { less.recommendSBTNameTitle }>
+			<I18n>Recommend SBT name</I18n>
+		</span>
+		
+		<div className = { less.createSBTRightBtnArea }>
+			<Button>
+				Proposal Builder Medal
+			</Button>
+			<Button>
+				Quarterly service medal
+			</Button>
+			<Button>
+				Proposal Builder Medal
+			</Button>
+			<Button>
+				Outstanding students
+			</Button>
+			<Button>
+				Brand Promotion Medal
+			</Button>
+			<Button>
+				Community Contribution Medal
+			</Button>
+		</div>
+	</div>;
+});
 
 
 export const OptionNetEthereum = ComponentWrapper((props : {
