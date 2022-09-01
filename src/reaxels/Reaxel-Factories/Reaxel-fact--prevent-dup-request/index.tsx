@@ -4,7 +4,7 @@
  */
 export const reaxel_fact__prevent_dup_request = function
 	<
-		T extends (preventDup : (callback) => Promise<F>) => (...args:A) => Promise<F> ,
+		T extends (preventDup : (callback) => Promise<F>) => (..._args) => Promise<F> ,
 		A extends any[],
 		F = any
 	>
@@ -18,7 +18,7 @@ export const reaxel_fact__prevent_dup_request = function
 	return () => {
 		
 		return {
-			grasp(...args:A){
+			grasp(...args : Parameters<ReturnType<T>>){
 				/*当Promise resolve的时候*/
 				const preventDup = (callback) => {
 					if(promiseResult !== store.pending){

@@ -1,6 +1,10 @@
-import { SelectArrowIconSvgComponent } from '@@pages/_SvgComponents';
-import PluginSideBar from '@@Public/Plugin-List.component.svg';
-import PluginCenterBtn from '@@Public/Plugin-Center-Btn.component.svg';
+import { reaxel__role_in_space } from '@@reaxels';
+import {
+	SVGPluginDropDownIcon ,
+	SVGPluginOverviewIcon ,
+	SVGPluginSpaceIcon ,
+} from '@@pages/_SvgComponents/left-plugin-list';
+import less from './index.module.less';
 
 
 export const Sider_Space_Plugin_List = ComponentWrapper( () => {
@@ -14,6 +18,8 @@ export const Sider_Space_Plugin_List = ComponentWrapper( () => {
 	// const {selecting} = reaxel_plugin_routing_controller(['sbt-pad',]);
 	const paramsCategory = params['*'];
 	
+	const { fetchUserRoleInSpace } = reaxel__role_in_space(paramsSpaceID);
+	fetchUserRoleInSpace();
 	return <>
 		<aside className = { less.pluginAsideContainer }>
 			<div className = { less.pluginAsideTop }>
@@ -223,17 +229,6 @@ type Enum_plugin_list_item = {
 	icon : React.ReactElement;
 	navigateTo : string;
 };
-
-import { reaxel_space_detail } from '@@reaxels';
-import {
-	SVGPluginDropDownIcon ,
-	SVGPluginNFTIcon ,
-	SVGPluginOverviewIcon ,
-	SVGPluginSpaceIcon ,
-	SVGPluginSRMIcon ,
-	SVGPluginVotingIcon ,
-} from '@@pages/_SvgComponents/left-plugin-list';
-import less from './index.module.less';
 
 
 const { Button } = antd;

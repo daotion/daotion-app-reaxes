@@ -9,7 +9,10 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 		scrollParentRef ,
 	} = reaxel_SBT_list();
 	const ref = reaxel_scrollParentRef();
+	const { fetchUserRoleInSpace , role } = reaxel__role_in_space(spaceID);
+	
 	fetchSBTList({ spaceID });
+	
 	return <>
 		<div className = { less.allSBTsContainer }>
 			{/*分为顶部的若干个SBT索引框和下面展示的SBT card list*/ }
@@ -17,7 +20,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 				<span className = { less.SBTsTitle }>SBTs</span>
 				<div className = { less.SBTsIndexingWithBtn }>
 					<SBTSearchArea />
-					<SBTCreateNewBtn />
+					{ role !== 0 && <SBTCreateNewBtn /> }
 				</div>
 			</div>
 			
@@ -50,7 +53,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 				</InfiniteScroll>
 			</div>
 		</div>
-		<CreateSBTModal/>
+		{ role !== 0 && <CreateSBTModal /> }
 	</>;
 });
 
@@ -167,6 +170,7 @@ import {
 	reaxel_SBT_list ,
 	reaxel_scrollParentRef ,
 	reaxel_wallet ,
+	reaxel__role_in_space,
 } from "@@reaxels";
 import { CreateSBTModal } from './Create-SBT-Modal';
 import { Img } from '@@common/Xcomponents';
