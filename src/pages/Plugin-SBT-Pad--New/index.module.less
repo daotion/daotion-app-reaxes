@@ -9,7 +9,7 @@
 	flex-flow: row nowrap;
 }
 .create-SBT_left {
-	margin-right: 24px;
+	margin-right: 8px;
 	width: 836px;
 	height: fit-content;
 	margin-bottom: 48px;
@@ -21,9 +21,11 @@
 	background: #ffffff;
 	border-radius: 8px;
 	padding: 24px 24px 28px;
+
+	
 }
 
-.create-SBT-Preview-title {
+.recommend-SBT-name-title {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -34,6 +36,33 @@
 	color: #1a1d1f;
 	user-select: none;
 }
+
+.create-SBT-Right-Btn-area{
+	:global{
+		.ant-btn.ant-btn-default{
+			display: flex;
+			align-items: center;
+			text-align: right;
+			width: 292px;
+			height: 48px;
+			border: 1px solid #E6E8EC;
+			border-radius: 12px;
+			color: #141416;
+			padding: 16px 24px;
+			margin-bottom: 5px;
+
+			&:hover{
+				border: 1px solid #353945;
+			}
+
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+
 .SBT-preview-img{
 	width: 292px;
 	height: 292px;
@@ -93,16 +122,7 @@
 	font-size: 40px;
 	color: #313436;
 	user-select: none;
-	margin-bottom: 0;
-}
-
-.some-intro {
-	font-weight: 500;
-	font-size: 14px;
-	color: #777e91;
-	margin-bottom: 24px;
-	user-select: none;
-	margin-top: 12px;
+	margin-bottom: 15px;
 }
 
 .create-SBT-info-box {
@@ -125,17 +145,25 @@
 	background: #ffffff;
 	border-radius: 8px;
 	margin-bottom: 48px;
+
+	:global{
+		.ant-btn.ant-btn-primary{
+			width: 192px;
+			height: 48px;
+		}
+	}
 }
 
 .sub-title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	width: 100%;
 	font-weight: 600;
 	font-size: 14px;
 	color: #313436;
-	display: inline-block;
-	padding-bottom: 12px;
+	margin-bottom: 12px;
 	user-select: none;
-	
 }
 
 .net-ethereum {
@@ -146,21 +174,31 @@
 	flex-direction: row;
 	align-items: center;
 }
-.divider{
-	width:100%;
-	height: 1px;
-	background: #E6E8EC;
-	margin-bottom: 12px;
-}
+
+// .divider{
+// 	width:100%;
+// 	height: 1px;
+// 	background: #E6E8EC;
+// 	margin-bottom: 12px;
+// }
+
 .subtitle-with-switch{
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 	margin-bottom: 0px;
 	span:last-child{
-		width: 110px;
+		// width: 110px;
 		display: flex;
 		justify-content: space-between;
+	}
+
+	:global(.ant-switch.primary--hbOR){
+		background: #B1B5C3;
+	}
+
+	:global(.primary--hbOR.ant-switch-checked){
+		background-color: #0070F3;
 	}
 }
 .sub-title-with-item {
@@ -168,6 +206,10 @@
 	
 	&:last-child {
 		margin-bottom: 0;
+	}
+
+	SVG{
+		margin-left: 5px;
 	}
 }
 
@@ -227,6 +269,10 @@
 	
 	&:hover {
 		box-shadow: 0px 0px 36px 2px rgb(147 147 150 / 39%);
+	}
+
+	SVG{
+		margin-right: 10px;
 	}
 }
 /*已上传图片的upload button , 仅hover时显示*/
@@ -349,7 +395,72 @@
 	}
 }
 
+.some-intro{
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 11px;
+	color: #777E91;
+	margin-bottom: 5px;
+}
+
+.infinite{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-right: 30px;
+}
 
 
+.input-section{
+	display: flex;
+	align-items: center;
+	// width: 693px;
+	height: 48px;
+
+	SVG{
+		width: 32px;
+		height: 32px;
+		margin-left: 28px;
+		cursor: pointer;
+		border-radius: 48px;
+		&:active{
+			box-shadow: 0px 0px 0px 0px rgb(220, 232, 236);
+			animation: anim-shadow .2s forwards;
+		}
+	}
+
+	:global{
+		.ant-input.ant-input-lg{
+			width: 340px;
+			height: 48px;
+
+			&:nth-child(1){
+				margin-right: 20px;
+			}
+		}
+	}
+}
+
+.add-btn{
+	margin-top: 12px;
+
+	SVG{
+		width: 40px;
+		height: 40px;
+		margin-left: 0;
+		cursor: pointer;
+		border-radius: 12px;
+		&:active{
+			box-shadow: 0px 0px 0px 0px rgb(220, 232, 236);
+			animation: anim-shadow .2s forwards;
+		}
+	}
+}
 
 
+@keyframes anim-shadow{
+	100%{
+		box-shadow: 0px 0px 0px 5px rgba(220, 232, 236, 20%);
+	}
+}

@@ -72,15 +72,15 @@ export const SVGSocialItemDelete = ComponentWrapper( ( props ) => {
 		</svg>
 	</>;
 } );
-export const SVGWhiteAdd = ComponentWrapper( () => {
+export const SVGWhiteAdd = ComponentWrapper( (props:{width?:string; height?:string} ) => {
 	return <>
 		<svg
 			style = { {
 				marginRight : "8px" ,
 				
 			} }
-			width = "24"
-			height = "24"
+			width = {props.width || "24"}
+			height = {props.height || "24"}
 			viewBox = "0 0 24 24"
 			fill = "none"
 			xmlns = "http://www.w3.org/2000/svg"
@@ -94,15 +94,15 @@ export const SVGWhiteAdd = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGTooltip = ComponentWrapper( () => {
+export const SVGTooltip = ComponentWrapper( (props:{width?:string; height?:string}) => {
 	return <>
 		<svg
 			style = { {
 				verticalAlign : "middle" ,
 				paddingLeft : "5px" ,
 			} }
-			width = "16"
-			height = "16"
+			width = {props.width || "16"}
+			height = {props.height || "16"}
 			viewBox = "0 0 16 16"
 			fill = "none"
 			xmlns = "http://www.w3.org/2000/svg"
@@ -188,11 +188,11 @@ export const SVGNet = ComponentWrapper( () => {
 		</svg>
 	</>;
 } );
-export const SVGClear = ComponentWrapper( () => {
+export const SVGClear = ComponentWrapper( (props:{width?:string; height?:string}) => {
 	return <>
 		<svg
-			width = "24"
-			height = "24"
+			width = {props.width || "24"}
+			height = {props.height || "24"}
 			viewBox = "0 0 24 24"
 			fill = "none"
 			xmlns = "http://www.w3.org/2000/svg"

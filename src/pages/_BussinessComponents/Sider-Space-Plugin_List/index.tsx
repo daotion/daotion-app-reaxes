@@ -1,10 +1,3 @@
-import { reaxel__role_in_space } from '@@reaxels';
-import {
-	SVGPluginDropDownIcon ,
-	SVGPluginOverviewIcon ,
-	SVGPluginSpaceIcon ,
-} from '@@pages/_SvgComponents/left-plugin-list';
-import less from './index.module.less';
 
 
 export const Sider_Space_Plugin_List = ComponentWrapper( () => {
@@ -254,3 +247,10 @@ type PluginListItemProps = {
 	navigateTo? : string;
 	selecting : boolean;
 };
+import { reaxel__role_in_space } from '@@reaxels';
+import {
+	SVGPluginDropDownIcon ,
+	SVGPluginOverviewIcon ,
+	SVGPluginSpaceIcon ,
+} from '@@pages/_SvgComponents/left-plugin-list';
+import less from './index.module.less';

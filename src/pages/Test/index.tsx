@@ -29,11 +29,11 @@ import { DxzSBTDetails } from './dxz-SBT-details';
 import { DxzModalCropper } from './dxz-modal-cropper';
 import { PreventDupTest } from '../../reaxels/Reaxel-Factories/Reaxel-fact--prevent-dup-request';
 import { DxzCreateSBTModal } from './dxz-create-SBT-modal';
+import { SvgOverview } from '../DesignComponents/SvgOverview';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	
-	<DxzCreateSBTModal />
 
+	<SvgOverview />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
