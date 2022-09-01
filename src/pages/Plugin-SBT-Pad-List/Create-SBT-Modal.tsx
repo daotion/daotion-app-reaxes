@@ -40,32 +40,30 @@ export const CreateSBTModal = ComponentWrapper(() => {
 								setFields__newSBT({
 									select__SBT_type : null ,
 									input__SBT_name : null as string ,
-									input__SBT_symbol : null as string ,
 									textarea__description : null as string ,
-									select__SBT_access : null ,
-									input_number__hold_limit_number : null as string ,
+									select__SBT_eligible : null ,
+									input_number__litmit_of_each_address : null as string ,
 									/*发行总量-无限开关*/
-									switch_issuance_quantity : null as string | number ,
+									switch__issuance_quantity_infinity : false ,
 									/*发行总量-数量*/
-									input_issuance_quantity : null as string | number ,
-									select_network_chainID : null ,
-									select_features : [] ,
+									input__issuance_quantity_number : '1' ,
+									select__network_chainID : null ,
+									input_pair__properties : [] ,
 								});
 							}else {
 								/*todo*/
 								setFields__newSBT({
 									select__SBT_type : temp.SBT_type ,
 									input__SBT_name : null as string ,
-									input__SBT_symbol : null as string ,
 									textarea__description : null as string ,
-									select__SBT_access : null ,
-									input_number__hold_limit_number : temp.limit_of_each_address ,
+									select__SBT_eligible : null ,
+									input_number__litmit_of_each_address : temp.limit_of_each_address ,
 									/*发行总量-无限开关*/
-									switch_issuance_quantity : null as string | number ,
+									switch__issuance_quantity_infinity : false ,
 									/*发行总量-数量*/
-									input_issuance_quantity : null as string | number ,
-									select_network_chainID : null ,
-									select_features : [] ,
+									input__issuance_quantity_number : '1' ,
+									select__network_chainID : null ,
+									input_pair__properties : [] ,
 								});
 							}
 							setFields__SBT_list({ create_Modal_visible : false });
@@ -161,7 +159,7 @@ export const SBTTemplateItem = ComponentWrapper((props:SBTTemplateItemProps) => 
 });
 
 
-import { reaxel_newSBT } from '@@pages/Plugin-SBT-Pad--New/reaxel--new-SBT';
+import { reaxel_newSBT } from '@@pages/Plugin-SBT-Pad--New/reaxel--create-SBT';
 import {
 	SVGCloseIcon ,
 	SVGArrowTip ,
