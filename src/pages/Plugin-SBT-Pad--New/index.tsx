@@ -1,5 +1,6 @@
 import { reaxel_wallet } from "@@reaxels";
 
+
 export const NewSBT = ComponentWrapper(() => {
 	
 	const reax_newSBT = reaxel_newSBT();
@@ -94,7 +95,7 @@ export const NewSBT = ComponentWrapper(() => {
 									placeholder = { i18n('e.g. "SBT"') }
 								/>
 								{ validations.input__SBT_name === false && <p>this filed is requested</p> }
-							</SubTitleWithItem> */}
+							</SubTitleWithItem> */ }
 							
 							
 							<SubTitleWithItem title = "Description">
@@ -210,9 +211,10 @@ export const NewSBT = ComponentWrapper(() => {
 										placeholder = "Enter Content..."
 									/>
 									
-									<SVGCloseIcon />
+									<button className={less.closeBtn}><SVGCloseIcon/></button>
 								</div>
-								<div className = { less.addBtn }><SVGSBTAdd /></div>
+								{/*<div className = { less.addBtn }><SVGSBTAdd /></div>*/}
+								<button className={less.addBtn}><SVGSBTAdd/></button>
 							
 							</SubTitleWithItem>
 							
@@ -296,7 +298,7 @@ import {
 	SVGNetEthereum ,
 	SVGSBTAdd ,
 	SVGSelectArrowIcon ,
-	SVGSubtract,
+	SVGSubtract ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 import { SVGCloseIcon } from "../_SvgComponents/space-setting-svg";
 import { SVGAddNewIcon } from "../_SvgComponents/space-info-svg";
@@ -380,11 +382,6 @@ const convert = (validateResult : null | true | false) => {
 		}
 	}
 };
-
-
-
-
-
 
 
 

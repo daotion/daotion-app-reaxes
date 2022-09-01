@@ -418,18 +418,18 @@
 	// width: 693px;
 	height: 48px;
 
-	SVG{
-		width: 32px;
-		height: 32px;
-		margin-left: 28px;
-		cursor: pointer;
-		border-radius: 48px;
-		&:active{
-			box-shadow: 0px 0px 0px 0px rgb(220, 232, 236);
-			animation: anim-shadow .2s forwards;
-		}
-	}
-
+	//SVG{
+	//	width: 32px;
+	//	height: 32px;
+	//	margin-left: 28px;
+	//	cursor: pointer;
+	//	border-radius: 48px;
+	//	&:active{
+	//		box-shadow: 0px 0px 0px 0px rgb(220, 232, 236);
+	//		animation: anim-shadow .2s ease-in-out;
+	//	}
+	//}
+	//
 	:global{
 		.ant-input.ant-input-lg{
 			width: 340px;
@@ -442,25 +442,121 @@
 	}
 }
 
-.add-btn{
-	margin-top: 12px;
+//.add-btn{
+//	margin-top: 12px;
+//
+//	SVG{
+//		margin-left: 0;
+//		cursor: pointer;
+//		transition-duration: 0.4s;
+//		&:after{
+//			content: '';
+//			display: block;
+//			width: 40px;
+//			height: 40px;
+//			border-radius: 12px;
+//			transition: all 0.5s;
+//			opacity: 0;
+//			box-shadow: 0px 0px 0px 6px rgb(220, 232, 236);
+//		}
+//		&:active:after{	
+//			box-shadow: 0px 0px 0px 0px rgb(220, 232, 236);
+//			opacity: 1;
+//			transition: 0s;
+//			animation: anim-shadow .2s forwards;
+//		}
+//	}
+//}
 
-	SVG{
-		width: 40px;
-		height: 40px;
-		margin-left: 0;
-		cursor: pointer;
-		border-radius: 12px;
-		&:active{
-			box-shadow: 0px 0px 0px 0px rgb(220, 232, 236);
-			animation: anim-shadow .2s forwards;
-		}
+
+//@keyframes anim-shadow{
+//	100%{
+//		box-shadow: 0px 0px 0px 5px rgba(220, 232, 236, 20%);
+//	}
+//}
+
+
+.add-btn{
+	position: relative;
+	transition-duration: 0.4s;
+	border-radius: 12px;
+	border: none;
+	cursor: pointer;
+	width: 40px;
+	height : 40px;
+	margin-top: 12px;
+	
+	:global(SVG){
+		margin-left: -6px;
+		margin-top: -1px;
 	}
+	
+}
+
+.add-btn:after{
+	content: '';
+	display: block;
+	position: absolute;
+	border-radius: 12px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: all .5s;
+	box-shadow: 0px 0px 0px 8px rgb(220, 244, 255);
+}
+
+.add-btn:active:after{
+	box-shadow: 0 0 0 0 rgb(220, 244, 255);
+	opacity: 1;
+	transition: 0s;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 12px;
 }
 
 
-@keyframes anim-shadow{
-	100%{
-		box-shadow: 0px 0px 0px 5px rgba(220, 232, 236, 20%);
+.close-btn{
+	position: relative;
+	transition-duration: 0.4s;
+	border-radius: 48px;
+	border: none;
+	cursor: pointer;
+	width: 32px;
+	height : 32px;
+	margin-left: 28px;
+	background-color: transparent;
+	
+	:global(SVG){
+		width: 32px;
+		height: 32px;
+		margin-left: -6px;
+		margin-top: -1px;
 	}
+}
+
+.close-btn:after{
+	content: '';
+	display: block;
+	position: absolute;
+	border-radius: 48px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: all 0.5s;
+	box-shadow: 0px 0px 0px 8px rgb(220, 244, 255);
+}
+
+.close-btn:active:after{
+	box-shadow: 0 0 0 0 rgb(220, 244, 255);
+	opacity: 1;
+	transition: 0s;
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-radius: 48px;
 }
