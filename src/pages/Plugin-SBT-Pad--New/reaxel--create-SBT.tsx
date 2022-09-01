@@ -107,8 +107,34 @@ export const reaxel_newSBT = function () {
 			setFields( partialState : Partial<typeof newSBT_store> ) {
 				setState( partialState );
 			} ,
-			async createSBT() {
+			async createSBT(spaceID:number) {
+				const reax_wallet = reaxel_wallet();
+				const reax_user = reaxel_user();
 				
+				const data : create_SBT.payload['data'] = {
+					spaceID ,
+					type : newSBT_store.select__SBT_type ,
+					desc : newSBT_store.textarea__description ,
+					features : newSBT_store.input_pair__properties.map((property) => JSON.stringify(_.omit(property , 'react_key'))) ,
+					conditionData : [newSBT_store.select__SBT_eligible],
+					createAddress : reax_wallet.account.address ,
+					timestamp : await request_server_timestamp(),
+				};
+				
+				const payload = async ():Promise<create_SBT.payload> => {
+					return formater({
+						address : reax_wallet.account.address,
+						data ,
+						signature : await reax_user.signByFakeWallet(formater(data)),
+						file : reax_DDF.file,
+					});
+				};
+				
+				request__create_SBT(payload).then((res) => {
+					crayon.green(res);
+				}).catch((rej) => {
+					crayon.red(rej);
+				});
 			} ,
 		};
 	};
@@ -117,7 +143,12 @@ export const reaxel_newSBT = function () {
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
 import { reaxel_wallet } from '@@reaxels/wallet/wallet';
 import { reaxel_fact__validation } from '@@pages/Test/Validation-Fields/reaxel-fact--validations';
-
+import { reaxel_user } from '@@reaxels/user/auth';
+import {
+	request__create_SBT ,
+	create_SBT ,
+	request_server_timestamp,
+} from '@@requests';
 export const enum__SBT_type = [
 	"Title" ,
 	"Work certificate" ,
@@ -134,3 +165,16 @@ export const enum__SBT_eligible = [
 	} ,
 ];
 
+/*递归对象转换成data[subKey][subsubkey]的formdata*/
+const formater = ( source , formdata = null , parentKey : string = null ) => {
+	return _.keys( source ).
+	reduce( ( formdata , key : string ) => {
+		const value = source[ key ];
+		if ( _.isObject( value ) && Object.getPrototypeOf( value ) !== File.prototype ) {
+			formater( value , formdata , parentKey ? `${ parentKey }[${ key }]` : key );
+		} else {
+			formdata.append( parentKey ? `${ parentKey }[${ key }]` : key , value );
+		}
+		return formdata;
+	} , formdata ?? new FormData );
+};

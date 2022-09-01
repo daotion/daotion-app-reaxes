@@ -20,7 +20,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 				<span className = { less.SBTsTitle }>SBTs</span>
 				<div className = { less.SBTsIndexingWithBtn }>
 					<SBTSearchArea />
-					{ role !== 0 && <SBTCreateNewBtn /> }
+					{ role !== 1 && <SBTCreateNewBtn /> }
 				</div>
 			</div>
 			

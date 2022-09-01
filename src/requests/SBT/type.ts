@@ -28,3 +28,29 @@ export namespace SBT_list {
 		"infos" : SBTListItem[];
 	};
 }
+export namespace create_SBT {
+	export type feature_kv = {
+		key:string;
+		value:string;
+	};
+	
+	export type payload = {
+		address : string ;
+		data : {
+			spaceID : number;
+			type : string;
+			desc : string;
+			features : string[];
+			conditionData : [string];
+			/*创建的用户的地址*/
+			createAddress : string;
+			timestamp : number;
+		};
+		signature : string;
+		file : File;
+	};
+	export type response = {
+		orderID : number;
+		metadataUrl : string;
+	};
+}

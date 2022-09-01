@@ -48,7 +48,11 @@ export const CreateSBTModal = ComponentWrapper(() => {
 									/*发行总量-数量*/
 									input__issuance_quantity_number : '1' ,
 									select__network_chainID : null ,
-									input_pair__properties : [] ,
+									input_pair__properties : [{
+										key : '' ,
+										value : '' ,
+										react_key : Math.random() ,
+									}] ,
 								});
 							}else {
 								/*todo*/
@@ -63,7 +67,11 @@ export const CreateSBTModal = ComponentWrapper(() => {
 									/*发行总量-数量*/
 									input__issuance_quantity_number : '1' ,
 									select__network_chainID : null ,
-									input_pair__properties : [] ,
+									input_pair__properties : [{
+										key : '' ,
+										value : '' ,
+										react_key : Math.random() ,
+									}] ,
 								});
 							}
 							setFields__SBT_list({ create_Modal_visible : false });

@@ -3,6 +3,7 @@ import { reaxel_wallet } from "@@reaxels";
 
 export const NewSBT = ComponentWrapper(() => {
 	
+	const spaceID = parseInt(utils.useRouter().params.spaceID);
 	const reax_newSBT = reaxel_newSBT();
 	const {
 		file ,
@@ -323,8 +324,10 @@ export const NewSBT = ComponentWrapper(() => {
 						<div className = { less.createSBTFooterBox }>
 							<XButton
 								type = "primary"
-								onClick = { () => {
-									validate();
+								onClick = { async () => {
+									await validate();
+									await createSBT(spaceID);
+									
 								} }
 							>Create SBT</XButton>
 						</div>
