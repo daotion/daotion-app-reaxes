@@ -383,6 +383,7 @@ export const SubTitleWithItem = (props) => {
 
 const RecommentdSBTNameBlock = ComponentWrapper(() => {
 	const { Button } = antd;
+	const { setFields } = reaxel_newSBT();
 	
 	return <div className = { less.createSBT_right }>
 		<span className = { less.recommendSBTNameTitle }>
@@ -390,24 +391,20 @@ const RecommentdSBTNameBlock = ComponentWrapper(() => {
 		</span>
 		
 		<div className = { less.createSBTRightBtnArea }>
-			<Button>
-				Proposal Builder Medal
-			</Button>
-			<Button>
-				Quarterly service medal
-			</Button>
-			<Button>
-				Proposal Builder Medal
-			</Button>
-			<Button>
-				Outstanding students
-			</Button>
-			<Button>
-				Brand Promotion Medal
-			</Button>
-			<Button>
-				Community Contribution Medal
-			</Button>
+			{[
+				"Proposal Builder Medal",
+				"Quarterly service medal",
+				"Outstanding students",
+				"Brand Promotion Medal",
+				"Community Contribution Medal",
+			].map((word) => {
+				return <Button
+					key = { word }
+					onClick = { () => setFields( { input__SBT_name : word } ) }
+				>
+					{ word }
+				</Button>;
+			})}
 		</div>
 	</div>;
 });
