@@ -305,3 +305,88 @@ export const SVGSBTAdd = ComponentWrapper(() =>{
 	</svg>
 	</>
 }) 
+
+export const SVGSBTBack = ComponentWrapper(() =>{
+	return<>
+		<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<rect width="40" height="40" rx="20" transform="matrix(-1 0 0 1 40 0)" fill="#FCFCFC"/>
+			<path d="M18.7071 25.7929C19.0976 26.1834 19.0976 26.8166 18.7071 27.2071C18.3166 27.5976 17.6834 27.5976 17.2929 27.2071L11.5 21.4142C10.719 20.6332 10.719 19.3668 11.5 18.5858L17.2929 12.7929C17.6834 12.4024 18.3166 12.4024 18.7071 12.7929C19.0976 13.1834 19.0976 13.8166 18.7071 14.2071L13.9142 19H28C28.5523 19 29 19.4477 29 20C29 20.5523 28.5523 21 28 21H13.9142L18.7071 25.7929Z" fill="#6F767E"/>
+		</svg>
+	
+	</>
+})
+
+
+export const SVGSBTUpload = ComponentWrapper(() =>{
+	return<>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M9 19.5H6.75C5.35761 19.5 4.02226 18.9469 3.03769 17.9623C2.05312 16.9777 1.5 15.6424 1.5 14.25C1.5 12.8576 2.05312 11.5223 3.03769 10.5377C4.02226 9.55312 5.35761 9 6.75 9C7.18925 8.99984 7.62687 9.05336 8.05313 9.15938" stroke="#0070F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M7.5 12C7.5 10.8116 7.7824 9.64023 8.32393 8.5824C8.86545 7.52456 9.6506 6.61055 10.6147 5.91568C11.5787 5.22082 12.6941 4.765 13.8689 4.58578C15.0437 4.40656 16.2443 4.50907 17.3717 4.88488C18.4991 5.26068 19.5211 5.89901 20.3534 6.74726C21.1857 7.59552 21.8045 8.62941 22.1589 9.76374C22.5132 10.8981 22.5929 12.1004 22.3914 13.2716C22.1899 14.4427 21.713 15.5493 21 16.5" stroke="#0070F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M11.072 15.1781L14.2501 12L17.4283 15.1781" stroke="#0070F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M14.25 19.5V12" stroke="#0070F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+		</svg>
+	
+	</>
+})
+
+
+export const SVGSBTClose = ComponentWrapper(() =>{
+	return<>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M18.75 5.25L5.25 18.75" stroke="#313436" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M18.75 18.75L5.25 5.25" stroke="#313436" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+		</svg>
+	</>
+})
+
+
+export const SVGSBTCheck = ComponentWrapper(() =>{
+	return<>
+		<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M21.5 13L14.1625 20L10.5 16.5" stroke="#45B26B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#45B26B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+		</svg>
+	</>
+}) 
+
+export const SVGSBTUploading = ComponentWrapper(() =>{
+	return<>
+		<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fillRule="evenodd" clipRule="evenodd" d="M16.0001 2.66675C16.7365 2.66675 17.3334 3.2637 17.3334 4.00008V6.66675C17.3334 7.40313 16.7365 8.00008 16.0001 8.00008C15.2637 8.00008 14.6667 7.40313 14.6667 6.66675V4.00008C14.6667 3.2637 15.2637 2.66675 16.0001 2.66675Z" fill="#777E90"/>
+			<path fillRule="evenodd" clipRule="evenodd" d="M16.0001 24C16.7365 24 17.3334 24.597 17.3334 25.3333V28C17.3334 28.7364 16.7365 29.3333 16.0001 29.3333C15.2637 29.3333 14.6667 28.7364 14.6667 28V25.3333C14.6667 24.597 15.2637 24 16.0001 24Z" fill="#777E90"/>
+			<path fillRule="evenodd" clipRule="evenodd" d="M6.57196 6.57184C7.09266 6.05114 7.93688 6.05114 8.45758 6.57184L10.3432 8.45746C10.8639 8.97816 10.8639 9.82238 10.3432 10.3431C9.8225 10.8638 8.97828 10.8638 8.45758 10.3431L6.57196 8.45746C6.05126 7.93676 6.05126 7.09254 6.57196 6.57184Z" fill="#777E90"/>
+			<path fillRule="evenodd" clipRule="evenodd" d="M21.6569 21.6568C22.1776 21.1361 23.0218 21.1361 23.5425 21.6568L25.4282 23.5424C25.9489 24.0631 25.9489 24.9073 25.4282 25.428C24.9075 25.9487 24.0632 25.9487 23.5425 25.428L21.6569 23.5424C21.1362 23.0217 21.1362 22.1775 21.6569 21.6568Z" fill="#777E90"/>
+			<path fillRule="evenodd" clipRule="evenodd" d="M2.66675 15.9999C2.66675 15.2635 3.2637 14.6666 4.00008 14.6666L6.66675 14.6666C7.40313 14.6666 8.00008 15.2635 8.00008 15.9999C8.00008 16.7363 7.40313 17.3333 6.66675 17.3333L4.00008 17.3333C3.2637 17.3333 2.66675 16.7363 2.66675 15.9999Z" fill="#777E90"/>
+			<path fillRule="evenodd" clipRule="evenodd" d="M24 15.9999C24 15.2635 24.597 14.6666 25.3333 14.6666L28 14.6666C28.7364 14.6666 29.3333 15.2635 29.3333 15.9999C29.3333 16.7363 28.7364 17.3333 28 17.3333L25.3333 17.3333C24.597 17.3333 24 16.7363 24 15.9999Z" fill="#777E90"/>
+			<path fillRule="evenodd" clipRule="evenodd" d="M6.57184 25.428C6.05114 24.9073 6.05114 24.0631 6.57184 23.5424L8.45746 21.6568C8.97816 21.1361 9.82238 21.1361 10.3431 21.6568C10.8638 22.1775 10.8638 23.0217 10.3431 23.5424L8.45746 25.428C7.93676 25.9487 7.09254 25.9487 6.57184 25.428Z" fill="#777E90"/>
+			<path fillRule="evenodd" clipRule="evenodd" d="M21.6568 10.3431C21.1361 9.82238 21.1361 8.97816 21.6568 8.45746L23.5424 6.57184C24.0631 6.05114 24.9073 6.05114 25.428 6.57184C25.9487 7.09254 25.9487 7.93676 25.428 8.45746L23.5424 10.3431C23.0217 10.8638 22.1775 10.8638 21.6568 10.3431Z" fill="#777E90"/>
+		</svg>
+	</>
+})
+
+export const SVGSBTWarning = ComponentWrapper(() =>{
+	return<>
+		<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#FF3B30" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M16 10V16.5" stroke="#FF3B30" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M16 23.5C17.1046 23.5 18 22.6046 18 21.5C18 20.3954 17.1046 19.5 16 19.5C14.8954 19.5 14 20.3954 14 21.5C14 22.6046 14.8954 23.5 16 23.5Z" fill="#FF3B30"/>
+		</svg>
+	</>
+})
+
+
+export const SVGSBTCountUp = ComponentWrapper(() => {
+	return<>
+		<svg width="6" height="5" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M3 0L0 4.33333H6L3 0Z" fill="#333333"/>
+		</svg>
+	</>
+})
+
+export const SVGSBTCountDown = ComponentWrapper(() => {
+	return<>
+		<svg width="6" height="5" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M3 5.00008L0 0.666748H6L3 5.00008Z" fill="#333333"/>
+		</svg>
+	</>
+})
