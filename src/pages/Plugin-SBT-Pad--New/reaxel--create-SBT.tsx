@@ -125,7 +125,7 @@ export const reaxel_newSBT = function () {
 					return formater({
 						address : reax_wallet.account.address,
 						data ,
-						signature : await reax_user.signByFakeWallet(formater(data)),
+						signature : await reax_user.signByFakeWallet((data)),
 						file : reax_DDF.file,
 					});
 				};
@@ -173,7 +173,11 @@ const formater = ( source , formdata = null , parentKey : string = null ) => {
 		if ( _.isObject( value ) && Object.getPrototypeOf( value ) !== File.prototype ) {
 			formater( value , formdata , parentKey ? `${ parentKey }[${ key }]` : key );
 		} else {
-			formdata.append( parentKey ? `${ parentKey }[${ key }]` : key , value );
+			if(!_.isNaN(parseInt(key))){
+				formdata.append( parentKey ? `${ parentKey }[]` : key , value );
+			}else{
+				formdata.append( parentKey ? `${ parentKey }[${ key }]` : key , value );
+			}
 		}
 		return formdata;
 	} , formdata ?? new FormData );
