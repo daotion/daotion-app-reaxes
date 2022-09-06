@@ -13,6 +13,7 @@ export const reaxel_SBT_list = function(){
 	});
 	/*记录上一次请求的状态,*/
 	const [ prevParams , assignPrevParams ] = utils.makePair({
+		spaceID : null ,
 		firstTimestamp : 0 ,
 		/*当前分页最后一个在总列表的索引位置(以1开头的),映射后端接口的indexEnd*/
 		tailIndex : 0 ,
@@ -64,6 +65,7 @@ export const reaxel_SBT_list = function(){
 				};
 			}).then((res) => {
 				assignPrevParams({
+					spaceID ,
 					firstTimestamp : res.firstTimestamp ,
 					tailIndex : res.indexEnd ,
 					input_search : store.input_search ,
@@ -109,6 +111,7 @@ export const reaxel_SBT_list = function(){
 					input_search : store.input_search ,
 					select_chain : store.select_chain ,
 					select_type : store.select_type ,
+					spaceID,
 				});
 				/*如果用户输入变化 则重置请求*/
 				if(userInputChanged) {
@@ -116,6 +119,7 @@ export const reaxel_SBT_list = function(){
 						firstTimestamp : 0 ,
 						tailIndex : 0 ,
 					});
+					setState({ SBT_list : [] });
 				}
 				
 				closuredFetch__SBT_Pad_list((prev) => {
@@ -128,7 +132,7 @@ export const reaxel_SBT_list = function(){
 					];
 					return ret;
 				})({
-					spaceID : 2 || spaceID ,
+					spaceID ,
 					indexStart : prevParams.tailIndex ,
 					firstTimestamp : prevParams.firstTimestamp ,
 					count : 20 ,

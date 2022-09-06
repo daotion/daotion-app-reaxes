@@ -1,7 +1,7 @@
 
 export const PluginSBTPadList = ComponentWrapper(() => {
 	const { params } = utils.useRouter();
-	const spaceID = parseInt(params.spaceID) || 2;
+	const spaceID = parseInt(params.spaceID);
 	
 	const {
 		fetchSBTList ,
