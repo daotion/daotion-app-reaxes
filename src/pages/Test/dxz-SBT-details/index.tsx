@@ -1,3 +1,5 @@
+import { Img } from "@@common/Xcomponents";
+
 export const DxzSBTDetails=()=>{
 	return<>
 	<div className={less.SBTDetailsContainer}>
@@ -13,7 +15,7 @@ export const DxzSBTDetails=()=>{
 				<SBTInfoBox title = {i18n("Details")}>
 					<SBTDetailList />
 				</SBTInfoBox>
-				<SBTInfoBox title = {i18n("Cancelling Rules")}>
+				<SBTInfoBox title = {i18n("Destruction of rules")}>
 					{/*<SBTRulesCheckbox />*/}
 					<div className={less.desc}>
 						<SVGSBTChecked/>
@@ -23,7 +25,7 @@ export const DxzSBTDetails=()=>{
 			</div>
 			<div className = { less.SBTDetailsRight }>
 				<div className={less.SBTCertificateTop}>
-					<span className = { less.certificateTag }><I18n>Design Certificate</I18n></span>
+					<span className = { less.certificateTag }><I18n>DESIGN CERTIFICATE</I18n></span>
 					<ShareBtn />
 					{/*<SBTMoreInfoPop/>*/}
 				</div>
@@ -42,18 +44,18 @@ export const DxzSBTDetails=()=>{
 				<SBTInfoBox>
 					{/*SBT-claim条件包括符合(conforming) & 不符合(nonconforming) 两种*/}
 					<h3 className={less.conditionTitle}><I18n>Limit of Each Address：1 SBT</I18n></h3>
-					<div className = { less.conditionPanel }>
-						<span className={less.conditionSubtitle}><I18n>Meet all the following conditions：get 1 SBT</I18n></span>
+					<div className = { less.firstCondition }>
+						{/*<span className={less.conditionSubtitle}><I18n>Meet all the following conditions：get 1 SBT</I18n></span>*/}
 						<div className={less.conditionContent}>
 							<SVGNonconformingCondition/>
 							<span>
-								<I18n>Whitelist</I18n>
+								<I18n>3 <Img src="https://www.popsci.com/uploads/2020/01/07/WMD5M52LJFBEBIHNEEABHVB6LA.jpg?auto=webp&width=1440&height=864" className={less.sbtCover}/> mfer</I18n>
 							</span>
 						</div>
 						<div className={less.conditionContent}>
-							<SVGNonconformingCondition/>
+							<SVGNonconformingCondition/> 
 							<span>
-								<I18n>3</I18n>
+								<I18n>3 <Img src="https://www.popsci.com/uploads/2020/01/07/WMD5M52LJFBEBIHNEEABHVB6LA.jpg?auto=webp&width=1440&height=864" className={less.sbtCover}/> SBTname</I18n>
 							</span>
 						</div>
 						<div className={less.conditionContent}>
@@ -63,8 +65,9 @@ export const DxzSBTDetails=()=>{
 							</span>
 						</div>
 					</div>
-					<div className = { less.conditionPanel }>
-						<span className={less.conditionSubtitle}><I18n>Meet any the following conditions：get 1 SBT</I18n></span>
+					<Divider plain className={less.divider}>or</Divider>
+					<div className = { less.secondCondition }>
+						{/*<span className={less.conditionSubtitle}><I18n>Meet any the following conditions：get 1 SBT</I18n></span>*/}
 						<div className={less.conditionContent}>
 							<SVGConformingCondition/>
 							<span>
@@ -78,21 +81,22 @@ export const DxzSBTDetails=()=>{
 							</span>
 						</div>
 					</div>
-					<div className = { less.conditionPanel }>
-						<span className={less.conditionSubtitle}><I18n>Meet any the following conditions：get 1 SBT</I18n></span>
-						<div className={less.conditionContent}>
-							<SVGConformingCondition/>
-							<span>
-								<I18n>Whitelist</I18n>
-							</span>
-						</div>
-						<div className={less.conditionContent}>
-							<SVGNonconformingCondition/>
-							<span>
-								<I18n>Proof</I18n>
-							</span>
-						</div>
-					</div>
+					{/*<div className = { less.conditionPanel }>*/}
+					{/*	<span className={less.conditionSubtitle}><I18n>Meet any the following conditions：get 1 SBT</I18n></span>*/}
+					{/*	<div className={less.conditionContent}>*/}
+					{/*		<SVGConformingCondition/>*/}
+					{/*		<span>*/}
+					{/*			<I18n>Whitelist</I18n>*/}
+					{/*		</span>*/}
+					{/*	</div>*/}
+					{/*	<div className={less.conditionContent}>*/}
+					{/*		<SVGNonconformingCondition/>*/}
+					{/*		<span>*/}
+					{/*			<I18n>Proof</I18n>*/}
+					{/*		</span>*/}
+					{/*	</div>*/}
+					{/*</div>*/}
+					<Divider plain className={less.divider}>or</Divider>
 					<div className = { less.singleCondition }>
 						<SVGConformingCondition/>
 						<span>
@@ -242,27 +246,27 @@ export const SBTDetailList=ComponentWrapper(()=>{
 				
 				<div className={less.propList}>
 					<div className={less.keyVal}>
-						<span className={less.key}><I18n>key</I18n></span>
+						<span className={less.key}><I18n>Key</I18n></span>
 						<span className={less.val}><I18n>value</I18n></span>
 					</div>
 					<div className={less.keyVal}>
-						<span className={less.key}><I18n>key</I18n></span>
+						<span className={less.key}><I18n>Key</I18n></span>
 						<span className={less.val}><I18n>value</I18n></span>
 					</div>
 					<div className={less.keyVal}>
-						<span className={less.key}><I18n>key</I18n></span>
+						<span className={less.key}><I18n>Key</I18n></span>
 						<span className={less.val}><I18n>value</I18n></span>
 					</div>
 					<div className={less.keyVal}>
-						<span className={less.key}><I18n>key</I18n></span>
+						<span className={less.key}><I18n>Key</I18n></span>
 						<span className={less.val}><I18n>value</I18n></span>
 					</div>
 					<div className={less.keyVal}>
-						<span className={less.key}><I18n>key</I18n></span>
+						<span className={less.key}><I18n>Key</I18n></span>
 						<span className={less.val}><I18n>value</I18n></span>
 					</div>
 					<div className={less.keyVal}>
-						<span className={less.key}><I18n>key</I18n></span>
+						<span className={less.key}><I18n>Key</I18n></span>
 						<span className={less.val}><I18n>value</I18n></span>
 					</div>
 				</div>
@@ -297,7 +301,10 @@ export const SBTInfoItem=ComponentWrapper((props)=>{
 
 
 
-import {Table} from 'antd';
+import {
+	Table, 
+	Divider
+} from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
 interface DataType {
@@ -306,7 +313,7 @@ interface DataType {
 	amount: number;
 	time: string;
 	id:string;
-	lastState: string;
+	status: string;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -327,8 +334,8 @@ const columns: ColumnsType<DataType> = [
 		dataIndex: 'amount',
 	},
 	{
-		title: 'Last state',
-		dataIndex: 'lastState',
+		title: 'Status',
+		dataIndex: 'status',
 	},
 
 ];
@@ -341,7 +348,7 @@ for (let i = 0; i < 6; i++) {
 		amount : 2 ,
 		time : '4 minutes ago' ,
 		id : '#23451' ,
-		lastState: 'Claimed' ,
+		status: 'Claimed' ,
 	});
 }
 

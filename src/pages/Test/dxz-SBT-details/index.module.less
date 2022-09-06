@@ -26,6 +26,10 @@
 	padding: 0 24px;
 	width: 490px;
 	height: fit-content;
+	
+	:global(.ant-divider-horizontal.ant-divider-with-text){
+		margin: 8px 0;
+	}
 }
 
 .SBT-info-box {
@@ -192,7 +196,6 @@
 	justify-content: center;
 	align-items: center;
 	padding: 6px 8px;
-	width: 139px;
 	height: 24px;
 	background: #f4f5f6;
 	border-radius: 4px;
@@ -201,6 +204,7 @@
 	font-weight: 700;
 	font-size: 12px;
 	user-select: none;
+	font-family: 'Poppins';
 }
 
 .SBT-name {
@@ -338,27 +342,29 @@
 	font-size: 14px;
 	color: #313436;
 	margin-bottom: 12px;
+	user-select: none;
 }
 
 .condition-content{
 	display: flex;
 	align-items: center;
-	margin-bottom: 24px;
+	margin-bottom: 12px;
+	
 	
 	&:last-child{
 		margin-bottom: 0;
 	}
 }
 
-.condition-subtitle{
-	font-weight: 500;
-	font-size: 14px;
-	color: #777E91;
-	margin-bottom: 16px;
-}
+//.condition-subtitle{
+//	font-weight: 500;
+//	font-size: 14px;
+//	color: #777E91;
+//	margin-bottom: 16px;
+//}
 
 
-.condition-panel {
+.first-condition {
 	display: flex;
 	flex-direction: column;
 	padding: 16px;
@@ -367,15 +373,48 @@
 	border-radius: 10px;
 	font-weight: 600;
 	font-size: 16px;
-	margin-bottom: 12px;
 	color: #313436;
 	
 	svg {
 		margin-right: 14px;
 	}
 	
-	&:last-child {
-		margin-bottom: 24px;
+	&:hover{
+		background-color: #E6E8EC;
+	}
+	
+	span{
+		cursor: pointer;
+		&:hover{
+			color: #0070F3;
+		}
+	}
+}
+
+.second-condition {
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+	width: 100%;
+	background: #f4f5f6;
+	border-radius: 10px;
+	font-weight: 600;
+	font-size: 16px;
+	color: #45B26B;
+	
+	svg {
+		margin-right: 14px;
+	}
+	
+	&:hover{
+		background-color: #E6E8EC;
+	}
+	
+	span{
+		cursor: pointer;
+		&:hover{
+			color: rgba(69, 178, 107, 0.7);
+		}
 	}
 }
 
@@ -398,6 +437,17 @@
 	
 	&:last-child {
 		margin-bottom: 24px;
+	}
+	
+	&:hover{
+		background-color: #E6E8EC;
+	}
+	
+	span{
+		cursor: pointer;
+		&:hover{
+			color: rgba(69, 178, 107, 0.7);
+		}
 	}
 }
 
@@ -659,6 +709,20 @@
 			color: #353945;
 			user-select: none;
 			
+			&:nth-child(2){
+				font-weight: 500;
+				color: #777E91;
+			}
+		}
+	}
+	
+	:global(.ant-table-row) {
+		
+		
+		&:hover{
+			:global(.ant-table-cell){
+				background-color: unset;
+			}
 		}
 	}
 }
@@ -693,7 +757,7 @@
 		margin-right: 0;
 	}
 	
-	&:nth-last-child(n + 3){
+	&:nth-last-child(n + 4){
 		margin-bottom: 16px;
 	}
 }
@@ -737,4 +801,17 @@
 	background-size: contain;
 }
 
+.divider{
+	:global(.ant-divider-inner-text){
+		font-weight: 500;
+		font-size: 14px;
+		color: #777E91;
+		user-select: none;
+	}
+}
 
+.sbt-cover{
+	width: 32px;
+	height: 32px;
+	background-color: pink;
+}
