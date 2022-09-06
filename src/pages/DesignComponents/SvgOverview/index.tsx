@@ -108,7 +108,7 @@ import {
 	SVGYoutube ,
 } from '@@pages/_SvgComponents/space-setting-svg';
 import { SVGCloseIcon } from '@@pages/_SvgComponents/SVG-close-icon';
-import transparentBackgroundImg from '@@Public/statics/transparent.svg';
+import transparentBackgroundImg from '@@Public/statics/transparent-background.svg';
 import Draggable from 'react-draggable';
 import { Table } from "antd";
 import components from "@@RootPath/src/utils/components";

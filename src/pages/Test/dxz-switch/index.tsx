@@ -1,13 +1,13 @@
 
 
-export const XSwitch = ( props : SpaceSwitchProps ) => {
+export const XSwitch = ( props : XSwitchProps ) => {
 	return <Switch
 		className = { less[ props.type ] }
 		{ ...props }
 	/>;
 	
 };
-type SpaceSwitchProps = SwitchProps&{
+type XSwitchProps = SwitchProps&{
 	type : "primary" | "secondary";
 }
 

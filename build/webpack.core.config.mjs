@@ -6,21 +6,25 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import { merge } from 'webpack-merge';
 import { __dirname } from './.mix.js';
-import { getPort, pick } from './utils.mjs';
 import {
-	method,
+	getPort ,
+	pick,
+} from './utils.mjs';
+import {
+	method ,
 } from '../webpack.main.mjs';
 
-import {LogAtSucceed} from './plugins.mjs';
+import { LogAtSucceed } from './plugins.mjs';
 
-import NodePolyfillPlugin from 'node-polyfill-webpack-plugin'
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
+
 /**
  * @suggest dev环境建议使用全量source-map , 否则可能会导致错误栈无法定位到正确的模块
  */
 const {
 	DllReferencePlugin ,
 	DllPlugin ,
-	DefinePlugin,
+	DefinePlugin ,
 } = webpack;
 const defaultPartialConfig = {
 	plugins : [] ,
@@ -39,8 +43,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 		// filename : '[name].bundle.[fullhash:6].js' ,
 		/*todo*/
 		filename : method === "server" ? '[name].bundle.js' : "[name].bundle.[contenthash:6].js" ,
-		path : path.resolve(rootPath , 'dist') ,
-		// publicPath : path.resolve(rootPath , 'dist') ,
+		path : path.resolve(rootPath , 'dist') , // publicPath : path.resolve(rootPath , 'dist') ,
 	} ,
 	resolve : {
 		alias : {
@@ -60,8 +63,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'@@reaxels/*' : path.resolve(rootPath , 'src/reaxels/*') ,
 			'@@requester' : path.resolve(rootPath , 'src/common/requester') ,
 			'@@requests' : path.resolve(rootPath , 'src/requests') ,
-			'@@requests/*' : path.resolve(rootPath , 'src/requests/*') ,
-			// '@@common/requests' : path.resolve(rootPath , 'src/common/requests/index.ts') ,
+			'@@requests/*' : path.resolve(rootPath , 'src/requests/*') , // '@@common/requests' : path.resolve(rootPath , 'src/common/requests/index.ts') ,
 			// '@@common/routes' : path.resolve(rootPath , 'src/common/routes/index.ts') ,
 		} ,
 		extensions : [
@@ -69,22 +71,22 @@ export const basicConfig$Fn = (plugins = []) => ({
 			'.tsx' ,
 			'.js' ,
 			'.jsx' ,
-			'.json',
+			'.json' ,
 		] ,
 	} ,
-	devtool : 'cheap-source-map' , 
+	devtool : 'cheap-source-map' ,
 	cache : {
-		type : "memory",
-		maxGenerations: 2, 
+		type : "memory" ,
+		maxGenerations : 2 ,
 	} ,
 	module : {
 		rules : [
 			{
 				test : /\.m?js$/ ,
 				resolve : {
-					 fullySpecified:false,
-				}
-		   } ,
+					fullySpecified : false ,
+				},
+			} ,
 			{
 				test : /\.(jsx?|tsx?)$/ ,
 				use : {
@@ -121,7 +123,7 @@ export const basicConfig$Fn = (plugins = []) => ({
 					} ,
 					{
 						loader : 'css-loader' ,
-						options : pick(cssLoaderOptions,["sourceMap"]) ,
+						options : pick(cssLoaderOptions , ["sourceMap"]) ,
 					} ,
 					{
 						loader : 'less-loader' ,
@@ -154,17 +156,16 @@ export const basicConfig$Fn = (plugins = []) => ({
 					} ,
 					{
 						loader : 'css-loader' ,
-						options : pick(cssLoaderOptions,["sourceMap"]) ,
+						options : pick(cssLoaderOptions , ["sourceMap"]) ,
 					} ,
 				] ,
 			} ,
 			{
-				test : /\.theme\.(le|c)ss$/ ,
-				// type :  "asset/source",
+				test : /\.theme\.(le|c)ss$/ , // type :  "asset/source",
 				use : [
 					{
 						loader : 'css-loader' ,
-						options : pick(cssLoaderOptions,["sourceMap"]) ,
+						options : pick(cssLoaderOptions , ["sourceMap"]) ,
 					} ,
 					{
 						loader : 'less-loader' ,
@@ -179,24 +180,24 @@ export const basicConfig$Fn = (plugins = []) => ({
 			} ,
 			{
 				test : /\.(png|jpe?g|te?xt|gif|woff|woff2|eot|ttf|otf|bmp|swf)$/ ,
-				type : "asset/resource",
-				generator: {
-					filename: 'static/[hash][ext][query]'
-				},
-				parser: {
-					dataUrlCondition: {
-						maxSize: 20 * 1024,
-					},
-				},
+				type : "asset/resource" ,
+				generator : {
+					filename : 'static/[hash][ext][query]',
+				} ,
+				parser : {
+					dataUrlCondition : {
+						maxSize : 20 * 1024 ,
+					} ,
+				} ,
 			} ,
 			{
 				test : /\.component\.svg$/ ,
-				use : ["@svgr/webpack"],
+				use : ["@svgr/webpack"] ,
 				
 			} ,
 			{
 				test : /(?<!\.component)\.svg$/ ,
-				type : "asset/resource",
+				type : "asset/resource" ,
 				
 			} ,
 		] ,
@@ -228,18 +229,17 @@ export const basicConfig$Fn = (plugins = []) => ({
 			excludeChunks : [] ,
 			inject : false ,
 		}) ,
-		new NodePolyfillPlugin(),
-		...plugins
+		new NodePolyfillPlugin() ,
+		...plugins,
 	] ,
 });
 
 
-
 const cssLoaderOptions = {
-	sourceMap :  true ,
+	sourceMap : true ,
 	modules : {
-		exportLocalsConvention : "dashes",
-		localIdentName: "[local]--[hash:base64:4]",
+		exportLocalsConvention : "dashes" ,
+		localIdentName : "[local]--[hash:base64:4]" ,
 		
-	},
-}
+	} ,
+};

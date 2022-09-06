@@ -1,3 +1,4 @@
+
 export const PluginSBTPadList = ComponentWrapper(() => {
 	const { params } = utils.useRouter();
 	const spaceID = parseInt(params.spaceID) || 2;
@@ -8,7 +9,10 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 		scrollParentRef ,
 	} = reaxel_SBT_list();
 	const ref = reaxel_scrollParentRef();
+	const { fetchUserRoleInSpace , role } = reaxel__role_in_space(spaceID);
+	
 	fetchSBTList({ spaceID });
+	
 	return <>
 		<div className = { less.allSBTsContainer }>
 			{/*分为顶部的若干个SBT索引框和下面展示的SBT card list*/ }
@@ -16,7 +20,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 				<span className = { less.SBTsTitle }>SBTs</span>
 				<div className = { less.SBTsIndexingWithBtn }>
 					<SBTSearchArea />
-					<SBTCreateNewBtn />
+					{ role !== 0 && <SBTCreateNewBtn /> }
 				</div>
 			</div>
 			
@@ -40,42 +44,40 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 					{ SBT_Pad_Store.SBT_list.map((item) => {
 						return <SBTDisplayCard
 							key = { item.SBTID }
-							chainID = { item.chainID }
-							SBT_name = { item.name }
-							type = { item.type }
-							picUrl = { 'https://www.ali213.net/images/yxlogo.png' }
+							SBT_info = {item}
 						/>;
 					}) }
 				</InfiniteScroll>
 			</div>
 		</div>
+		{ role !== 0 && <CreateSBTModal /> }
 	</>;
 });
 
 export const SBTSearchArea = ComponentWrapper(() => {
-	const { SBT_Pad_Store , setSBTSearchFields , fetchSBTList } = reaxel_SBT_list();
+	const { SBT_Pad_Store , setFields , fetchSBTList } = reaxel_SBT_list();
 	const { chains } = reaxel_wallet();
 	const { Input , Select } = antd , { Option } = Select;
 	return <>
 		<Input
 			value = { SBT_Pad_Store.input_search }
-			onChange = { (e) => {
-				setSBTSearchFields({
+			onChange = { ( e ) => {
+				setFields( {
 					input_search : e.target.value ,
 					
-				});
+				} );
 			} }
 			suffix = { <SVGSearch /> }
-			placeholder = { i18n('Search SBTs') }
+			placeholder = { i18n( 'Search SBTs' ) }
 			className = { less.SBTsSearchInput }
 		/>
 		
 		<Select
 			value = { SBT_Pad_Store.select_chain }
-			onChange = { (value) => {
-				setSBTSearchFields({
+			onChange = { ( value ) => {
+				setFields( {
 					select_chain : value ,
-				});
+				} );
 			} }
 			suffixIcon = { <SVGSelectSuffix /> }
 			className = { less.SBTSelectType }
@@ -85,16 +87,20 @@ export const SBTSearchArea = ComponentWrapper(() => {
 				borderRadius : "12px" ,
 				padding : "8px" ,
 			} }
-			placeholder = { i18n("All Chain") }
+			placeholder = { i18n( "All Chain" ) }
 			// optionLabelProp = "label"
 		>
-			{ chains.map((chain) => {
+			{ chains.map( ( chain ) => {
 				return <Option
 					key = { chain.id }
 				>{ chain.label }</Option>;
-			}) }
+			} ) }
 		</Select>
 		<Select
+			value = { SBT_Pad_Store.select_type }
+			onChange = { ( value ) => {
+				setFields( { select_type : value } );
+			} }
 			suffixIcon = { <SVGSelectSuffix /> }
 			className = { less.SBTSelectType }
 			dropdownClassName = { less.dropDownMenu }
@@ -103,33 +109,42 @@ export const SBTSearchArea = ComponentWrapper(() => {
 				borderRadius : "12px" ,
 				padding : "8px" ,
 			} }
-			placeholder = { i18n("All Type") }
+			placeholder = { i18n( "All Type" ) }
 		>
-			<Select.Option value = "type1">type1</Select.Option>
-			<Select.Option value = "type2">type2</Select.Option>
+			<Select.Option
+				value = { null }
+			>All types</Select.Option>
+			{ spaceTags.map( ( tag: string ) => {
+				return <Select.Option
+					value = { tag }
+					key = { tag }
+				>{ tag }</Select.Option>;
+			} ) }
 		</Select>
 	</>;
 });
 
 export const SBTDisplayCard = ComponentWrapper((props : {
-	SBT_name : string;
-	type : string;
-	chainID : string;
-	picUrl : string;
+	SBT_info: SBT_list.SBTListItem;
 }) => {
 	const { chains } = reaxel_wallet();
-	const chain = chains.find(({ id }) => props.chainID);
+	const { navigate , params } = utils.useRouter();
+	const chain = chains.find(({ id }) => props.SBT_info.chainID);
 	return <>
-		<div className = { less.SBTDisplayCard }>
+		<div
+			onClick={() => {
+				navigate( `/space${params.spaceID}/SBT${props.SBT_info.SBTID}` );
+			}}
+			className = { less.SBTDisplayCard }
+		>
 			{/*<div className = { less.SBTShowSection }></div>*/ }
 			<Img
-				src = { props.picUrl }
+				src = { props.SBT_info.iconUrl }
 				className = { less.SBTShowSection }
 			/>
 			<div className = { less.SBTInfoSection }>
-				<p className = { less.SBTCardName }>{ props.SBT_name }</p>
-				{/*todo @Ferry*/ }
-				<span>{ props.type }</span>
+				<p className = { less.SBTCardName }>{ props.SBT_info.name }</p>
+				<span>{ props.SBT_info.type }</span>
 				<div className = { less.divider }></div>
 				<div className = { less.cardFooter }>
 					<Img src = { `${ chain.icon }` } />
@@ -142,7 +157,7 @@ export const SBTDisplayCard = ComponentWrapper((props : {
 
 export const SBTCreateNewBtn = ComponentWrapper(() => {
 	
-	const { navigate } = utils.useRouter();
+	const { setFields } = reaxel_SBT_list();
 	return <>
 		<XButton
 			type = "primary"
@@ -151,7 +166,9 @@ export const SBTCreateNewBtn = ComponentWrapper(() => {
 				borderRadius : '8px' ,
 				fontSize : "13px",
 			} }
-			onClick = { () => navigate('new') }
+			onClick = { () => {
+				setFields({ create_Modal_visible : true });
+			} }
 		>
 			Create new SBT
 		</XButton>
@@ -163,7 +180,10 @@ import {
 	reaxel_SBT_list ,
 	reaxel_scrollParentRef ,
 	reaxel_wallet ,
+	reaxel__role_in_space,
 } from "@@reaxels";
+import { SBT_list } from '@@requests';
+import { CreateSBTModal } from './Create-SBT-Modal';
 import { Img } from '@@common/Xcomponents';
 import { XButton } from '@@pages/Test/dxz-button';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -171,4 +191,5 @@ import {
 	SVGSearch ,
 	SVGSelectSuffix ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
+import spaceTags from '@@Public/space-tags.json';
 import less from './index.module.less';

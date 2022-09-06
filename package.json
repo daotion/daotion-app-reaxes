@@ -87,15 +87,25 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/CainKane/eth-web-front.git"
+		"url": "git@github.com:daotion/web-interface.git"
 	},
 	"homepage": "/",
 	"main": "src/main.tsx",
-	"keywords": [],
+	"keywords": ["Daotion"],
 	"author": "Kane",
 	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/CainKane/eth-web-front/issues"
+	"prettier": {
+		"printWidth": 80,
+		"tabWidth": 3,
+		"useTabs": true,
+		"semi" : true ,
+		"jsxSingleQuote" : false ,
+		"singleQuote": true,
+		"trailingComma": "all",
+		"bracketSameLine" : false ,
+		"arrowParens" : "always" ,
+		"bracketSpacing": true,
+		"parser": "typescript"
 	},
 	"version": "0.1.0"
 }

@@ -18,6 +18,7 @@ import {
 	DesignComponents ,
 	SvgOverview,
 } from '@@pages/DesignComponents';
+import { PluginSBTInfo } from '@@pages/Plugin-SBT-Info';
 
 import { Layout } from '@@RootPath/src/Layout';
 
@@ -86,15 +87,13 @@ export const MainContentRouting = (props) => <Routes>
 			path = "space:spaceID/*"
 		>
 			<Route
-				index
-				element = { <Navigate
-					to = { './info' }
-					replace
-				/> }
-			/>
-			<Route
 				path = "info"
 				element = { <SpaceInfo /> }
+			/>
+			
+			<Route
+				path = "SBT:SBTID"
+				element= {<PluginSBTInfo/>}
 			/>
 			<Route
 				path = "sbt-pad"
@@ -117,6 +116,13 @@ export const MainContentRouting = (props) => <Routes>
 			<Route
 				path = "settings"
 				element = { <SpaceSettings /> }
+			/>
+			<Route
+				index
+				element = { <Navigate
+					to = { './info' }
+					replace
+				/> }
 			/>
 		</Route>
 	</Route>

@@ -1,4 +1,7 @@
+
+
 export const XInput = ( props:InputProps ) => {
+	const { Input } = antd;
 	return <Input
 		className = { less[ props.type ] }
 		placeholder={props.placeholder}
@@ -7,11 +10,15 @@ export const XInput = ( props:InputProps ) => {
 	/>;
 	
 };
-export const XTextArea = ( props ) => {
+export const XTextArea = ( props : TextAreaProps & {
+	type? : "primary"
+}) => {
+	const { TextArea } = antd.Input;
 	return <TextArea
 		className = { less[ props.type ] }
 		style={props.style}
 		size="large"
+		{...props}
 	/>;
 	
 };
@@ -28,5 +35,5 @@ export const DxzInput = ComponentWrapper( () => {
 	</>;
 } );
 import less from './index.module.less';
-import { Input , InputProps } from 'antd';
-const { TextArea } = Input;
+import { InputProps  } from 'antd';
+import { TextAreaProps } from "antd/lib/input";
