@@ -4,22 +4,22 @@ import { reaxel_wallet } from "@@reaxels";
 export const NewSBT = ComponentWrapper(() => {
 	
 	const spaceID = parseInt(utils.useRouter().params.spaceID);
-	const reax_newSBT = reaxel_newSBT();
+	const reax_newSBT = reaxel__SBT_Pad_New();
 	const {
 		file ,
 		imgPreviewUrl ,
 	} = reaxel_DDF();
 	const {
+		store ,
+		setFields ,
 		createSBT ,
 		validate ,
-		setFields ,
-		newSBT_store ,
 		validations ,
 		enum__SBT_type ,
 		enum_chains ,
 		enum__SBT_eligible ,
 	} = reax_newSBT;
-	Reaxes.collectDeps(newSBT_store);
+	Reaxes.collectDeps(store);
 	
 	return <>
 		<div className = { less.createSBTContainer }>
@@ -38,7 +38,7 @@ export const NewSBT = ComponentWrapper(() => {
 								icon = { <SVGSubtract /> }
 							>
 								<Select
-									value = { newSBT_store.select__SBT_type }
+									value = { store.select__SBT_type }
 									onChange = { (value) => {
 										reax_newSBT.setFields({
 											select__SBT_type : value ,
@@ -73,7 +73,7 @@ export const NewSBT = ComponentWrapper(() => {
 									type = "primary"
 									placeholder = { i18n('Enter the SBT name') }
 									status = { convert(validations.input__SBT_name) }
-									value = { newSBT_store.input__SBT_name }
+									value = { store.input__SBT_name }
 									onChange = { (e) => {
 										setFields({ input__SBT_name : e.target.value });
 									} }
@@ -84,7 +84,7 @@ export const NewSBT = ComponentWrapper(() => {
 							<SubTitleWithItem title = "Description">
 								<XTextArea
 									type = "primary"
-									value = { newSBT_store.textarea__description }
+									value = { store.textarea__description }
 									onChange = { (e) => {
 										setFields({ textarea__description : e.target.value });
 									} }
@@ -100,7 +100,7 @@ export const NewSBT = ComponentWrapper(() => {
 								icon = { <SVGSubtract /> }
 							>
 								<Select
-									value = { newSBT_store.select__SBT_eligible }
+									value = { store.select__SBT_eligible }
 									onChange = { (value , option) => {
 										setFields({ select__SBT_eligible : value });
 									} }
@@ -135,7 +135,7 @@ export const NewSBT = ComponentWrapper(() => {
 								<XInput
 									type = "primary"
 									placeholder = "e.g. 1"
-									value = { newSBT_store.input_number__litmit_of_each_address }
+									value = { store.input_number__litmit_of_each_address }
 									onChange = { (e) => {
 										setFields({
 											input_number__litmit_of_each_address : e.target.value.replaceAll(/[^0-9]*/g , '') ,
@@ -167,7 +167,7 @@ export const NewSBT = ComponentWrapper(() => {
 								</p> }
 							>
 								<div className = { less.divider }></div>
-								{ !newSBT_store.switch__issuance_quantity_infinity && <XInput
+								{ !store.switch__issuance_quantity_infinity && <XInput
 									type = "primary"
 									onChange = { (e) => {
 										setFields({ input__issuance_quantity_number : e.target.value });
@@ -179,7 +179,7 @@ export const NewSBT = ComponentWrapper(() => {
 								title = { <p className = { less.subtitleWithSwitch }>
 									* Revoke by Issuer
 									<XSwitch
-										checked = { newSBT_store.switch__revoke_by_issuer }
+										checked = { store.switch__revoke_by_issuer }
 										onChange = { (checked) => {
 											setFields({ switch__revoke_by_issuer : checked });
 										} }
@@ -192,7 +192,7 @@ export const NewSBT = ComponentWrapper(() => {
 								title = { <p className = { less.subtitleWithSwitch }>
 									* Burned by Holder
 									<XSwitch
-										checked = { newSBT_store.switch__burned_by_holder }
+										checked = { store.switch__burned_by_holder }
 										onChange = { (checked) => {
 											setFields({ switch__burned_by_holder : checked });
 										} }
@@ -208,7 +208,7 @@ export const NewSBT = ComponentWrapper(() => {
 								title = { i18n('Properties') }
 								icon = { <SVGSubtract /> }
 							>
-								{ newSBT_store.input_pair__properties.map(({ key , value , react_key }) => {
+								{ store.input_pair__properties.map(({ key , value , react_key }) => {
 									
 									return <div
 										key = { react_key }
@@ -218,7 +218,7 @@ export const NewSBT = ComponentWrapper(() => {
 											value = {key}
 											onChange = {(e) => {
 												setFields({
-													input_pair__properties : newSBT_store.input_pair__properties.map((property) => {
+													input_pair__properties : store.input_pair__properties.map((property) => {
 														if( react_key === property.react_key ) {
 															return {
 																...property ,
@@ -238,7 +238,7 @@ export const NewSBT = ComponentWrapper(() => {
 											value = {value}
 											onChange = {(e) => {
 												setFields({
-													input_pair__properties : newSBT_store.input_pair__properties.map((property) => {
+													input_pair__properties : store.input_pair__properties.map((property) => {
 														if( react_key === property.react_key ) {
 															return {
 																...property ,
@@ -254,10 +254,10 @@ export const NewSBT = ComponentWrapper(() => {
 											placeholder = "Enter Content..."
 										/>
 										
-										{ newSBT_store.input_pair__properties.length > 1 && <button
+										{ store.input_pair__properties.length > 1 && <button
 											onClick = {() => {
 												setFields({
-													input_pair__properties : newSBT_store.input_pair__properties.filter((property) => property.react_key !== react_key) ,
+													input_pair__properties : store.input_pair__properties.filter((property) => property.react_key !== react_key) ,
 												});
 											}}
 											className = { less.closeBtn }
@@ -270,7 +270,7 @@ export const NewSBT = ComponentWrapper(() => {
 								<button 
 									onClick = {() => {
 										setFields({
-											input_pair__properties : newSBT_store.input_pair__properties.concat({
+											input_pair__properties : store.input_pair__properties.concat({
 												key : '',
 												value : '',
 												react_key : Math.random(),
@@ -323,6 +323,7 @@ export const NewSBT = ComponentWrapper(() => {
 						</div>
 						<div className = { less.createSBTFooterBox }>
 							<XButton
+								loading={store.pending}
 								type = "primary"
 								onClick = { async () => {
 									await validate();
@@ -343,7 +344,7 @@ export const NewSBT = ComponentWrapper(() => {
 
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
 import { UploadFileBox } from './Upload-Box';
-import { reaxel_newSBT } from './reaxel--create-SBT';
+import { reaxel__SBT_Pad_New } from './reaxel--create-SBT';
 
 import { Img } from '@@common/Xcomponents';
 import less from './index.module.less';
@@ -383,7 +384,7 @@ export const SubTitleWithItem = (props) => {
 
 const RecommentdSBTNameBlock = ComponentWrapper(() => {
 	const { Button } = antd;
-	const { setFields } = reaxel_newSBT();
+	const { setFields } = reaxel__SBT_Pad_New();
 	
 	return <div className = { less.createSBT_right }>
 		<span className = { less.recommendSBTNameTitle }>

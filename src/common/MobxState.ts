@@ -9,7 +9,7 @@ export { observer } from 'mobx-react';
 
 
 export const orzMobx = <S extends object>( state : S ) => {
-	const store : S = observable<S>( state );
+	const store = observable<S>( state );
 	/**
 	 * 可变地修改store内数据, 不使用不可变从外部替换.
 	 * @param partialState 深度递归部分合并state , 

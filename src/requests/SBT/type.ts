@@ -52,6 +52,7 @@ export namespace create_SBT {
 	export type response = {
 		orderID: number;
 		metadataUrl: string;
+		spaceAddress:string;
 	};
 }
 export namespace SBT_info {

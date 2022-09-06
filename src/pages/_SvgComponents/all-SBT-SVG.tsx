@@ -1,4 +1,3 @@
-import { ComponentWrapper } from "@@RootPath/src/common/ReactComponentWrapper";
 
 export const SVGArrowTip=ComponentWrapper(()=>{
 	return<>
