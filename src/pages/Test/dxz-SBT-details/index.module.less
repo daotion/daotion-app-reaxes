@@ -47,6 +47,7 @@
 	line-height: 32px;
 	color: #313436;
 	margin-bottom: 0;
+	user-select: none;
 }
 
 .SBT-img {
@@ -88,6 +89,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	user-select: none;
+	margin-left: 8px;
 }
 
 .minted-content {
@@ -97,6 +99,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	user-select: none;
 }
 
 .SBT-detail-list {
@@ -213,6 +216,7 @@
 	white-space: nowrap;
 	display: inline-block;
 	margin-top: -16px;
+	user-select: none;
 }
 
 .some-intro {
@@ -224,6 +228,7 @@
 	line-height: 24px;
 	color: #353945;
 	margin-bottom: 32px;
+	user-select: none;
 }
 
 .SBT-address-info {
@@ -273,6 +278,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	display: block;
+	user-select: none;
 }
 
 .space-address-box {
@@ -290,6 +296,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	margin-right: 8px;
+	user-select: none;
 }
 
 .contract-address-box {
@@ -308,6 +315,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	margin-right: 8px;
+	user-select: none;
 }
 
 .activity-list-name-box {
@@ -325,19 +333,41 @@
 	
 }
 
+.condition-title{
+	font-weight: 600;
+	font-size: 14px;
+	color: #313436;
+	margin-bottom: 12px;
+}
 
-.SBT-nonconforming-condition {
+.condition-content{
 	display: flex;
-	flex-direction: row;
 	align-items: center;
-	padding: 16px 24px;
+	margin-bottom: 24px;
+	
+	&:last-child{
+		margin-bottom: 0;
+	}
+}
+
+.condition-subtitle{
+	font-weight: 500;
+	font-size: 14px;
+	color: #777E91;
+	margin-bottom: 16px;
+}
+
+
+.condition-panel {
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
 	width: 100%;
-	height: 56px;
 	background: #f4f5f6;
 	border-radius: 10px;
 	font-weight: 600;
 	font-size: 16px;
-	margin-bottom: 8px;
+	margin-bottom: 12px;
 	color: #313436;
 	
 	svg {
@@ -349,18 +379,17 @@
 	}
 }
 
-.SBT-conforming-condition {
+.single-condition {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding: 16px 24px;
+	padding: 16px;
 	width: 100%;
-	height: 56px;
 	background: #f4f5f6;
 	border-radius: 10px;
 	font-weight: 600;
 	font-size: 16px;
-	margin-bottom: 8px;
+	//margin-bottom: 8px;
 	color: #45b36b;
 	
 	svg {
@@ -408,6 +437,10 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
+	
+	:global(.share-btn--rdfs.ant-btn){
+		margin-right: 0;
+	}
 }
 
 
@@ -472,6 +505,10 @@
 	border: 1px solid #f4f5f6;
 	margin-left: -4px;
 	
+	svg path{
+		fill: #808080;
+	}
+	
 	&:hover {
 		background: #f4f5f6;
 		border-color: #f4f5f6;
@@ -535,13 +572,14 @@
 	border-radius: 12px;
 	font-weight: 700;
 	font-size: 16px;
+	margin-bottom: 24px;
 }
 
 .not-eligible-btn:global(.ant-btn-primary[disabled]) {
 	background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #3772ff;
 	opacity: 0.5;
 	color: #fcfcfd;
-	
+
 	&:hover {
 		background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #3772ff;
 		opacity: 0.5;
@@ -566,12 +604,31 @@
 	color: rgb(119, 126, 144);
 	background: rgb(244, 245, 246);
 	border: unset;
+	margin-top: 24px;
+	opacity: .5;
+	
+	
 	
 	&:hover {
 		color: rgb(119, 126, 144);
 		background: rgb(244, 245, 246);
 	}
+	
+	
+	&:focus{
+		color: #777E91;
+	 	background: #F4F5F6;
+	}
 }
+
+.SBT-claimed-btn:global(.ant-btn:not([disabled])){
+	cursor: not-allowed;
+}
+
+
+
+
+
 .SBT-activity-table:global(.ant-table-wrapper){
 	margin-top:32px;
 	:global(.ant-table-pagination-right){
@@ -612,3 +669,72 @@
 		margin-right: 8px;
 	}
 }
+
+
+.prop-list{
+	display: flex;
+	flex-flow: wrap;
+	width: 550px;
+}
+
+.key-val{
+	display: flex;
+	flex-direction: column;
+	align-items: self-start;
+	padding: 12px;
+	width: 172.67px;
+	height: 72px;
+	background: #F4F5F6;
+	border-radius: 8px;
+	margin-right: 16px;
+	
+	
+	&:nth-child(3n){
+		margin-right: 0;
+	}
+	
+	&:nth-last-child(n + 3){
+		margin-bottom: 16px;
+	}
+}
+
+.key{
+	font-weight: 500;
+	font-size: 13px;
+	color: #777E91;
+	user-select: none;
+}
+
+.val{
+	font-weight: 500;
+	font-size: 16px;
+	color: #313436;
+	user-select: none;
+}
+
+.desc{
+	display: flex;
+	align-items: center;
+	margin-top: 24px;
+	font-family: 'PingFang HK';
+	font-weight: 500;
+	font-size: 16px;
+	color: #353945;
+	user-select: none;
+	
+	svg{
+		margin-right: 10px;
+	}
+}
+
+.avatar-container{
+	width: 24px;
+	height: 24px;
+	border-radius: 32px;
+	background-color: #b5e4ca;
+	margin-right: 8px;
+	background: url("https://stickerly.pstatic.net/sticker_pack/mKuuZnqwNpYjwAwBxKpEg/EJMJ92/35/07849577-7373-41ee-b3ef-13403bbb790e.png");
+	background-size: contain;
+}
+
+
