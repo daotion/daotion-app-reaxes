@@ -219,6 +219,20 @@
 	width: 256px;
 	height: 40px;
 	
+	:global(.ant-btn):nth-child(2){
+		&:hover{
+			border-color: #0070F3;
+		}
+	}
+	
+	:global(.ant-btn-primary){
+		border-color: #0070F3;
+		
+		&:focus{
+			border-color: #0070F3;
+		}
+	}
+	
 	:global(.ant-btn.ant-btn-text){
 		width: 120px;
 		height: 40px;
@@ -827,4 +841,19 @@
 
 .sub-content{
 	margin-top: 24px;
+}
+
+
+@keyframes rotate {
+	100%{
+		transform: rotateZ(360deg);
+	}
+}
+
+.rotating{
+	display: flex;
+	align-items: center;
+	SVG{
+		animation: rotate 8s infinite linear;
+	}
 }

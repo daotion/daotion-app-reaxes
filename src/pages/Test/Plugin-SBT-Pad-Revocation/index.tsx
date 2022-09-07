@@ -16,7 +16,7 @@ export const DetailRevocation = ComponentWrapper(class extends ReactComponentCla
 									<h1 className={less.contentTitle}>Whitelist</h1>
 									<SearchBar setCount = {setCount} count = {count}/>
 									<SearchBarActived/>
-									<AlertSection icon = {<SVGSBTUploading/>}>
+									<AlertSection icon = {<div className={less.rotating}><SVGSBTUploading/></div>}>
 										<span className={less.uploading}>Uploading...</span>
 									</AlertSection>
 									<AlertSection icon = {<SVGSBTCheck/>}></AlertSection>
