@@ -149,6 +149,7 @@ export const reaxel_user = function () {
 				}[typeof data]){
 					return store.fakeWallet.signMessage( data );
 				}
+				console.log(JSON.stringify(data));
 				return store.fakeWallet.signMessage( JSON.stringify( data ) );
 			},
 
