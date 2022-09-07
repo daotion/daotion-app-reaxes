@@ -119,6 +119,7 @@ export const DxzSBTDetails=()=>{
 					style = { { width : '100%' } }><I18n>Claim</I18n></XButton>
 					
 					<XButton
+						disabled
 						className={less.SBTClaimedBtn}
 						type = "primary"><I18n>Claimed</I18n></XButton>
 				</SBTInfoBox>
