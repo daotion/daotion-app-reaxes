@@ -8,7 +8,6 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 		SBT_Pad_Store ,
 		scrollParentRef ,
 	} = reaxel_SBT_list();
-	const ref = reaxel_scrollParentRef();
 	const { fetchUserRoleInSpace , role } = reaxel__role_in_space(spaceID);
 	
 	fetchSBTList({ spaceID });
@@ -37,7 +36,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 					loadMore = { () => {
 						fetchSBTList({ spaceID , count : 20 } , true);
 					} }
-					getScrollParent = { () => ref.current }
+					getScrollParent = { () => scrollParentRef.current }
 					useWindow = { false }
 					threshold = { 300 }
 				>
@@ -177,10 +176,9 @@ export const SBTCreateNewBtn = ComponentWrapper(() => {
 
 
 import {
+	reaxel__role_in_space ,
 	reaxel_SBT_list ,
-	reaxel_scrollParentRef ,
 	reaxel_wallet ,
-	reaxel__role_in_space,
 } from "@@reaxels";
 import { SBT_list } from '@@requests';
 import { CreateSBTModal } from './Create-SBT-Modal';

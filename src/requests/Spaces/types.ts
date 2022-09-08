@@ -11,6 +11,7 @@ export namespace Space__all_space_list {
 	export type response = {
 		"indexEnd": number,
 		"count": number,
+		"total" : number,
 		"firstTimestamp": number,
 		"infos": {
 			"spaceID": number,

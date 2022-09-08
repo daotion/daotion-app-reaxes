@@ -24,10 +24,11 @@ const { Option } = Select;
 
 export const Layout = ComponentWrapper( class extends ReactComponentClass {
 	
-	scrollParentRef = reaxel_scrollParentRef();
+	
 	
 	render() {
 		const urlparam = utils.decodeQueryString();
+		const { scrollParentRef } = reaxel_scrollParentRef();
 		return <>
 			<div
 				className = { less.HomeRoot }
@@ -62,7 +63,7 @@ export const Layout = ComponentWrapper( class extends ReactComponentClass {
 								flexFlow : "row nowrap" ,
 								
 							} }
-							ref = { this.scrollParentRef }
+							ref = { scrollParentRef }
 						>
 							<MainContentRouting />
 						</div>

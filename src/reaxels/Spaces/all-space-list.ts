@@ -1,4 +1,5 @@
 import {request_all_spaces_list} from '@@requests/Spaces';
+import { reaxel_fact__prevent_dup_request } from '@@reaxels/Reaxel-Factories/Reaxel-fact--prevent-dup-request';
 // import { reaxel_login } from '@@reaxes';
 
 
@@ -7,145 +8,99 @@ const onerror = ( msg ) => {
 };
 
 export const reaxel_space_list = function(){
-	let prevSearchText = '';
+	let ret;
 	const {
 		store ,
 		setState,
 	} = orzMobx( {
 		infos : [] ,
-		indexStart : 0 ,
-		firstTimestamp : 0 ,
-		searchText : '' ,
-		searchTagSelection : null ,
-		searchChainId : null ,
-		hasMore : true ,
+		Input__search_text : '' ,
+		Select__search_tag : null ,
+		total : 0,
+		// searchChainId : null ,
+		hasMore : false ,
 	} );
+	const [prevSearchParams,setPrevSearchParams] = utils.makePair({
+		indexEnd : 0,
+		firstTimestamp : 0 ,
+		Input__search_text : store.Input__search_text ,
+		Select__search_tag : store.Select__search_tag ,
+	} , (prevSearchParams) => (partialSearchParams:Partial<typeof prevSearchParams>) => _.assign(prevSearchParams,partialSearchParams));
 	
-	
-	
-	return ( lifecycle? : Lifecycle ) => {
-		
-		const fetch_all_spaces_list = () => {
-			return request_all_spaces_list( async() => {
-				return {
-					indexStart : 0 ,
-					firstTimestamp : 0 ,
-					count : 20 ,
-				}
-			} ).
-			then( ( data ) => {
-				setState( {
-					infos : data.infos ,
-					firstTimestamp : data.firstTimestamp ,
-					indexStart : data.indexEnd ,
-					hasMore : data.count === 20 ,
-				} );
-			} );
+	const closuredFetch_all_space_list = Reaxes.closuredMemo((count = 30 ) => {
+		const payload = async() => {
+			const result = {
+				indexStart : prevSearchParams.indexEnd ,
+				firstTimestamp : prevSearchParams.firstTimestamp ,
+				count ,
+				nameSearch : store.Input__search_text,
+				tag : store.Select__search_tag ,
+			};
+			/*与上一次请求成功的状态字段进行对比,如果查询条件发生了变化则重置请求,而非继续分页*/
+			if(!utils.default.shallowEqual(prevSearchParams,{
+				...prevSearchParams,
+				Input__search_text : store.Input__search_text,
+				Select__search_tag : store.Select__search_tag,
+			})){
+				_.assign(result,{indexStart:0,firstTimestamp:0});
+			}
+			return result;
 		};
-		
-		lifecycle?.mounted( () => {
-			fetch_all_spaces_list();
-		} );
-		
-		lifecycle?.unmount( () => {
+		return request_all_spaces_list( payload);
+	},() => []);
+	
+	const deduped_fetch_all_space_list = reaxel_fact__prevent_dup_request((preventDup) => (more) => {
+		return closuredFetch_all_space_list(([prevMore]) => [
+			more ? Math.random() : prevMore,
+			store.Input__search_text,
+			store.Select__search_tag,
+			prevSearchParams.firstTimestamp,
+		])()?.then( ( data ) => {
+			preventDup(() => {
+				
+				setPrevSearchParams({
+					indexEnd : data.indexEnd,
+					firstTimestamp : data.firstTimestamp ,
+					Input__search_text : store.Input__search_text ,
+					Select__search_tag : store.Select__search_tag ,
+				});
+			});
 			setState( {
-				infos : [] ,
-				indexStart : 0 ,
-				firstTimestamp : 0 ,
-				searchText : '' ,
-				searchTagSelection : null ,
-				searchChainId : null ,
-				hasMore : true ,
+				infos : more ? [...store.infos,...data.infos] : data.infos ,
+				hasMore : data.total > data.indexEnd ,
 			} );
 		} );
+	})();
+	
+	return (lifcecycle = Reaxes.hooks) => {
 		
-		
-		const debouncedInputingSearch = utils.debounce( ( text:string ) => {
-			request_all_spaces_list( async () => ({
-				indexStart : 0 ,
-				firstTimestamp : 0 ,
-				count : 30 ,
-				nameSearch : text ,
-				tag : store.searchTagSelection ,
-			} )).
-			then( ( data ) => {
-				prevSearchText = text;
-				setState( {
-					infos : data.infos ,
-					firstTimestamp : data.firstTimestamp ,
-					indexStart : data.indexEnd ,
-				} );
-			} );
-		} , 600 , false );
-		
-		const fetchMore = ( count : number = 20 ) => {
-			return request_all_spaces_list( async () => ({
-				indexStart : store.indexStart ,
-				firstTimestamp : store.firstTimestamp ,
-				count : count ,
-				nameSearch : prevSearchText,
-				tag : store.searchTagSelection ,
-			}) ).
-			then( ( data ) => {
-				setState( {
-					infos : [
-						...store.infos ,
-						...data.infos,
-					] ,
-					firstTimestamp : data.firstTimestamp ,
-					indexStart : data.indexEnd ,
-					hasMore : data.count < count ? false : true ,
-				} );
-			} );
-		}
-		
-		const searchOnSelect = () => {
-			return request_all_spaces_list( async () => ({
-				indexStart : 0 ,
-				firstTimestamp : 0 ,
-				count : 30 ,
-				nameSearch : store.searchText ,
-				tag : store.searchTagSelection,
-			} )).
-			then( ( data ) => {
-				setState( {
-					infos : data.infos ,
-					firstTimestamp : data.firstTimestamp ,
-					indexStart : data.indexEnd ,
-					hasMore : data.count < 30 ? false : true ,
-				} );
-			} );
-		};
-		
-		return {
+		return ret = {
 			store,
-			setSearchingText (text){
-				setState( {
-					searchText : text ,
-				} );
+			setFields(partialStart:Partial<typeof store>){
+				setState(partialStart);
 			},
-			setSearchingTagSelection (tag:string){
-				setState( {
-					searchTagSelection : tag ,
-				} );
-				searchOnSelect();
+			/*在unmont生命周期里重置请求状态.*/
+			reset_fetch_state (){
+				setState({
+					infos : [] ,
+					Input__search_text : '' ,
+					Select__search_tag : null ,
+					total : 0,
+					hasMore : false ,
+				});
+				setPrevSearchParams({
+					indexEnd : 0,
+					firstTimestamp : 0 ,
+					Input__search_text : "" ,
+					Select__search_tag : "" ,
+				});
 			},
 			/*请求并更新all-space-list*/
-			updateSpacesList (){
-				return fetch_all_spaces_list();
-			},
-			fetchMore ,
-			debouncedInputingSearch ,
+			deduped_fetch_all_space_list(more = false){
+				return deduped_fetch_all_space_list.grasp(more);
+			} ,
 		};
 	}
 }();
 
 
-
-/*供react-infinite-scroller使用的ref-reaxel*/
-export const reaxel_scrollParentRef = function() {
-	const scrollParentRef = React.createRef<HTMLDivElement>();
-	return () => {
-		return scrollParentRef;
-	};
-}();

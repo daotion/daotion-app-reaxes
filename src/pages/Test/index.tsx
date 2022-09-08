@@ -30,11 +30,11 @@ import { DxzModalCropper } from './dxz-modal-cropper';
 import { PreventDupTest } from '../../reaxels/Reaxel-Factories/Reaxel-fact--prevent-dup-request';
 import { DxzCreateSBTModal } from './dxz-create-SBT-modal';
 import { SvgOverview } from '../DesignComponents/SvgOverview';
-import {DetailRevocation} from "./Plugin-SBT-Pad-Revocation";
+import { DetailRevocation } from "./Plugin-SBT-Pad-Revocation";
 
 export const Test = () => <div className = { less.HomeRoot }>
-
-	<DetailRevocation />
+	
+	<DxzSBTDetails />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

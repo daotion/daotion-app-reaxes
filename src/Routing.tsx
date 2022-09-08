@@ -5,6 +5,12 @@ import {
 	Routes ,
 } from 'react-router-dom';
 import { Test } from '@@pages/Test';
+import {
+	DesignComponents ,
+	SvgOverview ,
+} from '@@pages/DesignComponents';
+import { ReactTemplate } from '@@RootPath/Public/react-template';
+import { PluginSBTInfo } from '@@pages/Plugin-SBT-Info';
 import { Home } from '@@pages/Home';
 import { Sider_Space_Plugin_List } from '@@pages/Sider-Space-Plugin_List';
 import { SpaceInfo } from '@@pages/Space-Info';
@@ -13,12 +19,7 @@ import { Profile } from '@@pages/Profile';
 import { NewSBT } from '@@pages/Plugin-SBT-Pad--New';
 import { EditProfile } from "@@pages/Edit-Profile";
 import { PluginSBTPadList } from '@@pages/Plugin-SBT-Pad-List';
-import { ReactTemplate } from '@@RootPath/Public/react-template';
-import {
-	DesignComponents ,
-	SvgOverview,
-} from '@@pages/DesignComponents';
-import { PluginSBTInfo } from '@@pages/Plugin-SBT-Info';
+import { PluginSBTSettings } from '@@pages/Plugin-SBT-Settings';
 
 import { Layout } from '@@RootPath/src/Layout';
 
@@ -53,6 +54,18 @@ export const SiderPluginListRouting = () => <Routes>
 		element = { utils.withOutlet(<Sider_Space_Plugin_List />) }
 	/>
 </Routes>;
+	
+export const SBTRouting = () => {
+	
+	
+	return <Routes>
+		<Route path='*'>
+			<Route index element={<Navigate to='info' replace/>}/>
+			<Route path='info' element={<PluginSBTInfo/>}/>
+			<Route path='settings' element={<PluginSBTSettings/>}/>
+		</Route>
+	</Routes>
+}
 
 export const MainContentRouting = (props) => <Routes>
 	<Route path = "/*">
@@ -92,8 +105,8 @@ export const MainContentRouting = (props) => <Routes>
 			/>
 			
 			<Route
-				path = "SBT:SBTID"
-				element= {<PluginSBTInfo/>}
+				path = "SBT:SBTID/*"
+				element = { <SBTRouting /> }
 			/>
 			<Route
 				path = "sbt-pad"
@@ -131,14 +144,14 @@ export const MainContentRouting = (props) => <Routes>
 export const DesignComponentsRouting = () => <Routes>
 	<Route
 		index
-		element={<DesignComponents/>}
+		element = { <DesignComponents /> }
 	/>
 	<Route
-		path='svg-overview'
-		element={<SvgOverview/>}
+		path = "svg-overview"
+		element = { <SvgOverview /> }
 	/>
 	<Route
-		path='reaxes-template'
-		element={<ReactTemplate/>}
+		path = "reaxes-template"
+		element = { <ReactTemplate /> }
 	/>
 </Routes>;
