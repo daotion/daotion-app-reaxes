@@ -34,7 +34,8 @@ import {DetailRevocation} from "./Plugin-SBT-Pad-Revocation";
 
 export const Test = () => <div className = { less.HomeRoot }>
 
-	<DetailRevocation />
+	<PluginSBTPadList />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
+import { PluginSBTPadList } from "@@pages/Plugin-SBT-Pad-List";
