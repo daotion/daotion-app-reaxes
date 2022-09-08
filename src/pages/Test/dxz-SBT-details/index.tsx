@@ -108,11 +108,11 @@ export const DxzSBTDetails=()=>{
 							<I18n>Available</I18n> <span className={less.amount}>Y</span>
 					</p>
 					{/*三种状态的Button : */}
-					<XButton
-						disabled
-						className = { less.notEligibleBtn }
-						type = "primary"
-						style = { { width : '100%' } }><I18n>You are not eligible</I18n></XButton>
+					{/*<XButton*/}
+					{/*	disabled*/}
+					{/*	className = { less.notEligibleBtn }*/}
+					{/*	type = "primary"*/}
+					{/*	style = { { width : '100%' } }><I18n>You are not eligible</I18n></XButton>*/}
 					
 					<XButton
 					type='primary'
@@ -121,7 +121,7 @@ export const DxzSBTDetails=()=>{
 					<XButton
 						disabled
 						className={less.SBTClaimedBtn}
-						type = "primary"><I18n>Claimed</I18n></XButton>
+						type = "primary"><I18n>Claim</I18n></XButton>
 				</SBTInfoBox>
 			</div>
 		</div>
@@ -326,18 +326,18 @@ const columns: ColumnsType<DataType> = [
 		title: 'Mint time',
 		dataIndex: 'time',
 	},
-	{
-		title:'TokenID',
-		dataIndex: 'id',
-	},
-	{
-		title: 'Amount',
-		dataIndex: 'amount',
-	},
-	{
-		title: 'Status',
-		dataIndex: 'status',
-	},
+	// {
+	// 	title:'TokenID',
+	// 	dataIndex: 'id',
+	// },
+	// {
+	// 	title: 'Amount',
+	// 	dataIndex: 'amount',
+	// },
+	// {
+	// 	title: 'Status',
+	// 	dataIndex: 'status',
+	// },
 
 ];
 
