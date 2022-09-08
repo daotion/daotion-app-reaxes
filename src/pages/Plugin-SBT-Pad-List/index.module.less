@@ -22,6 +22,10 @@
 	transition: box-shadow .3s ease;
 	&:hover {
 		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+		
+		.setting-btn{
+			animation: moveIn .3s ease-in-out forwards;
+		}
 	}
 	&:nth-child(4n+1){
 		margin-left: 0;
@@ -235,5 +239,67 @@
 			}
 			
 		}
+	}
+}
+
+
+.mask{
+	width: 288px;
+	height: 288px;
+	position: relative;
+	top: -428px;
+	overflow: hidden;
+}
+
+.setting-btn{
+	display: flex;
+	justify-content: center;
+	position: relative;
+	top: 300px;
+	transition: all .3s;
+	animation: moveOut .3s ease-in-out forwards;
+	
+	SVG {
+		width: 20px;
+		margin-right: 10px;
+		Path{
+			fill: #ffffff;
+		}
+	}
+
+	
+	:global{
+		.ant-btn.ant-btn-primary{
+			width: 126px;
+			height: 44px;
+			span{
+				font-weight: 700;
+				font-size: 14px;
+				color: #FFFFFF;
+			}
+		}
+	}
+}
+
+
+@keyframes moveIn {
+	0%{
+		opacity: 0;
+		top: 300px;
+	}
+	100%{
+		opacity: 1;
+		top: 215px;
+	}
+}
+
+@keyframes moveOut {
+	0%{
+		opacity: 1;
+		top: 215px;
+	}
+	100%{
+		opacity: 0;
+		top: 300px;
 	}
 }

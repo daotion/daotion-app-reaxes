@@ -151,6 +151,15 @@ export const SBTDisplayCard = ComponentWrapper((props : {
 					<span>{ chain.label }</span>
 				</div>
 			</div>
+			<div className={less.mask}>
+				<div className={less.settingBtn}>
+					<XButton
+						icon = {<SVGSettingTabs/>}
+						type="primary">
+						Settings
+					</XButton>
+				</div>
+			</div>
 		</div>
 	</>;
 });
@@ -187,6 +196,7 @@ import { CreateSBTModal } from './Create-SBT-Modal';
 import { Img } from '@@common/Xcomponents';
 import { XButton } from '@@pages/Test/dxz-button';
 import InfiniteScroll from 'react-infinite-scroller';
+import {SVGSettingTabs} from '@@pages/_SvgComponents/space-info-svg';
 import {
 	SVGSearch ,
 	SVGSelectSuffix ,
