@@ -154,7 +154,7 @@ export const SBTDisplayCard = ComponentWrapper((props : {
 			<div className={less.mask}>
 				<div className={less.settingBtn}>
 					<XButton
-						icon = {<SVGSettingTabs/>}
+						icon = {<SVGSettings/>}
 						type="primary">
 						Settings
 					</XButton>
@@ -200,6 +200,7 @@ import {SVGSettingTabs} from '@@pages/_SvgComponents/space-info-svg';
 import {
 	SVGSearch ,
 	SVGSelectSuffix ,
+	SVGSettings
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 import spaceTags from '@@Public/space-tags.json';
 import less from './index.module.less';
