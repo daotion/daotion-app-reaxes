@@ -25,7 +25,6 @@ import { DxzSelect } from './dxz-select';
 import { DxzSBTSettings } from './dxz-SBT-settings';
 import { DxzSBTAddWhitelist } from './dxz-SBT-add-whitelist';
 import { DxzSBTRevocation } from './dxz-SBT-revocation';
-import { DxzSBTDetails } from './dxz-SBT-details';
 import { DxzModalCropper } from './dxz-modal-cropper';
 import { PreventDupTest } from '../../reaxels/Reaxel-Factories/Reaxel-fact--prevent-dup-request';
 import { DxzCreateSBTModal } from './dxz-create-SBT-modal';
@@ -34,7 +33,8 @@ import { DetailRevocation } from "./Plugin-SBT-Pad-Revocation";
 
 export const Test = () => <div className = { less.HomeRoot }>
 	
-	<DxzSBTDetails />
+	<DetailRevocation />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
+import { PluginSBTPadList } from "@@pages/Plugin-SBT-Pad-List";

@@ -61,7 +61,7 @@ export namespace SBT_info {
 		SBTID: number;
 	};
 	
-	export type response =  Record<string , [ 
+	export type response = Record<string , [ 
 		"name",
 		"type",
 		"desc",
