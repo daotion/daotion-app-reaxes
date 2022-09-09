@@ -24,7 +24,10 @@
 		box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 		
 		.setting-btn{
-			animation: moveIn .3s ease-in-out forwards;
+			transition: all .3s ease;
+			top: 215px;
+			opacity: 1;
+			//animation: moveIn .3s ease-in-out forwards;
 		}
 	}
 	&:nth-child(4n+1){
@@ -256,8 +259,9 @@
 	justify-content: center;
 	position: relative;
 	top: 300px;
-	transition: all .3s;
-	animation: moveOut .3s ease-in-out forwards;
+	opacity: 0;
+	transition: all .3s ease;
+	//animation: moveOut .3s ease-in-out forwards;
 	
 	SVG {
 		width: 20px;
@@ -282,24 +286,24 @@
 }
 
 
-@keyframes moveIn {
-	0%{
-		opacity: 0;
-		top: 300px;
-	}
-	100%{
-		opacity: 1;
-		top: 215px;
-	}
-}
-
-@keyframes moveOut {
-	0%{
-		opacity: 1;
-		top: 215px;
-	}
-	100%{
-		opacity: 0;
-		top: 300px;
-	}
-}
+//@keyframes moveIn {
+//	0%{
+//		opacity: 0;
+//		top: 300px;
+//	}
+//	100%{
+//		opacity: 1;
+//		top: 215px;
+//	}
+//}
+//
+//@keyframes moveOut {
+//	0%{
+//		opacity: 1;
+//		top: 215px;
+//	}
+//	100%{
+//		opacity: 0;
+//		top: 300px;
+//	}
+//}
