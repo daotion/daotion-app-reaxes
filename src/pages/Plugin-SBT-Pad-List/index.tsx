@@ -98,7 +98,7 @@ export const SBTSearchArea = ComponentWrapper(() => {
 		<Select
 			value = { SBT_Pad_Store.select_type }
 			onChange = { ( value ) => {
-				setFields( { select_type : value } );
+				setFields( { select_type : value === "_null_" ? null : value } );
 			} }
 			suffixIcon = { <SVGSelectSuffix /> }
 			className = { less.SBTSelectType }
@@ -111,7 +111,7 @@ export const SBTSearchArea = ComponentWrapper(() => {
 			placeholder = { i18n( "All Type" ) }
 		>
 			<Select.Option
-				value = { null }
+				value = { "_null_" }
 			>All types</Select.Option>
 			{ spaceTags.map( ( tag: string ) => {
 				return <Select.Option

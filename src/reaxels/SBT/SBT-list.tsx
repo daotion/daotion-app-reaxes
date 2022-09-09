@@ -122,16 +122,13 @@ export const reaxel_SBT_list = function(){
 					setState({ SBT_list : [] });
 				}
 				
-				closuredFetch__SBT_Pad_list((prev) => {
-					const ret = [
-						fetchMore ? Math.random() : prev[0],
-						store.input_search ,
-						store.select_chain ,
-						store.select_type ,
-						spaceID ,
-					];
-					return ret;
-				})({
+				closuredFetch__SBT_Pad_list((prev) => [
+					fetchMore ? Math.random() : prev[0],
+					store.input_search ,
+					store.select_chain ,
+					store.select_type ,
+					spaceID ,
+				])({
 					spaceID ,
 					indexStart : prevParams.tailIndex ,
 					firstTimestamp : prevParams.firstTimestamp ,
@@ -144,13 +141,7 @@ export const reaxel_SBT_list = function(){
 
 
 
-/*供react-infinite-scroller使用的ref-reaxel*/
-function Reaxel_fact__scrollParentRef() {
-	const scrollParentRef = React.createRef<HTMLDivElement>();
-	return () => {
-		return { scrollParentRef };
-	};
-};
+
 
 
 import { SBT_list } from "@@requests/SBT/type";
