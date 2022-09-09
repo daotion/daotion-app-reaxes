@@ -21,6 +21,10 @@ export const DxzSBTDetails=()=>{
 						<SVGSBTChecked/>
 						<span><I18n>Destruction by issuer</I18n></span>
 					</div>
+					<div className={less.desc}>
+						<SVGSBTChecked/>
+						<span><I18n>Burned by Holder</I18n></span>
+					</div>
 				</SBTInfoBox>
 			</div>
 			<div className = { less.SBTDetailsRight }>
@@ -195,7 +199,7 @@ export const SBTAddressInfo=ComponentWrapper(()=>{
 	// SBT详情页address-info包括space-address 和 contact-address
 	return<>
 		<div className = { less.SBTAddressInfo }>
-		<SBTInfoItem title = {i18n("Creator")}>
+		<SBTInfoItem title = {i18n("Issuer")}>
 			<div className = { less.creatorBox }>
 				<img
 					className = { less.spaceAvatar }
@@ -310,7 +314,7 @@ import type { ColumnsType } from 'antd/es/table';
 
 interface DataType {
 	key: React.Key;
-	user: React.ReactNode;
+	holder: React.ReactNode;
 	amount: number;
 	time: string;
 	id:string;
@@ -319,8 +323,8 @@ interface DataType {
 
 const columns: ColumnsType<DataType> = [
 	{
-		title: 'User',
-		dataIndex: 'user',
+		title: 'Holders',
+		dataIndex: 'holder',
 	},
 	{
 		title: 'Mint time',
@@ -345,7 +349,7 @@ const data: DataType[] = [];
 for (let i = 0; i < 6; i++) {
 	data.push({
 		key : Math.random() ,
-		user:<span className={less.userInfo}><div className={less.avatarContainer}></div>0x4183...4f6d </span>,
+		holder:<span className={less.userInfo}><div className={less.avatarContainer}></div>0x4183...4f6d </span>,
 		amount : 2 ,
 		time : '4 minutes ago' ,
 		id : '#23451' ,
