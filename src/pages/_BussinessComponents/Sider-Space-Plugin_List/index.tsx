@@ -21,7 +21,6 @@ export const Sider_Space_Plugin_List = ComponentWrapper( () => {
 				<SVGPluginDropDownIcon />
 			</div>
 			
-			
 			<div className = { less.pluginAsideList }>
 				<PluginListItem
 					text = "Overview"
@@ -35,7 +34,6 @@ export const Sider_Space_Plugin_List = ComponentWrapper( () => {
 					navigateTo ,
 					text ,
 				} ) => {
-					// console.log([paramsCategory,text]);
 					return <PluginListItem
 						key = { text }
 						text = { text }
@@ -226,7 +224,9 @@ type Enum_plugin_list_item = {
 
 const { Button } = antd;
 const PluginListItem = ( props : PluginListItemProps ) => {
-	const { navigate } = utils.useRouter();
+	const { navigate,params } = utils.useRouter();
+	console.log(params);
+	
 	return <>
 		<div
 			onClick = { () => navigate( props.navigateTo ) }

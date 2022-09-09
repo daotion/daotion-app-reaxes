@@ -58,25 +58,24 @@ export namespace create_SBT {
 export namespace SBT_info {
 	
 	export type payload = {
-		SBTID: number;
+		SBTID : number;
 	};
 	
-	export type response = Record<string , [ 
-		"name",
-		"type",
-		"desc",
-		"iconUrl" , 
-		"addrChain" ,
-		"creator" , 
-		"access" ,
-		"features" , 
-		"metadataUrl" , 
-	]> & Record<number , [
-		"spaceID",
-		"SBTID",
-		"issueNum" ,
-		"holdLimit" ,
-		"canRevoke" ,
-		"canBurn" ,
-	]>;
+	export type response = {
+		"spaceID" : number,
+		"SBTID" : number,
+		"name" : string,
+		"type" : string,
+		"desc" : string,
+		"iconUrl" : string,
+		"addrChain" : string,
+		"creator" : string,
+		"access" : string,
+		"issueNum" : number,
+		"holdLimit" : number,
+		"canRevoke" : number,
+		"canBurn" : number,
+		"features" : string,
+		"metadataUrl":string,
+	}
 }

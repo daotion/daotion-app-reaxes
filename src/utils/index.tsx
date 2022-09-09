@@ -17,7 +17,6 @@ export default util = Object.freeze( new class {
 	 * @param object
 	 * @param keys
 	 */
-	
 	originalPick = <O extends {} , K extends Array<keyof O>>(object:O , keys:K) : Pick<O,ArrayElement<K>> => {
 		
 		
@@ -28,6 +27,12 @@ export default util = Object.freeze( new class {
 		})
 		return object as Pick<O,ArrayElement<K>> ;
 	};
+	
+	/*将钱包地址切成0x1111...2222*/
+	abbreviateAddress = (address:string,[head,tail] = [6,4],symbol="...") => {
+		return address.slice(0,head) + symbol + address.split('').slice(address.length - tail).join('');
+	};
+	
 	
 	shallowEqual:(src,target) => boolean = shallowequal;
 } );

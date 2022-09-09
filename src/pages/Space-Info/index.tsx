@@ -1,30 +1,4 @@
-import {
-	Img ,
-	WalletAddressCopyBox ,
-	XPopover,
-} from '@@common/Xcomponents';
-import {
-	reaxel_joined_Space_list ,
-	reaxel_space_detail ,
-	reaxel_space_member_list ,
-	reaxel_space_settings_upload_pictures ,
-	reaxel_user_join_or_leave_space ,
-} from '@@RootPath/src/reaxels';
-import { Space__member_list } from '@@requests/types';
-import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
-import less from './index.module.less';
-import {
-	SVGAddNewIcon ,
-	SVGDeleteTabIcon ,
-	SVGEditTabIcon ,
-	SVGSettingTabs ,
-	SVGShareIcon ,
-	SVGSocialShare ,
-} from '@@pages/_SvgComponents/space-info-svg';
 
-
-import Contributions from '@@Public/svg/Space-Info-Overview-Contributions.component.svg';
-import Intensity from '@@Public/svg/Space-Info-Overview-Intensity.component.svg';
 
 const {
 	Tabs ,
@@ -314,3 +288,32 @@ export const ShareBtn = ComponentWrapper( () => {
 	</>;
 } );
 
+
+
+import {
+	Img ,
+	WalletAddressCopyBox ,
+	XPopover,
+} from '@@common/Xcomponents';
+import {
+	reaxel_joined_Space_list ,
+	reaxel_space_detail ,
+	reaxel_space_member_list ,
+	reaxel_space_settings_upload_pictures ,
+	reaxel_user_join_or_leave_space ,
+} from '@@RootPath/src/reaxels';
+import { Space__member_list } from '@@requests/types';
+import { BtnSpaceJoinedSetting } from '@@pages/_BussinessComponents';
+import less from './index.module.less';
+import {
+	SVGAddNewIcon ,
+	SVGDeleteTabIcon ,
+	SVGEditTabIcon ,
+	SVGSettingTabs ,
+	SVGShareIcon ,
+	SVGSocialShare ,
+} from '@@pages/_SvgComponents/space-info-svg';
+
+
+import Contributions from '@@Public/svg/Space-Info-Overview-Contributions.component.svg';
+import Intensity from '@@Public/svg/Space-Info-Overview-Intensity.component.svg';

@@ -1,6 +1,7 @@
 /**
  * SBT主页
  */
+import { reaxel_wallet } from "@@reaxels/wallet";
 
 export const reaxel__SBT_info = function () {
 	let ret;
@@ -21,6 +22,10 @@ export const reaxel__SBT_info = function () {
 		}
 	} , () => [] );
 	
+	setTimeout(() => {
+		console.log(utils.default.abbreviateAddress(reaxel_wallet().account.address , [ 6 , 4 ]));
+		
+	} , 1000);
 	return () => {
 		
 		return ret = {
@@ -38,3 +43,5 @@ export const reaxel__SBT_info = function () {
 }();
 
 import { request__SBT_info , SBT_info } from '@@requests';
+
+

@@ -39,25 +39,26 @@ export const PluginSBTInfo = ComponentWrapper( () => {
 				<div className = { less.SBTDetailsRight }>
 					<div className = { less.SBTCertificateTop }>
 						<span className = { less.certificateTag }>
-							<I18n>{SBT_info}</I18n>
+							<I18n>{SBT_info.type}</I18n>
 						</span>
 						<ShareBtn />
 					</div>
-					<p className = { less.SBTName }><I18n>SBT Nameeeeeeee</I18n></p>
+					<p className = { less.SBTName }>
+						<I18n>{SBT_info.name}</I18n>
+					</p>
 					
 					<p className = { less.someIntro }>
 						<I18n>
-							Amet minim mollit non deserunt ullamco
-							est sit aliqua dolor do amet sint. Velit
-							officia consequat duis enim velit mollit.
-							Exercitation veniam consequat sunt nostrud amet.
+							{SBT_info.desc}
 						</I18n>
 					</p>
 					
 					<SBTAddressInfo />
 					<SBTInfoBox>
 						{/*SBT-claim条件包括符合(conforming) & 不符合(nonconforming) 两种*/ }
-						<h3 className = { less.conditionTitle }><I18n>Limit of Each Address：1 SBT</I18n></h3>
+						<h3 className = { less.conditionTitle }>
+							<I18n>Limit of Each Address：1 SBT</I18n>
+						</h3>
 						<div className = { less.firstCondition }>
 							{/*<span className={less.conditionSubtitle}><I18n>Meet all the following conditions：get 1 SBT</I18n></span>*/ }
 							<div className = { less.conditionContent }>
@@ -190,19 +191,23 @@ const Divider = ComponentWrapper(() => {
 	>or</Divider>
 });
 
+// SBT详情页address-info包括space-address 和 contact-address
 export const SBTAddressInfo = ComponentWrapper(() => {
-	// SBT详情页address-info包括space-address 和 contact-address
+	const { SBT_info } = reaxel__SBT_info();
+	console.log(SBT_info.metadataUrl);
+	
 	return <>
 		<div className = { less.SBTAddressInfo }>
-			<SBTInfoItem title = { i18n("Creator") }>
+			<SBTInfoItem title = { i18n("Issuer") }>
 				<div className = { less.creatorBox }>
 					<img
 						className = { less.spaceAvatar }
-						src = ""
-						alt = ""
+						src = {SBT_info.iconUrl}
 					/>
 					<div className = { less.creatorInfo }>
-						<span className = { less.spaceName }><I18n>spaceName</I18n></span>
+						<span className = { less.spaceName }>
+							<I18n>spaceName</I18n>
+						</span>
 						<span className = { less.spaceAddressBox }>
 							{/*space地址:*/ }
 							<span className = { less.spaceAddress }>0x7b.....72f7</span>
