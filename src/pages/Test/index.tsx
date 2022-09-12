@@ -32,7 +32,6 @@ import { SvgOverview } from '../DesignComponents/SvgOverview';
 import { DetailRevocation } from "./Plugin-SBT-Pad-Revocation";
 
 export const Test = () => <div className = { less.HomeRoot }>
-	
 	<DetailRevocation />
 </div>;
 import "antd/dist/antd.less";
