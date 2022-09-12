@@ -12,7 +12,7 @@ const port = await getPort();
 /**
  * 每次打包完成后输出日志
  */
-export class LogAtSucceed {
+export class LogWhenSucceed {
 	env = null;
 	constructor (env = "production") {
 		this.env = env;

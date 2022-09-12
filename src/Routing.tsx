@@ -27,7 +27,7 @@ export const Routing = (props) => {
 	return <BrowserRouter>
 		<Routes>
 			<Route
-				path = "/*"
+				path = "*"
 				element = { utils.withOutlet(<Layout />) }
 			/>
 			<Route
@@ -57,11 +57,11 @@ export const SiderPluginListRouting = () => <Routes>
 	
 
 export const MainContentRouting = (props) => <Routes>
-	<Route path = "/*">
+	<Route path = "*">
 		<Route
 			index
 			element = { <Navigate
-				to = "/home"
+				to = "home"
 				replace
 			/> }
 		/>
@@ -91,7 +91,7 @@ export const MainContentRouting = (props) => <Routes>
 			<Route
 				index
 				element = { <Navigate
-					to = { './info' }
+					to = { 'info' }
 					replace
 				/> }
 			/>
@@ -100,8 +100,31 @@ export const MainContentRouting = (props) => <Routes>
 				element = { <SpaceInfo /> }
 			/>
 			
+			
 			<Route
-				path = "./SBT:SBTID/*"
+				path = "sbt-pad"
+				caseSensitive
+			>
+				<Route
+					index
+					element = { <>
+						<PluginSBTPadList />
+					</> }
+				/>
+				<Route
+					path = "new"
+					element = { <NewSBT /> }
+				/>
+			</Route>
+			<Route
+				path = "sbt-fusion"
+				caseSensitive
+				element = { <span>SBT Fusion</span> }
+			/>
+			
+			<Route
+				path = "SBT:SBTID"
+				caseSensitive
 			>
 				<Route
 					index
@@ -119,25 +142,6 @@ export const MainContentRouting = (props) => <Routes>
 					element = { <PluginSBTSettings /> }
 				/>
 			</Route>
-			
-			<Route
-				path = "sbt-pad"
-			>
-				<Route
-					index
-					element = { <>
-						<PluginSBTPadList />
-					</> }
-				/>
-				<Route
-					path = "new"
-					element = { <NewSBT /> }
-				/>
-			</Route>
-			<Route
-				path = "sbt-fusion"
-				element = { utils.withOutlet(<span>SBT Fusion</span>) }
-			/>
 			<Route
 				path = "settings"
 				element = { <SpaceSettings /> }

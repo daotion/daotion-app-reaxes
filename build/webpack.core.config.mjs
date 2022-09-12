@@ -14,7 +14,7 @@ import {
 	method ,
 } from '../webpack.main.mjs';
 
-import { LogAtSucceed } from './plugins.mjs';
+import { LogWhenSucceed } from './plugins.mjs';
 
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 

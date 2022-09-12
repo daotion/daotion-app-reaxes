@@ -1,9 +1,9 @@
 {
 	"name": "Daotion-web-interface",
-	"description": "Mainri Labs' font-end eth font-end project",
+	"description": "Daotion Labs' font-end eth project",
 	"scripts": {
-		"start": "node --max_old_space_size=18000 webpack.main.mjs server",
-		"debug": "node --inspect-brk webpack.main.mjs server --max_old_space_size=18000",
+		"start": "node webpack.main.mjs server",
+		"debug": "node --inspect-brk webpack.main.mjs server",
 		"build": "rm -rf dist & node webpack.main.mjs build production"
 	},
 	"dependencies": {

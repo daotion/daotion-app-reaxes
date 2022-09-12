@@ -9,7 +9,7 @@ import {
 	port ,
 	rootPath ,
 } from "./webpack.core.config.mjs";
-import {LogAtSucceed} from './plugins.mjs';
+import {LogWhenSucceed} from './plugins.mjs';
 
 /*返回dev-server配置 , 用于启动本地服务*/
 export const productionConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$Fn([]) , {
@@ -18,7 +18,7 @@ export const productionConfig$Fn = (mixed = {plugins:[]}) => merge(basicConfig$F
 	devtool : 'source-map' ,
 	plugins : [
 		...mixed.plugins ,
-		new LogAtSucceed('production') ,
+		new LogWhenSucceed('production') ,
 	],
 });
 

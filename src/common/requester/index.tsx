@@ -1,9 +1,4 @@
-type global_env_config = {
-	[o in typeof __ENV__] : {
-		proxy_dev : string;
-		proxy_server : string;
-	}
-};
+
 const global_env_config = __ENV_CONFIG__.reduce( ( accu , itm ) => {
 	accu[ itm.env ] = {
 		proxy_dev : itm.proxy_path_dev ,
@@ -25,9 +20,7 @@ export const request = new class {
 			url = orignal_url ,
 			options = _.cloneDeep( orignal_options );
 		
-		const env = (
-			options.env ?? __ENV__
-		) ?? "unset";
+		const env = ( options.env ?? __ENV__ ) ?? "unset";
 		/**
 		 * 暂时禁用
 		 * 需 mock 的情形，走mock请求
@@ -109,7 +102,7 @@ export const request = new class {
 		} else {
 			/*支持请求体是FormData*/
 			if ( _.isObject( payload ) && payload instanceof FormData ) {
-				options.body = payload;
+				options.body = payload as any;
 			} else if ( _.isPlainObject( payload ) ) {
 				options.body = JSON.stringify( payload || {} ) as payload & string;
 			} else if ( !payload ) {
@@ -230,3 +223,9 @@ const symbol_no_authorized = Symbol( 'no_authorized' );
 import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
 import { orzLocalstroage } from '@@common/storages';
 
+type global_env_config = {
+	[o in typeof __ENV__] : {
+		proxy_dev : string;
+		proxy_server : string;
+	}
+};
