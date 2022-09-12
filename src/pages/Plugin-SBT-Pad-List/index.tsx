@@ -153,8 +153,13 @@ export const SBTDisplayCard = ComponentWrapper((props : {
 			<div className={less.mask}>
 				<div className={less.settingBtn}>
 					<XButton
+						onClick={(e) => {
+							e.stopPropagation();
+							navigate(`/space${ props.SBT_info.spaceID }/SBT${ props.SBT_info.SBTID }/settings`);
+						}}
 						icon = {<SVGSettings/>}
-						type="primary">
+						type="primary"
+					>
 						Settings
 					</XButton>
 				</div>
@@ -189,7 +194,10 @@ import {
 	reaxel_SBT_list ,
 	reaxel_wallet ,
 } from "@@reaxels";
-import { SBT_list } from '@@requests';
+import {
+	SBT_info ,
+	SBT_list,
+} from '@@requests';
 import { CreateSBTModal } from './Create-SBT-Modal';
 import { Img } from '@@common/Xcomponents';
 import { XButton } from '@@pages/Test/dxz-button';

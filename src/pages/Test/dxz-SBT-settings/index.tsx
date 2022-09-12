@@ -15,31 +15,18 @@ export const DxzSBTSettings = () => {
 };
 
 import less from './index.module.less';
+import { XTextArea  } from "@@pages/Test/dxz-input";
 import {
-	XInput ,
-	XTextArea ,
-} from "@@pages/Test/dxz-input";
-import {
-	TagsSelect ,
 	SingleSelect ,
+	TagsSelect ,
 } from '@@pages/Test/dxz-select';
+import { XButton  } from "@@pages/Test/dxz-button";
+import { Button  } from 'antd';
 import {
-	XButton ,
-} from "@@pages/Test/dxz-button";
-import {
-	Button ,
-} from 'antd';
-import {
-	SVGSelectArrowIcon ,
 	SVGAddNewFeature ,
-	SVGNetEthereum ,
-	SVGUploadFileIcon ,
 	SVGCopySBT ,
 } from '@@pages/_SvgComponents/all-SBT-SVG';
-import { NewSBTPreview } from '@@pages/Plugin-SBT-Pad--New/index';
-import {
-	UploadFileBox ,
-} from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
+import { UploadFileBox  } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
 
 export const SubTitleWithItem = (props) => {
 	return <>
