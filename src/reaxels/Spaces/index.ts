@@ -6,3 +6,4 @@ export * from './space-detail';
 export * from './space-settings-upload-pictures';
 export * from './edit-space-general-settings';
 export * from './edit-space-social-settings';
+export * from './space-plugin';

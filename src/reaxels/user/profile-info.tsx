@@ -1,20 +1,6 @@
 /***
  * 用户信息
  */
-
-
-import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
-
-import {
-	request_user_profile ,
-	request_user_profile_joined_list ,
-} from '@@requests';
-import {
-	User__profile_info ,
-	User__profile_joined_list ,
-} from '@@requests/types';
-
-
 export const reaxel_user_profile = function () {
 	let ret;
 	let prevForceUpdate = null;
@@ -28,7 +14,6 @@ export const reaxel_user_profile = function () {
 	} );
 	
 	const reax_wallet = reaxel_wallet();
-	
 	
 	const fetchUpdateUserProfile = async ( address : string ) => {
 		/*防止重复请求*/
@@ -236,5 +221,16 @@ export const reaxel_profile_avatar = function(){
 	}
 }();
 
+
+import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
+
+import {
+	request_user_profile ,
+	request_user_profile_joined_list ,
+} from '@@requests';
+import {
+	User__profile_info ,
+	User__profile_joined_list ,
+} from '@@requests/types';
 
 import {renderIcon} from '@download/blockies';

@@ -6,11 +6,30 @@ export const SpaceSettings = ComponentWrapper( class extends ReactComponentClass
 	
 	render() {
 		const spaceID = parseInt( utils.useRouter().params.spaceID );
-		const {} = antd;const Content = {
+		const {} = antd;
+		const Content = {
 			Social : SocialProfile ,
 			General : GeneralProfile ,
 		}[ this.state.tab ];
-		reaxel_edit_space_general_settings().closuredFetchSpaceInfo( spaceID );
+		const { closuredFetchSpaceInfo , editingStore } = reaxel_edit_space_general_settings();
+		const { match } = reaxel__space_plugin();
+		const { role } = reaxel__role_in_space(spaceID);
+		
+		closuredFetchSpaceInfo(spaceID);
+		
+		if(role === 0){
+			return null;
+		}
+		
+		if(match(() => role === 1)){
+			const {Result} = antd;
+			return <Result
+				status = "404"
+				title = "404"
+				subTitle = "Sorry, the page you visited does not exist."
+			/>;
+		}
+		
 		return <>
 			<div
 				className = { less.container }
@@ -91,8 +110,12 @@ type SpaceSettingTabsProps = {
 };
 
 import {
+	reaxel__space_plugin ,
+	reaxel_edit_space_general_settings ,
+	reaxel__role_in_space,
+} from '@@reaxels';
+import {
 	GeneralProfile ,
-	SocialProfile,
+	SocialProfile ,
 } from '@@pages/_BussinessComponents/Space-Settings';
-import { reaxel_edit_space_general_settings  } from '@@RootPath/src/reaxels';
 import less from './index.module.less';

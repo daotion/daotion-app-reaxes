@@ -204,3 +204,22 @@ export namespace Space__member_list {
 		}[];
 	};
 }
+
+export namespace Space__plugin_list{
+	
+	export type payload = {
+		spaceID : number;
+	}
+	export type response = {
+		spaceID : number;
+		/*plugin列表的pluginID 如nft,*/
+		pluginNames : pluginID[];
+		/*space部署在哪些链ID上*/
+		deployedChainList : string[];
+		
+	}
+	export enum pluginID {
+		SBT_pad,
+		SBT_fusion
+	}
+}

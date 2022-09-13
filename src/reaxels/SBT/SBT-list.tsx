@@ -90,8 +90,9 @@ export const reaxel_SBT_list = function(){
 		}
 	})();
 	
-	const userInputChanged = (spanceID:number) => !utils.default.shallowEqual(prevParams,{
+	const userInputChanged = (spaceID:number) => !utils.default.shallowEqual(prevParams,{
 		...prevParams ,
+		spaceID,
 		input_search : store.input_search ,
 		select_chain : store.select_chain ,
 		select_type : store.select_type ,
@@ -126,8 +127,8 @@ export const reaxel_SBT_list = function(){
 					});
 				}
 				
-				closuredFetch__SBT_Pad_list((prev) => [
-					fetchMore ? Math.random() : prev[0],
+				closuredFetch__SBT_Pad_list(([prevFetchMore]) => [
+					fetchMore ? Math.random() : prevFetchMore,
 					store.input_search ,
 					store.select_chain ,
 					store.select_type ,

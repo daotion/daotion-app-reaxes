@@ -7,3 +7,4 @@ export * from './space-detail';
 export * from './space-general-modify';
 export * from './edit-space-social-list';
 export * from './space-member-list';
+export * from './space-plugin';
