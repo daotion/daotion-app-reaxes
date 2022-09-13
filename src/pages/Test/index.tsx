@@ -1,4 +1,5 @@
 import { RoutingTest } from './Routing';
+import { SvgOverview } from '../DesignComponents/SvgOverview';
 import { ParentObserver } from './parentObserver';
 import { SetState } from './SetState';
 import { DxzLangCurrency } from './dxz-Lang-currency';
@@ -25,11 +26,9 @@ import { DxzSBTRevocation } from './dxz-SBT-revocation';
 import { DxzModalCropper } from './dxz-modal-cropper';
 import { PreventDupTest } from '../../reaxels/Reaxel-Factories/Reaxel-fact--prevent-dup-request';
 import { DxzCreateSBTModal } from './dxz-create-SBT-modal';
-import { SvgOverview } from '../DesignComponents/SvgOverview';
-import { DetailRevocation } from "./Plugin-SBT-Pad-Revocation";
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DetailRevocation />
+	<DxzCreateSBTModal />
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
