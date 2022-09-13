@@ -54,7 +54,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 });
 
 export const SBTSearchArea = ComponentWrapper(() => {
-	const { SBT_Pad_Store , setFields , fetchSBTList } = reaxel_SBT_list();
+	const { SBT_Pad_Store , setFields , fetchSBTList , enum__SBT_type , } = reaxel_SBT_list();
 	const { chains } = reaxel_wallet();
 	const { Input , Select } = antd , { Option } = Select;
 	return <>
@@ -108,12 +108,12 @@ export const SBTSearchArea = ComponentWrapper(() => {
 				borderRadius : "12px" ,
 				padding : "8px" ,
 			} }
-			placeholder = { i18n( "All Type" ) }
+			placeholder = { i18n( "All Types" ) }
 		>
 			<Select.Option
 				value = { "_null_" }
 			>All types</Select.Option>
-			{ spaceTags.map( ( tag: string ) => {
+			{ enum__SBT_type.map( ( tag: string ) => {
 				return <Select.Option
 					value = { tag }
 					key = { tag }

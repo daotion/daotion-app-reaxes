@@ -18,9 +18,9 @@ export const reaxel_SBT_list = function(){
 		/*当前分页最后一个在总列表的索引位置(以1开头的),映射后端接口的indexEnd*/
 		tailIndex : 0 ,
 		
-		input_search : null ,
-		select_chain : null ,
-		select_type : null ,
+		input_search : store.input_search ,
+		select_chain : store.select_chain ,
+		select_type : store.select_type ,
 	} , (ori) => (partial:Partial<typeof ori>) => _.assign(ori , partial));
 	
 	const reax_wallet = reaxel_wallet();
@@ -89,9 +89,20 @@ export const reaxel_SBT_list = function(){
 			});
 		}
 	})();
+	
+	const userInputChanged = (spanceID:number) => !utils.default.shallowEqual(prevParams,{
+		...prevParams ,
+		input_search : store.input_search ,
+		select_chain : store.select_chain ,
+		select_type : store.select_type ,
+	});
+	
 	const {scrollParentRef} = reaxel_scrollParentRef();
 	return () => {
 		return {
+			get enum__SBT_type(){
+				return enum__SBT_type;
+			} ,
 			get SBT_Pad_Store(){
 				Reaxes.collectDeps(store);
 				return store;
@@ -106,20 +117,13 @@ export const reaxel_SBT_list = function(){
 			 * 内部驱动状态的获取sbt列表封装,视图层只简单调用.
 			 */
 			fetchSBTList({ spaceID , count = 40 },fetchMore?){
-				const userInputChanged = !utils.default.shallowEqual(prevParams,{
-					...prevParams ,
-					input_search : store.input_search ,
-					select_chain : store.select_chain ,
-					select_type : store.select_type ,
-					spaceID,
-				});
+				
 				/*如果用户输入变化 则重置请求*/
-				if(userInputChanged) {
+				if(userInputChanged(spaceID)) {
 					assignPrevParams({
 						firstTimestamp : 0 ,
 						tailIndex : 0 ,
 					});
-					setState({ SBT_list : [] });
 				}
 				
 				closuredFetch__SBT_Pad_list((prev) => [
@@ -149,3 +153,4 @@ import { reaxel_wallet } from "@@reaxels/wallet/wallet";
 import { reaxel_scrollParentRef } from '@@reaxels/engine/reaxel--scroll-coentent-ref';
 import { reaxel_fact__prevent_dup_request } from "@@reaxels/Reaxel-Factories";
 import { request__SBT_list } from "@@requests/SBT/SBT-list";
+import enum__SBT_type from '@@Public/SBT--types.enum.json';

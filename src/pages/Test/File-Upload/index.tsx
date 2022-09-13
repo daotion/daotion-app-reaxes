@@ -46,18 +46,6 @@ const reaxel_upload = function(){
 			},
 			upload (file:File){
 				const reax_user = reaxel_user();
-				/*递归对象转换成data[subKey][subsubkey]*/
-				const formater = (source,formdata = null,parentKey:string = null) => {
-					return Reflect.ownKeys(source).reduce((formdata,key:string) => {
-						const value = source[key];
-						if(_.isObject(value) && Object.getPrototypeOf(value) !== File.prototype){
-							formater(value,formdata,parentKey ? `${parentKey}[${key}]` : key);
-						}else {
-							formdata.append(parentKey ? `${parentKey}[${key}]` :  key,value);
-						}
-						return formdata;
-					},formdata??new FormData);
-				};
 				
 				const data = {
 					spaceID : 30 ,
@@ -69,7 +57,7 @@ const reaxel_upload = function(){
 					
 					return request.post( `https://192.168.0.4:8199/space/space-upload-avatar` , {
 						method : "post" ,
-						body : formater( {
+						body : request.formater( {
 							address : reaxel_wallet().account.address ,
 							data ,
 							signature ,

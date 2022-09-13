@@ -1,10 +1,10 @@
-import { reaxel_wallet } from "@@reaxels";
 
 
 export const NewSBT = ComponentWrapper(() => {
 	
 	const spaceID = parseInt(utils.useRouter().params.spaceID);
-	const reax_newSBT = reaxel__SBT_Pad_New();
+	const reax_newSBT = reaxel__create_SBT();
+	
 	const {
 		file ,
 		imgPreviewUrl ,
@@ -168,10 +168,14 @@ export const NewSBT = ComponentWrapper(() => {
 							>
 								<div className = { less.divider }></div>
 								{ !store.switch__issuance_quantity_infinity && <XInput
-									type = "primary"
 									onChange = { (e) => {
+										if(!parseInt(e.target.value , 10)){
+											return setFields({ input__issuance_quantity_number : '1' });
+										}
 										setFields({ input__issuance_quantity_number : e.target.value });
 									} }
+									value = {store.input__issuance_quantity_number}
+									type = "primary"
 								/> }
 							</SubTitleWithItem>
 							
@@ -343,11 +347,10 @@ export const NewSBT = ComponentWrapper(() => {
 });
 
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
-import { UploadFileBox } from './Upload-Box';
-import { reaxel__SBT_Pad_New } from './reaxel--create-SBT';
+import { reaxel__create_SBT } from '@@reaxels';
 
+import { UploadFileBox } from './Upload-Box';
 import { Img } from '@@common/Xcomponents';
-import less from './index.module.less';
 import { Header_GoBack } from '@@pages/DesignComponents/Button-GoBack';
 import {
 	XInput ,
@@ -369,6 +372,7 @@ import {
 } from '@@pages/_SvgComponents/all-SBT-SVG';
 import { SVGCloseIcon } from "../_SvgComponents/space-setting-svg";
 import { SVGAddNewIcon } from "../_SvgComponents/space-info-svg";
+import less from './index.module.less';
 
 export const SubTitleWithItem = (props) => {
 	return <>
@@ -384,7 +388,7 @@ export const SubTitleWithItem = (props) => {
 
 const RecommentdSBTNameBlock = ComponentWrapper(() => {
 	const { Button } = antd;
-	const { setFields } = reaxel__SBT_Pad_New();
+	const { setFields } = reaxel__create_SBT();
 	
 	return <div className = { less.createSBT_right }>
 		<span className = { less.recommendSBTNameTitle }>

@@ -1,6 +1,4 @@
 
-
-
 export const PluginSBTInfo = ComponentWrapper( () => {
 	
 	const SBTID = parseInt( utils.useRouter().params.SBTID );
@@ -13,7 +11,10 @@ export const PluginSBTInfo = ComponentWrapper( () => {
 		closuredFetchSBTInfo,
 	} = reaxel__SBT_info();
 	
-	closuredFetchSBTInfo(() => [SBTID])(SBTID);
+	useEffect(() => {
+		closuredFetchSBTInfo(() => [NaN])(SBTID);
+	} , []);
+	
 	if(!SBT_info) return null;
 	
 	const {Table,} = antd;

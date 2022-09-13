@@ -3,7 +3,7 @@
  * white-list-mode:
  */
 
-export const reaxel__SBT_Pad_New = function(){
+export const reaxel__create_SBT = function(){
 	let ret;
 	const reax_DDF = reaxel_DDF();
 	const reax_wallet = reaxel_wallet();
@@ -94,7 +94,7 @@ export const reaxel__SBT_Pad_New = function(){
 		};
 		
 		const payload = async () : Promise<FormData> => {
-			return formater({
+			return request.formater({
 				address : reax_wallet.account.address ,
 				data ,
 				signature : await reax_user.signByFakeWallet((
@@ -122,23 +122,16 @@ export const reaxel__SBT_Pad_New = function(){
 		}
 		const contract = new ethers.Contract(CreateSBTAddress , CreateSBTAbi , reax_wallet.web3Provider);
 		const contractWithSigner = contract.connect(reax_wallet.web3Provider.getSigner(reax_wallet.account.address));
-		const limit_of_each_address = store.switch__issuance_quantity_infinity ? "0" : store.input_number__litmit_of_each_address;
-		crayon.blue('contractWithSigner.createSbt',[spaceAddress,
-			0x01 || metadataUrl,
-			orderID,
-			store.input__SBT_name,
-			store.select__SBT_type,
-			parseInt(limit_of_each_address),
-			parseInt(store.input_number__litmit_of_each_address),
-			store.switch__revoke_by_issuer,
-			store.switch__burned_by_holder,]);
+		const issuance_quantity = store.switch__issuance_quantity_infinity ? "0" : store.input__issuance_quantity_number;
+
 		return contractWithSigner.createSbt(
 			spaceAddress,
+			/*fixme 当合约修复后改掉*/
 			0x01 || metadataUrl,
 			orderID,
 			store.input__SBT_name,
 			store.select__SBT_type,
-			parseInt(limit_of_each_address),
+			parseInt(issuance_quantity),
 			parseInt(store.input_number__litmit_of_each_address),
 			store.switch__revoke_by_issuer,
 			store.switch__burned_by_holder,
@@ -210,16 +203,8 @@ import {
 	request__create_SBT ,
 	request_server_timestamp ,
 } from '@@requests';
+import enum__SBT_type from '@@Public/SBT--types.enum.json';
 
-
-export const enum__SBT_type = [
-	"Title" ,
-	"Work certificate" ,
-	"Honorary certificate" ,
-	"Business cooperation" ,
-	"Event tickets" ,
-	"Membership card" ,
-];
 
 export const enum__SBT_eligible = [
 	{
@@ -228,20 +213,4 @@ export const enum__SBT_eligible = [
 	} ,
 ];
 
-/*递归对象转换成data[subKey][subsubkey]的formdata*/
-const formater = (source , formdata = null , parentKey : string = null) => {
-	return _.keys(source).
-	reduce((formdata , key : string) => {
-		const value = source[key];
-		if( _.isObject(value) && Object.getPrototypeOf(value) !== File.prototype ) {
-			formater(value , formdata , parentKey ? `${ parentKey }[${ key }]` : key);
-		} else {
-			if( !_.isNaN(parseInt(key)) ) {
-				formdata.append(parentKey ? `${ parentKey }[]` : key , value);
-			} else {
-				formdata.append(parentKey ? `${ parentKey }[${ key }]` : key , value);
-			}
-		}
-		return formdata;
-	} , formdata ?? new FormData);
-};
+

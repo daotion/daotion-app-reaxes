@@ -216,6 +216,25 @@ export const request = new class {
 			method : 'GET' ,
 		} );
 	};
+	
+	
+	/*递归对象转换成data[subKey][subsubkey]的formdata*/
+	formater = (source , formdata = null , parentKey : string = null) => {
+		return _.keys(source).
+		reduce((formdata , key : string) => {
+			const value = source[key];
+			if( _.isObject(value) && Object.getPrototypeOf(value) !== File.prototype ) {
+				this.formater(value , formdata , parentKey ? `${ parentKey }[${ key }]` : key);
+			} else {
+				if( !_.isNaN(parseInt(key)) ) {
+					formdata.append(parentKey ? `${ parentKey }[]` : key , value);
+				} else {
+					formdata.append(parentKey ? `${ parentKey }[${ key }]` : key , value);
+				}
+			}
+			return formdata;
+		} , formdata ?? new FormData);
+	};
 };
 
 

@@ -14,12 +14,12 @@ export const orzMobx = <S extends object>( state : S ) => {
 	 * 可变地修改store内数据, 不使用不可变从外部替换.
 	 * @param partialState 深度递归部分合并state , 
 	 */
-	const mutatePartialState = <T extends object = S >( partialState : Partial<T> , deepStore : any  = store ) => {
+	const mutatePartialState = <T extends object = S > ( partialState : Partial<T> , deepStore : any  = store ) => {
 		for ( const key in partialState ) {
 			const value = partialState[ key ];
 			if ( _.isPlainObject( value ) ) {
 				if(_.isPlainObject(deepStore[key])){
-					mutatePartialState( value , deepStore[key]);	
+					mutatePartialState( value as any , deepStore[key]);	
 				}
 			} else if ( isBasicType(value) ) {
 				action(() => {

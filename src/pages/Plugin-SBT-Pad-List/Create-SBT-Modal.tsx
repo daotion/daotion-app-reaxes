@@ -5,7 +5,7 @@ export const CreateSBTModal = ComponentWrapper(() => {
 	const { Modal } = antd;
 	const { navigate } = utils.useRouter();
 	const { SBT_template } = reaxel__SBT_template();
-	const { setFields:setFields__newSBT } = reaxel__SBT_Pad_New();
+	const { setFields:setFields__newSBT } = reaxel__create_SBT();
 	const { setFields:setFields__SBT_list,SBT_Pad_Store } = reaxel_SBT_list();
 	return <>
 		<Modal
@@ -167,7 +167,7 @@ export const SBTTemplateItem = ComponentWrapper((props:SBTTemplateItemProps) => 
 });
 
 
-import { reaxel__SBT_Pad_New } from '@@pages/Plugin-SBT-Pad--New/reaxel--create-SBT';
+import { reaxel__create_SBT } from '@@reaxels/SBT/create-SBT';
 import {
 	SVGCloseIcon ,
 	SVGArrowTip ,

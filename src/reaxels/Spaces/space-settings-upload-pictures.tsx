@@ -19,19 +19,6 @@ import {
 export const reaxel_space_settings_upload_pictures = function () {
 	let ret;
 	
-	/*递归对象转换成data[subKey][subsubkey]的formdata*/
-	const formater = ( source , formdata = null , parentKey : string = null ) => {
-		return Reflect.ownKeys( source ).
-		reduce( ( formdata , key : string ) => {
-			const value = source[ key ];
-			if ( _.isObject( value ) && Object.getPrototypeOf( value ) !== File.prototype ) {
-				formater( value , formdata , parentKey ? `${ parentKey }[${ key }]` : key );
-			} else {
-				formdata.append( parentKey ? `${ parentKey }[${ key }]` : key , value );
-			}
-			return formdata;
-		} , formdata ?? new FormData );
-	};
 	/*生成一个上传的input*/
 	const uploader = ( inputOpts : {} , onChange : ( files : FileList ) => void ) => {
 		const input = document.createElement( 'input' );
@@ -64,7 +51,7 @@ export const reaxel_space_settings_upload_pictures = function () {
 						};
 						const signature = await reax_user.signByFakeWallet( data );
 						
-						return formater( {
+						return request.formater( {
 							address ,
 							data ,
 							signature ,
@@ -103,7 +90,7 @@ export const reaxel_space_settings_upload_pictures = function () {
 							timestamp : await request_server_timestamp() ,
 						};
 						const signature = await reax_user.signByFakeWallet( data );
-						return formater( {
+						return request.formater( {
 							address ,
 							data ,
 							signature ,

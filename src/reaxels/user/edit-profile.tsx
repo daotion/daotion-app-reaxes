@@ -139,19 +139,6 @@ export const reaxel_edit_profile = function(){
 export const reaxel_upload_profile_pics = function () {
 	let ret;
 	
-	/*递归对象转换成data[subKey][subsubkey]的formdata*/
-	const formater = ( source , formdata = null , parentKey : string = null ) => {
-		return Reflect.ownKeys( source ).
-		reduce( ( formdata , key : string ) => {
-			const value = source[ key ];
-			if ( _.isObject( value ) && Object.getPrototypeOf( value ) !== File.prototype ) {
-				formater( value , formdata , parentKey ? `${ parentKey }[${ key }]` : key );
-			} else {
-				formdata.append( parentKey ? `${ parentKey }[${ key }]` : key , value );
-			}
-			return formdata;
-		} , formdata ?? new FormData );
-	};
 	/*生成一个上传的input*/
 	const uploader = ( inputOpts : {} , onChange : ( files : FileList ) => void ) => {
 		const input = document.createElement( 'input' );
@@ -182,7 +169,7 @@ export const reaxel_upload_profile_pics = function () {
 							timestamp : await request_server_timestamp() ,
 						};
 						const signature = await reax_user.signByFakeWallet( data );
-						return formater( {
+						return request.formater( {
 							address ,
 							data ,
 							signature ,
@@ -226,7 +213,7 @@ export const reaxel_upload_profile_pics = function () {
 							timestamp : await request_server_timestamp() ,
 						};
 						const signature = await reax_user.signByFakeWallet( data );
-						return formater( {
+						return request.formater( {
 							address ,
 							data ,
 							signature ,
