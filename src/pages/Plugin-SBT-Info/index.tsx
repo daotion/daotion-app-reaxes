@@ -1,7 +1,8 @@
-
+import { reaxel__space_plugin } from '@@reaxels';
 export const PluginSBTInfo = ComponentWrapper( () => {
 	
 	const SBTID = parseInt( utils.useRouter().params.SBTID );
+	const spaceID = parseInt( utils.useRouter().params.spaceID );
 	
 	logSBTID(() => [Number.isNaN(SBTID),SBTID])(SBTID);
 	
@@ -10,12 +11,22 @@ export const PluginSBTInfo = ComponentWrapper( () => {
 		pending ,
 		closuredFetchSBTInfo,
 	} = reaxel__SBT_info();
+	const { match } = reaxel__space_plugin();
 	
 	useEffect(() => {
-		closuredFetchSBTInfo(() => [NaN])(SBTID);
+		closuredFetchSBTInfo(() => [{}])(SBTID);
 	} , []);
 	
+	
 	if(!SBT_info) return null;
+	if(!match(({plugin_spaceID}) => plugin_spaceID === SBT_info.spaceID)){
+		const {Result,Button} = antd;
+		return <Result
+			status="404"
+			title="404"
+			subTitle="Sorry, the page you visited does not exist."
+		/>;
+	}
 	
 	const {Table,} = antd;
 	return <>

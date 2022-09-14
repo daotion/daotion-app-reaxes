@@ -7,10 +7,15 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 		fetchSBTList ,
 		SBT_Pad_Store ,
 		scrollParentRef ,
+		setFields,
 	} = reaxel_SBT_list();
 	const { fetchUserRoleInSpace , role } = reaxel__role_in_space(spaceID);
 	
 	fetchSBTList({ spaceID });
+	
+	useEffect(() => {
+		return () => setFields({ SBT_list : [] });
+	} , []);
 	
 	return <>
 		<div className = { less.allSBTsContainer }>
@@ -19,7 +24,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 				<span className = { less.SBTsTitle }>SBTs</span>
 				<div className = { less.SBTsIndexingWithBtn }>
 					<SBTSearchArea />
-					{ role !== 0 && <SBTCreateNewBtn /> }
+					{ role !== 1 && <SBTCreateNewBtn /> }
 				</div>
 			</div>
 			
@@ -49,7 +54,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 				</InfiniteScroll>
 			</div>
 		</div>
-		{ role !== 0 && <CreateSBTModal /> }
+		{ role !== 1 && <CreateSBTModal /> }
 	</>;
 });
 
