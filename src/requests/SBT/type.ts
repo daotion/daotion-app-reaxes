@@ -82,3 +82,17 @@ export namespace SBT_info {
 		"metadataUrl":string,
 	}
 }
+
+export namespace SBT_whitelist{
+	
+	export type payload = {
+		
+	};
+	export type response = {
+		
+	};
+	
+	export type white_list_item = {
+		
+	};
+}
