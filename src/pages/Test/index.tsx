@@ -26,9 +26,10 @@ import { DxzSBTRevocation } from './dxz-SBT-revocation';
 import { DxzModalCropper } from './dxz-modal-cropper';
 import { PreventDupTest } from '../../reaxels/Reaxel-Factories/Reaxel-fact--prevent-dup-request';
 import { DxzCreateSBTModal } from './dxz-create-SBT-modal';
+import {TestNotification} from './Notification';
 
 export const Test = () => <div className = { less.HomeRoot }>
-	<DxzCreateSBTModal />
+	<TestNotification/>
 </div>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';

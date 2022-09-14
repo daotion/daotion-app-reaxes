@@ -187,6 +187,9 @@
 	display: flex;
 }
 
+
+
+
 .action-In{
 	display: flex;
 	flex-direction: row;
@@ -312,6 +315,13 @@
 	height: 48px;
 	
 	
+	:global(.ant-input-affix-wrapper)
+	{
+		&:focus{
+			box-shadow: unset;
+		}
+	}
+	
 	:global(.ant-input.ant-input-lg){
 		background-color: #f4f5f6;
 		
@@ -358,22 +368,25 @@
 
 	}
 	
+	
 	:global{
 		.ant-input-affix-wrapper-focused{
-			box-shadow: 0 0 0 2px rgb(119, 126, 144);
-			//border: 2px solid #777E90;
+			box-shadow: unset;
 			background-color: #ffffff;
+			border: 2px solid #777E90 !important;
 		}
 	}
 	
 	:global{
 		.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled){
 			&:hover{
-				border: 2px solid #E6E8EC
+				border: 2px solid #E6E8EC;
+				z-index: unset;
 			}
+
 		}
 	}
-	
+
 	:global(.ant-btn.ant-btn-text){
 		font-weight: 600;
 		font-size: 14px;
@@ -1090,10 +1103,23 @@
 	
 	position: fixed;
 	width: 822px;
-	left: calc(50% - 821px/2);
+	left: calc(50% - 821px/3);
 	height: 72px;
 	
 	background: rgba(49, 52, 54, 0.7);
 	border-radius: 12px;
 	animation: popIn 0.2s ease-in forwards;
+}
+
+:global{
+	.ant-notification-notice{
+		display: flex; 
+		padding: 16px;
+		width: 822px;
+		height: 72px;
+		left: calc(50% - 822px/2 + 131.5px);
+		
+		background: rgba(49, 52, 54, 0.7);
+		border-radius: 12px;
+	}
 }

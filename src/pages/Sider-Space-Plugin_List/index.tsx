@@ -1,3 +1,5 @@
+
+
 export const Sider_Space_Plugin_List = ComponentWrapper(() => {
 	
 	const {
@@ -13,17 +15,36 @@ export const Sider_Space_Plugin_List = ComponentWrapper(() => {
 	fetchUserRoleInSpace();
 	fetchSpacePlugin(() => [ paramsSpaceID ])(paramsSpaceID);
 	
-	
 	return <>
 		<aside className = { less.pluginAsideContainer }>
 			<div className = { less.pluginAsideTop }>
 				<Img
+					className={less.avatarImg}
 					src = { space_plugin_store.spaceIconUrl }
 					width = { 36 }
 					height = { 36 }
-					fallback = { <SVGPluginSpaceIcon /> }
+					// fallback = { <SVGPluginSpaceIcon /> }
+					fallback = { <div
+						style = { {
+							height : "40px" ,
+							borderRadius : "12px" ,
+							backgroundColor : "black" ,
+							display : "flex" ,
+							justifyContent : "center" ,
+							alignItems : "center" ,
+							width : "40px" ,
+						} }
+					>
+						<span className = { less.theFirstLetter }>
+							{ space_plugin_store.spaceName?.slice(0,1).toUpperCase()}
+						</span>
+					</div> }
 				/>
-				<span className = { less.pluginAsideSpaceName }>{ space_plugin_store.spaceName }</span>
+				<Tooltip
+					title = { space_plugin_store.spaceName }
+					placement = "right">
+					<span className = { less.pluginAsideSpaceName }>{ space_plugin_store.spaceName }</span>
+				</Tooltip>
 				<SVGPluginDropDownIcon />
 			</div>
 			
@@ -69,6 +90,9 @@ export const Sider_Space_Plugin_List = ComponentWrapper(() => {
 		</aside>
 	</>;
 });
+
+
+
 
 
 const SVGPluginSBTPad = () => {
@@ -208,6 +232,8 @@ type PluginListItemProps = {
 	navigateTo? : string;
 	selecting : boolean;
 };
+
+import { Tooltip } from "antd";
 import {
 	reaxel__role_in_space ,
 	reaxel__space_plugin ,
@@ -219,3 +245,4 @@ import {
 	SVGPluginSpaceIcon ,
 } from '@@pages/_SvgComponents/left-plugin-list';
 import less from './index.module.less';
+import { logs } from "@cosmjs/stargate";

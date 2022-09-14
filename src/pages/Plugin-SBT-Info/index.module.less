@@ -495,6 +495,7 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
+	margin-bottom: 8px;
 	
 	:global(.share-btn--rdfs.ant-btn){
 		margin-right: 0;
@@ -821,5 +822,26 @@
 .sbt-cover{
 	width: 32px;
 	height: 32px;
-	background-color: pink;
+}
+
+
+.share-btn{
+	translate: 120px -33px;
+	
+	:global{
+		.ant-btn{
+			background-color: #ffffff;
+			margin: 0;
+			
+			&:hover{
+				background-color: #ffffff;
+			}
+			
+			&:focus{
+				background-color: #ffffff;
+			}
+		}
+	}
+	
+	//background-color: #ffffff;
 }

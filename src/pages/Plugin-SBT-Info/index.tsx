@@ -57,7 +57,8 @@ export const PluginSBTInfo = ComponentWrapper( () => {
 						<span className = { less.certificateTag }>
 							<I18n>{SBT_info.type}</I18n>
 						</span>
-						<ShareBtn />
+						{/*<ShareBtn />*/}
+						<div className={less.shareBtn}><ShareBtn/></div>
 					</div>
 					<p className = { less.SBTName }>
 						<I18n>{SBT_info.name}</I18n>
