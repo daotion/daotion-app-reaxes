@@ -1,10 +1,11 @@
 export const PluginSBTSettings = ComponentWrapper(class extends ReactComponentClass{
 	
 	
-	
 	render(){
 		
-		const {Tabs,Table,Segmented , Button,} = antd;
+		
+		
+		const {Tabs,Table,Segmented , Button} = antd;
 		const { TabPane } = Tabs;
 		
 		return <div className = { less.detailContainer }>
@@ -66,8 +67,8 @@ const Eligible = ComponentWrapper(() => {
 				</Button>
 			</AlertSection>
 			<DetailTable columns = { columns }></DetailTable>
-			<ActionBar count = { count }></ActionBar>
-			<DetailPanel />
+			{/*<ActionBar count = { count }></ActionBar>*/}
+			<TestNotification/>
 		</div>
 	</>
 });
@@ -80,7 +81,8 @@ const Metadata = ComponentWrapper(() => {
 				<MetaDataLeft/>
 				<MetaDataRight/>
 			</div>
-			<MetaActionBar/>
+				{/*<MetaActionBar/>*/}
+			<TestNotification/>
 		</div>
 	</>
 });
@@ -365,6 +367,7 @@ const columns = [
 	} ,
 ];
 
+import {TestNotification} from '@@pages/Test/Notification';
 import { UploadFileBox  } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
 import { SVGCloseIcon } from '@@pages/_SvgComponents/SVG-close-icon';
 import {

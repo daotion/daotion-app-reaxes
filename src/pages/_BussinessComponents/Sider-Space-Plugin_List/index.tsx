@@ -1,3 +1,4 @@
+import { Tooltip } from "antd";
 
 
 export const Sider_Space_Plugin_List = ComponentWrapper( () => {
@@ -17,7 +18,11 @@ export const Sider_Space_Plugin_List = ComponentWrapper( () => {
 		<aside className = { less.pluginAsideContainer }>
 			<div className = { less.pluginAsideTop }>
 				<SVGPluginSpaceIcon />
-				<span className = { less.pluginAsideSpaceName }>SpaceName</span>
+				<Tooltip 
+					title = 'Frankkkkkkkkkkkkkk'
+					placement = "right">
+					<span className = { less.pluginAsideSpaceName }>Frankkkkkkkkkkkkkk</span>
+				</Tooltip>
 				<SVGPluginDropDownIcon />
 			</div>
 			
