@@ -15,7 +15,7 @@ export const reaxel__create_SBT = function(){
 		select__SBT_type : null ,
 		input__SBT_name : null as string ,
 		textarea__description : null as string ,
-		select__SBT_eligible : null ,
+		select__SBT_eligible : null as string ,
 		/*每个用户可持有的最大数量*/
 		input_number__litmit_of_each_address : null as string ,
 		/*发行总量-无限开关*/
@@ -88,7 +88,10 @@ export const reaxel__create_SBT = function(){
 			type : store.select__SBT_type ,
 			desc : store.textarea__description ,
 			features : store.input_pair__properties.map((property) => JSON.stringify(_.omit(property , 'react_key'))) ,
-			conditionData : [ store.select__SBT_eligible ] ,
+			conditionData : [ [{
+				type : store.select__SBT_eligible,
+				condition : null ,
+			}] ] ,
 			createAddress : reax_wallet.account.address ,
 			timestamp : await request_server_timestamp() ,
 		};
@@ -97,9 +100,7 @@ export const reaxel__create_SBT = function(){
 			return request.formater({
 				address : reax_wallet.account.address ,
 				data ,
-				signature : await reax_user.signByFakeWallet((
-					data
-				)) ,
+				signature : await reax_user.signByFakeWallet( data ) ,
 				file : reax_DDF.file ,
 			}) as FormData;
 		};

@@ -8,13 +8,14 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 		SBT_Pad_Store ,
 		scrollParentRef ,
 		setFields,
+		emptyData
 	} = reaxel_SBT_list();
 	const { fetchUserRoleInSpace , role } = reaxel__role_in_space(spaceID);
 	
 	fetchSBTList({ spaceID });
 	
 	useEffect(() => {
-		return () => setFields({ SBT_list : [] });
+		return () => emptyData();
 	} , []);
 	
 	return <>

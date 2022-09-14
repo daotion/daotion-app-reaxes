@@ -114,6 +114,15 @@ export const reaxel_SBT_list = function(){
 			setFields (state:Partial<typeof store>){
 				setState(state);
 			},
+			emptyData : () => {
+				setState({
+					SBT_list : [],
+				});
+				assignPrevParams({
+					firstTimestamp : 0 ,
+					tailIndex : 0 ,
+				});
+			},
 			/**
 			 * 内部驱动状态的获取sbt列表封装,视图层只简单调用.
 			 */

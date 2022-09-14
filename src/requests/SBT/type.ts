@@ -41,7 +41,10 @@ export namespace create_SBT {
 			type: string;
 			desc: string;
 			features: string[];
-			conditionData: [ string ];
+			conditionData: {
+				type : string;
+				condition : any;
+			}[][];
 			/*创建的用户的地址*/
 			createAddress: string;
 			timestamp: number;
