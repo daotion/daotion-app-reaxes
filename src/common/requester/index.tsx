@@ -244,25 +244,6 @@ export const request = new class {
 		} , formdata ?? new FormData);
 	};
 };
-window.logFormData = (formdata:FormData) => {
-	const fin = formdata.keys();
-	while(1){
-		const { done , value } = fin.next();
-		console.log(value , formdata.get(value));
-		if(done){
-			break;
-		}
-	}
-};
-window.a = request.formater({
-	a : [ [ "{a:1,v:2}" ],[{ a2 : 2 } ], ] ,
-	b : {
-		c : {
-			d:1
-		},
-	} ,
-});
-logFormData(a)
 
 const symbol_no_authorized = Symbol( 'no_authorized' );
 import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';

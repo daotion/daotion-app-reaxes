@@ -88,10 +88,10 @@ export const reaxel__create_SBT = function(){
 			type : store.select__SBT_type ,
 			desc : store.textarea__description ,
 			features : store.input_pair__properties.map((property) => JSON.stringify(_.omit(property , 'react_key'))) ,
-			conditionData : [ [{
+			conditionData : [ JSON.stringify([{
 				type : store.select__SBT_eligible,
 				condition : null ,
-			}] ] ,
+			}]) ] ,
 			createAddress : reax_wallet.account.address ,
 			timestamp : await request_server_timestamp() ,
 		};

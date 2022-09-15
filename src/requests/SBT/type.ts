@@ -41,10 +41,7 @@ export namespace create_SBT {
 			type: string;
 			desc: string;
 			features: string[];
-			conditionData: {
-				type : string;
-				condition : any;
-			}[][];
+			conditionData: string[];
 			/*创建的用户的地址*/
 			createAddress: string;
 			timestamp: number;
@@ -86,13 +83,25 @@ export namespace SBT_info {
 export namespace SBT_whitelist{
 	
 	export type payload = {
-		
-	};
-	export type response = {
-		
+		indexStart : number;
+		count : number;
+		firstTimestamp : number;
+		spaceID : number;
+		SBTID : number;
+		rest : boolean;
 	};
 	
-	export type white_list_item = {
-		
+	export type response = {
+		indexEnd : number;
+		count : number;
+		total : number;
+		firstTimestamp : number;
+		whitelist : whitelist_item[];
+	};
+	
+	export type whitelist_item = {
+		address : string;
+		amount : number;
+		remainder : number;
 	};
 }
