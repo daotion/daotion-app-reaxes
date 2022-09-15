@@ -128,17 +128,17 @@ export const PluginSBTInfo = ComponentWrapper( () => {
 						</div>
 						<p className = { less.SBTClaimState }>
 							<I18n>Clamed</I18n>
-							<span className = { less.amount }>X</span>
+							<span className = { less.amount }> X </span>
 							<I18n>Available</I18n>
-							<span className = { less.amount }>Y</span>
+							<span className = { less.amount }> Y </span>
 						</p>
 						{/*三种状态的Button : */ }
-						<XButton
-							disabled
-							className = { less.notEligibleBtn }
-							type = "primary"
-							style = { { width : '100%' } }
-						><I18n>You are not eligible</I18n></XButton>
+						{/*<XButton*/}
+						{/*	disabled*/}
+						{/*	className = { less.notEligibleBtn }*/}
+						{/*	type = "primary"*/}
+						{/*	style = { { width : '100%' } }*/}
+						{/*><I18n>You are not eligible</I18n></XButton>*/}
 						
 						<XButton
 							type = "primary"
@@ -149,7 +149,7 @@ export const PluginSBTInfo = ComponentWrapper( () => {
 							disabled
 							className = { less.SBTClaimedBtn }
 							type = "primary"
-						><I18n>Claimed</I18n></XButton>
+						><I18n>Claim</I18n></XButton>
 					</SBTInfoBox>
 				</div>
 			</div>
@@ -306,10 +306,10 @@ export const SBTInfoItem = ComponentWrapper((props) => {
 interface DataType {
 	key : React.Key;
 	holder : React.ReactNode;
-	amount : number;
+	// amount : number;
 	time : string;
-	id : string;
-	status : string;
+	// id : string;
+	// status : string;
 }
 
 const columns : ColumnsType<DataType> = [
@@ -321,18 +321,18 @@ const columns : ColumnsType<DataType> = [
 		title : 'Mint time' ,
 		dataIndex : 'time' ,
 	} ,
-	{
-		title : 'TokenID' ,
-		dataIndex : 'id' ,
-	} ,
-	{
-		title : 'Amount' ,
-		dataIndex : 'amount' ,
-	} ,
-	{
-		title : 'Status' ,
-		dataIndex : 'status' ,
-	} ,
+	// {
+	// 	title : 'TokenID' ,
+	// 	dataIndex : 'id' ,
+	// } ,
+	// {
+	// 	title : 'Amount' ,
+	// 	dataIndex : 'amount' ,
+	// } ,
+	// {
+	// 	title : 'Status' ,
+	// 	dataIndex : 'status' ,
+	// } ,
 
 ];
 
@@ -341,10 +341,10 @@ for( let i = 0 ; i < 6 ; i ++ ) {
 	data.push({
 		key : Math.random() ,
 		holder:<span className={less.userInfo}><div className={less.avatarContainer}></div>0x4183...4f6d </span> ,
-		amount : 2 ,
+		// amount : 2 ,
 		time : '4 minutes ago' ,
-		id : '#23451' ,
-		status : 'Claimed' ,
+		// id : '#23451' ,
+		// status : 'Claimed' ,
 	});
 }
 
