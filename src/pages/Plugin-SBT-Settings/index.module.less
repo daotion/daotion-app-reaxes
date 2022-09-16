@@ -639,18 +639,18 @@
 		}
 		
 		.ant-table-tbody{
-			.ant-table-row{
-				&:hover{
-					//:global(.ant-btn.ant-btn-link){
-					//	&:nth-child(1){
-					//		visibility: visible;
-					//	}
-					////}
-					//:local(.edit-btn){
-					//	visibility: visible;
-					//}
-				}
-			}
+			//.ant-table-row{
+			//	&:hover{
+			//		//:global(.ant-btn.ant-btn-link){
+			//		//	&:nth-child(1){
+			//		//		visibility: visible;
+			//		//	}
+			//		////}
+			//		//:local(.edit-btn){
+			//		//	visibility: visible;
+			//		//}
+			//	}
+			//}
 		}
 		
 		.ant-table-tbody .ant-table-cell{
@@ -696,7 +696,6 @@
 	
 	
 	:global(.ant-table-row) {
-
 		
 		&:hover{
 			:global(.ant-table-cell){
@@ -704,6 +703,22 @@
 			}
 		}
 	}
+	
+	:global(.ant-table){
+		
+		&:hover{
+			:local{
+				.edit-btn{
+					visibility: visible;
+				}
+				
+				.remove-btn{
+					visibility: visible;
+				}
+			}
+		}
+	}
+	
 }
 
 .amount-section{
@@ -854,10 +869,26 @@
 }
 
 .edit-btn{
+	height: 32px;
+	padding: 4px 15px;
+	border: unset;
+	background-color: unset;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
 	visibility: hidden;
 }
 
 .remove-btn{
+	height: 32px;
+	padding: 4px 15px;
+	border: unset;
+	background-color: unset;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
 	visibility: hidden;
 }
 
@@ -880,21 +911,6 @@
 	}
 }
 
-
-:global(.ant-table){
-	
-	&:hover{
-		:local{
-			.edit-btn{
-				visibility: visible;
-			}
-			
-			.remove-btn{
-				visibility: visible;
-			}
-		}
-	}
-}
 
 
 .meta-container{
@@ -1112,24 +1128,16 @@
 	animation: popIn 0.2s ease-in forwards;
 }
 
-
-
-
-
-div{
-	:global(.ant-notification-notice){
-		display: flex;
-		padding: 16px;
-		width: 822px;
-		height: 72px;
-		left: calc(50% - 822px/2 + 131.5px);
-		
-		background: rgba(49, 52, 54, 0.7);
-		border-radius: 12px;
-		
-		:global(.ant-notification-notice-close){
-			display: none;
-		}
-		
-	}
+.table-action-btn{
+	height: 32px;
+	padding: 4px 15px;
+	border: unset;
+	background-color: unset;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
 }
+
+
+

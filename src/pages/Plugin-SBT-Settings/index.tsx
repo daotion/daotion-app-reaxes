@@ -333,7 +333,8 @@ const columns = [
 								suffix = { <div className = { less.amountAction }><SVGSBTCountUp /><SVGSBTCountDown /></div> }
 							>
 							</XInput>
-							<Button type = "link">Done</Button>
+							{/*<Button type = "link">Done</Button>*/}
+							<button className={less.tableActionBtn}>Done</button>
 						</div>
 					</div>
 				);
@@ -351,16 +352,18 @@ const columns = [
 			const {Button} = antd;
 			return (
 				<div className = { less.actionSection }>
-					<Button
-						type = "link"
-						className = { less.editBtn }
-					>Edit</Button>
-					<Button
-						type = "link"
-						className={less.removeBtn}>
-						Remove
-					</Button>
-					{ record.editing ? <div><Button type = "link">Reset</Button></div> : '' }
+					{/*<Button*/}
+					{/*	type = "link"*/}
+					{/*	className = { less.editBtn }*/}
+					{/*>Edit</Button>*/}
+					{/*<Button*/}
+					{/*	type = "link"*/}
+					{/*	className={less.removeBtn}>*/}
+					{/*	Remove*/}
+					{/*</Button>*/}
+					<button className={less.editBtn}>Edit</button>
+					<button className={less.removeBtn}>Remove</button>
+					{ record.editing ? <div><button className={less.tableActionBtn}>Reset</button></div> : '' }
 				</div>
 			);
 		} ,
