@@ -17,9 +17,9 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 			fetch_white_list ,
 			SBT_settings_store,
 			setFields ,
-			make_row_editable,
+			switch_row_editable,
 			reset_changes ,
-			
+			fields_modified ,
 		} = this.reax_settings_whitelist;
 		
 		fetch_white_list(() => [spaceID,SBTID])({SBTID,spaceID,count:15});
@@ -27,7 +27,7 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 		const { Tabs , Table , Segmented , Button } = antd;
 		const { TabPane } = Tabs;
 		
-		const [ count , setCount ] = useState(0);
+		
 		return <>
 			<Segmented options = { [ 'Whitelist' , 'Blacklist' , 'Revocationlist' , 'TabName' ] } />
 			<div className = { less.subContent }>
@@ -50,85 +50,136 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 					</Button>
 				</AlertSection>
 				<DetailTable/>
-				{/*<ActionBar count = { count }></ActionBar>*/ }
-				<TestNotification />
+				<Notification
+					visible={fields_modified}
+					config = {{
+						duration:null,
+						key : "123" ,
+						message : <OpertaionBtnGroup/>,
+						bottom : 24,
+						placement : "bottom",
+					}}
+				/>
 			</div>
 		</>;
 	}
 });
 
-const columns = [
-	{
-		title : 'ADDRESS' ,
-		dataIndex : 'address' ,
-	} ,
-	{
-		title : 'AMOUNT' ,
-		dataIndex : 'amount' ,
-	} ,
-	{
-		title : 'Remainder' ,
-		dataIndex : 'remaider' ,
-		render : (text , record , index) => {
-			const { Button } = antd;
-			if( record.editing ) {
-				return (
-					<div>
-						<div className = { less.amountSection }>
-							<XInput
-								value = { 1 }
-								suffix = { <div className = { less.amountAction }><SVGSBTCountUp /><SVGSBTCountDown /></div> }
-							>
-							</XInput>
-							<Button type = "link">Done</Button>
-						</div>
-					</div>
-				);
-			} else {
-				return (
-					<span>{ record.amount }</span>
-				);
-			}
-		} ,
-	} ,
-	{
-		title : 'ACTION' ,
-		dataIndex : 'action' ,
-		render : (text , record , index) => {
-			const { Button } = antd;
-			return (
-				<div className = { less.actionSection }>
-					<Button
-						type = "link"
-						className = { less.editBtn }
-					>Edit</Button>
-					<Button
-						type = "link"
-						className = { less.removeBtn }
-					>
-						Remove
-					</Button>
-					{ record.editing ? <div><Button type = "link">Reset</Button></div> : '' }
-				</div>
-			);
-		} ,
-	} ,
-];
 
 
+const OpertaionBtnGroup = () => {
+	const { reset_changes } = reaxel__SBT_settings();
+	return <div className = { less.wrapper }>
+		<span className = { less.title }>Unsaved changes!</span>
+		<div className = { less.btn }>
+			<XButton
+				onClick = { reset_changes }
+				type = "text"
+			>
+				Reset all
+			</XButton>
+			<XButton
+				type = "primary"
+			>
+				Confirm
+			</XButton>
+		</div>
+	</div>;
+}
 
 export const DetailTable = ComponentWrapper((props) => {
-	const { whitelist } = reaxel__SBT_settings();
+	const { whitelist ,switch_row_editable,offset_row_value,reset_row} = reaxel__SBT_settings();
 	console.log(logProxy(whitelist));
 	
 	const { Table } = antd;
+	
+	const columns = [
+		{
+			title : 'ADDRESS' ,
+			dataIndex : 'address' ,
+		} ,
+		{
+			title : 'AMOUNT' ,
+			dataIndex : 'amount' ,
+		} ,
+		{
+			title : 'Remainder' ,
+			dataIndex : 'remaider' ,
+			render : (text , record , index) => {
+				const { Button } = antd;
+				const done = () => {
+					if(record.modifiedOffset + record.remainder < 0){
+						offset_row_value(record.address , -record.remainder);
+					}
+					switch_row_editable(false,record.address);
+				}
+				if( record.editing ) {
+					return <div>
+						<div className = { less.amountSection }>
+							<antd.InputNumber
+								onPressEnter = {done}
+								onChange = {(value) => {
+									let offset = value - record.remainder;
+									offset_row_value(record.address,offset);
+								}}
+								value = { record.modifiedOffset + record.remainder }
+							>
+							</antd.InputNumber>
+							<Button 
+								onClick={done}
+								type = "link"
+							>Done</Button>
+						</div>
+					</div>;
+				} else {
+					return (
+						<span>{ record.modifiedOffset + record.remainder}</span>
+					);
+				}
+			} ,
+		} ,
+		{
+			title : 'ACTION' ,
+			dataIndex : 'action' ,
+			render : (text , record , index) => {
+				const { Button } = antd;
+				return (
+					<div className = { less.actionSection }>
+						<Button
+							onClick={ () => {
+								switch_row_editable(true , record.address);
+							}}
+							type = "link"
+							className = { less.editBtn }
+						>Edit</Button>
+						<Button
+							onClick={() => {
+								offset_row_value(record.address , -record.remainder);
+							}}
+							type = "link"
+							className = { less.removeBtn }
+						>
+							Remove
+						</Button>
+						{ record.modifiedOffset !== 0 && <Button
+							onClick = { () => {
+								reset_row(record.address);
+							} }
+							type = "link"
+						>Reset</Button> }
+					</div>
+				);
+			} ,
+		} ,
+	];
+	
 	return <>
 		<div className = { less.table }>
 			<Table
-				rowClassName = { (record) => {
-					if( record.amount === 0 ) {
+				rowClassName = { (record,index) => {
+					if( record.modifiedOffset + record.remainder === 0 ) {
 						return less.redCover;
-					} else if( record.editing ) {
+					} else if (record.modifiedOffset !== 0) {
 						return less.blueCover;
 					}
 				} }
@@ -210,7 +261,8 @@ export const AlertSection = ComponentWrapper((props) => {
 
 import { reaxel__SBT_settings } from '../reaxel--SBT-settings';
 import { XInput } from "@@pages/Test/dxz-input";
-import { TestNotification } from '@@pages/Test/Notification';
+import { XButton } from '@@common/Xcomponents';
+import { Notification } from '@@pages/Test/Notification';
 import {
 	SVGSBTCheck ,
 	SVGSBTClose ,

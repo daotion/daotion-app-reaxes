@@ -81,8 +81,8 @@ export const reaxel__SBT_settings = function(){
 			},
 			/*查询全局表单是否被修改过(包括上传过有效的csv)*/
 			get fields_modified(){
-				return store.whitelist.filter((element) => element !== null ).some((item) => {
-					return item.modifiedOffset !== 0;
+				return store.whitelist.filter((element) => element != null ).some((item) => {
+					return item.modifiedOffset !== 0 && item.editing === false;
 				});
 			},
 			get fetch_white_list(){
@@ -93,13 +93,13 @@ export const reaxel__SBT_settings = function(){
 				return input_address.length === 42 && input_address.startsWith('0x'); 
 			},
 			/*使某一行变为可编辑状态*/
-			make_row_editable(address:string){
+			switch_row_editable(enable:boolean,address:string){
 				setState({
 					whitelist : store.whitelist.map((item) => {
 						if( item.address === address ) {
 							return {
 								...item ,
-								editing : true ,
+								editing : enable ,
 							};
 						} else {
 							return item;
@@ -114,11 +114,24 @@ export const reaxel__SBT_settings = function(){
 						if( item.address === address ) {
 							return {
 								...item ,
-								editing : true ,
+								modifiedOffset : offset ,
 							};
 						} else {
 							return item;
 						}
+					}) ,
+				});
+			},
+			reset_row(address){
+				setState({
+					whitelist : store.whitelist.map((element) => {
+						if( address === element.address ) {
+							return {
+								...element ,
+								editing : false ,
+								modifiedOffset : 0 ,
+							};
+						}else return element;
 					}) ,
 				});
 			},
