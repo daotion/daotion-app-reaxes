@@ -31,10 +31,10 @@ export const reaxel__space_plugin = function(){
 		
 		return {
 			store ,
-			/*传入函数返回一个boolean , 来给子路由(模块)来判断是否404*/
+			/*true:合法.  false不合法,404 传入函数返回一个boolean , 来给子路由(模块)来判断是否404*/
 			match(callback: ({ plugin_spaceID }:matches) => boolean){
 				if(!store.spaceID){
-					return null;
+					return false;
 				}
 				return callback({
 					plugin_spaceID : store.spaceID,

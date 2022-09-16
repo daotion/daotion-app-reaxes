@@ -1,12 +1,20 @@
 export const PluginSBTSettings = ComponentWrapper(class extends ReactComponentClass {
 	
-	reax_settings_whitelist = reaxel__SBT_settings();
 	
 	render(){
+		const spaceID = parseInt(utils.useRouter().params.spaceID);
 		
+		const { match , store } = reaxel__space_plugin();
+		const {role} = reaxel__role_in_space(spaceID);
 		
 		const { Tabs , Table , Segmented , Button } = antd;
 		const { TabPane } = Tabs;
+		
+		if((!role || role === 1) || !match(({ plugin_spaceID }) => {
+			return spaceID === plugin_spaceID;
+		})){
+			return <antd.Result status="404" />
+		};
 		
 		return <div className = { less.detailContainer }>
 			<UserInfo />
@@ -214,6 +222,10 @@ export const MetaDataRight = ComponentWrapper((props) => {
 
 
 import { reaxel__SBT_settings } from './reaxel--SBT-settings';
+import {
+	reaxel__space_plugin ,
+	reaxel__role_in_space,
+} from '@@reaxels';
 import { Eligible } from './Settings-Eligible';
 import { TestNotification } from '@@pages/Test/Notification';
 import { UploadFileBox } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';

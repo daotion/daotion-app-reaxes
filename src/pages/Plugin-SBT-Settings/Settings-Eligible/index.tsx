@@ -67,28 +67,14 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 
 
 
-const OpertaionBtnGroup = () => {
-	const { reset_changes } = reaxel__SBT_settings();
-	return <div className = { less.wrapper }>
-		<span className = { less.title }>Unsaved changes!</span>
-		<div className = { less.btn }>
-			<XButton
-				onClick = { reset_changes }
-				type = "text"
-			>
-				Reset all
-			</XButton>
-			<XButton
-				type = "primary"
-			>
-				Confirm
-			</XButton>
-		</div>
-	</div>;
-}
-
 export const DetailTable = ComponentWrapper((props) => {
-	const { whitelist ,switch_row_editable,offset_row_value,reset_row} = reaxel__SBT_settings();
+	const {fetch_white_list,SBT_settings_store, whitelist ,switch_row_editable,offset_row_value,reset_row} = reaxel__SBT_settings();
+	const [,{spaceID , SBTID}] = utils.makePair(utils.useRouter().params , ({spaceID,SBTID}) => {
+		return {
+			spaceID : parseInt(spaceID),
+			SBTID : parseInt(SBTID),
+		};
+	});
 	console.log(logProxy(whitelist));
 	
 	const { Table } = antd;
@@ -186,12 +172,40 @@ export const DetailTable = ComponentWrapper((props) => {
 				rowKey="address"
 				columns = { columns }
 				dataSource = { whitelist }
-				pagination = { false }
+				pagination={{
+					pageSize : 15,
+					total : SBT_settings_store.total,
+					onChange : (page) => {
+						fetch_white_list(() => [spaceID,SBTID,page])({SBTID,spaceID,count:15,paging:page});
+						
+					},
+				}}
+
 			>
 			</Table>
 		</div>
 	</>;
 });
+
+const OpertaionBtnGroup = () => {
+	const { reset_changes } = reaxel__SBT_settings();
+	return <div className = { less.wrapper }>
+		<span className = { less.title }>Unsaved changes!</span>
+		<div className = { less.btn }>
+			<XButton
+				onClick = { reset_changes }
+				type = "text"
+			>
+				Reset all
+			</XButton>
+			<XButton
+				type = "primary"
+			>
+				Confirm
+			</XButton>
+		</div>
+	</div>;
+}
 
 export const SearchBar = ComponentWrapper(() => {
 	const { SBT_settings_store , setFields , address_insertable } = reaxel__SBT_settings();
@@ -222,27 +236,7 @@ export const SearchBar = ComponentWrapper(() => {
 		</div>
 	</>;
 });
-// export const SearchBar = ComponentWrapper((props) => {
-// 	const { Button } = antd;
-// 	return <>
-// 		<div className = { less.searchBar }>
-// 			<XInput
-// 				type = "primary"
-// 				placeholder = "Enter address to search or add"
-// 			/>
-// 			<Button
-// 				onClick = { () => {
-// 					props.setCount(props.count + 1);
-// 				} }
-// 				type = "primary"
-// 				ghost
-// 				icon = { <SVGSBTUpload /> }
-// 			>
-// 				Upload CSV
-// 			</Button>
-// 		</div>
-// 	</>;
-// });
+
 export const AlertSection = ComponentWrapper((props) => {
 	return <>
 		<div className = { less.processAlert }>

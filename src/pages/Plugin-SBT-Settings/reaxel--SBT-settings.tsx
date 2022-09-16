@@ -6,6 +6,7 @@ export const reaxel__SBT_settings = function(){
 			filename : '' ,
 			errorMsg : "" ,
 		},
+		total : 0 ,
 		whitelist : [] as Array<null|(SBT_whitelist.whitelist_item & {editing : boolean, modifiedOffset : number})>,
 		/*是否仅显示修改过的列表*/
 		onlyModified : false ,
@@ -18,7 +19,7 @@ export const reaxel__SBT_settings = function(){
 		
 	},(pregStatus) => (partialStatus:Partial<typeof status>) => _.assign(pregStatus,partialStatus));
 	
-	const closuredFetchWhitelist = Reaxes.closuredMemo(({spaceID,SBTID,count = 15,page : paging = null} ) => {
+	const closuredFetchWhitelist = Reaxes.closuredMemo(({spaceID,SBTID,count = 15,paging = null} ) => {
 		
 		request__SBT_whitelist(async () => {
 			return {
@@ -41,6 +42,7 @@ export const reaxel__SBT_settings = function(){
 				firstTimestamp ,
 			});
 			setState({
+				total ,
 				whitelist : function(){
 					const newParagraph = whitelist.reduce((accumulator,element,index) => {
 						const orignalElement = store.whitelist.slice()[index];
