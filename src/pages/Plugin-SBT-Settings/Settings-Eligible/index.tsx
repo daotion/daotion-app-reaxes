@@ -1,3 +1,5 @@
+import { InputNumber } from "antd";
+
 export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 	
 	reax_settings_whitelist = reaxel__SBT_settings();
@@ -75,12 +77,10 @@ const columns = [
 				return (
 					<div>
 						<div className = { less.amountSection }>
-							<XInput
-								value = { 1 }
-								suffix = { <div className = { less.amountAction }><SVGSBTCountUp /><SVGSBTCountDown /></div> }
-							>
-							</XInput>
-							<Button type = "link">Done</Button>
+							<InputNumber
+								value = {1}
+								controls={{upIcon:<SVGSBTCountUp/>,downIcon:<SVGSBTCountDown/>}}/>
+							<TableActionBtnTwo text = 'Done'/>
 						</div>
 					</div>
 				);
@@ -98,22 +98,23 @@ const columns = [
 			const { Button } = antd;
 			return (
 				<div className = { less.actionSection }>
-					<Button
-						type = "link"
-						className = { less.editBtn }
-					>Edit</Button>
-					<Button
-						type = "link"
-						className = { less.removeBtn }
-					>
-						Remove
-					</Button>
-					{ record.editing ? <div><Button type = "link">Reset</Button></div> : '' }
+					<TableActionBtn text = 'Edit'/>
+					<TableActionBtn text = 'Remove'/>
+					{ record.editing ? <div><TableActionBtnTwo text = 'Reset'/></div> : '' }
 				</div>
 			);
 		} ,
 	} ,
 ];
+
+
+const TableActionBtn = (props) => {
+	return <span className={less.tableActionBtn}>{props.text}</span>
+};
+
+const TableActionBtnTwo = (props) => {
+	return <span className={less.tableActionBtnTwo}>{props.text}</span>
+}
 
 
 

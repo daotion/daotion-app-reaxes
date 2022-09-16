@@ -212,11 +212,6 @@ export const MetaDataRight = ComponentWrapper((props) => {
 	</>;
 });
 
-const TableActionBtn = (props) => {
-	return <span className={less.tableActionBtn}>{props.text}</span>
-};
-
-
 
 
 

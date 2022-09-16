@@ -619,7 +619,7 @@
 				border-radius: 12px 0 0 12px;
 			}
 			
-			&:nth-child(3) {
+			&:last-child {
 				border-radius: 0 12px 12px 0;
 			}
 			
@@ -666,7 +666,7 @@
 				user-select: none;
 			}
 			
-			&:nth-child(3) {
+			&:last-child {
 				border-radius: 0 12px 12px 0;
 			}
 			
@@ -697,11 +697,14 @@
 		
 		&:hover{
 			:local{
-				.edit-btn{
-					visibility: visible;
-				}
-				
-				.remove-btn{
+				//.edit-btn{
+				//	visibility: visible;
+				//}
+				//
+				//.remove-btn{
+				//	visibility: visible;
+				//}
+				.table-action-btn{
 					visibility: visible;
 				}
 			}
@@ -712,19 +715,61 @@
 
 .amount-section {
 	:global {
-		.ant-input-affix-wrapper {
+		//.ant-input-affix-wrapper {
+		//	width: 100px;
+		//	height: 40px;
+		//	border: 1px solid #e6e8ec;
+		//	border-radius: 12px;
+		//	
+		//	SVG {
+		//		cursor: pointer;
+		//		
+		//		&:nth-child(1) {
+		//			margin-bottom: 3px;
+		//		}
+		//	}
+		//}
+		
+		.ant-input-number{
+			display: flex;
+			align-items: center;
 			width: 100px;
 			height: 40px;
 			border: 1px solid #e6e8ec;
 			border-radius: 12px;
-			
-			SVG {
-				cursor: pointer;
-				
-				&:nth-child(1) {
-					margin-bottom: 3px;
-				}
+		}
+		
+		.ant-input-number-handler-wrap{
+			opacity: unset;
+			top: 10px;
+			right: 10px;
+			width: 16px;
+			height: 16px;
+			transition: unset;
+		}
+		
+		.ant-input-number-handler{
+			border: unset;
+		}
+		
+		.ant-input-number-handler-up{
+			//margin-bottom: 1px;
+			&:hover{
+				height: 50% !important;
 			}
+		}
+		.ant-input-number-handler-down{
+			&:hover{
+				height: 50% !important;
+			}
+		}
+		
+		.ant-input-number:hover:not(.ant-input-number-borderless) .ant-input-number-handler-down{
+			border: unset;
+		}
+		
+		.ant-input-number-handler-wrap:hover .ant-input-number-handler{
+			height: 50%;
 		}
 	}
 }
@@ -1119,16 +1164,24 @@
 	animation: popIn 0.2s ease-in forwards;
 }
 
+
 .table-action-btn{
 	height: 32px;
 	padding: 4px 15px;
-	border: unset;
-	background-color: unset;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
+	visibility: hidden;
+}
+
+.table-action-btn-two{
+	height: 32px;
+	padding: 4px 15px;
 	font-weight: 600;
 	font-size: 16px;
 	cursor: pointer;
 	color: #0070F3;
 }
-
 
 
