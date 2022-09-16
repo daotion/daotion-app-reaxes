@@ -105,3 +105,51 @@ export namespace SBT_whitelist{
 		remainder : number;
 	};
 }
+
+export namespace SBT_upload_file_whitelist {
+	
+	export type payload = {
+		address : string;
+		data : {
+			spaceID : number;
+			SBTID : number;
+			timestamp : number;
+		};
+		signature : string;
+		file : File;
+	};
+	
+	export type response = {
+		success : boolean;
+		list : {
+			address : string;
+			offset : number;
+		}[];
+		duplicateLines : number[];
+		invalid : number[];
+	};
+
+}
+
+
+export namespace SBT_add_whitelist {
+	
+	export type payload = {
+		address : string;
+		data : {
+			spaceID : number;
+			SBTID : number;
+			list : {
+				address : string;
+				offset : number;
+			}[];
+			timestamp : number;
+		};
+		signature : string;
+	};
+	
+	export type response = {
+		rootHash : string;
+	};
+
+}

@@ -1,5 +1,6 @@
 export const PluginSBTSettings = ComponentWrapper(class extends ReactComponentClass {
 	
+	reax_settings_whitelist = reaxel__SBT_settings();
 	
 	render(){
 		
@@ -34,42 +35,7 @@ export const PluginSBTSettings = ComponentWrapper(class extends ReactComponentCl
 });
 
 
-const Eligible = ComponentWrapper(() => {
-	const { Tabs , Table , Segmented , Button } = antd;
-	const { TabPane } = Tabs;
-	
-	const [ count , setCount ] = useState(0);
-	return <>
-		<Segmented options = { [ 'Whitelist' , 'Blacklist' , 'Revocationlist' , 'TabName' ] } />
-		<div className = { less.subContent }>
-			<h1 className = { less.contentTitle }>Whitelist</h1>
-			<SearchBar
-				setCount = { setCount }
-				count = { count }
-			/>
-			<SearchBarActived />
-			<AlertSection
-				icon = { <div className = { less.rotating }>
-					<SVGSBTUploading />
-				</div> }
-			>
-				<span className = { less.uploading }>Uploading...</span>
-			</AlertSection>
-			<AlertSection icon = { <SVGSBTCheck /> }></AlertSection>
-			<AlertSection icon = { <SVGSBTWarning /> }>
-				<span className = { less.alertInfo }>Some addresses or amount are invalid</span>
-				<Button
-					type = "text"
-				>
-					View details
-				</Button>
-			</AlertSection>
-			<DetailTable columns = { columns }></DetailTable>
-			{/*<ActionBar count = { count }></ActionBar>*/ }
-			<TestNotification />
-		</div>
-	</>;
-});
+
 
 const Metadata = ComponentWrapper(() => {
 	return <>
@@ -105,41 +71,9 @@ export const UserInfo = ComponentWrapper((props) => {
 	</>;
 });
 
-export const AlertSection = ComponentWrapper((props) => {
-	return <>
-		<div className = { less.processAlert }>
-			<div className = { less.alertLeft }>
-				{ props.icon }
-				<span className = { less.alertTitle }>CSVFileName.csv</span>
-			</div>
-			<div className = { less.alertRight }>
-				{ props.children }
-				<button className = { less.alertClose }><SVGSBTClose /></button>
-			</div>
-		</div>
-	</>;
-});
 
-export const DetailTable = ComponentWrapper((props) => {
-	const { Table } = antd;
-	return <>
-		<div className = { less.table }>
-			<Table
-				rowClassName = { (record) => {
-					if( record.amount === 0 ) {
-						return less.redCover;
-					} else if( record.status === 'edited' ) {
-						return less.blueCover;
-					}
-				} }
-				columns = { props.columns }
-				dataSource = { data }
-				pagination={false}
-			>
-			</Table>
-		</div>
-	</>;
-});
+
+
 
 export const ActionBar = ComponentWrapper((props) => {
 	const { Button } = antd;
@@ -191,51 +125,9 @@ export const DetailPanel = ComponentWrapper(() => {
 	</>;
 });
 
-export const SearchBar = ComponentWrapper((props) => {
-	const { Button } = antd;
-	return <>
-		<div className = { less.searchBar }>
-			<XInput
-				type = "primary"
-				placeholder = "Enter address to search or add"
-			/>
-			<Button
-				onClick = { () => {
-					props.setCount(props.count + 1);
-				} }
-				type = "primary"
-				ghost
-				icon = { <SVGSBTUpload /> }
-			>
-				Upload CSV
-			</Button>
-		</div>
-	</>;
-});
 
-export const SearchBarActived = ComponentWrapper(() => {
-	const { Button } = antd;
-	return <>
-		<div className = { less.searchBarActived }>
-			<XInput
-				type = "primary"
-				placeholder = "Enter address to search or add"
-				// value = 'sadasffasas'
-				suffix = {
-					<Button type = "text">
-						Add to Whitelist\Blacklist\Revocationlist
-					</Button> }
-			/>
-			<Button
-				type = "primary"
-				ghost
-				icon = { <SVGSBTUpload /> }
-			>
-				Upload CSV
-			</Button>
-		</div>
-	</>;
-});
+
+
 
 export const SubTitleWithItem = (props) => {
 	return <>
@@ -321,60 +213,8 @@ export const MetaDataRight = ComponentWrapper((props) => {
 });
 
 
-const columns = [
-	{
-		title : 'ADDRESS' ,
-		dataIndex : 'address' ,
-	} ,
-	{
-		title : 'AMOUNT' ,
-		dataIndex : 'amount' ,
-		render : (text , record , index) => {
-			const { Button } = antd;
-			if( record.editing ) {
-				return (
-					<div>
-						<div className = { less.amountSection }>
-							<XInput
-								value = { 1 }
-								suffix = { <div className = { less.amountAction }><SVGSBTCountUp /><SVGSBTCountDown /></div> }
-							>
-							</XInput>
-							<Button type = "link">Done</Button>
-						</div>
-					</div>
-				);
-			} else {
-				return (
-					<span>{ record.amount }</span>
-				);
-			}
-		} ,
-	} ,
-	{
-		title : 'ACTION' ,
-		dataIndex : 'action' ,
-		render : (text , record , index) => {
-			const { Button } = antd;
-			return (
-				<div className = { less.actionSection }>
-					<Button
-						type = "link"
-						className = { less.editBtn }
-					>Edit</Button>
-					<Button
-						type = "link"
-						className = { less.removeBtn }
-					>
-						Remove
-					</Button>
-					{ record.editing ? <div><Button type = "link">Reset</Button></div> : '' }
-				</div>
-			);
-		} ,
-	} ,
-];
-
+import { reaxel__SBT_settings } from './reaxel--SBT-settings';
+import { Eligible } from './Settings-Eligible';
 import { TestNotification } from '@@pages/Test/Notification';
 import { UploadFileBox } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
 import { SVGCloseIcon } from '@@pages/_SvgComponents/SVG-close-icon';
@@ -386,13 +226,6 @@ import {
 	SVGCopySBT ,
 	SVGSBTAdd ,
 	SVGSBTBack ,
-	SVGSBTCheck ,
-	SVGSBTClose ,
-	SVGSBTCountDown ,
-	SVGSBTCountUp ,
-	SVGSBTUpload ,
-	SVGSBTUploading ,
-	SVGSBTWarning ,
 	SVGSubtract ,
 } from "@@pages/_SvgComponents";
 import { Img } from "@@common/Xcomponents";
