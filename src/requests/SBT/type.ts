@@ -41,7 +41,7 @@ export namespace create_SBT {
 			type: string;
 			desc: string;
 			features: string[];
-			conditionData: [ string ];
+			conditionData: string[];
 			/*创建的用户的地址*/
 			createAddress: string;
 			timestamp: number;
@@ -78,4 +78,78 @@ export namespace SBT_info {
 		"features" : string,
 		"metadataUrl":string,
 	}
+}
+
+export namespace SBT_whitelist{
+	
+	export type payload = {
+		indexStart : number;
+		count : number;
+		firstTimestamp : number;
+		spaceID : number;
+		SBTID : number;
+		rest : boolean;
+	};
+	
+	export type response = {
+		indexEnd : number;
+		count : number;
+		total : number;
+		firstTimestamp : number;
+		whitelist : whitelist_item[];
+	};
+	
+	export type whitelist_item = {
+		address : string;
+		amount : number;
+		remainder : number;
+	};
+}
+
+export namespace SBT_upload_file_whitelist {
+	
+	export type payload = {
+		address : string;
+		data : {
+			spaceID : number;
+			SBTID : number;
+			timestamp : number;
+		};
+		signature : string;
+		file : File;
+	};
+	
+	export type response = {
+		success : boolean;
+		list : {
+			address : string;
+			offset : number;
+		}[];
+		duplicateLines : number[];
+		invalid : number[];
+	};
+
+}
+
+
+export namespace SBT_add_whitelist {
+	
+	export type payload = {
+		address : string;
+		data : {
+			spaceID : number;
+			SBTID : number;
+			list : {
+				address : string;
+				offset : number;
+			}[];
+			timestamp : number;
+		};
+		signature : string;
+	};
+	
+	export type response = {
+		rootHash : string;
+	};
+
 }

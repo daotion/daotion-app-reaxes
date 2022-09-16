@@ -220,23 +220,30 @@ export const request = new class {
 	
 	/*递归对象转换成data[subKey][subsubkey]的formdata*/
 	formater = (source , formdata = null , parentKey : string = null) => {
-		return _.keys(source).
-		reduce((formdata , key : string) => {
+		
+		if(_.isArray(source)){
+			source.forEach((value) => {
+				if( _.isObject(value) && Object.getPrototypeOf(value) !== File.prototype ) {
+					this.formater(value , formdata , parentKey ? `${ parentKey }[]` : "[]");
+				} else {
+					formdata.append(parentKey ? `${ parentKey }[]` : "[]" , value);
+				}
+				
+			});
+			return;
+		}
+		return _.keys(source).reduce((formdata , key : string,index) => {
+			
 			const value = source[key];
 			if( _.isObject(value) && Object.getPrototypeOf(value) !== File.prototype ) {
 				this.formater(value , formdata , parentKey ? `${ parentKey }[${ key }]` : key);
 			} else {
-				if( !_.isNaN(parseInt(key)) ) {
-					formdata.append(parentKey ? `${ parentKey }[]` : key , value);
-				} else {
-					formdata.append(parentKey ? `${ parentKey }[${ key }]` : key , value);
-				}
+				formdata.append(parentKey ? `${ parentKey }[${ key }]` : key , value);
 			}
 			return formdata;
 		} , formdata ?? new FormData);
 	};
 };
-
 
 const symbol_no_authorized = Symbol( 'no_authorized' );
 import { reaxel_user } from '@@RootPath/src/reaxels/user/auth';
@@ -248,3 +255,7 @@ type global_env_config = {
 		proxy_server : string;
 	}
 };
+
+
+
+

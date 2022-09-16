@@ -1,4 +1,4 @@
-
+import { reaxel_scrollParentRef } from '@@reaxels';
 export const Notification = ComponentWrapper(class extends ReactComponentClass<{
 	visible : boolean;
 	config : ArgsProps;
@@ -8,11 +8,16 @@ export const Notification = ComponentWrapper(class extends ReactComponentClass<{
 	opening:false|string = this.props.visible ? this.props.config.key : false;
 	
 	componentDidRender(stage : "mount" | "update" , prevProps? , prevState? , snapshot? : any) : any{
-		
+		const { scrollParentRef } = reaxel_scrollParentRef();
 		if(this.props.visible === true){
 			
 			if(!this.opening){
-				antd.notification.open(this.props.config);
+				antd.notification.open({
+					...this.props.config,
+					className : less.notificationContainer ,
+					getContainer : () => scrollParentRef.current
+				});
+				
 				this.opening = this.props.config.key;
 			}
 			
