@@ -10,7 +10,7 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 				SBTID : parseInt(SBTID),
 			};
 		});
-		console.log(spaceID , SBTID);
+		// console.log(spaceID , SBTID);
 		
 		const {
 			whitelist ,
@@ -22,11 +22,10 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 			fields_modified ,
 		} = this.reax_settings_whitelist;
 		
-		fetch_white_list(() => [spaceID,SBTID])({SBTID,spaceID,count:15});
+		fetch_white_list(([,,page]) => [spaceID,SBTID,page])({SBTID,spaceID,count:3});
 		
 		const { Tabs , Table , Segmented , Button } = antd;
 		const { TabPane } = Tabs;
-		
 		
 		return <>
 			<Segmented options = { [ 'Whitelist' , 'Blacklist' , 'Revocationlist' , 'TabName' ] } />
@@ -68,14 +67,13 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 
 
 export const DetailTable = ComponentWrapper((props) => {
-	const {fetch_white_list,SBT_settings_store, whitelist ,switch_row_editable,offset_row_value,reset_row} = reaxel__SBT_settings();
-	const [,{spaceID , SBTID}] = utils.makePair(utils.useRouter().params , ({spaceID,SBTID}) => {
+	const { fetch_white_list , setFields , SBT_settings_store , whitelist , switch_row_editable , offset_row_value , reset_row } = reaxel__SBT_settings();
+	const [ , { spaceID , SBTID } ] = utils.makePair(utils.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
-			spaceID : parseInt(spaceID),
+			spaceID : parseInt(spaceID) ,
 			SBTID : parseInt(SBTID),
 		};
 	});
-	console.log(logProxy(whitelist));
 	
 	const { Table } = antd;
 	
@@ -159,6 +157,7 @@ export const DetailTable = ComponentWrapper((props) => {
 		} ,
 	];
 	
+	console.log([...whitelist]);
 	return <>
 		<div className = { less.table }>
 			<Table
@@ -171,12 +170,16 @@ export const DetailTable = ComponentWrapper((props) => {
 				} }
 				rowKey="address"
 				columns = { columns }
-				dataSource = { whitelist }
+				dataSource = { SBT_settings_store.pending ? [] : whitelist }
 				pagination={{
-					pageSize : 15,
+					current : SBT_settings_store.currentPage ,
+					pageSize : 3,
 					total : SBT_settings_store.total,
 					onChange : (page) => {
-						fetch_white_list(() => [spaceID,SBTID,page])({SBTID,spaceID,count:15,paging:page});
+						setFields({
+							currentPage : page ,
+						});
+						fetch_white_list(() => [spaceID,SBTID,page])({SBTID,spaceID,count:3,paging:page});
 						
 					},
 				}}
