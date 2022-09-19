@@ -6,9 +6,12 @@ export const reaxel__SBT_settings = function(){
 			filename : '' ,
 			errorMsg : "" ,
 		},
+		total : 0 ,
 		whitelist : [] as Array<null|(SBT_whitelist.whitelist_item & {editing : boolean, modifiedOffset : number})>,
 		/*是否仅显示修改过的列表*/
 		onlyModified : false ,
+		currentPage : 1 ,
+		pageSize : 15, 
 		pending : false ,
 	};
 	const { store , setState } = orzMobx(initialState);
@@ -18,8 +21,8 @@ export const reaxel__SBT_settings = function(){
 		
 	},(pregStatus) => (partialStatus:Partial<typeof status>) => _.assign(pregStatus,partialStatus));
 	
-	const closuredFetchWhitelist = Reaxes.closuredMemo(({spaceID,SBTID,count = 15,page : paging = null} ) => {
-		
+	const closuredFetchWhitelist = Reaxes.closuredMemo(({spaceID,SBTID,count = 15,paging = null} ) => {
+		setState({ pending : true });
 		request__SBT_whitelist(async () => {
 			return {
 				indexStart : paging ? count * (paging - 1) : 0 ,
@@ -29,47 +32,70 @@ export const reaxel__SBT_settings = function(){
 				SBTID ,
 				rest : true ,
 			};
-		}).then(({ indexEnd = null , count , total , firstTimestamp , whitelist }) => {
-			/*第一次请求 创建一个total长度的新数组 , 把当前数据段splice进去*/
-			if(!paging){
-				const prearray = new Array(total).fill(0);
-				prearray.splice(0,0,...whitelist);
-			}
+		}).then(({ indexEnd = null , count:resCount , total , firstTimestamp , whitelist }) => {
 			
 			setStatus({
-				// indexStart : indexEnd ??   ,
 				firstTimestamp ,
 			});
+			
+			/*第一次请求 创建一个total长度的新数组 , 把当前数据段splice进去*/
+			if(!paging){
+				const prearray = new Array(total).fill(null);
+				prearray.splice(0,count,...whitelist);
+				setState({
+					whitelist : prearray ,
+				});
+			}else {
+				const reqCount = resCount < count ? resCount : count;
+				setState({
+					whitelist : function(){
+						const newParagraph = whitelist.reduce((accumulator,element,index) => {
+							// console.log(accumulator);debugger;
+							
+							const orignalElement = store.whitelist.slice()[indexEnd - reqCount + index];
+							
+							if(orignalElement === null) {
+								accumulator[index] = element;
+							} else if(orignalElement.address === element.address){
+								accumulator[index] = {
+									...element,
+									modifiedOffset : orignalElement.modifiedOffset,
+									editing:false,
+								};
+							} else {
+								throw new Error(`Error: 白名单索引不匹配! index:${index},totalIndex:${indexEnd+index},address:${orignalElement.address},${element.address}`);
+							}
+							return accumulator;
+						},paging ? store.whitelist.slice((paging - 1) * count , paging * count ) : []);
+						console.log(newParagraph);
+						const newWhitelist = store.whitelist.slice();
+						newWhitelist.splice((paging - 1) * count , count , ...newParagraph);
+						// console.log(newWhitelist);
+						return newWhitelist;
+					}() ,
+				});
+			}
 			setState({
-				whitelist : function(){
-					const newParagraph = whitelist.reduce((accumulator,element,index) => {
-						const orignalElement = store.whitelist.slice()[index];
-						if(orignalElement == null) {
-							accumulator[index] = element;
-						} else if(orignalElement.address === element.address){
-							accumulator[index] = {
-								...orignalElement,
-								...element,
-							};
-						} else {
-							throw new Error('Error0.5826609708759583: 白名单索引不匹配!');
-						}
-						return accumulator;
-					},paging ? store.whitelist.slice((paging - 1) * count , paging * count) : []);
-					const newWhitelist = store.whitelist.slice();
-					newWhitelist.splice((paging - 1) * count , count , ...newParagraph);
-					return newWhitelist;
-				}() ,
+				total ,
 				pending : false ,
 			});
+			
 		})
 	},() => []);
 	
 	
 	return () => {
 		
+		const emptyArray = (start,length,...elements) => {
+			const array = new Array(length);
+			array.splice(start,0,...elements);
+			return array;
+		};
+		
 		return {
 			get whitelist (){
+				return store.whitelist;
+				
 				return store.whitelist.filter((element) => {
 					if(element !== null && (store.onlyModified ? element.modifiedOffset !== 0 : true)){
 						return true;
@@ -81,8 +107,8 @@ export const reaxel__SBT_settings = function(){
 			},
 			/*查询全局表单是否被修改过(包括上传过有效的csv)*/
 			get fields_modified(){
-				return store.whitelist.filter((element) => element !== null ).some((item) => {
-					return item.modifiedOffset !== 0;
+				return store.whitelist.filter((element) => element != null ).some((item) => {
+					return item.modifiedOffset !== 0 && item.editing === false;
 				});
 			},
 			get fetch_white_list(){
@@ -93,13 +119,16 @@ export const reaxel__SBT_settings = function(){
 				return input_address.length === 42 && input_address.startsWith('0x'); 
 			},
 			/*使某一行变为可编辑状态*/
-			make_row_editable(address:string){
+			switch_row_editable(enable:boolean,address:string){
 				setState({
 					whitelist : store.whitelist.map((item) => {
+						if(item === null){
+							return null;
+						}
 						if( item.address === address ) {
 							return {
 								...item ,
-								editing : true ,
+								editing : enable ,
 							};
 						} else {
 							return item;
@@ -111,14 +140,30 @@ export const reaxel__SBT_settings = function(){
 			offset_row_value (address:string,offset:number){
 				setState({
 					whitelist : store.whitelist.map((item) => {
+						if(item === null){
+							return null;
+						}
 						if( item.address === address ) {
 							return {
 								...item ,
-								editing : true ,
+								modifiedOffset : offset ,
 							};
 						} else {
 							return item;
 						}
+					}) ,
+				});
+			},
+			reset_row(address){
+				setState({
+					whitelist : store.whitelist.map((element) => {
+						if( address === element.address ) {
+							return {
+								...element ,
+								editing : false ,
+								modifiedOffset : 0 ,
+							};
+						}else return element;
 					}) ,
 				});
 			},
@@ -156,3 +201,11 @@ export const reaxel__SBT_settings = function(){
 
 import { request__SBT_whitelist , SBT_whitelist } from '@@requests';
 
+/**
+ * 缓存上次数据,条件未达成时先使用上次的数据渲染,达成后再渲染正确的数据
+ * 常用于异步数据未获取到时先渲染上次的结果.
+ */
+const reaxel_fact__use_previous = () => {
+	
+	
+};

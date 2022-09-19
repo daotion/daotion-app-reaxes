@@ -132,8 +132,10 @@ export const SBTSearchArea = ComponentWrapper(() => {
 export const SBTDisplayCard = ComponentWrapper((props : {
 	SBT_info: SBT_list.SBTListItem;
 }) => {
+	const spaceID = parseInt(utils.useRouter().params.spaceID);
 	const { chains } = reaxel_wallet();
 	const { navigate , params } = utils.useRouter();
+	const { role } = reaxel__role_in_space(spaceID);
 	const chain = chains.find(({ id }) => props.SBT_info.chainID);
 	return <>
 		<div
@@ -156,20 +158,20 @@ export const SBTDisplayCard = ComponentWrapper((props : {
 					<span>{ chain.label }</span>
 				</div>
 			</div>
-			<div className={less.mask}>
-				<div className={less.settingBtn}>
+			{ role !== 1 && <div className = { less.mask }>
+				<div className = { less.settingBtn }>
 					<XButton
-						onClick={(e) => {
+						onClick = { (e) => {
 							e.stopPropagation();
 							navigate(`/space${ props.SBT_info.spaceID }/SBT${ props.SBT_info.SBTID }/settings`);
-						}}
-						icon = {<SVGSettings/>}
-						type="primary"
+						} }
+						icon = { <SVGSettings /> }
+						type = "primary"
 					>
 						Settings
 					</XButton>
 				</div>
-			</div>
+			</div> }
 		</div>
 	</>;
 });
@@ -199,6 +201,7 @@ import {
 	reaxel__role_in_space ,
 	reaxel_SBT_list ,
 	reaxel_wallet ,
+	
 } from "@@reaxels";
 import {
 	SBT_info ,
