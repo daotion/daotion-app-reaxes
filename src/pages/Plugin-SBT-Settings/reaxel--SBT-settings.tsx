@@ -11,6 +11,7 @@ export const reaxel__SBT_settings = function(){
 		/*是否仅显示修改过的列表*/
 		onlyModified : false ,
 		currentPage : 1 ,
+		pageSize : 15, 
 		pending : false ,
 	};
 	const { store , setState } = orzMobx(initialState);
@@ -57,8 +58,9 @@ export const reaxel__SBT_settings = function(){
 								accumulator[index] = element;
 							} else if(orignalElement.address === element.address){
 								accumulator[index] = {
-									...orignalElement,
 									...element,
+									modifiedOffset : orignalElement.modifiedOffset,
+									editing:false,
 								};
 							} else {
 								throw new Error(`Error: 白名单索引不匹配! index:${index},totalIndex:${indexEnd+index},address:${orignalElement.address},${element.address}`);
@@ -120,6 +122,9 @@ export const reaxel__SBT_settings = function(){
 			switch_row_editable(enable:boolean,address:string){
 				setState({
 					whitelist : store.whitelist.map((item) => {
+						if(item === null){
+							return null;
+						}
 						if( item.address === address ) {
 							return {
 								...item ,
@@ -135,6 +140,9 @@ export const reaxel__SBT_settings = function(){
 			offset_row_value (address:string,offset:number){
 				setState({
 					whitelist : store.whitelist.map((item) => {
+						if(item === null){
+							return null;
+						}
 						if( item.address === address ) {
 							return {
 								...item ,

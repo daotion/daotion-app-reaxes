@@ -22,7 +22,7 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 			fields_modified ,
 		} = this.reax_settings_whitelist;
 		
-		fetch_white_list(([,,page]) => [spaceID,SBTID,page])({SBTID,spaceID,count:3});
+		fetch_white_list(([page,pageSize]) => [page,pageSize,spaceID,SBTID])({SBTID,spaceID,count:SBT_settings_store.pageSize});
 		
 		const { Tabs , Table , Segmented , Button } = antd;
 		const { TabPane } = Tabs;
@@ -162,6 +162,7 @@ export const DetailTable = ComponentWrapper((props) => {
 		<div className = { less.table }>
 			<Table
 				rowClassName = { (record,index) => {
+					if(!record) return null;
 					if( record.modifiedOffset + record.remainder === 0 ) {
 						return less.redCover;
 					} else if (record.modifiedOffset !== 0) {
@@ -173,13 +174,14 @@ export const DetailTable = ComponentWrapper((props) => {
 				dataSource = { SBT_settings_store.pending ? [] : whitelist }
 				pagination={{
 					current : SBT_settings_store.currentPage ,
-					pageSize : 3,
+					pageSize : SBT_settings_store.pageSize,
 					total : SBT_settings_store.total,
-					onChange : (page) => {
+					onChange : (page , pageSize) => {
 						setFields({
 							currentPage : page ,
+							pageSize,
 						});
-						fetch_white_list(() => [spaceID,SBTID,page])({SBTID,spaceID,count:3,paging:page});
+						fetch_white_list(([]) => [page,pageSize ,spaceID , SBTID ])({ SBTID , spaceID , count : SBT_settings_store.pageSize4 , paging : page });
 						
 					},
 				}}
