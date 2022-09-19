@@ -181,7 +181,7 @@ export const DetailTable = ComponentWrapper((props) => {
 							currentPage : page ,
 							pageSize,
 						});
-						fetch_white_list(([]) => [page,pageSize ,spaceID , SBTID ])({ SBTID , spaceID , count : SBT_settings_store.pageSize4 , paging : page });
+						fetch_white_list(([]) => [page,pageSize ,spaceID , SBTID ])({ SBTID , spaceID , count : SBT_settings_store.pageSize , paging : page });
 						
 					},
 				}}
