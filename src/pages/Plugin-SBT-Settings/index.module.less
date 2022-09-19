@@ -7,6 +7,7 @@
 	background-color: #ffffff;
 	border-radius: 12px;
 	padding: 32px;
+	
 }
 
 
@@ -22,7 +23,7 @@
 
 .content {
 	width: 1136px;
-	height: 1486px;
+	min-height: 1486px;
 	
 	:global(.ant-table-wrapper) {
 		margin-top: 24px;
@@ -618,7 +619,8 @@
 				border-radius: 12px 0 0 12px;
 			}
 			
-			&:nth-child(3) {
+			&:last-child {
+				padding-left: 30px;
 				border-radius: 0 12px 12px 0;
 			}
 			
@@ -628,18 +630,18 @@
 		}
 		
 		.ant-table-tbody {
-			.ant-table-row {
-				&:hover {
-					//:global(.ant-btn.ant-btn-link){
-					//	&:nth-child(1){
-					//		visibility: visible;
-					//	}
-					////}
-					//:local(.edit-btn){
-					//	visibility: visible;
-					//}
-				}
-			}
+			//.ant-table-row{
+			//	&:hover{
+			//		//:global(.ant-btn.ant-btn-link){
+			//		//	&:nth-child(1){
+			//		//		visibility: visible;
+			//		//	}
+			//		////}
+			//		//:local(.edit-btn){
+			//		//	visibility: visible;
+			//		//}
+			//	}
+			//}
 		}
 		
 		.ant-table-tbody .ant-table-cell {
@@ -658,6 +660,10 @@
 				user-select: none;
 			}
 			
+			&:nth-child(3){
+				width: 1800px;
+			}
+			
 			&:nth-child(2) {
 				font-weight: 600;
 				font-size: 14px;
@@ -665,7 +671,7 @@
 				user-select: none;
 			}
 			
-			&:nth-child(3) {
+			&:last-child {
 				border-radius: 0 12px 12px 0;
 			}
 			
@@ -685,30 +691,91 @@
 	
 	:global(.ant-table-row) {
 		
-		
 		&:hover {
 			:global(.ant-table-cell) {
 				background-color: #f4f5f6;
 			}
 		}
 	}
+	
+	:global(.ant-table){
+		
+		&:hover{
+			:local{
+				//.edit-btn{
+				//	visibility: visible;
+				//}
+				//
+				//.remove-btn{
+				//	visibility: visible;
+				//}
+				.table-action-btn{
+					visibility: visible;
+				}
+			}
+		}
+	}
+	
 }
 
 .amount-section {
+	display: flex;
 	:global {
-		.ant-input-affix-wrapper {
+		//.ant-input-affix-wrapper {
+		//	width: 100px;
+		//	height: 40px;
+		//	border: 1px solid #e6e8ec;
+		//	border-radius: 12px;
+		//	
+		//	SVG {
+		//		cursor: pointer;
+		//		
+		//		&:nth-child(1) {
+		//			margin-bottom: 3px;
+		//		}
+		//	}
+		//}
+		
+		.ant-input-number{
+			display: flex;
+			align-items: center;
 			width: 100px;
 			height: 40px;
 			border: 1px solid #e6e8ec;
 			border-radius: 12px;
-			
-			SVG {
-				cursor: pointer;
-				
-				&:nth-child(1) {
-					margin-bottom: 3px;
-				}
+		}
+		
+		.ant-input-number-handler-wrap{
+			opacity: unset;
+			top: 10px;
+			right: 10px;
+			width: 16px;
+			height: 16px;
+			transition: unset;
+		}
+		
+		.ant-input-number-handler{
+			border: unset;
+		}
+		
+		.ant-input-number-handler-up{
+			//margin-bottom: 1px;
+			&:hover{
+				height: 50% !important;
 			}
+		}
+		.ant-input-number-handler-down{
+			&:hover{
+				height: 50% !important;
+			}
+		}
+		
+		.ant-input-number:hover:not(.ant-input-number-borderless) .ant-input-number-handler-down{
+			border: unset;
+		}
+		
+		.ant-input-number-handler-wrap:hover .ant-input-number-handler{
+			height: 50%;
 		}
 	}
 }
@@ -842,10 +909,26 @@
 }
 
 .edit-btn {
+	height: 32px;
+	padding: 4px 15px;
+	border: unset;
+	background-color: unset;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
 	visibility: hidden;
 }
 
 .remove-btn {
+	height: 32px;
+	padding: 4px 15px;
+	border: unset;
+	background-color: unset;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
 	visibility: hidden;
 }
 
@@ -869,21 +952,6 @@
 	}
 }
 
-
-:global(.ant-table) {
-	
-	&:hover {
-		:local {
-			.edit-btn {
-				visibility: visible;
-			}
-			
-			.remove-btn {
-				visibility: visible;
-			}
-		}
-	}
-}
 
 
 .meta-container {
@@ -1102,15 +1170,25 @@
 	animation: popIn 0.2s ease-in forwards;
 }
 
-:global {
-	.ant-notification-notice {
-		display: flex;
-		padding: 16px;
-		width: 822px;
-		height: 72px;
-		left: calc(50% - 822px / 2 + 131.5px);
-		
-		background: rgba(49, 52, 54, 0.7);
-		border-radius: 12px;
-	}
+
+.table-action-btn{
+	height: 32px;
+	padding: 4px 15px;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
+	visibility: hidden;
 }
+
+.table-action-btn-two{
+	height: 32px;
+	padding: 4px 15px;
+	font-weight: 600;
+	font-size: 16px;
+	cursor: pointer;
+	color: #0070F3;
+	margin-left: 15px;
+}
+
+

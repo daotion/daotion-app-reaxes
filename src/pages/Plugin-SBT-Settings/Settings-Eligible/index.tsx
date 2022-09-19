@@ -1,13 +1,15 @@
+import { InputNumber } from "antd";
+
 export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 	
 	reax_settings_whitelist = reaxel__SBT_settings();
 	
 	render(){
 		
-		const [,{spaceID , SBTID}] = utils.makePair(utils.useRouter().params , ({spaceID,SBTID}) => {
+		const [ , { spaceID , SBTID } ] = utils.makePair(utils.useRouter().params , ({ spaceID , SBTID }) => {
 			return {
-				spaceID : parseInt(spaceID),
-				SBTID : parseInt(SBTID),
+				spaceID : parseInt(spaceID) ,
+				SBTID : parseInt(SBTID) ,
 			};
 		});
 		// console.log(spaceID , SBTID);
@@ -15,14 +17,14 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 		const {
 			whitelist ,
 			fetch_white_list ,
-			SBT_settings_store,
+			SBT_settings_store ,
 			setFields ,
-			switch_row_editable,
+			switch_row_editable ,
 			reset_changes ,
 			fields_modified ,
 		} = this.reax_settings_whitelist;
 		
-		fetch_white_list(([page,pageSize]) => [page,pageSize,spaceID,SBTID])({SBTID,spaceID,count:SBT_settings_store.pageSize});
+		fetch_white_list(([ page , pageSize ]) => [ page , pageSize , spaceID , SBTID ])({ SBTID , spaceID , count : SBT_settings_store.pageSize });
 		
 		const { Tabs , Table , Segmented , Button } = antd;
 		const { TabPane } = Tabs;
@@ -31,7 +33,7 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 			<Segmented options = { [ 'Whitelist' , 'Blacklist' , 'Revocationlist' , 'TabName' ] } />
 			<div className = { less.subContent }>
 				<h1 className = { less.contentTitle }>Whitelist</h1>
-				<SearchBar/>
+				<SearchBar />
 				<AlertSection
 					icon = { <div className = { less.rotating }>
 						<SVGSBTUploading />
@@ -48,16 +50,16 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 						View details
 					</Button>
 				</AlertSection>
-				<DetailTable/>
+				<DetailTable />
 				<Notification
-					visible={fields_modified}
-					config = {{
-						duration:null,
+					visible = { fields_modified }
+					config = { {
+						duration : null ,
 						key : "123" ,
-						message : <OpertaionBtnGroup/>,
-						bottom : 24,
-						placement : "bottom",
-					}}
+						message : <OpertaionBtnGroup /> ,
+						bottom : 24 ,
+						placement : "bottom" ,
+					} }
 				/>
 			</div>
 		</>;
@@ -65,13 +67,12 @@ export const Eligible = ComponentWrapper(class extends ReactComponentClass {
 });
 
 
-
 export const DetailTable = ComponentWrapper((props) => {
 	const { fetch_white_list , setFields , SBT_settings_store , whitelist , switch_row_editable , offset_row_value , reset_row } = reaxel__SBT_settings();
 	const [ , { spaceID , SBTID } ] = utils.makePair(utils.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,
-			SBTID : parseInt(SBTID),
+			SBTID : parseInt(SBTID) ,
 		};
 	});
 	
@@ -87,37 +88,38 @@ export const DetailTable = ComponentWrapper((props) => {
 			dataIndex : 'amount' ,
 		} ,
 		{
-			title : 'Remainder' ,
+			title : 'REMAINDER' ,
 			dataIndex : 'remaider' ,
 			render : (text , record , index) => {
 				const { Button } = antd;
 				const done = () => {
-					if(record.modifiedOffset + record.remainder < 0){
-						offset_row_value(record.address , -record.remainder);
+					if( record.modifiedOffset + record.remainder < 0 ) {
+						offset_row_value(record.address , - record.remainder);
 					}
-					switch_row_editable(false,record.address);
-				}
+					switch_row_editable(false , record.address);
+				};
 				if( record.editing ) {
 					return <div>
 						<div className = { less.amountSection }>
-							<antd.InputNumber
-								onPressEnter = {done}
-								onChange = {(value) => {
+							<InputNumber
+								onPressEnter = { done }
+								onChange = { (value) => {
 									let offset = value - record.remainder;
-									offset_row_value(record.address,offset);
-								}}
+									offset_row_value(record.address , offset);
+								} }
 								value = { record.modifiedOffset + record.remainder }
-							>
-							</antd.InputNumber>
-							<Button 
-								onClick={done}
-								type = "link"
-							>Done</Button>
+								controls = { { upIcon : <SVGSBTCountUp /> , downIcon : <SVGSBTCountDown /> } }
+							/>
+							<TableActionBtn
+								onClick = { done }
+								text = "Done"
+								type="link"
+							/>
 						</div>
 					</div>;
 				} else {
 					return (
-						<span>{ record.modifiedOffset + record.remainder}</span>
+						<span>{ record.modifiedOffset + record.remainder }</span>
 					);
 				}
 			} ,
@@ -129,63 +131,58 @@ export const DetailTable = ComponentWrapper((props) => {
 				const { Button } = antd;
 				return (
 					<div className = { less.actionSection }>
-						<Button
-							onClick={ () => {
-								switch_row_editable(true , record.address);
-							}}
-							type = "link"
-							className = { less.editBtn }
-						>Edit</Button>
-						<Button
-							onClick={() => {
-								offset_row_value(record.address , -record.remainder);
-							}}
-							type = "link"
-							className = { less.removeBtn }
-						>
-							Remove
-						</Button>
-						{ record.modifiedOffset !== 0 && <Button
-							onClick = { () => {
-								reset_row(record.address);
-							} }
-							type = "link"
-						>Reset</Button> }
+						<TableActionBtn
+							onClick = { () => switch_row_editable(true , record.address) }
+							text = "Edit"
+							type="link"
+						/>
+						<TableActionBtn
+							text = "Remove"
+							type="link"
+							onClick = { () => offset_row_value(record.address , - record.remainder) }
+						/>
+						{ record.modifiedOffset !== 0 && <div>
+							<TableActionBtn
+								text = "Reset"
+								type="primary"
+								onClick = { () => reset_row(record.address) }
+							/>
+						</div> }
 					</div>
 				);
 			} ,
 		} ,
 	];
 	
-	console.log([...whitelist]);
+	console.log([ ...whitelist ]);
 	return <>
 		<div className = { less.table }>
 			<Table
-				rowClassName = { (record,index) => {
-					if(!record) return null;
+				rowClassName = { (record , index) => {
+					if( !record ) return null;
 					if( record.modifiedOffset + record.remainder === 0 ) {
 						return less.redCover;
-					} else if (record.modifiedOffset !== 0) {
+					} else if( record.modifiedOffset !== 0 ) {
 						return less.blueCover;
 					}
 				} }
-				rowKey="address"
+				rowKey = "address"
 				columns = { columns }
 				dataSource = { SBT_settings_store.pending ? [] : whitelist }
-				pagination={{
+				pagination = { {
 					current : SBT_settings_store.currentPage ,
-					pageSize : SBT_settings_store.pageSize,
-					total : SBT_settings_store.total,
+					pageSize : SBT_settings_store.pageSize ,
+					total : SBT_settings_store.total ,
 					onChange : (page , pageSize) => {
 						setFields({
 							currentPage : page ,
-							pageSize,
+							pageSize ,
 						});
-						fetch_white_list(([]) => [page,pageSize ,spaceID , SBTID ])({ SBTID , spaceID , count : SBT_settings_store.pageSize , paging : page });
+						fetch_white_list(([]) => [ page , pageSize , spaceID , SBTID ])({ SBTID , spaceID , count : SBT_settings_store.pageSize , paging : page });
 						
-					},
-				}}
-
+					} ,
+				} }
+			
 			>
 			</Table>
 		</div>
@@ -210,7 +207,7 @@ const OpertaionBtnGroup = () => {
 			</XButton>
 		</div>
 	</div>;
-}
+};
 
 export const SearchBar = ComponentWrapper(() => {
 	const { SBT_settings_store , setFields , address_insertable } = reaxel__SBT_settings();
@@ -219,12 +216,12 @@ export const SearchBar = ComponentWrapper(() => {
 	return <>
 		<div className = { less.searchBarActived }>
 			<XInput
-				value = {SBT_settings_store.input_search_address}
-				onChange = {(e) => {
+				value = { SBT_settings_store.input_search_address }
+				onChange = { (e) => {
 					setFields({ input_search_address : e.target.value });
-				}}
+				} }
 				allowClear
-				maxLength = {42}
+				maxLength = { 42 }
 				type = "primary"
 				placeholder = "Enter address to search or add"
 				suffix = { address_insertable ? <Button type = "text">
@@ -256,6 +253,23 @@ export const AlertSection = ComponentWrapper((props) => {
 		</div>
 	</>;
 });
+
+
+const TableActionBtn = (props:{
+	type : "link" | "primary";
+	onClick : React.MouseEventHandler<HTMLSpanElement>;
+	text : string;
+}) => {
+	return <span
+		className = { {
+			"link" : less.tableActionBtn ,
+			"primary" : less.tableActionBtnTwo ,
+		}[props.type] }
+		onClick = { props.onClick }
+	>
+		{ props.text }
+	</span>;
+};
 
 
 import { reaxel__SBT_settings } from '../reaxel--SBT-settings';
