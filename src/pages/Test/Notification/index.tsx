@@ -54,7 +54,7 @@ export const TestNotification = ComponentWrapper(() => {
 		<Notification
 			visible = {store.visible}
 			config = {{
-				className: less.notifi,
+				// className: less.notifi,
 				duration:null,
 				key : "123" ,
 				message : <div className={less.wrapper}>

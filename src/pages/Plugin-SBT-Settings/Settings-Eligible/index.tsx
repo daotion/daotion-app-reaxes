@@ -69,7 +69,7 @@ const columns = [
 		dataIndex : 'amount' ,
 	} ,
 	{
-		title : 'Remainder' ,
+		title : 'REMAINDER' ,
 		dataIndex : 'remaider' ,
 		render : (text , record , index) => {
 			const { Button } = antd;
