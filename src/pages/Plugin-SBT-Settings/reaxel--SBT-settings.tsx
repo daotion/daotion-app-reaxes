@@ -13,6 +13,7 @@ export const reaxel__SBT_settings = function(){
 		currentPage : 1 ,
 		pageSize : 15, 
 		pending : false ,
+		step : 0 ,
 	};
 	const { store , setState } = orzMobx(initialState);
 	const [status,setStatus] = utils.makePair({
@@ -111,11 +112,19 @@ export const reaxel__SBT_settings = function(){
 					return item.modifiedOffset !== 0 && item.editing === false;
 				});
 			},
+			/*初始化(或分页)请求sbt列表*/
 			get fetch_white_list(){
 				return closuredFetchWhitelist;
 			},
+			/*用户输入的addrss是否可被添加的状态 fixme:处理大小写兼容*/
 			get address_insertable () :boolean {
 				const input_address = store.input_search_address;
+				const exsited = store.whitelist.some((element) => {
+					return element !== null && element.address === store.input_search_address;
+				});
+				if(exsited){
+					return false;
+				}
 				return input_address.length === 42 && input_address.startsWith('0x'); 
 			},
 			/*使某一行变为可编辑状态*/
