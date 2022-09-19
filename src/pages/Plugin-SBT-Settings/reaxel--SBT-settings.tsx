@@ -157,6 +157,9 @@ export const reaxel__SBT_settings = function(){
 			reset_row(address){
 				setState({
 					whitelist : store.whitelist.map((element) => {
+						if(element === null){
+							return element;
+						}
 						if( address === element.address ) {
 							return {
 								...element ,
