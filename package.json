@@ -1,0 +1,13 @@
+{
+	"name": "daotion-app-reaxes",
+	"scripts": {
+		"start": ""
+	},
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"dependencies": {
+		"reaxes": "^0.10.11"
+	}
+}

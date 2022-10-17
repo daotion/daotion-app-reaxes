@@ -1,0 +1,12 @@
+{
+	"name" : "daotion-app-web" ,
+	"scripts" : {
+		"start" : "" ,
+		"build" : ""
+	} ,
+	"packageDependencis" : [
+		"utils" ,
+		"reaxes" ,
+		"requester"
+	]
+}
