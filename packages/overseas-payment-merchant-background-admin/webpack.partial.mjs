@@ -14,6 +14,7 @@ export const webpackConfig = {
 			'@@requester': path.resolve(repoRoot, 'src/requester'),
 			'@@toolkits': path.resolve(repoRoot, 'src/toolkits'),
 			'@@public': path.resolve(repoRoot, 'public'),
+			'@@SVGcomponents': path.resolve(repoRoot, 'src/SVGcomponents'),
 			'@@Xcomponents': path.resolve(repoRoot, 'src/Xcomponents'),
 			'--Components--': path.resolve(repoRoot, 'src/pages/--Components--'),
 		},
