@@ -42,6 +42,7 @@
 			"@@requester" : [ "src/requester" ] ,
 			"@@toolkits" : [ "src/toolkits" ],
 			"@@Xcomponents" : [ "src/Xcomponents" ], 
+			"@@SVGcomponents" : [ "src/SVGcomponents" ], 
 			"@@public" : [ "public" ] 
 		} ,
 		"lib" : [
