@@ -1,5 +1,7 @@
 import { render } from 'react-dom';
 import { App } from './App';
+import { Login } from "./pages/Login";
+
 
 module?.hot?.accept?.(
 	"./main.tsx" ,
@@ -17,7 +19,7 @@ module?.hot?.accept?.(
 );
 
 render(
-	<App /> ,
+	<Login /> ,
 	document.getElementById( 'react-app-root' ) ,
 );
 
