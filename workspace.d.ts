@@ -63,3 +63,6 @@ declare interface NodeModule {
 		accept: Function;
 	};
 }
+
+/*todo 后续放入requester插件*/
+declare type PayloadBody<T> = () => Promise<T>; 
