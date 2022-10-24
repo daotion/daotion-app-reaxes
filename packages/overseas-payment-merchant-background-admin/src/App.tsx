@@ -1,13 +1,9 @@
-
 export const App = reaxper(() => {
 	
 	const { count , addCount , minusCount } = reaxel_counter();
 	
-	return <h1>
-		<AlertTwoTone/>
-		<button onClick={addCount}>count+</button>
-		<p>{count}</p>
-		<button onClick={minusCount}>count-</button>
+	return <h1 style={{backgroundColor:"green"}}>
+		<SVGTest/>
 	</h1>;
 });
 
@@ -16,9 +12,9 @@ const reaxel_counter = function(){
 	const { store , setState } = orzMobx({ count : 0 });
 	
 	Reaxes.observedMemo(() => {
-		if(store.count === 4){
+		if( store.count === 4 ) {
 		}
-	},() => [store.count])
+	} , () => [ store.count ]);
 	
 	return () => {
 		
@@ -37,6 +33,4 @@ const reaxel_counter = function(){
 }();
 
 
-
-
-import {AlertTwoTone} from '@ant-design/icons';
+import {SVGTest} from '@@SVGcomponents';
