@@ -1,15 +1,13 @@
 import { User__info } from "../../requester/user/type";
 
-export const reaxel_user_inforeaxel_user_profile = function(){
+export const reaxel_user_info = function(){
 	let ret;
 	let prevForceUpdate = null;
 	const { store , setState } = orzMobx({
 		loading: false as {promise : Promise<any> } | false,
 		userInfo: null as User__info.response,
 	});
-	const reaxel_user = reaxel_user_auth(() => {
-	
-	})
+	const reaxel_user = reaxel_user_auth()
 	
 	// 监听是否登录
 	Reaxes.observedMemo(() => {

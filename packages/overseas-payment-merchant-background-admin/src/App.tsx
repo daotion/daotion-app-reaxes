@@ -31,5 +31,8 @@ const reaxel_counter = function(){
 	};
 }();
 
+import 'antd/dist/antd.less';
+
+
 
 
