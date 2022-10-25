@@ -10,14 +10,6 @@ export const request_user_login = (
 	})
 }
 
-export const request_modify_password = (
-	payload: PayloadBody<User__modify_password.payload>
-) => {
-	return request.post(`/modify`, {
-		body: payload
-	}).then((res) => {
-		return res
-	})
-}
 
-import {User__login, User__modify_password } from './type'
+
+import {User__login } from './type'

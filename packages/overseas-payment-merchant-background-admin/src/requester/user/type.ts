@@ -1,9 +1,7 @@
 export  namespace User__login {
 	export interface payload {
-		data: {
 			userName: string,
 			password: string
-		}
 	}
 	
 	export interface response {
@@ -13,13 +11,21 @@ export  namespace User__login {
 
 export  namespace User__modify_password {
 	export  interface payload {
-		data: {
-			oldPassword: string,
-			newPassword: string
-		}
+		oldPassword: string,
+		newPassword: string
 	}
 	
 	export interface response {
 		result: boolean
+	}
+}
+
+export namespace User__info {
+	export interface payload {
+		data
+	}
+	
+	export interface response {
+		data: any
 	}
 }
