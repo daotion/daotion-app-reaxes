@@ -3,7 +3,7 @@ export const App = reaxper(() => {
 	const { count , addCount , minusCount } = reaxel_counter();
 	
 	return <h1 style={{backgroundColor:"green"}}>
-		<SVGTest/>
+		<p >dddddddddd</p>
 	</h1>;
 });
 
@@ -31,6 +31,5 @@ const reaxel_counter = function(){
 		};
 	};
 }();
+request;
 
-
-import {SVGTest} from '@@SVGcomponents';

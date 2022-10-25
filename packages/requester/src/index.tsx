@@ -250,3 +250,4 @@ type global_env_config = {
 
 
 import {crayon,encodeQueryString} from '../../utils';
+import './plugins/async-replayable-payload-plugin';
