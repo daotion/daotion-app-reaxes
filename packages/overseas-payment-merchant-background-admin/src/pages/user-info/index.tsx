@@ -1,3 +1,5 @@
+import { MenuProps } from "antd";
+
 export const UserInfo = reaxper(() =>{
 	return(
 		<div className={less.userSetting}>
@@ -12,6 +14,8 @@ export const UserInfo = reaxper(() =>{
 export const Menu = reaxper(() =>{
 	
 	const {Menu} = antd
+	
+	type MenuItem = Required<MenuProps>['items'][number]
 	
 	function getItem(
 		label: React.ReactNode,
@@ -32,8 +36,8 @@ export const Menu = reaxper(() =>{
 	const items: MenuItem[] = [
 		getItem('基本信息', '1'),
 		getItem('修改密码', '2'),
-		getItem('API接口', '3'),
-	]
+		getItem('API对接', '3'),
+	] 
 	
 	return(
 		<Menu
@@ -53,30 +57,31 @@ export const ResetPassword = reaxper(() =>{
 	return(
 		<div className={less.resetPasswordContainer}>
 			<div className={less.resetTitle}>
-				<span>
+				<span className={less.title}>
 					修改密码
 				</span>
-				<span>
+				<span className={less.hint}>
 					密码修改成功后需重新登录
 				</span>
 			</div>
 			
 			<div className={less.formContainer}>
-				<span>
+				<span className={less.formTitle}>
 					旧密码
 				</span>
 				<Input/>
 			</div>
 			
 			<div className={less.formContainer}>
-				<span>
+				<span className={less.formTitle}>
 					新密码
 				</span>
+				
 				<Input/>
 			</div>
 			
 			<div className={less.formContainer}>
-				<span>
+				<span className={less.formTitle}>
 					再次输入密码
 				</span>
 				<Input/>
