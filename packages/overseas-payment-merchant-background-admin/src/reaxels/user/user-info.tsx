@@ -1,23 +1,24 @@
-import { User__info } from "../../requester/user/type";
 
 export const reaxel_user_info = function(){
 	let ret;
-	let prevForceUpdate = null;
 	const { store , setState } = orzMobx({
 		loading: false as {promise : Promise<any> } | false,
 		userInfo: null as User__info.response,
+		currentTab: 'userInfo'
 	});
-	const reaxel_user = reaxel_user_auth()
-	
-	// 监听是否登录
+
+	const reax_user_auth = reaxel_user_auth();
+	const { isLoggedIn } = reax_user_auth
+
+	//监听是否登录
 	Reaxes.observedMemo(() => {
-		if( reaxel_user.isLoggedIn ) {
+		if( isLoggedIn ) {
 			getUserInfo()
 		} else {
-		
+
 		}
-	} , () => [ reaxel_user.isLoggedIn ]);
-	
+	} , () => [ isLoggedIn ]);
+
 	// 获取user信息
 	const getUserInfo = async () => {
 		if (store.loading) return;
@@ -34,21 +35,31 @@ export const reaxel_user_info = function(){
 		})
 	}
 
-	
+
 	return () => {
 		return ret = {
 			get userInfo () {
 				return store.userInfo;
 			},
-			
-			
+			get currentTab(){
+				return store.currentTab;
+			},
+			getUserInfo(){
+				getUserInfo()
+			},
+			changeTab (tabValue: string) {
+				setState({
+					currentTab: tabValue
+				})
+			}
+
 		}
 	}
-	
-	
+
+
 }()
 
 
-import md5 from "crypto-js/md5";
-import { reaxel_user_auth } from '@@reaxels'
-import { request_modify_password, request_user_info }from '@@requester'
+import { reaxel_user_auth } from './auth';
+import { request_user_info } from '@@requester';
+import { User__info } from "../../requester/user/type";

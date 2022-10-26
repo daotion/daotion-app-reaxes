@@ -2,8 +2,9 @@ export const App = reaxper(() => {
 	
 	const { count , addCount , minusCount } = reaxel_counter();
 	
-	return <h1 style={{backgroundColor:"green"}}>
-	</h1>;
+	return <>
+		<Routing/>
+	</>
 });
 
 
@@ -32,6 +33,7 @@ const reaxel_counter = function(){
 }();
 
 import 'antd/dist/antd.less';
+import {Routing}  from './Routing'
 
 
 

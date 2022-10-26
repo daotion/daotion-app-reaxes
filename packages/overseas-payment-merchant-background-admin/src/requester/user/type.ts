@@ -1,11 +1,23 @@
-export  namespace User__login {
+export namespace User__pre_login {
 	export interface payload {
-			userName: string,
-			password: string
+		username: string
 	}
 	
 	export interface response {
-		token: string
+		code: string
+	}
+}
+
+export  namespace User__login {
+	export interface payload {
+			username: string,
+			password: string,
+			code: string
+	}
+	
+	export interface response {
+		token: string,
+		expireTimestamp: string
 	}
 }
 

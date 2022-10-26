@@ -8,14 +8,12 @@ export const reaxel_user_login = function(){
 	})
 	return () => {
 		const reax_user_auth = reaxel_user_auth();
-		console.log(reax_user_auth);
 		const { login } = reax_user_auth
 		return ret = {
 			get store () {
 				return store
 			},
 			loginInput (key: string, value: string) {
-				console.log('INPUTING:',key, value);
 				setState({
 					loginData: {
 						...store.loginData,
@@ -25,8 +23,10 @@ export const reaxel_user_login = function(){
 				})
 			},
 			loginAction (callback?: () => void) {
-				login(store.loginData)
-				callback()
+				login(store.loginData).then(() => {
+					callback()
+					
+				})
 			}
 			
 		}
@@ -34,3 +34,4 @@ export const reaxel_user_login = function(){
 }();
 
 import { reaxel_user_auth } from '@@reaxels'
+import { debounce } from '@@utils'

@@ -1,7 +1,6 @@
 import { render } from 'react-dom';
 import { App } from './App';
 import { Login } from "./pages/login";
-import { UserInfo } from "./pages/user-info";
 
 
 module?.hot?.accept?.(
@@ -20,7 +19,7 @@ module?.hot?.accept?.(
 );
 
 render(
-	<UserInfo /> ,
+	<App /> ,
 	document.getElementById( 'react-app-root' ) ,
 );
 
