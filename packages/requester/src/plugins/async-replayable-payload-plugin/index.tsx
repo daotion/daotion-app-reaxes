@@ -9,83 +9,26 @@
  * </code>
  */
 
-function AsyncReplayablePayloadPlugin() {
+export function AsyncReplayablePayloadPlugin() {
 	return (hooks) => {
-		hooks.onInit((slot) => {});
-		hooks.onInvoke((slot,url,options) => {
-			slot.body.
+		hooks.onInit((slot) => {
+			crayon.orange(`AsyncReplayablePayloadPlugin.onInit()`);
+		});
+		hooks.onInvoke(async (slot,url,options) => {
+			url = slot.url ?? url;
+			const payload = (options.body ?? slot.options.body);
+			if(typeof payload === "function"){
+				const method = slot.options.method.toUpperCase();
+				const payloadData = await payload();
+				slot.options.body = payloadData;
+			}
+			slot.url = url;
+		});
+		/*todo 完善当后端返回登录失效等错误状态时的处理*/
+		hooks.onError(() => {
+			
 		});
 	};
 }
 
-/**
- * 准则: fetch不能被中间件调用,
- * 生命周期:
- * initial
- *
- */
-const Requester = function (plugins) {
-	const slot = {
-		url: null,
-		options: {
-			credentials : 'include' ,
-			mode : 'cors' ,
-			method : "POST",
-		},
-		fetch(url,options){
-			
-			const response = window.fetch(url,options);
-			response.then(() => {
-				
-			});
-			response.catch(() => {
-				
-			});
-		},
-	} as any;
-	
-	const onInvokeStack = [];
-	const hooks = {
-		get onInit() {
-			return (callback) => {
-				callback(slot);
-			};
-		},
-		get onInvoke() {
-			return (callback) => {
-				
-			};
-		},
-		get onResolved(){
-			return () => {
-				
-			}
-		},
-		get onError(){
-			return () => {
-				
-			}
-		},
-	};
 
-	plugins.forEach((plugin) => {
-		plugin(hooks);
-	});
-
-	const requester = slot.fetch;
-
-	return {
-		fetch: requester,
-		post(url: string, options) {
-			slot.options.method = "POST";
-			return slot.fetch(url, {
-				method: 'POST',
-				...options,
-			});
-		},
-	};
-};
-
-const requester = new Requester([
-	AsyncReplayablePayloadPlugin(),
-]);

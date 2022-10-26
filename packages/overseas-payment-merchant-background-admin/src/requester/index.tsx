@@ -1,4 +1,4 @@
-export { request } from '#requester';
+export { Requester } from '#requester';
 
 const middles = [
 	(next) => {
@@ -30,6 +30,3 @@ function compose(arr) {
 console.log(compose(middles));
 
 
-request.post(``,{
-	
-})
