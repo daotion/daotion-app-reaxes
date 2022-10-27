@@ -1,5 +1,3 @@
-
-
 const menuItem = [
 	{
 		key : 'home' ,
@@ -28,15 +26,13 @@ const menuItem = [
 	},
 ];
 
-
-
 export const Layout = reaxper(() => {
 	const { Layout, Menu, Breadcrumb, Space }  = antd;
 	const { Header, Sider, Content }  = Layout
 	const { location } = toolkits.useRouter();
 	const {  pathname } = location;
 	const routeName = {
-		'user-info': '用户信息',
+		'profile': '用户信息',
 		'edit': '编辑信息'
 	};
 	const breadcrumb = () => {

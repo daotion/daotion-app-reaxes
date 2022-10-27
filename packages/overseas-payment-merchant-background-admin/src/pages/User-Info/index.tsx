@@ -110,18 +110,52 @@ export const ResetPassword = reaxper(() =>{
 })
 
 export const UserBaseInfo = reaxper(() => {
-	const { userInfo , showBaseInfo } = reaxel_user_info();
+	const { userInfo } = reaxel_user_info();
+	const {
+		id = '' ,
+		name = '' ,
+		contactPerson = '' ,
+		contactPhone = '' ,
+		payInFeeRate = 0 ,
+		payInFeeFix = 0 ,
+		payOutFeeRate = 0 ,
+		payOutFeeFix = 0 ,
+	} = userInfo;
 	const { Space, Col, Row } = antd;
-	console.log(showBaseInfo);
 	return (
 		<div className={less.baseInfo}>
-			{showBaseInfo.map((i) => (
-				<Row key={i.key} gutter={[12, 24]}>
-					<Col span={3}>{i.label}：</Col>
-					<Col>{i.value}</Col>
-				</Row>
-			))}
-		
+			<div className={less.infoItem} style={{marginTop: 0}}>
+				<Col span={3}>商户ID：</Col>
+				<Col>{id}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>商户名称：</Col>
+				<Col>{name}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>联系人：</Col>
+				<Col>{contactPerson}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>Telegra：</Col>
+				<Col>{contactPhone}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代收手续费率：</Col>
+				<Col>{payInFeeRate}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代收单笔固定手续费：</Col>
+				<Col>{payInFeeFix}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代付手续费率：</Col>
+				<Col>{payOutFeeRate}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代付单笔固定手续费：</Col>
+				<Col>{payOutFeeFix}</Col>
+			</div>
 		</div>
 	)
 })
