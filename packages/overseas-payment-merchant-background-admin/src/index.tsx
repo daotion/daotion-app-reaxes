@@ -1,7 +1,10 @@
+import React from 'react';
 import { render } from 'react-dom';
 import { App } from './App';
 import { Login } from "./pages/login";
 import { UserInfo } from "./pages/user-info";
+import { OrderInfo } from "./pages/order-info";
+import { PayoutManagement } from "./pages/payout-management";
 
 
 module?.hot?.accept?.(
@@ -16,11 +19,11 @@ module?.hot?.accept?.(
 	( ...args ) => {
 		console.error( ...args );
 		debugger;
-	} ,
+	} , 
 );
 
 render(
-	<UserInfo /> ,
+	<PayoutManagement /> ,
 	document.getElementById( 'react-app-root' ) ,
 );
 

@@ -1,5 +1,3 @@
-import { MenuProps } from "antd";
-
 export const UserInfo = reaxper(() =>{
 	return(
 		<div className={less.userSetting}>
@@ -91,24 +89,52 @@ export const ResetPassword = reaxper(() =>{
 				修改密码
 			</Button>
 		</div>
+		
 	)
 })
 
 
-// export const XInput = reaxper((props) =>{
+
+
+
+// export const XTable = reaxper(() =>{
 //	
-// 	const {Input} = antd
-//	
+
 // 	return(
-// 		<div>
-// 			<span>
-// 				{props.title}
-// 			</span>
-// 			<Input/> 
+// 		<div className={less.tableContainer}>
+//			
+//			
+// 			<div className={less.searchContainer}>
+// 				<QueryFilter  
+// 					span={8}
+// 					>
+// 					<ProFormText placeholder={'搜索'}/>
+// 					<ProFormDatePicker placeholder={'订单创建时间/*时间区间'} />
+// 					<ProFormDatePicker placeholder={'订单更新时间/*时间区间/'}/>
+// 					<ProFormSelect placeholder={'订单类型'}/>
+// 					<ProFormSelect placeholder={'订单状态'}/>
+// 				</QueryFilter>
+// 			</div>
+//			
+// 			<Table 
+// 				columns={columns} 
+// 				dataSource={data}
+// 				size="small"
+// 				pagination={{
+// 					pageSize: 10
+// 				}}
+// 				scroll={{ 
+// 					x:1000
+// 				}}
+// 			/>
 // 		</div>
 // 	)
 // })
-
+ 
 
 import MenuItem from "antd/es/menu/MenuItem";
+import type { ColumnsType } from "antd/es/table";
+import React from "react";
 import less from './index.module.less'
+import { render } from "react-dom";
+import { MenuProps } from "antd";
