@@ -1,5 +1,4 @@
-export const reaxel_test = function(){
-	return {
-		a:1
-	}
-}()
+export * from './auth';
+export * from './edit-info';
+export * from './login';
+export * from './user-info'
