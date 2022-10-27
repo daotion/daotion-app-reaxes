@@ -26,9 +26,9 @@ export const SignInForm = reaxper(() =>{
 			</h2>
 			<div className = { less.inputSection }>
 				<div className = { less.accountInput }>
-					<span className = { less.accountInputTitle }>
+					<p className = { less.accountInputTitle }>
 						账号
-					</span>
+					</p>
 					<Input
 						value = { userName }
 						onChange = { (e) => {
@@ -37,9 +37,9 @@ export const SignInForm = reaxper(() =>{
 					/>
 				</div>
 				<div className = { less.passwordInput }>
-					<span className = { less.passwordInputTitle }>
+					<p className = { less.passwordInputTitle }>
 						密码
-					</span>
+					</p>
 					<Input
 						type = { 'password' }
 						value = { password }

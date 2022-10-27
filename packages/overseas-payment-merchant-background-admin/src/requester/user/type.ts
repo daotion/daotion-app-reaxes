@@ -38,6 +38,15 @@ export namespace User__info {
 	}
 	
 	export interface response {
-		data: any
+		data: {
+			id: string,
+			name: string,
+			contactPerson: string,
+			contactPhone: string,
+			payInFeeFix: number,
+			payInFeeRate: number,
+			payOutFeeFix: number,
+			payOutFeeRate : number,
+		}
 	}
 }

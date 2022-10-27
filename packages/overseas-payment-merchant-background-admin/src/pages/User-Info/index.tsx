@@ -7,6 +7,7 @@ export const UserInfo = reaxper(() =>{
 			<Menu/>
 			<div className={less.userSettingContent}>
 				{currentTab === 'modifyPassword' && <ResetPassword/>}
+				{currentTab === 'userInfo' && <UserBaseInfo/> }
 			</div>
 		</div>
 	)
@@ -15,7 +16,6 @@ export const UserInfo = reaxper(() =>{
 export const Menu = reaxper(() =>{
 	const { Menu } = antd;
 	type MenuItem = Required<MenuProps>['items'][number];
-	
 	const { currentTab , changeTab } = reaxel_user_info();
 	function getItem(
 		label: React.ReactNode,
@@ -105,6 +105,23 @@ export const ResetPassword = reaxper(() =>{
 			>
 				修改密码
 			</Button>
+		</div>
+	)
+})
+
+export const UserBaseInfo = reaxper(() => {
+	const { userInfo , showBaseInfo } = reaxel_user_info();
+	const { Space, Col, Row } = antd;
+	console.log(showBaseInfo);
+	return (
+		<div className={less.baseInfo}>
+			{showBaseInfo.map((i) => (
+				<Row key={i.key} gutter={[12, 24]}>
+					<Col span={3}>{i.label}：</Col>
+					<Col>{i.value}</Col>
+				</Row>
+			))}
+		
 		</div>
 	)
 })

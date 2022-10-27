@@ -3,7 +3,7 @@ export const reaxel_user_auth = function(){
 	let ret;
 	const { store , setState } = orzMobx({
 		pending : false ,
-		isLoggedIn : false ,
+		isLoggedIn : true ,
 	});
 	// 登录方法
 	const fetchLogin = async (data : {
