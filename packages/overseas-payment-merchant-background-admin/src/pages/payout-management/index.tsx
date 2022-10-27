@@ -1,18 +1,24 @@
 export const PayoutManagement = reaxper(() => {
+	return(
+		<div className={less.payoutManagementWrapper}>
+			<PayoutRequestTable/>
+		</div>
+	)
+})
+
+export const PayoutRequestHeader = reaxper(() =>{
 	
 	const {Button} = antd
 	
 	return(
-		<div>
-			<div>
-				<span>
-					代付申请列表
-				</span>
-				<Button>
-					新增代付
-				</Button>
-			</div>
-			<PayoutRequestTable/>
+		<div className={less.headerContainer}>
+			<span className={less.headerTitle}>
+				代付申请列表
+			</span>
+			<Button type="primary">
+				<AddIcon/>
+				新增代付
+			</Button>
 		</div>
 	)
 })
@@ -32,8 +38,57 @@ export const PayoutRequestTable = reaxper(() => {
 			payOutAmount: number;
 			bankAccount: string;
 		}
-
-		const data: DataType[] = [
+	
+	const columns: ColumnsType<DataType> = [
+		{
+			title: '序号',
+			dataIndex: 'serialNumber',
+			key: 'serialNumber',
+		},
+		{
+			title: '订单号',
+			dataIndex: 'orderNumber',
+			key: 'orderNumber',
+		},
+		{
+			title: '用户ID/用户名',
+			dataIndex: 'userId',
+			key: 'userId',
+		},
+		{
+			title: '用户名/Telegram',
+			dataIndex: 'userNameAndContact',
+			key: 'userNameAndContact',
+		},
+		{
+			title: '代付金额',
+			dataIndex: 'payOutAmount',
+			key: 'payOutAmount',
+		},
+		{
+			title: '申请入账银行卡号',
+			dataIndex: 'bankAccount',
+			key: 'bankAccount',
+		},
+		{
+			title: '操作',
+			key: 'action',
+			fixed: 'right',
+			render: () => (
+				<div className={less.tableAction}>
+					<Button type="text">
+						同意
+					</Button>
+					<Button type="text">
+						拒绝
+					</Button>
+				</div>
+			)
+		},
+	]
+	
+	
+	const data: DataType[] = [
 			{
 				key: Math.random(),
 				serialNumber: '1',
@@ -313,60 +368,14 @@ export const PayoutRequestTable = reaxper(() => {
 				tags: '已支付',
 				payOutAmount: 446.31,
 				bankAccount: '6225886221086049443',
-			},
-		]
-
-		const columns: ColumnsType<DataType> = [
-			{
-				title: '序号',
-				dataIndex: 'serialNumber',
-				key: '序号',
-			},
-			{
-				title: '订单号',
-				dataIndex: 'orderNumber',
-				key: '订单号',
-			},
-			{
-				title: '用户ID/用户名',
-				dataIndex: 'userId',
-				key: '用户ID/用户名',
-			},
-			{
-				title: '用户名/联系方式',
-				dataIndex: 'userNameAndContact',
-				key: '用户名/联系方式',
-			},
-			{
-				title: '代付金额',
-				dataIndex: 'payOutAmount',
-				key: '代付金额',
-			},
-			{
-				title: '申请入账银行卡号',
-				dataIndex: 'bankAccount',
-				key: '申请入账银行卡号',
-			},
-			{
-				title: '操作',
-				key: '操作',
-				fixed: 'right',
-				render: () => (
-					<div>
-						<Button>
-							同意
-						</Button>
-						<Button>
-							拒绝
-						</Button>
-					</div>
-				)
 			},
 		]
 
 	
+	
 	return(
-		<div>
+		<div className={less.tableContainer}>
+			<PayoutRequestHeader/>
 			<Table
 				columns={columns} 
 				dataSource={data}
@@ -384,3 +393,5 @@ export const PayoutRequestTable = reaxper(() => {
 
 
 import { ColumnsType } from "antd/lib/table";
+import less from './index.module.less'
+import {AddIcon} from '@@SVGcomponents'

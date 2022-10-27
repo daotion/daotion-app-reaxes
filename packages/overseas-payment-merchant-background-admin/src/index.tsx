@@ -5,6 +5,9 @@ import { Login } from "./pages/login";
 import { UserInfo } from "./pages/user-info";
 import { OrderInfo } from "./pages/order-info";
 import { PayoutManagement } from "./pages/payout-management";
+import { AddPayout } from "./SVGcomponents/payout-management/add-payout";
+import { HomePage } from "./pages/home-page";
+import { FinancialDetails } from "./pages/home-page/financial-details";
 
 
 module?.hot?.accept?.(
@@ -23,7 +26,7 @@ module?.hot?.accept?.(
 );
 
 render(
-	<PayoutManagement /> ,
+	<FinancialDetails /> ,
 	document.getElementById( 'react-app-root' ) ,
 );
 
