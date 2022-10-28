@@ -6,9 +6,8 @@ export const request_user_pre_login = (
 ) => {
 	return request.post('/mch/login-code', {
 		body : payload,
-		
 	}).then((res) => {
-		return res
+		return res;
 	})
 }
 
@@ -23,5 +22,7 @@ export const request_user_login = (
 }
 
 
-
-import {User__login, User__pre_login } from './type'
+import {
+	User__login ,
+	User__pre_login,
+} from './type';
