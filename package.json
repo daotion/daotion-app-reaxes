@@ -56,7 +56,6 @@
 		"webpack-merge": "5.8.0"
 	},
 	"dependencies": {
-		"@ant-design/pro-components": "^2.3.25",
 		"@types/webpack": "5.28.0",
 		"reaxes": "0.10.11"
 	},

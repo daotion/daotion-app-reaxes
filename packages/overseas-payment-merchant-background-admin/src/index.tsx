@@ -8,6 +8,7 @@ import { PayoutManagement } from "./pages/payout-management";
 import { AddPayout } from "./SVGcomponents/payout-management/add-payout";
 import { HomePage } from "./pages/home-page";
 import { FinancialDetails } from "./pages/home-page/financial-details";
+import { Cashier } from "./pages/cashier";
 
 
 module?.hot?.accept?.(
@@ -26,7 +27,7 @@ module?.hot?.accept?.(
 );
 
 render(
-	<OrderInfo/> ,
+	<Cashier/> ,
 	document.getElementById( 'react-app-root' ) ,
 );
 

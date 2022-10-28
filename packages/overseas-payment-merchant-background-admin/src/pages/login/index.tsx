@@ -1,6 +1,8 @@
 export const Login = reaxper(() =>{
 	return(
-		<div className={less.loginWrapper}>
+		<div className={less.loginWrapper} style={{
+			backgroundImage: `url(${login_backgound_image})`
+		}}>
 			<div className={less.loginContent}>
 				<div className={less.loginTitle}>
 					<LoginLogo/>
@@ -69,3 +71,4 @@ import {
 	LoginLogo,
 } from '@@SVGcomponents';
 import { reaxel_user_login } from '@@reaxels';
+import login_backgound_image from '@@public/statics/login-background.png'
