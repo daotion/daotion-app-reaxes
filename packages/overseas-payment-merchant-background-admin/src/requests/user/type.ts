@@ -50,3 +50,22 @@ export namespace User__info {
 		}
 	}
 }
+
+export namespace User__api_info {
+	export interface payload {
+		data
+	}
+	
+	export interface response {
+		data: {
+			mchNo: string,
+			mchKey: string,
+			platformIPS: string,
+			payInCallback: string,
+			payOutCallback: string,
+			payOutWhitelist: [
+				string
+			]
+		}
+	}
+}

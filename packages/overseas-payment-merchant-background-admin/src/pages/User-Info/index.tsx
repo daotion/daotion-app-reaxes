@@ -2,15 +2,16 @@
 export const UserInfo = reaxper(() =>{
 	const { currentTab } = reaxel_user_info()
 	
-	return(
-		<div className={less.userSetting}>
-			<Menu/>
-			<div className={less.userSettingContent}>
-				{currentTab === 'modifyPassword' && <ResetPassword/>}
-				{currentTab === 'userInfo' && <UserBaseInfo/> }
+	return (
+		<div className = { less.userSetting }>
+			<Menu />
+			<div className = { less.userSettingContent }>
+				{ currentTab === 'modifyPassword' && <ResetPassword /> }
+				{ currentTab === 'userInfo' && <UserBaseInfo /> }
+				{ currentTab === 'api' && <UserApi /> }
 			</div>
 		</div>
-	)
+	);
 })
 
 export const Menu = reaxper(() =>{
@@ -160,8 +161,68 @@ export const UserBaseInfo = reaxper(() => {
 	)
 })
 
-
+export const UserApi = reaxper(() => {
+	const { Space, Col, Row, Button } = antd;
+	const { apiConfig } = reaxel_user_info();
+	const {
+		mchKey = '' ,
+		platformIPS = '' ,
+		payInCallback = '' ,
+		payOutCallback = '' ,
+		payOutWhitelist = [] ,
+		withdrawAdd = '' ,
+	} = apiConfig;
+	return (
+		<div className = { less.baseInfo }>
+			<div
+				className = { less.infoItem }
+				style = { { marginTop : 0 } }
+			>
+				<Col span = { 6 }>商户Key：</Col>
+				<Col>{ mchKey }</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>平台IP：</Col>
+				<Col>{ platformIPS }</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>代收回调url：</Col>
+				<Col span = { 6 }>{ payInCallback }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>代付回调url：</Col>
+				<Col span = { 6 }>{ payOutCallback }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>
+					<p>代付白名单IP：</p>
+					<p className={less.declare}>如果有设置，平台只接收来自白名单ip地址的代付请求。</p>
+				</Col>
+				<Col span = { 6 }>{ payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>提现地址(TRC-20)：</Col>
+				<Col span = { 6 }>{ withdrawAdd }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+		</div>
+	);
+});
 
 import less from './index.module.less'
 import {  reaxel_user_info, reaxel_edit_info } from '@@reaxels'
-import { MenuProps } from "antd";
+import {
+	Button ,
+	MenuProps,
+} from "antd";
