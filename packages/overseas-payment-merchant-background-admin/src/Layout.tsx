@@ -22,8 +22,8 @@ export const Layout = reaxper(() => {
 			};
 		});
 	};
-	const breadcrumbArr = breadcrumb();
 	const { pathname } = location;
+	const breadcrumbArr = breadcrumb();
 	const { Layout , Menu , Breadcrumb , Space } = antd;
 	const { Header , Sider , Content } = Layout;
 	return <>
@@ -42,8 +42,8 @@ export const Layout = reaxper(() => {
 					} }
 					items = { menuItem }
 					onSelect = { (e) => {
-						navigate(e.key);
-						
+						console.log(e.key);
+						navigate(`/${e.key}`);
 					} }
 				/>
 			</Sider>

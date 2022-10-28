@@ -1,16 +1,30 @@
 
 
 export const Routing = reaxper((props) => {
+	
 	return <BrowserRouter>
 		<Routes>
 			<Route
 				path = "login"
-				element = { <Login /> }
+				element = { React.createElement(reaxper(() => {
+					const { navigate } = toolkits.useRouter();
+					return <div>
+						<button onClick={() => navigate('/profile')}>profile</button>
+						<button onClick={() => navigate('/home')}>home</button>
+					</div>
+				})) }
 			/>
+			{/*fixme 找到办法匹配到login时阻止渲染Layout*/}
 			<Route
+				path="*"
+				element={<Layout/>}
+			>
+				
+			</Route>
+			{/*<Route
 				path = "*"
 				element = { <Layout /> }
-			/>
+			/>*/}
 
 		</Routes>
 	</BrowserRouter>;
@@ -22,12 +36,10 @@ export const MainContentRouting = reaxper(() => {
 	const { navigate } = toolkits.useRouter();
 	const {isLoggedIn,} = reaxel_user_auth();
 	if(!isLoggedIn){
-		navigate('/login');
-		return null;
+		return <Navigate to = "/login" />;
 	}
 	return <Routes>
 		<Route path = "*">
-			
 			<Route
 				index
 				element = { <Navigate to = { '/home' } /> }

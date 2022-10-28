@@ -9,7 +9,7 @@ export const reaxel_user_auth = function(){
 	const initialState = {
 		pending : false ,
 		token : null ,
-		isLoggedIn : false ,
+		isLoggedIn : true ,
 	};
 	const { store , setState } = orzMobx(initialState);
 	// 登录方法
