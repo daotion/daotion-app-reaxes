@@ -26,7 +26,7 @@ module?.hot?.accept?.(
 );
 
 render(
-	<FinancialDetails /> ,
+	<OrderInfo/> ,
 	document.getElementById( 'react-app-root' ) ,
 );
 

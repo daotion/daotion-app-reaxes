@@ -1,3 +1,5 @@
+import { Button } from "antd";
+
 export const OrderInfo = reaxper(() =>{
 	return(
 		<div className={less.orderInfoWrapper}>
@@ -9,61 +11,79 @@ export const OrderInfo = reaxper(() =>{
 })
 
 export const OrderInfoSearch = reaxper(() =>{
+	
+	const {Input, Form, DatePicker, Select} = antd
+	const {RangePicker} = DatePicker
+	
 	return(
 		<div className={less.searchContainer}>
-			<QueryFilter span={8}>
-				<ProFormText placeholder={'搜索'}/>
-				<ProFormDatePicker placeholder={'订单创建时间/*时间区间'} />
-				<ProFormDatePicker placeholder={'订单更新时间/*时间区间/'}/>
-				<ProFormSelect 
-					options={[
-						{
-							type: 'payout',
-							label: '代付'
-						},
-						{
-							type: 'payin',
-							label: '代收'
-						},
-						{
-							type: 'withdraw',
-							label: '提现'
-						},
-					]}
-					placeholder={'订单类型'}/>
-				<ProFormSelect 
-					options={[
-						{
-							type: 'topayout', 
-							label: '待支付'
-						},
-						{
-							type: 'canceled',
-							label: '已取消'
-						},
-						{
-							type: 'failed',
-							label: '支付失败'
-						},
-						{
-							type: 'paid',
-							label: '已支付'
-						},
-						{
-							type: 'rejected',
-							label: '已拒绝'
-						},
-						{
-							type: 'withdrawed',
-							label: '已提现'
-						},
-						{
-							type: 'toCheck',
-							label: '待审核'
-						},
-					]}
-					placeholder={'订单状态'}/>
-			</QueryFilter>
+			<Form
+				layout="inline"
+				>
+				<FormItem
+					label={'搜索订单'}>
+					<Input placeholder={'搜索'}/>
+				</FormItem>
+				<FormItem
+					label={'订单创建时间'}>
+					<RangePicker/>
+				</FormItem>
+				<FormItem
+					label={'订单更新时间'}>
+					<RangePicker/>
+				</FormItem>
+				<FormItem
+					label={'订单状态'}>
+					<Select 
+						placeholder={'选择状态'}>
+						<Select.Option value={'待支付'}>
+							待支付
+						</Select.Option>
+						<Select.Option value={'已取消'}>
+							已取消
+						</Select.Option>
+						<Select.Option value={'支付失败'}>
+							支付失败
+						</Select.Option>
+						<Select.Option value={'已支付'}>
+							已支付
+						</Select.Option>
+						<Select.Option value={'待审核'}>
+							待审核
+						</Select.Option>
+						<Select.Option value={'已拒绝'}>
+							已拒绝
+						</Select.Option>
+						<Select.Option value={'已提现'}>
+							已提现
+						</Select.Option>
+					</Select>
+				</FormItem>
+				<FormItem
+					label={'订单类型'}>
+					<Select placeholder={'选择类型'}>
+						<Select.Option value={'代收'}>
+							代收
+						</Select.Option>
+						<Select.Option value={'代付'}>
+							代付
+						</Select.Option>
+						<Select.Option value={'提现'}>
+							提现
+						</Select.Option>
+					</Select>
+				</FormItem>
+				<FormItem>
+					<div className={less.formBtn}>
+						<Button>
+							重置
+						</Button>
+						<Button type="primary">
+							查询
+						</Button>
+					</div>
+				</FormItem>
+			</Form>
 		</div>
 	)
 })
@@ -357,6 +377,11 @@ export const OrderInfoTable = reaxper(() =>{
 })
 
 export const OrderProcess = reaxper(() => {
+	
+	const {Steps} = antd
+	
+	const {Step} = Steps
+
 	return(
 		<div className={less.orderProcessContainer}>
 			<div className={less.orderProcessTitle}>
@@ -365,37 +390,24 @@ export const OrderProcess = reaxper(() => {
 				</span>
 				<CloseBtn/>
 			</div>
-			<div className={less.orderProcessContent}>
-				<div className={less.preStatus}>
-					<Dot/>
-					待支付
-				</div>
-				<div className={less.preStatusTime}>
-					<Line/>
-					2022-10-17 22:59
-				</div>
-				<div>
-					<div className={less.orderStatus}>
-						<Dot/>
-						已支付
-					</div>
-					<div className={less.orderStatusTime}>
-						2022-10-18 15:27
-					</div>
-				</div>
-			</div>
+			<Steps
+				progressDot={true}
+				current={1}
+				direction="vertical">
+				<Step 
+					title={'待支付'} 
+					description={'2022-10-17 22:59'}/>
+				<Step 
+					title={'已支付'}
+					description={'2022-10-18 15:27'}/>
+			</Steps>
+			
 		</div>
 	)
 })
 
 
 import less from "./index.module.less";
-import {
-	ProFormDatePicker ,
-	ProFormSelect ,
-	ProFormText ,
-	QueryFilter ,
-} from "@ant-design/pro-components";
 import React from "react";
 import { ColumnsType } from "antd/es/table";
 import {
@@ -406,3 +418,4 @@ import {
 	Dot,
 	Line,
 } from '@@SVGcomponents'
+import FormItem from "antd/es/form/FormItem";
