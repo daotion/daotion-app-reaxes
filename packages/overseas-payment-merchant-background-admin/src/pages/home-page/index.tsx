@@ -1,10 +1,11 @@
 export const HomePage = reaxper(() =>{
 	return(
-		<div className={less.homePageWrapper}>
+		<>
 			<Overview/>
 			<OrderTypeOverview/>
 			<WithdrawWindow/>
-		</div>
+		</>
+		
 	)
 })
 

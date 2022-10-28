@@ -31,7 +31,7 @@ export const Menu = reaxper(() =>{
 		getItem('基本信息', 'userInfo'),
 		getItem('修改密码', 'modifyPassword'),
 		getItem('API对接', 'api'),
-	]
+	] 
 	
 	return(
 		<Menu

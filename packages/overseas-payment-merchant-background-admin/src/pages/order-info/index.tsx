@@ -1,72 +1,13 @@
 export const OrderInfo = reaxper(() =>{
 	return(
-		<div className={less.orderInfoWrapper}>
-			<OrderInfoSearch/>
+		<>
 			<OrderInfoTable/>
-			<OrderProcess/>
-		</div>
+		</>
+
 	)
 })
 
-export const OrderInfoSearch = reaxper(() =>{
-	return(
-		<div className={less.searchContainer}>
-			<QueryFilter span={8}>
-				<ProFormText placeholder={'搜索'}/>
-				<ProFormDatePicker placeholder={'订单创建时间/*时间区间'} />
-				<ProFormDatePicker placeholder={'订单更新时间/*时间区间/'}/>
-				<ProFormSelect 
-					options={[
-						{
-							type: 'payout',
-							label: '代付'
-						},
-						{
-							type: 'payin',
-							label: '代收'
-						},
-						{
-							type: 'withdraw',
-							label: '提现'
-						},
-					]}
-					placeholder={'订单类型'}/>
-				<ProFormSelect 
-					options={[
-						{
-							type: 'topayout', 
-							label: '待支付'
-						},
-						{
-							type: 'canceled',
-							label: '已取消'
-						},
-						{
-							type: 'failed',
-							label: '支付失败'
-						},
-						{
-							type: 'paid',
-							label: '已支付'
-						},
-						{
-							type: 'rejected',
-							label: '已拒绝'
-						},
-						{
-							type: 'withdrawed',
-							label: '已提现'
-						},
-						{
-							type: 'toCheck',
-							label: '待审核'
-						},
-					]}
-					placeholder={'订单状态'}/>
-			</QueryFilter>
-		</div>
-	)
-})
+
 
 export const OrderInfoTable = reaxper(() =>{
 	
@@ -390,12 +331,12 @@ export const OrderProcess = reaxper(() => {
 
 
 import less from "./index.module.less";
-import {
-	ProFormDatePicker ,
-	ProFormSelect ,
-	ProFormText ,
-	QueryFilter ,
-} from "@ant-design/pro-components";
+// import {
+// 	ProFormDatePicker ,
+// 	ProFormSelect ,
+// 	ProFormText ,
+// 	QueryFilter ,
+// } from "@ant-design/pro-components";
 import React from "react";
 import { ColumnsType } from "antd/es/table";
 import {
