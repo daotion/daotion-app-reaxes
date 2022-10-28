@@ -34,7 +34,8 @@ export const Layout = reaxper(() => {
 	const {  pathname } = location;
 	const routeName = {
 		'profile': '用户信息',
-		'edit': '编辑信息'
+		'edit': '编辑信息',
+		'order': '订单数据'
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);
@@ -54,7 +55,6 @@ export const Layout = reaxper(() => {
 			<Sider
 				style={{
 					backgroundColor : '#ffffff',
-					
 				}}
 			>
 				<Menu
@@ -64,25 +64,17 @@ export const Layout = reaxper(() => {
 					items={menuItem}
 					onSelect={(e) => {
 						navigate(e.key)
-						
 					}}
 				/>
 			</Sider>
 			<Content
-				style={{
-					backgroundColor : '#C2C2C2',
-					height : 'calc(100vh - 48px)',
-					overflowY : 'hidden',
-				}}
+				className={less.contentWrap}
 			>
-				{!(pathname === '/home' || pathname === '/profile') && <Space
-					direction="vertical"
-					style={{
-						width : '100%',
-						height : '98px',
-						backgroundColor : '#fff',
-						padding : '16px 32px',
-					}}
+				{!(pathname === '/home' || pathname === '/profile') &&
+					<Space
+						direction="vertical"
+						className={less.contentSpace}
+						
 				>
 					 <Breadcrumb>
 						{ breadcrumbArr.map((i) => (
@@ -94,25 +86,9 @@ export const Layout = reaxper(() => {
 					</Breadcrumb>
 					<h2>{breadcrumbArr[breadcrumbArr.length - 1].name}</h2>
 				</Space>}
-				<div
-					style = { {
-						width : '100%' ,
-						padding : '24px' ,
-					} }
-				>
-					<div
-						style = { {
-							width : '100%' ,
-							height : 'fit-content' ,
-							backgroundColor : '#ffffff' ,
-							borderRadius : '8px' ,
-							overflow : 'hidden',
-							
-						} }
-					>
-						
+				<div className={less.contentGrayBg}>
+					<div className={less.contentComponents}>
 						<MainContentRouting/>
-					
 					</div>
 				
 				</div>
@@ -129,7 +105,7 @@ import {
 import {
 	LayoutHeader ,
 } from './pages/--Components--/Layout-Header';
-import less from './styles/main.module.less';
+import less from './styles/layout.module.less';
 import {
 	MenuApiIcon ,
 	MenuHomeIcon ,

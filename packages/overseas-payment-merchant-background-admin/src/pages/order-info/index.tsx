@@ -6,8 +6,9 @@ export const OrderInfo = reaxper(() =>{
 			<OrderInfoSearch/>
 			<OrderInfoTable/>
 			{/*<OrderProcess/>*/}
-			
+		
 		</>
+		
 	)
 })
 
@@ -15,25 +16,27 @@ export const OrderInfoSearch = reaxper(() =>{
 	
 	const {Input, Form, DatePicker, Select} = antd
 	const {RangePicker} = DatePicker
-	
 	return(
 		<div className={less.searchContainer}>
 			<Form
 				layout="inline"
 				>
-				<FormItem
+				<Form.Item
+					
 					label={'搜索订单'}>
-					<Input placeholder={'搜索'}/>
-				</FormItem>
-				<FormItem
+					<Input
+						placeholder={'搜索'}
+					/>
+				</Form.Item>
+				<Form.Item
 					label={'订单创建时间'}>
 					<RangePicker/>
-				</FormItem>
-				<FormItem
+				</Form.Item>
+				<Form.Item
 					label={'订单更新时间'}>
 					<RangePicker/>
-				</FormItem>
-				<FormItem
+				</Form.Item>
+				<Form.Item
 					label={'订单状态'}>
 					<Select
 						placeholder={'选择状态'}>
@@ -59,8 +62,8 @@ export const OrderInfoSearch = reaxper(() =>{
 							已提现
 						</Select.Option>
 					</Select>
-				</FormItem>
-				<FormItem
+				</Form.Item>
+				<Form.Item
 					label={'订单类型'}>
 					<Select placeholder={'选择类型'}>
 						<Select.Option value={'代收'}>
@@ -73,8 +76,8 @@ export const OrderInfoSearch = reaxper(() =>{
 							提现
 						</Select.Option>
 					</Select>
-				</FormItem>
-				<FormItem>
+				</Form.Item>
+				<Form.Item>
 					<div className={less.formBtn}>
 						<Button>
 							重置
@@ -83,7 +86,7 @@ export const OrderInfoSearch = reaxper(() =>{
 							查询
 						</Button>
 					</div>
-				</FormItem>
+				</Form.Item>
 			</Form>
 		</div>
 	)

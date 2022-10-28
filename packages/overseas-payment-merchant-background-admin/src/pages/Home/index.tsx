@@ -3,7 +3,7 @@ export const HomePage = reaxper(() =>{
 		<>
 			<Overview/>
 			<OrderTypeOverview/>
-			<WithdrawWindow/>
+			{/*<WithdrawWindow/>*/}
 		</>
 		
 	)
