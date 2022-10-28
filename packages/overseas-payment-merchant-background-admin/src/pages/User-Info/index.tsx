@@ -112,7 +112,6 @@ export const ResetPassword = reaxper(() =>{
 export const UserBaseInfo = reaxper(() => {
 	const { userInfo , showBaseInfo } = reaxel_user_info();
 	const { Space, Col, Row } = antd;
-	console.log(showBaseInfo);
 	return (
 		<div className={less.baseInfo}>
 			{showBaseInfo.map((i) => (

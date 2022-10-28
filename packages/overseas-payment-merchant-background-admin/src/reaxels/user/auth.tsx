@@ -1,3 +1,5 @@
+import { request } from "@@requester";
+
 export const reaxel_user_auth = function(){
 	
 	let ret;
@@ -7,7 +9,7 @@ export const reaxel_user_auth = function(){
 	});
 	// 登录方法
 	const fetchLogin = async (data : {
-		userName : string,
+		username : string,
 		password : string
 	}) => {
 		const { userName = '' , password = '' } = data;
@@ -63,7 +65,7 @@ export const reaxel_user_auth = function(){
 				return store.isLoggedIn;
 			} ,
 			async login(data){
-				await fetchLogin(data);
+				// await fetchLogin(data);
 			} ,
 			// logout(){
 			// 	setState({
@@ -81,3 +83,12 @@ export const reaxel_user_auth = function(){
 // import { orzLocalstroage } from '@@common/storages';
 import { request_user_login, request_user_pre_login }from '@@requests'
 import md5 from 'crypto-js/md5'
+request.post(`/mch/login-code`,{
+	body : () => orzPromise((resolve) => {setTimeout(() => resolve({ username:"Kane_localserver" }),500);}),
+}).then((res) => {
+	console.log(res);
+	
+}).catch((e) => {
+	console.error(e);
+	
+})
