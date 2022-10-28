@@ -1,110 +1,83 @@
-
-export const Reaxel_User_auth = function() {
+export const reaxel_user_auth = function(){
+	
 	let ret;
 	const { store , setState } = orzMobx({
-		pending: false,
-		loginData: {
-			userName: '',
-			password: '',
-		},
-		modifyData: {
-			oldPassword: '',
-			newPassword: '',
-		},
+		pending : false ,
+		isLoggedIn : true ,
 	});
-	const { navigate } = toolkits.useRouter();
-	const { message } = antd;
 	// 登录方法
-	const login = async (data: {
-		userName: string,
-		password: string
+	const fetchLogin = async (data : {
+		userName : string,
+		password : string
 	}) => {
-		const {userName = '', password = ''} = data
+		const { userName = '' , password = '' } = data;
 		setState({
 			pending : true ,
 		});
-		return request_user_login( async () => {
-			return request.formater({
-				userName,
-				password: md5(password)
-			})
-		}).then((token) => {
-			orzLocalstroage.set('token', token)
-			setState({
-				pending : false ,
+		return request_user_pre_login(async () => (
+			{
+				username : userName,
+			}
+		)).then((res : string) => {
+			return request_user_login(async () => (
+				{
+					username : userName ,
+					password : md5(password) ,
+					code : res,
+				}
+			)).then((token) => {
+				// console.log('orzLocalstroage.set(\'token\', token)');
+				setState({
+					pending : false ,
+					isLoggedIn : true ,
+				});
+			}).catch((e) => {
+				setState({
+					pending : false ,
+				});
+			}).finally(() => {
+				setState({
+					pending : false,
+				});
 			});
-			message.success('login success')
-			navigate('xxx');
-		}).catch((e) => {
-			setState({
-				pending : false ,
-			});
-			message.error('login error',e);
-		})
-	}
+		});
+		
+	};
 	
-	// 修改密码方法
-	const modify = async (data: {
-		oldPassword: string,
-		newPassword: string
-	}) => {
-		const { oldPassword = '' , newPassword = '' } = data;
-		setState({
-			pending : true ,
-		});
-		return request_modify_password(async () => {
-			return request.formater({
-				oldPassword: md5(oldPassword),
-				newPassword: md5(newPassword)
-			})
-		}).then((res) => {
-			setState({
-				pending : false ,
-			});
-			message.success('modify success')
-			navigate('login'); // 修改成功后跳转登录页
-		}).catch((e) => {
-			setState({
-				pending : false ,
-			});
-			message.error('modify error', e);
-		})
-	}
+	
 	return () => {
 		return ret = {
-			get pending() {
-				return store.pending
-			},
-			onLoginInput(key: string, value: string){
-				setState({
-					loginData : {
-						...store.loginData,
-						[key]: value
-					} ,
-					
-				});
-			},
-			onModifyInput(key : string , value : string){
-				setState({
-					modifyData: {
-						...store.modifyData,
-						[key]: value
-					}
-				})
-			},
-			onLoginClick(){
-				login(store.loginData);
-			},
-			onModifyClick(){
-				modify(store.modifyData)
-			}
+			get pending(){
+				return store.pending;
+			} ,
+			get isLoggedIn(){
+				// if (orzLocalstroage.get('token')) {
+				// 	setState({
+				// 		isLoggedIn: true
+				// 	})
+				// } else {
+				// 	setState({
+				// 		isLoggedIn: false
+				// 	})
+				// }
+				return store.isLoggedIn;
+			} ,
+			async login(data){
+				await fetchLogin(data);
+			} ,
+			// logout(){
+			// 	setState({
+			// 		pending : false ,
+			// 		isLoggedIn : false ,
+			// 	});
+			// 	// console.log('orzLocalstroage.remove(\'token\');');
+			// },
 			
 			
-			
-		}
-	}
-}()
+		};
+	};
+}();
 
-import { orzLocalstroage } from '@@common/storages';
-import { request_user_login, request_modify_password }from '@@requester/user/auth'
+// import { orzLocalstroage } from '@@common/storages';
+import { request_user_login, request_user_pre_login }from '@@requests'
 import md5 from 'crypto-js/md5'

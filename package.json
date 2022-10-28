@@ -2,8 +2,8 @@
 	"name": "daotion-app-reaxes",
 	"scripts": {
 		"start": "node scripts/start.mjs",
-		"node" : "node --stack-trace-limit=30 --stack-size=1024",
-		"start-daotion-app-web": "node --inspect-brk scripts/start.mjs daotion-app-web",
+		"node": "node --stack-trace-limit=30 --stack-size=1024",
+		"start-daotion-app-web": "npm run node scripts/start.mjs daotion-app-web",
 		"start-platform": "npm run node scripts/start.mjs overseas-payment-merchant-operation-platform",
 		"start-admin": "npm run node scripts/start.mjs overseas-payment-merchant-background-admin"
 	},
