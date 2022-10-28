@@ -1,5 +1,3 @@
-
-
 const menuItem = [
 	{
 		key : 'home' ,
@@ -17,7 +15,7 @@ const menuItem = [
 		icon: <MenuPayoutIcon/>
 	},
 	{
-		key : ' userInfo' ,
+		key : 'profile' ,
 		label : '商户信息' ,
 		icon: <MenuUserIcon/>
 	},
@@ -28,15 +26,14 @@ const menuItem = [
 	},
 ];
 
-
-
 export const Layout = reaxper(() => {
 	const { Layout, Menu, Breadcrumb, Space }  = antd;
+	const { navigate } = toolkits.useRouter()
 	const { Header, Sider, Content }  = Layout
 	const { location } = toolkits.useRouter();
 	const {  pathname } = location;
 	const routeName = {
-		'user-info': '用户信息',
+		'profile': '用户信息',
 		'edit': '编辑信息'
 	};
 	const breadcrumb = () => {
@@ -63,9 +60,12 @@ export const Layout = reaxper(() => {
 				<Menu
 					style={{
 						height : '100%',
-						borderRight: '0'
 					}}
 					items={menuItem}
+					onSelect={(e) => {
+						navigate(e.key)
+						
+					}}
 				/>
 			</Sider>
 			<Content
@@ -75,7 +75,7 @@ export const Layout = reaxper(() => {
 					overflowY : 'hidden',
 				}}
 			>
-				<Space
+				{!(pathname === '/home' || pathname === '/profile') && <Space
 					direction="vertical"
 					style={{
 						width : '100%',
@@ -84,18 +84,38 @@ export const Layout = reaxper(() => {
 						padding : '16px 32px',
 					}}
 				>
-					<Breadcrumb>
-						{breadcrumbArr.map((i) =>(
-							<Breadcrumb.Item key ={i.key }>
-								{i.name}
+					 <Breadcrumb>
+						{ breadcrumbArr.map((i) => (
+							<Breadcrumb.Item key = { i.key }>
+								{ i.name }
 							</Breadcrumb.Item>
-						))}
+						)) }
 					
 					</Breadcrumb>
 					<h2>{breadcrumbArr[breadcrumbArr.length - 1].name}</h2>
-				</Space>
+				</Space>}
+				<div
+					style = { {
+						width : '100%' ,
+						padding : '24px' ,
+					} }
+				>
+					<div
+						style = { {
+							width : '100%' ,
+							height : 'fit-content' ,
+							backgroundColor : '#ffffff' ,
+							borderRadius : '8px' ,
+							overflow : 'hidden',
+							
+						} }
+					>
+						
+						<MainContentRouting/>
+					
+					</div>
 				
-				<MainContentRouting/>
+				</div>
 			</Content>
 		</Layout>
 		

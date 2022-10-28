@@ -5,7 +5,7 @@ export const reaxel_user_info = function(){
 		loading: false as {promise : Promise<any> } | false,
 		userInfo: null,
 		currentTab: 'userInfo',
-		showBaseInfo: [] as any
+		apiConfig: null
 	});
 
 	const reax_user_auth = reaxel_user_auth();
@@ -26,29 +26,34 @@ export const reaxel_user_info = function(){
 				payOutFeeFix: 2,
 			}
 		})
-		let newArr = [];
-		const { userInfo } = store;
-		const showLabel = {
-			id : '商户ID',
-			name : '商户名称',
-			contactPhone : 'Telegram',
-			contactPerson : '联系人',
-			payInFeeRate : '代收手续费率',
-			payInFeeFix : '代收单比固定手续费',
-			payOutFeeRate : '代付手续费率',
-			payOutFeeFix : '代付单笔固定手续费',
-			
-			
-		}
-		for (let i in userInfo) {
-			newArr.push( {
-				key: i,
-				value: userInfo[i],
-				label: showLabel[i]
-			})
-		}
+		// setState({
+		// 	loading: {
+		// 		promise: request_user_info().then ((userInfo : any) => {
+		// 			setState({
+		// 				userInfo,
+		//
+		// 			})
+		// 		}).finally(() => {
+		// 			setState({ loading : false });
+		// 		})
+		// 	}
+		// })
+	}
+	
+	// 获取api配置
+	const getApiConfig = async() => {
 		setState({
-			showBaseInfo: newArr
+			apiConfig : {
+				mchKey : '143c4f46240f4e4db07e750cbbf17123' ,
+				platformIPS : '3.0.64.107; 54.251.182.101' ,
+				payInCallback : 'https://www.test.com' ,
+				payOutCallback : 'https://www.test.com' ,
+				payOutWhitelist : [
+					'192.168.1.1;' , '192.127.0.1',
+				] ,
+				withdrawAdd : 'TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6' ,
+			},
+			
 		})
 		// setState({
 		// 	loading: {
@@ -63,10 +68,12 @@ export const reaxel_user_info = function(){
 		// 	}
 		// })
 	}
+	
 	//监听是否登录
 	Reaxes.observedMemo(() => {
 		if( reax_user_auth.isLoggedIn ) {
-			getUserInfo()
+			getUserInfo();
+			getApiConfig();
 		} else {
 		
 		}
@@ -78,18 +85,27 @@ export const reaxel_user_info = function(){
 			get userInfo () {
 				return store.userInfo;
 			},
-			get showBaseInfo(){
-				return store.showBaseInfo
-			},
 			get currentTab(){
 				return store.currentTab;
 			},
+			get apiConfig(){
+				return store.apiConfig;
+			},
+			
 			getUserInfo(){
-				getUserInfo()
+				getUserInfo();
 			},
 			changeTab (tabValue: string) {
 				setState({
 					currentTab: tabValue
+				})
+			},
+			setApiConfig (key: string, value: string) {
+				setState({
+					apiConfig: {
+						...store.apiConfig,
+						[key]: value
+					}
 				})
 			}
 

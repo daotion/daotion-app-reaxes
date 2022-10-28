@@ -4,9 +4,12 @@ import {
 	Route ,
 	Routes ,
 } from 'react-router-dom';
-import  { Login } from './pages/Login'
-import { UserInfo } from './pages/User-Info'
-import { Layout } from './Layout'
+import { Login } from '@@pages/login';
+import { UserInfo } from '@@pages/User-Info';
+import { HomePage } from '@@pages/home-page';
+import { OrderInfo } from '@@pages/order-info';
+import { PayoutManagement } from '@@pages/payout-management';
+import { Layout } from './Layout';
 
 
 export const Routing = (props) => {
@@ -28,43 +31,32 @@ export const Routing = (props) => {
 
 export const MainContentRouting = reaxper(() => {
 	return (
-		<div
-			style = { {
-				width : '100%' ,
-				padding : '24px' ,
-			} }
-		>
-			<div
-				style = { {
-					width : '100%' ,
-					height : 'fit-content' ,
-					backgroundColor : '#ffffff' ,
-					borderRadius : '8px' ,
-					overflow : 'hidden',
-					
-				} }
-			>
-				<Routes>
-					<Route path = "*">
-						
-						<Route
-							index
-							element={<Navigate to={'/home'}/>}
-						/>
-						<Route
-							path="home"
-							element={<p>home</p>}
-						/>
-						<Route
-							path="profile"
-							element={toolkits.withOutlet(<UserInfo/>)}
-						/>
-					</Route>
-				</Routes>
-			
-			</div>
-		
-		</div>
+		<Routes>
+			<Route path = "*">
+				
+				<Route
+					index
+					element={<Navigate to={'/home'}/>}
+				/>
+				<Route
+					path="home"
+					element={toolkits.withOutlet(<HomePage/>)}
+				/>
+				<Route
+					path="profile"
+					element={toolkits.withOutlet(<UserInfo/>)}
+				/>
+				<Route
+					path="order"
+					element={toolkits.withOutlet(<OrderInfo/>)}
+				/>
+				<Route
+					path="payout"
+					element={toolkits.withOutlet(<PayoutManagement/>)}
+				/>
+			</Route>
+		</Routes>
+
 	);
 })
 

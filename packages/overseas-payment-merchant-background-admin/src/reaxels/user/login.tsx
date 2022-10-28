@@ -16,7 +16,10 @@ export const reaxel_user_login = (function () {
 					setState(partialState);
 				} ,
 				loginAction(callback? : () => void){
-					reax_user_auth.login(store.loginData).then(() => {
+				reax_user_auth.login({
+					userName : store.input_username ,
+					password: store.input_password
+				}).then(() => {
 						callback();
 					});
 				} ,
