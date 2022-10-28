@@ -100,7 +100,7 @@ export const ResetPassword = reaxper(() =>{
 				type="primary"
 				onClick={() => {
 					modifyPassword(() => {
-						navigate('/login')
+						navigate('/Login')
 					})
 				}}
 			>
