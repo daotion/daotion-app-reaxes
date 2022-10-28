@@ -54,11 +54,11 @@ export const MainContentRouting = reaxper(() => {
 
 
 import { reaxel_user_auth } from '@@reaxels';
-import { Login } from '@@pages/login';
+import { Login } from '@@pages/Login';
 import { UserInfo } from '@@pages/User-Info';
-import { HomePage } from '@@pages/home-page';
-import { OrderInfo } from '@@pages/order-info';
-import { PayoutManagement } from '@@pages/payout-management';
+import { HomePage } from '@@pages/Home';
+import { OrderInfo } from '@@pages/Order-Info';
+import { PayoutManagement } from '@@pages/Payout';
 import { Layout } from './Layout';
 import {
 	BrowserRouter ,

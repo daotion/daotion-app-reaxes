@@ -1,8 +1,6 @@
 export const PayoutManagement = reaxper(() => {
 	return(
-		<div className={less.payoutManagementWrapper}>
-			<PayoutRequestTable/>
-		</div>
+		<PayoutRequestTable/>
 	)
 })
 

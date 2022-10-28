@@ -3,7 +3,7 @@ export const HomePage = reaxper(() =>{
 		<>
 			<Overview/>
 			<OrderTypeOverview/>
-			<WithdrawWindow/>
+			{/*<WithdrawWindow/>*/}
 		</>
 		
 	)
@@ -14,17 +14,17 @@ export const Overview = reaxper(() =>{
 	const {Button} = antd
 	
 	return(
-		<div className={less.overViewContainer}>
-			<div>
+		<div className={less.overviewContainer}>
+			<span className={less.overviewTitle}>
 				资金总览
-			</div>
-			<div className={less.overViewContent}>
+			</span>
+			<div className={less.overviewContent}>
 				<div className={less.balanceContainer}>
 					<div className={less.balanceContent}>
-						<span>
+						<span className={less.overviewSubTitle}>
 							账户余额（R$）
 						</span>
-						<span>
+						<span className={less.balanceAmount}>
 							4,691,849,234.69
 						</span>
 					</div>
@@ -33,10 +33,10 @@ export const Overview = reaxper(() =>{
 					</span>
 				</div>
 				<div className={less.withdrawContent}>
-					<span>
+					<span className={less.overviewSubTitle}>
 						提现处理中
 					</span>
-					<span>
+					<span className={less.withdrawingAmount}>
 						849,234.69
 					</span>
 				</div>

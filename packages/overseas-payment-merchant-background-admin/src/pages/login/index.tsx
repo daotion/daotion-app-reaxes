@@ -52,7 +52,7 @@ export const SignInForm = reaxper(() => {
 				onClick = { () => {
 					loginAction(() => {
 						// navigate('/home')
-						console.log('login success and navigate');
+						console.log('Login success and navigate');
 					});
 				} }
 			>
