@@ -1,36 +1,10 @@
-const menuItem = [
-	{
-		key : 'home' ,
-		label : '主页' ,
-		icon : <MenuHomeIcon/>,
-	},
-	{
-		key : 'order ' ,
-		label : '订单数据' ,
-		icon: <MenuOrderIcon/>
-	},
-	{
-		key : 'payout ' ,
-		label : '代付管理' ,
-		icon: <MenuPayoutIcon/>
-	},
-	{
-		key : 'profile' ,
-		label : '商户信息' ,
-		icon: <MenuUserIcon/>
-	},
-	{
-		key : 'api ' ,
-		label : 'API文档' ,
-		icon : <MenuApiIcon/>
-	},
-];
+import { MenuProps } from "antd";
 
 export const Layout = reaxper(() => {
 	const { Layout, Menu, Breadcrumb, Space }  = antd;
-	const { navigate } = toolkits.useRouter()
-	const { Header, Sider, Content }  = Layout
+	const {  Sider, Content }  = Layout
 	const { location } = toolkits.useRouter();
+
 	const {  pathname } = location;
 	const routeName = {
 		'profile': '用户信息',
@@ -57,15 +31,7 @@ export const Layout = reaxper(() => {
 					backgroundColor : '#ffffff',
 				}}
 			>
-				<Menu
-					style={{
-						height : '100%',
-					}}
-					items={menuItem}
-					onSelect={(e) => {
-						navigate(e.key)
-					}}
-				/>
+				<LayoutMenu/>
 			</Sider>
 			<Content
 				className={less.contentWrap}
@@ -99,6 +65,46 @@ export const Layout = reaxper(() => {
 } );
 
 
+export const LayoutMenu = reaxper(() => {
+	const { Menu } = antd;
+	type MenuItem = Required<MenuProps>['items'][number];
+	const { navigate } = toolkits.useRouter()
+	
+	const getItem = (
+		label : React.ReactNode ,
+		key : React.Key | null ,
+		icon? : React.ReactNode ,
+		children? : MenuItem[] ,
+	) : MenuItem => (
+		{
+			key ,
+			label ,
+			icon ,
+			children,
+		} as MenuItem
+	);
+	const items : MenuItem[] = [
+		getItem('主页' , 'home' , <MenuHomeIcon />) ,
+		getItem('订单数据' , 'order' , <MenuOrderIcon /> , [ getItem('代收订单' , 'payInOrder') , getItem('代付订单' , 'payOutOrder') ], ) ,
+		getItem('代付管理' , 'payout' , <MenuPayoutIcon />) ,
+		getItem('商户信息' , 'profile' , <MenuUserIcon />) ,
+		getItem('API文档' , 'api' , <MenuApiIcon />),
+	];
+	return (
+		<Menu
+			style={{
+				height : '100%',
+			}}
+			items={items}
+			onSelect={(e) => {
+				navigate(e.key)
+			}}
+			mode='inline'
+			// openKeys={['order']}
+		/>
+	)
+})
+
 import {
 	MainContentRouting ,
 } from './Routing';
@@ -113,3 +119,4 @@ import {
 	MenuPayoutIcon ,
 	MenuUserIcon,
 } from '@@SVGcomponents';
+import React from "react";

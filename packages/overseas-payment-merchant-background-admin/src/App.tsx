@@ -6,6 +6,7 @@ export const App = reaxper(() => {
 });
 
 import 'antd/dist/antd.less';
+import './styles/main.module.less'
 import {Routing}  from './Routing'
 
 
