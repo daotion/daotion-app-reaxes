@@ -1,6 +1,10 @@
 import { Button } from "antd";
 
 export const OrderInfo = reaxper(() =>{
+	
+	console.log('fffffffffffffffff');
+	
+	
 	return(
 		<>
 			<OrderInfoSearch/>

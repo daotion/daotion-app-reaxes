@@ -25,27 +25,30 @@ export const Requester = function (plugins) {
 			host : location.host,
 			pathname:'',
 			hash: '',
-			queryObject : {},
 		},
+		queryObject : {},
 		options: {
 			credentials : 'include' ,
 			mode : 'cors' ,
 			method : "POST",
+			headers : {},
 		},
 		response:null,
 		async fetch(url,options){
-			const localUrl = new URL(url,location.origin);
+			slot.target = new URL(url,location.origin);
 			_.merge(slot.options,options);
-			_.assign(slot.target , _.pick(parse(localUrl.href) , "pathname" , "protocol" , "host" , "hash" ));
 			await asyncListRunner(onInvokeStack.map((callback) => () => callback(slot,url,options) ));
 			try {
+				let remote = slot.target.href;
+				console.log(remote);
 				if( slot.options.method === "POST"){
 					slot.options.body = stringify(slot.options.body);
 				}else if(slot.options.method === "GET") {
-					slot.url = concatQS(slot.url , slot.options.body);
+					slot.target.search = utils.encodeQueryString(slot.options.body);
 					slot.options = _.omit(slot.options , "body");
+					remote = slot.target.href;
 				}
-				const response = (await window.fetch(slot.url,slot.options)).clone();
+				const response = (await window.fetch(remote,slot.options)).clone();
 				Object.defineProperty(slot,"response",{
 					get(){
 						return response.clone();
@@ -53,11 +56,12 @@ export const Requester = function (plugins) {
 					configurable:true,
 					enumerable:true,
 				});
+				await asyncListRunner(onResolveStack.map((callback) => () => callback(slot , url , options)));
+				return slot.response;
 			}catch ( e ) {
 				console.error(e);
-				
+				throw e;
 			}
-			return slot.response;
 		},
 	} as any;
 	
@@ -71,15 +75,18 @@ export const Requester = function (plugins) {
 		onInvoke(callback) {
 			onInvokeStack.push(callback);
 		},
-		get onResolved(){
-			return () => {
-				
-			}
+		onResolve(callback){
+			onResolveStack.push(callback);
 		},
-		get onError(){
-			return () => {
-				
-			}
+		/**/
+		onError(callback){
+			onErrorStack.push(callback);
+		},
+		onFailed (){
+			
+		},
+		onFinished(){
+			
 		},
 	};
 	
@@ -109,25 +116,6 @@ export const Requester = function (plugins) {
 };
 
 
-import { asyncListRunner , concatQS } from './utils';
-import {parse,} from 'url';
+import { asyncListRunner  } from './utils';
 
 
-import { AsyncReplayablePayloadPlugin } from './plugins/async-replayable-payload-plugin';
-
-const requester = new Requester([
-	AsyncReplayablePayloadPlugin(),
-]);
-console.log(requester);
-
-requester.get(`/main.bundle.js`,{
-	body : 
-		// () => orzPromise((resolve) => {setTimeout(() => resolve({ a : 1 }),2500);}),
-		{ a : 1 },
-	
-}).then((res) => {
-	console.log(res);
-	return res.text();
-}).then((text) => {
-	console.log(text.slice(0,400));
-})

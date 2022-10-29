@@ -1,13 +1,15 @@
 import { MenuProps } from "antd";
-
+import {useNavigate , Navigate} from 'react-router-dom';
 export const Layout = reaxper(() => {
-	const { Layout, Menu, Breadcrumb, Space }  = antd;
-	const {  Sider, Content }  = Layout
-	const { location } = toolkits.useRouter();
-
-	const {  pathname } = location;
+	const { isLoggedIn } = reaxel_user_auth();
+	const { navigate , location } = toolkits.useRouter();
+	
+	if(!isLoggedIn){
+		return <Navigate to = "/login" />;
+	}
+	
 	const routeName = {
-		'profile': '用户信息',
+		'profile' : '用户信息' ,
 		'edit': '编辑信息',
 		'order': '订单数据'
 	};
@@ -15,34 +17,39 @@ export const Layout = reaxper(() => {
 		const pathArr = pathname.split('/').slice(1);
 		return pathArr.map((i) => {
 			return {
-				key: i,
-				name: routeName[i]
-			}
-		})
-	}
-	const breadcrumbArr = breadcrumb()
+				key : i ,
+				name : routeName[i],
+			};
+		});
+	};
+	const { pathname } = location;
+	const breadcrumbArr = breadcrumb();
+	const { Layout , Menu , Breadcrumb , Space } = antd;
+	const { Header , Sider , Content } = Layout;
 	return <>
 		<Layout>
-				<LayoutHeader/>
+			<LayoutHeader />
 		</Layout>
 		<Layout>
 			<Sider
-				style={{
-					backgroundColor : '#ffffff',
-				}}
+				style = { {
+					backgroundColor : '#ffffff' ,
+				} }
 			>
 				<LayoutMenu/>
 			</Sider>
 			<Content
 				className={less.contentWrap}
 			>
-				{!(pathname === '/home' || pathname === '/profile') &&
+				{ !(
+					pathname === '/home' || pathname === '/profile'
+				) &&
 					<Space
-						direction="vertical"
+					direction = "vertical"
 						className={less.contentSpace}
 						
 				>
-					 <Breadcrumb>
+					<Breadcrumb>
 						{ breadcrumbArr.map((i) => (
 							<Breadcrumb.Item key = { i.key }>
 								{ i.name }
@@ -50,13 +57,12 @@ export const Layout = reaxper(() => {
 						)) }
 					
 					</Breadcrumb>
-					<h2>{breadcrumbArr[breadcrumbArr.length - 1].name}</h2>
-				</Space>}
+					<h2>{ breadcrumbArr[breadcrumbArr.length - 1].name }</h2>
+				</Space> }
 				<div className={less.contentGrayBg}>
 					<div className={less.contentComponents}>
-						<MainContentRouting/>
+						<MainContentRouting />
 					</div>
-				
 				</div>
 			</Content>
 		</Layout>
@@ -105,6 +111,7 @@ export const LayoutMenu = reaxper(() => {
 	)
 })
 
+import {reaxel_user_auth} from '@@reaxels';
 import {
 	MainContentRouting ,
 } from './Routing';
@@ -117,6 +124,6 @@ import {
 	MenuHomeIcon ,
 	MenuOrderIcon ,
 	MenuPayoutIcon ,
-	MenuUserIcon,
+	MenuUserIcon ,
 } from '@@SVGcomponents';
 import React from "react";

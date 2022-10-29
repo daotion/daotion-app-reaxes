@@ -5,24 +5,26 @@ export const reaxel_user_login = (function () {
 		input_password : '',
 	});
 	const reax_user_auth = reaxel_user_auth();
-
+	
 	return () => {
-		return (ret = {
-			get store() {
-				return store;
-			},
-			setFields(partialState){
-				setState(partialState);
-			},
-			loginAction(callback?: () => void) {
+		return (
+			ret = {
+				get store(){
+					return store;
+				} ,
+				setFields(partialState){
+					setState(partialState);
+				} ,
+				loginAction(callback? : () => void){
 				reax_user_auth.login({
 					userName : store.input_username ,
 					password: store.input_password
 				}).then(() => {
-					callback();
-				});
-			},
-		});
+						callback();
+					});
+				} ,
+			}
+		);
 	};
 })();
 
