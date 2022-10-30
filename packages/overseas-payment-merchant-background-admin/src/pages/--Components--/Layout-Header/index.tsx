@@ -1,7 +1,9 @@
 export const LayoutHeader = reaxper(() => {
+	const { navigate } = toolkits.useRouter();
 	const { userInfo : { name } } = reaxel_user_info();
-	const { Select } = antd;
-	const { Option } = Select;
+	const { logout } = reaxel_user_auth();
+	const { Select , Dropdown ,Menu} = antd;
+	
 	return (
 		<div className = { less.layoutHeader }>
 			<HeaderLogo />
@@ -11,23 +13,37 @@ export const LayoutHeader = reaxper(() => {
 					<span>巴西时区(UTC-3:00）</span>
 				</div>
 				<div className = { less.userSelect }>
-					<ProfilePhoto />
-					<Select
-						defaultValue = { name }
-						bordered = { false }
-						className={less.selector}
-						placement = "bottomRight"
-						dropdownMatchSelectWidth={118}
-					>
-						<Option className={less.selectOption}>
-							<UserSelectModifyPwd />
-							<span>修改密码</span>
-						</Option>
-						<Option className={less.selectOption}>
-							<UserSelectLogout />
-							<span>退出登录</span>
-						</Option>
-					</Select>
+					
+					
+					<Dropdown 
+						overlay={<Menu
+							items={[
+								{
+									label : <span onClick = { () => {
+										navigate('/profile/reset-pwd');
+									} }>
+										<UserSelectModifyPwd />
+										<span>修改密码</span>
+									</span>,
+									key : "change-pwd",
+								},
+								{
+									label : <span onClick = { () => {
+										logout();
+									} }>
+										<UserSelectLogout />
+										<span>退出登录</span>
+									</span>,
+									key : "logout",
+								},
+							]}
+						/>
+					}
+						
+					><a onClick={e => e.preventDefault()}>
+						<ProfilePhoto />
+						Mozi
+					</a></Dropdown>
 				</div>
 			</div>
 		</div>
@@ -42,4 +58,7 @@ import {
 	UserSelectModifyPwd,
 	UserSelectLogout
 } from '@@SVGcomponents';
-import { reaxel_user_info } from '@@reaxels'
+import {
+	reaxel_user_info ,
+	reaxel_user_auth,
+} from '@@reaxels';

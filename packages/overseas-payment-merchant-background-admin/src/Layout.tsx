@@ -1,5 +1,4 @@
 
-import {useNavigate , Navigate} from 'react-router-dom';
 export const Layout = reaxper(() => {
 	const { isLoggedIn } = reaxel_user_auth();
 	const { navigate , location } = toolkits.useRouter();
@@ -41,9 +40,9 @@ export const Layout = reaxper(() => {
 						height : '100%' ,
 					} }
 					items = { menuItem }
-					onSelect = { (e) => {
-						console.log(e.key);
-						navigate(`/${e.key}`);
+					onSelect = { ({key}) => {
+						// console.log(e.key);
+						navigate(`${key}`);
 					} }
 				/>
 			</Sider>
@@ -79,6 +78,20 @@ export const Layout = reaxper(() => {
 	
 	</>;
 });
+
+
+import { Navigate } from 'react-router-dom';
+import { reaxel_user_auth } from '@@reaxels';
+import { MainContentRouting  } from './Routing';
+import { LayoutHeader  } from './pages/--Components--/Layout-Header';
+import less from './styles/layout.module.less';
+import {
+	MenuApiIcon ,
+	MenuHomeIcon ,
+	MenuOrderIcon ,
+	MenuPayoutIcon ,
+	MenuUserIcon ,
+} from '@@SVGcomponents';
 const menuItem = [
 	{
 		key : 'home' ,
@@ -86,12 +99,12 @@ const menuItem = [
 		icon : <MenuHomeIcon /> ,
 	} ,
 	{
-		key : 'order ' ,
+		key : 'order' ,
 		label : '订单数据' ,
 		icon : <MenuOrderIcon />,
 	} ,
 	{
-		key : 'payout ' ,
+		key : 'payout' ,
 		label : '代付管理' ,
 		icon : <MenuPayoutIcon />,
 	} ,
@@ -101,24 +114,8 @@ const menuItem = [
 		icon : <MenuUserIcon />,
 	} ,
 	{
-		key : 'api ' ,
+		key : 'api' ,
 		label : 'API文档' ,
 		icon : <MenuApiIcon />,
 	} ,
 ];
-
-import {reaxel_user_auth} from '@@reaxels';
-import {
-	MainContentRouting ,
-} from './Routing';
-import {
-	LayoutHeader ,
-} from './pages/--Components--/Layout-Header';
-import less from './styles/layout.module.less';
-import {
-	MenuApiIcon ,
-	MenuHomeIcon ,
-	MenuOrderIcon ,
-	MenuPayoutIcon ,
-	MenuUserIcon ,
-} from '@@SVGcomponents';
