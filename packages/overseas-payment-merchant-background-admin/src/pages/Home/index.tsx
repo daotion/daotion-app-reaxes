@@ -3,50 +3,63 @@ export const HomePage = reaxper(() =>{
 		<>
 			<Overview/>
 			<OrderTypeOverview/>
-			{/*<WithdrawWindow/>*/}
+			<WithdrawWindow/>
 		</>
 		
 	)
 })
 
-export const Overview = reaxper(() =>{
+export const Overview = reaxper(() => {
 	
-	const {Button} = antd
+	const { Button } = antd;
+	const { navigate } = toolkits.useRouter();
+	const reax_home = reaxel_home()
 	
-	return(
-		<div className={less.overviewContainer}>
-			<span className={less.overviewTitle}>
+	return (
+		<div className = { less.overviewContainer }>
+			<span className = { less.overviewTitle }>
 				资金总览
 			</span>
-			<div className={less.overviewContent}>
-				<div className={less.balanceContainer}>
-					<div className={less.balanceContent}>
-						<span className={less.overviewSubTitle}>
+			<div className = { less.overviewContent }>
+				<div className = { less.balanceContainer }>
+					<div className = { less.balanceContent }>
+						<span className = { less.overviewSubTitle }>
 							账户余额（R$）
 						</span>
-						<span className={less.balanceAmount}>
+						<span className = { less.balanceAmount }>
 							4,691,849,234.69
 						</span>
 					</div>
-					<span className={less.checkDetail}>
+					<Button
+						className = { less.checkDetail }
+						type = "link"
+						onClick = { () => {
+							navigate('financialDetail');
+						} }
+					>
 						查看明细
-					</span>
+					</Button>
 				</div>
-				<div className={less.withdrawContent}>
-					<span className={less.overviewSubTitle}>
+				<div className = { less.withdrawContent }>
+					<span className = { less.overviewSubTitle }>
 						提现处理中
 					</span>
-					<span className={less.withdrawingAmount}>
+					<span className = { less.withdrawingAmount }>
 						849,234.69
 					</span>
 				</div>
 			</div>
-			<Button type="primary">
+			<Button
+				type = "primary"
+				onClick = { () => {
+					reax_home.changeModalShow(true);
+				} }
+			>
 				提现
 			</Button>
 		</div>
-	)
-})
+	);
+});
 
 export const OrderTypeOverview = reaxper(() =>{
 	return(
@@ -221,28 +234,32 @@ export const OrderInfoListRow = reaxper((props) => {
 })
 
 export const WithdrawWindow = reaxper(() =>{
+	const reax_home = reaxel_home();
+	const { Button , Input , Modal } = antd;
 	
-	const {Button, Input} = antd
-	
-	return(
-		<div className={less.withdrawWindow}>
-			<span>
-				提现
-			</span>
-			<div className={less.windowContent}>
-				<div className={less.withdrawAmount}>
+	return (
+		<Modal
+			visible = { reax_home.withdrawModalShow }
+			footer = { null }
+			className = { less.withdrawWindow }
+			closable = { false }
+			width={380}
+			title='提现'
+		>
+			<div className = { less.windowContent }>
+				<div className = { less.withdrawAmount }>
 					<span>
 						提取金额
 					</span>
-					<Input/>
+					<Input />
 					<span>
 						最大可提现余额：R$372,654,004.76
-						<Button type="text">
+						<Button type = "text">
 							全部提现
 						</Button>
 					</span>
 				</div>
-				<div className={less.address}>
+				<div className = { less.address }>
 					<span>
 						接收USDT地址(TRC-20)
 					</span>
@@ -250,20 +267,31 @@ export const WithdrawWindow = reaxper(() =>{
 						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
 					</span>
 				</div>
-				<div className={less.btn}>
-					<Button type="primary">
+				<div className = { less.btn }>
+					<Button
+						type = "primary"
+						onClick={() => {
+							reax_home.changeModalShow(false)
+						}}
+					>
 						提交
 					</Button>
-					<Button>
+					<Button
+						onClick={() => {
+							reax_home.changeModalShow(false)
+						}}
+					>
 						取消
 					</Button>
 				</div>
 			</div>
-		</div>
-	)
+		</Modal>
+	
+	);
 })
 
 import less from './index.module.less'
+import { reaxel_home } from '@@reaxels/home/home'
 import {
 	HomePagePayinlogo,
 	HomePagePayoutLogo, 

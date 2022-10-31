@@ -10,7 +10,13 @@ export const Layout = reaxper(() => {
 	const routeName = {
 		'profile' : '用户信息' ,
 		'edit': '编辑信息',
-		'order': '订单数据'
+		'payOutOrder' : '代付订单',
+		'payInOrder' : '代收订单',
+		'payout' : '代付管理',
+		'home' : '主页',
+		'financialDetail' : '资金明细',
+		
+		
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);
@@ -35,16 +41,7 @@ export const Layout = reaxper(() => {
 					backgroundColor : '#ffffff' ,
 				} }
 			>
-				<Menu
-					style = { {
-						height : '100%' ,
-					} }
-					items = { menuItem }
-					onSelect = { ({key}) => {
-						// console.log(e.key);
-						navigate(`${key}`);
-					} }
-				/>
+				<LayoutMenu/>
 			</Sider>
 			<Content
 				className={less.contentWrap}
@@ -71,20 +68,61 @@ export const Layout = reaxper(() => {
 					<div className={less.contentComponents}>
 						<MainContentRouting />
 					</div>
-				
 				</div>
 			</Content>
 		</Layout>
-	
+		
 	</>;
-});
+} );
 
 
-import { Navigate } from 'react-router-dom';
-import { reaxel_user_auth } from '@@reaxels';
-import { MainContentRouting  } from './Routing';
-import { LayoutHeader  } from './pages/--Components--/Layout-Header';
-import less from './styles/layout.module.less';
+export const LayoutMenu = reaxper(() => {
+	const { Menu } = antd;
+	type MenuItem = Required<MenuProps>['items'][number];
+	const { navigate } = toolkits.useRouter()
+	
+	const getItem = (
+		label : React.ReactNode ,
+		key : React.Key | null ,
+		icon? : React.ReactNode ,
+		children? : MenuItem[] ,
+	) : MenuItem => (
+		{
+			key ,
+			label ,
+			icon ,
+			children,
+		} as MenuItem
+	);
+	const items : MenuItem[] = [
+		getItem('主页' , 'home' , <MenuHomeIcon />) ,
+		getItem('订单数据' , 'order' , <MenuOrderIcon /> , [ getItem('代收订单' , 'payInOrder') , getItem('代付订单' , 'payOutOrder') ], ) ,
+		getItem('代付管理' , 'payout' , <MenuPayoutIcon />) ,
+		getItem('商户信息' , 'profile' , <MenuUserIcon />) ,
+		getItem('API文档' , 'api' , <MenuApiIcon />),
+	];
+	return (
+		<Menu
+			style={{
+				height : '100%',
+			}}
+			items={items}
+			onSelect={(e) => {
+				navigate(e.key)
+			}}
+			mode='inline'
+			// openKeys={['order']}
+		/>
+	)
+})
+
+import {reaxel_user_auth} from '@@reaxels';
+import {
+	MainContentRouting ,
+} from './Routing';
+import {
+	LayoutHeader ,
+} from './pages/--Components--/Layout-Header';
 import {
 	MenuApiIcon ,
 	MenuHomeIcon ,
@@ -92,30 +130,6 @@ import {
 	MenuPayoutIcon ,
 	MenuUserIcon ,
 } from '@@SVGcomponents';
-const menuItem = [
-	{
-		key : 'home' ,
-		label : '主页' ,
-		icon : <MenuHomeIcon /> ,
-	} ,
-	{
-		key : 'order' ,
-		label : '订单数据' ,
-		icon : <MenuOrderIcon />,
-	} ,
-	{
-		key : 'payout' ,
-		label : '代付管理' ,
-		icon : <MenuPayoutIcon />,
-	} ,
-	{
-		key : 'profile' ,
-		label : '商户信息' ,
-		icon : <MenuUserIcon />,
-	} ,
-	{
-		key : 'api' ,
-		label : 'API文档' ,
-		icon : <MenuApiIcon />,
-	} ,
-];
+import { MenuProps } from "antd";
+import { Navigate } from 'react-router-dom';
+import less from './styles/layout.module.less';
