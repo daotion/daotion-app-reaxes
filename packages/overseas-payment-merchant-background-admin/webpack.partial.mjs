@@ -12,6 +12,7 @@ export const webpackConfig = {
 			'@@reaxels': path.resolve(repoRoot, 'src/reaxels'),
 			'@@utils': path.resolve(repoRoot, 'src/utils'),
 			'@@requester': path.resolve(repoRoot, 'src/requester'),
+			'@@requests': path.resolve(repoRoot, 'src/requests'),
 			'@@toolkits': path.resolve(repoRoot, 'src/toolkits'),
 			'@@public': path.resolve(repoRoot, 'public'),
 			'@@SVGcomponents': path.resolve(repoRoot, 'src/SVGcomponents'),

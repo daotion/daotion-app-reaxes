@@ -19,7 +19,7 @@ export const webpack_devserver_config = {
 		proxy : proxy_configuration.reduce((accu , config) => (accu[config.proxy_path_dev] = {
 			target : config.server_host ,
 			pathRewrite : config.path_rewrite ,
-			secure : config.secure , 
+			secure : config.secure ,
 		},accu) , {}),
 		
 	} ,

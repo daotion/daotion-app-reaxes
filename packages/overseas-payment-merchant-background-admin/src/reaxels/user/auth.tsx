@@ -1,77 +1,79 @@
+/**
+ * 
+ */
 
-export const reaxel_user_auth = function() {
+export const reaxel_user_auth = function(){
+	
 	let ret;
-	const { store , setState } = orzMobx({
-		pending: false,
-		isLoggedIn: false,
-	});
+	const __storage_key__auth/*用户登录的token*/ = `-mch-auth-token-`;
+	const initialState = {
+		pending : false ,
+		token : null ,
+		isLoggedIn : false ,
+	};
+	const { store , setState } = orzMobx(initialState);
+	const reax_storage = reaxel_storage();
 	// 登录方法
-	const fetchLogin = async (data: {
-		userName: string,
-		password: string
-	}) => {
-		const {userName = '', password = ''} = data
-		setState({
-			pending : true ,
-		});
-		return request_user_login( async () => {
-			return {
-				userName,
-				password: md5(password)
+	const fetchLogin = async (username:string,password:string) => {
+		try {
+			if(store.pending){
+				return ;
 			}
-		}).then((token) => {
-			// console.log('orzLocalstroage.set(\'token\', token)');
+			setState({ pending : true });
+			const { code } = await request_user_pre_login(async () => {
+				return { username };
+			});
+			const {token} = await request_user_login(async () => {
+				return { username , password:crypto.MD5(password).toString() ,code };
+			});
+			reax_storage.set(__storage_key__auth , token );
+			setState({ token , isLoggedIn : true , pending : false });
+			return store;
+		}catch ( e ) {
 			setState({
 				pending : false ,
-				isLoggedIn: true,
 			});
-		}).catch((e) => {
-			setState({
-				pending : false ,
-			});
-		}).finally(() => {
-			setState({
-				pending: false
-			})
-		})
-	}
-
-
-	return () => {
-		return ret = {
-			get pending() {
-				return store.pending
-			},
-			get isLoggedIn () {
-				// if (orzLocalstroage.get('token')) {
-				// 	setState({
-				// 		isLoggedIn: true
-				// 	})
-				// } else {
-				// 	setState({
-				// 		isLoggedIn: false
-				// 	})
-				// }
-				return store.isLoggedIn
-			},
-			login(data){
-				fetchLogin(data);
-			},
-			// logout(){
-			// 	setState({
-			// 		pending : false ,
-			// 		isLoggedIn : false ,
-			// 	});
-			// 	// console.log('orzLocalstroage.remove(\'token\');');
-			// },
-			
-			
-			
-			
+			throw e;
 		}
+	};
+	
+	const clearAuthStorage = () => {
+		reax_storage.remove(__storage_key__auth);
+		crayon.orange(`auth has been cleared`);
 	}
-}()
+	
+	{
+		const token = reax_storage.get(__storage_key__auth);
+		console.log(token);
+		if(token && token.length > 8){
+			setState({ token , isLoggedIn : true });
+		}
+	};
+	
+	return () => {
+		
+		return ret = {
+			get pending(){
+				return store.pending;
+			} ,
+			get isLoggedIn(){
+				return store.isLoggedIn;
+			} ,
+			get login(){
+				return fetchLogin;
+			} ,
+			logout(){
+				clearAuthStorage();
+				setState(initialState);
+			},
+		};
+	};
+}();
 
-// import { orzLocalstroage } from '@@common/storages';
-import { request_user_login }from '@@requester'
-import md5 from 'crypto-js/md5'
+
+import {
+	request_user_login ,
+	request_user_pre_login,
+} from '@@requests';
+import { reaxel_storage } from '#reaxels';
+import crypto from 'crypto-js';

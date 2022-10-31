@@ -1,57 +1,72 @@
+
 export const UserInfo = reaxper(() =>{
-	return(
-		<div className={less.userSetting}>
-			<Menu/>
-			<div className={less.userSettingContent}>
-				<ResetPassword/>
+	const { currentTab } = reaxel_user_info()
+	
+	return (
+		<div className = { less.userSetting }>
+			<Menu />
+			<div className = { less.userSettingContent }>
+				{ currentTab === 'modifyPassword' && <ResetPassword /> }
+				{ currentTab === 'userInfo' && <UserBaseInfo /> }
+				{ currentTab === 'api' && <UserApi /> }
 			</div>
 		</div>
-	)
+	);
 })
 
 export const Menu = reaxper(() =>{
-	
-	const {Menu} = antd
-	
-	type MenuItem = Required<MenuProps>['items'][number]
-	
+	const { Menu } = antd;
+	type MenuItem = Required<MenuProps>['items'][number];
+	const { currentTab , changeTab } = reaxel_user_info();
 	function getItem(
 		label: React.ReactNode,
 		key?: React.Key | null,
-		icon?: React.ReactNode,
-		children?: MenuItem[],
 	): MenuItem {
 		return {
 			key ,
-			icon ,
-			children ,
 			label ,
 		} as unknown as MenuItem;
 	}
-	
-	const [mode, setMode] = useState<'vertical' | 'inline'>('inline');
-	
 	const items: MenuItem[] = [
-		getItem('基本信息', '1'),
-		getItem('修改密码', '2'),
-		getItem('API对接', '3'),
+		getItem('基本信息', 'userInfo'),
+		getItem('修改密码', 'modifyPassword'),
+		getItem('API对接', 'api'),
 	] 
 	
 	return(
 		<Menu
 			style={{width: 208}}
-			defaultSelectedKeys={['1']}
-			defaultOpenKeys={['1']}
-			mode={mode}
+			defaultSelectedKeys={[currentTab]}
+			selectedKeys={[currentTab]}
+			onSelect={(e) => {
+				changeTab(e.key)
+			}}
 			items={items}
 		/>
 	)
 })
 
 export const ResetPassword = reaxper(() =>{
-	
-	const {Input, Button} = antd
-	
+	const { navigate } = toolkits.useRouter();
+	const { Input , Button } = antd;
+	const { modifyPassword , onModifyInput , inputSet } = reaxel_edit_info();
+	const inputs = [
+		{
+			key : 'oldPassword' ,
+			name : '旧密码' ,
+			
+		},
+		{
+			key : 'newPassword' ,
+			name : '新密码' ,
+			
+		},
+		{
+			key : 'checkPassword' ,
+			name : '再次输入密码' ,
+			
+		},
+	];
 	return(
 		<div className={less.resetPasswordContainer}>
 			<div className={less.resetTitle}>
@@ -63,78 +78,151 @@ export const ResetPassword = reaxper(() =>{
 				</span>
 			</div>
 			
-			<div className={less.formContainer}>
-				<span className={less.formTitle}>
-					旧密码
-				</span>
-				<Input/>
-			</div>
-			
-			<div className={less.formContainer}>
-				<span className={less.formTitle}>
-					新密码
-				</span>
-				
-				<Input/>
-			</div>
-			
-			<div className={less.formContainer}>
-				<span className={less.formTitle}>
-					再次输入密码
-				</span>
-				<Input/>
-			</div>
-			
-			<Button type="primary">
+			{inputs.map((i) => {
+				const { key, name } = i
+				return (
+					<div className={less.formContainer} key={key}>
+						<span className={less.formTitle}>
+							{name}
+						</span>
+						<Input
+							value={inputSet[key].value}
+							status={inputSet[key].check}
+							onChange={(e) => {
+								onModifyInput(key, e.target.value)
+							}}
+							type='password'
+						/>
+					</div>
+				)
+			})}
+			<Button
+				type="primary"
+				onClick={() => {
+					modifyPassword(() => {
+						navigate('/Login')
+					})
+				}}
+			>
 				修改密码
 			</Button>
 		</div>
-		
 	)
 })
 
+export const UserBaseInfo = reaxper(() => {
+	const { userInfo } = reaxel_user_info();
+	const {
+		id = '' ,
+		name = '' ,
+		contactPerson = '' ,
+		contactPhone = '' ,
+		payInFeeRate = 0 ,
+		payInFeeFix = 0 ,
+		payOutFeeRate = 0 ,
+		payOutFeeFix = 0 ,
+	} = userInfo;
+	const { Space, Col, Row } = antd;
+	return (
+		<div className={less.baseInfo}>
+			<div className={less.infoItem} style={{marginTop: 0}}>
+				<Col span={3}>商户ID：</Col>
+				<Col>{id}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>商户名称：</Col>
+				<Col>{name}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>联系人：</Col>
+				<Col>{contactPerson}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>Telegra：</Col>
+				<Col>{contactPhone}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代收手续费率：</Col>
+				<Col>{payInFeeRate}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代收单笔固定手续费：</Col>
+				<Col>{payInFeeFix}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代付手续费率：</Col>
+				<Col>{payOutFeeRate}</Col>
+			</div>
+			<div className={less.infoItem}>
+				<Col span={3}>代付单笔固定手续费：</Col>
+				<Col>{payOutFeeFix}</Col>
+			</div>
+		</div>
+	)
+})
 
+export const UserApi = reaxper(() => {
+	const { Space, Col, Row, Button } = antd;
+	const { apiConfig } = reaxel_user_info();
+	const {
+		mchKey = '' ,
+		platformIPS = '' ,
+		payInCallback = '' ,
+		payOutCallback = '' ,
+		payOutWhitelist = [] ,
+		withdrawAdd = '' ,
+	} = apiConfig;
+	return (
+		<div className = { less.baseInfo }>
+			<div
+				className = { less.infoItem }
+				style = { { marginTop : 0 } }
+			>
+				<Col span = { 6 }>商户Key：</Col>
+				<Col>{ mchKey }</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>平台IP：</Col>
+				<Col>{ platformIPS }</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>代收回调url：</Col>
+				<Col span = { 6 }>{ payInCallback }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>代付回调url：</Col>
+				<Col span = { 6 }>{ payOutCallback }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>
+					<p>代付白名单IP：</p>
+					<p className={less.declare}>如果有设置，平台只接收来自白名单ip地址的代付请求。</p>
+				</Col>
+				<Col span = { 6 }>{ payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+			<div className = { less.infoItem }>
+				<Col span = { 6 }>提现地址(TRC-20)：</Col>
+				<Col span = { 6 }>{ withdrawAdd }</Col>
+				<Col>
+					<Button type="link">设置</Button>
+				</Col>
+			</div>
+		</div>
+	);
+});
 
-
-
-// export const XTable = reaxper(() =>{
-//	
-
-// 	return(
-// 		<div className={less.tableContainer}>
-//			
-//			
-// 			<div className={less.searchContainer}>
-// 				<QueryFilter  
-// 					span={8}
-// 					>
-// 					<ProFormText placeholder={'搜索'}/>
-// 					<ProFormDatePicker placeholder={'订单创建时间/*时间区间'} />
-// 					<ProFormDatePicker placeholder={'订单更新时间/*时间区间/'}/>
-// 					<ProFormSelect placeholder={'订单类型'}/>
-// 					<ProFormSelect placeholder={'订单状态'}/>
-// 				</QueryFilter>
-// 			</div>
-//			
-// 			<Table 
-// 				columns={columns} 
-// 				dataSource={data}
-// 				size="small"
-// 				pagination={{
-// 					pageSize: 10
-// 				}}
-// 				scroll={{ 
-// 					x:1000
-// 				}}
-// 			/>
-// 		</div>
-// 	)
-// })
- 
-
-import MenuItem from "antd/es/menu/MenuItem";
-import type { ColumnsType } from "antd/es/table";
-import React from "react";
 import less from './index.module.less'
-import { render } from "react-dom";
-import { MenuProps } from "antd";
+import {  reaxel_user_info, reaxel_edit_info } from '@@reaxels'
+import {
+	Button ,
+	MenuProps,
+} from "antd";

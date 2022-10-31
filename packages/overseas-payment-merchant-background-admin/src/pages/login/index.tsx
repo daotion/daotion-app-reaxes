@@ -1,74 +1,91 @@
-export const Login = reaxper(() =>{
-	return(
-		<div className={less.loginWrapper} style={{
-			backgroundImage: `url(${login_backgound_image})`
-		}}>
-			<div className={less.loginContent}>
-				<div className={less.loginTitle}>
-					<LoginLogo/>
-				</div>
-				<SignInForm/>
-			</div>
-		</div>
-	)
-})
+import { Navigate } from "react-router-dom";
 
-
-export const SignInForm = reaxper(() =>{
-	// const {
-	// 	navigate,
-	// } = toolkits.useRouter();
-	const { Input, Button } = antd;
-	const { loginAction, store, loginInput } = reaxel_user_login()
-	const { loginData: {userName = '', password = ''} } = store;
+export const Login = reaxper(() => {
+	
+	const { isLoggedIn } = reaxel_user_auth();
+	if(isLoggedIn){	
+		return <Navigate to = "/home" />;
+	}
+	
 	return (
-		<div className = { less.signInFormWrapper }>
-			<h2 className = { less.formTitle }>
-				Login to your acount
-			</h2>
-			<div className = { less.inputSection }>
-				<div className = { less.accountInput }>
-					<span className = { less.accountInputTitle }>
-						账号
-					</span>
-					<Input
-						value = { userName }
-						onChange = { (e) => {
-							loginInput('userName' , e.target.value);
-						} }
-					/>
+		<div
+			className = { less.loginWrapper }
+			style = { {
+				backgroundImage : `url(${ img_login_background })` ,
+			} }
+		>
+			<div className = { less.loginContent }>
+				<div className = { less.loginTitle }>
+					<LoginLogo />
 				</div>
-				<div className = { less.passwordInput }>
-					<span className = { less.passwordInputTitle }>
-						密码
-					</span>
-					<Input
-						type = { 'password' }
-						value = { password }
-						onChange={(e) => {
-							loginInput('password' , e.target.value);
-						}}
-					/>
-				</div>
+				<SignInForm />
 			</div>
-			<Button
-				type = "primary"
-				onClick={() => {
-					loginAction(() => {
-						// navigate('/home')
-						console.log('login success and navigate');
-					})
-				}}
-			>
-				登录
-			</Button>
 		</div>
 	);
-})
+});
 
-import less from './index.module.less'
+export const SignInForm = reaxper(() => {
+	const {
+		navigate,
+	} = toolkits.useRouter();
+	const { Input , Button } = antd;
+	const { login , store , setFields } = reaxel_user_login();
+	const { input_username , input_password } = store;
+	return (
+		<form onSubmit={(e) => {
+			e.preventDefault();
+		}}>
+			<div className = { less.signInFormWrapper }>
+				<h2 className = { less.formTitle }>Login to your acount</h2>
+				<div className = { less.inputSection }>
+					<div className = { less.accountInput }>
+						<p className = { less.accountInputTitle }>账号</p>
+						<Input
+							name = "username"
+							value = { input_username }
+							onChange = { (e) => {
+								setFields({ input_username : e.target.value });
+							} }
+						/>
+					</div>
+					<div className = { less.passwordInput }>
+						<p className = { less.passwordInputTitle }>密码</p>
+						<Input
+							name = "password"
+							type = { 'password' }
+							value = { input_password }
+							onChange = { (e) => {
+								setFields({ input_password : e.target.value });
+							} }
+						/>
+					</div>
+				</div>
+				
+				<Button
+					type = "primary"
+					htmlType="submit"
+					onClick = { () => {
+						login().then(() => {
+							navigate('/home');
+						}).catch((e) => {
+							antd.Modal.error({
+								title : "用户名或密码错误,请检查" ,
+								content : e.message,
+							});
+						})
+					} }
+				>
+					登录
+				</Button>
+			</div>
+		</form>
+	);
+});
+
+import less from './index.module.less';
+import { LoginLogo } from '@@SVGcomponents';
+import img_login_background from '@@public/statics/login-background.png';
 import {
-	LoginLogo,
-} from '@@SVGcomponents';
-import { reaxel_user_login } from '@@reaxels';
-import login_backgound_image from '@@public/statics/login-background.png'
+	reaxel_user_login ,
+	reaxel_user_auth,
+} from '@@reaxels';

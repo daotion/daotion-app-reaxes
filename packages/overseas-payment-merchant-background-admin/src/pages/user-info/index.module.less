@@ -10,7 +10,7 @@
 .user-setting-content{
 	display: flex;
 	flex-direction: column;
-	width: fit-content;
+	width: 100%;
 	margin-left: 24px;
 	background-color: #FFFF;
 }
@@ -27,7 +27,6 @@
 			height: 48px;
 			background: rgba(22, 22, 26, 0.04);
 			border-radius: 16px;
-			border: unset;
 		}
 		
 		.ant-btn{
@@ -72,6 +71,24 @@
 	margin-bottom: 8px;
 }
 
-
-
-
+.base-info {
+	.info-item {
+		display: flex;
+		margin: 24px 0;
+		align-items: baseline;
+	
+		p {
+			margin: 0;
+		}
+		.declare {
+			font-size: 12px;
+			font-weight: 400;
+		}
+		
+		:first-child {
+			font-weight: 500;
+			font-size: 14px;
+		}
+	}
+	
+}

@@ -1,36 +1,34 @@
-export const reaxel_user_login = function(){
+export const reaxel_user_login = (function () {
 	let ret;
-	const { store, setState } = orzMobx({
-		loginData: {
-			userName: '',
-			password: ''
-		}
-	})
+	const initialState = {
+		input_username : '' ,
+		input_password : '' ,
+	};
+	const { store , setState } = orzMobx(initialState);
+	const reax_user_auth = reaxel_user_auth();
+	
 	return () => {
-		const reax_user_auth = reaxel_user_auth();
-		console.log(reax_user_auth);
-		const { login } = reax_user_auth
-		return ret = {
-			get store () {
-				return store
-			},
-			loginInput (key: string, value: string) {
-				console.log('INPUTING:',key, value);
-				setState({
-					loginData: {
-						...store.loginData,
-						[key]: value
-					}
-					
-				})
-			},
-			loginAction (callback?: () => void) {
-				login(store.loginData)
-				callback()
+		return (
+			ret = {
+				get store(){
+					return store;
+				} ,
+				get setFields(){
+					return setState;
+				} ,
+				/*用户点击登录*/
+				login(){
+					return reax_user_auth.login(
+						store.input_username ,
+						store.input_password,
+					).then((data) => {
+						setState(initialState);
+						return data;
+					})
+				} ,
 			}
-			
-		}
-	}
-}();
+		);
+	};
+})();
 
-import { reaxel_user_auth } from '@@reaxels'
+import { reaxel_user_auth } from '@@reaxels/user/auth';
