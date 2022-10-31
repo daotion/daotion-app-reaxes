@@ -91,7 +91,7 @@ import { Login } from '@@pages/Login';
 import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Home';
 import { FinancialDetails } from '@@pages/Home/financial-details'
-import { CollectionOrder } from '@@pages/Order-Info';
+import { CollectionOrder } from '@@pages/order-info';
 import { PayoutManagement } from '@@pages/Payout';
 import { Layout } from './Layout';
 import {
