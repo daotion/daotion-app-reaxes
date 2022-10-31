@@ -106,9 +106,9 @@ export const ResetPwd = reaxper(() =>{
 })
 
 export const ProfileInfo = reaxper(() => {
-	const { userInfo } = reaxel_user_info();
+	const reax_user_info = reaxel_user_info();
 	const {
-		id = '' ,
+		mchNo = '' ,
 		name = '' ,
 		contactPerson = '' ,
 		contactPhone = '' ,
@@ -116,13 +116,13 @@ export const ProfileInfo = reaxper(() => {
 		payInFeeFix = 0 ,
 		payOutFeeRate = 0 ,
 		payOutFeeFix = 0 ,
-	} = userInfo;
+	} = reax_user_info.userInfo || {};
 	const { Space, Col, Row } = antd;
 	return (
 		<div className={less.baseInfo}>
 			<div className={less.infoItem} style={{marginTop: 0}}>
 				<Col span={3}>商户ID：</Col>
-				<Col>{id}</Col>
+				<Col>{mchNo}</Col>
 			</div>
 			<div className={less.infoItem}>
 				<Col span={3}>商户名称：</Col>
@@ -133,7 +133,7 @@ export const ProfileInfo = reaxper(() => {
 				<Col>{contactPerson}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>Telegra：</Col>
+				<Col span={3}>Telegram：</Col>
 				<Col>{contactPhone}</Col>
 			</div>
 			<div className={less.infoItem}>
@@ -157,8 +157,12 @@ export const ProfileInfo = reaxper(() => {
 })
 
 export const ProfileApi = reaxper(() => {
+	const badge = useRef(Math.random())
 	const { Space, Col, Row, Button } = antd;
-	const { apiConfig } = reaxel_user_info();
+	const reax_user_info = reaxel_user_info();
+	
+	reax_user_info.closuredFetchApiConfig(badge);
+	
 	const {
 		mchKey = '' ,
 		platformIPS = '' ,
@@ -166,7 +170,7 @@ export const ProfileApi = reaxper(() => {
 		payOutCallback = '' ,
 		payOutWhitelist = [] ,
 		withdrawAdd = '' ,
-	} = apiConfig;
+	} = reax_user_info.apiConfig;
 	return (
 		<div className = { less.baseInfo }>
 			<div

@@ -291,7 +291,7 @@ export const WithdrawWindow = reaxper(() =>{
 })
 
 import less from './index.module.less'
-import { reaxel_home } from '@@reaxels/home/home'
+import { reaxel_home } from '@@reaxels/overview/overview'
 import {
 	HomePagePayinlogo,
 	HomePagePayoutLogo, 

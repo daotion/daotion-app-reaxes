@@ -15,8 +15,6 @@ export const Layout = reaxper(() => {
 		'payout' : '代付管理',
 		'home' : '主页',
 		'financialDetail' : '资金明细',
-		
-		
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);
@@ -47,7 +45,7 @@ export const Layout = reaxper(() => {
 				className={less.contentWrap}
 			>
 				{ !(
-					pathname === '/home' || pathname === '/profile'
+					pathname === '/home' || pathname === '/profile/*'
 				) &&
 					<Space
 					direction = "vertical"

@@ -46,7 +46,7 @@ export const MainContentRouting = reaxper(() => {
 			</Route>
 			
 			{/*<Route*/}
-			{/*	path = "home/*"*/}
+			{/*	path = "overview/*"*/}
 			{/*>*/}
 			{/*	*/}
 			{/*</Route>*/}
