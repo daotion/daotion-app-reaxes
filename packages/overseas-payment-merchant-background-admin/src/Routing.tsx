@@ -1,5 +1,3 @@
-
-
 export const Routing = reaxper((props) => {
 	
 	return <BrowserRouter>
@@ -55,6 +53,10 @@ export const MainContentRouting = reaxper(() => {
 			/>
 			<Route
 				path = "payOutOrder"
+				element = { toolkits.withOutlet(<CollectionOrder />) }
+			/>
+			<Route
+				path = "withDrawOrder"
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
