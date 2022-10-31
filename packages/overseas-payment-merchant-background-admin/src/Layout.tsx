@@ -1,5 +1,4 @@
-import { MenuProps } from "antd";
-import {useNavigate , Navigate} from 'react-router-dom';
+
 export const Layout = reaxper(() => {
 	const { isLoggedIn } = reaxel_user_auth();
 	const { navigate , location } = toolkits.useRouter();
@@ -13,7 +12,6 @@ export const Layout = reaxper(() => {
 		'edit': '编辑信息',
 		'payOutOrder' : '代付订单',
 		'payInOrder' : '代收订单',
-		'withDrawOrder' : '提现订单',
 		'payout' : '代付管理',
 		'home' : '主页',
 		'financialDetail' : '资金明细',
@@ -33,8 +31,6 @@ export const Layout = reaxper(() => {
 	const breadcrumbArr = breadcrumb();
 	const { Layout , Menu , Breadcrumb , Space } = antd;
 	const { Header , Sider , Content } = Layout;
-	
-	
 	return <>
 		<Layout>
 			<LayoutHeader />
@@ -58,7 +54,7 @@ export const Layout = reaxper(() => {
 						className={less.contentSpace}
 						
 				>
-					<Breadcrumb className={less.breadcrumb}>
+					<Breadcrumb>
 						{ breadcrumbArr.map((i) => (
 							<Breadcrumb.Item key = { i.key }>
 								{ i.name }
@@ -66,9 +62,7 @@ export const Layout = reaxper(() => {
 						)) }
 					
 					</Breadcrumb>
-					<h2 className={less.pageTitle}>
-						{ breadcrumbArr[breadcrumbArr.length - 1].name }
-					</h2>
+					<h2>{ breadcrumbArr[breadcrumbArr.length - 1].name }</h2>
 				</Space> }
 				<div className={less.contentGrayBg}>
 					<div className={less.contentComponents}>
@@ -77,7 +71,7 @@ export const Layout = reaxper(() => {
 				</div>
 			</Content>
 		</Layout>
-	
+		
 	</>;
 } );
 
@@ -102,25 +96,23 @@ export const LayoutMenu = reaxper(() => {
 	);
 	const items : MenuItem[] = [
 		getItem('主页' , 'home' , <MenuHomeIcon />) ,
-		getItem('订单数据' , 'order' , <MenuOrderIcon /> , [ getItem('代收订单' , 'payInOrder') , getItem('代付订单' , 'payOutOrder') , getItem('提现订单', 'withDrawOrder') ], ) ,
+		getItem('订单数据' , 'order' , <MenuOrderIcon /> , [ getItem('代收订单' , 'payInOrder') , getItem('代付订单' , 'payOutOrder') ], ) ,
 		getItem('代付管理' , 'payout' , <MenuPayoutIcon />) ,
 		getItem('商户信息' , 'profile' , <MenuUserIcon />) ,
 		getItem('API文档' , 'api' , <MenuApiIcon />),
 	];
 	return (
-		<div className={less.siderMenuContainer}>
-			<Menu
-				style={{
-					height : '100%',
-				}}
-				items={items}
-				onSelect={(e) => {
-					navigate(e.key)
-				}}
-				mode='inline'
-				// openKeys={['order']}
-			/>
-		</div>
+		<Menu
+			style={{
+				height : '100%',
+			}}
+			items={items}
+			onSelect={(e) => {
+				navigate(e.key)
+			}}
+			mode='inline'
+			// openKeys={['order']}
+		/>
 	)
 })
 
@@ -131,7 +123,6 @@ import {
 import {
 	LayoutHeader ,
 } from './pages/--Components--/Layout-Header';
-import less from './styles/layout.module.less';
 import {
 	MenuApiIcon ,
 	MenuHomeIcon ,
@@ -139,4 +130,6 @@ import {
 	MenuPayoutIcon ,
 	MenuUserIcon ,
 } from '@@SVGcomponents';
-import React from "react";
+import { MenuProps } from "antd";
+import { Navigate } from 'react-router-dom';
+import less from './styles/layout.module.less';
