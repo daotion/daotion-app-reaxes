@@ -1,28 +1,33 @@
 export const reaxel_user_login = (function () {
 	let ret;
-	const { store, setState } = orzMobx({
-		input_username : '',
-		input_password : '',
-	});
+	const initialState = {
+		input_username : '' ,
+		input_password : '' ,
+	};
+	const { store , setState } = orzMobx(initialState);
 	const reax_user_auth = reaxel_user_auth();
-
+	
 	return () => {
-		return (ret = {
-			get store() {
-				return store;
-			},
-			setFields(partialState){
-				setState(partialState);
-			},
-			loginAction(callback?: () => void) {
-				reax_user_auth.login({
-					userName : store.input_username ,
-					password: store.input_password
-				}).then(() => {
-					callback();
-				});
-			},
-		});
+		return (
+			ret = {
+				get store(){
+					return store;
+				} ,
+				get setFields(){
+					return setState;
+				} ,
+				/*用户点击登录*/
+				login(){
+					return reax_user_auth.login(
+						store.input_username ,
+						store.input_password,
+					).then((data) => {
+						setState(initialState);
+						return data;
+					})
+				} ,
+			}
+		);
 	};
 })();
 

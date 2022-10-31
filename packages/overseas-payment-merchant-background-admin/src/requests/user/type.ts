@@ -39,7 +39,7 @@ export namespace User__info {
 	
 	export interface response {
 		data: {
-			id: string,
+			mchNo: string,
 			name: string,
 			contactPerson: string,
 			contactPhone: string,

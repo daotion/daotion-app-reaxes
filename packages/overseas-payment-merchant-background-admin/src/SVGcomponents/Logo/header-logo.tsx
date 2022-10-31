@@ -10,14 +10,14 @@ export const HeaderLogo = reaxper(() => {
 			<path d="M108.691 32C109.694 32 110.56 31.8587 111.289 31.5762C112.027 31.3027 112.656 30.847 113.176 30.209C113.695 29.5801 114.137 28.737 114.502 27.6797L119.724 12.6953H116.142L112.533 25L113.053 24.2891H112.328L112.848 25L109.238 12.6953H105.533L110.742 27.2012L110.537 27.7891C110.318 28.3997 110.017 28.8145 109.635 29.0332C109.252 29.2611 108.732 29.375 108.076 29.375C107.83 29.375 107.611 29.3613 107.42 29.334C107.228 29.3066 107.069 29.2839 106.941 29.2656V31.8496C107.151 31.8861 107.411 31.918 107.721 31.9453C108.04 31.9818 108.363 32 108.691 32Z" fill="white"/>
 			<defs>
 				<linearGradient id="paint0_linear_48_7084" x1="22.4019" y1="29.3893" x2="22.4857" y2="4.31908" gradientUnits="userSpaceOnUse">
-					<stop offset="0.01" stop-color="#644C9C"/>
-					<stop offset="0.49" stop-color="#46BEEE"/>
-					<stop offset="1" stop-color="#E0E889"/>
+					<stop offset="0.01" stopColor="#644C9C"/>
+					<stop offset="0.49" stopColor="#46BEEE"/>
+					<stop offset="1" stopColor="#E0E889"/>
 				</linearGradient>
 				<linearGradient id="paint1_linear_48_7084" x1="7.48566" y1="1.44986" x2="7.48566" y2="31.5347" gradientUnits="userSpaceOnUse">
-					<stop offset="0.01" stop-color="#644C9C"/>
-					<stop offset="0.49" stop-color="#46BEEE"/>
-					<stop offset="1" stop-color="#E0E889"/>
+					<stop offset="0.01" stopColor="#644C9C"/>
+					<stop offset="0.49" stopColor="#46BEEE"/>
+					<stop offset="1" stopColor="#E0E889"/>
 				</linearGradient>
 			</defs>
 		</svg>

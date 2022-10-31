@@ -6,10 +6,6 @@ export const asyncListRunner = async (list) => {
 	}
 }
 
-/*拼接url参数*/
-export const concatQS = (origin:string,payloads:object) => {
-	return origin + (origin.includes('?') ? '' : '?') + utils.encodeQueryString(payloads);
-}
 
 /**/
 export const urlToTarget = (url:string) => {

@@ -31,9 +31,10 @@
 		"allowSyntheticDefaultImports" : true ,
 		"paths" : {
 			"#requester" : [ "../requester" ] ,
+			"#requester/*" : [ "../requester/*" ] ,
 			"#reaxels" : [ "../reaxels" ] ,
 			"#reaxes" : [ "../reaxes" ] ,
-			"#toolkits" : [ "../toolkits" ] ,
+			"#toolkits/*" : [ "../toolkits/*" ] ,
 			"#utils" : [ "../utils" ] ,
 			"#statics" : [ "../../statics" ] ,
 			"@@declarations/*" : [ "src/declarations/*" ] ,

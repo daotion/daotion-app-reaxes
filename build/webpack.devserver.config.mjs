@@ -16,19 +16,11 @@ export const webpack_devserver_config = {
 		historyApiFallback : true ,
 		// clientLogLevel : "none",
 		// quiet : true,
-		proxy : {
-			...(proxy_configuration.reduce((accu , config) => (accu[config.proxy_path_dev] = {
-				target : config.server_host ,
-				pathRewrite : config.path_rewrite ,
-				secure : config.secure ,
-			},accu) , {})),
-			"/cors" : {
-				target: "/",
-				"path_rewrite" : {
-					"^/cors" : ""
-				}
-			}			
-		},
+		proxy : proxy_configuration.reduce((accu , config) => (accu[config.proxy_path_dev] = {
+			target : config.server_host ,
+			pathRewrite : config.path_rewrite ,
+			secure : config.secure ,
+		},accu) , {}),
 		
 	} ,
 	devtool : 'source-map' ,

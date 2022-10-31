@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import { App } from './App';
-import { Login } from "./pages/login";
+import { Login } from "./pages/Login";
 
 
 module?.hot?.accept?.(

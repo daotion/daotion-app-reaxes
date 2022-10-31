@@ -15,7 +15,7 @@ declare const Reaxes : typeof import('./packages/reaxes').Reaxes;
 
 declare namespace ORZ {
 	
-	export type env = "server_dev"|"server_yang" | "unset"  ;
+	export type env = "server_dev"|"server_yang" | "server_production" | "unset"  ;
 	
 	export type RequestOptions<body extends () => Promise<F> ,F = any> = Omit<RequestInit, 'body'> & {
 		env? : env,
