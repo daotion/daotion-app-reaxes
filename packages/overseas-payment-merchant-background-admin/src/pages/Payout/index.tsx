@@ -368,7 +368,6 @@ export const PayoutRequestTable = reaxper(() => {
 				bankAccount: '6225886221086049443',
 			},
 		]
-
 	
 	
 	return(
