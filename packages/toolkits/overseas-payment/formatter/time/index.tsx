@@ -5,7 +5,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 /**
- *
+ * 将时间格式化为巴西时区
  * @param {string} template 格式,见https://dayjs.gitee.io/docs/zh-CN/display/format
  * @return {string}
  */
