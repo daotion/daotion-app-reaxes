@@ -48,7 +48,7 @@
 .overview-sub-title{
 	font-weight: 500;
 	font-size: 14px;
-	line-height: 140%;
+	line-height: 1.4;
 	color: rgba(22, 22, 26, 0.6);
 }
 
@@ -95,6 +95,13 @@
 	border-radius: 8px;	
 }
 
+.order-type-title{
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 24px;
+	color: #16161A;
+}
+
 .payout-overview{
 	display: flex;
 	flex-direction: column;
@@ -133,6 +140,17 @@
 	padding: 0px;
 	gap: 4px;
 	width: 100%;
+	font-weight: 500;
+	font-size: 30px;
+	line-height: 42px;
+	color: #000000;
+}
+
+.total-amount-title{
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1.4;
+	color: rgba(22, 22, 26, 0.6);
 }
 
 .order-info{
@@ -169,13 +187,50 @@
 	padding: 0 0 24px 0;
 	width: 100%;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+	
+	.order-type{
+		//font-weight: 500;
+		//font-size: 16px;
+		//line-height: 140%;
+		//color: #16161A;
+	}
 }
 
-.row-left{
+.data-title{
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 1.4;
+	color: #16161A;
+}
+
+.rowLeft{
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 20px;
+	color: #16161A;
+}
+
+.row-right{
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 }
+
+.row-right-amount{
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 1.4;
+	color: #000000;
+}
+
+.row-right-order-amount{
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.4;
+	color: rgba(22, 22, 26, 0.8);
+}
+
 
 .withdraw-window:global(.ant-modal .ant-modal-content){
 	padding: 32px;

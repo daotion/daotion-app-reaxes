@@ -19,7 +19,9 @@ export const LayoutHeader = reaxper(() => {
 						overlay={<Menu
 							items={[
 								{
-									label : <span onClick = { () => {
+									label : <span 
+										className={less.resetPwd}
+										onClick = { () => {
 										navigate('/profile/reset-pwd');
 									} }>
 										<UserSelectModifyPwd />
@@ -28,7 +30,9 @@ export const LayoutHeader = reaxper(() => {
 									key : "change-pwd",
 								},
 								{
-									label : <span onClick = { () => {
+									label : <span 
+										className={less.logout}
+										onClick = { () => {
 										logout();
 									} }>
 										<UserSelectLogout />
@@ -40,9 +44,12 @@ export const LayoutHeader = reaxper(() => {
 						/>
 					}
 						
-					><a onClick={e => e.preventDefault()}>
+					><a 
+						className={less.userInfo}
+						onClick={e => e.preventDefault()}>
 						<ProfilePhoto />
 						Mozi
+						<DownOutlined />
 					</a></Dropdown>
 				</div>
 			</div>
@@ -61,4 +68,5 @@ import {
 import {
 	reaxel_user_info ,
 	reaxel_user_auth,
-} from '@@reaxels';
+} from '@@reaxels';import React from 'react';
+import {DownOutlined} from '@ant-design/icons'

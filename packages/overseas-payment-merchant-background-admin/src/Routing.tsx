@@ -1,5 +1,3 @@
-
-
 export const Routing = reaxper((props) => {
 	
 	return <BrowserRouter>
@@ -63,6 +61,10 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<OrderInfo />) }
 			/>
 			<Route
+				path = "withDrawOrder"
+				element = { toolkits.withOutlet(<OrderInfo />) }
+			/>
+			<Route
 				path = "payout"
 				element = { toolkits.withOutlet(<PayoutManagement />) }
 			/>
@@ -73,7 +75,7 @@ export const MainContentRouting = reaxper(() => {
 
 import { reaxel_user_auth } from '@@reaxels';
 import { Login } from '@@pages/Login';
-import { UserInfo } from '@@pages/User-Info';
+import { UserInfo } from '@@pages/Profile';
 import { HomePage} from '@@pages/Home';
 import { FinancialDetails } from '@@pages/Home/financial-details'
 import { OrderInfo } from '@@pages/Order-Info';
