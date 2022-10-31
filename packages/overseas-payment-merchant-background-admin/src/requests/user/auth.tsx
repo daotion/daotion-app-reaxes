@@ -14,11 +14,11 @@ export const request_user_pre_login = (
 export const request_user_login = (
 	payload: PayloadBody<User__login.payload>
 ) => {
-	return request.post(`/mch/login/`, {
-		body: payload,
+	return request.post(`/mch/login` , {
+		body : payload ,
 	}).then((res) => {
-		return res
-	})
+		return res;
+	});
 }
 
 

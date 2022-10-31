@@ -1,12 +1,13 @@
 
 export const reaxel_user_info = function(){
 	let ret;
-	const { store , setState } = orzMobx({
-		loading: false as {promise : Promise<any> } | false,
-		userInfo: null,
-		currentTab: 'userInfo',
-		apiConfig: null
-	});
+	const initalState = {
+		loading : false as { promise : Promise<any> } | false ,
+		userInfo : null ,
+		currentTab : 'userInfo' ,
+		apiConfig : null ,
+	};
+	const { store , setState } = orzMobx(initalState);
 
 	const reax_user_auth = reaxel_user_auth();
 
@@ -75,7 +76,7 @@ export const reaxel_user_info = function(){
 			getUserInfo();
 			getApiConfig();
 		} else {
-		
+			setState(initalState);
 		}
 	} , () => [ reax_user_auth.isLoggedIn ]);
 

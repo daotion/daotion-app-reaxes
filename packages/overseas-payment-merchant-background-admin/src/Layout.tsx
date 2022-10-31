@@ -72,7 +72,7 @@ export const Layout = reaxper(() => {
 				</div>
 			</Content>
 		</Layout>
-		
+	
 	</>;
 } );
 

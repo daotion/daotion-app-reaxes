@@ -20,10 +20,14 @@ export function AuthIntegratedPlugin (){
 							enumerable : true ,
 						});
 					};break;
+					case 50 : {
+						throw json;
+					};break;
 					case 401 : {
 						reax_auth.logout();
 						throw json.message;
 					};break;
+					default : throw json;
 				}
 			}catch ( e ) {
 				console.error(e);

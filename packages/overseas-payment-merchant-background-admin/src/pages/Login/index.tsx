@@ -1,4 +1,12 @@
+import { Navigate } from "react-router-dom";
+
 export const Login = reaxper(() => {
+	
+	const { isLoggedIn } = reaxel_user_auth();
+	if(isLoggedIn){	
+		return <Navigate to = "/home" />;
+	}
+	
 	return (
 		<div
 			className = { less.loginWrapper }
@@ -17,52 +25,67 @@ export const Login = reaxper(() => {
 });
 
 export const SignInForm = reaxper(() => {
-	// const {
-	// 	navigate,
-	// } = toolkits.useRouter();
+	const {
+		navigate,
+	} = toolkits.useRouter();
 	const { Input , Button } = antd;
-	const { loginAction , store , setFields } = reaxel_user_login();
+	const { login , store , setFields } = reaxel_user_login();
 	const { input_username , input_password } = store;
 	return (
-		<div className = { less.signInFormWrapper }>
-			<h2 className = { less.formTitle }>Login to your acount</h2>
-			<div className = { less.inputSection }>
-				<div className = { less.accountInput }>
-					<p className = { less.accountInputTitle }>账号</p>
-					<Input
-						value = { input_username }
-						onChange = { (e) => {
-							setFields({ input_username : e.target.value });
-						} }
-					/>
+		<form onSubmit={(e) => {
+			e.preventDefault();
+		}}>
+			<div className = { less.signInFormWrapper }>
+				<h2 className = { less.formTitle }>Login to your acount</h2>
+				<div className = { less.inputSection }>
+					<div className = { less.accountInput }>
+						<p className = { less.accountInputTitle }>账号</p>
+						<Input
+							name = "username"
+							value = { input_username }
+							onChange = { (e) => {
+								setFields({ input_username : e.target.value });
+							} }
+						/>
+					</div>
+					<div className = { less.passwordInput }>
+						<p className = { less.passwordInputTitle }>密码</p>
+						<Input
+							name = "password"
+							type = { 'password' }
+							value = { input_password }
+							onChange = { (e) => {
+								setFields({ input_password : e.target.value });
+							} }
+						/>
+					</div>
 				</div>
-				<div className = { less.passwordInput }>
-					<p className = { less.passwordInputTitle }>密码</p>
-					<Input
-						type = { 'password' }
-						value = { input_password }
-						onChange = { (e) => {
-							setFields({ input_password : e.target.value });
-						} }
-					/>
-				</div>
+				
+				<Button
+					type = "primary"
+					htmlType="submit"
+					onClick = { () => {
+						login().then(() => {
+							navigate('/home');
+						}).catch((e) => {
+							antd.Modal.error({
+								title : "用户名或密码错误,请检查" ,
+								content : e.message,
+							});
+						})
+					} }
+				>
+					登录
+				</Button>
 			</div>
-			<Button
-				type = "primary"
-				onClick = { () => {
-					loginAction(() => {
-						// navigate('/home')
-						console.log('Login success and navigate');
-					});
-				} }
-			>
-				登录
-			</Button>
-		</div>
+		</form>
 	);
 });
 
 import less from './index.module.less';
 import { LoginLogo } from '@@SVGcomponents';
 import img_login_background from '@@public/statics/login-background.png';
-import { reaxel_user_login } from '@@reaxels';
+import {
+	reaxel_user_login ,
+	reaxel_user_auth,
+} from '@@reaxels';
