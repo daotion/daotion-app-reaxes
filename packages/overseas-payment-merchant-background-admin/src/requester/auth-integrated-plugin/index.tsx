@@ -9,7 +9,7 @@ export function AuthIntegratedPlugin (){
 		hooks.onResolve(async (slot , url , options) => {
 			try {
 				const json = await slot.response.json();
-				const reax_auth = reaxel_auth();
+				const reax_auth = reaxel_user_auth();
 				switch(json.code){
 					case 0 : {
 						Object.defineProperty(slot , "response" , {
@@ -37,25 +37,5 @@ export function AuthIntegratedPlugin (){
 	}
 }
 
+import { reaxel_user_auth } from '@@reaxels';
 
-const reaxel_auth = function(){
-	const initialState = { token : null };
-	const { store , setState } = orzMobx(initialState);
-	const clearStorageToken = () => {
-		crayon.blue(`reaxel-auth has cleared storage`);
-	};
-	return () => {
-		return {
-			async login(){
-				
-			} ,
-			logout(){
-				clearStorageToken();
-				// location.href = `/login`;
-			} ,
-			get auth(){
-				return store.token;
-			} ,
-		};
-	};
-}();
