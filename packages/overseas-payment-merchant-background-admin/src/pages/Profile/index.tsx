@@ -159,9 +159,9 @@ export const ProfileInfo = reaxper(() => {
 export const ProfileApi = reaxper(() => {
 	const badge = useRef(Math.random())
 	const { Space, Col, Row, Button } = antd;
-	const reax_user_info = reaxel_user_info();
+	const {closuredFetchApiConfig,apiConfig} = reaxel_user_info();
 	
-	reax_user_info.closuredFetchApiConfig(badge);
+	closuredFetchApiConfig(badge.current);
 	
 	const {
 		mchKey = '' ,
@@ -170,7 +170,7 @@ export const ProfileApi = reaxper(() => {
 		payOutCallback = '' ,
 		payOutWhitelist = [] ,
 		withdrawAdd = '' ,
-	} = reax_user_info.apiConfig;
+	} = apiConfig;
 	return (
 		<div className = { less.baseInfo }>
 			<div
