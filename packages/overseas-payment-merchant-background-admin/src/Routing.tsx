@@ -7,7 +7,7 @@ import {
 import { Login } from '@@pages/login';
 import { UserInfo } from '@@pages/User-Info';
 import { HomePage } from '@@pages/home-page';
-import { OrderInfo } from '@@pages/order-info';
+import { OrderInfo } from '@@pages/Order-Info';
 import { PayoutManagement } from '@@pages/payout-management';
 import { Layout } from './Layout';
 
