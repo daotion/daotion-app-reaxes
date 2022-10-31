@@ -5,11 +5,17 @@
 export function AuthIntegratedPlugin (){
 	
 	return (hooks) => {
+		
+		hooks.onInvoke((slot , url , options) => {
+			const reax_auth = reaxel_user_auth();
+			slot.options.headers["Authorization"] = `token ${reax_auth.token}`;
+		});
 		/*fixme 先假设此插件一定在<AsyncReplayablePayloadPlugin>之后运行*/
 		hooks.onResolve(async (slot , url , options) => {
+			const reax_auth = reaxel_user_auth();
 			try {
 				const json = await slot.response.json();
-				const reax_auth = reaxel_user_auth();
+				
 				switch(json.code){
 					case 0 : {
 						Object.defineProperty(slot , "response" , {

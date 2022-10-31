@@ -53,6 +53,9 @@ export const reaxel_user_auth = function(){
 	return () => {
 		
 		return ret = {
+			get token (){
+				return store.token;
+			},
 			get pending(){
 				return store.pending;
 			} ,
