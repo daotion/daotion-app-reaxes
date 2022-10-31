@@ -52,7 +52,7 @@ export const MainContentRouting = reaxper(() => {
 			{/*</Route>*/}
 			<Route
 				path = "profile"
-				element = { toolkits.withOutlet(<UserInfo />) }
+				element = { toolkits.withOutlet(<Profile />) }
 			/>
 			<Route
 				path = "payInOrder"
@@ -70,10 +70,23 @@ export const MainContentRouting = reaxper(() => {
 	</Routes>;
 });
 
+export const ProfileRouting = reaxper(() => {
+	
+	return <Routes>
+		<Route
+			path="*"
+		>
+			<Route index element={<Navigate to="base-info"/>}/>
+			<Route path="base-info"/>
+			<Route path="reset-pwd"/>
+			<Route path="API"/>
+		</Route>
+	</Routes>
+})
 
 import { reaxel_user_auth } from '@@reaxels';
 import { Login } from '@@pages/Login';
-import { UserInfo } from '@@pages/User-Info';
+import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Home';
 import { FinancialDetails } from '@@pages/Home/financial-details'
 import { OrderInfo } from '@@pages/Order-Info';

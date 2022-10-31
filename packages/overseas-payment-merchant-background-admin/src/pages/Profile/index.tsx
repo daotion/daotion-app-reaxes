@@ -1,5 +1,5 @@
 
-export const UserInfo = reaxper(() =>{
+export const Profile = reaxper(() =>{
 	const { currentTab } = reaxel_user_info()
 	
 	return (
@@ -220,9 +220,14 @@ export const UserApi = reaxper(() => {
 	);
 });
 
-import less from './index.module.less'
-import {  reaxel_user_info, reaxel_edit_info } from '@@reaxels'
+
+import {
+	reaxel_user_info ,
+	reaxel_edit_info,
+} from '@@reaxels';
+import { time_localize_Brazil } from '#toolkits/overseas-payment';
 import {
 	Button ,
 	MenuProps,
 } from "antd";
+import less from './index.module.less';
