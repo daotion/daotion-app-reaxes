@@ -111,8 +111,8 @@ const items: MenuItem[] = [
 	getItem('订单数据', 'order', <MenuOrderIcon />, [
 		getItem('代收订单', 'payInOrder'),
 		getItem('代付订单', 'payOutOrder'),
+		getItem('提现订单', 'withDrawOrder'),
 	]),
-		getItem('订单数据' , 'order' , <MenuOrderIcon /> , [ getItem('代收订单' , 'payInOrder') , getItem('代付订单' , 'payOutOrder') , getItem('提现订单', 'withDrawOrder') ], ) ,
 	getItem('代付管理', 'payout', <MenuPayoutIcon />),
 	getItem('商户信息', 'profile', <MenuUserIcon />),
 	getItem('API文档', 'api', <MenuApiIcon />),
