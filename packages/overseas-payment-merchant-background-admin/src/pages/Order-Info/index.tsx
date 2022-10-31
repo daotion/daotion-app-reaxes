@@ -1,14 +1,12 @@
-
-export const OrderInfo = reaxper(() => {
-	return (
-		<>
-			<OrderInfoSearch />
-			<OrderInfoTable />
-			{/*<OrderProcess/>*/ }
-		
-		</>
-	);
+export const CollectionOrder = reaxper(() => {
+	const badge = useRef(Math.random());
+	
+	return <div>
+		<OrderInfoSearch />
+		<OrderInfoTable />
+	</div>
 });
+
 
 export const OrderInfoSearch = reaxper(() => {
 	

@@ -32,10 +32,6 @@ export const MainContentRouting = reaxper(() => {
 				element = { <Navigate to = { '/home' } /> }
 			/>
 			<Route
-				path = "order"
-				element = { toolkits.withOutlet(<OrderInfo />) }
-			/>
-			<Route
 				path = "home"
 				// element = { toolkits.withOutlet(<HomePage />) }
 			>
@@ -49,22 +45,17 @@ export const MainContentRouting = reaxper(() => {
 				/>
 			</Route>
 			
-			{/*<Route*/}
-			{/*	path = "home/*"*/}
-			{/*>*/}
-			{/*	*/}
-			{/*</Route>*/}
 			<Route
 				path = "profile/*"
 				element = { toolkits.withOutlet(<Profile />) }
 			/>
 			<Route
 				path = "payInOrder"
-				element = { toolkits.withOutlet(<OrderInfo />) }
+				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
 				path = "payOutOrder"
-				element = { toolkits.withOutlet(<OrderInfo />) }
+				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
 				path = "payout"
@@ -98,7 +89,7 @@ import { Login } from '@@pages/Login';
 import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Home';
 import { FinancialDetails } from '@@pages/Home/financial-details'
-import { OrderInfo } from '@@pages/Order-Info';
+import { CollectionOrder } from '@@pages/Order-Info';
 import { PayoutManagement } from '@@pages/Payout';
 import { Layout } from './Layout';
 import {
