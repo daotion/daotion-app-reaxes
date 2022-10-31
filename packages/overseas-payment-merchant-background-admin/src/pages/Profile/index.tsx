@@ -1,52 +1,47 @@
-
-export const Profile = reaxper(() =>{
-	const { currentTab } = reaxel_user_info()
+export const Profile = reaxper(() => {
 	
 	return (
 		<div className = { less.userSetting }>
 			<Menu />
 			<div className = { less.userSettingContent }>
-				{ currentTab === 'modifyPassword' && <ResetPassword /> }
-				{ currentTab === 'userInfo' && <UserBaseInfo /> }
-				{ currentTab === 'api' && <UserApi /> }
+				<ProfileRouting />
 			</div>
 		</div>
 	);
-})
+});
 
-export const Menu = reaxper(() =>{
-	const { Menu } = antd;
-	type MenuItem = Required<MenuProps>['items'][number];
-	const { currentTab , changeTab } = reaxel_user_info();
-	function getItem(
-		label: React.ReactNode,
-		key?: React.Key | null,
-	): MenuItem {
-		return {
-			key ,
-			label ,
-		} as unknown as MenuItem;
-	}
-	const items: MenuItem[] = [
-		getItem('基本信息', 'userInfo'),
-		getItem('修改密码', 'modifyPassword'),
-		getItem('API对接', 'api'),
-	] 
+const Menu = reaxper(() => {
 	
-	return(
+	const { navigate , params } = toolkits.useRouter();
+	
+	const { Menu } = antd;
+	return (
 		<Menu
-			style={{width: 208}}
-			defaultSelectedKeys={[currentTab]}
-			selectedKeys={[currentTab]}
-			onSelect={(e) => {
-				changeTab(e.key)
-			}}
-			items={items}
+			style = { { width : 208 } }
+			selectedKeys = {[params["*"]]}
+			onSelect = { (e) => {
+				navigate(e.key);
+			} }
+			items = { [
+				{
+					label : "基本信息" ,
+					key : "base-info" ,
+				},
+				{
+					label : "修改密码" ,
+					key : "reset-pwd" ,
+				},
+				{
+					label : "API对接" ,
+					key : "API" ,
+				},
+			] }
 		/>
-	)
-})
+	);
+	type MenuItem = Required<MenuProps>['items'][number];
+});
 
-export const ResetPassword = reaxper(() =>{
+export const ResetPwd = reaxper(() =>{
 	const { navigate } = toolkits.useRouter();
 	const { Input , Button } = antd;
 	const { modifyPassword , onModifyInput , inputSet } = reaxel_edit_info();
@@ -110,7 +105,7 @@ export const ResetPassword = reaxper(() =>{
 	)
 })
 
-export const UserBaseInfo = reaxper(() => {
+export const ProfileInfo = reaxper(() => {
 	const { userInfo } = reaxel_user_info();
 	const {
 		id = '' ,
@@ -161,7 +156,7 @@ export const UserBaseInfo = reaxper(() => {
 	)
 })
 
-export const UserApi = reaxper(() => {
+export const ProfileApi = reaxper(() => {
 	const { Space, Col, Row, Button } = antd;
 	const { apiConfig } = reaxel_user_info();
 	const {
@@ -226,6 +221,7 @@ import {
 	reaxel_edit_info,
 } from '@@reaxels';
 import { time_localize_Brazil } from '#toolkits/overseas-payment';
+import { ProfileRouting } from '@@pages/../Routing';
 import {
 	Button ,
 	MenuProps,
