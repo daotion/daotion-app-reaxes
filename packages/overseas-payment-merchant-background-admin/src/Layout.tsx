@@ -11,7 +11,13 @@ export const Layout = reaxper(() => {
 	const routeName = {
 		'profile' : '用户信息' ,
 		'edit': '编辑信息',
-		'order': '订单数据'
+		'payOutOrder' : '代付订单',
+		'payInOrder' : '代收订单',
+		'payout' : '代付管理',
+		'home' : '主页',
+		'financialDetail' : '资金明细',
+		
+		
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);

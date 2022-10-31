@@ -46,14 +46,33 @@ export const MainContentRouting = reaxper(() => {
 			/>
 			<Route
 				path = "home"
-				element = { toolkits.withOutlet(<HomePage />) }
-			/>
+				// element = { toolkits.withOutlet(<HomePage />) }
+			>
+				<Route
+					index
+					element = { toolkits.withOutlet(<HomePage />) }
+				/>
+				<Route
+					path = "financialDetail"
+					element = { toolkits.withOutlet(<FinancialDetails />) }
+				/>
+			</Route>
+			
+			{/*<Route*/}
+			{/*	path = "home/*"*/}
+			{/*>*/}
+			{/*	*/}
+			{/*</Route>*/}
 			<Route
 				path = "profile"
 				element = { toolkits.withOutlet(<UserInfo />) }
 			/>
 			<Route
-				path = "order"
+				path = "payInOrder"
+				element = { toolkits.withOutlet(<OrderInfo />) }
+			/>
+			<Route
+				path = "payOutOrder"
 				element = { toolkits.withOutlet(<OrderInfo />) }
 			/>
 			<Route
@@ -68,7 +87,8 @@ export const MainContentRouting = reaxper(() => {
 import { reaxel_user_auth } from '@@reaxels';
 import { Login } from '@@pages/Login';
 import { UserInfo } from '@@pages/User-Info';
-import { HomePage } from '@@pages/Home';
+import { HomePage} from '@@pages/Home';
+import { FinancialDetails } from '@@pages/Home/financial-details'
 import { OrderInfo } from '@@pages/Order-Info';
 import { PayoutManagement } from '@@pages/Payout';
 import { Layout } from './Layout';
