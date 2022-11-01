@@ -1,4 +1,5 @@
 export const Layout = reaxper(() => {
+
 	const { isLoggedIn } = reaxel_user_auth();
 	const { navigate, location } = toolkits.useRouter();
 
@@ -15,8 +16,6 @@ export const Layout = reaxper(() => {
 		'payout' : '代付管理',
 		'home' : '主页',
 		'financialDetail' : '资金明细',
-		
-		
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);
@@ -47,7 +46,7 @@ export const Layout = reaxper(() => {
 					<LayoutMenu />
 				</Sider>
 				<Content className={less.contentWrap}>
-					{!(pathname === '/home' || pathname === '/profile') && (
+					{!(pathname === '/home' || pathname === '/profile/*') && (
 						<Space direction="vertical" className={less.contentSpace}>
 							<Breadcrumb>
 								{breadcrumbArr.map((i) => (

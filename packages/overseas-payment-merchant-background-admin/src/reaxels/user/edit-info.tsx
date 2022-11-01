@@ -25,7 +25,9 @@ export const reaxel_edit_info = function(){
 			} ,
 			
 		},
-
+		currentTab : 'userInfo' ,
+		
+		
 		
 	})
 	// 修改密码方法
@@ -58,7 +60,14 @@ export const reaxel_edit_info = function(){
 			get inputSet(){
 				return store.inputSet
 			},
-			
+			get currentTab(){
+				return store.currentTab;
+			},
+			changeTab (tabValue: string) {
+				setState({
+					currentTab: tabValue
+				})
+			},
 			onModifyInput(key : string , value : string){
 				const {  inputSet } = store
 				setState({
