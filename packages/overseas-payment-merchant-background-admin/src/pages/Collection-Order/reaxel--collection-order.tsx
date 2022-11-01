@@ -6,6 +6,7 @@ export const reaxel_collection_order = function(){
 		range_picker_order_created_date : [] ,
 		range_picker_order_updated_date : [] ,
 		select_order_status : 0 ,
+		
 	};
 	const initialOrderList = {
 		/*表单数据*/
@@ -14,6 +15,10 @@ export const reaxel_collection_order = function(){
 	const { store : store$search , setState : setState$search } = orzMobx(initialSearch);
 	const { store : store$orderList , setState : setState$orderList } = orzMobx(initialOrderList);
 	
+	const {store, setState} = orzMobx({
+		processModalShow: false
+		
+	})
 	
 	const fetchCollectionOrder = async (path) => {
 		const fetchMap = {
@@ -69,6 +74,14 @@ export const reaxel_collection_order = function(){
 			reset(){
 				setState$search(initialSearch);
 			},
+			get processModalShow(){
+				return store.processModalShow;
+			},
+			changeModalShow(status: boolean){
+				setState({
+					processModalShow: status,
+				})
+			}
 		};
 	};
 }();
