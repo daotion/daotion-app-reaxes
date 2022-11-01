@@ -16,6 +16,7 @@
 		"parser": "babel"
 	},
 	"devDependencies": {
+		"@types/react": "^18.0.24",
 		"prettier": "2.7.1",
 		"webpack": "5.72.0"
 	},

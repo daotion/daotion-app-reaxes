@@ -19,95 +19,102 @@
  * Target是描述url的对象,包括了主机地址,路径名,协议类型
  */
 export const Requester = function (plugins) {
-	const slot = {
-		target: {
-			protocol:location.protocol,
-			host : location.host,
-			pathname:'',
-			hash: '',
-		},
-		queryObject : {},
-		options: {
-			credentials : 'include' ,
-			mode : 'cors' ,
-			method : "POST",
-			headers : {},
-		},
-		response:null,
-		async fetch(url,options){
-			slot.target = new URL(url,location.origin);
-			_.merge(slot.options,options);
-			await asyncListRunner(onInvokeStack.map((callback) => () => callback(slot,url,options) ));
-			try {
-				let remote = slot.target.href;
-				console.log(remote);
-				if( slot.options.method === "POST"){
-					slot.options.body = stringify(slot.options.body);
-				}else if(slot.options.method === "GET") {
-					slot.target.search = utils.encodeQueryString(slot.options.body);
-					slot.options = _.omit(slot.options , "body");
-					remote = slot.target.href;
+	const initializeSlot = () => {
+		const innerSlot = {
+			target : {
+				protocol : location.protocol ,
+				host : location.host ,
+				pathname : '' ,
+				hash : '' ,
+			} ,
+			queryObject : {} ,
+			options : {
+				credentials : 'include' ,
+				mode : 'cors' ,
+				method : "POST" ,
+				headers : {} ,
+			} ,
+			response : null ,
+			async fetch(slot,url , options){
+				slot.target = new URL(url , location.origin);
+				_.merge(slot.options , options);
+				await asyncListRunner(onInvokeStack.map((callback) => () => callback(slot , url , options)));
+				try {
+					let remote = slot.target.href;
+					if( slot.options.method === "POST" ) {
+						slot.options.body = stringify(slot.options.body);
+					} else if( slot.options.method === "GET" ) {
+						slot.target.search = utils.encodeQueryString(slot.options.body);
+						slot.options = _.omit(slot.options , "body");
+						remote = slot.target.href;
+					}
+					const response = (
+						await window.fetch(remote , slot.options)
+					).clone();
+					Object.defineProperty(slot , "response" , {
+						get(){
+							return response.clone();
+						} ,
+						configurable : true ,
+						enumerable : true ,
+					});
+					await asyncListRunner(onResolveStack.map((callback) => () => callback(slot , url , options)));
+					return slot.response;
+				} catch ( e ) {
+					console.error(e);
+					throw e;
 				}
-				const response = (await window.fetch(remote,slot.options)).clone();
-				Object.defineProperty(slot,"response",{
-					get(){
-						return response.clone();
-					},
-					configurable:true,
-					enumerable:true,
-				});
-				await asyncListRunner(onResolveStack.map((callback) => () => callback(slot , url , options)));
-				return slot.response;
-			}catch ( e ) {
-				console.error(e);
-				throw e;
-			}
-		},
-	} as any;
-	
-	const onInvokeStack = [];
-	const onErrorStack = [];
-	const onResolveStack = [];
-	const hooks = {
-		onInit(callback){
-			callback(slot);
-		} ,
-		onInvoke(callback) {
-			onInvokeStack.push(callback);
-		},
-		onResolve(callback){
-			onResolveStack.push(callback);
-		},
-		/**/
-		onError(callback){
-			onErrorStack.push(callback);
-		},
-		onFailed (){
-			
-		},
-		onFinished(){
-			
-		},
+			} ,
+		} as any;
+		
+		const onInvokeStack = [];
+		const onErrorStack = [];
+		const onResolveStack = [];
+		const hooks = {
+			onInit(callback){
+				callback(innerSlot);
+			} ,
+			onInvoke(callback) {
+				onInvokeStack.push(callback);
+			},
+			onResolve(callback){
+				onResolveStack.push(callback);
+			},
+			/**/
+			onError(callback){
+				onErrorStack.push(callback);
+			},
+			onFailed (){
+				
+			},
+			onFinished(){
+				
+			},
+		};
+		plugins.forEach((plugin) => {
+			plugin(hooks);
+		});
+		return innerSlot;
 	};
 	
-	plugins.forEach((plugin) => {
-		plugin(hooks);
-	});
-	
-	const requester = slot.fetch;
 	
 	Object.assign(this , {
-		fetch : requester ,
+		fetch (url , options){
+			const slot = initializeSlot();
+			return slot.fetch(slot , url , options);
+		} ,
 		post (url : string , options){
+			const slot = initializeSlot();
 			slot.options.method = "POST";
-			return requester(url , {
+			return slot.fetch(slot,url , {
 				...options ,
 				method : 'POST' ,
 			});
 		} ,
 		get (url : string , options){
+			const slot = initializeSlot();
 			slot.options.method = "GET";
-			return requester(url , {
+			return slot.fetch(slot,url , {
 				...options ,
 				method : 'GET' ,
 			});

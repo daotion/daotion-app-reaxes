@@ -38,7 +38,7 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(<HomePage />) }
 				/>
 				<Route
-					path = "financialDetail"
+					path = "fin-detail"
 					element = { toolkits.withOutlet(<FinancialDetails />) }
 				/>
 			</Route>
@@ -48,19 +48,19 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<Profile />) }
 			/>
 			<Route
-				path = "payInOrder"
+				path = "collection-order"
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
-				path = "payOutOrder"
+				path = "payment-order"
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
-				path = "withDrawOrder"
+				path = "withdrawal-order"
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
-				path = "payout"
+				path = "payout-mgnt"
 				element = { toolkits.withOutlet(<PayoutManagement />) }
 			/>
 		</Route>
