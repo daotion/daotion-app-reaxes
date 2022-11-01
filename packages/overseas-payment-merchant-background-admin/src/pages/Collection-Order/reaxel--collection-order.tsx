@@ -1,4 +1,5 @@
 export const reaxel_collection_order = function(){
+	let ret;
 	const initialSearch = {
 		/*以下是表单搜索区域*/
 		input_search_orderID : "",
@@ -14,8 +15,13 @@ export const reaxel_collection_order = function(){
 	const { store : store$orderList , setState : setState$orderList } = orzMobx(initialOrderList);
 	
 	
-	const fetchCollectionOrder = async () => {
-		return request_collection_order(async () => {
+	const fetchCollectionOrder = async (path) => {
+		const fetchMap = {
+			"collection-order" : request_collection_order,
+			"payment-order" : request_payment_order,
+			"withdrawal-order" : request_withdrawal_order,
+		};
+		return fetchMap[path](async () => {
 			return {
 				indexStart : 0,
 				count : 999999,
@@ -32,14 +38,22 @@ export const reaxel_collection_order = function(){
 		});
 	}
 	
-	const [closuredFetch , clearDeps] = Reaxes.closuredMemo(() => {
-		fetchCollectionOrder();
+	const [closuredFetch , clearDeps] = Reaxes.closuredMemo((path) => {
+		
+		fetchCollectionOrder(path);
 	} , () => []);
 	
 	
 	return () => {
 		
-		return {
+		return ret = {
+			get_enum_order_list_map(path){
+				return {
+					"collection-order" : enum_collection_order_status,
+					"payment-order" : enum_payment_order_status,
+					"withdrawal-order" : enum_withdrawal_order_status,
+				}[path];
+			},
 			get state$search(){
 				return store$search;
 			},
@@ -49,8 +63,8 @@ export const reaxel_collection_order = function(){
 			get setFields(){
 				return setState$search;
 			},
-			get fetchCollectionOrderList(){
-				return closuredFetch(() => [ store$search.input_search_orderID , store$search.select_order_status ]);
+			fetchCollectionOrderList(path){
+				return closuredFetch(() => [ store$search.input_search_orderID , store$search.select_order_status,path ])(path);
 			},
 			reset(){
 				setState$search(initialSearch);
@@ -61,6 +75,11 @@ export const reaxel_collection_order = function(){
 
 import {
 	request_collection_order ,
-	Order__collection_order,
+	Order__collection_order ,
+	request_payment_order ,
+	request_withdrawal_order,
 } from '@@requests';
 
+import enum_collection_order_status from '@@public/enums/colloection-order-status.json';
+import enum_payment_order_status from '@@public/enums/payment-order-status.json';
+import enum_withdrawal_order_status from '@@public/enums/withdrawal-order-status.json';
