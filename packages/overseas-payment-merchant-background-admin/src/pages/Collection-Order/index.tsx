@@ -1,3 +1,5 @@
+import { Col } from "antd";
+
 export const CollectionOrder = reaxper(() => {
 	const badge = useRef(Math.random());
 	const {params} = toolkits.useRouter();
@@ -9,6 +11,14 @@ export const CollectionOrder = reaxper(() => {
 		fetchCollectionOrderList ,
 		get_enum_order_list_map ,
 	} = reaxel_collection_order();
+	
+	/*切换路由时重置搜索条件*/
+	useLayoutEffect(() => {
+		reset();
+	} , [ params['*'] ]);
+	
+	fetchCollectionOrderList(params['*']);
+	
 	
 	/*切换路由时重置搜索条件*/
 	useLayoutEffect(() => {
@@ -258,6 +268,10 @@ export const OrderProcess = reaxper(() => {
 					title = { '已支付' }
 					description = { '2022-10-18 15:27' }
 				/>
+				{/*<Step*/}
+				{/*	title = { '支付失败' }*/}
+				{/*	description = { '2022-10-18 15:27' }*/}
+				{/*/>*/}
 			</Steps>
 		</Modal>
 	);

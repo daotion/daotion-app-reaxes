@@ -16,6 +16,7 @@ export const Layout = reaxper(() => {
 		'payment-mgnt' : '代付管理',
 		'overview' : '主页',
 		'fin-detail' : '资金明细',
+		'addPayout' : '新增代付',
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);
