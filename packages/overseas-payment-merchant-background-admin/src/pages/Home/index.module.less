@@ -257,11 +257,17 @@
 }
 
 .withdraw-amount{
+	display: flex;
+	flex-direction: column;
 	gap: 8px;
-	:global{
-		.ant-btn{
-			color: #0070F3;
-		}
+	
+	.withdraw-btn{
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 16px;
+		color: #0070F3;
+		margin-left: 8px;
+		cursor: pointer;
 	}
 }
 
@@ -276,6 +282,14 @@
 	
 	:first-child {
 		font-weight: 600;
+	}
+	
+	.set-btn{
+		font-weight: 500;
+		font-size: 13px;
+		line-height: 16px;
+		color: #0070F3;
+		cursor: pointer;
 	}
 }
 

@@ -120,6 +120,9 @@ export const ProfileInfo = reaxper(() => {
 	const { Space, Col, Row } = antd;
 	return (
 		<div className={less.baseInfo}>
+			<div className={less.baseInfoTitle}>
+				基本信息
+			</div>
 			<div className={less.infoItem} style={{marginTop: 0}}>
 				<Col span={3}>商户ID：</Col>
 				<Col>{id}</Col>
@@ -169,12 +172,18 @@ export const ProfileApi = reaxper(() => {
 	} = apiConfig;
 	return (
 		<div className = { less.baseInfo }>
+			<div className={less.baseInfoTitle}>
+				API对接
+			</div>
 			<div
 				className = { less.infoItem }
 				style = { { marginTop : 0 } }
 			>
 				<Col span = { 6 }>商户Key：</Col>
-				<Col>{ mchKey }</Col>
+				<Col style={{
+					display: 'flex',
+					alignItems: 'center'
+				}}>{ mchKey }<CopyBtn/></Col>
 			</div>
 			<div className = { less.infoItem }>
 				<Col span = { 6 }>平台IP：</Col>
@@ -216,6 +225,7 @@ export const ProfileApi = reaxper(() => {
 });
 
 
+
 import {
 	reaxel_user_info ,
 	reaxel_edit_info,
@@ -227,3 +237,4 @@ import {
 	MenuProps,
 } from "antd";
 import less from './index.module.less';
+import {CopyBtn} from '@@SVGcomponents/user-info/copy-btn'

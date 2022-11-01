@@ -102,17 +102,19 @@ export const LayoutMenu = reaxper(() => {
 		getItem('API文档' , 'api' , <MenuApiIcon />),
 	];
 	return (
-		<Menu
-			style={{
-				height : '100%',
-			}}
-			items={items}
-			onSelect={(e) => {
-				navigate(e.key)
-			}}
-			mode='inline'
-			// openKeys={['order']}
-		/>
+		<div className={less.siderMenuContainer}>
+			<Menu
+				style={{
+					height : '100%',
+				}}
+				items={items}
+				onSelect={(e) => {
+					navigate(e.key)
+				}}
+				mode='inline'
+				// openKeys={['order']}
+			/>
+		</div>
 	)
 })
 

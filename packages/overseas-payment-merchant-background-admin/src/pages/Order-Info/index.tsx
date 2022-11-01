@@ -1,5 +1,3 @@
-import { Col } from "antd";
-
 export const OrderInfo = reaxper(() => {
 	return (
 		<>
@@ -21,10 +19,18 @@ export const OrderInfoSearch = reaxper(() => {
 				<Input placeholder={'搜索'}/>
 			</div>
 			<div className={less.datePicker}>
-				<RangePicker/>
+				<RangePicker placeholder={['订单创建/起始时间','订单创建/结束时间']}/>
 			</div>
 			<div className={less.select}>
-				<Select placeholder={'订单状态'}/>
+				<Select placeholder={'订单状态'}>
+					<Option value={'待支付'}>待支付</Option>
+					<Option value={'已取消'}>已取消</Option>
+					<Option value={'支付失败'}>支付失败</Option>
+					<Option value={'已支付'}>已支付</Option>
+					<Option value={'待审核'}>待审核</Option>
+					<Option value={'已拒绝'}>已拒绝</Option>
+					<Option value={'已提现'}>已提现</Option>
+				</Select>
 			</div>
 			<div className={less.formBtn}>
 				<Button>
@@ -370,3 +376,4 @@ import {
 	Dot ,
 	Line ,
 } from '@@SVGcomponents';
+import { Option } from "antd/es/mentions";

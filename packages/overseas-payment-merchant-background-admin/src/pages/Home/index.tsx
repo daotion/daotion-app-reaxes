@@ -249,14 +249,14 @@ export const WithdrawWindow = reaxper(() =>{
 			<div className = { less.windowContent }>
 				<div className = { less.withdrawAmount }>
 					<span>
-						提取金额
+						提取到账金额
 					</span>
 					<Input />
 					<span>
-						最大可提现余额：R$372,654,004.76
-						<Button type = "text">
+						最大可到账金额：R$372,654,004.76
+						<span className={less.withdrawBtn}>
 							全部提现
-						</Button>
+						</span>
 					</span>
 				</div>
 				<div className = { less.address }>
@@ -265,7 +265,13 @@ export const WithdrawWindow = reaxper(() =>{
 					</span>
 					<span>
 						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
-					</span> 
+					</span>
+					{/*<span>*/}
+					{/*	还未添加提现钱包地址*/}
+					{/*	<span className={less.setBtn}>*/}
+					{/*		点击设置*/}
+					{/*	</span>*/}
+					{/*</span> */}
 				</div>
 				<div className = { less.btn }>
 					<Button
