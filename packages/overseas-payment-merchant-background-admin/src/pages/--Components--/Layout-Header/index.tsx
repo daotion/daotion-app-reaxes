@@ -50,6 +50,7 @@ export const LayoutHeader = reaxper(() => {
 						onClick={e => e.preventDefault()}>
 						<ProfilePhoto />
 						{reax_user_info?.userInfo?.name || 'mozi'}
+						<DownOutlined />
 					</a></Dropdown>
 				</div>
 			</div>
@@ -69,3 +70,4 @@ import {
 	reaxel_user_info ,
 	reaxel_user_auth,
 } from '@@reaxels';
+import {DownOutlined} from '@ant-design/icons'

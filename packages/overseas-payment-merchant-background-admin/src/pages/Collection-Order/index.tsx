@@ -14,80 +14,47 @@ export const OrderInfoSearch = reaxper(() => {
 	const { RangePicker } = DatePicker;
 	return (
 		<div className = { less.searchContainer }>
-			<Form
-				layout = "inline"
-			>
-				<Form.Item
-					
-					label = { '搜索订单' }
-				>
-					<Input
-						placeholder = { '搜索' }
-					/>
-				</Form.Item>
-				<Form.Item
-					label = { '订单创建时间' }
-				>
-				</Form.Item>
-				<Form.Item
-					label = { '订单更新时间' }
-				>
-				</Form.Item>
-				<Form.Item
-					label = { '订单状态' }
-				>
-					<Select
-						placeholder = { '选择状态' }
-					>
-						<Select.Option value = { '待支付' }>
-							待支付
-						</Select.Option>
-						<Select.Option value = { '已取消' }>
-							已取消
-						</Select.Option>
-						<Select.Option value = { '支付失败' }>
-							支付失败
-						</Select.Option>
-						<Select.Option value = { '已支付' }>
-							已支付
-						</Select.Option>
-						<Select.Option value = { '待审核' }>
-							待审核
-						</Select.Option>
-						<Select.Option value = { '已拒绝' }>
-							已拒绝
-						</Select.Option>
-						<Select.Option value = { '已提现' }>
-							已提现
-						</Select.Option>
-					</Select>
-				</Form.Item>
-				<Form.Item
-					label = { '订单类型' }
-				>
-					<Select placeholder = { '选择类型' }>
-						<Select.Option value = { '代收' }>
-							代收
-						</Select.Option>
-						<Select.Option value = { '代付' }>
-							代付
-						</Select.Option>
-						<Select.Option value = { '提现' }>
-							提现
-						</Select.Option>
-					</Select>
-				</Form.Item>
-				<Form.Item>
-					<div className = { less.formBtn }>
-						<Button>
-							重置
-						</Button>
-						<Button type = "primary">
-							查询
-						</Button>
-					</div>
-				</Form.Item>
-			</Form>
+			<div className={less.input}>
+				<Input
+					placeholder={'搜索'}/>
+			</div>
+			<div className={less.datePicker}>
+				<RangePicker placeholder={['订单创建/开始时间', '订单创建/结束时间']}/>
+			</div>
+			<div className={less.select}>
+				<Select
+					placeholder={'订单状态'}>
+					<Select.Option value = { '待支付' }>
+						待支付
+					</Select.Option>
+					<Select.Option value = { '已取消' }>
+						已取消
+					</Select.Option>
+					<Select.Option value = { '支付失败' }>
+						支付失败
+					</Select.Option>
+					<Select.Option value = { '已支付' }>
+						已支付
+					</Select.Option>
+					<Select.Option value = { '待审核' }>
+						待审核
+					</Select.Option>
+					<Select.Option value = { '已拒绝' }>
+						已拒绝
+					</Select.Option>
+					<Select.Option value = { '已提现' }>
+						已提现
+					</Select.Option>
+				</Select>
+			</div>
+			<div className={less.formBtn}>
+				<Button>
+					重置
+				</Button>
+				<Button type = "primary">
+					查询
+				</Button>
+			</div>
 		</div>
 	);
 });
@@ -99,8 +66,6 @@ export const OrderInfoTable = reaxper(() => {
 	interface DataType {
 		key : number;
 		orderNumber : string;
-		merchantId : string;
-		orderType : string;
 		orderAmount : string;
 		orderStatus : string;
 		userId : string;
@@ -118,31 +83,6 @@ export const OrderInfoTable = reaxper(() => {
 			render : (_ , { orderNumber }) => {
 				return (
 					<a>{ orderNumber }</a>
-				);
-			} ,
-		} ,
-		{
-			title : '商户/ID' ,
-			dataIndex : 'merchantId' ,
-			key : 'merchantId' ,
-		} ,
-		{
-			title : '订单类型' ,
-			dataIndex : 'orderType' ,
-			key : 'orderType' ,
-			render : (_ , { orderType }) => {
-				let log;
-				if( orderType === '代付' ) {
-					log = <PayOut />;
-				} else if( orderType === '代收' ) {
-					log = <PayIn />;
-				} else {
-					log = <WithDraw />;
-				}
-				return (
-					<div className = { less.orderTypeContainer }>
-						{ log }{ orderType }
-					</div>
 				);
 			} ,
 		} ,
@@ -203,8 +143,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '支付失败' ,
 			userId : '3073966155' ,
@@ -215,8 +153,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代收' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '待支付' ,
 			userId : '3073966155' ,
@@ -227,8 +163,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '已支付' ,
 			userId : '3073966155' ,
@@ -239,8 +173,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '待支付' ,
 			userId : '3073966155' ,
@@ -251,8 +183,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代收' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '已取消' ,
 			userId : '3073966155' ,
@@ -263,8 +193,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '已提现' ,
 			userId : '3073966155' ,
@@ -275,8 +203,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '待审核' ,
 			userId : '3073966155' ,
@@ -287,8 +213,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '提现' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '已拒绝' ,
 			userId : '3073966155' ,
@@ -299,8 +223,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '待支付' ,
 			userId : '3073966155' ,
@@ -311,8 +233,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代收' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '已取消' ,
 			userId : '3073966155' ,
@@ -323,8 +243,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '已提现' ,
 			userId : '3073966155' ,
@@ -335,8 +253,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '代付' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '待审核' ,
 			userId : '3073966155' ,
@@ -347,8 +263,6 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			key : Math.random() ,
 			orderNumber : '276318283' ,
-			merchantId : '李嘉诚' ,
-			orderType : '提现' ,
 			orderAmount : '3,249.77' ,
 			orderStatus : '已拒绝' ,
 			userId : '3073966155' ,

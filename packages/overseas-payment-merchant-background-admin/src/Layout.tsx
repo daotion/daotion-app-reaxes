@@ -72,17 +72,19 @@ export const LayoutMenu = reaxper(() => {
 
 	const { Menu } = antd;
 	return (
-		<Menu
-			style={{
-				height: '100%',
-			}}
-			items={items}
-			onSelect={(e) => {
-				navigate(e.key);
-			}}
-			mode="inline"
-			// openKeys={['order']}
-		/>
+		<div className={less.siderMenuContainer}>
+			<Menu
+				style={{
+					height: '100%',
+				}}
+				items={items}
+				onSelect={(e) => {
+					navigate(e.key);
+				}}
+				mode="inline"
+				// openKeys={['order']}
+			/>
+		</div>
 	);
 });
 
