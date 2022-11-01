@@ -59,9 +59,17 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
-				path = "payout"
-				element = { toolkits.withOutlet(<PayoutManagement />) }
-			/>
+				path= "payout"
+			>
+				<Route
+					index
+					element = { toolkits.withOutlet(<PayoutManagement />) }
+				/>
+				<Route
+					path = "addPayout"
+					element = { toolkits.withOutlet(<AddPayout />) }
+				/>
+			</Route>
 		</Route>
 	</Routes>;
 });
@@ -93,6 +101,7 @@ import { FinancialDetails } from '@@pages/Home/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { PayoutManagement } from '@@pages/Payout';
 import { Layout } from './Layout';
+import { AddPayout } from "@@pages/Payout/add-payout";
 import {
 	BrowserRouter ,
 	Navigate ,

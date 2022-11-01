@@ -74,13 +74,13 @@ export const OrderTypeOverview = reaxper(() =>{
 export const PayinOverview = reaxper(() => {
 	return(
 		<div className={less.payinOverview}>
-			<span>
+			<span className={less.orderTypeTitle}>
 				代收
 			</span>
 			<div className={less.totalAmount}>
 				<HomePagePayinlogo/>
 				<div className={less.totalAmountContent}>
-					<span>
+					<span className={less.totalAmountTitle}>
 						代收总金额 (R$)
 					</span>
 					<span>
@@ -89,7 +89,7 @@ export const PayinOverview = reaxper(() => {
 				</div>
 			</div>
 			<div className={less.orderInfo}>
-				<span>
+				<span className={less.dataTitle}>
 					代收订单数据
 				</span>
 				<div className={less.orderInfoList}>
@@ -122,13 +122,13 @@ export const PayinOverview = reaxper(() => {
 export const PayoutOverview = reaxper(() => {
 	return(
 		<div className={less.payoutOverview}>
-			<span>
+			<span className={less.orderTypeTitle}>
 				代付
 			</span>
 			<div className={less.totalAmount}>
 				<HomePagePayoutLogo/>
 				<div className={less.totalAmountContent}>
-					<span>
+					<span className={less.totalAmountTitle}>
 						代付总金额 (R$)
 					</span>
 					<span>
@@ -137,7 +137,7 @@ export const PayoutOverview = reaxper(() => {
 				</div>
 			</div>
 			<div className={less.orderInfo}>
-				<span>
+				<span className={less.dataTitle}>
 					代付订单数据
 				</span>
 				<div className={less.orderInfoList}>
@@ -175,13 +175,13 @@ export const PayoutOverview = reaxper(() => {
 export const WithdrawOverview = reaxper(() => {
 	return(
 		<div className={less.withdrawOverview}>
-			<span>
+			<span className={less.orderTypeTitle}>
 				提现
 			</span>
 			<div className={less.totalAmount}>
 				<HomePageWithdrawLogo/>
 				<div className={less.totalAmountContent}>
-					<span>
+					<span className={less.totalAmountTitle}>
 						提现总金额 (R$)
 					</span>
 					<span>
@@ -190,7 +190,7 @@ export const WithdrawOverview = reaxper(() => {
 				</div>
 			</div>
 			<div className={less.orderInfo}>
-				<span>
+				<span className={less.dataTitle}>
 					提现订单数据
 				</span>
 				<div className={less.orderInfoList}>
@@ -218,14 +218,14 @@ export const WithdrawOverview = reaxper(() => {
 export const OrderInfoListRow = reaxper((props) => {
 	return(
 		<div className={less.orderInfoRow}>
-			<span>
+			<span className={less.rowLeft}>
 				{props.orderType}
 			</span>
-			<div className={less.rowLeft}>
-				<span>
+			<div className={less.rowRight}>
+				<span className={less.rowRightAmount}>
 					{props.amount}
 				</span>
-				<span>
+				<span className={less.rowRightOrderAmount}>
 					{props.orderAmount}
 				</span>
 			</div>
@@ -249,14 +249,14 @@ export const WithdrawWindow = reaxper(() =>{
 			<div className = { less.windowContent }>
 				<div className = { less.withdrawAmount }>
 					<span>
-						提取金额
+						提取到账金额
 					</span>
 					<Input />
 					<span>
-						最大可提现余额：R$372,654,004.76
-						<Button type = "text">
+						最大可到账金额：R$372,654,004.76
+						<span className={less.withdrawBtn}>
 							全部提现
-						</Button>
+						</span>
 					</span>
 				</div>
 				<div className = { less.address }>
@@ -266,6 +266,12 @@ export const WithdrawWindow = reaxper(() =>{
 					<span>
 						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
 					</span>
+					{/*<span>*/}
+					{/*	还未添加提现钱包地址*/}
+					{/*	<span className={less.setBtn}>*/}
+					{/*		点击设置*/}
+					{/*	</span>*/}
+					{/*</span> */}
 				</div>
 				<div className = { less.btn }>
 					<Button

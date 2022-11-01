@@ -1,19 +1,27 @@
 export const PayoutManagement = reaxper(() => {
 	return(
-		<PayoutRequestTable/>
+		<>
+			<PayoutRequestTable/>
+		</>
 	)
 })
 
 export const PayoutRequestHeader = reaxper(() =>{
 	
 	const {Button} = antd
+	const {navigate} = toolkits.useRouter();
 	
 	return(
 		<div className={less.headerContainer}>
 			<span className={less.headerTitle}>
 				代付申请列表
 			</span>
-			<Button type="primary">
+			<Button 
+				type="primary"
+				onClick={() => {
+					navigate('addPayout')
+				}}
+			>
 				<AddIcon/>
 				新增代付
 			</Button>
@@ -387,7 +395,6 @@ export const PayoutRequestTable = reaxper(() => {
 		</div>
 	)
 })
-
 
 import { ColumnsType } from "antd/lib/table";
 import less from './index.module.less'
