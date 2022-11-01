@@ -1,3 +1,5 @@
+import { Col } from "antd";
+
 export const CollectionOrder = reaxper(() => {
 	const badge = useRef(Math.random());
 	
@@ -13,50 +15,75 @@ export const OrderInfoSearch = reaxper(() => {
 	
 	const { Input , Form , DatePicker , Select , Button } = antd;
 	const { RangePicker } = DatePicker;
+	const [form] = Form.useForm();
+	
+	const onReset = () =>{
+		form.resetFields();
+	}
+	
 	return (
-		<div className = { less.searchContainer }>
-			<div className={less.input}>
-				<Input
-					placeholder={'搜索'}/>
-			</div>
-			<div className={less.datePicker}>
-				<RangePicker placeholder={['订单创建/开始时间', '订单创建/结束时间']}/>
-			</div>
-			<div className={less.select}>
-				<Select
-					placeholder={'订单状态'}>
-					<Select.Option value = { '待支付' }>
-						待支付
-					</Select.Option>
-					<Select.Option value = { '已取消' }>
-						已取消
-					</Select.Option>
-					<Select.Option value = { '支付失败' }>
-						支付失败
-					</Select.Option>
-					<Select.Option value = { '已支付' }>
-						已支付
-					</Select.Option>
-					<Select.Option value = { '待审核' }>
-						待审核
-					</Select.Option>
-					<Select.Option value = { '已拒绝' }>
-						已拒绝
-					</Select.Option>
-					<Select.Option value = { '已提现' }>
-						已提现
-					</Select.Option>
-				</Select>
-			</div>
-			<div className={less.formBtn}>
-				<Button>
-					重置
-				</Button>
-				<Button type = "primary">
-					查询
-				</Button>
-			</div>
+		<div className = { less.searchContainer }>			
+			<Form
+				form={form}
+				layout="inline"
+				style={{
+					width: '100%'
+				}}
+			>
+				<Col flex={1}>
+					<Form.Item name={'search'}>
+						<Input
+							placeholder={'搜索'}/>
+					</Form.Item>
+				</Col>
+			  <Col span={11}>
+				  <Form.Item name={'orderStatus'}>
+					  <Select
+						  placeholder={'订单状态'}
+					  >
+						  <Select.Option value = { '待支付' }>
+							  待支付
+						  </Select.Option>
+						  <Select.Option value = { '已取消' }>
+							  已取消
+						  </Select.Option>
+						  <Select.Option value = { '支付失败' }>
+							  支付失败
+						  </Select.Option>
+						  <Select.Option value = { '已支付' }>
+							  已支付
+						  </Select.Option>
+						  <Select.Option value = { '待审核' }>
+							  待审核
+						  </Select.Option>
+						  <Select.Option value = { '已拒绝' }>
+							  已拒绝
+						  </Select.Option>
+						  <Select.Option value = { '已提现' }>
+							  已提现
+						  </Select.Option>
+					  </Select>
+				  </Form.Item>
+			  </Col>
+				<Col>
+					<Form.Item style={{marginRight: 0}}>
+						<Button
+							onClick={() =>{
+								onReset()
+							}}
+						>
+							重置
+						</Button>
+						<Button 
+							style={{marginLeft: 16}}
+							type = "primary">
+							查询
+						</Button>
+					</Form.Item>
+				</Col>
+			</Form>
 		</div>
+
 	);
 });
 
