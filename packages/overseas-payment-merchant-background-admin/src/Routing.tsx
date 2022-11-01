@@ -60,15 +60,15 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<WithDrawalOrder />) }
 			/>
 			<Route
-				path= "payment-mgnt"
+				path= "payment-mgnt/*"
 			>
 				<Route
 					index
 					element = { toolkits.withOutlet(<PayoutManagement />) }
 				/>
 				<Route
-					path = "addPayout"
-					element = { toolkits.withOutlet(<AddPayout />) }
+					path = "new-payment"
+					element = { toolkits.withOutlet(<NewPayment />) }
 				/>
 			</Route>
 		</Route>
@@ -104,7 +104,7 @@ import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';
 import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
-import { AddPayout } from "@@pages/Payout/add-payout";
+import { NewPayment } from "@@pages/--Components--/New-Payment";
 import {
 	BrowserRouter ,
 	Navigate ,

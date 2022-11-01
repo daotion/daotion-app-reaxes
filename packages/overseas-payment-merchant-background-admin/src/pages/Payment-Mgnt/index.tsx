@@ -3,6 +3,7 @@ import { reaxel_payment_mgnt } from './reaxel--payment-mgnt';
 
 export const PayoutManagement = reaxper(() => {
 	const { conductApplication , paymentApplicationList , fetchPaymentOrderList } = reaxel_payment_mgnt();
+	const { navigate } = toolkits.useRouter();
 	const { current : badge } = useRef(Math.random());
 	
 	fetchPaymentOrderList(badge);
@@ -71,7 +72,12 @@ export const PayoutManagement = reaxper(() => {
 			<span className = { less.headerTitle }>
 				代付申请列表
 			</span>
-			<Button type = "primary">
+			<Button
+				onClick = { () => {
+					navigate('new-payment');
+				} }
+				type = "primary"
+			>
 				<AddIcon />
 				新增代付
 			</Button>
@@ -79,7 +85,7 @@ export const PayoutManagement = reaxper(() => {
 		<Table
 			columns = { columns }
 			dataSource = { paymentApplicationList }
-			rowKey="orderID"
+			rowKey = "orderID"
 			size = "small"
 			pagination = { {
 				pageSize : 10 ,
