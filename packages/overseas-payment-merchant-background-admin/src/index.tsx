@@ -1,10 +1,6 @@
-import { render } from 'react-dom';
-import { App } from './App';
-import { Login } from "./pages/Login";
-
 
 module?.hot?.accept?.(
-	"./main.tsx" ,
+	"./index.tsx" ,
 	( ...args ) => {
 		
 		return render(
@@ -24,3 +20,11 @@ render(
 );
 
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+dayjs.extend(utc);
+dayjs.extend(timezone);
+import { render } from 'react-dom';
+import { App } from './App';
+import { Login } from "./pages/Login";

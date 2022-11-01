@@ -44,7 +44,6 @@ export const reaxel_user_auth = function(){
 	
 	{
 		const token = reax_storage.get(__storage_key__auth);
-		console.log(token);
 		if(token && token.length > 8){
 			setState({ token , isLoggedIn : true });
 		}

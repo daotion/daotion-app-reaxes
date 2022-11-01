@@ -1,5 +1,22 @@
 export const CollectionOrder = reaxper(() => {
 	const badge = useRef(Math.random());
+	const {params} = toolkits.useRouter();
+	const {
+		reset ,
+		state$search ,
+		state$list,
+		setFields ,
+		fetchCollectionOrderList ,
+		get_enum_order_list_map ,
+	} = reaxel_collection_order();
+	
+	/*切换路由时重置搜索条件*/
+	useLayoutEffect(() => {
+		reset();
+	} , [ params['*'] ]);
+	
+	fetchCollectionOrderList(params['*']);
+	
 	
 	return <>
 		<OrderInfoSearch />
@@ -10,277 +27,165 @@ export const CollectionOrder = reaxper(() => {
 
 
 export const OrderInfoSearch = reaxper(() => {
+	const {params} = toolkits.useRouter();
+	const {
+		reset ,
+		state$search ,
+		state$list,
+		setFields ,
+		get_enum_order_list_map ,
+	} = reaxel_collection_order();
 	
-	const { Input , Form , DatePicker , Select , Button } = antd;
+	const enum_order_status = get_enum_order_list_map(params['*']);
+	
+	const { Input , Form , Select , Button } = antd;
 	const { RangePicker } = DatePicker;
 	return (
-		<div className = { less.searchContainer }>
-			<div className={less.input}>
-				<Input
-					placeholder={'搜索'}/>
+		<ConfigProvider
+		
+		>
+			<div className = { less.searchContainer }>
+				<Form
+					layout = "inline"
+				>
+					<Form.Item
+						label = { '搜索订单' }
+					>
+						<Input
+							value = { state$search.input_search_orderID }
+							onChange = { (e) => {
+								setFields({ input_search_orderID : e.target.value });
+							} }
+							placeholder = { '订单ID' }
+						/>
+					</Form.Item>
+					{ __EXPERIMENTAL__ && <Form.Item
+						label = { '订单创建时间' }
+					>
+						{/*@ts-ignore*/ }
+						<RangePicker
+							showTime
+							onChange = { ([ start , end ]) => {
+								setFields({
+									range_picker_order_created_date : [
+										dayjs(start).tz('America/Sao_Paulo') ,
+										dayjs(end).tz('America/Sao_Paulo') ,
+									] ,
+								});
+							} }
+							value = { function(){
+								if( !state$search.range_picker_order_created_date.length ) return [] as any;
+								const [ start , end ] = state$search.range_picker_order_created_date;
+								return [ start.tz('America/Sao_Paulo') , start.tz('America/Sao_Paulo') ];
+							}() }
+						/>
+					</Form.Item> }
+					{ __EXPERIMENTAL__ && <Form.Item
+						label = { '订单更新时间' }
+					>
+						{/*@ts-ignore*/ }
+						<RangePicker value = { [ null , null ] } />
+					</Form.Item> }
+					<Form.Item
+						label = { '订单状态' }
+					>
+						<Select
+							placeholder = { '选择状态' }
+							onChange = { (value, option) => {
+								setFields({select_order_status : value})
+							} }
+							style = { { minWidth : "120px" } }
+							value = { state$search.select_order_status }
+						>
+							{ enum_order_status.map(({ label , status }) => {
+								return <Select.Option
+									key = { status }
+									value = { status }
+								>
+									{ label }
+								</Select.Option>;
+							}) }
+						</Select>
+					</Form.Item>
+					
+					<Form.Item>
+						<div className = { less.formBtn }>
+							<Button onClick = { reset }>
+								重置
+							</Button>
+						</div>
+					</Form.Item>
+				</Form>
 			</div>
-			<div className={less.datePicker}>
-				<RangePicker placeholder={['订单创建/开始时间', '订单创建/结束时间']}/>
-			</div>
-			<div className={less.select}>
-				<Select
-					placeholder={'订单状态'}>
-					<Select.Option value = { '待支付' }>
-						待支付
-					</Select.Option>
-					<Select.Option value = { '已取消' }>
-						已取消
-					</Select.Option>
-					<Select.Option value = { '支付失败' }>
-						支付失败
-					</Select.Option>
-					<Select.Option value = { '已支付' }>
-						已支付
-					</Select.Option>
-					<Select.Option value = { '待审核' }>
-						待审核
-					</Select.Option>
-					<Select.Option value = { '已拒绝' }>
-						已拒绝
-					</Select.Option>
-					<Select.Option value = { '已提现' }>
-						已提现
-					</Select.Option>
-				</Select>
-			</div>
-			<div className={less.formBtn}>
-				<Button>
-					重置
-				</Button>
-				<Button type = "primary">
-					查询
-				</Button>
-			</div>
-		</div>
+		</ConfigProvider>
 	);
 });
 
 export const OrderInfoTable = reaxper(() => {
+	const { params } = toolkits.useRouter();
+	const {state$list,get_enum_order_list_map} = reaxel_collection_order();
+	const enum_order_status = get_enum_order_list_map(params['*']);
 	
-	const { Table , Button , Tag , Input , DatePicker } = antd;
-	
-	const reax_Collection_Order = reaxel_collection_order();
-	
-	interface DataType {
-		key : number;
-		orderNumber : string;
-		orderAmount : string;
-		orderStatus : string;
-		userId : string;
-		charge : number;
-		orderCreateTime : string;
-		statusUpdateTime : string;
-	}
 	
 	const columns : ColumnsType<DataType> = [
 		{
 			title : '订单号' ,
-			dataIndex : 'orderNumber' ,
-			key : 'orderNumber' ,
+			dataIndex : 'orderID' ,
 			fixed : 'left' ,
-			render : (_ , { orderNumber }) => {
+			render : (_ , { orderID }) => {
 				return (
-					<a 
-						onClick={() => {
-							reax_Collection_Order.changeModalShow(true)
-						}}
-					>
-						{ orderNumber }
-					</a>
+					<a>{ orderID }</a>
 				);
 			} ,
 		} ,
 		{
 			title : '订单金额' ,
-			dataIndex : 'orderAmount' ,
-			key : 'orderAmount' ,
+			dataIndex : 'money' ,
 		} ,
 		{
 			title : '订单状态' ,
-			dataIndex : 'orderStatus' ,
-			key : 'orderStatus' ,
-			render : (_ , { orderStatus }) => {
-				let color;
-				if( orderStatus === '待支付' ) {
-					color = 'blue';
-				} else if( orderStatus === '支付失败' || orderStatus === '已拒绝' ) {
-					color = 'red';
-				} else if( orderStatus === '已支付' || orderStatus === '已提现' ) {
-					color = 'green';
-				} else if( orderStatus === '待审核' ) {
-					color = 'purple';
-				} else {
-					color = 'gainsboro';
-				}
+			dataIndex : 'state' ,
+			render : (_ , { state }) => {
+				const colorMap = {
+					1 : "blue" ,
+					2 : "gainsboro" ,
+					3 : "red" ,
+					4 : "green" ,
+				};
 				
 				return <>
-					<Tag color = { color }>
-						{ orderStatus }
+					<Tag color = { colorMap[state] }>
+						{ enum_order_status.find(({status}) => {
+							return status === state;
+						}).label }
 					</Tag>
 				</>;
 			} ,
 		} ,
 		{
-			title : '用户ID/用户名' ,
-			dataIndex : 'userId' ,
-			key : 'userId' ,
+			title : '用户名' ,
+			dataIndex : 'userName' ,
 		} ,
 		{
 			title : '手续费' ,
-			dataIndex : 'charge' ,
-			key : 'charge' ,
+			dataIndex : 'tax' ,
 		} ,
 		{
 			title : '订单创建时间' ,
-			dataIndex : 'orderCreateTime' ,
-			key : 'orderCreateTime' ,
+			dataIndex : 'createTimestamp' ,
+			render(record){
+				return time_localize_Brazil(record.createTimestamp);
+			} ,
 		} ,
 		{
 			title : '订单更新时间' ,
-			dataIndex : 'statusUpdateTime' ,
-			key : 'statusUpdateTime' ,
+			dataIndex : 'updateTimestamp' ,
+			render(record){
+				return time_localize_Brazil(record.updateTimestamp);
+			} ,
 		} ,
 	];
-	
-	
-	const data : DataType[] = [
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '支付失败' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '待支付' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '已支付' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '待支付' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '已取消' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '已提现' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '待审核' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '已拒绝' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '待支付' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '已取消' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '已提现' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '待审核' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-		{
-			key : Math.random() ,
-			orderNumber : '276318283' ,
-			orderAmount : '3,249.77' ,
-			orderStatus : '已拒绝' ,
-			userId : '3073966155' ,
-			charge : 90.82 ,
-			orderCreateTime : '2022-10-19 22:26:26' ,
-			statusUpdateTime : '2022-10-18 23:32:25' ,
-		} ,
-	];
-	
+	const { Table , Tag } = antd;
 	
 	return (
 		<div className = { less.tableContainer }>
@@ -288,8 +193,9 @@ export const OrderInfoTable = reaxper(() => {
 				数据明细
 			</div>
 			<Table
+				rowKey="orderID"
 				columns = { columns }
-				dataSource = { data }
+				dataSource = { state$list.collection_order_list }
 				size = "small"
 				pagination = { {
 					pageSize : 10 ,
@@ -300,6 +206,16 @@ export const OrderInfoTable = reaxper(() => {
 			/>
 		</div>
 	);
+	interface DataType {
+		// key : number;
+		orderID : string;
+		money : number;
+		state : number;
+		userName : string;
+		tax : number;
+		createTimestamp : number;
+		updateTimestamp : number;
+	}
 });
 
 export const OrderProcess = reaxper(() => {
@@ -348,8 +264,13 @@ export const OrderProcess = reaxper(() => {
 });
 
 
-import less from "./index.module.less";
-import React from "react";
+
+import { reaxel_collection_order } from './reaxel--collection-order';
+import { DatePicker } from '@@Xcomponents';
+import { time_localize_Brazil } from '#toolkits/overseas-payment';
+
+import dayjs from 'dayjs';
+import {ConfigProvider} from 'antd';
 import { ColumnsType } from "antd/es/table";
 import {
 	PayOut ,
@@ -359,4 +280,4 @@ import {
 	Dot ,
 	Line ,
 } from '@@SVGcomponents';
-import {reaxel_collection_order} from '@@reaxels/Collection-Order/Collection-Order'
+import less from "./index.module.less";

@@ -9,13 +9,13 @@ export const Layout = reaxper(() => {
 
 	const routeName = {
 		'profile' : '用户信息' ,
-		'edit': '编辑信息',
-		'payOutOrder' : '代付订单',
-		'payInOrder' : '代收订单',
-		'withDrawOrder' : '提现订单',
-		'payout' : '代付管理',
-		'home' : '主页',
-		'financialDetail' : '资金明细',
+		'edit-profile': '编辑信息',
+		'collection-order' : '代收订单',
+		'payment-order' : '代付订单',
+		'withdrawal-order' : '提现订单',
+		'payment-mgnt' : '代付管理',
+		'overview' : '主页',
+		'fin-detail' : '资金明细',
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);
@@ -110,11 +110,11 @@ const getItem = (
 const items: MenuItem[] = [
 	getItem('主页', 'home', <MenuHomeIcon />),
 	getItem('订单数据', 'order', <MenuOrderIcon />, [
-		getItem('代收订单', 'payInOrder'),
-		getItem('代付订单', 'payOutOrder'),
-		getItem('提现订单', 'withDrawOrder'),
+		getItem('代收订单', 'collection-order'),
+		getItem('代付订单', 'payment-order'),
+		getItem('提现订单', 'withdrawal-order'),
 	]),
-	getItem('代付管理', 'payout', <MenuPayoutIcon />),
+	getItem('代付管理', 'payment-mgnt', <MenuPayoutIcon />),
 	getItem('商户信息', 'profile', <MenuUserIcon />),
 	getItem('API文档', 'api', <MenuApiIcon />),
 ];

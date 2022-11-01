@@ -37,7 +37,7 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(<HomePage />) }
 				/>
 				<Route
-					path = "financialDetail"
+					path = "fin-detail"
 					element = { toolkits.withOutlet(<FinancialDetails />) }
 				/>
 			</Route>
@@ -47,19 +47,20 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<Profile />) }
 			/>
 			<Route
-				path = "payInOrder"
+				path = "collection-order"
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
+			{/*目前代收订单为多态组件, 已将代付和提现订单功能抽象 */}
 			<Route
-				path = "payOutOrder"
-				element = { toolkits.withOutlet(<CollectionOrder />) }
+				path = "payment-order"
+				element = { toolkits.withOutlet(<PaymentOrder />) }
 			/>
 			<Route
-				path = "withDrawOrder"
-				element = { toolkits.withOutlet(<CollectionOrder />) }
+				path = "withdrawal-order"
+				element = { toolkits.withOutlet(<WithDrawalOrder />) }
 			/>
 			<Route
-				path= "payout"
+				path= "payment-mgnt"
 			>
 				<Route
 					index
@@ -99,6 +100,8 @@ import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Home';
 import { FinancialDetails } from '@@pages/Home/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
+import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
+import { PaymentOrder } from '@@pages/Payment-Order';
 import { PayoutManagement } from '@@pages/Payout';
 import { Layout } from './Layout';
 import { AddPayout } from "@@pages/Payout/add-payout";
