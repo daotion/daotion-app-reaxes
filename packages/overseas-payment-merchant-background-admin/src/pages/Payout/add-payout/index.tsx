@@ -1,6 +1,6 @@
 export const AddPayout = reaxper(() =>{
 	
-	const {Button, Menu} = antd
+	const {Button, Tabs} = antd
 	
 	return(
 		<div className={less.addPayoutContainer}>
@@ -8,19 +8,18 @@ export const AddPayout = reaxper(() =>{
 				<div className={less.title}>
 					新增代付
 				</div>
-				<Menu
-					mode={'horizontal'}
-					defaultSelectedKeys={['PixPay']}
-				>
-					<Menu.Item key="PixPay" >
-						PixPay 方式
-					</Menu.Item>
-					<Menu.Item key="bankCarTransfer" >
-						银行卡转账方式
-					</Menu.Item>
-				</Menu>
-				{/*<PixPay/>*/}
-				<BankCarTransfer/>
+				<Tabs defaultActiveKey={'PixPay'}>
+					<Tabs.TabPane
+						tab = {'PixPay 方式'}
+						key = {'PixPay'}>
+						<PixPay/>
+					</Tabs.TabPane>
+					<Tabs.TabPane
+						tab = {'银行卡转账方式'}
+						key = {'bankCarTransfer'}>
+						<BankCarTransfer/>
+					</Tabs.TabPane>
+				</Tabs>
 				<Button type="primary">
 					提交
 				</Button>

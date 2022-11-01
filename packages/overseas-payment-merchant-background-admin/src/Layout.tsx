@@ -14,7 +14,8 @@ export const Layout = reaxper(() => {
 		'payInOrder' : '代收订单',
 		'withDrawOrder' : '提现订单',
 		'payout' : '代付管理',
-		'home' : '主页',
+		'addPayout' : '新增代付',
+		'home' : '主页', 
 		'financialDetail' : '资金明细',
 	};
 	const breadcrumb = () => {

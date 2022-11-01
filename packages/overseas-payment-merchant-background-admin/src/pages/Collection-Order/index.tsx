@@ -342,6 +342,10 @@ export const OrderProcess = reaxper(() => {
 					title = { '已支付' }
 					description = { '2022-10-18 15:27' }
 				/>
+				{/*<Step*/}
+				{/*	title = { '支付失败' }*/}
+				{/*	description = { '2022-10-18 15:27' }*/}
+				{/*/>*/}
 			</Steps>
 		</Modal>
 	);
