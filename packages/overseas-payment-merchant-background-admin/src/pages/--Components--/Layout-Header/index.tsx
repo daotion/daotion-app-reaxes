@@ -1,6 +1,7 @@
 export const LayoutHeader = reaxper(() => {
 	const { navigate } = toolkits.useRouter();
-	const { userInfo : { name } } = reaxel_user_info();
+	const reax_user_info = reaxel_user_info();
+	
 	const { logout } = reaxel_user_auth();
 	const { Select , Dropdown ,Menu} = antd;
 	
@@ -48,7 +49,8 @@ export const LayoutHeader = reaxper(() => {
 						className={less.userInfo}
 						onClick={e => e.preventDefault()}>
 						<ProfilePhoto />
-						Mozi
+						{reax_user_info?.userInfo?.name || 'mozi'}
+						<DownOutlined />
 					</a></Dropdown>
 				</div>
 			</div>
@@ -68,3 +70,4 @@ import {
 	reaxel_user_info ,
 	reaxel_user_auth,
 } from '@@reaxels';
+import {DownOutlined} from '@ant-design/icons'

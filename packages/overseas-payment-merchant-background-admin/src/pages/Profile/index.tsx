@@ -44,59 +44,76 @@ const Menu = reaxper(() => {
 export const ResetPwd = reaxper(() =>{
 	const { navigate } = toolkits.useRouter();
 	const { Input , Button } = antd;
-	const { modifyPassword , onModifyInput , inputSet } = reaxel_edit_info();
-	const inputs = [
-		{
-			key : 'oldPassword' ,
-			name : '旧密码' ,
-			
-		},
-		{
-			key : 'newPassword' ,
-			name : '新密码' ,
-			
-		},
-		{
-			key : 'checkPassword' ,
-			name : '再次输入密码' ,
-			
-		},
-	];
+	const reax_edit_info = reaxel_edit_info();
+	const {
+		setStatePwd ,
+		resetPwdStore ,
+		modifyPwd,
+	} = reax_edit_info;
+	const { message } = antd;
+	const submitPwd = () => {
+		if (resetPwdStore.oldPassword === '' || resetPwdStore.newPassword === '' || resetPwdStore.checkPassword === '') {
+			message.error('输入不能为空')
+		} else if (resetPwdStore.newPassword !== resetPwdStore.checkPassword) {
+			message.error('确认密码不一致')
+		} else {
+			modifyPwd()
+		}
+	}
 	return(
 		<div className={less.resetPasswordContainer}>
 			<div className={less.resetTitle}>
 				<span className={less.title}>
 					修改密码
 				</span>
-				<span className={less.hint}>
-					密码修改成功后需重新登录
-				</span>
 			</div>
-			
-			{inputs.map((i) => {
-				const { key, name } = i
-				return (
-					<div className={less.formContainer} key={key}>
-						<span className={less.formTitle}>
-							{name}
-						</span>
-						<Input
-							value={inputSet[key].value}
-							status={inputSet[key].check}
-							onChange={(e) => {
-								onModifyInput(key, e.target.value)
-							}}
-							type='password'
-						/>
-					</div>
-				)
-			})}
+			<div className={less.formContainer}>
+				<span className={less.formTitle}>
+					旧密码
+				</span>
+				<Input
+					value={resetPwdStore.oldPassword}
+					onChange={(e) => {
+						setStatePwd({
+							oldPassword: e.target.value
+						})
+					}}
+					type='password'
+				/>
+			</div>
+			<div className={less.formContainer}>
+				<span className={less.formTitle}>
+					新密码
+				</span>
+				<Input
+					value={resetPwdStore.newPassword}
+					onChange={(e) => {
+						setStatePwd({
+							newPassword: e.target.value
+						})
+					}}
+					type='password'
+				/>
+			</div>
+			<div className={less.formContainer}>
+				<span className={less.formTitle}>
+					再次输入密码
+				</span>
+				<Input
+					value={resetPwdStore.checkPassword}
+					onChange={(e) => {
+						setStatePwd({
+							checkPassword: e.target.value
+						})
+					}}
+					type='password'
+				/>
+			</div>
 			<Button
 				type="primary"
+				loading={resetPwdStore.pending}
 				onClick={() => {
-					modifyPassword(() => {
-						navigate('/Login')
-					})
+					submitPwd()
 				}}
 			>
 				修改密码
@@ -106,9 +123,9 @@ export const ResetPwd = reaxper(() =>{
 })
 
 export const ProfileInfo = reaxper(() => {
-	const { userInfo } = reaxel_user_info();
+	const reax_user_info = reaxel_user_info();
 	const {
-		id = '' ,
+		mchNo = '' ,
 		name = '' ,
 		contactPerson = '' ,
 		contactPhone = '' ,
@@ -116,13 +133,16 @@ export const ProfileInfo = reaxper(() => {
 		payInFeeFix = 0 ,
 		payOutFeeRate = 0 ,
 		payOutFeeFix = 0 ,
-	} = userInfo;
+	} = reax_user_info.userInfo || {};
 	const { Space, Col, Row } = antd;
 	return (
 		<div className={less.baseInfo}>
+			<div className={less.baseInfoTitle}>
+				基本信息
+			</div>
 			<div className={less.infoItem} style={{marginTop: 0}}>
 				<Col span={3}>商户ID：</Col>
-				<Col>{id}</Col>
+				<Col>{mchNo}</Col>
 			</div>
 			<div className={less.infoItem}>
 				<Col span={3}>商户名称：</Col>
@@ -133,7 +153,7 @@ export const ProfileInfo = reaxper(() => {
 				<Col>{contactPerson}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>Telegra：</Col>
+				<Col span={3}>Telegram：</Col>
 				<Col>{contactPhone}</Col>
 			</div>
 			<div className={less.infoItem}>
@@ -157,63 +177,149 @@ export const ProfileInfo = reaxper(() => {
 })
 
 export const ProfileApi = reaxper(() => {
+	const badge = useRef(Math.random())
 	const { Space, Col, Row, Button } = antd;
-	const { apiConfig } = reaxel_user_info();
+	const {closuredFetchApiConfig,apiConfig} = reaxel_user_info();
+	closuredFetchApiConfig(badge.current);
+	const reax_edit_info = reaxel_edit_info();
 	const {
 		mchKey = '' ,
 		platformIPS = '' ,
 		payInCallback = '' ,
 		payOutCallback = '' ,
 		payOutWhitelist = [] ,
-		withdrawAdd = '' ,
+		address = '' ,
 	} = apiConfig;
+
 	return (
-		<div className = { less.baseInfo }>
-			<div
-				className = { less.infoItem }
-				style = { { marginTop : 0 } }
-			>
-				<Col span = { 6 }>商户Key：</Col>
-				<Col>{ mchKey }</Col>
+		<>
+			<div className = { less.baseInfo }>
+				<div className={less.baseInfoTitle}>
+					API对接
+				</div>
+				<div
+					className = { less.infoItem }
+					style = { { marginTop : 0 } }
+				>
+					<Col span = { 6 }>商户Key：</Col>
+					<Col style={{
+						display: 'flex',
+						alignItems: 'center'
+					}}>{ mchKey }<CopyBtn/></Col>
+				</div>
+				<div className = { less.infoItem }>
+					<Col span = { 6 }>平台IP：</Col>
+					<Col>{ platformIPS }</Col>
+				</div>
+				<div className = { less.infoItem }>
+					<Col span = { 6 }>代收回调url：</Col>
+					<Col span = { 6 }>{ payInCallback }</Col>
+					<Col>
+						<Button type="link" onClick={() => {reax_edit_info.showModal('payInCallback')}}>设置</Button>
+					</Col>
+				</div>
+				<div className = { less.infoItem }>
+					<Col span = { 6 }>代付回调url：</Col>
+					<Col span = { 6 }>{ payOutCallback }</Col>
+					<Col>
+						<Button type="link" onClick={() => {reax_edit_info.showModal('payOutCallback')}}>设置</Button>
+					</Col>
+				</div>
+				<div className = { less.infoItem }>
+					<Col span = { 6 }>
+						<p>代付白名单IP：</p>
+						<p className={less.declare}>如果有设置，平台只接收来自白名单ip地址的代付请求。</p>
+					</Col>
+					<Col span = { 6 }>{ payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }</Col>
+					<Col>
+						<Button type="link" onClick={() => {reax_edit_info.showModal('payOutWhitelist')}}>设置</Button>
+					</Col>
+				</div>
+				<div className = { less.infoItem }>
+					<Col span = { 6 }>提现地址(TRC-20)：</Col>
+					<Col span = { 6 }>{ address }</Col>
+					<Col>
+						<Button type="link" onClick={() => {reax_edit_info.showModal('address')}}>设置</Button>
+					</Col>
+				</div>
 			</div>
-			<div className = { less.infoItem }>
-				<Col span = { 6 }>平台IP：</Col>
-				<Col>{ platformIPS }</Col>
-			</div>
-			<div className = { less.infoItem }>
-				<Col span = { 6 }>代收回调url：</Col>
-				<Col span = { 6 }>{ payInCallback }</Col>
-				<Col>
-					<Button type="link">设置</Button>
-				</Col>
-			</div>
-			<div className = { less.infoItem }>
-				<Col span = { 6 }>代付回调url：</Col>
-				<Col span = { 6 }>{ payOutCallback }</Col>
-				<Col>
-					<Button type="link">设置</Button>
-				</Col>
-			</div>
-			<div className = { less.infoItem }>
-				<Col span = { 6 }>
-					<p>代付白名单IP：</p>
-					<p className={less.declare}>如果有设置，平台只接收来自白名单ip地址的代付请求。</p>
-				</Col>
-				<Col span = { 6 }>{ payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }</Col>
-				<Col>
-					<Button type="link">设置</Button>
-				</Col>
-			</div>
-			<div className = { less.infoItem }>
-				<Col span = { 6 }>提现地址(TRC-20)：</Col>
-				<Col span = { 6 }>{ withdrawAdd }</Col>
-				<Col>
-					<Button type="link">设置</Button>
-				</Col>
-			</div>
-		</div>
+			<SetApiModal/>
+		</>
 	);
 });
+
+const SetApiModal = reaxper(() => {
+	const { Modal, Input, Button } = antd;
+	const reax_edit_info = reaxel_edit_info();
+	const { setApiStore } = reax_edit_info;
+	const {
+		apiSetModalKey = '',
+	} = setApiStore;
+	const modalContent = {
+		'payInCallback' : {
+			title : '设置代收回调url' ,
+			subTitle : '代收回调 url' ,
+			value : setApiStore.payInCallback,
+			
+		},
+		'payOutCallback' : {
+			title : '设置代付回调url' ,
+			subTitle : '代付回调url' ,
+			value : setApiStore.payOutCallback,
+		},
+		'payOutWhitelist' : {
+			title : '设置代付白名单 ' ,
+			subTitle : '代付白名单IP ' ,
+			memo : '如多个IP,每个IP之间用英文;隔开。如果有设置，平台只接收来自白名单中的IP地址的代付请求。' ,
+			value : setApiStore.payOutWhitelist,
+		},
+		'address' : {
+			title : '设置提现地址' ,
+			subTitle : 'TRC-20地址' ,
+			memo : '请确保输入正确的地址',
+			value : setApiStore.address,
+		},
+		
+	}
+	return (
+		<Modal
+			className={less.setApiModal}
+			visible = { setApiStore.apiSetModalShow }
+			title = { modalContent[apiSetModalKey].title }
+			footer = { null }
+			closable={false}
+			width={380}
+		>
+			<div className={less.setApiModalContainer}>
+				<div className={less.inputForm}>
+					<span>{ modalContent[apiSetModalKey].subTitle }</span>
+					<Input
+						value = {modalContent[apiSetModalKey].value}
+						onChange={(e) => {
+							reax_edit_info.setStateApi({
+								[apiSetModalKey]: e.target.value
+							})
+						}}
+					/>
+					<span className={less.desc}>
+						{ modalContent[apiSetModalKey].memo }
+					</span>
+				</div>
+				<div className={less.btnSection}>
+					<Button type = "primary" onClick={() => {
+						reax_edit_info.setApiConfig()
+					}}>提交</Button>
+					<Button onClick={() => {
+						reax_edit_info.setStateApi({
+							apiSetModalShow: false
+						})
+					}}>取消</Button>
+				</div>
+			</div>
+		</Modal>
+	);
+})
+
 
 
 import {
@@ -227,3 +333,4 @@ import {
 	MenuProps,
 } from "antd";
 import less from './index.module.less';
+import {CopyBtn} from '@@SVGcomponents/user-info/copy-btn'

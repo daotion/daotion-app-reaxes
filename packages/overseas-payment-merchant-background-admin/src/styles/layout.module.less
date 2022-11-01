@@ -22,8 +22,30 @@
 		height : fit-content;
 		border-radius : 8px;
 	}
+	
+	.page-title{
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 28px;
+		color: rgba(0, 0, 0, 0.85);
+	}
+	
+	
 }
 
 ::-webkit-scrollbar {
 	display: none;
+}
+
+.sider-menu-container{
+	:global{
+		.ant-menu-item{
+			gap: 16px;
+		}
+		
+		.ant-menu-submenu-title{
+			gap: 16px;
+		}
+		
+	}
 }

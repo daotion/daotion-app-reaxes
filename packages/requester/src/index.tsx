@@ -85,10 +85,10 @@ export const Requester = function (plugins) {
 				onErrorStack.push(callback);
 			},
 			onFailed (){
-				
+			
 			},
 			onFinished(){
-				
+			
 			},
 		};
 		plugins.forEach((plugin) => {

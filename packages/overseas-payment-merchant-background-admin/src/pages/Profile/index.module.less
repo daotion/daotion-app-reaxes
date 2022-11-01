@@ -75,7 +75,7 @@
 	.info-item {
 		display: flex;
 		margin: 24px 0;
-		align-items: baseline;
+		align-items: center;
 	
 		p {
 			margin: 0;
@@ -89,6 +89,71 @@
 			font-weight: 500;
 			font-size: 14px;
 		}
+		
+		svg{
+			margin-left: 4px;
+			cursor: pointer;
+		}
+	}
+	
+	.base-info-title{
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 24px;
+		color: #000000;
+		margin-bottom: 24px;
 	}
 	
 }
+
+.set-api-modal:global(.ant-modal .ant-modal-content){
+	padding: 32px;
+	border-radius: 20px;
+}
+
+.set-api-modal:global(.ant-modal .ant-modal-header){
+	border-bottom: 0;
+	padding: 0;
+	padding-bottom: 16px;
+	font-weight: 600;
+	font-size: 22px;
+	line-height: 28px;
+	color: #222528;
+}
+
+.set-api-modal:global(.ant-modal .ant-modal-body){
+	padding: 0;
+}
+
+.setApiModalContainer{
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	
+	.input-form{
+		display: flex;
+		flex-direction: column;
+		
+		.desc{
+			font-weight: 500;
+			font-size: 13px;
+			line-height: 16px;
+			color: rgba(22, 22, 26, 0.8);
+		}
+		
+		:global{
+			.ant-input{
+				margin-bottom: 8px;
+				margin-top: 8px;
+			}
+		}
+	}
+	
+	.btn-section{
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+	
+}
+

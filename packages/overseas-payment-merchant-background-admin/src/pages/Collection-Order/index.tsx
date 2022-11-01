@@ -1,3 +1,5 @@
+import { Col } from "antd";
+
 export const CollectionOrder = reaxper(() => {
 	const badge = useRef(Math.random());
 	const {params} = toolkits.useRouter();
@@ -18,20 +20,29 @@ export const CollectionOrder = reaxper(() => {
 	fetchCollectionOrderList(params['*']);
 	
 	
-	return <div>
+	/*切换路由时重置搜索条件*/
+	useLayoutEffect(() => {
+		reset();
+	} , [ params['*'] ]);
+	
+	fetchCollectionOrderList(params['*']);
+	
+	
+	return <>
 		<OrderInfoSearch />
 		<OrderInfoTable />
-	</div>
+		<OrderProcess/>
+	</>
 });
 
 
 export const OrderInfoSearch = reaxper(() => {
 	const {params} = toolkits.useRouter();
-	const { 
-		reset , 
+	const {
+		reset ,
 		state$search ,
 		state$list,
-		setFields , 
+		setFields ,
 		get_enum_order_list_map ,
 	} = reaxel_collection_order();
 	
@@ -62,7 +73,7 @@ export const OrderInfoSearch = reaxper(() => {
 						label = { '订单创建时间' }
 					>
 						{/*@ts-ignore*/ }
-						<RangePicker
+						<RangePicker 
 							showTime
 							onChange = { ([ start , end ]) => {
 								setFields({
@@ -219,17 +230,30 @@ export const OrderInfoTable = reaxper(() => {
 
 export const OrderProcess = reaxper(() => {
 	
-	const { Steps } = antd;
+	const { Steps, Modal } = antd;
 	
 	const { Step } = Steps;
 	
+	const reax_Collection_Order = reaxel_collection_order();
+	
 	return (
-		<div className = { less.orderProcessContainer }>
+		<Modal
+			className={less.processingModal}
+			visible={reax_Collection_Order.processModalShow}
+			closable={false}
+			footer={false}>
 			<div className = { less.orderProcessTitle }>
 				<span>
 					订单进度
 				</span>
-				<CloseBtn />
+				<div
+					className={less.closeBtn}
+					onClick={() => {
+						reax_Collection_Order.changeModalShow(false)
+					}}
+				>
+					<CloseBtn/>
+				</div>
 			</div>
 			<Steps
 				progressDot = { true }
@@ -244,9 +268,12 @@ export const OrderProcess = reaxper(() => {
 					title = { '已支付' }
 					description = { '2022-10-18 15:27' }
 				/>
+				{/*<Step*/}
+				{/*	title = { '支付失败' }*/}
+				{/*	description = { '2022-10-18 15:27' }*/}
+				{/*/>*/}
 			</Steps>
-		
-		</div>
+		</Modal>
 	);
 });
 

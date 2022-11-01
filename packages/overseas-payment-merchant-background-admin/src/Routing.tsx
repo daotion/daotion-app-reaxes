@@ -31,7 +31,6 @@ export const MainContentRouting = reaxper(() => {
 			/>
 			<Route
 				path = "home"
-				// element = { toolkits.withOutlet(<HomePage />) }
 			>
 				<Route
 					index
@@ -61,9 +60,17 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<WithDrawalOrder />) }
 			/>
 			<Route
-				path = "payment-mgnt"
-				element = { toolkits.withOutlet(<PayoutManagement />) }
-			/>
+				path= "payment-mgnt"
+			>
+				<Route
+					index
+					element = { toolkits.withOutlet(<PayoutManagement />) }
+				/>
+				<Route
+					path = "addPayout"
+					element = { toolkits.withOutlet(<AddPayout />) }
+				/>
+			</Route>
 		</Route>
 	</Routes>;
 });
@@ -97,6 +104,7 @@ import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';
 import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
+import { AddPayout } from "@@pages/Payout/add-payout";
 import {
 	BrowserRouter ,
 	Navigate ,
