@@ -28,7 +28,10 @@ export  namespace User__modify_password {
 	}
 	
 	export interface response {
-		result: boolean
+		data : {
+			result : number,
+			newToken : string,
+		};
 	}
 }
 
@@ -67,5 +70,22 @@ export namespace User__api_info {
 				string
 			]
 		}
+	}
+}
+
+
+export namespace User__api_set {
+	export interface payload {
+		payInCallback : string;
+		payOutCallback : string;
+		payOutWhitelist : string ;
+		address : string;
+		
+		
+	}
+	
+	
+	export interface response {
+		data
 	}
 }
