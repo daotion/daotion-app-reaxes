@@ -30,12 +30,7 @@ export const MainContentRouting = reaxper(() => {
 				element = { <Navigate to = { '/home' } /> }
 			/>
 			<Route
-				path = "order"
-				element = { toolkits.withOutlet(<OrderInfo />) }
-			/>
-			<Route
 				path = "home"
-				// element = { toolkits.withOutlet(<HomePage />) }
 			>
 				<Route
 					index
