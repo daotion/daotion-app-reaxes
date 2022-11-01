@@ -1,10 +1,11 @@
 export const CollectionOrder = reaxper(() => {
 	const badge = useRef(Math.random());
 	
-	return <div>
+	return <>
 		<OrderInfoSearch />
 		<OrderInfoTable />
-	</div>
+		<OrderProcess/>
+	</>
 });
 
 
@@ -63,6 +64,8 @@ export const OrderInfoTable = reaxper(() => {
 	
 	const { Table , Button , Tag , Input , DatePicker } = antd;
 	
+	const reax_Collection_Order = reaxel_collection_order();
+	
 	interface DataType {
 		key : number;
 		orderNumber : string;
@@ -82,7 +85,13 @@ export const OrderInfoTable = reaxper(() => {
 			fixed : 'left' ,
 			render : (_ , { orderNumber }) => {
 				return (
-					<a>{ orderNumber }</a>
+					<a 
+						onClick={() => {
+							reax_Collection_Order.changeModalShow(true)
+						}}
+					>
+						{ orderNumber }
+					</a>
 				);
 			} ,
 		} ,
@@ -295,17 +304,30 @@ export const OrderInfoTable = reaxper(() => {
 
 export const OrderProcess = reaxper(() => {
 	
-	const { Steps } = antd;
+	const { Steps, Modal } = antd;
 	
 	const { Step } = Steps;
 	
+	const reax_Collection_Order = reaxel_collection_order();
+	
 	return (
-		<div className = { less.orderProcessContainer }>
+		<Modal
+			className={less.processingModal}
+			visible={reax_Collection_Order.processModalShow}
+			closable={false}
+			footer={false}>
 			<div className = { less.orderProcessTitle }>
 				<span>
 					订单进度
 				</span>
-				<CloseBtn />
+				<div
+					className={less.closeBtn}
+					onClick={() => {
+						reax_Collection_Order.changeModalShow(false)
+					}}
+				>
+					<CloseBtn/>
+				</div>
 			</div>
 			<Steps
 				progressDot = { true }
@@ -321,8 +343,7 @@ export const OrderProcess = reaxper(() => {
 					description = { '2022-10-18 15:27' }
 				/>
 			</Steps>
-		
-		</div>
+		</Modal>
 	);
 });
 
@@ -338,3 +359,4 @@ import {
 	Dot ,
 	Line ,
 } from '@@SVGcomponents';
+import {reaxel_collection_order} from '@@reaxels/Collection-Order/Collection-Order'
