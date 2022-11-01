@@ -283,29 +283,39 @@ const SetApiModal = reaxper(() => {
 	}
 	return (
 		<Modal
+			className={less.setApiModal}
 			visible = { setApiStore.apiSetModalShow }
 			title = { modalContent[apiSetModalKey].title }
 			footer = { null }
 			closable={false}
+			width={380}
 		>
-			<p>{ modalContent[apiSetModalKey].subTitle }</p>
-			<span>{ modalContent[apiSetModalKey].memo }</span>
-			<Input
-				value = {modalContent[apiSetModalKey].value}
-				onChange={(e) => {
-					reax_edit_info.setStateApi({
-						[apiSetModalKey]: e.target.value
-					})
-				}}
-			/>
-			<Button type = "primary" onClick={() => {
-				reax_edit_info.setApiConfig()
-			}}>提交</Button>
-			<Button onClick={() => {
-				reax_edit_info.setStateApi({
-					apiSetModalShow: false
-				})
-			}}>取消</Button>
+			<div className={less.setApiModalContainer}>
+				<div className={less.inputForm}>
+					<span>{ modalContent[apiSetModalKey].subTitle }</span>
+					<Input
+						value = {modalContent[apiSetModalKey].value}
+						onChange={(e) => {
+							reax_edit_info.setStateApi({
+								[apiSetModalKey]: e.target.value
+							})
+						}}
+					/>
+					<span className={less.desc}>
+						{ modalContent[apiSetModalKey].memo }
+					</span>
+				</div>
+				<div className={less.btnSection}>
+					<Button type = "primary" onClick={() => {
+						reax_edit_info.setApiConfig()
+					}}>提交</Button>
+					<Button onClick={() => {
+						reax_edit_info.setStateApi({
+							apiSetModalShow: false
+						})
+					}}>取消</Button>
+				</div>
+			</div>
 		</Modal>
 	);
 })
