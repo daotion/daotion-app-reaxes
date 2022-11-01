@@ -68,8 +68,8 @@ export const reaxel_user_info = function(){
 			get apiConfig(){
 				return store.apiConfig
 			},
-			get closuredFetchApiConfig(){
-				return (badge) => fetchApiConfig(() => [badge])()
+			closuredFetchApiConfig(badge){
+				return fetchApiConfig(() => [badge])()
 			} ,
 			changeTab(tabValue : string){
 				setState({

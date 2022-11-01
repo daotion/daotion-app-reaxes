@@ -4,51 +4,54 @@ import { message } from "antd";
 export const reaxel_edit_info = function(){
 	let ret;
 	const __storage_key__auth/*用户登录的token*/ = `-mch-auth-token-`;
-	const {store, setState} = orzMobx({
-		currentTab: 'userInfo'
-	})
-	const { store: resetPwdStore, setState: setStatePwd } = orzMobx({
-		pending: false,
-		oldPassword : '',
-		newPassword : '',
-		checkPassword : '' ,
-	})
+	const { store , setState } = orzMobx({
+		currentTab : 'userInfo',
+	});
+
 	
-	const {store: setApiStore, setState: setStateApi} = orzMobx({
-		pending : false,
-		apiPayInReturnUrl : '',
-		apiPayOutReturnUrl : '',
-		apiPayOutWhiteList : [],
-		apiWithdrawAdd: '',
-		apiSetModalShow: false,
-		apiSetModalKey : '',
-	})
+	const { store : resetPwdStore , setState : setStatePwd } = orzMobx({
+		pending : false ,
+		oldPassword : '' ,
+		newPassword : '' ,
+		checkPassword : '' ,
+	});
+	
+	const { store : setApiStore , setState : setStateApi } = orzMobx({
+		pending : false ,
+		payInCallback : '' ,
+		payOutCallback : '' ,
+		payOutWhitelist :'',
+		address : '' ,
+		apiSetModalShow : false ,
+		apiSetModalKey : 'payInCallback' ,
+	});
 	// 修改密码方法
 	const modify = async () => {
-		const {oldPassword, newPassword,} = resetPwdStore;
-		const reax_storage  = reaxel_storage()
+		const { oldPassword , newPassword  } = resetPwdStore;
+		const reax_storage = reaxel_storage();
 		const { message } = antd;
 		
 		setStatePwd({
 			pending : true ,
 		});
-		return request_modify_password(async () => ({
-				oldPassword: crypto.MD5(oldPassword).toString(),
-				newPassword: crypto.MD5(newPassword).toString()
+		return request_modify_password(async () => (
+			{
+				oldPassword : crypto.MD5(oldPassword).toString() ,
+				newPassword : crypto.MD5(newPassword).toString(),
 			}
 		)).then((res) => {
 			setStatePwd({
 				pending : false ,
 			});
-			reax_storage.set(__storage_key__auth , res.newToken );
+			reax_storage.set(__storage_key__auth , res.newToken);
 			
 		}).catch((e) => {
 			setStatePwd({
 				pending : false ,
 			});
-			message.error(e)
-		})
-	}
+			message.error(e);
+		});
+	};
 	
 	// 修改Api方法
 	const setApiConfig = async () => {
@@ -58,42 +61,53 @@ export const reaxel_edit_info = function(){
 		});
 		return request_user_api_set(async () => {
 			return {
-				payInCallback : setApiStore.apiPayInReturnUrl,
-				payOutCallback : setApiStore.apiPayOutReturnUrl,
-				payOutWhitelist : JSON.stringify(setApiStore.apiPayOutWhiteList),
-				address : setApiStore.apiWithdrawAdd,
-			}
+				payInCallback : setApiStore.payInCallback ,
+				payOutCallback : setApiStore.payOutCallback ,
+				payOutWhitelist : JSON.stringify(setApiStore.payOutWhitelist.split(';').filter(i => i !== '')) ,
+				address : setApiStore.address ,
+			};
 		}).then((res) => {
 			setStateApi({
 				pending : false ,
 			});
 		}).catch((e) => {
 			setStateApi({
-				pending: false
-			})
-		})
-	}
+				pending : false,
+			});
+		});
+	};
+	const reax_user_info = reaxel_user_info()
 	
-	
-	return ( ) => {
+	return () => {
 		return ret = {
-			get resetPwdStore(){
-				return resetPwdStore
-			},
 			get currentTab(){
 				return store.currentTab;
-			},
-			changeTab (tabValue: string) {
+			} ,
+			changeTab(tabValue : string){
 				setState({
-					currentTab : tabValue,
-				})
-			},
+					currentTab : tabValue ,
+				});
+			} ,
+			get resetPwdStore(){
+				return resetPwdStore;
+			} ,
 			get setStatePwd(){
 				return setStatePwd;
 			} ,
+			get setApiStore(){
+				return setApiStore;
+			} ,
 			get setStateApi(){
 				return setStateApi;
-			},
+			} ,
+			showModal(key){
+				setStateApi({
+					apiSetModalShow : true ,
+					apiSetModalKey : key ,
+					[key]: reax_user_info.apiConfig[key]
+					
+				});
+			} ,
 			
 			modifyPwd(){
 				modify().then(() => {
@@ -103,15 +117,16 @@ export const reaxel_edit_info = function(){
 				setApiConfig().then(() => {
 					setStateApi({
 						apiSetModalShow : false ,
-						apiSetModalKey : '' ,
 					});
-				})
-			}
+				});
+				reax_user_info.closuredFetchApiConfig(Math.random());
+			},
 		};
-	}
+	};
 }();
 
 import { request_modify_password, request_user_api_set } from "@@requests";
+import { reaxel_user_info } from '@@reaxels/user/profile'
 import { reaxel_storage } from '#reaxels';
 import crypto from 'crypto-js';
 import { orzMobx } from "reaxes";
