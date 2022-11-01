@@ -34,7 +34,7 @@ export const Overview = reaxper(() => {
 						className = { less.checkDetail }
 						type = "link"
 						onClick = { () => {
-							navigate('financialDetail');
+							navigate('fin-detail');
 						} }
 					>
 						查看明细
