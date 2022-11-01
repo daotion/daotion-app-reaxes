@@ -95,7 +95,7 @@ import { FinancialDetails } from '@@pages/Home/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';
-import { PayoutManagement } from '@@pages/Payout';
+import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
 import {
 	BrowserRouter ,
