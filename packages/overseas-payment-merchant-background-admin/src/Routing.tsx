@@ -1,5 +1,3 @@
-
-
 export const Routing = reaxper((props) => {
 	
 	return <BrowserRouter>
@@ -49,22 +47,21 @@ export const MainContentRouting = reaxper(() => {
 				/>
 			</Route>
 			
-			{/*<Route*/}
-			{/*	path = "home/*"*/}
-			{/*>*/}
-			{/*	*/}
-			{/*</Route>*/}
 			<Route
 				path = "profile/*"
 				element = { toolkits.withOutlet(<Profile />) }
 			/>
 			<Route
 				path = "payInOrder"
-				element = { toolkits.withOutlet(<OrderInfo />) }
+				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
 				path = "payOutOrder"
-				element = { toolkits.withOutlet(<OrderInfo />) }
+				element = { toolkits.withOutlet(<CollectionOrder />) }
+			/>
+			<Route
+				path = "withDrawOrder"
+				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
 				path = "payout"
@@ -98,7 +95,7 @@ import { Login } from '@@pages/Login';
 import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Home';
 import { FinancialDetails } from '@@pages/Home/financial-details'
-import { OrderInfo } from '@@pages/Order-Info';
+import { CollectionOrder } from '@@pages/Collection-Order';
 import { PayoutManagement } from '@@pages/Payout';
 import { Layout } from './Layout';
 import {
