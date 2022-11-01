@@ -63,7 +63,8 @@ if ( !node_env ) {
 }
 /*如果是dev环境则默认开启实验特性,除非明确说明*/
 if ( !experimental ) {
-	node_env === 'development' ? experimental = 'experimental' : experimental = 'non-exp';
+	// node_env === 'development' ? experimental = 'experimental' : experimental = 'non-exp';
+	experimental = 'non-exp';
 }
 
 export const rootPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../');

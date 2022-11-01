@@ -12,7 +12,7 @@
 export function AsyncReplayablePayloadPlugin() {
 	return (hooks) => {
 		hooks.onInit((slot) => {
-			crayon.orange(`AsyncReplayablePayloadPlugin.onInit()`);
+			// crayon.orange(`AsyncReplayablePayloadPlugin.onInit()`);
 		});
 		hooks.onInvoke(async (slot,url,options) => {
 			const payload = (options.body ?? slot.options.body);
