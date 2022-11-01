@@ -60,7 +60,7 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<WithDrawalOrder />) }
 			/>
 			<Route
-				path= "payout"
+				path= "payment-mgnt"
 			>
 				<Route
 					index
