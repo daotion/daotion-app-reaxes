@@ -112,7 +112,7 @@ const items: MenuItem[] = [
 		getItem('代付订单', 'payment-order'),
 		getItem('提现订单', 'withdrawal-order'),
 	]),
-	getItem('代付管理', 'payout', <MenuPayoutIcon />),
+	getItem('代付管理', 'payment-mgnt', <MenuPayoutIcon />),
 	getItem('商户信息', 'profile', <MenuUserIcon />),
 	getItem('API文档', 'api', <MenuApiIcon />),
 ];

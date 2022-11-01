@@ -60,7 +60,7 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
 			<Route
-				path = "payout-mgnt"
+				path = "payment-mgnt"
 				element = { toolkits.withOutlet(<PayoutManagement />) }
 			/>
 		</Route>
