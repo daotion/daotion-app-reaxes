@@ -31,7 +31,6 @@ export const MainContentRouting = reaxper(() => {
 			/>
 			<Route
 				path = "home"
-				// element = { toolkits.withOutlet(<HomePage />) }
 			>
 				<Route
 					index

@@ -44,24 +44,22 @@ const Menu = reaxper(() => {
 export const ResetPwd = reaxper(() =>{
 	const { navigate } = toolkits.useRouter();
 	const { Input , Button } = antd;
-	const { modifyPassword , onModifyInput , inputSet } = reaxel_edit_info();
-	const inputs = [
-		{
-			key : 'oldPassword' ,
-			name : '旧密码' ,
-			
-		},
-		{
-			key : 'newPassword' ,
-			name : '新密码' ,
-			
-		},
-		{
-			key : 'checkPassword' ,
-			name : '再次输入密码' ,
-			
-		},
-	];
+	const reax_edit_info = reaxel_edit_info();
+	const {
+		setStatePwd ,
+		resetPwdStore ,
+		modifyPwd,
+	} = reax_edit_info;
+	const { message } = antd;
+	const submitPwd = () => {
+		if (resetPwdStore.oldPassword === '' || resetPwdStore.newPassword === '' || resetPwdStore.checkPassword === '') {
+			message.error('输入不能为空')
+		} else if (resetPwdStore.newPassword !== resetPwdStore.checkPassword) {
+			message.error('确认密码不一致')
+		} else {
+			modifyPwd()
+		}
+	}
 	return(
 		<div className={less.resetPasswordContainer}>
 			<div className={less.resetTitle}>
@@ -72,31 +70,53 @@ export const ResetPwd = reaxper(() =>{
 					密码修改成功后需重新登录
 				</span>
 			</div>
-			
-			{inputs.map((i) => {
-				const { key, name } = i
-				return (
-					<div className={less.formContainer} key={key}>
-						<span className={less.formTitle}>
-							{name}
-						</span>
-						<Input
-							value={inputSet[key].value}
-							status={inputSet[key].check}
-							onChange={(e) => {
-								onModifyInput(key, e.target.value)
-							}}
-							type='password'
-						/>
-					</div>
-				)
-			})}
+			<div className={less.formContainer}>
+				<span className={less.formTitle}>
+					旧密码
+				</span>
+				<Input
+					value={resetPwdStore.oldPassword}
+					onChange={(e) => {
+						setStatePwd({
+							oldPassword: e.target.value
+						})
+					}}
+					type='password'
+				/>
+			</div>
+			<div className={less.formContainer}>
+				<span className={less.formTitle}>
+					新密码
+				</span>
+				<Input
+					value={resetPwdStore.newPassword}
+					onChange={(e) => {
+						setStatePwd({
+							newPassword: e.target.value
+						})
+					}}
+					type='password'
+				/>
+			</div>
+			<div className={less.formContainer}>
+				<span className={less.formTitle}>
+					再次输入密码
+				</span>
+				<Input
+					value={resetPwdStore.checkPassword}
+					onChange={(e) => {
+						setStatePwd({
+							checkPassword: e.target.value
+						})
+					}}
+					type='password'
+				/>
+			</div>
 			<Button
 				type="primary"
+				loading={resetPwdStore.pending}
 				onClick={() => {
-					modifyPassword(() => {
-						navigate('/Login')
-					})
+					submitPwd()
 				}}
 			>
 				修改密码
