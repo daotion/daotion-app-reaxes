@@ -90,11 +90,7 @@ export const ProfileRouting = reaxper(() => {
 })
 
 import { reaxel_user_auth } from '@@reaxels';
-import {
-	ProfileInfo ,
-	ResetPwd,
-	ProfileApi ,
-} from '@@pages/Profile';
+import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
 import { Login } from '@@pages/Login';
 import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Overview';
