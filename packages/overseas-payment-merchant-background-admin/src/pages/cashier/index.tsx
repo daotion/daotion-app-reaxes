@@ -32,18 +32,18 @@ export const Cashier = reaxper(() =>{
 				<span className={less.textInfo}>
 					Por favor abra o seu aplicativo de pagamento  e escaneie o código QR abaixo para pagar ou copie o código Pix abaixo e cole em seu app de pagamenm para f inalizar a compra.
 				</span>
-				<div
-					className={less.qrCode}
-					style={{
-						backgroundImage: `url(${cashier_QRcode})`
-					}}>
-				</div>
+				<img
+					className={less.qrCode}	
+					src={cashier_QRcode}
+				/>
 				<button 
 					className={less.btn} 
-					style={{
-						backgroundImage: `url(${copy_btn})`
-				}}>
-					PIX Cópia é Cola
+				>
+					<div style={{
+						flex: 1
+					}}></div>
+					<span style={{flex: 10}}>PIX Cópia é Cola</span>
+					<CopyBtn/>
 				</button>
 			</div>
 
@@ -103,6 +103,14 @@ export const Domain = reaxper(() =>{
 	)
 })
 
+export const CopyBtn = reaxper(() =>{
+	return(
+		<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M4.55273 4.79298V3.1133C4.55273 2.54847 4.99301 2.09058 5.53611 2.09058H14.0587C14.6018 2.09058 15.042 2.54847 15.042 3.1133V11.9769C15.042 12.5418 14.6018 12.9997 14.0587 12.9997H12.4254" stroke="white" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M11.2615 4.99976H2.73899C2.19589 4.99976 1.75562 5.45765 1.75562 6.02248V14.8861C1.75562 15.451 2.19589 15.9088 2.73899 15.9088H11.2615C11.8046 15.9088 12.2449 15.451 12.2449 14.8861V6.02248C12.2449 5.45765 11.8046 4.99976 11.2615 4.99976Z" stroke="white" strokeLinejoin="round"/>
+		</svg>
+	)
+})
+
 import less from './index.module.less'
 import cashier_QRcode from '@@public/statics/cashier-QRcode.png'
-import copy_btn from '@@public/statics/copy-btn.png'

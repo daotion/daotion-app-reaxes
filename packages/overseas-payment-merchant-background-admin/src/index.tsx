@@ -1,3 +1,4 @@
+import { Cashier } from "@@pages/cashier";
 
 module?.hot?.accept?.(
 	"./index.tsx" ,

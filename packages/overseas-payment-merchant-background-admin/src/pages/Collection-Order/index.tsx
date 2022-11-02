@@ -1,5 +1,3 @@
-import { Col } from "antd";
-
 export const CollectionOrder = reaxper(() => {
 	const badge = useRef(Math.random());
 	const {params} = toolkits.useRouter();
@@ -48,11 +46,10 @@ export const OrderInfoSearch = reaxper(() => {
 	
 	const enum_order_status = get_enum_order_list_map(params['*']);
 	
-	const { Input , Form , Select , Button } = antd;
+	const { Input , Form , Select , Button , Col} = antd;
 	const { RangePicker } = DatePicker;
 	return (
 		<ConfigProvider
-		
 		>
 			<div className = { less.searchContainer }>
 				<Form
@@ -129,11 +126,9 @@ export const OrderInfoSearch = reaxper(() => {
 						<Form.Item style={{
 							marginRight: 0
 						}}>
-							<div className = { less.formBtn }>
-								<Button onClick = { reset }>
-									重置
-								</Button>
-							</div>
+							<Button onClick = { reset }>
+								重置
+							</Button>
 						</Form.Item>
 					</Col>
 				</Form>
