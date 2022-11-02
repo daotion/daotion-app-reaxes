@@ -57,18 +57,23 @@ export const OrderInfoSearch = reaxper(() => {
 			<div className = { less.searchContainer }>
 				<Form
 					layout = "inline"
+					style={{
+						width: '100%'
+					}}
 				>
-					<Form.Item
-						label = { '搜索订单' }
-					>
-						<Input
-							value = { state$search.input_search_orderID }
-							onChange = { (e) => {
-								setFields({ input_search_orderID : e.target.value });
-							} }
-							placeholder = { '订单ID' }
-						/>
-					</Form.Item>
+					<Col flex={1}>
+						<Form.Item
+							label = { '搜索订单' }
+						>
+							<Input
+								value = { state$search.input_search_orderID }
+								onChange = { (e) => {
+									setFields({ input_search_orderID : e.target.value });
+								} }
+								placeholder = { '订单ID' }
+							/>
+						</Form.Item>
+					</Col>
 					{ __EXPERIMENTAL__ && <Form.Item
 						label = { '订单创建时间' }
 					>
@@ -96,35 +101,41 @@ export const OrderInfoSearch = reaxper(() => {
 						{/*@ts-ignore*/ }
 						<RangePicker value = { [ null , null ] } />
 					</Form.Item> }
-					<Form.Item
-						label = { '订单状态' }
-					>
-						<Select
-							placeholder = { '选择状态' }
-							onChange = { (value, option) => {
-								setFields({select_order_status : value})
-							} }
-							style = { { minWidth : "120px" } }
-							value = { state$search.select_order_status }
+					<Col flex={1}>
+						<Form.Item
+							label = { '订单状态' }
 						>
-							{ enum_order_status.map(({ label , status }) => {
-								return <Select.Option
-									key = { status }
-									value = { status }
-								>
-									{ label }
-								</Select.Option>;
-							}) }
-						</Select>
-					</Form.Item>
+							<Select
+								placeholder = { '选择状态' }
+								onChange = { (value, option) => {
+									setFields({select_order_status : value})
+								} }
+								style = { { minWidth : "120px" } }
+								value = { state$search.select_order_status }
+							>
+								{ enum_order_status.map(({ label , status }) => {
+									return <Select.Option
+										key = { status }
+										value = { status }
+									>
+										{ label }
+									</Select.Option>;
+								}) }
+							</Select>
+						</Form.Item>
+					</Col>
 					
-					<Form.Item>
-						<div className = { less.formBtn }>
-							<Button onClick = { reset }>
-								重置
-							</Button>
-						</div>
-					</Form.Item>
+					<Col>
+						<Form.Item style={{
+							marginRight: 0
+						}}>
+							<div className = { less.formBtn }>
+								<Button onClick = { reset }>
+									重置
+								</Button>
+							</div>
+						</Form.Item>
+					</Col>
 				</Form>
 			</div>
 		</ConfigProvider>
