@@ -1,10 +1,12 @@
 export const reaxel_overview = function(){
 	let ret;
 	const initialState = {
-		withdrawModalShow : false,
-		overviewInfo : {} as any,
-		fin_detail_list : [] as Overview__fin_detail.response['listInfo'],
-		withdrawApplyMoney : '',
+		withdrawModalShow : false ,
+		overviewInfo : {} as any ,
+		fin_detail_list : [] as Overview__fin_detail.response['listInfo'] ,
+		withdrawApplyMoney : '' as any ,
+		withdrawMaxMoney : 0,
+		
 	};
 	const { store , setState } = orzMobx(initialState);
 	const { message } = antd;
@@ -32,6 +34,13 @@ export const reaxel_overview = function(){
 		})
 	}, () => [])
 	
+	const [fetchMaxWithdrawMoney] = Reaxes.closuredMemo(async () => {
+		return request_withdraw_max_money().then((res) => {
+			setState({
+				withdrawMaxMoney: res.withdrawReceipt
+			})
+		})
+	}, () => [])
 	const withdrawApply = async () => {
 		const { withdrawApplyMoney = 0, overviewInfo: {address} } = store;
 		return request_withdraw_apply(async () => {
@@ -71,9 +80,23 @@ export const reaxel_overview = function(){
 			fetchFinDetail(badge){
 				return fetchFinDetail(() => [ badge ])();
 			} ,
-			withdrawApply () {
-				withdrawApply()
+			
+			get withdrawApplyMoney(){
+				return store.withdrawApplyMoney;
+			},
+			withdrawApply(){
+				withdrawApply();
+			},
+			fetchMaxWithdrawMoney(badge){
+				return fetchMaxWithdrawMoney(() => [ badge ])();
+			},
+			
+			
+			get withdrawMaxMoney () {
+				return store.withdrawMaxMoney;
 			}
+			
+			
 			
 		};
 	}
@@ -83,6 +106,7 @@ import {
 	request_overview_info ,
 	request_fin_detail ,
 	Overview__fin_detail ,
-	request_withdraw_apply
+	request_withdraw_apply ,
+	request_withdraw_max_money,
 } from '@@requests';
 

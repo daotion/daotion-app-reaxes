@@ -1,6 +1,6 @@
 export const HomePage = reaxper(() =>{
 	const reax_overview = reaxel_overview()
-	const badge = useRef(Math.random());
+	const { current : badge } = useRef(Math.random());
 	reax_overview.fetchOverviewInfo(badge)
 	return(
 		<>
@@ -248,8 +248,17 @@ export const OrderInfoListRow = reaxper((props) => {
 })
 
 export const WithdrawWindow = reaxper(() =>{
-	const {setstateOverview, overviewInfo, withdrawModalShow} = reaxel_overview();
-	const { Button , Input , Modal } = antd;
+	const {
+		setstateOverview ,
+		overviewInfo ,
+		withdrawModalShow ,
+		fetchMaxWithdrawMoney ,
+		withdrawMaxMoney,
+		withdrawApplyMoney
+	} = reaxel_overview();
+	const { Button , Input , Modal, message } = antd;
+	const { current : badge } = useRef(Math.random());
+	fetchMaxWithdrawMoney(badge)
 	
 	return (
 		<Modal
@@ -257,45 +266,60 @@ export const WithdrawWindow = reaxper(() =>{
 			footer = { null }
 			className = { less.withdrawWindow }
 			closable = { false }
-			width={380}
-			title='提现'
+			width = { 380 }
+			title = "提现"
 		>
 			<div className = { less.windowContent }>
 				<div className = { less.withdrawAmount }>
 					<span>
 						提取到账金额
 					</span>
-					<Input />
+					<Input
+						value={withdrawApplyMoney}
+						onChange={(e) => {
+							const money = +e.target.value;
+							if (money > withdrawMaxMoney) {
+								message.error('余额不足')
+							} else {
+								setstateOverview({
+									withdrawApplyMoney: money
+								})
+							}
+						}}
+					/>
 					<span>
-						最大可到账金额：R$372,654,004.76
-						<span className={less.withdrawBtn}>
+						最大可到账金额：R${withdrawMaxMoney}
+						<span
+							className = { less.withdrawBtn }
+							onClick={() => {
+								setstateOverview({
+									withdrawApplyMoney: withdrawMaxMoney
+								})
+							}}
+						>
 							全部提现
 						</span>
 					</span>
 				</div>
 				<div className = { less.address }>
-					<span>
-						接收USDT地址(TRC-20)
-					</span>
-					<span>
-						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
-					</span>
+					<span>接收USDT地址(TRC-20)</span>
+					<span className={(overviewInfo.address === '') ? less.setBtn : ''}>{ overviewInfo.address === '' ? '前往设置' : overviewInfo.address}</span>
 				</div>
 				<div className = { less.btn }>
 					<Button
 						type = "primary"
-						onClick={() => {
+						onClick = { () => {
 						
-						}}
+						} }
 					>
 						提交
 					</Button>
 					<Button
-						onClick={() => {
+						onClick = { () => {
 							setstateOverview({
-								withdrawModalShow: false
-							})
-						}}
+								withdrawModalShow : false,
+							});
+						} }
 					>
 						取消
 					</Button>
