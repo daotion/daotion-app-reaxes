@@ -40,6 +40,7 @@ export const webpackConfig = {
 		new ProvidePlugin({
 			orzPromise: ['@@utils', 'orzPromise'],
 			utils: ['@@utils'],
+			antd: ['antd'],
 			toolkits: ['@@toolkits'],
 			crayon: ['@@utils', 'crayon'],
 			logProxy: ['@@utils', 'logProxy'],

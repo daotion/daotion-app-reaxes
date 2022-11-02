@@ -187,7 +187,6 @@ export const webpack_base_config = {
 			useLayoutEffect: ['react', 'useLayoutEffect'],
 			useMemo: ['react', 'useMemo'],
 			useCallback: ['react', 'useCallback'],
-			antd: ['antd'],
 			reaxper: ['#reaxes', 'Reaxper'],
 			Reaxlass: ['#reaxes', 'Reaxlass'],
 			Reaxes: ['#reaxes', 'Reaxes'],

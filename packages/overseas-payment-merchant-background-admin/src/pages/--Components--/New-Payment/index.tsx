@@ -24,12 +24,12 @@ export const NewPayment = reaxper(() => {
 					>
 						<PixPay />
 					</Tabs.TabPane>
-					<Tabs.TabPane
+					{__EXPERIMENTAL__ && <Tabs.TabPane
 						tab = "银行卡转账方式"
 						key = "bank"
 					>
 						<BankCarTransfer />
-					</Tabs.TabPane>
+					</Tabs.TabPane> }
 				</Tabs>
 				<Button type = "primary">
 					提交

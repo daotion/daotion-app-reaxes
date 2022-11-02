@@ -78,6 +78,7 @@ export const repoPackages = [
 	"daotion-app-web" ,
 	"daotion-demo-web" ,
 	"daotion-honmepage-web" ,
+	"overseas-payment-cashier" ,
 	"overseas-payment-merchant-background-admin" ,
 	"overseas-payment-merchant-operation-platform" ,
 ];
