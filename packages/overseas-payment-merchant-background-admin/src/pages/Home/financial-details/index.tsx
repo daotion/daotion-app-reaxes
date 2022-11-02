@@ -1,53 +1,31 @@
-import React from "react";
-
-export const FinancialDetails = reaxper(() =>{
-	return(
-			<FinancialDetailsTable/>
-	)
-})
-
-
-export const FinancialDetailsTable = reaxper(() => {
-	const reax_overview = reaxel_overview();
-	const badge = useRef(Math.random());
-	reax_overview.fetchFinDetail(badge);
-	const {Table, Button} = antd
-	
-	interface DataType {
-		key: number;
-		orderTime: string;
-		orderNumber: string;
-		transactionAmount: string;
-		charge: string;
-		balance: string;
-	}
-	
-	const columns: ColumnsType<DataType> = [
+export const FinancialDetails = reaxper(() => {
+	const {fetchFinDetail, fin_detail_list} = reaxel_overview();
+	const {current} = useRef(Math.random());
+	fetchFinDetail(current);
+	const { Table , Button } = antd;
+	const columns = [
 		{
 			title: '时间',
-			dataIndex: 'orderTime',
-			key: 'orderTime',
+			dataIndex: 'timestamp',
 		},
 		{
 			title: '订单号',
-			dataIndex: 'orderNumber',
-			key: 'orderNumber',
+			dataIndex: 'orderID',
 		},
 		{
 			title: '交易金额',
-			dataIndex: 'transactionAmount',
-			key: 'transactionAmount',
-			render: (transactionAmount) => {
-				if(transactionAmount.includes('+')){
+			dataIndex: 'money',
+			render: (money) => {
+				if(money > 0){
 					return(
 						<span style={{color: '#009D44'}}>
-							{transactionAmount}
+							{money}
 						</span>
 					)
 				}else {
 					return(
 						<span style={{color: 'black'}}>
-							{transactionAmount}
+							{money}
 						</span>
 					)
 				}
@@ -56,155 +34,36 @@ export const FinancialDetailsTable = reaxper(() => {
 		},
 		{
 			title: '手续费',
-			dataIndex: 'charge',
-			key: 'charge',
+			dataIndex: 'tax',
 		},
 		{
 			title: '余额',
 			dataIndex: 'balance',
-			key: 'balance',
 		},
 	]
 	
 	
-	const data: DataType[] = [
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '-3,234.77',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '+3,234.77',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '-3,234.77',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '+3,234.77',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '-3,234.77',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '+3,234.77',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '-51,005.39',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '+65,047.35',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '-51,005.39',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '+65,047.35',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '-51,005.39',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '+65,047.35',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '-51,005.39',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-		{
-			key: Math.random(),
-			orderTime: '2022-10-19 22:26:26',
-			orderNumber: '3014447778',
-			transactionAmount: '+65,047.35',
-			charge: '-13.85',
-			balance: '3,249.77',
-		},
-	]
-	
-	
-	
-	return(
-		<div className={less.tableContainer}>
-			<div className={less.tableHeader}>
+	return (
+		<div className = { less.tableContainer }>
+			<div className = { less.tableHeader }>
 				资金明细
 			</div>
 			<Table
-				columns={columns}
-				dataSource={data}
-				size="small"
-				pagination={{
-					pageSize: 10
-				}}
-				scroll={{
-					x:1000
-				}}
+				columns = { columns }
+				dataSource = { fin_detail_list }
+				rowKey = "orderID"
+				size = "small"
+				pagination = { {
+					pageSize : 10 ,
+				} }
+				scroll = { {
+					x : 1000 ,
+				} }
 			/>
 		</div>
-	)
+	);
 })
 
-import less from '../index.module.less'
-import { PayoutRequestHeader } from "../../Payout";
+import less from '../index.module.less';
+import { reaxel_overview } from '@@reaxels';
 import { ColumnsType } from "antd/lib/table";
-import { reaxel_overview } from '@@reaxels'
