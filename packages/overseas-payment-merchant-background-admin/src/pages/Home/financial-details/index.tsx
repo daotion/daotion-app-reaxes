@@ -2,15 +2,15 @@ import React from "react";
 
 export const FinancialDetails = reaxper(() =>{
 	return(
-		<div className={less.financialDetailsWrapper}>
 			<FinancialDetailsTable/>
-		</div>
 	)
 })
 
 
 export const FinancialDetailsTable = reaxper(() => {
-	
+	const reax_overview = reaxel_overview();
+	const badge = useRef(Math.random());
+	reax_overview.fetchFinDetail(badge);
 	const {Table, Button} = antd
 	
 	interface DataType {
@@ -204,6 +204,7 @@ export const FinancialDetailsTable = reaxper(() => {
 	)
 })
 
-import less from './index.module.less'
+import less from '../index.module.less'
 import { PayoutRequestHeader } from "../../Payout";
 import { ColumnsType } from "antd/lib/table";
+import { reaxel_overview } from '@@reaxels'
