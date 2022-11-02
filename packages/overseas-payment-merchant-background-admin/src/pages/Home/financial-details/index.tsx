@@ -205,5 +205,5 @@ export const FinancialDetailsTable = reaxper(() => {
 })
 
 import less from './index.module.less'
-import { PayoutRequestHeader } from "../../Payout";
+import { PayoutRequestHeader } from "../../Payment-Mgnt";
 import { ColumnsType } from "antd/lib/table";
