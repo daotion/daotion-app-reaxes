@@ -95,7 +95,7 @@ import {
 	ResetPwd,
 	ProfileApi ,
 } from '@@pages/Profile';
-import { Login } from '@@pages/-Login';
+import { Login } from '@@pages/Login';
 import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Home';
 import { FinancialDetails } from '@@pages/Home/financial-details'
