@@ -1,4 +1,7 @@
 export const HomePage = reaxper(() =>{
+	const reax_overview = reaxel_overview()
+	const badge = useRef(Math.random());
+	reax_overview.fetchOverviewInfo(badge)
 	return(
 		<>
 			<Overview/>
@@ -13,9 +16,12 @@ export const Overview = reaxper(() => {
 	
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
-	const reax_overview = reaxel_overview()
-	const badge = useRef(Math.random());
-	reax_overview.fetchOverviewInfo(badge)
+	const { overviewInfo , setstateOverview } = reaxel_overview();
+	const {
+		balance = 0 ,
+		withdrawingMoney = 0,
+	} = overviewInfo;
+
 	return (
 		<div className = { less.overviewContainer }>
 			<span className = { less.overviewTitle }>
@@ -28,7 +34,7 @@ export const Overview = reaxper(() => {
 							账户余额（R$）
 						</span>
 						<span className = { less.balanceAmount }>
-							4,691,849,234.69
+							{balance}
 						</span>
 					</div>
 					<Button
@@ -46,14 +52,16 @@ export const Overview = reaxper(() => {
 						提现处理中
 					</span>
 					<span className = { less.withdrawingAmount }>
-						849,234.69
+						{withdrawingMoney}
 					</span>
 				</div>
 			</div>
 			<Button
 				type = "primary"
 				onClick = { () => {
-					reax_overview.changeModalShow(true);
+					setstateOverview({
+						withdrawModalShow: true
+					})
 				} }
 			>
 				提现
@@ -73,6 +81,17 @@ export const OrderTypeOverview = reaxper(() =>{
 })
 
 export const PayinOverview = reaxper(() => {
+	const { overviewInfo } = reaxel_overview();
+	const {
+		totalMoney = 0 ,
+		statusCount = [] ,
+	} = overviewInfo.payInCount || {};
+	const typeCheck = {
+		0 : '待支付' ,
+		1 : '已取消' ,
+		2 : '支付失败' ,
+		3 : '已支付' ,
+	};
 	return(
 		<div className={less.payinOverview}>
 			<span className={less.orderTypeTitle}>
@@ -85,7 +104,7 @@ export const PayinOverview = reaxper(() => {
 						代收总金额 (R$)
 					</span>
 					<span>
-						7,406,706.32
+						{totalMoney}
 					</span>
 				</div>
 			</div>
@@ -93,27 +112,18 @@ export const PayinOverview = reaxper(() => {
 				<span className={less.dataTitle}>
 					代收订单数据
 				</span>
+			
 				<div className={less.orderInfoList}>
-					<OrderInfoListRow
-						orderType={'待支付'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'已取消'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'支付失败'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'已支付'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
+					{statusCount.map((i, index) => {
+						return (
+							<OrderInfoListRow
+								key = { typeCheck[index] }
+								orderType = { typeCheck[index] }
+								amount = { i.orderMoney }
+								orderAmount = { i.orderNum + '笔' }
+							/>
+						);
+					})}
 				</div>
 			</div>
 		</div>
@@ -121,99 +131,102 @@ export const PayinOverview = reaxper(() => {
 })
 
 export const PayoutOverview = reaxper(() => {
-	return(
-		<div className={less.payoutOverview}>
-			<span className={less.orderTypeTitle}>
+	const { overviewInfo } = reaxel_overview();
+	const {
+		totalMoney = 0 ,
+		statusCount = [] ,
+	} = overviewInfo.payOutCount || {};
+	const typeCheck = {
+		0 : '待审核' ,
+		1 : '已拒绝' ,
+		2 : '待支付' ,
+		3 : '支付失败' ,
+		4 : '已支付',
+	};
+	return (
+		<div className = { less.payoutOverview }>
+			<span className = { less.orderTypeTitle }>
 				代付
 			</span>
-			<div className={less.totalAmount}>
-				<HomePagePayoutLogo/>
-				<div className={less.totalAmountContent}>
-					<span className={less.totalAmountTitle}>
+			<div className = { less.totalAmount }>
+				<HomePagePayoutLogo />
+				<div className = { less.totalAmountContent }>
+					<span className = { less.totalAmountTitle }>
 						代付总金额 (R$)
 					</span>
 					<span>
-						7,406,706.32
+						{ totalMoney }
 					</span>
 				</div>
 			</div>
-			<div className={less.orderInfo}>
-				<span className={less.dataTitle}>
+			<div className = { less.orderInfo }>
+				<span className = { less.dataTitle }>
 					代付订单数据
 				</span>
-				<div className={less.orderInfoList}>
-					<OrderInfoListRow
-						orderType={'待支付'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'待审核'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'已拒绝'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'支付失败'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'已支付'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
+				<div className = { less.orderInfoList }>
+					{ statusCount.map((i , index) => {
+						return (
+							<OrderInfoListRow
+								key = { typeCheck[index] }
+								orderType = { typeCheck[index] }
+								amount = { i.orderMoney }
+								orderAmount = { i.orderNum + '笔' }
+							/>
+						);
+					}) }
 				</div>
 			</div>
 		</div>
-	)
+	);
 })
 
 export const WithdrawOverview = reaxper(() => {
-	return(
-		<div className={less.withdrawOverview}>
-			<span className={less.orderTypeTitle}>
+	const { overviewInfo } = reaxel_overview();
+	const {
+		totalMoney = 0 ,
+		statusCount = [] ,
+	} = overviewInfo.withdrawCount || {};
+	const typeCheck = {
+		0 : '待审核' ,
+		1 : '已拒绝' ,
+		2 : '已提现' ,
+	};
+	return (
+		<div className = { less.withdrawOverview }>
+			<span className = { less.orderTypeTitle }>
 				提现
 			</span>
-			<div className={less.totalAmount}>
-				<HomePageWithdrawLogo/>
-				<div className={less.totalAmountContent}>
-					<span className={less.totalAmountTitle}>
+			<div className = { less.totalAmount }>
+				<HomePageWithdrawLogo />
+				<div className = { less.totalAmountContent }>
+					<span className = { less.totalAmountTitle }>
 						提现总金额 (R$)
 					</span>
 					<span>
-						7,406,706.32
+						{ totalMoney }
 					</span>
 				</div>
 			</div>
-			<div className={less.orderInfo}>
-				<span className={less.dataTitle}>
+			<div className = { less.orderInfo }>
+				<span className = { less.dataTitle }>
 					提现订单数据
 				</span>
-				<div className={less.orderInfoList}>
-					<OrderInfoListRow
-						orderType={'待审核'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'已拒绝'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
-					<OrderInfoListRow
-						orderType={'已提现'}
-						amount={'1,201.16'}
-						orderAmount={'7,579笔'}
-					/>
+				<div className = { less.orderInfoList }>
+					{ statusCount.map((i , index) => {
+						return (
+							<OrderInfoListRow
+								key = { typeCheck[index] }
+								orderType = { typeCheck[index] }
+								amount = { i.orderMoney }
+								orderAmount = { i.orderNum + '笔' }
+							/>
+						);
+						
+					}) }
 				</div>
 			</div>
 		</div>
-	)
+	);
 })
 
 export const OrderInfoListRow = reaxper((props) => {
@@ -235,12 +248,12 @@ export const OrderInfoListRow = reaxper((props) => {
 })
 
 export const WithdrawWindow = reaxper(() =>{
-	const reax_overview = reaxel_overview();
+	const {setstateOverview, overviewInfo, withdrawModalShow} = reaxel_overview();
 	const { Button , Input , Modal } = antd;
 	
 	return (
 		<Modal
-			visible = { reax_overview.withdrawModalShow }
+			visible = { withdrawModalShow }
 			footer = { null }
 			className = { less.withdrawWindow }
 			closable = { false }
@@ -272,14 +285,16 @@ export const WithdrawWindow = reaxper(() =>{
 					<Button
 						type = "primary"
 						onClick={() => {
-							reax_overview.changeModalShow(false)
+						
 						}}
 					>
 						提交
 					</Button>
 					<Button
 						onClick={() => {
-							reax_overview.changeModalShow(false)
+							setstateOverview({
+								withdrawModalShow: false
+							})
 						}}
 					>
 						取消

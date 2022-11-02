@@ -44,3 +44,15 @@ export namespace Overview__fin_detail {
 		}[],
 	};
 }
+
+
+export namespace Overview__withdraw {
+	export type payload = {
+		money : number,
+		address: string,
+	}
+	
+	export type response = {
+		result: number
+	}
+}
