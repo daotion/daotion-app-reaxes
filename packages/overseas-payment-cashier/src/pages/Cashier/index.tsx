@@ -1,63 +1,66 @@
 import { reaxel_cashier } from './reaxel--cashier';
 import { reaxel_i18n } from '@@reaxels';
 export const Cashier = reaxper(() => {
-	const { ctc } = reaxel_cashier();
+	const { ctc , getTradeID , fetchCashier } = reaxel_cashier();
+	
 	const { changeLang , language } = reaxel_i18n();
 	
+	const tradeID = getTradeID();
+	fetchCashier(tradeID);
 	
-	
-	return(
-		<div className={less.cashierContainer}>
+	return (
+		<div className = { less.cashierContainer }>
 			
-			<button onClick={() => changeLang('zh-CN')}>中文</button>
-			<button onClick={() => changeLang('pt-BR')}>葡萄牙语</button>
-			<p>
-				<I18n>
-					成功
-				</I18n>
-			</p>
-			<div className={less.header}>
-				<DePayLogo/>
+			<button onClick = { () => changeLang('zh-CN') }>中文</button>
+			<button onClick = { () => changeLang('pt-BR') }>葡萄牙语</button>
+			<div className = { less.header }>
+				<DePayLogo />
 			</div>
 			
-			<div className={less.amount}>
-				<span className={less.time}>
+			<div className = { less.amount }>
+				<span className = { less.time }>
 					Expira em 14:59
 				</span>
-				<span className={less.number}>
-					<span className={less.unit}>R$</span>
+				<span className = { less.number }>
+					<span className = { less.unit }>R$</span>
 					1,200.00
 				</span>
 			</div>
 			
-			<div className={less.transactionDetail}>
-				<div className={less.orderId}>
-					<span className={less.orderIdTitle}>
+			<div className = { less.transactionDetail }>
+				<div className = { less.orderId }>
+					<span className = { less.orderIdTitle }>
 						Order ID：
 					</span>
-					<span className={less.idText}>
+					<span className = { less.idText }>
 						S110202210201582938395192283136
 					</span>
 				</div>
-				<span className={less.textInfo}>
-					Por favor abra o seu aplicativo de pagamento  e escaneie o código QR abaixo para pagar ou copie o código Pix abaixo e cole em seu app de pagamenm para f inalizar a compra.
+				<span className = { less.textInfo }>
+					Por favor abra o seu aplicativo de pagamento e escaneie o código QR abaixo para pagar ou copie o código Pix abaixo e cole em seu app de pagamenm para f inalizar a compra.
 				</span>
 				<img
-					className={less.qrCode}
-					src={cashier_QRcode}
+					className = { less.qrCode }
+					src = { cashier_QRcode }
 				/>
-				<button 
-					className={less.btn} 
+				<button
+					className = { less.btn }
+					onClick = { () => {
+						ctc('我是你爹');
+						
+					} }
 				>
-					<div style={{
-						flex: 1
-					}}></div>
-					<span style={{flex: 10}}>PIX Cópia é Cola</span>
-					<CopyBtn/>
+					<div
+						style = { {
+							flex : 1 ,
+						} }
+					></div>
+					<span style = { { flex : 10 } }>PIX Cópia é Cola</span>
+					<CopyBtn />
 				</button>
 			</div>
 		</div>
-	)
+	);
 })
 
 
