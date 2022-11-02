@@ -1,24 +1,21 @@
-.user-setting{
+.profile{
 	display: flex;
 	width: 100%;
-	height: fit-content;
 	padding: 24px 0;
 	background: #FFFF;
 }
 
 
-.user-setting-content{
+.profile-content{
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	margin-left: 24px;
-	background-color: #FFFF;
 }
 
 .reset-password-container{
 	display: flex;
 	flex-direction: column;
-	width: fit-content;
 	gap: 24px;
 	
 	:global{
@@ -27,6 +24,7 @@
 			height: 48px;
 			background: rgba(22, 22, 26, 0.04);
 			border-radius: 16px;
+			border: unset;
 		}
 		
 		.ant-btn{
@@ -41,10 +39,13 @@
 .reset-title{
 	display: flex;
 	flex-direction: column;
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 16px;
+	color: rgba(22, 22, 26, 0.6);
 }
 
 .title{
-	font-weight: 500;
 	font-size: 18px;
 	line-height: 24px;
 	color: #000;
@@ -64,7 +65,6 @@
 }
 
 .form-title{
-	font-weight: 500;
 	font-size: 14px;
 	line-height: 22px;
 	color: #16161a;
@@ -80,6 +80,7 @@
 		p {
 			margin: 0;
 		}
+		
 		.declare {
 			font-size: 12px;
 			font-weight: 400;
@@ -97,7 +98,6 @@
 	}
 	
 	.base-info-title{
-		font-weight: 500;
 		font-size: 18px;
 		line-height: 24px;
 		color: #000000;

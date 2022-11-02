@@ -13,8 +13,9 @@ export const Overview = reaxper(() => {
 	
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
-	const reax_home = reaxel_home()
-	
+	const reax_overview = reaxel_overview()
+	const badge = useRef(Math.random());
+	reax_overview.fetchOverviewInfo(badge)
 	return (
 		<div className = { less.overviewContainer }>
 			<span className = { less.overviewTitle }>
@@ -52,7 +53,7 @@ export const Overview = reaxper(() => {
 			<Button
 				type = "primary"
 				onClick = { () => {
-					reax_home.changeModalShow(true);
+					reax_overview.changeModalShow(true);
 				} }
 			>
 				提现
@@ -234,12 +235,12 @@ export const OrderInfoListRow = reaxper((props) => {
 })
 
 export const WithdrawWindow = reaxper(() =>{
-	const reax_home = reaxel_home();
+	const reax_overview = reaxel_overview();
 	const { Button , Input , Modal } = antd;
 	
 	return (
 		<Modal
-			visible = { reax_home.withdrawModalShow }
+			visible = { reax_overview.withdrawModalShow }
 			footer = { null }
 			className = { less.withdrawWindow }
 			closable = { false }
@@ -266,25 +267,19 @@ export const WithdrawWindow = reaxper(() =>{
 					<span>
 						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
 					</span>
-					{/*<span>*/}
-					{/*	还未添加提现钱包地址*/}
-					{/*	<span className={less.setBtn}>*/}
-					{/*		点击设置*/}
-					{/*	</span>*/}
-					{/*</span> */}
 				</div>
 				<div className = { less.btn }>
 					<Button
 						type = "primary"
 						onClick={() => {
-							reax_home.changeModalShow(false)
+							reax_overview.changeModalShow(false)
 						}}
 					>
 						提交
 					</Button>
 					<Button
 						onClick={() => {
-							reax_home.changeModalShow(false)
+							reax_overview.changeModalShow(false)
 						}}
 					>
 						取消
@@ -297,7 +292,7 @@ export const WithdrawWindow = reaxper(() =>{
 })
 
 import less from './index.module.less'
-import { reaxel_home } from '@@reaxels/overview/overview'
+import { reaxel_overview } from '@@reaxels'
 import {
 	HomePagePayinlogo,
 	HomePagePayoutLogo, 

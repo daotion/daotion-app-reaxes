@@ -1,9 +1,9 @@
 export const Profile = reaxper(() => {
 	
 	return (
-		<div className = { less.userSetting }>
+		<div className = { less.profile }>
 			<Menu />
-			<div className = { less.userSettingContent }>
+			<div className = { less.profileContent }>
 				<ProfileRouting />
 			</div>
 		</div>
@@ -65,6 +65,9 @@ export const ResetPwd = reaxper(() =>{
 			<div className={less.resetTitle}>
 				<span className={less.title}>
 					修改密码
+				</span>
+				<span>
+					密码修改成功后需重新登录
 				</span>
 			</div>
 			<div className={less.formContainer}>
@@ -141,35 +144,35 @@ export const ProfileInfo = reaxper(() => {
 				基本信息
 			</div>
 			<div className={less.infoItem} style={{marginTop: 0}}>
-				<Col span={3}>商户ID：</Col>
+				<Col span={3}>商户ID</Col>
 				<Col>{mchNo}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>商户名称：</Col>
+				<Col span={3}>商户名称</Col>
 				<Col>{name}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>联系人：</Col>
+				<Col span={3}>联系人</Col>
 				<Col>{contactPerson}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>Telegram：</Col>
+				<Col span={3}>Telegram</Col>
 				<Col>{contactPhone}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>代收手续费率：</Col>
+				<Col span={3}>代收手续费率</Col>
 				<Col>{payInFeeRate}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>代收单笔固定手续费：</Col>
+				<Col span={3}>代收单笔固定手续费</Col>
 				<Col>{payInFeeFix}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>代付手续费率：</Col>
+				<Col span={3}>代付手续费率</Col>
 				<Col>{payOutFeeRate}</Col>
 			</div>
 			<div className={less.infoItem}>
-				<Col span={3}>代付单笔固定手续费：</Col>
+				<Col span={3}>代付单笔固定手续费</Col>
 				<Col>{payOutFeeFix}</Col>
 			</div>
 		</div>
@@ -208,18 +211,18 @@ export const ProfileApi = reaxper(() => {
 					}}>{ mchKey }<CopyBtn/></Col>
 				</div>
 				<div className = { less.infoItem }>
-					<Col span = { 6 }>平台IP：</Col>
+					<Col span = { 6 }>平台IP</Col>
 					<Col>{ platformIPS }</Col>
 				</div>
 				<div className = { less.infoItem }>
-					<Col span = { 6 }>代收回调url：</Col>
+					<Col span = { 6 }>代收回调url</Col>
 					<Col span = { 6 }>{ payInCallback }</Col>
 					<Col>
 						<Button type="link" onClick={() => {reax_edit_info.showModal('payInCallback')}}>设置</Button>
 					</Col>
 				</div>
 				<div className = { less.infoItem }>
-					<Col span = { 6 }>代付回调url：</Col>
+					<Col span = { 6 }>代付回调url</Col>
 					<Col span = { 6 }>{ payOutCallback }</Col>
 					<Col>
 						<Button type="link" onClick={() => {reax_edit_info.showModal('payOutCallback')}}>设置</Button>
@@ -227,7 +230,7 @@ export const ProfileApi = reaxper(() => {
 				</div>
 				<div className = { less.infoItem }>
 					<Col span = { 6 }>
-						<p>代付白名单IP：</p>
+						<p>代付白名单IP</p>
 						<p className={less.declare}>如果有设置，平台只接收来自白名单ip地址的代付请求。</p>
 					</Col>
 					<Col span = { 6 }>{ payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }</Col>
@@ -236,7 +239,7 @@ export const ProfileApi = reaxper(() => {
 					</Col>
 				</div>
 				<div className = { less.infoItem }>
-					<Col span = { 6 }>提现地址(TRC-20)：</Col>
+					<Col span = { 6 }>提现地址(TRC-20)</Col>
 					<Col span = { 6 }>{ address }</Col>
 					<Col>
 						<Button type="link" onClick={() => {reax_edit_info.showModal('address')}}>设置</Button>
@@ -333,4 +336,4 @@ import {
 	MenuProps,
 } from "antd";
 import less from './index.module.less';
-import {CopyBtn} from '@@SVGcomponents/user-info/copy-btn'
+import {CopyBtn} from '@@SVGcomponents'
