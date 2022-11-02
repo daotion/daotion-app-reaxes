@@ -1,3 +1,7 @@
+@media (-webkit-device-pixel-ratio: 3),(-webkit-device-pixel-ratio: 2) {
+	
+}
+
 .cashier-container{
 	display: flex;
 	flex-direction: column;
@@ -77,22 +81,28 @@
 }
 
 .qr-code{
-	width: 73%;
+	width: 70%;
 	max-width: 800px;
-	height: 240px;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
 .btn{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
+	padding: 16px;
 	background: #0070F3;
 	border-radius: 12px;
 	border: unset;
-	line-height: 48px;
 	color: #ffffff;
 	background-repeat: no-repeat;
 	background-position: bottom 16px right 16px;
-	font-weight: 510;
+	font-weight: 500;
 	font-size: 14px;
+	
+	svg{
+		flex: 1;
+	}
 }
