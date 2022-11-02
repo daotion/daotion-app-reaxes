@@ -97,8 +97,8 @@ import {
 } from '@@pages/Profile';
 import { Login } from '@@pages/Login';
 import { Profile } from '@@pages/Profile';
-import { HomePage} from '@@pages/Home';
-import { FinancialDetails } from '@@pages/Home/financial-details'
+import { HomePage} from '@@pages/Overview';
+import { FinancialDetails } from '@@pages/Overview/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';

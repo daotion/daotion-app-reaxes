@@ -252,16 +252,11 @@ export const WithdrawWindow = reaxper(() =>{
 		setstateOverview ,
 		overviewInfo ,
 		withdrawModalShow ,
-		fetchMaxWithdrawMoney ,
-		withdrawMaxMoney,
 		withdrawApplyMoney
 	} = reaxel_overview();
+	const { balance } = overviewInfo;
 	const { Button , Input , Modal, message } = antd;
 	const { current : badge } = useRef(Math.random());
-	
-	if(withdrawModalShow){
-		fetchMaxWithdrawMoney(badge);
-	}
 	return (
 		<Modal
 			visible = { withdrawModalShow }
@@ -278,7 +273,7 @@ export const WithdrawWindow = reaxper(() =>{
 						value={withdrawApplyMoney}
 						onChange={(e) => {
 							const money = +e.target.value;
-							if (money > withdrawMaxMoney) {
+							if (money > balance) {
 								message.error('余额不足')
 							} else {
 								setstateOverview({
@@ -288,12 +283,12 @@ export const WithdrawWindow = reaxper(() =>{
 						}}
 					/>
 					<span>
-						最大可到账金额：R${withdrawMaxMoney}
+						最大可到账金额：R${balance}
 						<span
 							className = { less.withdrawBtn }
 							onClick={() => {
 								setstateOverview({
-									withdrawApplyMoney: withdrawMaxMoney
+									withdrawApplyMoney: balance
 								})
 							}}
 						>

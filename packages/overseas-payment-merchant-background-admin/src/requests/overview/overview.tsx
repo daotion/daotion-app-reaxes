@@ -21,9 +21,4 @@ export const request_withdraw_apply = (payload: PayloadBody<OverviewOverview__wi
 	})
 }
 
-export const request_withdraw_max_money = () => {
-	return request.post(`/mch/get-max-withdraw-receipt`, {})
-}
-
-
 import { Overview__fin_detail, Overview__withdraw } from './types'
