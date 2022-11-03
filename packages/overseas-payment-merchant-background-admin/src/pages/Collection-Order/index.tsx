@@ -288,16 +288,10 @@ export const OrderProcess = reaxper(() => {
 import { reaxel_collection_order } from './reaxel--collection-order';
 import { DatePicker } from '@@Xcomponents';
 import { time_localize_Brazil } from '#toolkits/overseas-payment';
-
 import dayjs from 'dayjs';
 import {ConfigProvider} from 'antd';
 import { ColumnsType } from "antd/es/table";
 import {
-	PayOut ,
-	PayIn ,
-	WithDraw ,
 	CloseBtn ,
-	Dot ,
-	Line ,
 } from '@@SVGcomponents';
 import less from "./index.module.less";

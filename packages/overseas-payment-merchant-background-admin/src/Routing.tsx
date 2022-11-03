@@ -27,10 +27,10 @@ export const MainContentRouting = reaxper(() => {
 		<Route path = "*">
 			<Route
 				index
-				element = { <Navigate to = { '/home' } /> }
+				element = { <Navigate to = { '/overview' } /> }
 			/>
 			<Route
-				path = "home"
+				path = "overview"
 			>
 				<Route
 					index
@@ -90,15 +90,11 @@ export const ProfileRouting = reaxper(() => {
 })
 
 import { reaxel_user_auth } from '@@reaxels';
-import {
-	ProfileInfo ,
-	ResetPwd,
-	ProfileApi ,
-} from '@@pages/Profile';
+import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
 import { Login } from '@@pages/Login';
 import { Profile } from '@@pages/Profile';
-import { HomePage} from '@@pages/Home';
-import { FinancialDetails } from '@@pages/Home/financial-details'
+import { HomePage} from '@@pages/Overview';
+import { FinancialDetails } from '@@pages/Overview/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';

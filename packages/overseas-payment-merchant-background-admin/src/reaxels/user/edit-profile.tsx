@@ -101,11 +101,19 @@ export const reaxel_edit_info = function(){
 				return setStateApi;
 			} ,
 			showModal(key){
+				let value = '';
+				if (key === 'payOutWhitelist') {
+					const whiteList = reax_user_info.apiConfig['payOutWhitelist']
+					whiteList.forEach((i) => {
+						value = value + i + ';'
+					})
+				} else {
+					value = reax_user_info.apiConfig[key];
+				}
 				setStateApi({
 					apiSetModalShow : true ,
 					apiSetModalKey : key ,
-					[key]: reax_user_info.apiConfig[key]
-					
+					[key]: value
 				});
 			} ,
 			
