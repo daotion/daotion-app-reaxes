@@ -1,4 +1,4 @@
-export const LoginLogo = reaxper(() =>{
+export const SVGLoginDepayLogo = reaxper(() =>{
 	return(
 		<svg width="168" height="42" viewBox="0 0 168 42" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M21.0838 0.090332V10.5429L31.6078 21.0408L21.0838 31.5386V41.9912C26.654 41.9912 31.9961 39.7839 35.9348 35.8549C39.8736 31.926 42.0863 26.5972 42.0863 21.0408C42.0863 15.4844 39.8736 10.1555 35.9348 6.22657C31.9961 2.2976 26.654 0.090332 21.0838 0.090332Z" fill="white"/>

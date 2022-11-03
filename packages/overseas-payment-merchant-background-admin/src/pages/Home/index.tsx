@@ -98,7 +98,7 @@ export const PayinOverview = reaxper(() => {
 				代收
 			</span>
 			<div className={less.totalAmount}>
-				<HomePagePayinlogo/>
+				<SVGOverviewPayinIcon/>
 				<div className={less.totalAmountContent}>
 					<span className={less.totalAmountTitle}>
 						代收总金额 (R$)
@@ -149,7 +149,7 @@ export const PayoutOverview = reaxper(() => {
 				代付
 			</span>
 			<div className = { less.totalAmount }>
-				<HomePagePayoutLogo />
+				<SVGOverviewPayoutIcon />
 				<div className = { less.totalAmountContent }>
 					<span className = { less.totalAmountTitle }>
 						代付总金额 (R$)
@@ -197,7 +197,7 @@ export const WithdrawOverview = reaxper(() => {
 				提现
 			</span>
 			<div className = { less.totalAmount }>
-				<HomePageWithdrawLogo />
+				<SVGOverviewWithdrawIcon />
 				<div className = { less.totalAmountContent }>
 					<span className = { less.totalAmountTitle }>
 						提现总金额 (R$)
@@ -333,7 +333,7 @@ export const WithdrawWindow = reaxper(() =>{
 import less from './index.module.less'
 import { reaxel_overview } from '@@reaxels'
 import {
-	HomePagePayinlogo,
-	HomePagePayoutLogo, 
-	HomePageWithdrawLogo,
-} from '@@SVGcomponents'
+	SVGOverviewPayinIcon ,
+	SVGOverviewPayoutIcon ,
+	SVGOverviewWithdrawIcon ,
+} from '@@SVGcomponents';

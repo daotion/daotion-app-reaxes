@@ -1,4 +1,4 @@
-export const HomePageWithdrawLogo = reaxper(() =>{
+export const SVGOverviewWithdrawIcon = reaxper(() =>{
 	return(
 		<svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<rect x="0.333252" width="33" height="33" rx="16.5" fill="#B7D5F8"/>

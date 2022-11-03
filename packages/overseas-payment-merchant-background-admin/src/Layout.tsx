@@ -92,7 +92,13 @@ export const LayoutMenu = reaxper(() => {
 import { reaxel_user_auth } from '@@reaxels';
 import { MainContentRouting } from './Routing';
 import { LayoutHeader } from './pages/--Components--/Layout-Header';
-import { MenuApiIcon, MenuHomeIcon, MenuOrderIcon, MenuPayoutIcon, MenuUserIcon } from '@@SVGcomponents';
+import {
+	SVGMenuApiIcon ,
+	SVGMenuOrderIcon ,
+	SVGMenuOverviewIcon ,
+	SVGMenuPayoutIcon ,
+	SVGMenuProfileIcon ,
+} from '@@SVGcomponents';
 import { MenuProps } from 'antd';
 import { Navigate } from 'react-router-dom';
 import less from './styles/layout.module.less';
@@ -109,14 +115,14 @@ const getItem = (
 	children,
 });
 const items: MenuItem[] = [
-	getItem('主页', 'home', <MenuHomeIcon />),
-	getItem('订单数据', 'order', <MenuOrderIcon />, [
+	getItem('主页', 'home', <SVGMenuOverviewIcon />),
+	getItem('订单数据', 'order', <SVGMenuOrderIcon />, [
 		getItem('代收订单', 'collection-order'),
 		getItem('代付订单', 'payment-order'),
 		getItem('提现订单', 'withdrawal-order'),
 	]),
-	getItem('代付管理', 'payment-mgnt', <MenuPayoutIcon />),
-	getItem('商户信息', 'profile', <MenuUserIcon />),
-	getItem('API文档', 'api', <MenuApiIcon />),
+	getItem('代付管理', 'payment-mgnt', <SVGMenuPayoutIcon />),
+	getItem('商户信息', 'profile', <SVGMenuProfileIcon />),
+	getItem('API文档', 'api', <SVGMenuApiIcon />),
 ];
 type MenuItem = Required<MenuProps>['items'][number];

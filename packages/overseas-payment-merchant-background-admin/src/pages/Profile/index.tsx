@@ -220,7 +220,7 @@ export const ProfileApi = reaxper(() => {
 						onClick={() => {clipboard(mchKey, {
 							onCopy: () => {message.success('已复制到粘贴板')}
 						})}}
-					><CopyBtn/></Col>
+					><SVGProfileCopyBtn/></Col>
 				</div>
 				<div className = { less.infoItem }>
 					<Col {...colSet}>平台IP</Col>
@@ -349,5 +349,5 @@ import {
 	MenuProps,
 } from "antd";
 import less from './index.module.less';
-import { CopyBtn } from '@@SVGcomponents';
+import { SVGProfileCopyBtn } from '@@SVGcomponents';
 import clipboard from "copy-to-clipboard";

@@ -7,10 +7,10 @@ export const LayoutHeader = reaxper(() => {
 	
 	return (
 		<div className = { less.layoutHeader }>
-			<HeaderLogo />
+			<SVGHeaderDepayLogo />
 			<div className = { less.layoutHeaderRight }>
 				<div className = { less.headerTime }>
-					<TimeLogo />
+					<SVGTimezoneIcon />
 					<span>巴西时区(UTC-3:00）</span>
 				</div>
 				<div className = { less.userSelect }>
@@ -25,7 +25,7 @@ export const LayoutHeader = reaxper(() => {
 										onClick = { () => {
 										navigate('/profile/reset-pwd');
 									} }>
-										<UserSelectModifyPwd />
+										<SVGHeaderResetpwdIcon />
 										<span>修改密码</span>
 									</span>,
 									key : "change-pwd",
@@ -36,7 +36,7 @@ export const LayoutHeader = reaxper(() => {
 										onClick = { () => {
 										logout();
 									} }>
-										<UserSelectLogout />
+										<SVGHeaderLogoutIcon />
 										<span>退出登录</span>
 									</span>,
 									key : "logout",
@@ -48,7 +48,7 @@ export const LayoutHeader = reaxper(() => {
 					><a 
 						className={less.userInfo}
 						onClick={e => e.preventDefault()}>
-						<ProfilePhoto />
+						<SVGHeaderAvatar />
 						{reax_user_info?.userInfo?.name || 'mozi'}
 						<DownOutlined />
 					</a></Dropdown>
@@ -60,11 +60,11 @@ export const LayoutHeader = reaxper(() => {
 
 import less from './index.module.less'
 import {
-	HeaderLogo ,
-	TimeLogo ,
-	ProfilePhoto,
-	UserSelectModifyPwd,
-	UserSelectLogout
+	SVGHeaderAvatar ,
+	SVGHeaderDepayLogo ,
+	SVGHeaderLogoutIcon ,
+	SVGHeaderResetpwdIcon ,
+	SVGTimezoneIcon ,
 } from '@@SVGcomponents';
 import {
 	reaxel_user_info ,

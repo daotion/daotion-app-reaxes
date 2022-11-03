@@ -258,7 +258,7 @@ export const OrderProcess = reaxper(() => {
 						reax_Collection_Order.changeModalShow(false)
 					}}
 				>
-					<CloseBtn/>
+					<SVGOrderCloseBtn/>
 				</div>
 			</div>
 			<Steps
@@ -293,11 +293,6 @@ import dayjs from 'dayjs';
 import {ConfigProvider} from 'antd';
 import { ColumnsType } from "antd/es/table";
 import {
-	PayOut ,
-	PayIn ,
-	WithDraw ,
-	CloseBtn ,
-	Dot ,
-	Line ,
+	SVGOrderCloseBtn,
 } from '@@SVGcomponents';
 import less from "./index.module.less";

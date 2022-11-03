@@ -1,4 +1,4 @@
-export const ProfilePhoto = reaxper(() => {
+export const SVGHeaderAvatar = reaxper(() => {
 	return (
 		<svg
 			width = "24"

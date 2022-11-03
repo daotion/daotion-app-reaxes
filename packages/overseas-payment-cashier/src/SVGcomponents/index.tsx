@@ -1,6 +1,0 @@
-export * from './Logo'
-export * from './Menu-Icon'
-export * from './order-info'
-export * from './payout-management'
-export * from './home-page'
-export * from './user-info'
