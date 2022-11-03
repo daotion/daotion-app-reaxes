@@ -91,7 +91,7 @@ export const ProfileRouting = reaxper(() => {
 
 import { reaxel_user_auth } from '@@reaxels';
 import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
-import { Login } from '@@pages/Login';
+import { Login } from '@@pages/Auth';
 import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Overview';
 import { FinancialDetails } from '@@pages/Overview/financial-details'
