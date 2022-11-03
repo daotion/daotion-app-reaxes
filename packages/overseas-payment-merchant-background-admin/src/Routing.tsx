@@ -27,10 +27,10 @@ export const MainContentRouting = reaxper(() => {
 		<Route path = "*">
 			<Route
 				index
-				element = { <Navigate to = { '/home' } /> }
+				element = { <Navigate to = { '/overview' } /> }
 			/>
 			<Route
-				path = "home"
+				path = "overview"
 			>
 				<Route
 					index

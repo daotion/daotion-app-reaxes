@@ -16,7 +16,7 @@ export const Layout = reaxper(() => {
 		'payment-mgnt' : '代付管理',
 		'overview' : '主页',
 		'fin-detail' : '资金明细',
-		'addPayout' : '新增代付',
+		'new-payment' : '新增代付',
 	};
 	const breadcrumb = () => {
 		const pathArr = pathname.split('/').slice(1);
@@ -47,11 +47,11 @@ export const Layout = reaxper(() => {
 					<LayoutMenu />
 				</Sider>
 				<Content className={less.contentWrap}>
-					{!(pathname === '/home' || pathname === '/profile/*') && (
+					{!(pathname === '/overview' || pathname.includes('profile')) && (
 						<Space direction="vertical" className={less.contentSpace}>
 							<Breadcrumb>
 								{breadcrumbArr.map((i) => (
-									<Breadcrumb.Item key={i.key}>{i.name}</Breadcrumb.Item>
+									<Breadcrumb.Item key={i.key} onClick={() => {navigate(i.key)}}>{i.name}</Breadcrumb.Item>
 								))}
 							</Breadcrumb>
 							<h2>{breadcrumbArr[breadcrumbArr.length - 1].name}</h2>
@@ -83,7 +83,6 @@ export const LayoutMenu = reaxper(() => {
 					navigate(e.key);
 				}}
 				mode="inline"
-				// openKeys={['order']}
 			/>
 		</div>
 	);
@@ -109,7 +108,7 @@ const getItem = (
 	children,
 });
 const items: MenuItem[] = [
-	getItem('主页', 'home', <MenuHomeIcon />),
+	getItem('主页', 'overview', <MenuHomeIcon />),
 	getItem('订单数据', 'order', <MenuOrderIcon />, [
 		getItem('代收订单', 'collection-order'),
 		getItem('代付订单', 'payment-order'),
