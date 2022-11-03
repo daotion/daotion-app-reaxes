@@ -9,8 +9,16 @@ export const Cashier = reaxper(() => {
 	return(
 		<div className={less.cashierContainer}>
 			<div className={less.transform}>
-				<button onClick={() => changeLang('zh-CN')}>中文</button>
-				<button onClick={() => changeLang('pt-BR')}>葡萄牙语</button>
+				<button 
+					className={less.transformBtn}
+					onClick={() => changeLang('zh-CN')}>
+					中文
+				</button>
+				<button 
+					className={less.transformBtn}
+					onClick={() => changeLang('pt-BR')}>
+					葡萄牙语
+				</button>
 			</div>
 			<div className={less.header}>
 				<DePayLogo/>
