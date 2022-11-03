@@ -18,7 +18,7 @@ export const ProfileApi = reaxper(() => {
 		sm : { span : 4 } ,
 		md:  { span :6 } ,
 		lg : {span : 8 } ,
-		xl : {span: 10 } ,
+		xl : {span: 8 } ,
 	};
 	return (
 		<>
@@ -63,7 +63,7 @@ export const ProfileApi = reaxper(() => {
 						<p className={less.declare}>如果有设置，平台只接收来自白名单ip地址的代付请求。</p>
 					</Col>
 					<Col {...colSet}>
-						{ payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }
+						{payOutWhitelist.length > 0 && payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }
 					</Col>
 					<Col {...colSet}>
 						<Button type="link" onClick={() => {reax_edit_info.showModal('payOutWhitelist')}}>设置</Button>
