@@ -1,7 +1,12 @@
 export const Layout = reaxper(() => {
 
 	const { isLoggedIn } = reaxel_user_auth();
-	const { navigate, location } = toolkits.useRouter();
+	const { navigate , location , params } = toolkits.useRouter();
+	
+	
+	const path = params['*'].split('/');
+	console.log(params);
+	console.log(path);
 
 	if (!isLoggedIn) {
 		return <Navigate to="/login" />;
@@ -51,7 +56,10 @@ export const Layout = reaxper(() => {
 						<Space direction="vertical" className={less.contentSpace}>
 							<Breadcrumb>
 								{breadcrumbArr.map((i) => (
-									<Breadcrumb.Item key={i.key} onClick={() => {navigate(i.key)}}>{i.name}</Breadcrumb.Item>
+									<Breadcrumb.Item
+										key={i.key} 
+										onClick={() => {navigate(i.key)}}
+									>{i.name}</Breadcrumb.Item>
 								))}
 							</Breadcrumb>
 							<h2>{breadcrumbArr[breadcrumbArr.length - 1].name}</h2>
