@@ -1,4 +1,4 @@
-export const UserSelectLogout = reaxper(() => {
+export const SVGHeaderLogoutIcon = reaxper(() => {
 	return (
 		<svg
 			width = "10"

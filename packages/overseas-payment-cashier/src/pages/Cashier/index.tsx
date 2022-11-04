@@ -8,36 +8,53 @@ export const Cashier = reaxper(() => {
 	const tradeID = getTradeID();
 	fetchCashier(tradeID);
 	
-	return (
-		<div className = { less.cashierContainer }>
-			
-			<button onClick = { () => changeLang('zh-CN') }>中文</button>
-			<button onClick = { () => changeLang('pt-BR') }>葡萄牙语</button>
-			<div className = { less.header }>
-				<DePayLogo />
+	return(
+		<div className={less.cashierContainer}>
+			<div className={less.transform}>
+				<button
+					className={less.transformBtn}
+					onClick={() => changeLang('zh-CN')}>
+					中文
+				</button>
+				<button
+					className={less.transformBtn}
+					onClick={() => changeLang('pt-BR')}>
+					葡萄牙语
+				</button>
+			</div>
+			<div className={less.header}>
+				<DePayLogo/>
 			</div>
 			
-			<div className = { less.amount }>
-				<span className = { less.time }>
-					Expira em 14:59
+			<div className={less.amount}>
+				<span className={less.time}>
+					<I18n>
+						交易剩余时间
+					</I18n>
+					<span> 14:59</span>
 				</span>
-				<span className = { less.number }>
-					<span className = { less.unit }>R$</span>
+				<span className={less.number}>
+					<span className={less.unit}>R$</span>
 					1,200.00
 				</span>
 			</div>
 			
-			<div className = { less.transactionDetail }>
-				<div className = { less.orderId }>
-					<span className = { less.orderIdTitle }>
-						Order ID：
+			<div className={less.transactionDetail}>
+				<div className={less.orderId}>
+					<span className={less.orderIdTitle}>
+						<I18n>
+							订单号
+						</I18n>
+						<span>：</span>
 					</span>
-					<span className = { less.idText }>
+					<span className={less.idText}>
 						S110202210201582938395192283136
 					</span>
 				</div>
-				<span className = { less.textInfo }>
-					Por favor abra o seu aplicativo de pagamento e escaneie o código QR abaixo para pagar ou copie o código Pix abaixo e cole em seu app de pagamenm para f inalizar a compra.
+				<span className={less.textInfo}>
+					<I18n>
+						请打开您的支付应用程序并扫描下方二维码进行支付或复制下方的 Pix 码并粘贴到您的支付应用程序中以完成购买。
+					</I18n>
 				</span>
 				<img
 					className = { less.qrCode }
@@ -50,13 +67,15 @@ export const Cashier = reaxper(() => {
 						
 					} }
 				>
-					<div
-						style = { {
-							flex : 1 ,
-						} }
-					></div>
-					<span style = { { flex : 10 } }>PIX Cópia é Cola</span>
-					<CopyBtn />
+					<div style={{
+						flex: 1
+					}}></div>
+					<span style={{flex: 10}}>
+						<I18n>
+							复制Pix代码
+						</I18n>
+					</span>
+					<CopyBtn/>
 				</button>
 			</div>
 		</div>

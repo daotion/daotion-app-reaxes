@@ -1,4 +1,4 @@
-export const UserSelectModifyPwd = reaxper(() => {
+export const SVGHeaderResetpwdIcon = reaxper(() => {
 	return (
 		<svg
 			width = "10"

@@ -43,3 +43,5 @@ const Menu = reaxper(() => {
 
 import { ProfileRouting } from '@@pages/../Routing';
 import less from './index.module.less';
+import { SVGProfileCopyBtn } from '@@SVGcomponents';
+import clipboard from "copy-to-clipboard";

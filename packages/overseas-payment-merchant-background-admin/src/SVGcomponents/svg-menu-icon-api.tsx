@@ -1,4 +1,4 @@
-export const MenuApiIcon = reaxper(() => {
+export const SVGMenuApiIcon = reaxper(() => {
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M18.5 11.0001L17 12.5001L11.5 7.00007L13 5.50007C13.75 4.75003 16.5 3.50004 18.5 5.50007C20.5 7.50007 19.25 10.25 18.5 11.0001Z" fill="#737376" stroke="#737376" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round"/>
