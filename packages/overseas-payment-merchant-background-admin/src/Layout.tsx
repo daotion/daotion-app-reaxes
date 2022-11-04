@@ -19,6 +19,7 @@ export const Layout = reaxper(() => {
 		'payment-order' : '代付订单',
 		'withdrawal-order' : '提现订单',
 		'payment-mgnt' : '代付管理',
+		'ops-record' : '操作日志',
 		'overview' : '主页',
 		'fin-detail' : '资金明细',
 		'new-payment' : '新增代付',
@@ -121,8 +122,10 @@ const items: MenuItem[] = [
 		getItem('代收订单', 'collection-order'),
 		getItem('代付订单', 'payment-order'),
 		getItem('提现订单', 'withdrawal-order'),
+		getItem('充值订单', 'deposit-order'),
 	]),
 	getItem('代付管理', 'payment-mgnt', <MenuPayoutIcon />),
+	getItem('操作记录', 'ops-record', <MenuPayoutIcon />),
 	getItem('商户信息', 'profile', <MenuUserIcon />),
 	getItem('API文档', 'api', <MenuApiIcon />),
 ];

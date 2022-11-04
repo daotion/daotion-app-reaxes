@@ -1,13 +1,11 @@
 export const ResetPwd = reaxper(() => {
 	const { navigate } = toolkits.useRouter();
-	const { Input , Button } = antd;
 	const reax_edit_info = reaxel_edit_info();
 	const {
 		setStatePwd ,
 		resetPwdStore ,
 		modifyPwd ,
 	} = reax_edit_info;
-	const { message } = antd;
 	const submitPwd = () => {
 		if( resetPwdStore.oldPassword === '' || resetPwdStore.newPassword === '' || resetPwdStore.checkPassword === '' ) {
 			message.error('输入不能为空');
@@ -17,6 +15,9 @@ export const ResetPwd = reaxper(() => {
 			modifyPwd();
 		}
 	};
+	
+	
+	const { Input , Button,message } = antd;
 	return (
 		<div className = { less.resetPasswordContainer }>
 			<div className = { less.resetTitle }>
