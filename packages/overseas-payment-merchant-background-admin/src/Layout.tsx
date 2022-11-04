@@ -122,6 +122,7 @@ import {
 	SVGMenuOverviewIcon ,
 	SVGMenuPayoutIcon ,
 	SVGMenuProfileIcon ,
+	SvgLayoutHeaderBack,
 } from '@@SVGcomponents';
 import { MenuProps } from 'antd';
 import { Navigate } from 'react-router-dom';

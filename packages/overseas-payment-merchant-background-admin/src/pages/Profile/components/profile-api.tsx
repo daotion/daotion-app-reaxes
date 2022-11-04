@@ -37,7 +37,7 @@ export const ProfileApi = reaxper(() => {
 						onClick={() => {clipboard(mchKey, {
 							onCopy: () => {message.success('已复制到粘贴板')}
 						})}}
-					><CopyBtn/></Col>
+					><SVGProfileCopyBtn/></Col>
 				</div>
 				<div className = { less.infoItem }>
 					<Col {...colSet}>平台IP</Col>
@@ -164,4 +164,4 @@ import {
 } from "@@reaxels";
 import less from "../index.module.less";
 import clipboard from "copy-to-clipboard";
-import { CopyBtn } from "@@SVGcomponents";
+import { SVGProfileCopyBtn } from "@@SVGcomponents";

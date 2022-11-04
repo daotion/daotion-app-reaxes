@@ -15,7 +15,7 @@ export const WithdrawOverview = reaxper(() => {
 				提现
 			</span>
 			<div className = { less.totalAmount }>
-				<HomePageWithdrawLogo />
+				<SVGOverviewWithdrawIcon />
 				<div className = { less.totalAmountContent }>
 					<span className = { less.totalAmountTitle }>
 						提现总金额 (R$)
@@ -49,6 +49,6 @@ export const WithdrawOverview = reaxper(() => {
 
 import { reaxel_overview } from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";
-import { HomePageWithdrawLogo } from "@@SVGcomponents";
+import { SVGOverviewWithdrawIcon } from "@@SVGcomponents";
 import { OrderInfoListRow } from "../components";
 

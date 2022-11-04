@@ -16,7 +16,7 @@ export const PayinOverview = reaxper(() => {
 				代收
 			</span>
 			<div className = { less.totalAmount }>
-				<HomePagePayinlogo />
+				<SVGOverviewPayinIcon />
 				<div className = { less.totalAmountContent }>
 					<span className = { less.totalAmountTitle }>
 						代收总金额 (R$)
@@ -49,5 +49,5 @@ export const PayinOverview = reaxper(() => {
 });
 import { reaxel_overview } from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";
-import { HomePagePayinlogo } from "@@SVGcomponents";
+import { SVGOverviewPayinIcon } from "@@SVGcomponents";
 import { OrderInfoListRow } from "../components";
