@@ -1,5 +1,11 @@
 export const PayoutManagement = reaxper(() => {
-	const { conductApplication , paymentApplicationList , fetchPaymentOrderList } = reaxel_payment_mgnt();
+	const {
+		conductApplication ,
+		paymentApplicationList ,
+		fetchPaymentOrderList ,
+		selectedOrders ,
+		setSelectedOrders,
+	} = reaxel_payment_mgnt();
 	const { navigate } = toolkits.useRouter();
 	const { current : badge } = useRef(Math.random());
 	
@@ -13,7 +19,11 @@ export const PayoutManagement = reaxper(() => {
 			dataIndex : 'orderID' ,
 		} ,
 		{
-			title : '用户名' ,
+			title : '用户名/用户名ID' ,
+			dataIndex : 'userName' ,
+		} ,
+		{
+			title : '用户名/Telegram' ,
 			dataIndex : 'userName' ,
 		} ,
 		{
@@ -25,50 +35,77 @@ export const PayoutManagement = reaxper(() => {
 			dataIndex : 'bankAccount' ,
 			key : 'bankAccount' ,
 		} ,
-		{
-			title : '操作' ,
-			key : 'action' ,
-			fixed : 'right' ,
-			render (record){
-				const { Popconfirm } = antd;
-				return <div className = { less.tableAction }>
-					<Popconfirm
-						title = "确定同意代付?"
-						okText="确认"
-						cancelText="取消"
-						onConfirm = { () => {
-							conductApplication(
-								record.orderID ,
-								true ,
-							);
-						} }
-					>
-						<Button type = "text">同意</Button>
-					</Popconfirm>
-					<Popconfirm
-						title = "确定拒绝?"
-						okText="确认"
-						cancelText="取消"
-						onConfirm = { () => {
-							conductApplication(
-								record.orderID ,
-								true ,
-							);
-						} }
-					>
-						<Button type = "text" >拒绝</Button>
-					</Popconfirm>
-					
-				</div>;
-			} ,
-		} ,
+		// {
+		// 	title : '操作' ,
+		// 	key : 'action' ,
+		// 	fixed : 'right' ,
+		// 	render (record){
+		// 		const { Popconfirm } = antd;
+		// 		return <div className = { less.tableAction }>
+		// 			<Popconfirm
+		// 				title = "确定同意代付?"
+		// 				okText="确认"
+		// 				cancelText="取消"
+		// 				onConfirm = { () => {
+		// 					conductApplication(
+		// 						record.orderID ,
+		// 						true ,
+		// 					);
+		// 				} }
+		// 			>
+		// 				<Button type = "text">同意</Button>
+		// 			</Popconfirm>
+		// 			<Popconfirm
+		// 				title = "确定拒绝?"
+		// 				okText="确认"
+		// 				cancelText="取消"
+		// 				onConfirm = { () => {
+		// 					conductApplication(
+		// 						record.orderID ,
+		// 						true ,
+		// 					);
+		// 				} }
+		// 			>
+		// 				<Button type = "text" >拒绝</Button>
+		// 			</Popconfirm>
+		//
+		// 		</div>;
+		// 	} ,
+		// } ,
 	];
-	const { Table , Button } = antd;
+	const { Table , Button, Space, Popconfirm } = antd;
 	return <div className = { less.tableContainer }>
 		<div className = { less.headerContainer }>
-			<span className = { less.headerTitle }>
-				代付申请列表
-			</span>
+			<Space size='middle'>
+				<span className = { less.headerTitle }>
+					代付申请列表
+				</span>
+				{selectedOrders.length > 0 &&
+					<span>已选择{selectedOrders.length}项</span>
+				}
+				<Popconfirm
+					title = "确定同意代付?"
+					okText="确认"
+					cancelText="取消"
+					onConfirm = { () => {
+						conductApplication(true);
+					} }
+				>
+					<Button type="primary" >同意</Button>
+				
+				</Popconfirm>
+				<Popconfirm
+					title = "确定拒绝?"
+					okText="确认"
+					cancelText="取消"
+					onConfirm = { () => {
+						conductApplication(false);
+					} }
+				>
+										<Button danger>拒绝</Button>
+				</Popconfirm>
+
+			</Space>
 			<Button
 				onClick = { () => {
 					navigate('new-payment');
@@ -90,6 +127,13 @@ export const PayoutManagement = reaxper(() => {
 			scroll = { {
 				x : 1000 ,
 			} }
+			rowSelection={{
+				type : 'checkbox',
+				onChange: (selectedRowKeys,selectedRows) => {
+					setSelectedOrders(selectedRowKeys)
+				}
+			}}
+			
 		/>
 	</div>;
 	
