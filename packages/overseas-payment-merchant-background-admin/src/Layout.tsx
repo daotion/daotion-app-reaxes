@@ -80,7 +80,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 		return (
 			<Space direction="vertical" className={less.contentSpace}>
 				<Breadcrumb>
-					{path.map((item , index) => (
+					{path.length > 1 && path.map((item , index) => (
 						<Breadcrumb.Item
 							className={index !== path.length - 1 ? '' : less.blueBreadCrumbItem}
 							key={item}
