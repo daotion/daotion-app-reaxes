@@ -140,7 +140,7 @@ const getItem = (
 	children,
 });
 const items: MenuItem[] = [
-	getItem('主页', 'home', <SVGMenuOverviewIcon />),
+	getItem('主页', 'overview', <SVGMenuOverviewIcon />),
 	getItem('订单数据', 'order', <SVGMenuOrderIcon />, [
 		getItem('代收订单', 'collection-order'),
 		getItem('代付订单', 'payment-order'),
