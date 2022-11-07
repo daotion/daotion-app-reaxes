@@ -1,1 +1,7 @@
-export {CollectionOrder as WithDrawalOrder} from '@@pages/Collection-Order'
+import { CollectionOrder } from '@@pages/Collection-Order';
+
+
+export const WithdrawalOrder = reaxper(() => {
+	
+	return <CollectionOrder />;
+});

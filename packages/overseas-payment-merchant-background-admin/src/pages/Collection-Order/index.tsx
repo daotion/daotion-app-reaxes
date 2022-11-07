@@ -1,21 +1,19 @@
 export const CollectionOrder = reaxper(() => {
-	const badge = useRef(Math.random());
 	const {params} = toolkits.useRouter();
 	const {
 		reset ,
 		state$search ,
-		state$list,
 		setFields ,
 		fetchCollectionOrderList ,
-		get_enum_order_list_map ,
 	} = reaxel_collection_order();
 	
 	/*切换路由时重置搜索条件*/
-	useLayoutEffect(() => {
-		reset();
-	} , [ params['*'] ]);
+	// reset(() => [params['*']])();
 	
-	fetchCollectionOrderList(params['*']);
+	useLayoutEffect(() => {
+		fetchCollectionOrderList(params['*']);
+		return reset(() => [params['*']]);
+	});
 	
 	return <>
 		<OrderInfoSearch />
@@ -30,7 +28,7 @@ export const OrderInfoSearch = reaxper(() => {
 	const {
 		reset ,
 		state$search ,
-		state$list,
+		collection_order_list,
 		setFields ,
 		get_enum_order_list_map ,
 	} = reaxel_collection_order();
@@ -117,7 +115,7 @@ export const OrderInfoSearch = reaxper(() => {
 						<Form.Item style={{
 							marginRight: 0
 						}}>
-							<Button onClick = { reset }>
+							<Button onClick = { () => reset(() => [Symbol()])() }>
 								重置
 							</Button>
 						</Form.Item>
@@ -130,9 +128,15 @@ export const OrderInfoSearch = reaxper(() => {
 
 export const OrderInfoTable = reaxper(() => {
 	const { params } = toolkits.useRouter();
-	const {state$list,get_enum_order_list_map} = reaxel_collection_order();
+	const reax_collec_ord = reaxel_collection_order() , { get_enum_order_list_map , reset } = reax_collec_ord;
 	const enum_order_status = get_enum_order_list_map(params['*']);
 	
+	
+	/*切换路由时重置搜索条件*/
+	// reset(() => [params['*']])();
+	// useEffect(() => {
+	// 	return reset(() => [ params['*'] ]);
+	// } );
 	
 	const columns : ColumnsType<DataType> = [
 		{
@@ -152,8 +156,9 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			title : '订单状态' ,
 			dataIndex : 'state' ,
-			render : (_ , { state }) => {
+			render : (text) => {
 				const colorMap = {
+					
 					1 : "blue" ,
 					2 : "gainsboro" ,
 					3 : "red" ,
@@ -161,9 +166,10 @@ export const OrderInfoTable = reaxper(() => {
 				};
 				
 				return <>
-					<Tag color = { colorMap[state] }>
+					<Tag color = { colorMap[text] }>
 						{ enum_order_status.find(({status}) => {
-							return status === state;
+							console.log(logProxy(reax_collec_ord.collection_order_list));
+							return status === text;
 						}).label }
 					</Tag>
 				</>;
@@ -202,7 +208,7 @@ export const OrderInfoTable = reaxper(() => {
 			<Table
 				rowKey="orderID"
 				columns = { columns }
-				dataSource = { state$list.collection_order_list }
+				dataSource = { reax_collec_ord.collection_order_list }
 				size = "small"
 				pagination = { {
 					pageSize : 10 ,

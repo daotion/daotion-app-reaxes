@@ -6,9 +6,9 @@ export const reaxel_collection_order = function(){
 		range_picker_order_created_date : [] ,
 		range_picker_order_updated_date : [] ,
 		select_order_status : 0 ,
-		
 	};
 	const initialOrderList = {
+		pending:false,
 		/*表单数据*/
 		collection_order_list : [] as Order__collection_order.response["orderList"],
 	}
@@ -20,13 +20,18 @@ export const reaxel_collection_order = function(){
 		
 	})
 	
-	const fetchCollectionOrder = async (path) => {
+	const setPending = (pending) => {
+		setState$orderList({ pending })
+		// queueMicrotask(() => setState$orderList({ pending }));
+	};
+	const {grasp:fetchCollectionOrder} = reaxel_fact__prevent_dup_request((preventDup) => async (path) => {
 		const fetchMap = {
 			"collection-order" : request_collection_order,
 			"payment-order" : request_payment_order,
 			"withdrawal-order" : request_withdrawal_order,
 			"deposit-order" : request_withdrawal_order,
 		};
+		setPending(true);
 		return fetchMap[path](async () => {
 			return {
 				indexStart : 0,
@@ -40,15 +45,28 @@ export const reaxel_collection_order = function(){
 				updateTimestampEnd : null,
 			} as any;
 		}).then((data) => {
-			setState$orderList({ collection_order_list : data.orderList });
+			preventDup(() => {
+				setState$orderList({ collection_order_list : data.orderList });
+				setPending(false);
+			});
+			return data;
+		}).catch((e) => {
+			preventDup(() => {
+				setPending(false);
+			});
+			throw e;
 		});
-	}
+	})();
 	
 	const [closuredFetch , clearDeps] = Reaxes.closuredMemo((path) => {
 		
 		fetchCollectionOrder(path);
 	} , () => []);
 	
+	const [reset] = Reaxes.closuredMemo(() => {
+		setState$search(initialSearch);
+		// setState$orderList(initialOrderList);
+	} , () => []);
 	
 	return () => {
 		
@@ -64,18 +82,23 @@ export const reaxel_collection_order = function(){
 			get state$search(){
 				return store$search;
 			},
-			get state$list(){
-				return store$orderList;
+			get collection_order_list(){
+				if(store$orderList.pending){
+					return [];
+				}
+				return store$orderList.collection_order_list;
 			},
 			get setFields(){
 				return setState$search;
 			},
 			fetchCollectionOrderList(path){
-				return closuredFetch(() => [ store$search.input_search_orderID , store$search.select_order_status,path ])(path);
+				return closuredFetch(() => [ 
+					store$search.input_search_orderID ,
+					store$search.select_order_status ,
+					path 
+				])(path);
 			},
-			reset(){
-				setState$search(initialSearch);
-			},
+			reset,
 			get processModalShow(){
 				return store.processModalShow;
 			},
@@ -94,6 +117,7 @@ import {
 	request_payment_order ,
 	request_withdrawal_order,
 } from '@@requests';
+import { reaxel_fact__prevent_dup_request } from '#reaxels';
 
 import enum_collection_order_status from '@@public/enums/colloection-order-status.json';
 import enum_payment_order_status from '@@public/enums/payment-order-status.json';

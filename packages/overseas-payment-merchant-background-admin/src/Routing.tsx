@@ -57,7 +57,7 @@ export const MainContentRouting = reaxper(() => {
 			/>
 			<Route
 				path = "withdrawal-order"
-				element = { toolkits.withOutlet(<WithDrawalOrder />) }
+				element = { toolkits.withOutlet(<WithdrawalOrder />) }
 			/>
 			<Route
 				path = "deposit-order"
@@ -105,7 +105,7 @@ import { HomePage} from '@@pages/Overview';
 import { FinancialDetails } from '@@pages/Overview/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';
-import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
+import { WithdrawalOrder } from '@@pages/Withdrawal-Order';
 import { DepositOrder } from '@@pages/Deposit-Order';
 import { OpsRecord } from '@@pages/Ops-Record';
 import { PayoutManagement } from '@@pages/Payment-Mgnt';

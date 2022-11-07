@@ -5,8 +5,6 @@ export const Layout = reaxper(() => {
 	
 	
 	const path = params['*'].split('/');
-	console.log(params);
-	console.log(path);
 
 	if (!isLoggedIn) {
 		return <Navigate to="/login" />;
