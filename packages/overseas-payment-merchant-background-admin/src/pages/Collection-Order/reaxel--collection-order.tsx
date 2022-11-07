@@ -25,6 +25,7 @@ export const reaxel_collection_order = function(){
 			"collection-order" : request_collection_order,
 			"payment-order" : request_payment_order,
 			"withdrawal-order" : request_withdrawal_order,
+			"deposit-order" : request_withdrawal_order,
 		};
 		return fetchMap[path](async () => {
 			return {
@@ -57,6 +58,7 @@ export const reaxel_collection_order = function(){
 					"collection-order" : enum_collection_order_status,
 					"payment-order" : enum_payment_order_status,
 					"withdrawal-order" : enum_withdrawal_order_status,
+					"deposit-order" : enum_deposit_order_status,
 				}[path];
 			},
 			get state$search(){
@@ -96,3 +98,4 @@ import {
 import enum_collection_order_status from '@@public/enums/colloection-order-status.json';
 import enum_payment_order_status from '@@public/enums/payment-order-status.json';
 import enum_withdrawal_order_status from '@@public/enums/withdrawal-order-status.json';
+import enum_deposit_order_status from '@@public/enums/deposit-order-status.json';

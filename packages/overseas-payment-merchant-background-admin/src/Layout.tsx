@@ -145,8 +145,10 @@ const items: MenuItem[] = [
 		getItem('代收订单', 'collection-order'),
 		getItem('代付订单', 'payment-order'),
 		getItem('提现订单', 'withdrawal-order'),
+		getItem('充值订单', 'deposit-order'),
 	]),
 	getItem('代付管理', 'payment-mgnt', <SVGMenuPayoutIcon />),
+	getItem('操作记录', 'ops-record', <SVGMenuPayoutIcon />),
 	getItem('商户信息', 'profile', <SVGMenuProfileIcon />),
 	getItem('API文档', 'api', <SVGMenuApiIcon />),
 ];

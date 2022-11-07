@@ -17,15 +17,6 @@ export const CollectionOrder = reaxper(() => {
 	
 	fetchCollectionOrderList(params['*']);
 	
-	
-	/*切换路由时重置搜索条件*/
-	useLayoutEffect(() => {
-		reset();
-	} , [ params['*'] ]);
-	
-	fetchCollectionOrderList(params['*']);
-	
-	
 	return <>
 		<OrderInfoSearch />
 		<OrderInfoTable />

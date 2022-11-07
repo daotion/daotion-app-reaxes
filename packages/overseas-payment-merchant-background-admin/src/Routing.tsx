@@ -60,6 +60,14 @@ export const MainContentRouting = reaxper(() => {
 				element = { toolkits.withOutlet(<WithDrawalOrder />) }
 			/>
 			<Route
+				path = "deposit-order"
+				element = { toolkits.withOutlet(<DepositOrder />) }
+			/>
+			<Route
+				path = "ops-record"
+				element = { toolkits.withOutlet(<OpsRecord />) }
+			/>
+			<Route
 				path= "payment-mgnt/*"
 			>
 				<Route
@@ -96,8 +104,10 @@ import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Overview';
 import { FinancialDetails } from '@@pages/Overview/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
-import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';
+import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
+import { DepositOrder } from '@@pages/Deposit-Order';
+import { OpsRecord } from '@@pages/Ops-Record';
 import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
 import { NewPayment } from "@@pages/--Components--/New-Payment";
