@@ -5,58 +5,61 @@ export const reaxel_overview_order_info = function(){
 	/*
 * 首页各个类型订单统计信息
 */
-	const { store, setState } = orzMobx({
-		collectionOrder : {
-			info : {} as any,
-			duration: 0
-		},
-		payoutOrder : {
-			info : {} as any,
-			duration: 0
-		},
-		withdrawOrder : {
-			info : {} as any,
-			duration: 0
-		},
-		depositOrder: {
-			info : {} as any,
-			duration: 0
-		}
+	const { store: collectionOrder$store, setState: collectionOrder$setState } = orzMobx({
+		info : {} as any,
+		duration : 0,
 	})
 	
-	const fetchOrderCount = async (pageType, duration) => {
+	const { store: payoutOrder$store, setState: payoutOrder$setState } = orzMobx({
+		info : {} as any,
+		duration : 0,
+	})
+	
+	const { store: withdrawalOrder$store, setState: withdrawalOrder$setState } = orzMobx({
+		info : {} as any,
+		duration : 0,
+	})
+	
+	const { store: depositOrder$store, setState: depositOrder$setState } = orzMobx({
+		info : {} as any,
+		duration : 0,
+	})
+	
+	const [fetchOrderCountClosure ] = Reaxes.closuredMemo(async (pageType, duration) => {
 		return request_overview_order_count(async () => {
 			const orderType = enum_overview_order_type.find(i => (i.pagePath === pageType)).type
 			return {
 				orderType ,
 				duration ,
 			};
-		}).then((res) => {
-			setState({
-				[pageType]: {
-					info : res.countInfo,
-					duration
-				}
-			})
 		})
-	}
-	const [fetchOrderCountClosure ] = Reaxes.closuredMemo(async (pageType, duration) => {
-		fetchOrderCount(pageType, duration)
 	} , () => []);
 	
 	return () => {
 		return ret = {
 			get collectionOrder(){
-				return store.collectionOrder
+				return collectionOrder$store
+			},
+			get collectionOrderSetState(){
+				return collectionOrder$setState
 			},
 			get payoutOrder(){
-				return store.payoutOrder
+				return payoutOrder$store
 			},
-			get withdrawOrder(){
-				return store.withdrawOrder
+			get payoutOrderSetState(){
+				return payoutOrder$setState
+			},
+			get withdrawalOrder(){
+				return withdrawalOrder$store
+			},
+			get withdrawalOrderSetState(){
+				return withdrawalOrder$setState
 			},
 			get depositOrder(){
-				return store.depositOrder
+				return depositOrder$store
+			},
+			get depositOrderSetState(){
+				return depositOrder$setState
 			},
 			get_enum_order_list_map(path){
 				return {
@@ -69,11 +72,36 @@ export const reaxel_overview_order_info = function(){
 			get_overview_duration_type () {
 				return enum_overview_duration_type
 			},
-			fetchOrderCount (pageType, duration) {
-				return fetchOrderCount(pageType, duration)
-			},
-			fetchOrderCountClosure( pageType, duration ){
-				return fetchOrderCountClosure(() => [pageType])(pageType, duration);
+			fetchCollectionOrderClosure(pageType ){
+				console.log('fetchCollectionOrderClosure');
+				return fetchOrderCountClosure(() => [pageType, collectionOrder$store.duration])(pageType, collectionOrder$store.duration).then((res) => {
+					collectionOrder$setState({
+						info: res.countInfo
+					})
+				});
+			} ,
+			fetchPayoutOrderClosure(pageType ){
+				console.log('fetchPayoutOrderClosure');
+				return fetchOrderCountClosure(() => [pageType, payoutOrder$store.duration])(pageType, payoutOrder$store.duration).then(res => {
+					payoutOrder$setState({
+						info: res.countInfo
+					})
+				});
+			} ,
+			fetchWithdrawalClosure(pageType){
+				console.log('fetchWithdrawalClosure');
+				return fetchOrderCountClosure(() => [pageType,withdrawalOrder$store.duration])(pageType, withdrawalOrder$store.duration).then(res => {
+					withdrawalOrder$setState({
+						info: res.countInfo
+					})
+				});
+			} ,
+			fetchDepositOrderClosure( ){
+				return fetchOrderCountClosure(() => [depositOrder$store.duration])('depositOrder', depositOrder$store.duration).then(res => {
+					depositOrder$setState({
+						info: res.countInfo
+					})
+				}) ;
 			} ,
 		}
 	}

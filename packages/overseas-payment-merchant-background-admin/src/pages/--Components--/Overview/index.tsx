@@ -3,4 +3,4 @@ export * from './withdraw-modal';
 export * from './collection-overview';
 export * from './pay-out-overview';
 export * from './withdraw-overview';
-export * from './order-list-row';
+export * from './overview-order-info-component'

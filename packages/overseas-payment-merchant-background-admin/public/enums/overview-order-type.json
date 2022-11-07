@@ -2,21 +2,21 @@
 	{
 		"type": 1,
 		"label": "代收",
-		"pagePath": "collectionOrder"
+		"pagePath": "collection-order"
 	},
 	{
 		"type": 2,
 		"label": "代付",
-		"pagePath": "payoutOrder"
+		"pagePath": "payment-order"
 	},
 	{
 		"type": 3,
 		"label": "提现",
-		"pagePath": "withdrawOrder"
+		"pagePath": "withdrawal-order"
 	},
 	{
 		"type": 4,
 		"label": "充值",
-		"pagePath": "depositOrder"
+		"pagePath": "deposit-order"
 	}
 ]
