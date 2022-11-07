@@ -1,6 +1,7 @@
 export const reaxel_payment_mgnt = function(){
 	const { store , setState } = orzMobx({
 		payment_application_list : [],
+		selectedOrders: []
 		
 	});
 	
@@ -26,17 +27,17 @@ export const reaxel_payment_mgnt = function(){
 		return fetchPaymentOrderList();
 	} , () => []);
 	
-	const conductApplication = async (orderID,instruction:boolean) => {
+	const conductApplication = async (instruction:boolean) => {
 		return request_conduct_payment_application(async function(){
 			return {
-				orderID ,
+				orderID:  JSON.stringify(store.selectedOrders),
 				agree : instruction ,
 			};
 		}).then(() => {
 			antd.message.success(`处理成功!`);
 			setState({
 				payment_application_list : store.payment_application_list.filter((item) => {
-					return item.orderID !== orderID;
+					return !store.selectedOrders.find(item.orderID);
 				}),
 			});
 		}).catch((e) => {
@@ -51,6 +52,14 @@ export const reaxel_payment_mgnt = function(){
 		return {
 			get paymentApplicationList(){
 				return store.payment_application_list;
+			},
+			get selectedOrders(){
+				return store.selectedOrders;
+			},
+			setSelectedOrders(orders){
+				setState({
+					selectedOrders: orders
+				})
 			},
 			fetchPaymentOrderList(badge){
 				return closuredFetchPaymentMgntList(() => [ badge ])();

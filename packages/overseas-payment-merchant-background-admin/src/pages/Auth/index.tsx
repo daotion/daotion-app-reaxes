@@ -4,7 +4,7 @@ export const Login = reaxper(() => {
 	
 	const { isLoggedIn } = reaxel_user_auth();
 	if(isLoggedIn){	
-		return <Navigate to = "/home" />;
+		return <Navigate to = "/overview" />;
 	}
 	
 	return (
@@ -66,7 +66,7 @@ export const SignInForm = reaxper(() => {
 					htmlType="submit"
 					onClick = { () => {
 						login().then(() => {
-							navigate('/home');
+							navigate('/overview');
 						}).catch((e) => {
 							antd.Modal.error({
 								title : "用户名或密码错误,请检查" ,

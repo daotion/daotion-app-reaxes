@@ -3,7 +3,6 @@ import { message } from "antd";
 
 export const reaxel_edit_info = function(){
 	let ret;
-	const __storage_key__auth/*用户登录的token*/ = `-mch-auth-token-`;
 	const { store , setState } = orzMobx({
 		currentTab : 'userInfo',
 	});
@@ -40,10 +39,23 @@ export const reaxel_edit_info = function(){
 				newPassword : crypto.MD5(newPassword).toString(),
 			}
 		)).then((res) => {
+			if(res.result !== 0){
+				setStatePwd({
+					pending : false ,
+					oldPassword : '' ,
+					newPassword : '' ,
+					checkPassword : '' ,
+				});
+				throw (res.message || "旧密码错误");
+			}
+			const {setAuth} = reaxel_user_auth();
+			setAuth({
+				isLoggedIn : true ,
+				token : res.newToken ,
+			});
 			setStatePwd({
 				pending : false ,
 			});
-			reax_storage.set(__storage_key__auth , res.newToken);
 			
 		}).catch((e) => {
 			setStatePwd({
@@ -101,11 +113,19 @@ export const reaxel_edit_info = function(){
 				return setStateApi;
 			} ,
 			showModal(key){
+				let value = '';
+				if (key === 'payOutWhitelist') {
+					const whiteList = reax_user_info.apiConfig['payOutWhitelist']
+					whiteList.forEach((i) => {
+						value = value + i + ';'
+					})
+				} else {
+					value = reax_user_info.apiConfig[key];
+				}
 				setStateApi({
 					apiSetModalShow : true ,
 					apiSetModalKey : key ,
-					[key]: reax_user_info.apiConfig[key]
-					
+					[key]: value
 				});
 			} ,
 			
@@ -126,7 +146,8 @@ export const reaxel_edit_info = function(){
 }();
 
 import { request_modify_password, request_user_api_set } from "@@requests";
-import { reaxel_user_info } from '@@reaxels/user/profile'
+import { reaxel_user_info } from '@@reaxels/user/profile';
+import { reaxel_user_auth } from '@@reaxels';
 import { reaxel_storage } from '#reaxels';
 import crypto from 'crypto-js';
 import { orzMobx } from "reaxes";

@@ -1,3 +1,4 @@
+
 export const Routing = reaxper((props) => {
 	
 	return <BrowserRouter>
@@ -6,11 +7,16 @@ export const Routing = reaxper((props) => {
 				path = "login"
 				element = { <Login/> }
 			/>
+			<Route
+				path = 'test'
+				element={<TestRender/>}
+			/>
 			{/*fixme 找到办法匹配到login时阻止渲染Layout*/}
 			<Route
 				path="*"
 				element={<Layout/>}
 			/>
+			
 		</Routes>
 	</BrowserRouter>;
 });
@@ -27,10 +33,10 @@ export const MainContentRouting = reaxper(() => {
 		<Route path = "*">
 			<Route
 				index
-				element = { <Navigate to = { '/home' } /> }
+				element = { <Navigate to = { '/overview' } /> }
 			/>
 			<Route
-				path = "home"
+				path = "overview"
 			>
 				<Route
 					index
@@ -57,7 +63,15 @@ export const MainContentRouting = reaxper(() => {
 			/>
 			<Route
 				path = "withdrawal-order"
-				element = { toolkits.withOutlet(<WithDrawalOrder />) }
+				element = { toolkits.withOutlet(<WithdrawalOrder />) }
+			/>
+			<Route
+				path = "deposit-order"
+				element = { toolkits.withOutlet(<DepositOrder />) }
+			/>
+			<Route
+				path = "ops-record"
+				element = { toolkits.withOutlet(<OpsRecord />) }
 			/>
 			<Route
 				path= "payment-mgnt/*"
@@ -90,21 +104,20 @@ export const ProfileRouting = reaxper(() => {
 })
 
 import { reaxel_user_auth } from '@@reaxels';
-import {
-	ProfileInfo ,
-	ResetPwd,
-	ProfileApi ,
-} from '@@pages/Profile';
-import { Login } from '@@pages/Login';
+import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
+import { Login } from '@@pages/Auth';
 import { Profile } from '@@pages/Profile';
-import { HomePage} from '@@pages/Home';
-import { FinancialDetails } from '@@pages/Home/financial-details'
+import { HomePage} from '@@pages/Overview';
+import { FinancialDetails } from '@@pages/Overview/financial-details'
 import { CollectionOrder } from '@@pages/Collection-Order';
-import { WithDrawalOrder } from '@@pages/Withdrawal-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';
+import { WithdrawalOrder } from '@@pages/Withdrawal-Order';
+import { DepositOrder } from '@@pages/Deposit-Order';
+import { OpsRecord } from '@@pages/Ops-Record';
 import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
 import { NewPayment } from "@@pages/--Components--/New-Payment";
+import { TestRender } from '@@pages/test'
 import {
 	BrowserRouter ,
 	Navigate ,

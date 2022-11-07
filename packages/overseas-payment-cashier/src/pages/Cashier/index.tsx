@@ -1,20 +1,22 @@
 import { reaxel_cashier } from './reaxel--cashier';
 import { reaxel_i18n } from '@@reaxels';
 export const Cashier = reaxper(() => {
-	const { ctc } = reaxel_cashier();
+	const { ctc , getTradeID , fetchCashier } = reaxel_cashier();
+	
 	const { changeLang , language } = reaxel_i18n();
 	
-	
+	const tradeID = getTradeID();
+	fetchCashier(tradeID);
 	
 	return(
 		<div className={less.cashierContainer}>
 			<div className={less.transform}>
-				<button 
+				<button
 					className={less.transformBtn}
 					onClick={() => changeLang('zh-CN')}>
 					中文
 				</button>
-				<button 
+				<button
 					className={less.transformBtn}
 					onClick={() => changeLang('pt-BR')}>
 					葡萄牙语
@@ -34,7 +36,7 @@ export const Cashier = reaxper(() => {
 					<span className={less.unit}>R$</span>
 					1,200.00
 				</span>
-			</div> 
+			</div>
 			
 			<div className={less.transactionDetail}>
 				<div className={less.orderId}>
@@ -84,7 +86,7 @@ export const DefaultInfo = reaxper(() =>{
 				<SVGCopyBtn/>
 			</button>
 		</div>
-	)
+	);
 })
 
 export const Copyed = reaxper(() => {

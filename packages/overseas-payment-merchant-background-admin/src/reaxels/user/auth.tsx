@@ -64,6 +64,12 @@ export const reaxel_user_auth = function(){
 			get login(){
 				return fetchLogin;
 			} ,
+			setAuth(auth:Partial<typeof initialState>){
+				setState(auth);
+				if(auth.token){
+					reax_storage.set(__storage_key__auth , auth.token);
+				}
+			},
 			logout(){
 				clearAuthStorage();
 				setState(initialState);

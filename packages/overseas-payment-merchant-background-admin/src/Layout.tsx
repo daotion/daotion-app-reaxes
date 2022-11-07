@@ -1,34 +1,15 @@
 export const Layout = reaxper(() => {
 
 	const { isLoggedIn } = reaxel_user_auth();
-	const { navigate, location } = toolkits.useRouter();
+	const { navigate , location , params } = toolkits.useRouter();
+	
+	
+
 
 	if (!isLoggedIn) {
 		return <Navigate to="/login" />;
 	}
-
-	const routeName = {
-		'profile' : '用户信息' ,
-		'edit-profile': '编辑信息',
-		'collection-order' : '代收订单',
-		'payment-order' : '代付订单',
-		'withdrawal-order' : '提现订单',
-		'payment-mgnt' : '代付管理',
-		'overview' : '主页',
-		'fin-detail' : '资金明细',
-		'addPayout' : '新增代付',
-	};
-	const breadcrumb = () => {
-		const pathArr = pathname.split('/').slice(1);
-		return pathArr.map((i) => {
-			return {
-				key: i,
-				name: routeName[i],
-			};
-		});
-	};
-	const { pathname } = location;
-	const breadcrumbArr = breadcrumb();
+	
 	const { Layout, Menu, Breadcrumb, Space } = antd;
 	const { Header, Sider, Content } = Layout;
 	
@@ -47,16 +28,7 @@ export const Layout = reaxper(() => {
 					<LayoutMenu />
 				</Sider>
 				<Content className={less.contentWrap}>
-					{!(pathname === '/home' || pathname === '/profile/*') && (
-						<Space direction="vertical" className={less.contentSpace}>
-							<Breadcrumb>
-								{breadcrumbArr.map((i) => (
-									<Breadcrumb.Item key={i.key}>{i.name}</Breadcrumb.Item>
-								))}
-							</Breadcrumb>
-							<h2>{breadcrumbArr[breadcrumbArr.length - 1].name}</h2>
-						</Space>
-					)}
+					<LayoutBreadCrumb/>
 					<div className={less.contentGrayBg}>
 						<div className={less.contentComponents}>
 							<MainContentRouting />
@@ -83,11 +55,64 @@ export const LayoutMenu = reaxper(() => {
 					navigate(e.key);
 				}}
 				mode="inline"
-				// openKeys={['order']}
 			/>
 		</div>
 	);
 });
+
+export const LayoutBreadCrumb = reaxper(() => {
+	const { Space, Breadcrumb } = antd;
+	const { navigate , params,  } = toolkits.useRouter();
+	const path = params['*'].split('/');
+	const pathName = params['*'];
+	const routeName = {
+		'profile' : '用户信息' ,
+		'edit-profile': '编辑信息',
+		'collection-order' : '代收订单',
+		'payment-order' : '代付订单',
+		'withdrawal-order' : '提现订单',
+		'payment-mgnt' : '代付管理',
+		'ops-record' : '操作日志',
+		'overview' : '主页',
+		'fin-detail' : '资金明细',
+		'new-payment' : '新增代付',
+	};
+	if (!(pathName === 'overview' || pathName.includes('profile'))) {
+		return (
+			<Space direction="vertical" className={less.contentSpace}>
+				<Breadcrumb>
+					{path.length > 1 && path.map((item , index) => (
+						<Breadcrumb.Item
+							className={index !== path.length - 1 ? '' : less.blueBreadCrumbItem}
+							key={item}
+							onClick={() => {
+								navigate(`/${path.slice(0,index+1).join('/')}`)
+							}}
+						>{routeName[item]}</Breadcrumb.Item>
+					))}
+				</Breadcrumb>
+				<div style={{display: 'flex', alignItems: 'center'}}>
+					{path.length > 1 &&
+						<div
+							style={{display: 'flex'}}
+							onClick={() => {
+								const newPath = path
+								newPath.pop()
+								navigate(`/${newPath.join('/')}`)
+							}}
+						>
+							<SvgLayoutHeaderBack/>
+						</div>
+					}
+					<h2 style={{margin: 0}}>{routeName[path[path.length - 1]]}</h2>
+				</div>
+			</Space>
+		)
+		
+	} else {
+		return <></>
+	}
+})
 
 import { reaxel_user_auth } from '@@reaxels';
 import { MainContentRouting } from './Routing';
@@ -98,6 +123,7 @@ import {
 	SVGMenuOverviewIcon ,
 	SVGMenuPayoutIcon ,
 	SVGMenuProfileIcon ,
+	SvgLayoutHeaderBack,
 } from '@@SVGcomponents';
 import { MenuProps } from 'antd';
 import { Navigate } from 'react-router-dom';
@@ -115,13 +141,15 @@ const getItem = (
 	children,
 });
 const items: MenuItem[] = [
-	getItem('主页', 'home', <SVGMenuOverviewIcon />),
+	getItem('主页', 'overview', <SVGMenuOverviewIcon />),
 	getItem('订单数据', 'order', <SVGMenuOrderIcon />, [
 		getItem('代收订单', 'collection-order'),
 		getItem('代付订单', 'payment-order'),
 		getItem('提现订单', 'withdrawal-order'),
+		getItem('充值订单', 'deposit-order'),
 	]),
 	getItem('代付管理', 'payment-mgnt', <SVGMenuPayoutIcon />),
+	getItem('操作记录', 'ops-record', <SVGMenuPayoutIcon />),
 	getItem('商户信息', 'profile', <SVGMenuProfileIcon />),
 	getItem('API文档', 'api', <SVGMenuApiIcon />),
 ];
