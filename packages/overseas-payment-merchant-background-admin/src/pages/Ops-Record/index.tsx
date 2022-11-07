@@ -4,7 +4,6 @@ export const OpsRecord = reaxper(() => {
 	const { fetchOpsRecord,records , setState , pending } = reaxel_ops_record();
 	
 	fetchOpsRecord(badge);
-	console.log(records);
 	
 	const { Table } = antd;
 	return <div>
@@ -20,6 +19,8 @@ export const OpsRecord = reaxper(() => {
 					title : "操作时间",
 					dataIndex:"timestamp",
 					render(text){
+						console.log(text);
+						
 						return time_localize_Brazil(text);
 					},
 				},
