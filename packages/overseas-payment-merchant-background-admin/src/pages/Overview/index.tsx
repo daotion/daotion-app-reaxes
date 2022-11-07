@@ -6,10 +6,13 @@ export const HomePage = reaxper(() => {
 		message.error(e)
 	});
 	const { fetchOrderCountClosure } = reaxel_overview_order_info();
-	fetchOrderCountClosure('payoutOrder' , 0);
-	fetchOrderCountClosure('collectionOrder' , 0);
-	fetchOrderCountClosure('withdrawOrder' , 0);
-	fetchOrderCountClosure('depositOrder' , 0);
+	
+	useEffect(() => {
+		fetchOrderCountClosure('payoutOrder' , 0);
+		fetchOrderCountClosure('collectionOrder' , 0);
+		fetchOrderCountClosure('withdrawOrder' , 0);
+		fetchOrderCountClosure('depositOrder' , 0);
+	} , []);
 	
 	
 	return (
