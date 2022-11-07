@@ -61,25 +61,23 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 	const { Radio } = antd;
 	return (
 		<div className = { less.payinOverview }>
-			<span className = { less.orderTypeTitle }>
-				{ text }
-			</span>
+			<div className = { less.orderTypeTitle }>
+				<span>{ text }</span>
+				<Radio.Group
+					options = { durationBtnArr }
+					onChange = { (e) => {
+						setState({
+							duration: e.target.value
+						})
+					} }
+					value = { store.duration }
+					optionType = "button"
+				/>
+			</div>
 			<div className = { less.totalAmount }>
 				{svg}
 				<div className = { less.totalAmountContent }>
-					<div className = { less.orderTypeTitle }>
-						<span>{ text }</span>
-						<Radio.Group
-							options = { durationBtnArr }
-							onChange = { (e) => {
-								setState({
-									duration: e.target.value
-								})
-							} }
-							value = { store.duration }
-							optionType = "button"
-						/>
-					</div>
+					
 					<span>
 						{ store.info.totalMoney }
 					</span>
