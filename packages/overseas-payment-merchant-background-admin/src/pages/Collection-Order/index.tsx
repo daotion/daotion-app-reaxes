@@ -1,21 +1,17 @@
 export const CollectionOrder = reaxper(() => {
-	const badge = useRef(Math.random());
-	const {params} = toolkits.useRouter();
+	const path = toolkits.useRouter().params['*'];
 	const {
-		reset ,
+		resetSearch ,
 		state$search ,
-		state$list,
 		setFields ,
 		fetchCollectionOrderList ,
-		get_enum_order_list_map ,
-	} = reaxel_collection_order();
+	} = reaxel_collection_order(path);
 	
-	/*切换路由时重置搜索条件*/
-	useLayoutEffect(() => {
-		reset();
-	} , [ params['*'] ]);
+	fetchCollectionOrderList(path);
 	
-	fetchCollectionOrderList(params['*']);
+	useEffect(() => {
+		
+	} , []);
 	
 	return <>
 		<OrderInfoSearch />
@@ -26,16 +22,17 @@ export const CollectionOrder = reaxper(() => {
 
 
 export const OrderInfoSearch = reaxper(() => {
-	const {params} = toolkits.useRouter();
+	const path = toolkits.useRouter().params['*'];
+	
 	const {
-		reset ,
+		resetSearch ,
 		state$search ,
-		state$list,
+		collection_order_list,
 		setFields ,
 		get_enum_order_list_map ,
-	} = reaxel_collection_order();
+	} = reaxel_collection_order(path);
 	
-	const enum_order_status = get_enum_order_list_map(params['*']);
+	const enum_order_status = get_enum_order_list_map(path);
 	
 	const { Input , Form , Select , Button , Col} = antd;
 	const { RangePicker } = DatePicker;
@@ -117,7 +114,7 @@ export const OrderInfoSearch = reaxper(() => {
 						<Form.Item style={{
 							marginRight: 0
 						}}>
-							<Button onClick = { reset }>
+							<Button onClick = { () => resetSearch() }>
 								重置
 							</Button>
 						</Form.Item>
@@ -129,11 +126,9 @@ export const OrderInfoSearch = reaxper(() => {
 });
 
 export const OrderInfoTable = reaxper(() => {
-	const { params } = toolkits.useRouter();
-	const {state$list,get_enum_order_list_map} = reaxel_collection_order();
-	const enum_order_status = get_enum_order_list_map(params['*']);
-	
-	
+	const path = toolkits.useRouter().params['*'];
+	const { get_enum_order_list_map , collection_order_list,pending } = reaxel_collection_order(path);
+	const enum_order_status = get_enum_order_list_map(path);
 	const columns : ColumnsType<DataType> = [
 		{
 			title : '订单号' ,
@@ -152,8 +147,9 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			title : '订单状态' ,
 			dataIndex : 'state' ,
-			render : (_ , { state }) => {
+			render : (text) => {
 				const colorMap = {
+					
 					1 : "blue" ,
 					2 : "gainsboro" ,
 					3 : "red" ,
@@ -161,9 +157,9 @@ export const OrderInfoTable = reaxper(() => {
 				};
 				
 				return <>
-					<Tag color = { colorMap[state] }>
+					<Tag color = { colorMap[text] }>
 						{ enum_order_status.find(({status}) => {
-							return status === state;
+							return status === text;
 						}).label }
 					</Tag>
 				</>;
@@ -200,9 +196,10 @@ export const OrderInfoTable = reaxper(() => {
 				数据明细
 			</div>
 			<Table
-				rowKey="orderID"
+				rowKey = "orderID"
+				loading = { pending }
 				columns = { columns }
-				dataSource = { state$list.collection_order_list }
+				dataSource = { collection_order_list }
 				size = "small"
 				pagination = { {
 					pageSize : 10 ,
@@ -226,12 +223,12 @@ export const OrderInfoTable = reaxper(() => {
 });
 
 export const OrderProcess = reaxper(() => {
-	
+	const path = toolkits.useRouter().params['*'];
 	const { Steps, Modal } = antd;
 	
 	const { Step } = Steps;
 	
-	const reax_Collection_Order = reaxel_collection_order();
+	const reax_Collection_Order = reaxel_collection_order(path);
 	
 	return (
 		<Modal

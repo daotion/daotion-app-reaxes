@@ -72,6 +72,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 		'payment-order' : '代付订单',
 		'withdrawal-order' : '提现订单',
 		'payment-mgnt' : '代付管理',
+		'ops-record' : '操作日志',
 		'overview' : '主页',
 		'fin-detail' : '资金明细',
 		'new-payment' : '新增代付',

@@ -1,1 +1,1 @@
-export {CollectionOrder as WithDrawalOrder} from '@@pages/Collection-Order'
+export { CollectionOrder as WithdrawalOrder } from '@@pages/Collection-Order';
