@@ -1,5 +1,5 @@
 export const FinancialDetails = reaxper(() => {
-	const {fetchFinDetail, fin_detail_list} = reaxel_overview();
+	const {fetchFinDetail, fin_detail_list} = reaxel_overview_info();
 	const {current} = useRef(Math.random());
 	fetchFinDetail(current);
 	const { Table , Button } = antd;
@@ -65,5 +65,5 @@ export const FinancialDetails = reaxper(() => {
 })
 
 import less from '../index.module.less';
-import { reaxel_overview } from '@@reaxels';
+import { reaxel_overview_info } from '@@reaxels';
 import { ColumnsType } from "antd/lib/table";

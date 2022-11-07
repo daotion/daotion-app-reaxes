@@ -1,4 +1,4 @@
-export const OrderInfoListRow = reaxper((props) => {
+export const OrderInfoListRow = (props) => {
 	return (
 		<div className = { less.orderInfoRow }>
 			<span className = { less.rowLeft }>
@@ -14,6 +14,6 @@ export const OrderInfoListRow = reaxper((props) => {
 			</div>
 		</div>
 	);
-});
+};
 
 import less from "../index.module.less";

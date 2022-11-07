@@ -1,19 +1,38 @@
 export const WithdrawOverview = reaxper(() => {
-	const { overviewInfo } = reaxel_overview();
 	const {
-		totalMoney = 0 ,
-		statusCount = [] ,
-	} = overviewInfo.withdrawCount || {};
-	const typeCheck = {
-		0 : '待审核' ,
-		1 : '已拒绝' ,
-		2 : '已提现' ,
-	};
+		fetchOrderCount ,
+		get_enum_order_list_map,
+		get_overview_duration_type,
+		withdrawOrder
+	} = reaxel_overview_order_info();
+	const {
+		info : {
+			totalMoney = 0 ,
+			statusCount = [],
+		},
+		duration = 0
+	} = withdrawOrder || {};
+	const orderType = get_enum_order_list_map('withdrawal-order');
+	const durationBtnArr = get_overview_duration_type().map(i => (
+		{
+			label: i.label,
+			value: i.duration
+		}
+	));
+	const { Radio } = antd;
 	return (
 		<div className = { less.withdrawOverview }>
-			<span className = { less.orderTypeTitle }>
-				提现
-			</span>
+			<div className = { less.orderTypeTitle }>
+				<span>代收</span>
+				<Radio.Group
+					options={durationBtnArr}
+					onChange={(e) => {
+						fetchOrderCount('withdrawOrder', e.target.value)
+					}}
+					value={duration}
+					optionType="button"
+				/>
+			</div>
 			<div className = { less.totalAmount }>
 				<SVGOverviewWithdrawIcon />
 				<div className = { less.totalAmountContent }>
@@ -33,8 +52,8 @@ export const WithdrawOverview = reaxper(() => {
 					{ statusCount.map((i , index) => {
 						return (
 							<OrderInfoListRow
-								key = { typeCheck[index] }
-								orderType = { typeCheck[index] }
+								key = { orderType[index].status }
+								orderType = { orderType[index].label }
 								amount = { i.orderMoney }
 								orderAmount = { i.orderNum + '笔' }
 							/>
@@ -47,7 +66,10 @@ export const WithdrawOverview = reaxper(() => {
 	);
 });
 
-import { reaxel_overview } from "@@reaxels";
+import {
+	reaxel_overview_info ,
+	reaxel_overview_order_info,
+} from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";
 import { SVGOverviewWithdrawIcon } from "@@SVGcomponents";
 import { OrderInfoListRow } from "../components";

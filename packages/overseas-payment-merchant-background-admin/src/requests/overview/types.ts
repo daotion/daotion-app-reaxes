@@ -4,24 +4,28 @@ export namespace Overview__info {
 		balance: 0,
 		withdrawingMoney: 0,
 		address: string,
-		payInMoney: 0,
-		payInOrderToPay: 0,
-		payInOrderPayed: 0,
-		payInOrderFail: 0,
-		payInOrderCancel: 0,
-		payOutMoney: 0,
-		payOutOrderToVerify: 0,
-		payOutOrderToPay: 0,
-		payOutOrderPayed: 0,
-		payOutOrderFail: 0,
-		payOutOrderReject: 0,
-		withDrawMoney: 0,
-		withdrawOrderToVerify: 0,
-		withdrawOrderSuccess: 0,
-		withdrawOrderReject: 0
+
 	}
 }
 
+export namespace Overview__order_count {
+	export type payload = {
+		orderType : number,
+		duration : number
+	}
+	
+	export type response = {
+		orderType: number,
+		duration: number,
+		countInfo : {
+			totalMoney: number,
+			statusCount: {
+				orderNum: number,
+				orderMoney: number,
+			}[],
+		},
+	}
+}
 
 export namespace Overview__fin_detail {
 	export type payload = {

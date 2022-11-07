@@ -1,24 +1,24 @@
-export const reaxel_overview = function(){
+export const reaxel_overview_info = function(){
 	let ret;
-	const initialState = {
+	const { message } = antd;
+	
+	/*
+	* 首页基本信息
+	* 资金明细信息
+	*/
+	const { store , setState } = orzMobx({
 		withdrawModalShow : false ,
 		overviewInfo : {} as any ,
 		fin_detail_list : [] as Overview__fin_detail.response['listInfo'] ,
 		withdrawApplyMoney : '' as any ,
-		
-	};
-	const { store , setState } = orzMobx(initialState);
-	const { message } = antd;
+	});
 	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
 		return request_overview_info().then((res) => {
 			setState({
 				overviewInfo: res
 			})
-		}).catch((e) => {
-			message.error(e);
-		});
+		})
 	}, () => []);
-	
 	const [fetchFinDetail] = Reaxes.closuredMemo( async () => {
 		return request_fin_detail(async () => {
 			return {
@@ -32,8 +32,6 @@ export const reaxel_overview = function(){
 			})
 		})
 	}, () => [])
-	
-
 	const withdrawApply = async () => {
 		const { withdrawApplyMoney = 0, overviewInfo: {address} } = store;
 		return request_withdraw_apply(async () => {

@@ -4,10 +4,9 @@ export const WithdrawModal = reaxper(() =>{
 		overviewInfo ,
 		withdrawModalShow ,
 		withdrawApplyMoney
-	} = reaxel_overview();
+	} = reaxel_overview_info();
 	const { balance } = overviewInfo;
 	const { Button , Input , Modal, message } = antd;
-	const { current : badge } = useRef(Math.random());
 	return (
 		<Modal
 			visible = { withdrawModalShow }
@@ -76,5 +75,5 @@ export const WithdrawModal = reaxper(() =>{
 	);
 })
 
-import { reaxel_overview } from "@@reaxels";
+import { reaxel_overview_info } from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";

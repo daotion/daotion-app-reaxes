@@ -1,9 +1,9 @@
-export const PayoutOverview = reaxper(() => {
+export const CollectionOverview = reaxper(() => {
 	const {
 		fetchOrderCount ,
 		get_enum_order_list_map,
 		get_overview_duration_type,
-		payoutOrder
+		collectionOrder
 	} = reaxel_overview_order_info();
 	const {
 		info : {
@@ -11,8 +11,8 @@ export const PayoutOverview = reaxper(() => {
 			statusCount = [],
 		},
 		duration = 0
-	} = payoutOrder || {};
-	const orderType = get_enum_order_list_map('payment-order');
+	} = collectionOrder || {};
+	const orderType = get_enum_order_list_map('collection-order');
 	const durationBtnArr = get_overview_duration_type().map(i => (
 		{
 			label: i.label,
@@ -21,7 +21,7 @@ export const PayoutOverview = reaxper(() => {
 	));
 	const { Radio } = antd;
 	return (
-		<div className = { less.payoutOverview }>
+		<div className = { less.payinOverview }>
 			<div className = { less.orderTypeTitle }>
 				<span>代收</span>
 				<Radio.Group
@@ -34,10 +34,10 @@ export const PayoutOverview = reaxper(() => {
 				/>
 			</div>
 			<div className = { less.totalAmount }>
-				<SVGOverviewPayoutIcon />
+				<SVGOverviewPayinIcon />
 				<div className = { less.totalAmountContent }>
 					<span className = { less.totalAmountTitle }>
-						代付总金额 (R$)
+						代收总金额 (R$)
 					</span>
 					<span>
 						{ totalMoney }
@@ -46,8 +46,9 @@ export const PayoutOverview = reaxper(() => {
 			</div>
 			<div className = { less.orderInfo }>
 				<span className = { less.dataTitle }>
-					代付订单数据
+					代收订单数据
 				</span>
+				
 				<div className = { less.orderInfoList }>
 					{ statusCount.map((i , index) => {
 						return (
@@ -63,12 +64,8 @@ export const PayoutOverview = reaxper(() => {
 			</div>
 		</div>
 	);
-	
 });
-
-import {
-	reaxel_overview_order_info,
-} from "@@reaxels";
+import { reaxel_overview_order_info } from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";
-import { SVGOverviewPayoutIcon } from "@@SVGcomponents";
+import { SVGOverviewPayinIcon } from "@@SVGcomponents";
 import { OrderInfoListRow } from "../components";
