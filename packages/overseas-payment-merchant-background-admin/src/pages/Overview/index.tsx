@@ -17,8 +17,9 @@ export const OrderTypeOverview = reaxper(() =>{
 			<CollectionOverview/>
 			<PayoutOverview/>
 			<WithdrawOverview/>
+			<DepositOverview/>
 		</div>
 	)
 })
 import less from './index.module.less'
-import { OverviewInfo, CollectionOverview, PayoutOverview, WithdrawOverview } from '@@pages/--Components--/Overview'
+import { OverviewInfo, CollectionOverview, PayoutOverview, WithdrawOverview, DepositOverview } from '@@pages/--Components--/Overview'
