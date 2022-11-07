@@ -28,7 +28,6 @@ export const reaxel_edit_info = function(){
 	const modify = async () => {
 		const { oldPassword , newPassword  } = resetPwdStore;
 		const reax_storage = reaxel_storage();
-		const { message } = antd;
 		
 		setStatePwd({
 			pending : true ,
@@ -39,29 +38,32 @@ export const reaxel_edit_info = function(){
 				newPassword : crypto.MD5(newPassword).toString(),
 			}
 		)).then((res) => {
-			if(res.result !== 0){
+			if (res.result !== 0) {
+				setStatePwd({
+					pending : false ,
+					oldPassword : '' ,
+					newPassword : '' ,
+					checkPassword : '' ,
+				})
+				return 'error'
+			} else {
+				const {setAuth} = reaxel_user_auth();
+				setAuth({
+					isLoggedIn : true ,
+					token : res.newToken ,
+				});
 				setStatePwd({
 					pending : false ,
 					oldPassword : '' ,
 					newPassword : '' ,
 					checkPassword : '' ,
 				});
-				throw (res.message || "旧密码错误");
 			}
-			const {setAuth} = reaxel_user_auth();
-			setAuth({
-				isLoggedIn : true ,
-				token : res.newToken ,
-			});
-			setStatePwd({
-				pending : false ,
-			});
 			
 		}).catch((e) => {
 			setStatePwd({
 				pending : false ,
 			});
-			message.error(e);
 		});
 	};
 	
@@ -129,9 +131,8 @@ export const reaxel_edit_info = function(){
 				});
 			} ,
 			
-			modifyPwd(){
-				modify().then(() => {
-				});
+			 modifyPwd(){
+				return  modify()
 			} ,
 			setApiConfig(){
 				setApiConfig().then(() => {

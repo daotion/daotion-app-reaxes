@@ -12,7 +12,13 @@ export const ResetPwd = reaxper(() => {
 		} else if( resetPwdStore.newPassword !== resetPwdStore.checkPassword ) {
 			message.error('确认密码不一致');
 		} else {
-			modifyPwd();
+			modifyPwd().then((res)=>{
+				if (res === 'error') {
+					message.error(res.message || '旧密码错误');
+				} else {
+					message.success('修改成功')
+				}
+			})
 		}
 	};
 	
