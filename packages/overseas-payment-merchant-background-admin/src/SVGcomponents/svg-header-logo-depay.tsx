@@ -1,4 +1,4 @@
-export const HeaderLogo = reaxper(() => {
+export const SVGHeaderDepayLogo = reaxper(() => {
 	return(
 		<svg width="126" height="32" viewBox="0 0 126 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M14.9746 2.10577V9.56318L22.4829 17.0529L14.9746 24.5426V32C18.9486 32 22.76 30.4252 25.5701 27.6221C28.3802 24.819 29.9588 21.0171 29.9588 17.0529C29.9588 13.0887 28.3802 9.28681 25.5701 6.48368C22.76 3.68055 18.9486 2.10577 14.9746 2.10577Z" fill="url(#paint0_linear_48_7084)"/>

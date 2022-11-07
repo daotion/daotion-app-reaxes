@@ -4,12 +4,13 @@ export const OverviewInfo = reaxper(() => {
 	
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
-	const { overviewInfo , setstateOverview } = reaxel_overview();
+	const { overviewInfo , setstateOverview, fetchOverviewInfo } = reaxel_overview_info();
 	const {
 		balance = 0 ,
 		withdrawingMoney = 0,
 	} = overviewInfo;
-	
+	const { current : badge } = useRef(Math.random());
+	fetchOverviewInfo(badge);
 	return (
 		<div className = { less.overviewContainer }>
 			<span className = { less.overviewTitle }>
@@ -59,6 +60,6 @@ export const OverviewInfo = reaxper(() => {
 	);
 });
 
-import { reaxel_overview } from "@@reaxels";
+import { reaxel_overview_info } from "@@reaxels";
 import { WithdrawModal } from './withdraw-modal'
 import less from "@@pages/Overview/index.module.less";

@@ -1,16 +1,22 @@
-@media (-webkit-device-pixel-ratio: 3),(-webkit-device-pixel-ratio: 2) {
-	
+html{
+	font-size: calc(100vw/375);
 }
 
 .cashier-container{
 	display: flex;
 	flex-direction: column;
-	padding: 16px 16px 32px 16px;
+	padding: 16rem 16rem 32rem 16rem;
+	max-width: 800px;
+	margin: auto;
 }
 
 .header{
 	display: flex;
 	align-items: center;
+	svg{
+		width: 64rem;
+		height: 16rem;
+	}
 }
 
 .amount{
@@ -18,27 +24,26 @@
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	padding: 32px 0;
+	padding: 32rem 0;
 	
 	.time{
-		font-weight: 600;
-		font-size: 18px;
+		font-weight: 500;
+		font-size: 18rem;
 		line-height: 1.4;
 		color: rgba(22, 22, 26, 0.8);
-		
 	}
 	
 	.number{
 		display: flex;
 		align-items: baseline;
-		font-weight: 590;
-		font-size: 48px;
+		font-weight: 600;
+		font-size: 48rem;
 		line-height: 1.4;
 		color: #0070F3;
 	}
 	
 	.unit{
-		font-size: 36px;
+		font-size: 36rem;
 	}
 }
 
@@ -47,7 +52,7 @@
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
-	gap: 24px;
+	gap: 24rem;
 }
 
 .orderId{
@@ -57,15 +62,15 @@
 	
 	.order-id-title{
 		font-weight: 400;
-		font-size: 13px;
-		line-height: 22px;
+		font-size: 13rem;
+		line-height: 6rem;
 		color: rgba(22, 22, 26, 0.6);
 	}
 	
 	.id-text{
 		font-weight: 400;
-		font-size: 13px;
-		line-height: 22px;
+		font-size: 13rem;
+		line-height: 6rem;
 		color: #16161A;
 	}
 }
@@ -74,15 +79,15 @@
 .text-info{
 	width: 100%;
 	font-weight: 500;
-	font-size: 13px;
-	line-height: 1.4;
+	font-size: 13rem;
 	text-align: center;
+	line-height: 18rem;
 	color: rgba(22, 22, 26, 0.8);
 }
 
 .qr-code{
-	width: 70%;
-	max-width: 800px;
+	width: 240rem;
+	max-width: 500px;
 	background-repeat: no-repeat;
 	background-size: cover;
 }
@@ -92,17 +97,31 @@
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	padding: 16px;
+	padding: 16rem;
 	background: #0070F3;
-	border-radius: 12px;
+	border-radius: 12rem;
 	border: unset;
 	color: #ffffff;
 	background-repeat: no-repeat;
-	background-position: bottom 16px right 16px;
+	background-position: bottom 16rem right 16rem;
 	font-weight: 500;
-	font-size: 14px;
+	font-size: 14rem;
 	
 	svg{
 		flex: 1;
+		width: 17rem;
+		height: 18rem;
 	}
+}
+
+.transform{
+	position: fixed;
+	top: 6rem;
+	right: 6rem;
+	display: flex;
+	gap: 6rem;
+}
+
+.transform-btn{
+	font-size: 12rem;
 }

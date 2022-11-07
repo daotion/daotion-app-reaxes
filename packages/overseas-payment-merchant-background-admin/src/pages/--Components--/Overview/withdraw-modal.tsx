@@ -3,11 +3,12 @@ export const WithdrawModal = reaxper(() =>{
 		setstateOverview ,
 		overviewInfo ,
 		withdrawModalShow ,
-		withdrawApplyMoney
-	} = reaxel_overview();
+		withdrawApplyMoney,
+		withdrawApply
+	} = reaxel_overview_info();
 	const { balance } = overviewInfo;
 	const { Button , Input , Modal, message } = antd;
-	const { current : badge } = useRef(Math.random());
+	const { navigate } = toolkits.useRouter();
 	return (
 		<Modal
 			visible = { withdrawModalShow }
@@ -49,13 +50,28 @@ export const WithdrawModal = reaxper(() =>{
 				</div>
 				<div className = { less.address }>
 					<span>接收USDT地址(TRC-20)</span>
-					<span className={(overviewInfo.address === '') ? less.setBtn : ''}>{ overviewInfo.address === '' ? '前往设置' : overviewInfo.address}</span>
+					<span
+						className={(overviewInfo.address === '') ? less.setBtn : ''}
+						onClick={() => {
+							if (overviewInfo.address) return
+							navigate('/profile/API')
+						}}
+					>
+						{ overviewInfo.address === '' ? '前往设置' : overviewInfo.address}
+					</span>
 				</div>
 				<div className = { less.btn }>
 					<Button
 						type = "primary"
 						onClick = { () => {
-						
+							if (withdrawApplyMoney < 1) {
+								message.error('提现金额不能为空');
+							} else if(!overviewInfo.address ) {
+								message.error('请先设置地址');
+								
+							} else {
+								withdrawApply()
+							}
 						} }
 					>
 						提交
@@ -76,5 +92,5 @@ export const WithdrawModal = reaxper(() =>{
 	);
 })
 
-import { reaxel_overview } from "@@reaxels";
+import { reaxel_overview_info } from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";

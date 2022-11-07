@@ -1,3 +1,4 @@
+
 export const Routing = reaxper((props) => {
 	
 	return <BrowserRouter>
@@ -6,11 +7,16 @@ export const Routing = reaxper((props) => {
 				path = "login"
 				element = { <Login/> }
 			/>
+			<Route
+				path = 'test'
+				element={<TestRender/>}
+			/>
 			{/*fixme 找到办法匹配到login时阻止渲染Layout*/}
 			<Route
 				path="*"
 				element={<Layout/>}
 			/>
+			
 		</Routes>
 	</BrowserRouter>;
 });
@@ -111,6 +117,7 @@ import { OpsRecord } from '@@pages/Ops-Record';
 import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
 import { NewPayment } from "@@pages/--Components--/New-Payment";
+import { TestRender } from '@@pages/test'
 import {
 	BrowserRouter ,
 	Navigate ,

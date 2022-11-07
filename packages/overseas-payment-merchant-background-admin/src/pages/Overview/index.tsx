@@ -1,24 +1,25 @@
-export const HomePage = reaxper(() =>{
-	const reax_overview = reaxel_overview()
-	const { current : badge } = useRef(Math.random());
-	reax_overview.fetchOverviewInfo(badge)
-	return(
+export const HomePage = reaxper(() => {
+	const { message } = antd;
+
+	
+	
+	return (
 		<>
-			<OverviewInfo/>
-			<OrderTypeOverview/>
+			<OverviewInfo />
+			<OrderTypeOverview />
 		</>
-		
-	)
-})
+	
+	);
+});
 export const OrderTypeOverview = reaxper(() =>{
 	return(
 		<div className={less.orderTypeOverview}>
-			<PayinOverview/>
+			<CollectionOverview/>
 			<PayoutOverview/>
 			<WithdrawOverview/>
+			<DepositOverview/>
 		</div>
 	)
 })
 import less from './index.module.less'
-import { reaxel_overview } from '@@reaxels'
-import { OverviewInfo, PayinOverview, PayoutOverview, WithdrawOverview } from './components'
+import { OverviewInfo, CollectionOverview, PayoutOverview, WithdrawOverview, DepositOverview } from '@@pages/--Components--/Overview'

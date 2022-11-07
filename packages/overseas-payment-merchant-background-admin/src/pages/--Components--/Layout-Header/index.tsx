@@ -7,7 +7,7 @@ export const LayoutHeader = reaxper(() => {
 	const { Select , Dropdown , Menu } = antd;
 	return (
 		<div className = { less.layoutHeader }>
-			<HeaderLogo />
+			<SVGHeaderDepayLogo />
 			<div className = { less.layoutHeaderRight }>
 				<Dropdown
 					
@@ -25,7 +25,7 @@ export const LayoutHeader = reaxper(() => {
 					/> }
 				>
 					<div className = { less.headerTime }>
-						<TimeLogo />
+						<SVGTimezoneIcon />
 						<Timezone format >
 							{now}
 						</Timezone>
@@ -45,7 +45,7 @@ export const LayoutHeader = reaxper(() => {
 											navigate('/profile/reset-pwd');
 										} }
 									>
-										<UserSelectModifyPwd />
+										<SVGHeaderResetpwdIcon />
 										<span>修改密码</span>
 									</span> ,
 									key : "change-pwd" ,
@@ -57,7 +57,7 @@ export const LayoutHeader = reaxper(() => {
 											logout();
 										} }
 									>
-										<UserSelectLogout />
+										<SVGHeaderLogoutIcon />
 										<span>退出登录</span>
 									</span> ,
 									key : "logout" ,
@@ -71,7 +71,7 @@ export const LayoutHeader = reaxper(() => {
 							className = { less.userInfo }
 							onClick = { e => e.preventDefault() }
 						>
-							<ProfilePhoto />
+							<SVGHeaderAvatar />
 							{ reax_user_info?.userInfo?.name || 'mozi' }
 							<DownOutlined />
 						</a>
@@ -91,11 +91,11 @@ import {
 	reaxel_global,
 } from '@@reaxels';
 import {
-	HeaderLogo ,
-	TimeLogo ,
-	ProfilePhoto,
-	UserSelectModifyPwd,
-	UserSelectLogout
+	SVGHeaderAvatar ,
+	SVGHeaderDepayLogo ,
+	SVGHeaderLogoutIcon ,
+	SVGHeaderResetpwdIcon ,
+	SVGTimezoneIcon ,
 } from '@@SVGcomponents';
 import {DownOutlined} from '@ant-design/icons'
 import less from './index.module.less'
