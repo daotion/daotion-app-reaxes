@@ -1,7 +1,1 @@
-import { CollectionOrder } from '@@pages/Collection-Order';
-
-
-export const WithdrawalOrder = reaxper(() => {
-	
-	return <CollectionOrder />;
-});
+export { CollectionOrder as WithdrawalOrder } from '@@pages/Collection-Order';

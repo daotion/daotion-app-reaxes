@@ -21,8 +21,8 @@ export const reaxel_collection_order = function(){
 	})
 	
 	const setPending = (pending) => {
-		setState$orderList({ pending })
-		// queueMicrotask(() => setState$orderList({ pending }));
+		// setState$orderList({ pending })
+		queueMicrotask(() => setState$orderList({ pending }));
 	};
 	const {grasp:fetchCollectionOrder} = reaxel_fact__prevent_dup_request((preventDup) => async (path) => {
 		const fetchMap = {
@@ -48,6 +48,7 @@ export const reaxel_collection_order = function(){
 			preventDup(() => {
 				setState$orderList({ collection_order_list : data.orderList });
 				setPending(false);
+				currentPath = path;
 			});
 			return data;
 		}).catch((e) => {
@@ -59,16 +60,11 @@ export const reaxel_collection_order = function(){
 	})();
 	
 	const [closuredFetch , clearDeps] = Reaxes.closuredMemo((path) => {
-		
 		fetchCollectionOrder(path);
 	} , () => []);
-	
-	const [reset] = Reaxes.closuredMemo(() => {
-		setState$search(initialSearch);
-		// setState$orderList(initialOrderList);
-	} , () => []);
-	
-	return () => {
+
+	let currentPath;
+	return (path) => {
 		
 		return ret = {
 			get_enum_order_list_map(path){
@@ -82,7 +78,14 @@ export const reaxel_collection_order = function(){
 			get state$search(){
 				return store$search;
 			},
+			get pending(){
+				return store$orderList.pending;
+			},
 			get collection_order_list(){
+				Reaxes.collectDeps(store$orderList);
+				if(path && path !== currentPath){
+					return [];
+				}
 				if(store$orderList.pending){
 					return [];
 				}
@@ -98,15 +101,22 @@ export const reaxel_collection_order = function(){
 					path 
 				])(path);
 			},
-			reset,
+			resetSearch(){
+				setState$search(initialSearch);
+			},
 			get processModalShow(){
 				return store.processModalShow;
 			},
-			changeModalShow(status: boolean){
+			resetFetchDeps(){
+				clearDeps();
+			},
+			/*切换订单进度modal*/
+			changeModalShow(status : boolean){
 				setState({
-					processModalShow: status,
-				})
-			}
+					processModalShow : status ,
+				});
+			},
+			
 		};
 	};
 }();
