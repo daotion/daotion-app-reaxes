@@ -34,13 +34,13 @@ export const NewPayment = reaxper(() => {
 				<Button type = "primary">
 					提交
 				</Button>
-				<Button
-					onClick = { () => {
-						navigate('../');
-					} }
-				>
-					取消
-				</Button>
+				{/*<Button*/}
+				{/*	onClick = { () => {*/}
+				{/*		navigate('../');*/}
+				{/*	} }*/}
+				{/*>*/}
+				{/*	取消*/}
+				{/*</Button>*/}
 			</div>
 		</div>
 	);
@@ -52,13 +52,18 @@ export const PixPay = reaxper(() => {
 	
 	return (
 		<div className = { less.pixpayContainer }>
-			<span>
-				Pix支付码
-			</span>
-			<Input />
-			<span>
-				输入Pix的支付码
-			</span>
+			<div className={less.ppInputForm}>
+				<span>
+					金额
+				</span>
+				<Input placeholder={'R$'}/>
+			</div>
+			<div className={less.ppInputForm}>
+				<span>
+					Pix支付码
+				</span>
+				<Input placeholder={'输入Pix的支付码'}/>
+			</div>
 		</div>
 	);
 });
