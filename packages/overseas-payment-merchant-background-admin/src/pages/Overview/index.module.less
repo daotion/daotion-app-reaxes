@@ -87,7 +87,7 @@
 
 .order-type-overview{
 	display: flex;
-	padding: 0px;
+	padding: 0;
 	gap: 24px;
 	width: 100%;
 }
@@ -140,7 +140,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding: 12px 0px;
+	padding: 12px 0;
 	gap: 20px;
 	width: 100%;
 }
@@ -149,7 +149,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	padding: 0px;
+	padding: 0;
 	gap: 4px;
 	width: 100%;
 	font-weight: 500;
@@ -181,7 +181,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	padding: 0px;
+	padding: 0;
 	gap: 24px;
 	width: 100%;
 	
@@ -200,11 +200,33 @@
 	width: 100%;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 	
-	.order-type{
-		//font-weight: 500;
-		//font-size: 16px;
-		//line-height: 140%;
-		//color: #16161A;
+	.rowLeft{
+		font-weight: 500;
+		font-size: 14px;
+		line-height: 20px;
+		color: #16161A;
+	}
+	
+	.row-right{
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		
+		
+		.row-right-amount{
+			font-weight: 600;
+			font-size: 18px;
+			line-height: 1.4;
+			color: #000000;
+		}
+		
+		.row-right-order-amount{
+			font-style: normal;
+			font-weight: 400;
+			font-size: 14px;
+			line-height: 1.4;
+			color: rgba(22, 22, 26, 0.8);
+		}
 	}
 }
 
@@ -215,111 +237,66 @@
 	color: #16161A;
 }
 
-.rowLeft{
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 20px;
-	color: #16161A;
-}
-
-.row-right{
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-}
-
-.row-right-amount{
-	font-weight: 600;
-	font-size: 18px;
-	line-height: 1.4;
-	color: #000000;
-}
-
-.row-right-order-amount{
-	font-style: normal;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 1.4;
-	color: rgba(22, 22, 26, 0.8);
-}
-
-
-.withdraw-window:global(.ant-modal .ant-modal-content){
-	padding: 32px;
-	border-radius: 20px;
-}
-
-.withdraw-window:global(.ant-modal .ant-modal-header) {
-	border-radius: 20px 20px 0 0;
-	border-bottom: 0;
-	font-weight: 600;
-	font-size: 22px;
-	padding: 0;
-	padding-bottom: 16px;
-}
-
-.withdraw-window:global(.ant-modal .ant-modal-body) {
-	padding: 0;
-}
-
-.window-content{
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-}
-
-.withdraw-amount{
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
+.withdraw-container {
+	background: #ffffff;
+	border-radius: 8px;
+	padding: 24px;
 	
-	.withdraw-btn{
-		font-weight: 500;
-		font-size: 13px;
-		line-height: 16px;
-		color: #0070F3;
-		margin-left: 8px;
-		cursor: pointer;
-	}
-}
-
-.address {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	padding: 0px;
-	gap: 8px;
-	font-size: 14px;
-	font-weight: 500;
 	
-	:first-child {
-		font-weight: 600;
-	}
-	
-	.set-btn{
-		font-weight: 500;
-		font-size: 13px;
-		line-height: 16px;
-		color: #0070F3;
-		cursor: pointer;
-	}
-}
-
-.btn{
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	padding: 0px;
-	gap: 14px;
-	
-	:global{
-		.ant-btn{
-			width: 100%;
+	.window-content {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		width: 465px;
+		margin: 0 auto;
+		
+		.withdraw-amount{
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			
+			.withdraw-btn{
+				font-weight: 500;
+				font-size: 13px;
+				line-height: 16px;
+				color: #0070F3;
+				margin-left: 8px;
+				cursor: pointer;
+			}
+		}
+		
+		.address {
+			padding: 0;
+			gap: 8px;
+			font-size: 14px;
+			font-weight: 500;
+			
+			:first-child {
+				font-weight: 600;
+			}
+			
+			.set-btn{
+				font-weight: 500;
+				font-size: 13px;
+				line-height: 16px;
+				color: #0070F3;
+				cursor: pointer;
+			}
+		}
+		
+		
+		.btn{
+			display: flex;
+			flex-direction: column;
+			padding: 0;
+			gap: 14px;
+			
+			button {
+				width: 100%;
+			}
 		}
 	}
 }
-
-
 
 .table-container{
 	width: 100%;
