@@ -13,7 +13,6 @@ export const WithdrawModal = reaxper(() =>{
 		<Modal
 			visible = { withdrawModalShow }
 			footer = { null }
-			className = { less.withdrawWindow }
 			closable = { false }
 			width = { 380 }
 			title = "提现"

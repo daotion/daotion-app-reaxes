@@ -27,7 +27,6 @@ export const OverviewInfo = reaxper(() => {
 						</span>
 					</div>
 					<Button
-						className = { less.checkDetail }
 						type = "link"
 						onClick = { () => {
 							navigate('fin-detail');
