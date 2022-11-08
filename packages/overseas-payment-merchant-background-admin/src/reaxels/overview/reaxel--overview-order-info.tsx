@@ -73,7 +73,6 @@ export const reaxel_overview_order_info = function(){
 				return enum_overview_duration_type
 			},
 			fetchCollectionOrderClosure(pageType ){
-				console.log('fetchCollectionOrderClosure');
 				return fetchOrderCountClosure(() => [pageType, collectionOrder$store.duration])(pageType, collectionOrder$store.duration).then((res) => {
 					collectionOrder$setState({
 						info: res.countInfo
@@ -81,7 +80,6 @@ export const reaxel_overview_order_info = function(){
 				});
 			} ,
 			fetchPayoutOrderClosure(pageType ){
-				console.log('fetchPayoutOrderClosure');
 				return fetchOrderCountClosure(() => [pageType, payoutOrder$store.duration])(pageType, payoutOrder$store.duration).then(res => {
 					payoutOrder$setState({
 						info: res.countInfo
@@ -89,7 +87,6 @@ export const reaxel_overview_order_info = function(){
 				});
 			} ,
 			fetchWithdrawalClosure(pageType){
-				console.log('fetchWithdrawalClosure');
 				return fetchOrderCountClosure(() => [pageType,withdrawalOrder$store.duration])(pageType, withdrawalOrder$store.duration).then(res => {
 					withdrawalOrder$setState({
 						info: res.countInfo

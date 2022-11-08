@@ -77,7 +77,7 @@ export const reaxel_edit_info = function(){
 			return {
 				payInCallback : setApiStore.payInCallback ,
 				payOutCallback : setApiStore.payOutCallback ,
-				payOutWhitelist : JSON.stringify(setApiStore.payOutWhitelist.split(';').filter(i => i !== '')) ,
+				payOutWhitelist : setApiStore.payOutWhitelist.split(';').filter(i => i !== ''),
 				address : setApiStore.address ,
 			};
 		}).then((res) => {

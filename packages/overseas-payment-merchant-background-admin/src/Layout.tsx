@@ -61,7 +61,7 @@ export const LayoutMenu = reaxper(() => {
 });
 
 export const LayoutBreadCrumb = reaxper(() => {
-	const { Space, Breadcrumb } = antd;
+	const { Space, Breadcrumb, Button } = antd;
 	const { navigate , params,  } = toolkits.useRouter();
 	const path = params['*'].split('/');
 	const pathName = params['*'];
@@ -75,6 +75,8 @@ export const LayoutBreadCrumb = reaxper(() => {
 		'ops-record' : '操作日志',
 		'overview' : '主页',
 		'fin-detail' : '资金明细',
+		'withdraw' : '提现',
+		'deposit' : '充值',
 		'new-payment' : '新增代付',
 	};
 	if (!(pathName === 'overview' || pathName.includes('profile'))) {
@@ -83,26 +85,34 @@ export const LayoutBreadCrumb = reaxper(() => {
 				<Breadcrumb>
 					{path.length > 1 && path.map((item , index) => (
 						<Breadcrumb.Item
-							className={index !== path.length - 1 ? '' : less.blueBreadCrumbItem}
 							key={item}
 							onClick={() => {
 								navigate(`/${path.slice(0,index+1).join('/')}`)
 							}}
-						>{routeName[item]}</Breadcrumb.Item>
+						>{index !== path.length - 1
+							? <Button type='link' style={{padding: 0, height: 0}}>{routeName[item]}</Button>
+							: routeName[item]
+						}</Breadcrumb.Item>
 					))}
 				</Breadcrumb>
 				<div style={{display: 'flex', alignItems: 'center'}}>
 					{path.length > 1 &&
-						<div
-							style={{display: 'flex'}}
+						<Button
+							style={{
+								border: "unset",
+								boxShadow: "unset",
+								padding: 0,
+								display: "flex",
+								alignItems: "center",
+								justifyContent: 'center'
+							}}
 							onClick={() => {
 								const newPath = path
 								newPath.pop()
 								navigate(`/${newPath.join('/')}`)
 							}}
-						>
-							<SvgLayoutHeaderBack/>
-						</div>
+							icon={<LeftOutlined />}>
+						</Button>
 					}
 					<h2 style={{margin: 0}}>{routeName[path[path.length - 1]]}</h2>
 				</div>
@@ -123,9 +133,11 @@ import {
 	SVGMenuOverviewIcon ,
 	SVGMenuPayoutIcon ,
 	SVGMenuProfileIcon ,
-	SvgLayoutHeaderBack,
+	SvgLayoutHeaderBack ,
+	SvgMenuIconLogs ,
 } from '@@SVGcomponents';
 import { MenuProps } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 import { Navigate } from 'react-router-dom';
 import less from './styles/layout.module.less';
 
@@ -149,7 +161,7 @@ const items: MenuItem[] = [
 		getItem('充值订单', 'deposit-order'),
 	]),
 	getItem('代付管理', 'payment-mgnt', <SVGMenuPayoutIcon />),
-	getItem('操作记录', 'ops-record', <SVGMenuPayoutIcon />),
+	getItem('操作记录', 'ops-record', <SvgMenuIconLogs />),
 	getItem('商户信息', 'profile', <SVGMenuProfileIcon />),
 	getItem('API文档', 'api', <SVGMenuApiIcon />),
 ];

@@ -1,6 +1,6 @@
 export const SVGTimezoneIcon = reaxper(() => {
 	return (
-		<svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg width="24" height="24" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<g clipPath="url(#clip0_267_5873)">
 				<path fillRule="evenodd" clipRule="evenodd" d="M-3 -2.62207H21V21.3779H-3V-2.62207Z" fill="#229E45"/>
 				<path fillRule="evenodd" clipRule="evenodd" d="M9.03937 15.0945L17.5191 9.38655L8.98875 3.66113L0.480934 9.39822L9.03937 15.0945Z" fill="#F8E509"/>

@@ -1,37 +1,22 @@
-export const WithdrawModal = reaxper(() =>{
-	const {
-		setstateOverview ,
-		overviewInfo ,
-		withdrawModalShow ,
-		withdrawApplyMoney,
-		withdrawApply
-	} = reaxel_overview_info();
+
+export const OverviewWithdraw = reaxper(() => {
+	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState  } = reaxel_overview_info();
 	const { balance } = overviewInfo;
-	const { Button , Input , Modal, message } = antd;
-	const { navigate } = toolkits.useRouter();
+	const { withdrawApplyMoney} = withdrawStore;
+	const { navigate } = toolkits.useRouter()
+	const { message, Input, Button } = antd;
 	return (
-		<Modal
-			visible = { withdrawModalShow }
-			footer = { null }
-			className = { less.withdrawWindow }
-			closable = { false }
-			width = { 380 }
-			title = "提现"
-		>
+		<div className={less.withdrawContainer}>
 			<div className = { less.windowContent }>
+				<h3>提现</h3>
 				<div className = { less.withdrawAmount }>
-					<span>提取到账金额</span>
+					<span>提现金额</span>
 					<Input
 						value={withdrawApplyMoney}
 						onChange={(e) => {
-							const money = +e.target.value;
-							if (money > balance) {
-								message.error('余额不足')
-							} else {
-								setstateOverview({
-									withdrawApplyMoney: money
-								})
-							}
+							withdrawSetState({
+								withdrawApplyMoney: e.target.value
+							})
 						}}
 					/>
 					<span>
@@ -39,7 +24,7 @@ export const WithdrawModal = reaxper(() =>{
 						<span
 							className = { less.withdrawBtn }
 							onClick={() => {
-								setstateOverview({
+								withdrawSetState({
 									withdrawApplyMoney: balance
 								})
 							}}
@@ -49,8 +34,8 @@ export const WithdrawModal = reaxper(() =>{
 					</span>
 				</div>
 				<div className = { less.address }>
-					<span>接收USDT地址(TRC-20)</span>
-					<span
+					<p>接收USDT地址(TRC-20)</p>
+					<p
 						className={(overviewInfo.address === '') ? less.setBtn : ''}
 						onClick={() => {
 							if (overviewInfo.address) return
@@ -58,19 +43,31 @@ export const WithdrawModal = reaxper(() =>{
 						}}
 					>
 						{ overviewInfo.address === '' ? '前往设置' : overviewInfo.address}
-					</span>
+					</p>
 				</div>
 				<div className = { less.btn }>
 					<Button
 						type = "primary"
 						onClick = { () => {
-							if (withdrawApplyMoney < 1) {
+							if (withdrawApplyMoney === '') {
 								message.error('提现金额不能为空');
 							} else if(!overviewInfo.address ) {
 								message.error('请先设置地址');
 								
 							} else {
-								withdrawApply()
+								withdrawApply().then((res) => {
+									if (res.result === 0) {
+										message.success('申请成功');
+										withdrawSetState({
+											withdrawApplyMoney: ''
+										})
+									} else {
+										message.error('余额不足');
+									}
+									
+								}).catch((e) => {
+									message.error('申请失败' + e)
+								})
 							}
 						} }
 					>
@@ -78,19 +75,17 @@ export const WithdrawModal = reaxper(() =>{
 					</Button>
 					<Button
 						onClick = { () => {
-							setstateOverview({
-								withdrawModalShow : false,
-							});
-						} }
+							navigate('/overview')
+						}}
 					>
 						取消
 					</Button>
 				</div>
 			</div>
-		</Modal>
-	
-	);
-})
-
+			
+		</div>
+	)
+});
+import less from "./index.module.less";
 import { reaxel_overview_info } from "@@reaxels";
-import less from "@@pages/Overview/index.module.less";
+
