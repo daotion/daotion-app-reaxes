@@ -10,8 +10,8 @@ export const CollectionOrder = reaxper(() => {
 	fetchCollectionOrderList(path);
 	
 	useEffect(() => {
-		
-	} , []);
+		resetSearch();
+	} , [path]);
 	
 	return <>
 		<OrderInfoSearch />
