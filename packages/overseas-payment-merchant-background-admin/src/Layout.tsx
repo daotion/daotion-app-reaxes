@@ -83,7 +83,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 				<Breadcrumb>
 					{path.length > 1 && path.map((item , index) => (
 						<Breadcrumb.Item
-							className={index !== path.length - 1 ? '' : less.blueBreadCrumbItem}
+							className={index !== path.length - 1 ? less.homeBreadCrumb : less.blueBreadCrumbItem}
 							key={item}
 							onClick={() => {
 								navigate(`/${path.slice(0,index+1).join('/')}`)
@@ -94,6 +94,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 				<div style={{display: 'flex', alignItems: 'center'}}>
 					{path.length > 1 &&
 						<div
+							className={less.breadCrumbTitle}
 							style={{display: 'flex'}}
 							onClick={() => {
 								const newPath = path
@@ -123,7 +124,8 @@ import {
 	SVGMenuOverviewIcon ,
 	SVGMenuPayoutIcon ,
 	SVGMenuProfileIcon ,
-	SvgLayoutHeaderBack,
+	SvgLayoutHeaderBack ,
+	SvgMenuIconLogs ,
 } from '@@SVGcomponents';
 import { MenuProps } from 'antd';
 import { Navigate } from 'react-router-dom';
@@ -149,7 +151,7 @@ const items: MenuItem[] = [
 		getItem('充值订单', 'deposit-order'),
 	]),
 	getItem('代付管理', 'payment-mgnt', <SVGMenuPayoutIcon />),
-	getItem('操作记录', 'ops-record', <SVGMenuPayoutIcon />),
+	getItem('操作记录', 'ops-record', <SvgMenuIconLogs />),
 	getItem('商户信息', 'profile', <SVGMenuProfileIcon />),
 	getItem('API文档', 'api', <SVGMenuApiIcon />),
 ];

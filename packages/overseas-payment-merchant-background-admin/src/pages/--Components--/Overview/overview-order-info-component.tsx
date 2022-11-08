@@ -8,7 +8,7 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 		collectionOrder ,
 		collectionOrderSetState,
 		payoutOrder,
-		payoutOrderSetState,
+		payoutOrderSetState, 
 		withdrawalOrder,
 		withdrawalOrderSetState,
 		depositOrder,
@@ -77,7 +77,9 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 			<div className = { less.totalAmount }>
 				{svg}
 				<div className = { less.totalAmountContent }>
-					
+					<span className={less.totalAmountTitle}>
+						{ text }总金额 (R$)
+					</span>
 					<span>
 						{ store.info.totalMoney }
 					</span>
