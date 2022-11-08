@@ -50,9 +50,14 @@ export const OverviewDeposit = reaxper(() => {
 								deposit().then((res) => {
 									if (res.result === 0) {
 										message.success('申请成功');
+										depositSetState({
+											paymentAddress : '',
+											depositMoney: ''
+										})
 									} else {
 										message.error('申请失败');
 									}
+								
 								}).catch((e) => {
 									message.error('申请失败' + e)
 								})

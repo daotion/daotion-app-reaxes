@@ -56,12 +56,15 @@ export const OverviewWithdraw = reaxper(() => {
 								
 							} else {
 								withdrawApply().then((res) => {
-									
 									if (res.result === 0) {
 										message.success('申请成功');
+										withdrawSetState({
+											withdrawApplyMoney: ''
+										})
 									} else {
 										message.error('余额不足');
 									}
+									
 								}).catch((e) => {
 									message.error('申请失败' + e)
 								})
