@@ -61,7 +61,7 @@ export const LayoutMenu = reaxper(() => {
 });
 
 export const LayoutBreadCrumb = reaxper(() => {
-	const { Space, Breadcrumb } = antd;
+	const { Space, Breadcrumb, Button } = antd;
 	const { navigate , params,  } = toolkits.useRouter();
 	const path = params['*'].split('/');
 	const pathName = params['*'];
@@ -102,7 +102,17 @@ export const LayoutBreadCrumb = reaxper(() => {
 								navigate(`/${newPath.join('/')}`)
 							}}
 						>
-							<SvgLayoutHeaderBack/>
+							<Button 
+								style={{
+									border: "unset",
+									boxShadow: "unset",
+									padding: 0,
+									display: "flex",
+									alignItems: "center",
+									justifyContent: 'center'
+								}}
+								icon={<LeftOutlined />}>
+							</Button>
 						</div>
 					}
 					<h2 style={{margin: 0}}>{routeName[path[path.length - 1]]}</h2>
@@ -124,12 +134,13 @@ import {
 	SVGMenuOverviewIcon ,
 	SVGMenuPayoutIcon ,
 	SVGMenuProfileIcon ,
-	SvgLayoutHeaderBack ,
 	SvgMenuIconLogs ,
 } from '@@SVGcomponents';
+import {LeftOutlined} from '@ant-design/icons'
 import { MenuProps } from 'antd';
 import { Navigate } from 'react-router-dom';
 import less from './styles/layout.module.less';
+import React from 'react';
 
 const getItem = (
 	label: React.ReactNode,
