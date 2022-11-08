@@ -22,6 +22,10 @@ export const reaxel_new_payment = (function () {
 					method: 2,
 				},
 			}[store.currentPattern];
+		}).catch((e) => {
+			if(e.code === 4100){
+				throw new Error('错误的pix支付码!');
+			}
 		});
 	};
 
