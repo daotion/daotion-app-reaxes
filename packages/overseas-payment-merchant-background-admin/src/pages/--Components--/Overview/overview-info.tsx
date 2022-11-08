@@ -45,16 +45,22 @@ export const OverviewInfo = reaxper(() => {
 					</span>
 				</div>
 			</div>
-			<Button
-				type = "primary"
-				onClick = { () => {
-					setstateOverview({
-						withdrawModalShow: true
-					})
-				} }
-			>
-				提现
-			</Button>
+			<div className={less.overviewBtns}>
+				<Button
+					type="primary">
+					充值
+				</Button>
+				<Button
+					type = "primary"
+					onClick = { () => {
+						setstateOverview({
+							withdrawModalShow: true
+						})
+					} }
+				>
+					提现
+				</Button>
+			</div>
 			<WithdrawModal/>
 		</div>
 	);
