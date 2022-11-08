@@ -4,7 +4,7 @@ export const OverviewInfo = reaxper(() => {
 	
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
-	const { overviewInfo , setstateOverview, fetchOverviewInfo } = reaxel_overview_info();
+	const { overviewInfo , fetchOverviewInfo } = reaxel_overview_info();
 	const {
 		balance = 0 ,
 		withdrawingMoney = 0,
@@ -27,6 +27,7 @@ export const OverviewInfo = reaxper(() => {
 						</span>
 					</div>
 					<Button
+						className = { less.checkDetail }
 						type = "link"
 						onClick = { () => {
 							navigate('fin-detail');
@@ -44,27 +45,27 @@ export const OverviewInfo = reaxper(() => {
 					</span>
 				</div>
 			</div>
-			<div className={less.overviewBtns}>
+			<div style={{ display : 'flex', gap: '16px'}}>
 				<Button
-					type="primary">
+					type = "primary"
+					onClick = { () => {
+						navigate('deposit')
+					} }
+				>
 					充值
 				</Button>
 				<Button
 					type = "primary"
 					onClick = { () => {
-						setstateOverview({
-							withdrawModalShow: true
-						})
+						navigate('withdraw')
 					} }
 				>
 					提现
 				</Button>
 			</div>
-			<WithdrawModal/>
 		</div>
 	);
 });
 
 import { reaxel_overview_info } from "@@reaxels";
-import { WithdrawModal } from './withdraw-modal'
 import less from "@@pages/Overview/index.module.less";

@@ -14,11 +14,18 @@ export const request_fin_detail = (payload: PayloadBody<Overview__fin_detail.pay
 	})
 }
 
-export const request_withdraw_apply = (payload: PayloadBody<OverviewOverview__withdraw__fin_detail.payload>) => {
+export const request_withdraw_apply = (payload: PayloadBody<Overview__withdraw.payload>) => {
 	return request.post<Overview__withdraw.response, typeof payload>(`/mch/withdraw`, {
 		body : payload,
 		
 	})
 }
 
-import { Overview__fin_detail, Overview__withdraw } from './types'
+export const request_deposit_apply = (payload: PayloadBody<Overview__deposit.payload>) => {
+	return request.post<Overview__withdraw.response, typeof payload>(`/mch/recharge`, {
+		body : payload,
+		
+	})
+}
+
+import { Overview__fin_detail, Overview__withdraw, Overview__deposit } from './types'

@@ -78,7 +78,7 @@ export namespace User__api_set {
 	export interface payload {
 		payInCallback : string;
 		payOutCallback : string;
-		payOutWhitelist : string ;
+		payOutWhitelist : string[] ;
 		address : string;
 		
 		

@@ -64,6 +64,6 @@ export const FinancialDetails = reaxper(() => {
 	);
 })
 
-import less from '../index.module.less';
+import less from './index.module.less';
 import { reaxel_overview_info } from '@@reaxels';
 import { ColumnsType } from "antd/lib/table";

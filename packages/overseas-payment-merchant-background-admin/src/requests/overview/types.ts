@@ -60,3 +60,14 @@ export namespace Overview__withdraw {
 		result: number
 	}
 }
+
+export namespace Overview__deposit {
+	export type payload = {
+		usdt : number,
+		sourceAddress: string,
+	}
+	
+	export type response = {
+		result: number
+	}
+}
