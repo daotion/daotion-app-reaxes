@@ -30,7 +30,7 @@ export const reaxel_payment_mgnt = function(){
 	const conductApplication = async (instruction:boolean) => {
 		return request_conduct_payment_application(async function(){
 			return {
-				orderID:  JSON.stringify(store.selectedOrders),
+				tradeIDList:  store.selectedOrders,
 				agree : instruction ,
 			};
 		}).then(() => {
