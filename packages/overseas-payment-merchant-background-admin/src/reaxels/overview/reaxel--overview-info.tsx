@@ -6,12 +6,10 @@ export const reaxel_overview_info = function(){
 	* 首页基本信息
 	* 资金明细信息
 	*/
-	const { store , setState } = orzMobx({
-		withdrawModalShow : false ,
+	const {store, setState } = orzMobx({
 		overviewInfo : {} as any ,
 		fin_detail_list : [] as Overview__fin_detail.response['listInfo'] ,
-		withdrawApplyMoney : '' as any ,
-	});
+	})
 	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
 		return request_overview_info().then((res) => {
 			setState({
@@ -32,33 +30,45 @@ export const reaxel_overview_info = function(){
 			})
 		})
 	}, () => [])
+	
+	/**
+	 * 提现相关信息及方法
+	 */
+	const { store: withdrawStore , setState: withdrawSetState } = orzMobx({
+		withdrawApplyMoney : '' as any ,
+	});
 	const withdrawApply = async () => {
-		const { withdrawApplyMoney = 0, overviewInfo: {address} } = store;
+		const { withdrawApplyMoney = ''} = withdrawStore;
+		const {overviewInfo: {address} } = store
 		return request_withdraw_apply(async () => {
 			return {
-				money : withdrawApplyMoney,
+				money : +withdrawApplyMoney,
 				address
 			}
-		}).then((res) => {
-			if (res === 0) {
-				message.success('申请成功');
-			} else {
-				message.error('余额不足');
-			}
-		}).catch((e) => {
-			message.error('申请失败' + e)
 		})
 	}
 	
+	/**
+	 * 充值相关信息及方法
+	 */
+	const { store: depositStore, setState: depositSetState } = orzMobx({
+		depositMoney : '',
+		paymentAddress : '',
+	})
+	const depositApply = async () => {
+		const { depositMoney, paymentAddress } = depositStore
+		return request_deposit_apply(async () => {
+			return {
+				usdt : +depositMoney,
+				sourceAddress: paymentAddress
+			}
+		})
+	}
+	
+	
 	return () => {
 		return ret = {
-			get withdrawModalShow(){
-				return store.withdrawModalShow;
-			} ,
-			get setstateOverview(){
-				return setState;
-			} ,
-			
+
 			get overviewInfo(){
 				return store.overviewInfo;
 			},
@@ -72,14 +82,27 @@ export const reaxel_overview_info = function(){
 				return fetchFinDetail(() => [ badge ])();
 			} ,
 			
-			get withdrawApplyMoney(){
-				return store.withdrawApplyMoney;
+			// 提现方法
+			get withdrawStore(){
+				return withdrawStore;
+			} ,
+			get withdrawSetState(){
+				return withdrawSetState
 			},
 			withdrawApply(){
-				withdrawApply();
+				return  withdrawApply();
 			},
 			
-			
+			//充值方法
+			get depositStore(){
+				return depositStore
+			},
+			get depositSetState(){
+				return depositSetState;
+			},
+			deposit(){
+				return depositApply()
+			},
 			
 			
 		};
@@ -91,5 +114,6 @@ import {
 	request_fin_detail ,
 	Overview__fin_detail ,
 	request_withdraw_apply ,
+	request_deposit_apply,
 } from '@@requests';
 

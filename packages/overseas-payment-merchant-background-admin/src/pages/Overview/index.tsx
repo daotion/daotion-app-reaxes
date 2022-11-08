@@ -1,8 +1,4 @@
 export const HomePage = reaxper(() => {
-	const { message } = antd;
-
-	
-	
 	return (
 		<>
 			<OverviewInfo />

@@ -75,6 +75,8 @@ export const LayoutBreadCrumb = reaxper(() => {
 		'ops-record' : '操作日志',
 		'overview' : '主页',
 		'fin-detail' : '资金明细',
+		'withdraw' : '提现',
+		'deposit' : '充值',
 		'new-payment' : '新增代付',
 	};
 	if (!(pathName === 'overview' || pathName.includes('profile'))) {
