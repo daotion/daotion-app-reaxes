@@ -71,17 +71,12 @@ export const reaxel_overview_info = function(){
 			fetchFinDetail(badge){
 				return fetchFinDetail(() => [ badge ])();
 			} ,
-			
 			get withdrawApplyMoney(){
 				return store.withdrawApplyMoney;
 			},
 			withdrawApply(){
 				withdrawApply();
 			},
-			
-			
-			
-			
 		};
 	}
 }();

@@ -30,20 +30,19 @@ export const reaxel_payment_mgnt = function(){
 	const conductApplication = async (instruction:boolean) => {
 		return request_conduct_payment_application(async function(){
 			return {
-				orderID:  JSON.stringify(store.selectedOrders),
+				tradeIDList:  store.selectedOrders,
 				agree : instruction ,
 			};
-		}).then(() => {
-			antd.message.success(`处理成功!`);
+		}).then((data) => {
 			setState({
 				payment_application_list : store.payment_application_list.filter((item) => {
-					return !store.selectedOrders.find(item.orderID);
+					return !data.successTradeID.includes(item.orderID);
 				}),
 			});
+			return data;
 		}).catch((e) => {
-			console.log(e);
-			
-			antd.message.error(e.message);
+			console.error(e);
+			throw e;
 		});
 	};
 	

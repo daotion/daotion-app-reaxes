@@ -39,5 +39,13 @@ const request_ops_record = (payload) => {
 	
 	return request.post(`/mch/record-operation` , {
 		body : payload ,
+	}).then((data) => {
+		return {
+			...data ,
+			recordList : data.recordList.map((item) => {
+				return { ...item , key : Math.random() };
+			}) ,
+		};
 	});
 };
+

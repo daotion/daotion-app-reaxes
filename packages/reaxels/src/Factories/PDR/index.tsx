@@ -46,7 +46,6 @@ const reaxel_fetch = function(){
 		return req({a:1,b:""}).then((text) => {
 			return preventDup(() => {
 				setState({ text });
-				console.log(text);
 			});
 			return text;
 		}).then((text) => {
