@@ -3,10 +3,13 @@
  * @param {string} template 格式,见https://dayjs.gitee.io/docs/zh-CN/display/format
  * @return {string}
  */
-export const time_localize_Brazil = (timestamp : number = Date.now() , template : string = "YY-MM-DD HH-mm-ss" ) => {
+export const time_localize_Brazil = (timestamp : number = Date.now()/1000 , template : string = "YYYY-MM-DD HH:mm:ss" ) => {
+	const unix = dayjs.unix(timestamp);
 	dayjs.extend(utc);
 	dayjs.extend(timezone);
-	return dayjs.tz(timestamp , "America/Sao_Paulo").format(template);
+	/*后端go传的是毫秒*/
+	
+	return dayjs.tz(unix , "America/Sao_Paulo").format(template);
 };
 
 import dayjs from 'dayjs';

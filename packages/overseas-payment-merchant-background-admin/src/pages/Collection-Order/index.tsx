@@ -176,20 +176,28 @@ export const OrderInfoTable = reaxper(() => {
 		{
 			title : '订单创建时间' ,
 			dataIndex : 'createTimestamp' ,
-			render(record){
-				return time_localize_Brazil(record.createTimestamp);
+			render(value){
+				return <Timezone
+					format
+					unix
+				>{value}</Timezone>
 			} ,
 		} ,
 		{
 			title : '订单更新时间' ,
 			dataIndex : 'updateTimestamp' ,
-			render(record){
-				return time_localize_Brazil(record.updateTimestamp);
+			render(value){
+				if(!value){
+					return 'N/A';
+				}
+				return <Timezone
+					format
+					unix
+				>{value}</Timezone>;
 			} ,
 		} ,
 	];
 	const { Table , Tag } = antd;
-	
 	return (
 		<div className = { less.tableContainer }>
 			<div className = { less.tableHeader }>
@@ -272,7 +280,11 @@ export const OrderProcess = reaxper(() => {
 });
 
 
-
+import {
+	timezone ,
+	Timezone ,
+	reaxel_timezone,
+} from '@@reaxels';
 import { reaxel_collection_order } from './reaxel--collection-order';
 import { DatePicker } from '@@Xcomponents';
 import { time_localize_Brazil } from '#toolkits/overseas-payment';

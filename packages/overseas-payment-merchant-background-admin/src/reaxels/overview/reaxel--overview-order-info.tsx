@@ -96,8 +96,8 @@ export const reaxel_overview_order_info = function(){
 					})
 				});
 			} ,
-			fetchDepositOrderClosure( ){
-				return fetchOrderCountClosure(() => [depositOrder$store.duration])('depositOrder', depositOrder$store.duration).then(res => {
+			fetchDepositOrderClosure( pageType){
+				return fetchOrderCountClosure(() => [pageType, depositOrder$store.duration])(pageType, depositOrder$store.duration).then(res => {
 					depositOrder$setState({
 						info: res.countInfo
 					})
