@@ -85,6 +85,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 					{ path.length > 1 &&
 						<Button
 							shape = "circle"
+							size="small"
 							onClick = { () => {
 								const newPath = path;
 								newPath.pop();

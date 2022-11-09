@@ -1,8 +1,9 @@
 export const SVGMenuOverviewIcon = reaxper(() => {
 	return(
-		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path fillRule ="evenodd" clipRule ="evenodd" d="M0 16V5.33333L8 0L16 5.33333V16H11V11H5V16H0Z" fill="#737376"/>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fillRule ="evenodd" clipRule ="evenodd" d="M4 20V9.33333L12 4L20 9.33333V20H15V15H9V20H4Z" fill="#737376"/>
 		</svg>
+	
 	
 	
 	)
