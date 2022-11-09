@@ -10,7 +10,6 @@ export const LayoutHeader = reaxper(() => {
 			<SVGHeaderDepayLogo />
 			<div className = { less.layoutHeaderRight }>
 				<Dropdown
-					
 					overlay = { <Menu
 						items = { [
 							{
@@ -26,11 +25,6 @@ export const LayoutHeader = reaxper(() => {
 				>
 					<div className = { less.headerTime }>
 						<SVGTimezoneIcon />
-						<div className = {less.timeNow}>
-							<Timezone format >
-								{now}
-							</Timezone>
-						</div>
 						<span>{tz === "Asia/Shanghai"
 							? <>
 								<span>中国标准时间:</span>
@@ -43,11 +37,14 @@ export const LayoutHeader = reaxper(() => {
 								<span>UTC-03:00</span>
 							</>
 						}</span>
+						<div className = {less.timeNow}>
+							<Timezone format >
+								{now}
+							</Timezone>
+						</div>
 					</div>
 				</Dropdown>
 				<div className = { less.userSelect }>
-					
-					
 					<Dropdown
 						overlay = { <Menu
 							items = { [

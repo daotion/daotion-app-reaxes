@@ -40,25 +40,7 @@ export const Layout = reaxper(() => {
 	);
 });
 
-export const LayoutMenu = reaxper(() => {
-	const { navigate } = toolkits.useRouter();
 
-	const { Menu } = antd;
-	return (
-		<div className={less.siderMenuContainer}>
-			<Menu
-				style={{
-					height: '100%',
-				}}
-				items={items}
-				onSelect={(e) => {
-					navigate(e.key);
-				}}
-				mode="inline"
-			/>
-		</div>
-	);
-});
 
 export const LayoutBreadCrumb = reaxper(() => {
 	const { Space, Breadcrumb, Button } = antd;
@@ -81,43 +63,41 @@ export const LayoutBreadCrumb = reaxper(() => {
 	};
 	if (!(pathName === 'overview' || pathName.includes('profile'))) {
 		return (
-			<Space direction="vertical" className={less.contentSpace}>
+			<Space
+				direction = "vertical"
+				className = { less.contentSpace }
+			>
 				<Breadcrumb>
-					{path.length > 1 && path.map((item , index) => (
+					{ path.length > 1 && path.map((item , index) => (
 						<Breadcrumb.Item
-							key={item}
-							onClick={() => {
-								navigate(`/${path.slice(0,index+1).join('/')}`)
-							}}
-						>{index !== path.length - 1
-							? <Button type='link' style={{padding: 0, height: 0}}>{routeName[item]}</Button>
+							key = { item }
+							onClick = { () => {navigate('..');} }
+						>{ index !== path.length - 1
+							? <Button
+								type = "link"
+								style = { { padding : 0 , height : 0 } }
+							>{ routeName[item] }</Button>
 							: routeName[item]
 						}</Breadcrumb.Item>
-					))}
+					)) }
 				</Breadcrumb>
-				<div style={{display: 'flex', alignItems: 'center'}}>
-					{path.length > 1 &&
+				<div style = { { display : 'flex' , alignItems : 'center' , gap : '8px' } }>
+					{ path.length > 1 &&
 						<Button
-							style={{
-								border: "unset",
-								boxShadow: "unset",
-								padding: 0,
-								display: "flex",
-								alignItems: "center",
-								justifyContent: 'center'
-							}}
-							onClick={() => {
-								const newPath = path
-								newPath.pop()
-								navigate(`/${newPath.join('/')}`)
-							}}
-							icon={<LeftOutlined />}>
+							shape = "circle"
+							onClick = { () => {
+								const newPath = path;
+								newPath.pop();
+								navigate(`/${ newPath.join('/') }`);
+							} }
+							icon = { <LeftOutlined /> }
+						>
 						</Button>
 					}
-					<h2 style={{margin: 0}}>{routeName[path[path.length - 1]]}</h2>
+					<h2 style = { { margin : 0 } }>{ routeName[path[path.length - 1]] }</h2>
 				</div>
 			</Space>
-		)
+		);
 		
 	} else {
 		return <></>
@@ -126,43 +106,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 
 import { reaxel_user_auth } from '@@reaxels';
 import { MainContentRouting } from './Routing';
-import { LayoutHeader } from './pages/--Components--/Layout-Header';
-import {
-	SVGMenuApiIcon ,
-	SVGMenuOrderIcon ,
-	SVGMenuOverviewIcon ,
-	SVGMenuPayoutIcon ,
-	SVGMenuProfileIcon ,
-	SvgLayoutHeaderBack ,
-	SvgMenuIconLogs ,
-} from '@@SVGcomponents';
-import { MenuProps } from 'antd';
+import { LayoutMenu,LayoutHeader } from '@@pages/--Components--';
 import { LeftOutlined } from '@ant-design/icons';
 import { Navigate } from 'react-router-dom';
 import less from './styles/layout.module.less';
-
-const getItem = (
-	label: React.ReactNode,
-	key: React.Key | null,
-	icon?: React.ReactNode,
-	children?: MenuItem[],
-): MenuItem => ({
-	key,
-	label,
-	icon,
-	children,
-});
-const items: MenuItem[] = [
-	getItem('主页', 'overview', <SVGMenuOverviewIcon />),
-	getItem('订单数据', 'order', <SVGMenuOrderIcon />, [
-		getItem('代收订单', 'collection-order'),
-		getItem('代付订单', 'payment-order'),
-		getItem('提现订单', 'withdrawal-order'),
-		getItem('充值订单', 'deposit-order'),
-	]),
-	getItem('代付管理', 'payment-mgnt', <SVGMenuPayoutIcon />),
-	getItem('操作记录', 'ops-record', <SvgMenuIconLogs />),
-	getItem('商户信息', 'profile', <SVGMenuProfileIcon />),
-	getItem('API文档', 'api', <SVGMenuApiIcon />),
-];
-type MenuItem = Required<MenuProps>['items'][number];

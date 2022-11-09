@@ -38,42 +38,33 @@ export const OverviewDeposit = reaxper(() => {
 						<SVGProfileCopyBtn/>
 					</div>
 				</div>
-				<div className = { less.btn }>
-					<Button
-						type = "primary"
-						onClick = { () => {
-							if (depositMoney === '') {
-								message.error('充值金额不能为空');
-							} else if(paymentAddress === '' ) {
-								message.error('请先设置地址');
-							} else {
-								deposit().then((res) => {
-									if (res.result === 0) {
-										message.success('申请成功');
-										depositSetState({
-											paymentAddress : '',
-											depositMoney: ''
-										})
-									} else {
-										message.error('申请失败');
-									}
-								
-								}).catch((e) => {
-									message.error('申请失败' + e)
-								})
-							}
-						} }
-					>
-						提交
-					</Button>
-					<Button
-						onClick = { () => {
-							navigate('/overview')
-						}}
-					>
-						取消
-					</Button>
-				</div>
+				<Button
+					type = "primary"
+					onClick = { () => {
+						if (depositMoney === '') {
+							message.error('充值金额不能为空');
+						} else if(paymentAddress === '' ) {
+							message.error('请先设置地址');
+						} else {
+							deposit().then((res) => {
+								if (res.result === 0) {
+									message.success('申请成功');
+									depositSetState({
+										paymentAddress : '',
+										depositMoney: ''
+									})
+								} else {
+									message.error('申请失败');
+								}
+							
+							}).catch((e) => {
+								message.error('申请失败' + e)
+							})
+						}
+					} }
+				>
+					提交
+				</Button>
 			</div>
 			
 		</div>
