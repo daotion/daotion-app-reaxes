@@ -45,13 +45,6 @@ export const NewPayment = reaxper(() => {
 				>
 					提交
 				</Button>
-				{/*<Button*/}
-				{/*	onClick = { () => {*/}
-				{/*		navigate('../');*/}
-				{/*	} }*/}
-				{/*>*/}
-				{/*	取消*/}
-				{/*</Button>*/}
 			</div>
 		</div>
 	);
@@ -82,9 +75,6 @@ export const PixPay = reaxper(() => {
 					} }
 				/>
 			</div>
-			{/*<span>*/}
-			{/*	输入Pix的支付码*/}
-			{/*</span>*/}
 		</div>
 	);
 });

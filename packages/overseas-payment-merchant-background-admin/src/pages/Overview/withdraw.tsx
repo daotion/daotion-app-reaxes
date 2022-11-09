@@ -45,42 +45,33 @@ export const OverviewWithdraw = reaxper(() => {
 						{ overviewInfo.address === '' ? '前往设置' : overviewInfo.address}
 					</p>
 				</div>
-				<div className = { less.btn }>
-					<Button
-						type = "primary"
-						onClick = { () => {
-							if (withdrawApplyMoney === '') {
-								message.error('提现金额不能为空');
-							} else if(!overviewInfo.address ) {
-								message.error('请先设置地址');
+				<Button
+					type = "primary"
+					onClick = { () => {
+						if (withdrawApplyMoney === '') {
+							message.error('提现金额不能为空');
+						} else if(!overviewInfo.address ) {
+							message.error('请先设置地址');
+							
+						} else {
+							withdrawApply().then((res) => {
+								if (res.result === 0) {
+									message.success('申请成功');
+									withdrawSetState({
+										withdrawApplyMoney: ''
+									})
+								} else {
+									message.error('余额不足');
+								}
 								
-							} else {
-								withdrawApply().then((res) => {
-									if (res.result === 0) {
-										message.success('申请成功');
-										withdrawSetState({
-											withdrawApplyMoney: ''
-										})
-									} else {
-										message.error('余额不足');
-									}
-									
-								}).catch((e) => {
-									message.error('申请失败' + e)
-								})
-							}
-						} }
-					>
-						提交
-					</Button>
-					<Button
-						onClick = { () => {
-							navigate('/overview')
-						}}
-					>
-						取消
-					</Button>
-				</div>
+							}).catch((e) => {
+								message.error('申请失败' + e)
+							})
+						}
+					} }
+				>
+					提交
+				</Button>
 			</div>
 			
 		</div>
