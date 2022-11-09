@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 
 export const Login = reaxper(() => {
 	
-	const { isLoggedIn } = reaxel_user_auth();
+	const { isLoggedIn,pending } = reaxel_user_auth();
 	if(isLoggedIn){	
 		return <Navigate to = "/overview" />;
 	}
@@ -28,9 +28,10 @@ export const SignInForm = reaxper(() => {
 	const {
 		navigate,
 	} = toolkits.useRouter();
-	const { Input , Button } = antd;
+	const { pending } = reaxel_user_auth();
 	const { login , store , setFields } = reaxel_user_login();
 	const { input_username , input_password } = store;
+	const { Input , Button } = antd;
 	return (
 		<form onSubmit={(e) => {
 			e.preventDefault();
@@ -64,9 +65,11 @@ export const SignInForm = reaxper(() => {
 				<Button
 					type = "primary"
 					htmlType="submit"
+					loading={pending}
 					onClick = { () => {
 						login().then(() => {
 							navigate('/overview');
+							antd.message.success('登陆成功!');
 						}).catch((e) => {
 							antd.Modal.error({
 								title : "用户名或密码错误,请检查" ,
