@@ -81,7 +81,6 @@ export const reaxel_overview_info = function(){
 			fetchFinDetail(badge){
 				return fetchFinDetail(() => [ badge ])();
 			} ,
-			
 			// 提现方法
 			get withdrawStore(){
 				return withdrawStore;

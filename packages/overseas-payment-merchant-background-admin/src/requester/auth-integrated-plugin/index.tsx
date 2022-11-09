@@ -29,6 +29,10 @@ export function AuthIntegratedPlugin (){
 					case 50 : {
 						throw json;
 					};break;
+					/*pix码校验失败*/
+					case 4100 : {
+						throw json;
+					};break;
 					case 401 : {
 						reax_auth.logout();
 						throw json.message;

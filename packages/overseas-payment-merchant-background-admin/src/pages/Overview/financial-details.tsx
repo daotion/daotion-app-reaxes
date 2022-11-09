@@ -1,7 +1,7 @@
 export const FinancialDetails = reaxper(() => {
 	const {fetchFinDetail, fin_detail_list} = reaxel_overview_info();
-	const {current} = useRef(Math.random());
-	fetchFinDetail(current);
+	const {current:badge} = useRef(Symbol('badge'));
+	fetchFinDetail(badge);
 	const { Table , Button } = antd;
 	const columns = [
 		{

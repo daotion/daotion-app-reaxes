@@ -2,8 +2,10 @@ import { reaxel_new_payment } from './reaxel--new-payment';
 
 export const NewPayment = reaxper(() => {
 	
-	const { state,setFields } = reaxel_new_payment();
+	const { state , setFields , resetState , resetDeps , fetchNewPayment } = reaxel_new_payment();
 	const { navigate } = toolkits.useRouter();
+	
+	useEffect(() => resetState , []);
 	
 	const { Button , Tabs } = antd;
 	return (
@@ -14,7 +16,7 @@ export const NewPayment = reaxper(() => {
 				</div>
 				<Tabs
 					onChange = { (tab) => {
-						setFields({currentPattern:tab});
+						setFields({ currentPattern : tab });
 					} }
 					activeKey = { state.currentPattern }
 				>
@@ -24,23 +26,32 @@ export const NewPayment = reaxper(() => {
 					>
 						<PixPay />
 					</Tabs.TabPane>
-					{__EXPERIMENTAL__ && <Tabs.TabPane
+					{ __EXPERIMENTAL__ && <Tabs.TabPane
 						tab = "银行卡转账方式"
 						key = "bank"
 					>
 						<BankCarTransfer />
 					</Tabs.TabPane> }
 				</Tabs>
-				<Button type = "primary">
+				<Button
+					onClick = { () => {
+						fetchNewPayment().then((data) => {
+							crayon.orange(JSON.stringify(data));
+						}).catch((e) => {
+							antd.message.error(e.message);
+						});
+					} }
+					type = "primary"
+				>
 					提交
 				</Button>
-				{/*<Button*/}
-				{/*	onClick = { () => {*/}
-				{/*		navigate('../');*/}
-				{/*	} }*/}
-				{/*>*/}
-				{/*	取消*/}
-				{/*</Button>*/}
+				<Button
+					onClick = { () => {
+						navigate('../');
+					} }
+				>
+					取消
+				</Button>
 			</div>
 		</div>
 	);
@@ -48,22 +59,23 @@ export const NewPayment = reaxper(() => {
 
 export const PixPay = reaxper(() => {
 	
-	const { Input } = antd;
+	const { setFields , state } = reaxel_new_payment();
 	
+	const { Input } = antd;
 	return (
 		<div className = { less.pixpayContainer }>
-			<div className={less.ppInputForm}>
-				<span>
-					金额
-				</span>
-				<Input placeholder={'R$'}/>
-			</div>
-			<div className={less.ppInputForm}>
-				<span>
-					Pix支付码
-				</span>
-				<Input placeholder={'输入Pix的支付码'}/>
-			</div>
+			<span>
+				Pix支付码
+			</span>
+			<Input
+				value = { state.pix_code }
+				onChange = { (e) => {
+					setFields({ pix_code : e.target.value });
+				} }
+			/>
+			<span>
+				输入Pix的支付码
+			</span>
 		</div>
 	);
 });

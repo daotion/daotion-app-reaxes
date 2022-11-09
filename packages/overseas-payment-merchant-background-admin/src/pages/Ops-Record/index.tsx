@@ -9,7 +9,7 @@ export const OpsRecord = reaxper(() => {
 	return <div>
 		<Table
 			dataSource={records}
-			rowKey="timestamp"
+			rowKey="key"
 			columns={[
 				{
 					title : "操作事项",
@@ -19,8 +19,6 @@ export const OpsRecord = reaxper(() => {
 					title : "操作时间",
 					dataIndex:"timestamp",
 					render(text){
-						console.log(text);
-						
 						return time_localize_Brazil(text);
 					},
 				},
