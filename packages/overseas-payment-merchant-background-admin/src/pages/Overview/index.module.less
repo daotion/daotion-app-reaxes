@@ -245,10 +245,27 @@
 		width: 465px;
 		margin: 0 auto;
 		
+		.deposit-title{
+			display: flex;
+			flex-direction: column;
+			font-weight: 600;
+			font-size: 22px;
+			line-height: 28px;
+		}
+		
+		.deposit-title::after{
+			content: '账户实际到账余额以实时美金汇率为准';
+			font-weight: 500;
+			font-size: 13px;
+			line-height: 16px;
+			color: rgba(22, 22, 26, 0.6);
+		}
+		
 		.withdraw-amount{
 			display: flex;
 			flex-direction: column;
 			gap: 8px;
+			font-weight: 600;
 			
 			.withdraw-btn{
 				font-weight: 500;
@@ -264,10 +281,18 @@
 			padding: 0;
 			gap: 8px;
 			font-size: 14px;
-			font-weight: 500;
+			font-weight: 600;
 			
-			:first-child {
-				font-weight: 600;
+			.collection-address{
+				display: flex;
+				align-items: center;
+				font-weight: 500;
+				font-size: 13px;
+				line-height: 16px;
+				
+				svg{
+					cursor: pointer;
+				}	
 			}
 			
 			.set-btn{

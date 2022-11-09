@@ -32,7 +32,7 @@ export const OverviewDeposit = reaxper(() => {
 				</div>
 				<div className = { less.address }>
 					<p>RainPay收款地址(TRC-20)</p>
-					<div>
+					<div className={less.collectionAddress}>
 						{/*地址为固定地址*/}
 						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
 						<SVGProfileCopyBtn/>
