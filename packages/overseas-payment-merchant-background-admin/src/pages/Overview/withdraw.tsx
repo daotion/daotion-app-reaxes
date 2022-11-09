@@ -8,7 +8,7 @@ export const OverviewWithdraw = reaxper(() => {
 	return (
 		<div className={less.withdrawContainer}>
 			<div className = { less.windowContent }>
-				<h3>提现</h3>
+				<span className={less.withdrawTitle}>提现</span>
 				<div className = { less.withdrawAmount }>
 					<span>提现金额</span>
 					<Input
@@ -19,7 +19,7 @@ export const OverviewWithdraw = reaxper(() => {
 							})
 						}}
 					/>
-					<span>
+					<span className={less.maxWithdrawAmount}>
 						最大可到账金额：R${balance}
 						<span
 							className = { less.withdrawBtn }
@@ -34,8 +34,8 @@ export const OverviewWithdraw = reaxper(() => {
 					</span>
 				</div>
 				<div className = { less.address }>
-					<p>接收USDT地址(TRC-20)</p>
-					<p
+					<span>接收USDT地址(TRC-20)</span>
+					<span
 						className={(overviewInfo.address === '') ? less.setBtn : ''}
 						onClick={() => {
 							if (overviewInfo.address) return
@@ -43,7 +43,7 @@ export const OverviewWithdraw = reaxper(() => {
 						}}
 					>
 						{ overviewInfo.address === '' ? '前往设置' : overviewInfo.address}
-					</p>
+					</span>
 				</div>
 				<div className = { less.btn }>
 					<Button
