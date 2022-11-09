@@ -40,25 +40,7 @@ export const Layout = reaxper(() => {
 	);
 });
 
-export const LayoutMenu = reaxper(() => {
-	const { navigate } = toolkits.useRouter();
 
-	const { Menu } = antd;
-	return (
-		<div className={less.siderMenuContainer}>
-			<Menu
-				style={{
-					height: '100%',
-				}}
-				items={items}
-				onSelect={(e) => {
-					navigate(e.key);
-				}}
-				mode="inline"
-			/>
-		</div>
-	);
-});
 
 export const LayoutBreadCrumb = reaxper(() => {
 	const { Space, Breadcrumb, Button } = antd;
@@ -126,43 +108,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 
 import { reaxel_user_auth } from '@@reaxels';
 import { MainContentRouting } from './Routing';
-import { LayoutHeader } from './pages/--Components--/Layout-Header';
-import {
-	SVGMenuApiIcon ,
-	SVGMenuOrderIcon ,
-	SVGMenuOverviewIcon ,
-	SVGMenuPayoutIcon ,
-	SVGMenuProfileIcon ,
-	SvgLayoutHeaderBack ,
-	SvgMenuIconLogs ,
-} from '@@SVGcomponents';
-import { MenuProps } from 'antd';
+import { LayoutMenu,LayoutHeader } from '@@pages/--Components--';
 import { LeftOutlined } from '@ant-design/icons';
 import { Navigate } from 'react-router-dom';
 import less from './styles/layout.module.less';
-
-const getItem = (
-	label: React.ReactNode,
-	key: React.Key | null,
-	icon?: React.ReactNode,
-	children?: MenuItem[],
-): MenuItem => ({
-	key,
-	label,
-	icon,
-	children,
-});
-const items: MenuItem[] = [
-	getItem('主页', 'overview', <SVGMenuOverviewIcon />),
-	getItem('订单数据', 'order', <SVGMenuOrderIcon />, [
-		getItem('代收订单', 'collection-order'),
-		getItem('代付订单', 'payment-order'),
-		getItem('提现订单', 'withdrawal-order'),
-		getItem('充值订单', 'deposit-order'),
-	]),
-	getItem('代付管理', 'payment-mgnt', <SVGMenuPayoutIcon />),
-	getItem('操作记录', 'ops-record', <SvgMenuIconLogs />),
-	getItem('商户信息', 'profile', <SVGMenuProfileIcon />),
-	getItem('API文档', 'api', <SVGMenuApiIcon />),
-];
-type MenuItem = Required<MenuProps>['items'][number];
