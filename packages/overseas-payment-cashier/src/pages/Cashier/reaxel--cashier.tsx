@@ -1,25 +1,18 @@
 export const reaxel_cashier = function(){
 	let tradeID;
 	const { store , setState } = orzMobx({
-		tradeID : null ,
-		mchName : null ,
-		subject : null ,
-		status : null ,
-		amount : null ,
-		currency : null ,
-		pixCode : null ,
-		base64 : null ,
-		deadline : null ,
+		pending : true ,
+		tradeInfo : null,
 	});
 	const fetchCashier = (tradeID) => {
 		
 		return request_cashier(() => {
 			return {
-				getTradeID : tradeID,
+				tradeID,
 			}
 		}).then((data) => {
 			console.log(data);
-			
+			setState({ pending : false , tradeInfo : data });
 		});
 	}
 	
@@ -34,17 +27,13 @@ export const reaxel_cashier = function(){
 			},
 			/*copy to clipboard*/
 			ctc(text){
-				if(ctc(text)){
-					antm.Toast.show({
-						icon:"success",
-						content : "copied success" ,
-					});
-				}else {
-					antm.Toast.show({
-						icon:"fail",
-						content : "failed to copy" ,
-					});
-				};
+				return orzPromise((resolve,reject) => {
+					if(ctc(text)){
+						resolve(true);
+					}else {
+						reject(false);
+					};
+				});
 			},
 			fetchCashier,
 			getTradeID(){

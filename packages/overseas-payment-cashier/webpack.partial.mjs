@@ -8,6 +8,7 @@ const __ENV_CONFIG__ = (await import(`./proxy.configuration.json`,{assert: { typ
 export const webpackConfig = {
 	resolve: {
 		alias: {
+			'@@root': path.resolve(repoRoot),
 			'@@pages': path.resolve(repoRoot, 'src/pages'),
 			'@@reaxels': path.resolve(repoRoot, 'src/reaxels'),
 			'@@utils': path.resolve(repoRoot, 'src/utils'),
