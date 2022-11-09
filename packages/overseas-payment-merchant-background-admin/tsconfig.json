@@ -30,6 +30,7 @@
 		"watch" : false ,
 		"allowSyntheticDefaultImports" : true ,
 		"paths" : {
+			"#project-root/*" : [ "../../*" ] ,
 			"#requester" : [ "../requester" ] ,
 			"#requester/*" : [ "../requester/*" ] ,
 			"#reaxels" : [ "../reaxels" ] ,
@@ -37,7 +38,7 @@
 			"#toolkits/*" : [ "../toolkits/*" ] ,
 			"#utils" : [ "../utils" ] ,
 			"#statics" : [ "../../statics" ] ,
-			"@@declarations/*" : [ "src/declarations/*" ] ,
+			"@@root/*" : [ "./*" ] ,
 			"@@pages" : [ "src/pages" ] ,
 			"@@pages/*" : [ "src/pages/*" ] ,
 			"@@utils" : [ "src/utils" ] ,
@@ -49,10 +50,11 @@
 			"@@requests/*" : [ "src/requests/*" ] ,
 			"@@toolkits" : [ "src/toolkits" ],
 			"@@toolkits/*" : [ "src/toolkits/*" ],
-			"@@Xcomponents" : [ "src/Xcomponents" ], 
-			"@@Xcomponents/*" : [ "src/Xcomponents/*" ], 
-			"@@SVGcomponents" : [ "src/SVGcomponents" ], 
-			"@@SVGcomponents/*" : [ "src/SVGcomponents/*" ], 
+			"@@Xcomponents" : [ "src/Xcomponents" ], ,
+			"@@Xcomponents/*" : [ "src/Xcomponents/*" ], ,
+			"@@SVGcomponents" : [ "src/SVGcomponents" ], ,
+			"@@SVGcomponents/*" : [ "src/SVGcomponents/*" ], ,
+			"@@declarations/*" : [ "src/declarations/*" ] ,
 			"@@public/*" : [ "public/*" ] 
 		} ,
 		"lib" : [
