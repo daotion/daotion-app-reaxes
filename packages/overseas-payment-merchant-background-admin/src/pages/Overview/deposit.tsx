@@ -7,7 +7,7 @@ export const OverviewDeposit = reaxper(() => {
 	return (
 		<div className={less.withdrawContainer}>
 			<div className = { less.windowContent }>
-				<span className={less.depositTitle}>充值</span>
+				<span className={`${less.title} ${less.depositTitle}`}>充值</span>
 				<div className = { less.withdrawAmount }>
 					<span>充值金额（TRC-20 USDT）</span>
 					<Input

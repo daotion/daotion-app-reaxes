@@ -8,7 +8,9 @@ export const OverviewWithdraw = reaxper(() => {
 	return (
 		<div className={less.withdrawContainer}>
 			<div className = { less.windowContent }>
-				<span className={less.withdrawTitle}>提现</span>
+				<span className={less.title}>
+					提现
+				</span>
 				<div className = { less.withdrawAmount }>
 					<span>提现金额</span>
 					<Input
