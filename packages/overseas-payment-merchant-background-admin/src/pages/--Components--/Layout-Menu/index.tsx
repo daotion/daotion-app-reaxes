@@ -1,25 +1,37 @@
 export const LayoutMenu = reaxper(() => {
 	const { navigate , params } = toolkits.useRouter();
 	
+	const openKeys = recursive(menulist , params['*'].split('/').pop());
+	
 	const { Menu } = antd;
 	return (
-		<div className={less.siderMenuContainer}>
+		<div className = { less.siderMenuContainer }>
 			<Menu
-				style={{
-					height: '100%',
-				}}
-				selectedKeys = {params['*'].split('/')}
-				items={menulist}
-				onSelect={(e) => {
+				style = { {
+					height : '100%' ,
+				} }
+				selectedKeys = { params['*'].split('/') }
+				items = { menulist }
+				defaultOpenKeys = { openKeys }
+				onSelect = { (e) => {
 					navigate(e.key);
-				}}
-				mode="inline"
+				} }
+				mode = "inline"
 			/>
 		</div>
 	);
 });
 
-
+const recursive = (list,subKey) => {
+	for(const item of list){
+		if(item.children){
+			if(item.children.find(({key}) => subKey)){
+				return [item.key];
+			}
+		}
+	}
+	return [];
+};
 
 const menulist:ItemType[] = [
 	{
