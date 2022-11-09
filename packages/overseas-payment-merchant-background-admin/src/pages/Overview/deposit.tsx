@@ -7,7 +7,7 @@ export const OverviewDeposit = reaxper(() => {
 	return (
 		<div className={less.withdrawContainer}>
 			<div className = { less.windowContent }>
-				<h3 className={less.depositTitle}>充值</h3>
+				<span className={less.depositTitle}>充值</span>
 				<div className = { less.withdrawAmount }>
 					<span>充值金额（TRC-20 USDT）</span>
 					<Input
@@ -31,7 +31,7 @@ export const OverviewDeposit = reaxper(() => {
 					/>
 				</div>
 				<div className = { less.address }>
-					<p>RainPay收款地址(TRC-20)</p>
+					<span>RainPay收款地址(TRC-20)</span>
 					<div className={less.collectionAddress}>
 						{/*地址为固定地址*/}
 						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
