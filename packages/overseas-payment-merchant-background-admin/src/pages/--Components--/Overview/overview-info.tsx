@@ -67,5 +67,28 @@ export const OverviewInfo = reaxper(() => {
 	);
 });
 
+
+export const OverviewInfoSkeleton = reaxper(() => {
+	
+	const {Skeleton} = antd;
+	
+	return<>
+		<div style={{
+			display: "flex",
+			flexDirection: "column",
+		}}>
+			<Skeleton.Button style={{width: 100, marginBottom: 24}} active/>
+			<Skeleton.Button style={{width: 150, marginBottom: 6}} active/>
+			<Skeleton.Button style={{width: 250, height: 60, marginBottom: 24}} active/>
+			<Skeleton.Button style={{width: 150, marginBottom: 6}} active/>
+			<Skeleton.Button style={{width: 250, marginBottom: 24}} active/>
+			<div style={{ display : 'flex', gap: '16px'}}>
+			<Skeleton.Button style={{width: 100}} active/>
+			<Skeleton.Button style={{width: 100}} active/>
+			</div>
+		</div>
+	</>
+})
+
 import { reaxel_overview_info } from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";
