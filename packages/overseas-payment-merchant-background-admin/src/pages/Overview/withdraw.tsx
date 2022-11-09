@@ -1,9 +1,14 @@
 
 export const OverviewWithdraw = reaxper(() => {
-	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState  } = reaxel_overview_info();
+	const {fetchOverviewInfo,withdrawStore, overviewInfo, withdrawApply, withdrawSetState  } = reaxel_overview_info();
+	const { navigate } = toolkits.useRouter();
+	if(!overviewInfo){
+		fetchOverviewInfo();
+		return null;
+	}
 	const { balance } = overviewInfo;
 	const { withdrawApplyMoney} = withdrawStore;
-	const { navigate } = toolkits.useRouter()
+	
 	const { message, Input, Button } = antd;
 	return (
 		<div className={less.withdrawContainer}>

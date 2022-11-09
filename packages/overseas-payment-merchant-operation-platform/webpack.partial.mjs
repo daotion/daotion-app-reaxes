@@ -8,12 +8,15 @@ const __ENV_CONFIG__ = (await import(`./proxy.configuration.json`,{assert: { typ
 export const webpackConfig = {
 	resolve: {
 		alias: {
+			'@@root': path.resolve(repoRoot),
 			'@@pages': path.resolve(repoRoot, 'src/pages'),
 			'@@reaxels': path.resolve(repoRoot, 'src/reaxels'),
 			'@@utils': path.resolve(repoRoot, 'src/utils'),
 			'@@requester': path.resolve(repoRoot, 'src/requester'),
+			'@@requests': path.resolve(repoRoot, 'src/requests'),
 			'@@toolkits': path.resolve(repoRoot, 'src/toolkits'),
 			'@@public': path.resolve(repoRoot, 'public'),
+			'@@SVGcomponents': path.resolve(repoRoot, 'src/SVGcomponents'),
 			'@@Xcomponents': path.resolve(repoRoot, 'src/Xcomponents'),
 			'--Components--': path.resolve(repoRoot, 'src/pages/--Components--'),
 		},
@@ -38,6 +41,7 @@ export const webpackConfig = {
 		new ProvidePlugin({
 			orzPromise: ['@@utils', 'orzPromise'],
 			utils: ['@@utils'],
+			antd: ['antd'],
 			toolkits: ['@@toolkits'],
 			crayon: ['@@utils', 'crayon'],
 			logProxy: ['@@utils', 'logProxy'],

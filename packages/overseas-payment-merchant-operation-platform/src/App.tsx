@@ -1,36 +1,16 @@
 
+
 export const App = reaxper(() => {
 	
-	const { count , addCount , minusCount } = reaxel_counter();
-	
-	return <h1>
-		<AlertTwoTone/>
-		<button onClick={addCount}>count+</button>
-		<p>{count}</p>
-		<button onClick={minusCount}>count-</button>
-	</h1>;
+	return <ConfigProvider
+		locale={locale}
+	>
+		<Routing/>
+	</ConfigProvider>
 });
 
-
-const reaxel_counter = function(){
-	const { store , setState } = orzMobx({ count : 0 });
-	return () => {
-		
-		return {
-			get count(){
-				return store.count;
-			} ,
-			minusCount(){
-				setState({ count : store.count - 1 });
-			} ,
-			addCount(){
-				setState({ count : store.count + 1 });
-			} ,
-		};
-	};
-}();
-
-
-
-
-import {AlertTwoTone} from '@ant-design/icons';
+import 'antd/dist/antd.less';
+import './styles/main.module.less';
+import { Routing } from './Routing';
+import { ConfigProvider } from 'antd';
+import locale from 'antd/es/locale/pt_BR';

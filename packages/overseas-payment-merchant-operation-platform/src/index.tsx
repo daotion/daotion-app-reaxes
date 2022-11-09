@@ -1,8 +1,5 @@
-import { render } from 'react-dom';
-import { App } from './App';
-
 module?.hot?.accept?.(
-	"./main.tsx" ,
+	"./index.tsx" ,
 	( ...args ) => {
 		
 		return render(
@@ -21,4 +18,5 @@ render(
 	document.getElementById( 'react-app-root' ) ,
 );
 
-
+import { render } from 'react-dom';
+import { App } from './App';
