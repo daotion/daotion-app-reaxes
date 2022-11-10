@@ -40,6 +40,7 @@ export const OverviewDeposit = reaxper(() => {
 				</div>
 				<Button
 					type = "primary"
+					loading={depositStore.pending}
 					onClick = { () => {
 						if (depositMoney === '') {
 							message.error('充值金额不能为空');

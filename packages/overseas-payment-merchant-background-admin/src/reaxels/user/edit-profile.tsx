@@ -135,12 +135,7 @@ export const reaxel_edit_info = function(){
 				return  modify()
 			} ,
 			setApiConfig(){
-				setApiConfig().then(() => {
-					setStateApi({
-						apiSetModalShow : false ,
-					});
-				});
-				reax_user_info.closuredFetchApiConfig(Math.random());
+				return setApiConfig();
 			},
 		};
 	};
