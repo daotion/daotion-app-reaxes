@@ -15,7 +15,7 @@ export const Layout = reaxper(() => {
 	
 	
 	return (
-		<>
+		<div className={less.layoutGlobal}>
 			<Layout>
 				<LayoutHeader />
 			</Layout>
@@ -36,7 +36,7 @@ export const Layout = reaxper(() => {
 					</div>
 				</Content>
 			</Layout>
-		</>
+		</div>
 	);
 });
 

@@ -1,7 +1,8 @@
 export const reaxel_user_info = function(){
 	let ret;
 	const initalState = {
-		loading : false as { promise : Promise<any> } | false ,
+		getUserInfoLoading : false,
+		getApiLoading : false ,
 		userInfo : {} as any ,
 		currentTab : 'userInfo' ,
 		apiConfig : {} as any ,
@@ -13,37 +14,40 @@ export const reaxel_user_info = function(){
 	
 	// 获取user信息
 	const getUserInfo = async () => {
-		if( store.loading ) return;
-
-		setState({
-			loading: {
-				promise: request_user_info().then ((userInfo : any) => {
-					setState({
-						userInfo,
-
-					})
-				}).finally(() => {
-					setState({ loading : false });
-				})
-			}
-		})
+		if (store.getUserInfoLoading) return;
+		setUserInfoLoading(true);
+		return request_user_info().then((userInfo : any) => {
+			
+			setState({
+				userInfo ,
+			});
+			setUserInfoLoading(false);
+		});
+	}
+	const setUserInfoLoading = (pending) => {
+		queueMicrotask(() =>{setState({ getUserInfoLoading: pending })})
+	}
+	const setApiPending = (pending) => {
+		queueMicrotask(() => setState({ getApiLoading: pending }));
 	};
+
+	
+	const fetchApiConfig = async () => {
+		if (store.getApiLoading) return;
+		setApiPending(true)
+		return request_user_api().then ((apiConfig : any) => {
+			setState({
+				apiConfig,
+			})
+			setApiPending(false);
+		}).finally(() => {
+			setApiPending(false);
+		})
+	}
 	
 	// 获取api配置
-	const [ fetchApiConfig ] = Reaxes.closuredMemo(async () => {
-		setState({
-			loading: {
-				promise: request_user_api().then ((apiConfig : any) => {
-					setState({
-						apiConfig,
-						loading : false,
-
-					})
-				}).finally(() => {
-					setState({ loading : false });
-				})
-			}
-		})
+	const [ closureFetchApiConfig ] = Reaxes.closuredMemo(async () => {
+		return fetchApiConfig()
 	} , () => []);
 
 	
@@ -66,11 +70,17 @@ export const reaxel_user_info = function(){
 				return store.currentTab;
 			} ,
 			get apiConfig(){
-				return store.apiConfig
+				return store.apiConfig;
 			},
-			closuredFetchApiConfig(badge){
-				return fetchApiConfig(() => [badge])()
+			get getApiLoading(){
+				return store.getApiLoading;
+			},
+			closureFetchApiConfig(badge){
+				return closureFetchApiConfig(() => [badge])()
 			} ,
+			fetchApiConfig(){
+				return fetchApiConfig()
+			},
 			changeTab(tabValue : string){
 				setState({
 					currentTab : tabValue,

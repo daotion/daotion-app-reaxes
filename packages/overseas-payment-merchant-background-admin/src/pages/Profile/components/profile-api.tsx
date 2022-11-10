@@ -1,10 +1,10 @@
 
 export const ProfileApi = reaxper(() => {
-	const badge = useRef(Math.random())
-	const { Space, Col, Row, Button, message } = antd;
-	const {closuredFetchApiConfig,apiConfig} = reaxel_user_info();
-	closuredFetchApiConfig(badge.current);
-	const reax_edit_info = reaxel_edit_info();
+	const {current: badge} = useRef(Math.random())
+	const { Col, Button, message, Spin } = antd;
+	const {   apiConfig, closureFetchApiConfig, getApiLoading  } = reaxel_user_info();
+	closureFetchApiConfig(badge);
+	const { showModal } = reaxel_edit_info();
 	const {
 		mchKey = '' ,
 		platformIPS = '' ,
@@ -21,7 +21,11 @@ export const ProfileApi = reaxper(() => {
 		xl : {span: 8 } ,
 	};
 	return (
-		<>
+		<Spin
+			tip={'loading...'}
+			spinning={getApiLoading}
+			wrapperClassName={less.spinWrapper}
+		>
 			<div className = { less.baseInfo }>
 				<div className={less.baseInfoTitle}>
 					API对接
@@ -47,14 +51,14 @@ export const ProfileApi = reaxper(() => {
 					<Col {...colSet}>代收回调url</Col>
 					<Col {...colSet}>{ payInCallback }</Col>
 					<Col>
-						<Button type="link" onClick={() => {reax_edit_info.showModal('payInCallback')}}>设置</Button>
+						<Button type="link" onClick={() => {showModal('payInCallback')}}>设置</Button>
 					</Col>
 				</div>
 				<div className = { less.infoItem }>
 					<Col {...colSet}>代付回调url</Col>
 					<Col {...colSet}>{ payOutCallback }</Col>
 					<Col {...colSet}>
-						<Button type="link" onClick={() => {reax_edit_info.showModal('payOutCallback')}}>设置</Button>
+						<Button type="link" onClick={() => {showModal('payOutCallback')}}>设置</Button>
 					</Col>
 				</div>
 				<div className = { less.infoItem }>
@@ -66,26 +70,27 @@ export const ProfileApi = reaxper(() => {
 						{payOutWhitelist.length > 0 && payOutWhitelist.map((i) => <span key = { i }>{ i};</span>) }
 					</Col>
 					<Col {...colSet}>
-						<Button type="link" onClick={() => {reax_edit_info.showModal('payOutWhitelist')}}>设置</Button>
+						<Button type="link" onClick={() => {showModal('payOutWhitelist')}}>设置</Button>
 					</Col>
 				</div>
 				<div className = { less.infoItem }>
 					<Col {...colSet}>提现地址(TRC-20)</Col>
 					<Col {...colSet}>{ address }</Col>
 					<Col {...colSet}>
-						<Button type="link" onClick={() => {reax_edit_info.showModal('address')}}>设置</Button>
+						<Button type="link" onClick={() => {showModal('address')}}>设置</Button>
 					</Col>
 				</div>
 			</div>
 			<SetApiModal/>
-		</>
+		</Spin>
 	);
 });
 
 const SetApiModal = reaxper(() => {
 	const { Modal , Input , Button } = antd;
-	const reax_edit_info = reaxel_edit_info();
-	const { setApiStore } = reax_edit_info;
+	const { setApiConfig, setApiStore, setStateApi } = reaxel_edit_info();
+	const { fetchApiConfig } = reaxel_user_info();
+	const { message } = antd;
 	const {
 		apiSetModalKey = '' ,
 	} = setApiStore;
@@ -130,7 +135,7 @@ const SetApiModal = reaxper(() => {
 					<Input
 						value = { modalContent[apiSetModalKey].value }
 						onChange = { (e) => {
-							reax_edit_info.setStateApi({
+							setStateApi({
 								[apiSetModalKey] : e.target.value,
 							});
 						} }
@@ -142,13 +147,21 @@ const SetApiModal = reaxper(() => {
 				<div className = { less.btnSection }>
 					<Button
 						type = "primary"
+						loading={setApiStore.pending}
 						onClick = { () => {
-							reax_edit_info.setApiConfig();
+							setApiConfig().then((res) => {
+								setStateApi({
+									apiSetModalShow : false ,
+								});
+								message.success('修改成功');
+								fetchApiConfig();
+							});
+							
 						} }
 					>提交</Button>
 					<Button
 						onClick = { () => {
-							reax_edit_info.setStateApi({
+							setStateApi({
 								apiSetModalShow : false,
 							});
 						} }

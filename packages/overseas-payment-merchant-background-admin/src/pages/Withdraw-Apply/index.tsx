@@ -1,15 +1,19 @@
 
 export const OverviewWithdraw = reaxper(() => {
-	const {fetchOverviewInfo,withdrawStore, overviewInfo, withdrawApply, withdrawSetState  } = reaxel_overview_info();
+	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState, fetchOverviewInfo  } = reaxel_overview_info();
 	const { navigate } = toolkits.useRouter();
+	const { message, Input, Button, Spin } = antd;
+	
 	if(!overviewInfo){
 		fetchOverviewInfo();
-		return null;
+		return (
+			<div className={less.loadingSpin}>
+				<Spin/>
+			</div>
+		)
 	}
 	const { balance } = overviewInfo;
 	const { withdrawApplyMoney} = withdrawStore;
-	
-	const { message, Input, Button } = antd;
 	return (
 		<div className={less.withdrawContainer}>
 			<div className = { less.windowContent }>
@@ -45,7 +49,7 @@ export const OverviewWithdraw = reaxper(() => {
 					<span
 						className={(overviewInfo.address === '') ? less.setBtn : ''}
 						onClick={() => {
-							if (overviewInfo.address) return
+							if (overviewInfo.address) return;
 							navigate('/profile/API')
 						}}
 					>
@@ -54,33 +58,20 @@ export const OverviewWithdraw = reaxper(() => {
 				</div>
 				<Button
 					type = "primary"
+					loading={withdrawStore.pending}
 					onClick = { () => {
-						if (withdrawApplyMoney === '') {
-							message.error('提现金额不能为空');
-						} else if(!overviewInfo.address ) {
-							message.error('请先设置地址');
-							
-						} else {
-							withdrawApply().then((res) => {
-								if (res.result === 0) {
-									message.success('申请成功');
-									withdrawSetState({
-										withdrawApplyMoney: ''
-									})
-								} else {
-									message.error('余额不足');
-								}
-								
-							}).catch((e) => {
-								message.error('申请失败' + e)
-							})
-						}
-					} }
+						withdrawApply().then(() => {
+							message.success('申请成功');
+						}).catch((e) => {
+							console.log(e);
+							message.error(  e.msg)
+						})
+					}}
 				>
 					提交
 				</Button>
 			</div>
-			
+		
 		</div>
 	)
 });

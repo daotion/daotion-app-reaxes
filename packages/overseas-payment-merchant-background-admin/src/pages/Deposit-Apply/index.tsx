@@ -2,10 +2,9 @@
 export const OverviewDeposit = reaxper(() => {
 	const {depositStore, deposit, depositSetState  } = reaxel_overview_info();
 	const { paymentAddress = '', depositMoney = ''} = depositStore;
-	const { navigate } = toolkits.useRouter();
 	const { message, Input, Button } = antd;
 	return (
-		<div className={less.withdrawContainer}>
+		<div className={less.depositContainer}>
 			<div className = { less.windowContent }>
 				<span className={`${less.title} ${less.depositTitle}`}>充值</span>
 				<div className = { less.withdrawAmount }>
@@ -40,33 +39,19 @@ export const OverviewDeposit = reaxper(() => {
 				</div>
 				<Button
 					type = "primary"
+					loading={depositStore.pending}
 					onClick = { () => {
-						if (depositMoney === '') {
-							message.error('充值金额不能为空');
-						} else if(paymentAddress === '' ) {
-							message.error('请先设置地址');
-						} else {
-							deposit().then((res) => {
-								if (res.result === 0) {
-									message.success('申请成功');
-									depositSetState({
-										paymentAddress : '',
-										depositMoney: ''
-									})
-								} else {
-									message.error('申请失败');
-								}
-							
-							}).catch((e) => {
-								message.error('申请失败' + e)
-							})
-						}
-					} }
+						deposit().then(() => {
+							message.success('充值成功');
+						}).catch((e) => {
+							message.error(  e.msg)
+						})
+					}}
 				>
 					提交
 				</Button>
 			</div>
-			
+		
 		</div>
 	)
 });

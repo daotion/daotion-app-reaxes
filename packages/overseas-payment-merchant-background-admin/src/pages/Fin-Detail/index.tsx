@@ -44,8 +44,8 @@ export const FinancialDetails = reaxper(() => {
 	
 	
 	return (
-		<div className = { less.tableContainer }>
-			<div className = { less.tableHeader }>
+		<div className = { less.finDetailTable }>
+			<div className = { less.finDetailTableHeader }>
 				资金明细
 			</div>
 			<Table
