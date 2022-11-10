@@ -58,6 +58,8 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 	} = typeCheckTitle[type];
 	
 	const { Radio } = antd;
+	
+	
 	return (
 		<div className = { less.orderTypeOverviewContainer }>
 			<div className = { less.orderTypeTitle }>
@@ -73,35 +75,41 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 					optionType = "button"
 				/>
 			</div>
-			<div className = { less.totalAmount }>
-				{ svg }
-				<div className = { less.totalAmountContent }>
-					<span className = { less.totalAmountTitle }>
-						{ text }总金额 (R$)
-					</span>
-					<span>
-						{ store.info.totalMoney }
-					</span>
-				</div>
-			</div>
-			<div className = { less.orderInfo }>
-				<span className = { less.dataTitle }>
-					{ text }订单数据
-				</span>
-				
-				<div className = { less.orderInfoList }>
-					{ store.info?.statusCount?.map((i , index) => {
-						return (
-							<OrderInfoListRow
-								key = { orderType[index + 1].status }
-								orderType = { orderType[index + 1].label }
-								amount = { i.orderMoney }
-								orderAmount = { i.orderNum + '笔' }
-							/>
-						);
-					}) }
-				</div>
-			</div>
+			{store.info && !store.loading
+				? <>
+					<div className = { less.totalAmount }>
+						{ svg }
+						<div className = { less.totalAmountContent }>
+							<span className = { less.totalAmountTitle }>
+								{ text }总金额 (R$)
+							</span>
+							<span>
+								{ store.info.totalMoney }
+							</span>
+						</div>
+					</div>
+					<div className = { less.orderInfo }>
+						<span className = { less.dataTitle }>
+							{ text }订单数据
+						</span>
+						
+						<div className = { less.orderInfoList }>
+							{ store.info?.statusCount?.map((i , index) => {
+								return (
+									<OrderInfoListRow
+										key = { orderType[index + 1].status }
+										orderType = { orderType[index + 1].label }
+										amount = { i.orderMoney }
+										orderAmount = { i.orderNum + '笔' }
+									/>
+								);
+							}) }
+						</div>
+					</div>
+				</>
+				: <OrderInfoSkeleton/>
+			}
+			
 		</div>
 	);
 });
@@ -128,73 +136,42 @@ export const OrderInfoSkeleton = reaxper(() => {
 	
 	const { Skeleton } = antd;
 	
-	return <>
+	return (
 		<div
 			style = { {
 				display : "flex" ,
 				flexDirection : "column" ,
-				width : '100%' ,
+				gap : 24 ,
+				width: '100%',
+				marginTop: '16px'
 			} }
 		>
-			<div
-				style = { {
-					display : "flex" ,
-					justifyContent : "space-between" ,
-					marginBottom : 16 ,
-				} }
-			>
-				<Skeleton.Avatar
-					style = { { width : 35 } }
-					active
-				/>
-				<Skeleton.Button
-					style = { { width : 265 } }
-					active
-				/>
+			<div style={{
+				display : 'flex',
+				alignItems : 'center',
+				gap : '16px',
+			}} >
+				<Skeleton.Avatar active size={'large'} />
+				<Skeleton.Button active style={{ width: 100, height : 70 }}/>
 			</div>
-			<div
-				style = { {
-					display : "flex" ,
-					alignItems : "center" ,
-					justifyContent : "start" ,
-					marginBottom : 48 ,
-				} }
-			>
-				<Skeleton.Avatar
-					style = { { width : 35 } }
-					active
-				/>
-				<Skeleton.Button
-					style = { { width : 300 , height : 65 , marginLeft : 20 } }
-					active
-				/>
-			</div>
-			<div
-				style = { {
-					display : "flex" ,
-					flexDirection : "column" ,
-					gap : 24 ,
-				} }
-			>
-				<Skeleton.Button
-					style = { { width : '100%' , height : 70 } }
-					active
-				/>
-				<Skeleton.Button
-					style = { { width : '100%' , height : 70 } }
-					active
-				/>
-				<Skeleton.Button
-					style = { { width : '100%' , height : 70 } }
-					active
-				/>
-				<Skeleton.Button
-					style = { { width : '100%' , height : 70 } }
-					active
-				/>
-			</div>
+			<Skeleton.Button
+				style = { { width : '100%' , height : 70 } }
+				active
+			/>
+			<Skeleton.Button
+				style = { { width : '100%' , height : 70 } }
+				active
+			/>
+			<Skeleton.Button
+				style = { { width : '100%' , height : 70 } }
+				active
+			/>
+			<Skeleton.Button
+				style = { { width : '100%' , height : 70 } }
+				active
+			/>
 		</div>
-	</>;
+	)
 });
 
 
@@ -205,3 +182,4 @@ import {
 	SVGOverviewWithdrawIcon ,
 	SVGOverviewPayoutIcon ,
 } from "@@SVGcomponents";
+
