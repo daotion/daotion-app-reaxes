@@ -4,28 +4,18 @@ export const OverviewInfo = reaxper(() => {
 	
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
-	const { overviewInfo , fetchOverviewInfo, overviewInfoPending } = reaxel_overview_info();
+	const reax_overview_info = reaxel_overview_info()
+	const { overviewInfo , fetchOverviewInfo } = reax_overview_info;
 	if(!overviewInfo){
 		fetchOverviewInfo();
-		return null;
+		return <OverviewInfoSkeleton/>
 	}
 	const {
 		balance = 0 ,
 		withdrawingMoney = 0,
 	} = overviewInfo;
-	
 	return (
-		<div
-			style={{
-				padding: '24px',
-				width: '100%',
-				backgroundColor: '#FFFFFF',
-				marginBottom: '20px',
-				borderRadius: '8px',
-			}}
-		>
-			{overviewInfoPending && <OverviewInfoSkeleton/>}
-			{!overviewInfoPending && <div className = { less.overviewContainer }>
+			<div className = { less.overviewContainer }>
 				<span className = { less.overviewTitle }>
 					资金总览
 				</span>
@@ -76,9 +66,7 @@ export const OverviewInfo = reaxper(() => {
 						提现
 					</Button>
 				</div>
-			</div> }
-		
-		</div>
+			</div>
 	);
 });
 
@@ -89,6 +77,11 @@ export const OverviewInfoSkeleton = reaxper(() => {
 		<div style={{
 			display: "flex",
 			flexDirection: "column",
+			padding: '24px',
+			width: '100%',
+			backgroundColor: '#FFFFFF',
+			marginBottom: '20px',
+			borderRadius: '8px',
 		}}>
 			<Skeleton.Button style={{width: 100, marginBottom: 24}} active/>
 			<Skeleton.Button style={{width: 150, marginBottom: 6}} active/>

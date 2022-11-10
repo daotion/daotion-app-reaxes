@@ -29,6 +29,8 @@ export const reaxel_overview_info = function(){
 	}
 	
 	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
+		if(store.overviewInfoPending) return;
+		setOverviewInfoPending(true)
 		return request_overview_info().then((res) => {
 			setState({
 				overviewInfo : res ,
@@ -72,18 +74,40 @@ export const reaxel_overview_info = function(){
 		const { withdrawApplyMoney = '', pending} = withdrawStore;
 		const {overviewInfo: {address} } = store
 		if (pending) return;
-		setWithdrawPending(true)
-		return request_withdraw_apply(async () => {
-			return {
-				money : + withdrawApplyMoney ,
-				address ,
-			};
-		}).then((res) => {
-			setWithdrawPending(false);
-			return res;
-		}).finally(() => {
-			setWithdrawPending(false);
-		})
+		if (withdrawApplyMoney === '') {
+			throw {
+				msg : '提现金额不能为空',
+			}
+		} else if (address === '') {
+			throw {
+				msg: '请先设置地址'
+			}
+		} else {
+			setWithdrawPending(true);
+			return request_withdraw_apply(async () => {
+				return {
+					money : + withdrawApplyMoney ,
+					address ,
+				};
+			}).then((res) => {
+				setWithdrawPending(false);
+				if (res.result === 0) {
+					withdrawSetState({
+						withdrawApplyMoney : '',
+					})
+					ret.fetchOverviewInfo();
+				} else {
+					throw {
+						msg: '申请失败'
+					}
+				}
+			}).catch(() => {
+				throw {
+					msg: '申请失败'
+				}
+			})
+		}
+		
 	}
 	
 	/**
@@ -105,18 +129,42 @@ export const reaxel_overview_info = function(){
 	const depositApply = async () => {
 		const { depositMoney, paymentAddress, pending } = depositStore
 		if (pending) return;
-		setDepositPending(true)
-		return request_deposit_apply(async () => {
-			return {
-				usdt : +depositMoney,
-				sourceAddress: paymentAddress
+		if (depositMoney === ''){
+			throw {
+				msg: '充值金额不能为空'
 			}
-		}).then((res) => {
-			setDepositPending(false);
-			return res;
-		}).finally(() => {
-			setDepositPending(false);
-		})
+		} else if (paymentAddress === '') {
+			throw {
+				msg: '地址不能为空'
+			}
+		} else {
+			setDepositPending(true);
+			return request_deposit_apply(async () => {
+				return {
+					usdt : +depositMoney,
+					sourceAddress: paymentAddress
+				}
+			}).then((res) => {
+				setDepositPending(false);
+				if (res.result === 0) {
+					depositSetState({
+						depositMoney : '',
+						paymentAddress : '',
+					})
+					ret.fetchOverviewInfo();
+				} else {
+					throw {
+						msg : '充值失败',
+					}
+				}
+			}).catch(() => {
+				setDepositPending(false);
+				throw {
+					msg : '充值失败' ,
+				};
+			})
+			
+		}
 	}
 	
 	
@@ -162,7 +210,6 @@ export const reaxel_overview_info = function(){
 			deposit(){
 				return depositApply()
 			},
-			
 			
 		};
 	}
