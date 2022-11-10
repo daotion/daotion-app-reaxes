@@ -61,7 +61,7 @@ export const OverviewWithdraw = reaxper(() => {
 					loading={withdrawStore.pending}
 					onClick = { () => {
 						withdrawApply().then(() => {
-							message.success('申请成功');
+							message.success('已提交申请');
 						}).catch((e) => {
 							console.log(e);
 							message.error(  e.msg)
