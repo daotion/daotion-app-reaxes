@@ -5,14 +5,15 @@ export const OverviewInfo = reaxper(() => {
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
 	const { overviewInfo , fetchOverviewInfo, overviewInfoPending } = reaxel_overview_info();
+	if(!overviewInfo){
+		fetchOverviewInfo();
+		return null;
+	}
 	const {
 		balance = 0 ,
 		withdrawingMoney = 0,
 	} = overviewInfo;
-	const { current : badge } = useRef(Math.random());
-	useEffect(() => {
-		fetchOverviewInfo()
-	},[])
+	
 	return (
 		<div
 			style={{
@@ -99,8 +100,8 @@ export const OverviewInfoSkeleton = reaxper(() => {
 			<Skeleton.Button style={{width: 100}} active/>
 			</div>
 		</div>
-	)
-})
+	);
+});
 
 import { reaxel_overview_info } from "@@reaxels";
 import less from "@@pages/Overview/index.module.less";

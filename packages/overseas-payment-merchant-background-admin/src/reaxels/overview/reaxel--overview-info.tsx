@@ -8,7 +8,7 @@ export const reaxel_overview_info = function(){
 	*/
 	const {store, setState } = orzMobx({
 		overviewInfoPending : false,
-		overviewInfo : {} as any ,
+		overviewInfo : null as any ,
 		finDetailPending : false,
 		fin_detail_list : [] as Overview__fin_detail.response['listInfo'] ,
 	})
@@ -28,16 +28,14 @@ export const reaxel_overview_info = function(){
 		})
 	}
 	
-	const fetchOverviewInfo = async () => {
-		if (store.overviewInfoPending) return;
-		setOverviewInfoPending(true);
+	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
 		return request_overview_info().then((res) => {
 			setState({
-				overviewInfo: res
-			})
+				overviewInfo : res ,
+			});
 			setOverviewInfoPending(false)
 		})
-	};
+	}, () => []);
 	const [fetchFinDetail] = Reaxes.closuredMemo( async () => {
 		if (store.finDetailPending) return;
 		setFinDetailPending(true);
@@ -138,7 +136,7 @@ export const reaxel_overview_info = function(){
 				return store.fin_detail_list;
 			} ,
 			fetchOverviewInfo(){
-				return fetchOverviewInfo();
+				return fetchOverviewInfo(() => [store.overviewInfo == null ? Symbol():store.overviewInfo?.mchNo])();
 			} ,
 			fetchFinDetail(badge){
 				return fetchFinDetail(() => [ badge ])();
