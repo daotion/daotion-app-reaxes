@@ -1,5 +1,5 @@
 export const FinancialDetails = reaxper(() => {
-	const {fetchFinDetail, fin_detail_list} = reaxel_overview_info();
+	const {fetchFinDetail, fin_detail_list, finDetailPending } = reaxel_overview_info();
 	const {current:badge} = useRef(Symbol('badge'));
 	fetchFinDetail(badge);
 	const { Table , Button } = antd;
@@ -51,6 +51,7 @@ export const FinancialDetails = reaxper(() => {
 			<Table
 				columns = { columns }
 				dataSource = { fin_detail_list }
+				loading={finDetailPending}
 				rowKey = "orderID"
 				size = "small"
 				pagination = { {
