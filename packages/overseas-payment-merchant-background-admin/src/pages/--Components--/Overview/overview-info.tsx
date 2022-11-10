@@ -4,8 +4,7 @@ export const OverviewInfo = reaxper(() => {
 	
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
-	const reax_overview_info = reaxel_overview_info()
-	const { overviewInfo , fetchOverviewInfo } = reax_overview_info;
+	const { overviewInfo , fetchOverviewInfo } = reaxel_overview_info();
 	if(!overviewInfo){
 		fetchOverviewInfo();
 		return <OverviewInfoSkeleton/>
@@ -14,6 +13,7 @@ export const OverviewInfo = reaxper(() => {
 		balance = 0 ,
 		withdrawingMoney = 0,
 	} = overviewInfo;
+	
 	return (
 			<div className = { less.overviewContainer }>
 				<span className = { less.overviewTitle }>

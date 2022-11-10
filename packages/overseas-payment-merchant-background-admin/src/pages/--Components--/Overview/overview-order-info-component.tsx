@@ -1,61 +1,60 @@
-
 export const OverviewOrderInfoComponent = reaxper((props : {
 	type : "collection-order" | "payment-order" | "withdrawal-order" | "deposit-order",
 }) => {
-	const { type = 'collectionOrder'} = props;
-
+	const { type = 'collectionOrder' } = props;
+	
 	const {
 		collectionOrder ,
-		collectionOrderSetState,
-		payoutOrder,
-		payoutOrderSetState, 
-		withdrawalOrder,
-		withdrawalOrderSetState,
-		depositOrder,
-		depositOrderSetState,
-		get_enum_order_list_map,
-		get_overview_duration_type,
+		collectionOrderSetState ,
+		payoutOrder ,
+		payoutOrderSetState ,
+		withdrawalOrder ,
+		withdrawalOrderSetState ,
+		depositOrder ,
+		depositOrderSetState ,
+		get_enum_order_list_map ,
+		get_overview_duration_type ,
 	} = reaxel_overview_order_info();
 	
 	const orderType = get_enum_order_list_map(type);
-
+	
 	const durationBtnArr = get_overview_duration_type().map(i => (
 		{
-			label: i.label,
-			value: i.duration
+			label : i.label ,
+			value : i.duration ,
 		}
 	));
 	const typeCheckTitle = {
 		'collection-order' : {
-			text: '代收',
-			store: collectionOrder,
-			setState: collectionOrderSetState,
-			svg: <SVGOverviewPayinIcon/>
+			text : '代收' ,
+			store : collectionOrder ,
+			setState : collectionOrderSetState ,
+			svg : <SVGOverviewPayinIcon /> ,
 		} ,
 		'payment-order' : {
-			text: '代付',
-			store: payoutOrder,
-			setState: payoutOrderSetState,
-			svg: <SVGOverviewPayoutIcon/>
+			text : '代付' ,
+			store : payoutOrder ,
+			setState : payoutOrderSetState ,
+			svg : <SVGOverviewPayoutIcon /> ,
 		} ,
 		'withdrawal-order' : {
-			text : '提现',
-			store: withdrawalOrder,
-			setState: withdrawalOrderSetState,
-			svg: <SVGOverviewWithdrawIcon/>
+			text : '提现' ,
+			store : withdrawalOrder ,
+			setState : withdrawalOrderSetState ,
+			svg : <SVGOverviewWithdrawIcon /> ,
 		} ,
 		'deposit-order' : {
-			text : '充值',
-			store : depositOrder,
-			setState: depositOrderSetState,
-			svg: <SVGOverviewPayoutIcon/>
+			text : '充值' ,
+			store : depositOrder ,
+			setState : depositOrderSetState ,
+			svg : <SVGOverviewPayoutIcon /> ,
 		} ,
 	};
 	const {
-		store,
-		setState,
-		text,
-		svg
+		store ,
+		setState ,
+		text ,
+		svg ,
 	} = typeCheckTitle[type];
 	
 	const { Radio } = antd;
@@ -67,17 +66,17 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 					options = { durationBtnArr }
 					onChange = { (e) => {
 						setState({
-							duration: e.target.value
-						})
+							duration : e.target.value ,
+						});
 					} }
 					value = { store.duration }
 					optionType = "button"
 				/>
 			</div>
 			<div className = { less.totalAmount }>
-				{svg}
+				{ svg }
 				<div className = { less.totalAmountContent }>
-					<span className={less.totalAmountTitle}>
+					<span className = { less.totalAmountTitle }>
 						{ text }总金额 (R$)
 					</span>
 					<span>
@@ -125,7 +124,84 @@ export const OrderInfoListRow = (props) => {
 	);
 };
 
+export const OrderInfoSkeleton = reaxper(() => {
+	
+	const { Skeleton } = antd;
+	
+	return <>
+		<div
+			style = { {
+				display : "flex" ,
+				flexDirection : "column" ,
+				width : '100%' ,
+			} }
+		>
+			<div
+				style = { {
+					display : "flex" ,
+					justifyContent : "space-between" ,
+					marginBottom : 16 ,
+				} }
+			>
+				<Skeleton.Avatar
+					style = { { width : 35 } }
+					active
+				/>
+				<Skeleton.Button
+					style = { { width : 265 } }
+					active
+				/>
+			</div>
+			<div
+				style = { {
+					display : "flex" ,
+					alignItems : "center" ,
+					justifyContent : "start" ,
+					marginBottom : 48 ,
+				} }
+			>
+				<Skeleton.Avatar
+					style = { { width : 35 } }
+					active
+				/>
+				<Skeleton.Button
+					style = { { width : 300 , height : 65 , marginLeft : 20 } }
+					active
+				/>
+			</div>
+			<div
+				style = { {
+					display : "flex" ,
+					flexDirection : "column" ,
+					gap : 24 ,
+				} }
+			>
+				<Skeleton.Button
+					style = { { width : '100%' , height : 70 } }
+					active
+				/>
+				<Skeleton.Button
+					style = { { width : '100%' , height : 70 } }
+					active
+				/>
+				<Skeleton.Button
+					style = { { width : '100%' , height : 70 } }
+					active
+				/>
+				<Skeleton.Button
+					style = { { width : '100%' , height : 70 } }
+					active
+				/>
+			</div>
+		</div>
+	</>;
+});
+
 
 import { reaxel_overview_order_info } from '@@reaxels';
 import less from "@@pages/Overview/index.module.less";
-import { SVGOverviewPayinIcon, SVGOverviewWithdrawIcon, SVGOverviewPayoutIcon } from "@@SVGcomponents";
+import {
+	SVGOverviewPayinIcon ,
+	SVGOverviewWithdrawIcon ,
+	SVGOverviewPayoutIcon ,
+} from "@@SVGcomponents";
