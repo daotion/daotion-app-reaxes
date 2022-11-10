@@ -8,9 +8,11 @@ export const Cashier = reaxper(() => {
 	const tradeID = getTradeID();
 	
 	if(!tradeID){
-		return null;
+		return <div className={less.cashierContainer}>
+			<CashierSkeleton/>
+		</div>
 	}
-	
+
 	fetchCashier(tradeID);
 	
 	return(
@@ -160,6 +162,31 @@ export const PaymentCanceled = reaxper(() =>{
 			</span>
 		</div>
 	)
+})
+
+
+export const CashierSkeleton = reaxper(() =>{
+	
+	const {Skeleton} = antm
+	
+	return<div style={{
+		display: "flex",
+		flexDirection: "column",
+		alignItems:"center",
+		width: '100%'
+	}}>
+		<Skeleton style={{width: '137rem', height: '24rem', marginBottom: '6rem', marginTop: '24rem'}} animated/>
+		<Skeleton style={{width: '242rem', height: '67rem', marginBottom: '32rem'}} animated/>
+		<Skeleton style={{width: '100%', height: '22rem', marginBottom: '12rem'}} animated/>
+		<div style={{
+			display: "flex",
+			width: '100%'
+		}}>
+			<Skeleton.Paragraph style={{width: '100%'}} animated/>
+		</div>
+		<Skeleton style={{width: '240rem', height: '240rem', marginTop: '12rem'}} animated/>
+		<Skeleton style={{width: '343rem', height: '48rem', marginTop: '24rem', borderRadius: '12rem'}} animated/>
+	</div>
 })
 
 import less from './index.module.less'
