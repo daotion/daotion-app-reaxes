@@ -24,11 +24,6 @@ export const Routing = reaxper((props) => {
 
 export const MainContentRouting = reaxper(() => {
 	
-	const { navigate } = toolkits.useRouter();
-	const {isLoggedIn,} = reaxel_user_auth();
-	if(!isLoggedIn){
-		return <Navigate to = "/login" />;
-	}
 	return <Routes>
 		<Route path = "*">
 			<Route
@@ -40,9 +35,13 @@ export const MainContentRouting = reaxper(() => {
 			>
 				<Route
 					index
-					element = { toolkits.withOutlet(<HomePage />) }
+					element = { toolkits.withOutlet(<Overview />) }
 				/>
 				<Route
+					path = "fin-detail"
+					element = { toolkits.withOutlet(<FinancialDetails />) }
+				/>
+				{/*<Route
 					path = "fin-detail"
 					element = { toolkits.withOutlet(<FinancialDetails />) }
 				/>
@@ -53,7 +52,7 @@ export const MainContentRouting = reaxper(() => {
 				<Route
 					path = "deposit"
 					element = { toolkits.withOutlet(<OverviewDeposit />) }
-				/>
+				/>*/}
 			</Route>
 			
 			<Route
@@ -115,7 +114,7 @@ import { reaxel_user_auth } from '@@reaxels';
 import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
 import { Login } from '@@pages/Auth';
 import { Profile } from '@@pages/Profile';
-import { HomePage} from '@@pages/Overview';
+import { Overview} from '@@pages/Overview';
 import { FinancialDetails } from '@@pages/Overview/financial-details'
 import { OverviewWithdraw } from '@@pages/Overview/withdraw'
 import { OverviewDeposit } from '@@pages/Overview/deposit'

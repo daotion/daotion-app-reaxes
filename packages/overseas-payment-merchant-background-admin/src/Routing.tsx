@@ -11,7 +11,6 @@ export const Routing = reaxper((props) => {
 				path = 'test'
 				element={<TestRender/>}
 			/>
-			{/*fixme 找到办法匹配到login时阻止渲染Layout*/}
 			<Route
 				path="*"
 				element={<Layout/>}
@@ -24,11 +23,6 @@ export const Routing = reaxper((props) => {
 
 export const MainContentRouting = reaxper(() => {
 	
-	const { navigate } = toolkits.useRouter();
-	const {isLoggedIn,} = reaxel_user_auth();
-	if(!isLoggedIn){
-		return <Navigate to = "/login" />;
-	}
 	return <Routes>
 		<Route path = "*">
 			<Route
