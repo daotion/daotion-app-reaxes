@@ -1,11 +1,16 @@
 import { reaxel_cashier } from './reaxel--cashier';
 import { reaxel_i18n } from '@@reaxels';
 export const Cashier = reaxper(() => {
-	const { ctc , getTradeID , fetchCashier } = reaxel_cashier();
+	const { getTradeID , fetchCashier } = reaxel_cashier();
 	
 	const { changeLang , language } = reaxel_i18n();
 	
 	const tradeID = getTradeID();
+	
+	if(!tradeID){
+		return null;
+	}
+	
 	fetchCashier(tradeID);
 	
 	return(
@@ -55,35 +60,51 @@ export const Cashier = reaxper(() => {
 				{/*<PaymentError/>*/}
 				{/*<PaymentCanceled/>*/}
 			</div>
-			<Copyed/>
 		</div>
 	)
 })
 
 export const DefaultInfo = reaxper(() =>{
-	return(
-		<div className={less.defaultInfoContainer}>
-			<span className={less.textInfo}>
+	const { ctc } = reaxel_cashier();
+	const { Toast } = antm;
+	return (
+		<div className = { less.defaultInfoContainer }>
+			<span className = { less.textInfo }>
 				<I18n>
 					请打开您的支付应用程序并扫描下方二维码进行支付或复制下方的 Pix 码并粘贴到您的支付应用程序中以完成购买。
 				</I18n>
 			</span>
 			<img
-				className={less.qrCode}
-				src={cashier_QRcode}
+				className = { less.qrCode }
+				src = { cashier_QRcode }
 			/>
 			<button
-				className={less.btn}
+				className = { less.btn }
+				onClick = { () => {
+					ctc('我是你爹').then(() => {
+						antm.Toast.show({
+							icon:"success",
+							content : i18n("已复制") ,
+						});
+					}).catch((e) => {
+						antm.Toast.show({
+							icon:"fail",
+							content : i18n("复制失败，请手动选中复制") ,
+						});
+					});
+				} }
 			>
-				<div style={{
-					flex: 1
-				}}></div>
-				<span style={{flex: 10}}>
+				<div
+					style = { {
+						flex : 1 ,
+					} }
+				></div>
+				<span style = { { flex : 10 } }>
 					<I18n>
 						复制Pix代码
 					</I18n>
 				</span>
-				<SVGCopyBtn/>
+				<SVGCopyBtn />
 			</button>
 		</div>
 	);

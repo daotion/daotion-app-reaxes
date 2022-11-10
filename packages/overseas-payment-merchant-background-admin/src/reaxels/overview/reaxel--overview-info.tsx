@@ -7,14 +7,14 @@ export const reaxel_overview_info = function(){
 	* 资金明细信息
 	*/
 	const {store, setState } = orzMobx({
-		overviewInfo : {} as any ,
+		overviewInfo : null as any ,
 		fin_detail_list : [] as Overview__fin_detail.response['listInfo'] ,
 	})
 	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
 		return request_overview_info().then((res) => {
 			setState({
-				overviewInfo: res
-			})
+				overviewInfo : res ,
+			});
 		})
 	}, () => []);
 	const [fetchFinDetail] = Reaxes.closuredMemo( async () => {
@@ -75,8 +75,8 @@ export const reaxel_overview_info = function(){
 			get fin_detail_list(){
 				return store.fin_detail_list;
 			} ,
-			fetchOverviewInfo(badge){
-				return fetchOverviewInfo(() => [ badge ])();
+			fetchOverviewInfo(){
+				return fetchOverviewInfo(() => [store.overviewInfo == null ? Symbol():store.overviewInfo?.mchNo])();
 			} ,
 			fetchFinDetail(badge){
 				return fetchFinDetail(() => [ badge ])();
