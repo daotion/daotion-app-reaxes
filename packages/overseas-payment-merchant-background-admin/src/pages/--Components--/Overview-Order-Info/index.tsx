@@ -47,7 +47,7 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 			text : '充值' ,
 			store : depositOrder ,
 			setState : depositOrderSetState ,
-			svg : <SVGOverviewPayoutIcon /> ,
+			svg : <SVGOverviewIconDeposit/> ,
 		} ,
 	};
 	const {
@@ -181,5 +181,6 @@ import {
 	SVGOverviewPayinIcon ,
 	SVGOverviewWithdrawIcon ,
 	SVGOverviewPayoutIcon ,
+	SVGOverviewIconDeposit ,
 } from "@@SVGcomponents";
 
