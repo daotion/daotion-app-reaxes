@@ -59,7 +59,7 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 	
 	const { Radio } = antd;
 	return (
-		<div className = { less.payinOverview }>
+		<div className = { less.orderTypeOverviewContainer }>
 			<div className = { less.orderTypeTitle }>
 				<span>{ text }</span>
 				<Radio.Group
@@ -199,7 +199,7 @@ export const OrderInfoSkeleton = reaxper(() => {
 
 
 import { reaxel_overview_order_info } from '@@reaxels';
-import less from "@@pages/Overview/index.module.less";
+import less from "./index.module.less";
 import {
 	SVGOverviewPayinIcon ,
 	SVGOverviewWithdrawIcon ,

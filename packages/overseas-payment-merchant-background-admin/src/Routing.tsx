@@ -116,9 +116,9 @@ import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
 import { Login } from '@@pages/Auth';
 import { Profile } from '@@pages/Profile';
 import { HomePage} from '@@pages/Overview';
-import { FinancialDetails } from '@@pages/Overview/financial-details'
-import { OverviewWithdraw } from '@@pages/Overview/withdraw'
-import { OverviewDeposit } from '@@pages/Overview/deposit'
+import { FinancialDetails } from '@@pages/Fin-Detail'
+import { OverviewWithdraw } from '@@pages/Withdraw-Apply'
+import { OverviewDeposit } from '@@pages/Deposit-Apply'
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { PaymentOrder } from '@@pages/Payment-Order';
 import { WithdrawalOrder } from '@@pages/Withdrawal-Order';

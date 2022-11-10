@@ -4,7 +4,7 @@ export const OverviewDeposit = reaxper(() => {
 	const { paymentAddress = '', depositMoney = ''} = depositStore;
 	const { message, Input, Button } = antd;
 	return (
-		<div className={less.withdrawContainer}>
+		<div className={less.depositContainer}>
 			<div className = { less.windowContent }>
 				<span className={`${less.title} ${less.depositTitle}`}>充值</span>
 				<div className = { less.withdrawAmount }>
@@ -51,7 +51,7 @@ export const OverviewDeposit = reaxper(() => {
 					提交
 				</Button>
 			</div>
-			
+		
 		</div>
 	)
 });
