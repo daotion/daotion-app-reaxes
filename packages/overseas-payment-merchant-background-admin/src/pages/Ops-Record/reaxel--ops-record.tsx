@@ -5,7 +5,16 @@ export const reaxel_ops_record = function(){
 	};
 	const { store , setState } = orzMobx(initialState);
 	
+	const setPending = (pending) => {
+		queueMicrotask(() => {
+			setState({
+				pending
+			})
+		})
+	}
+	
 	const [fetchOpsRecord] = Reaxes.closuredMemo(() => {
+		setPending(true);
 		return request_ops_record(async function(){
 			return {
 				indexStart : 0 ,
@@ -14,6 +23,8 @@ export const reaxel_ops_record = function(){
 			};
 		}).then(({recordList}) => {
 			setState({ records : recordList , pending : false });
+			setPending(false);
+			
 		});
 	} , () => []);
 	

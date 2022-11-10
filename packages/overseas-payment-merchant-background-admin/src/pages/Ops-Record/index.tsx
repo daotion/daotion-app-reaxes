@@ -1,3 +1,5 @@
+import less from "@@pages/Fin-Detail/index.module.less";
+
 export const OpsRecord = reaxper(() => {
 	
 	const { current : badge } = useRef(Symbol('badge'));
@@ -6,33 +8,48 @@ export const OpsRecord = reaxper(() => {
 	fetchOpsRecord(badge);
 	
 	const { Table } = antd;
-	return <div>
-		<Table
-			dataSource={records}
-			rowKey="key"
-			columns={[
-				{
-					title : "操作事项",
-					dataIndex:"operation",
-				},
-				{
-					title : "操作时间",
-					dataIndex:"timestamp",
-					render(text){
-						return time_localize_Brazil(text);
+	return (
+		<div style={{
+			width : '100%',
+			padding : '24px',
+			backgroundColor : '#ffffff',
+			borderRadius : '8px',
+		}}>
+			<div style={{
+				fontSize : '18px',
+				fontWeight : '500',
+				marginBottom: '18px'
+			}}>
+				操作记录
+			</div>
+			<Table
+				dataSource={records}
+				loading={pending}
+				rowKey="key"
+				columns={[
+					{
+						title : "操作事项",
+						dataIndex:"operation",
 					},
-				},
-				{
-					title : "操作账号",
-					dataIndex:"account",
-				},
-				{
-					title : "操作IP",
-					dataIndex:"ip",
-				},
-			]}
-		/>
-	</div>;
+					{
+						title : "操作时间",
+						dataIndex:"timestamp",
+						render(text){
+							return time_localize_Brazil(text);
+						},
+					},
+					{
+						title : "操作账号",
+						dataIndex:"account",
+					},
+					{
+						title : "操作IP",
+						dataIndex:"ip",
+					},
+				]}
+			/>
+		</div>
+	);
 });
 
 
