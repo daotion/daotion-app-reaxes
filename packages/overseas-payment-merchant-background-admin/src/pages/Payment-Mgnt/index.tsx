@@ -28,43 +28,6 @@ export const PayoutManagement = reaxper(() => {
 			dataIndex: 'bankAccount',
 			key: 'bankAccount',
 		},
-		// {
-		// 	title : '操作' ,
-		// 	key : 'action' ,
-		// 	fixed : 'right' ,
-		// 	render (record){
-		// 		const { Popconfirm } = antd;
-		// 		return <div className = { less.tableAction }>
-		// 			<Popconfirm
-		// 				title = "确定同意代付?"
-		// 				okText="确认"
-		// 				cancelText="取消"
-		// 				onConfirm = { () => {
-		// 					conductApplication(
-		// 						record.orderID ,
-		// 						true ,
-		// 					);
-		// 				} }
-		// 			>
-		// 				<Button type = "text">同意</Button>
-		// 			</Popconfirm>
-		// 			<Popconfirm
-		// 				title = "确定拒绝?"
-		// 				okText="确认"
-		// 				cancelText="取消"
-		// 				onConfirm = { () => {
-		// 					conductApplication(
-		// 						record.orderID ,
-		// 						true ,
-		// 					);
-		// 				} }
-		// 			>
-		// 				<Button type = "text" >拒绝</Button>
-		// 			</Popconfirm>
-		//
-		// 		</div>;
-		// 	} ,
-		// } ,
 	];
 	const { Table, Button, Space, Popconfirm } = antd;
 	return (
@@ -75,6 +38,7 @@ export const PayoutManagement = reaxper(() => {
 					{selectedOrders.length > 0 && <span>已选择{selectedOrders.length}项</span>}
 					<Popconfirm
 						title="确定同意代付?"
+						disabled={selectedOrders.length < 1}
 						okText="确认"
 						cancelText="取消"
 						onConfirm={() => {
@@ -85,10 +49,11 @@ export const PayoutManagement = reaxper(() => {
 							});
 						}}
 					>
-						<Button type="primary">同意</Button>
+						<Button type="primary" disabled={selectedOrders.length < 1}>同意</Button>
 					</Popconfirm>
 					<Popconfirm
 						title="确定拒绝?"
+						disabled={selectedOrders.length < 1}
 						okText="确认"
 						cancelText="取消"
 						onConfirm={() => {
@@ -99,7 +64,7 @@ export const PayoutManagement = reaxper(() => {
 							});;
 						}}
 					>
-						<Button danger>拒绝</Button>
+						<Button danger disabled={selectedOrders.length < 1}>拒绝</Button>
 					</Popconfirm>
 				</Space>
 				<Button
