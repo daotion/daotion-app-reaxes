@@ -1,6 +1,6 @@
 
 export const OverviewWithdraw = reaxper(() => {
-	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState  } = reaxel_overview_info();
+	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState, fetchOverviewInfo  } = reaxel_overview_info();
 	const { balance } = overviewInfo;
 	const { withdrawApplyMoney} = withdrawStore;
 	const { navigate } = toolkits.useRouter()
@@ -40,7 +40,7 @@ export const OverviewWithdraw = reaxper(() => {
 					<span
 						className={(overviewInfo.address === '') ? less.setBtn : ''}
 						onClick={() => {
-							if (overviewInfo.address) return
+							if (overviewInfo.address) return;
 							navigate('/profile/API')
 						}}
 					>
@@ -49,6 +49,7 @@ export const OverviewWithdraw = reaxper(() => {
 				</div>
 				<Button
 					type = "primary"
+					loading={withdrawStore.pending}
 					onClick = { () => {
 						if (withdrawApplyMoney === '') {
 							message.error('提现金额不能为空');
@@ -60,12 +61,13 @@ export const OverviewWithdraw = reaxper(() => {
 								if (res.result === 0) {
 									message.success('申请成功');
 									withdrawSetState({
-										withdrawApplyMoney: ''
-									})
+										withdrawApplyMoney : '' ,
+									});
+									fetchOverviewInfo()
+									
 								} else {
 									message.error('余额不足');
 								}
-								
 							}).catch((e) => {
 								message.error('申请失败' + e)
 							})
