@@ -1,5 +1,12 @@
 export const PayoutManagement = reaxper(() => {
-	const { conductApplication, paymentApplicationList, fetchPaymentOrderList, selectedOrders, setSelectedOrders } =
+	const {
+		conductApplication ,
+		paymentApplicationList ,
+		fetchPaymentOrderList ,
+		selectedOrders ,
+		setSelectedOrders,
+		loading
+	} =
 		reaxel_payment_mgnt();
 	const { navigate } = toolkits.useRouter();
 	const { current: badge } = useRef(Math.random());
@@ -80,6 +87,7 @@ export const PayoutManagement = reaxper(() => {
 			<Table
 				columns={columns}
 				dataSource={paymentApplicationList}
+				loading={loading}
 				rowKey="orderID"
 				size="small"
 				pagination={{
