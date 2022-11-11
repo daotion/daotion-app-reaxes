@@ -5,7 +5,7 @@
 export const reaxel_user_auth = function(){
 	
 	let ret;
-	const __storage_key__auth/*用户登录的token*/ = `-mch-auth-token-`;
+	const __storage_key__auth/*用户登录的token*/ = `-agent-auth-token-`;
 	const initialState = {
 		pending : false ,
 		token : null ,
