@@ -71,7 +71,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 					{ path.length > 1 && path.map((item , index) => (
 						<Breadcrumb.Item
 							key = { item }
-							onClick = { () => {navigate('..');} }
+							onClick = { () => {navigate(`/${path.slice(0,index+1).join('/')}`)} }
 						>{ index !== path.length - 1
 							? <Button
 								type = "link"

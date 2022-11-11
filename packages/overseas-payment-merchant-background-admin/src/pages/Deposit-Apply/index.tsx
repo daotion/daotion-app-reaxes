@@ -42,7 +42,7 @@ export const OverviewDeposit = reaxper(() => {
 					loading={depositStore.pending}
 					onClick = { () => {
 						deposit().then(() => {
-							message.success('充值成功');
+							message.success('已提交申请');
 						}).catch((e) => {
 							message.error(  e.msg)
 						})
