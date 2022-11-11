@@ -29,7 +29,10 @@ export const LayoutHeader = reaxper(() => {
 								{now}
 							</Timezone>
 						</div>
-						<SVGTimezoneIcon />
+						{tz === "Asia/Shanghai"
+							? <SVGHeaderTimezoneChina/>
+							: <SVGHeaderTimezoneBrazil/>
+						}
 						<span>{tz === "Asia/Shanghai"
 							? '中国时区'
 							: '巴西时区'
@@ -99,7 +102,8 @@ import {
 	SVGHeaderDepayLogo ,
 	SVGHeaderLogoutIcon ,
 	SVGHeaderResetpwdIcon ,
-	SVGTimezoneIcon ,
+	SVGHeaderTimezoneBrazil ,
+	SVGHeaderTimezoneChina ,
 } from '@@SVGcomponents';
 import {DownOutlined} from '@ant-design/icons'
 import less from './index.module.less'
