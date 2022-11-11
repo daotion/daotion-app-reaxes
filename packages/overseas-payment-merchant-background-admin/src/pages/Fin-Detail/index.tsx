@@ -7,6 +7,15 @@ export const FinancialDetails = reaxper(() => {
 		{
 			title: '时间',
 			dataIndex: 'timestamp',
+			render(value){
+				if(!value){
+					return 'N/A';
+				}
+				return <Timezone
+					format
+					unix
+				>{value}</Timezone>;
+			} ,
 		},
 		{
 			title: '订单号',
@@ -66,5 +75,5 @@ export const FinancialDetails = reaxper(() => {
 })
 
 import less from './index.module.less';
-import { reaxel_overview_info } from '@@reaxels';
+import { reaxel_overview_info, Timezone } from '@@reaxels';
 import { ColumnsType } from "antd/lib/table";
