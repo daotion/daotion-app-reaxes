@@ -132,7 +132,8 @@ const SetApiModal = reaxper(() => {
 			<div className = { less.setApiModalContainer }>
 				<div className = { less.inputForm }>
 					<span>{ modalContent[apiSetModalKey].subTitle }</span>
-					<Input
+					<Input.TextArea
+						autoSize
 						value = { modalContent[apiSetModalKey].value }
 						onChange = { (e) => {
 							setStateApi({

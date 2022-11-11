@@ -35,7 +35,10 @@ export const OpsRecord = reaxper(() => {
 						title : "操作时间",
 						dataIndex:"timestamp",
 						render(text){
-							return time_localize_Brazil(text);
+							return <Timezone
+								format
+								unix
+							>{text}</Timezone>
 						},
 					},
 					{
@@ -55,3 +58,4 @@ export const OpsRecord = reaxper(() => {
 
 import { reaxel_ops_record } from './reaxel--ops-record';
 import { time_localize_Brazil } from '#toolkits/overseas-payment';
+import { Timezone } from '@@reaxels'
