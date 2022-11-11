@@ -1,6 +1,3 @@
-import { message } from "antd";
-
-
 export const reaxel_edit_info = function(){
 	let ret;
 	const { store , setState } = orzMobx({

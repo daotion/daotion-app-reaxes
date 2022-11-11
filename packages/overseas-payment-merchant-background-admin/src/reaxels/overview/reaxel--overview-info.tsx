@@ -1,7 +1,5 @@
 export const reaxel_overview_info = function(){
-	let ret;
-	const { message } = antd;
-	
+	let ret;	
 	/*
 	* 首页基本信息
 	* 资金明细信息

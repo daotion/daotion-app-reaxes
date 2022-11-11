@@ -87,7 +87,7 @@ export const SignInForm = reaxper(() => {
 
 import less from './index.module.less';
 import { SVGLoginRainpayLogo } from '@@SVGcomponents';
-import img_login_background from '@@public/statics/login-background.png';
+import img_login_background from '@@public/statics/login-bg-img.svg';
 import {
 	reaxel_user_login ,
 	reaxel_user_auth,
