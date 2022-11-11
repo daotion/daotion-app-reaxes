@@ -176,8 +176,8 @@ export const CashierSkeleton = reaxper(() =>{
 		width: '100%'
 	}}>
 		<Skeleton style={{width: '137rem', height: '24rem', marginBottom: '6rem', marginTop: '24rem'}} animated/>
-		<Skeleton style={{width: '242rem', height: '67rem', marginBottom: '32rem'}} animated/>
-		<Skeleton style={{width: '100%', height: '22rem', marginBottom: '12rem'}} animated/>
+		<Skeleton style={{width: '242rem', height: '35rem', marginBottom: '32rem'}} animated/>
+		<Skeleton style={{width: '100%', height: '20rem', marginBottom: '12rem'}} animated/>
 		<div style={{
 			display: "flex",
 			width: '100%'
