@@ -150,26 +150,40 @@ export const OrderInfoSkeleton = reaxper(() => {
 				display : 'flex',
 				alignItems : 'center',
 				gap : '16px',
+				marginBottom: 24
 			}} >
 				<Skeleton.Avatar active size={'large'} />
-				<Skeleton.Button active style={{ width: 100, height : 70 }}/>
+				<div style={{
+					display: "flex",
+					flexDirection: "column",
+				}}>
+					<Skeleton.Button active style={{ width: 100, height: 20 }}/>
+					<Skeleton.Button active style={{ width: 184, height: 35 }}/>
+				</div>
 			</div>
-			<Skeleton.Button
-				style = { { width : '100%' , height : 70 } }
-				active
-			/>
-			<Skeleton.Button
-				style = { { width : '100%' , height : 70 } }
-				active
-			/>
-			<Skeleton.Button
-				style = { { width : '100%' , height : 70 } }
-				active
-			/>
-			<Skeleton.Button
-				style = { { width : '100%' , height : 70 } }
-				active
-			/>
+			<Skeleton.Button active style={{width: 100, height: 20}}/>
+			{[0, 1, 2, 3].map((item, id) => {
+				return(
+					<div
+						key={id}	
+						style={{
+						display: "flex",
+						flexDirection: "column",
+						width: '100%',
+						marginBottom: 16,
+						textAlign: "right"
+					}}>
+						<Skeleton.Button
+							style = { { width : '100%' , height : 20} }
+							active
+						/>
+						<Skeleton.Button
+							style = { { width : 100  , height : 20 } }
+							active
+						/>
+					</div>
+				)
+			})}
 		</div>
 	)
 });
