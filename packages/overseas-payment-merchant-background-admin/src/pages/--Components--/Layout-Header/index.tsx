@@ -24,24 +24,18 @@ export const LayoutHeader = reaxper(() => {
 					/> }
 				>
 					<div className = { less.headerTime }>
-						<SVGTimezoneIcon />
-						<span>{tz === "Asia/Shanghai"
-							? <>
-								<span>中国标准时间:</span>
-								<br/>
-								<span>UTC+08:00</span>
-							</>
-							: <>
-								<span>巴西时间:</span>
-								<br/>
-								<span>UTC-03:00</span>
-							</>
-						}</span>
-						<div className = {less.timeNow}>
+						<div style={{marginRight: '24px'}}>
 							<Timezone format >
 								{now}
 							</Timezone>
 						</div>
+						<SVGTimezoneIcon />
+						<span>{tz === "Asia/Shanghai"
+							? '中国时区'
+							: '巴西时区'
+						}</span>
+						<DownOutlined />
+						
 					</div>
 				</Dropdown>
 				<div className = { less.userSelect }>
