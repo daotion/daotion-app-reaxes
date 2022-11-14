@@ -75,23 +75,23 @@ const menulist:ItemType[] = [
 	{
 		label:"商户管理",
 		key : "profile",
-		icon : <SvgMenuIconMerchantMgnt />,
+		icon : <SVGMenuIconMerchantMgnt />,
 	},
 	{
 		label:"成员管理",
 		key : "api",
-		icon : <SvgMenuIconUserMgnt />,
+		icon : <SVGMenuIconUserMgnt />,
 	},
 ];
 
 import {
-	SvgMenuIconSetting ,
+	SVGMenuIconSetting ,
 	SVGMenuOrderIcon ,
 	SVGMenuOverviewIcon ,
 	SVGMenuIconDepositApply ,
-	SvgMenuIconMerchantMgnt ,
+	SVGMenuIconMerchantMgnt ,
 	SVGMenuIconWithdrawalApply ,
-	SvgMenuIconUserMgnt
+	SVGMenuIconUserMgnt
 } from '@@SVGcomponents';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import less from '@@root/src/styles/layout.module.less';

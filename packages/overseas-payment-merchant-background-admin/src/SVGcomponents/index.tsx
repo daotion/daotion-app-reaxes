@@ -15,7 +15,6 @@ export * from './Menu-Icon-Payout.svg-component';
 export * from './Menu-Icon-Profile.svg-component';
 export * from './Payment-Mgnt-Btn-Add.svg-component';
 export * from './Profile-Btn-Copy.svg-component';
-export * from './Layout-Header-Back.svg-component';
 export * from './Menu-Icon-Logs.svg-component';
 export * from './Overview-Icon-Deposit.svg-component';
 export * from './Header-Timezone-China.svg-component';

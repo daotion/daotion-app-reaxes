@@ -12,7 +12,6 @@ export * from './Menu-Icon-Overview.svg-component';
 export * from './Menu-Icon-Order.svg-component';
 export * from './Payment-Mgnt-Btn-Add.svg-component';
 export * from './Profile-Btn-Copy.svg-component';
-export * from './Layout-Header-Back.svg-component';
 export * from './Menu-Icon-Withdrawal-Apply.svg-component';
 export * from './Menu-Icon-Deposit-Apply.svg-component';
 export * from './Menu-Icon-Merchant-Mgnt.svg-component';

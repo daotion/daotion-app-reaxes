@@ -1,4 +1,4 @@
-export const SvgMenuIconUserMgnt = reaxper(() => {
+export const SVGMenuIconUserMgnt = reaxper(() => {
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" fill="#16161A" fillOpacity ="0.6"/>
