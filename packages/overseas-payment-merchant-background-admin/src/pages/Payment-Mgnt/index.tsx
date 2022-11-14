@@ -1,3 +1,4 @@
+
 export const PayoutManagement = reaxper(() => {
 	const {
 		conductApplication ,
@@ -12,29 +13,39 @@ export const PayoutManagement = reaxper(() => {
 	const { current: badge } = useRef(Math.random());
 
 	fetchPaymentOrderList(badge);
-
-	const columns: ColumnsType<DataType> = [
+	
+	const columns : ColumnsType<DataType> = [
 		{
-			title: '订单号',
-			dataIndex: 'orderID',
-		},
+			title : '订单号' ,
+			dataIndex : 'orderID' ,
+		} ,
 		{
-			title: '用户名/用户名ID',
-			dataIndex: 'userName',
-		},
+			title : '用户名/用户名ID' ,
+			dataIndex : 'userName' ,
+		} ,
 		{
-			title: '用户名/Telegram',
-			dataIndex: 'userName',
-		},
+			title : '用户名/Telegram' ,
+			dataIndex : 'userName' ,
+		} ,
 		{
-			title: '代付金额',
-			dataIndex: 'money',
-		},
+			title : '代付金额' ,
+			dataIndex : 'money' ,
+		} ,
 		{
-			title: '申请入账银行卡号',
-			dataIndex: 'bankAccount',
-			key: 'bankAccount',
-		},
+			title : '订单创建时间',
+			dataIndex: 'createTimestamp',
+			render(value){
+				return <Timezone
+					format
+					unix
+				>{value}</Timezone>
+			} ,
+		} ,
+		{
+			title : '申请入账银行卡号' ,
+			dataIndex : 'bankAccount' ,
+			key : 'bankAccount' ,
+		} ,
 	];
 	const { Table, Button, Space, Popconfirm } = antd;
 	return (
@@ -122,5 +133,6 @@ export const PayoutManagement = reaxper(() => {
 
 import { ColumnsType } from 'antd/lib/table';
 import less from './index.module.less';
+import { Timezone } from '@@reaxels'
 import { SVGPaymentMgntAddIcon } from '@@SVGcomponents';
 import { reaxel_payment_mgnt } from './reaxel--payment-mgnt';
