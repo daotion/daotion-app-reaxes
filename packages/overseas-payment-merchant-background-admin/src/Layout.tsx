@@ -67,7 +67,11 @@ export const LayoutBreadCrumb = reaxper(() => {
 				direction = "vertical"
 				className = { less.contentSpace }
 			>
-				<Breadcrumb>
+				<Breadcrumb
+					style={{
+						userSelect : 'none',
+					}}
+				>
 					{ path.length > 1 && path.map((item , index) => (
 						<Breadcrumb.Item
 							key = { item }
@@ -95,7 +99,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 						>
 						</Button>
 					}
-					<h2 style = { { margin : 0 } }>{ routeName[path[path.length - 1]] }</h2>
+					<h2 style = { { margin : 0, userSelect : 'none' } }>{ routeName[path[path.length - 1]] }</h2>
 				</div>
 			</Space>
 		);

@@ -73,6 +73,9 @@ export const OverviewOrderInfoComponent = reaxper((props : {
 					} }
 					value = { store.duration }
 					optionType = "button"
+					style={{
+						userSelect : 'none',
+					}}
 				/>
 			</div>
 			{store.info && !store.loading

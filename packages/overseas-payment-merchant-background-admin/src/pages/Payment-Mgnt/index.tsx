@@ -42,37 +42,39 @@ export const PayoutManagement = reaxper(() => {
 			<div className={less.headerContainer}>
 				<Space size="middle">
 					<span className={less.headerTitle}>代付申请列表</span>
-					{selectedOrders.length > 0 && <span>已选择{selectedOrders.length}项</span>}
-					<Popconfirm
-						title="确定同意代付?"
-						disabled={selectedOrders.length < 1}
-						okText="确认"
-						cancelText="取消"
-						onConfirm={() => {
-							conductApplication(true).then(() => {
-								antd.message.success('操作成功');
-							}).catch((e) => {
-								antd.message.error(e.message);
-							});
-						}}
-					>
-						<Button type="primary" disabled={selectedOrders.length < 1}>同意</Button>
-					</Popconfirm>
-					<Popconfirm
-						title="确定拒绝?"
-						disabled={selectedOrders.length < 1}
-						okText="确认"
-						cancelText="取消"
-						onConfirm={() => {
-							conductApplication(false).then(() => {
-								antd.message.success('操作成功');
-							}).catch((e) => {
-								antd.message.error(e.message);
-							});;
-						}}
-					>
-						<Button danger disabled={selectedOrders.length < 1}>拒绝</Button>
-					</Popconfirm>
+					{selectedOrders.length > 0 &&
+						<>
+							<span>已选择{selectedOrders.length}项</span>
+							<Popconfirm
+								title="确定同意代付?"
+								okText="确认"
+								cancelText="取消"
+								onConfirm={() => {
+									conductApplication(true).then(() => {
+										antd.message.success('操作成功');
+									}).catch((e) => {
+										antd.message.error(e.message);
+									});
+								}}
+							>
+								<Button type="primary" disabled={selectedOrders.length < 1}>同意</Button>
+							</Popconfirm>
+							<Popconfirm
+								title="确定拒绝?"
+								okText="确认"
+								cancelText="取消"
+								onConfirm={() => {
+									conductApplication(false).then(() => {
+										antd.message.success('操作成功');
+									}).catch((e) => {
+										antd.message.error(e.message);
+									});;
+								}}
+							>
+								<Button danger disabled={selectedOrders.length < 1}>拒绝</Button>
+							</Popconfirm>
+						</>
+					}
 				</Space>
 				<Button
 					onClick={() => {

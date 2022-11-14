@@ -9,6 +9,7 @@ export const LayoutMenu = reaxper(() => {
 			<Menu
 				style = { {
 					height : '100%' ,
+					userSelect : 'none',
 				} }
 				selectedKeys = { params['*'].split('/') }
 				items = { menulist }
