@@ -14,8 +14,12 @@ export const LayoutMenu = reaxper(() => {
 				items = { menulist }
 				defaultOpenKeys = { openKeys }
 				onSelect = { (e) => {
-					navigate(e.key);
-				} }
+					if( e.key === 'api' ) {
+						window.open('https://rainpay.gitbook.io/api/getstarted/Rainpay-api');
+					} else {
+						navigate(e.key);
+					}
+				}}
 				mode = "inline"
 			/>
 		</div>
