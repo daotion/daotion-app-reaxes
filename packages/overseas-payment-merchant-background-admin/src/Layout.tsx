@@ -60,6 +60,7 @@ export const LayoutBreadCrumb = reaxper(() => {
 		'withdraw' : '提现',
 		'deposit' : '充值',
 		'new-payment' : '新增代付',
+		'api-doc' : 'Api文档',
 	};
 	if (!(pathName === 'overview' || pathName.includes('profile'))) {
 		return (

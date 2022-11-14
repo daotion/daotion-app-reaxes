@@ -15,11 +15,7 @@ export const LayoutMenu = reaxper(() => {
 				items = { menulist }
 				defaultOpenKeys = { openKeys }
 				onSelect = { (e) => {
-					if( e.key === 'api' ) {
-						window.open('https://rainpay.gitbook.io/api/getstarted/Rainpay-api');
-					} else {
-						navigate(e.key);
-					}
+					navigate(e.key);
 				}}
 				mode = "inline"
 			/>
@@ -84,7 +80,7 @@ const menulist:ItemType[] = [
 	},
 	{
 		label:"API文档",
-		key : "api",
+		key : "api-doc",
 		icon : <SVGMenuApiIcon />,
 	},
 ];

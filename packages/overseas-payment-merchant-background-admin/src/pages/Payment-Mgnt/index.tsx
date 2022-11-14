@@ -79,7 +79,7 @@ export const PayoutManagement = reaxper(() => {
 										antd.message.success('操作成功');
 									}).catch((e) => {
 										antd.message.error(e.message);
-									});;
+									});
 								}}
 							>
 								<Button danger disabled={selectedOrders.length < 1}>拒绝</Button>

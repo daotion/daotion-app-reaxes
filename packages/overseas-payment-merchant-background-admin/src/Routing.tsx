@@ -87,6 +87,10 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(<NewPayment />) }
 				/>
 			</Route>
+			<Route
+				path = "api-doc"
+				element = { toolkits.withOutlet(<ApiDoc />) }
+			/>
 		</Route>
 	</Routes>;
 });
@@ -122,6 +126,7 @@ import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
 import { NewPayment } from "@@pages/--Components--/New-Payment";
 import { TestRender } from '@@pages/test'
+import { ApiDoc } from '@@pages/Api-Doc'
 import {
 	BrowserRouter ,
 	Navigate ,
