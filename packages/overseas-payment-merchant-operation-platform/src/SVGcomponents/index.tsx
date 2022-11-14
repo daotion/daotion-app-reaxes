@@ -17,3 +17,4 @@ export * from './Menu-Icon-Deposit-Apply.svg-component';
 export * from './Menu-Icon-Merchant-Mgnt.svg-component';
 export * from './Menu-Icon-User-Mgnt.svg-component';
 export * from './Menu-Icon-setting.svg-component';
+export * from './Overview-Icon-Deposit.svg-component';

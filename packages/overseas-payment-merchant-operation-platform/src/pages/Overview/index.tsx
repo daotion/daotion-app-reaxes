@@ -1,4 +1,4 @@
-export const HomePage = reaxper(() => {
+export const Overview = reaxper(() => {
 	return (
 		<>
 			<OverviewInfo />
