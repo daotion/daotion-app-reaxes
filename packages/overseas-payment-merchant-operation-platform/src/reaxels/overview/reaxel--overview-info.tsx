@@ -182,7 +182,9 @@ export const reaxel_overview_info = function(){
 				return store.fin_detail_list;
 			} ,
 			fetchOverviewInfo(){
-				return fetchOverviewInfo(() => [store.overviewInfo == null ? Symbol():store.overviewInfo?.mchNo])();
+				// return fetchOverviewInfo(() => [store.overviewInfo == null ? Symbol():store.overviewInfo?.mchNo])();
+				return fetchOverviewInfo(() => [store.overviewInfo])();
+
 			} ,
 			fetchFinDetail(badge){
 				return fetchFinDetail(() => [ badge ])();
