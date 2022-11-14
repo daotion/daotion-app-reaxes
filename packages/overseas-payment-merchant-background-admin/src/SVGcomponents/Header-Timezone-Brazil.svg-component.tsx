@@ -1,7 +1,7 @@
 export const SVGHeaderTimezoneBrazil = reaxper(() => {
 	return (
 		<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<g clip-path="url(#clip0_876_20511)">
+			<g clipPath ="url(#clip0_876_20511)">
 				<path fillRule="evenodd" clipRule="evenodd" d="M0 0H24V24H0V0Z" fill="#229E45"/>
 				<path fillRule="evenodd" clipRule="evenodd" d="M12.0394 17.7167L20.5191 12.0087L11.9887 6.28333L3.48093 12.0204L12.0394 17.7167Z" fill="#F8E509"/>
 				<path fillRule="evenodd" clipRule="evenodd" d="M15.735 12C15.735 14.0504 14.1291 15.7129 12.1462 15.7129C11.4377 15.7118 10.7454 15.4928 10.1568 15.0836C9.56825 14.6745 9.10987 14.0936 8.83962 13.4144C8.56937 12.7351 8.49937 11.988 8.63849 11.2675C8.77761 10.547 9.11959 9.88547 9.62121 9.3665C10.1228 8.84753 10.7615 8.49445 11.4566 8.35187C12.1517 8.2093 12.872 8.28364 13.5263 8.5655C14.1807 8.84736 14.7398 9.32408 15.1329 9.9354C15.526 10.5467 15.7356 11.2652 15.735 12V12Z" fill="#2B49A3"/>

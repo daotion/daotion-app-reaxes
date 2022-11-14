@@ -7,7 +7,7 @@ export * from './Header-Logo-Rainpay.svg-component';
 export * from './Overview-Icon-Payin.svg-component';
 export * from './Overview-Icon-Payout.svg-component';
 export * from './Overview-Icon-Withdraw.svg-component';
-export * from './Login-Logo-Depay.svg-component';
+export * from './Login-Logo-Rainpay.svg-component';
 export * from './Menu-Icon-Api.svg-component';
 export * from './Menu-Icon-Overview.svg-component';
 export * from './Menu-Icon-Order.svg-component';
