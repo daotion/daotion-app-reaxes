@@ -5,19 +5,19 @@ const cssLoaderOptions = {
 		localIdentName: '[local]--[hash:base64:4]',
 	},
 };
-const { ProvidePlugin } = webpack;
+const { ProvidePlugin} = webpack;
+const { HashedModuleIdsPlugin } = webpack.ids;
 /**
  * @suggest dev环境建议使用全量source-map , 否则可能会导致错误栈无法定位到正确的模块
  */
-
 /*webpack基础配置*/
 export const webpack_base_config = {
-	mode: method === 'server' ? 'development' : 'production',
+	mode: node_env,
 	entry: {
-		main: path.resolve(repoRoot, 'src'),
+		main: path.resolve(repoRoot, 'src/index'),
 	},
 	output: {
-		filename: method === 'server' ? '[name].bundle.js' : '[name].bundle.[contenthash:6].js',
+		filename: node_env === 'development' ? '[name].bundle.js' : '[name].bundle.[contenthash:6].js',
 		path: path.resolve(repoRoot, 'dist'), // publicPath : path.resolve(rootPath , 'dist') ,
 	},
 	resolve: {
@@ -34,10 +34,6 @@ export const webpack_base_config = {
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 	},
 	devtool: 'cheap-source-map',
-	cache: {
-		type: 'memory',
-		maxGenerations: 2,
-	},
 	module: {
 		rules: [
 			{
@@ -177,7 +173,6 @@ export const webpack_base_config = {
 	},
 	stats: 'errors-only',
 	plugins: [
-		new NodePolyfillPlugin(),
 		new ProvidePlugin({
 			_: ['lodash'],
 			React: ['react'],
@@ -199,11 +194,11 @@ import path from 'path';
 import TerserPlugin from 'terser-webpack-plugin';
 import {
 	method ,
+	node_env,
 	packagesRoot ,
 	repoRoot ,
 	rootPath,
 } from './entrance.mjs';
 import _ from 'lodash';
 import webpack from 'webpack';
-
 import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
