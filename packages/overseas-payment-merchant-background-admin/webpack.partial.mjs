@@ -24,7 +24,6 @@ export const webpackConfig = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: path.resolve(repoRoot, 'public/index.template.ejs'),
-			title: repo,
 			filename: 'index.html',
 			minify: false,
 			hash: true,
