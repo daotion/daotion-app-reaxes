@@ -35,6 +35,7 @@ export const webpackConfig = {
 			__ENV__ : JSON.stringify(env) ,
 			__ENV_CONFIG__ : JSON.stringify(__ENV_CONFIG__) ,
 			__NODE_ENV__ : JSON.stringify(node_env),
+			__METHOD__ : JSON.stringify(method),
 			__EXPERIMENTAL__ : JSON.stringify(experimental === 'experimental'),
 		}),
 		new ProvidePlugin({
@@ -56,5 +57,5 @@ export const webpackConfig = {
 
 import path from 'path';
 import webpack from 'webpack';
-import { repo, repoRoot , mock , env , node_env , experimental, } from '../../build/entrance.mjs';
+import {method, repo, repoRoot , mock , env , node_env , experimental, } from '../../build/entrance.mjs';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
