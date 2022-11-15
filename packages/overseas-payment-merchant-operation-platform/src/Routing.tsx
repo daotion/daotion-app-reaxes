@@ -41,7 +41,7 @@ export const MainContentRouting = reaxper(() => {
 					path = "fin-detail"
 					element = { toolkits.withOutlet(<FinancialDetails />) }
 				/>
-				{/*<Route
+				<Route
 					path = "fin-detail"
 					element = { toolkits.withOutlet(<FinancialDetails />) }
 				/>
@@ -52,7 +52,7 @@ export const MainContentRouting = reaxper(() => {
 				<Route
 					path = "deposit"
 					element = { toolkits.withOutlet(<OverviewDeposit />) }
-				/>*/}
+				/>
 			</Route>
 			
 			<Route
