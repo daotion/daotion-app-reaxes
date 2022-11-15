@@ -15,7 +15,7 @@ export function ApplyEnvConfigPlugin(env_config = __ENV_CONFIG__ , env = __ENV__
 			}
 			const {proxy_path_dev,proxy_path_server} = env_config.find((conf) => conf.env === currentEnv);
 			if(!url.startsWith('http')){
-				slot.target.pathname = `/${__METHOD__ === "server" ? proxy_path_dev : proxy_path_server}` + slot.target.pathname;
+				slot.target.pathname = `${__METHOD__ === "server" ? proxy_path_dev : proxy_path_server}` + slot.target.pathname;
 			}
 		});
 	};
