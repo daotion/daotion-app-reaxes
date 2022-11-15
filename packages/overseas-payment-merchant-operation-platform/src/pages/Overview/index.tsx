@@ -14,15 +14,17 @@ export const OverviewInfo = reaxper(() => {
 	
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
-	const { overviewInfo , fetchOverviewInfo } = reaxel_overview_info();
-	// if(!overviewInfo){
-	// 	fetchOverviewInfo();
-	// 	return <OverviewInfoSkeleton/>
-	// }
+	const { overviewInfo , fetchOverviewInfo } = reaxel_overview_info('overview');
+	if(!overviewInfo){
+		fetchOverviewInfo();
+		return <OverviewInfoSkeleton/>
+	}
 	const {
-		balance = 0 ,
-		withdrawingMoney = 0,
-	} = overviewInfo || {};
+		agentBalance = 0 ,
+		mchRechargingMoney = 0 ,
+		mchTotalBalance = 0 ,
+		mchWithdrawingMoney = 0,
+	} = overviewInfo;
 	
 	return (
 		<div className={less.overviewInfo}>
@@ -32,7 +34,7 @@ export const OverviewInfo = reaxper(() => {
 				</span>
 				<div>
 					<p className={less.overviewSubTitle}>账户余额（R$)</p>
-					<span className = { less.balanceAmount }>{ balance }</span>
+					<span className = { less.balanceAmount }>{ agentBalance }</span>
 					<Button
 						type="link"
 						onClick={() => {
@@ -43,11 +45,11 @@ export const OverviewInfo = reaxper(() => {
 				<div style={{ display : 'flex', gap : '24px' }}>
 					<div>
 						<p className={less.overviewSubTitle}>提现处理中</p>
-						<p className = { less.withdrawingAmount }>{ withdrawingMoney }</p>
+						<p className = { less.withdrawingAmount }>{ mchWithdrawingMoney }</p>
 					</div>
 					<div>
 						<p className={less.overviewSubTitle}>充值处理中(USDT)</p>
-						<p className = { less.withdrawingAmount }>{ withdrawingMoney }</p>
+						<p className = { less.withdrawingAmount }>{ mchRechargingMoney }</p>
 					</div>
 				</div>
 			</div>
@@ -57,7 +59,7 @@ export const OverviewInfo = reaxper(() => {
 				</span>
 				<div>
 					<p className={less.overviewSubTitle}>账户余额（R$)</p>
-					<span className = { less.balanceAmount }>{ balance }</span>
+					<span className = { less.balanceAmount }>{ mchTotalBalance }</span>
 					<Button
 						type="link"
 						onClick={() => {
