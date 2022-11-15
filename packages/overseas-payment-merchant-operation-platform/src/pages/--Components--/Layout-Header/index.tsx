@@ -24,24 +24,21 @@ export const LayoutHeader = reaxper(() => {
 					/> }
 				>
 					<div className = { less.headerTime }>
-						<SVGTimezoneIcon />
-						<span>{tz === "Asia/Shanghai"
-							? <>
-								<span>中国标准时间:</span>
-								<br/>
-								<span>UTC+08:00</span>
-							</>
-							: <>
-								<span>巴西时间:</span>
-								<br/>
-								<span>UTC-03:00</span>
-							</>
-						}</span>
-						<div className = {less.timeNow}>
+						<div style={{marginRight: '24px'}}>
 							<Timezone format >
 								{now}
 							</Timezone>
 						</div>
+						{tz === "Asia/Shanghai"
+							? <SVGHeaderTimezoneChina/>
+							: <SVGHeaderTimezoneBrazil/>
+						}
+						<span>{tz === "Asia/Shanghai"
+							? '中国时区'
+							: '巴西时区'
+						}</span>
+						<DownOutlined />
+						
 					</div>
 				</Dropdown>
 				<div className = { less.userSelect }>
@@ -95,7 +92,6 @@ export const LayoutHeader = reaxper(() => {
 import {
 	reaxel_user_info ,
 	reaxel_user_auth ,
-	timezone ,
 	Timezone ,
 	reaxel_timezone ,
 	reaxel_global,
@@ -105,7 +101,8 @@ import {
 	SVGHeaderRiverpayLogo ,
 	SVGHeaderLogoutIcon ,
 	SVGHeaderResetpwdIcon ,
-	SVGTimezoneIcon ,
+	SVGHeaderTimezoneBrazil ,
+	SVGHeaderTimezoneChina ,
 } from '@@SVGcomponents';
-import {DownOutlined} from '@ant-design/icons'
-import less from './index.module.less'
+import { DownOutlined } from '@ant-design/icons';
+import less from './index.module.less';

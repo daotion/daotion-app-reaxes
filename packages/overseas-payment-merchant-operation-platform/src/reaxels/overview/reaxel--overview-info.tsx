@@ -25,6 +25,33 @@ export const reaxel_overview_info = function(){
 			})
 		})
 	}
+	const {grasp:fetchFinDetail} = reaxel_fact__prevent_dup_request((preventDup) => async (path) => {
+		const fetchMap = {
+			"account-fin-detail" : request_account_fin_detail,
+			"service-fin-detail" : request_service_fin_detail,
+		};
+		setFinDetailPending(true);
+		return fetchMap[path](async () => {
+			return {
+				indexStart : 0,
+				count : 999999,
+				firstTimestamp : 0,
+			}
+		}).then((data) => {
+			preventDup(() => {
+				setState({
+					fin_detail_list : data?.listInfo || [],
+				})
+				setFinDetailPending(false);
+			});
+			return data;
+		}).catch((e) => {
+			preventDup(() => {
+				setFinDetailPending(false);
+			});
+			throw e;
+		});
+	})();
 	
 	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
 		if(store.overviewInfoPending) return;
@@ -36,21 +63,9 @@ export const reaxel_overview_info = function(){
 			setOverviewInfoPending(false)
 		})
 	}, () => []);
-	const [fetchFinDetail] = Reaxes.closuredMemo( async () => {
-		if (store.finDetailPending) return;
-		setFinDetailPending(true);
-		return request_fin_detail(async () => {
-			return {
-				indexStart : 0,
-				count : 999999,
-				firstTimestamp : 0,
-			}
-		}).then((data) => {
-			setState({
-				fin_detail_list : data.listInfo,
-			})
-			setFinDetailPending(false);
-		})
+	
+	const [closureFetch] = Reaxes.closuredMemo( async (path) => {
+		fetchFinDetail(path)
 	}, () => [])
 	
 	/**
@@ -123,7 +138,6 @@ export const reaxel_overview_info = function(){
 			})
 		})
 	}
-	
 	const depositApply = async () => {
 		const { depositMoney, paymentAddress, pending } = depositStore
 		if (pending) return;
@@ -165,8 +179,8 @@ export const reaxel_overview_info = function(){
 		}
 	}
 	
-	
-	return () => {
+	let currentPath;
+	return (path) => {
 		return ret = {
 
 			get overviewInfo(){
@@ -179,13 +193,18 @@ export const reaxel_overview_info = function(){
 				return store.finDetailPending;
 			},
 			get fin_detail_list(){
+				Reaxes.collectDeps(store);
+				if(path && path !== currentPath) return [];
+				if (store.finDetailPending) return [];
 				return store.fin_detail_list;
 			} ,
 			fetchOverviewInfo(){
-				return fetchOverviewInfo(() => [store.overviewInfo == null ? Symbol():store.overviewInfo?.mchNo])();
+				// return fetchOverviewInfo(() => [store.overviewInfo == null ? Symbol():store.overviewInfo?.mchNo])();
+				return fetchOverviewInfo(() => [store.overviewInfo])();
+
 			} ,
-			fetchFinDetail(badge){
-				return fetchFinDetail(() => [ badge ])();
+			fetchFinDetail(path){
+				return closureFetch(() => [ path ])(path);
 			} ,
 			// 提现方法
 			get withdrawStore(){
@@ -215,9 +234,15 @@ export const reaxel_overview_info = function(){
 
 import {
 	request_overview_info ,
-	request_fin_detail ,
-	Overview__fin_detail ,
+	request_account_fin_detail ,
+	request_service_fin_detail ,
 	request_withdraw_apply ,
-	request_deposit_apply,
+	request_deposit_apply ,
+	Overview__fin_detail ,
+	request_collection_order ,
+	request_payment_order ,
+	request_withdrawal_order ,
+	request_deposit_order ,
 } from '@@requests';
+import { reaxel_fact__prevent_dup_request } from '#reaxels';
 

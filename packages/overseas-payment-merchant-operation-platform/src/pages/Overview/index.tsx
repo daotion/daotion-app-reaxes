@@ -15,66 +15,74 @@ export const OverviewInfo = reaxper(() => {
 	const { Button } = antd;
 	const { navigate } = toolkits.useRouter();
 	const { overviewInfo , fetchOverviewInfo } = reaxel_overview_info();
-	if(!overviewInfo){
-		fetchOverviewInfo();
-		return <OverviewInfoSkeleton/>
-	}
+	// if(!overviewInfo){
+	// 	fetchOverviewInfo();
+	// 	return <OverviewInfoSkeleton/>
+	// }
 	const {
 		balance = 0 ,
 		withdrawingMoney = 0,
-	} = overviewInfo;
+	} = overviewInfo || {};
 	
 	return (
-		<div className = { less.overviewContainer }>
-			<span className = { less.overviewTitle }>
-				资金总览
-			</span>
-			<div className = { less.overviewContent }>
-				<div className = { less.balanceContainer }>
-					<div className = { less.balanceContent }>
-						<span className = { less.overviewSubTitle }>
-							账户余额（R$）
-						</span>
-						<span className = { less.balanceAmount }>
-							{ balance }
-						</span>
-					</div>
+		<div className={less.overviewInfo}>
+			<div className = { less.overviewContainer }>
+				<span className = { less.overviewTitle }>
+					托管账户
+				</span>
+				<div>
+					<p className={less.overviewSubTitle}>账户余额（R$)</p>
+					<span className = { less.balanceAmount }>{ balance }</span>
 					<Button
-						className = { less.checkDetail }
-						type = "link"
-						onClick = { () => {
-							navigate('fin-detail');
-						} }
-					>
-						查看明细
-					</Button>
+						type="link"
+						onClick={() => {
+							navigate('account-fin-detail')
+						}}
+					>查看明细</Button>
 				</div>
-				<div className = { less.withdrawContent }>
-					<span className = { less.overviewSubTitle }>
-						提现处理中
-					</span>
-					<span className = { less.withdrawingAmount }>
-						{ withdrawingMoney }
-					</span>
+				<div style={{ display : 'flex', gap : '24px' }}>
+					<div>
+						<p className={less.overviewSubTitle}>提现处理中</p>
+						<p className = { less.withdrawingAmount }>{ withdrawingMoney }</p>
+					</div>
+					<div>
+						<p className={less.overviewSubTitle}>充值处理中(USDT)</p>
+						<p className = { less.withdrawingAmount }>{ withdrawingMoney }</p>
+					</div>
 				</div>
 			</div>
-			<div style = { { display : 'flex' , gap : '16px' } }>
-				<Button
-					type = "primary"
-					onClick = { () => {
-						navigate('deposit');
-					} }
-				>
-					充值
-				</Button>
-				<Button
-					type = "primary"
-					onClick = { () => {
-						navigate('withdraw');
-					} }
-				>
-					提现
-				</Button>
+			<div className = { less.overviewContainer }>
+				<span className = { less.overviewTitle }>
+					手续费账户
+				</span>
+				<div>
+					<p className={less.overviewSubTitle}>账户余额（R$)</p>
+					<span className = { less.balanceAmount }>{ balance }</span>
+					<Button
+						type="link"
+						onClick={() => {
+							navigate('service-fin-detail')
+						}}
+					>查看明细</Button>
+				</div>
+				<div style = { { display : 'flex' , gap : '16px' } }>
+					<Button
+						type = "primary"
+						onClick = { () => {
+							navigate('deposit');
+						} }
+					>
+						充值
+					</Button>
+					<Button
+						type = "primary"
+						onClick = { () => {
+							navigate('withdraw');
+						} }
+					>
+						提现
+					</Button>
+				</div>
 			</div>
 		</div>
 	);
