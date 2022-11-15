@@ -67,24 +67,15 @@ export const OverviewInfo = reaxper(() => {
 						}}
 					>查看明细</Button>
 				</div>
-				<div style = { { display : 'flex' , gap : '16px' } }>
-					<Button
-						type = "primary"
-						onClick = { () => {
-							navigate('deposit');
-						} }
-					>
-						充值
-					</Button>
-					<Button
-						type = "primary"
-						onClick = { () => {
-							navigate('withdraw');
-						} }
-					>
-						提现
-					</Button>
-				</div>
+				
+				<Button
+					type = "primary"
+					onClick = { () => {
+						navigate('withdraw');
+					} }
+				>
+					提现
+				</Button>
 			</div>
 		</div>
 	);
