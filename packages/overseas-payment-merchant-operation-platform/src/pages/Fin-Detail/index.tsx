@@ -1,7 +1,5 @@
-import { useRouter } from "@@toolkits";
-
 export const FinancialDetails = reaxper(() => {
-	const { params } = useRouter();
+	const { params } = toolkits.useRouter();
 	const pathArr = params['*'].split('/');
 	const path = pathArr.pop();
 	const {fetchFinDetail, fin_detail_list, finDetailPending } = reaxel_overview_info(path);
