@@ -32,7 +32,12 @@ export const OverviewInfo = reaxper(() => {
 			<div>
 				<p className={less.overviewSubTitle}>账户余额（R$)</p>
 				<span className = { less.balanceAmount }>{ balance }</span>
-				<Button type="link">查看明细</Button>
+				<Button
+					type="link"
+					onClick={() => {
+						navigate('fin-detail')
+					}}
+				>查看明细</Button>
 			</div>
 			<div>
 				<p className={less.overviewSubTitle}>提现处理中</p>
