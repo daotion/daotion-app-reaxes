@@ -36,7 +36,7 @@ export const OverviewInfo = reaxper(() => {
 					<Button
 						type="link"
 						onClick={() => {
-							navigate('fin-detail')
+							navigate('account-fin-detail')
 						}}
 					>查看明细</Button>
 				</div>
@@ -61,7 +61,7 @@ export const OverviewInfo = reaxper(() => {
 					<Button
 						type="link"
 						onClick={() => {
-							navigate('fin-detail')
+							navigate('service-fin-detail')
 						}}
 					>查看明细</Button>
 				</div>

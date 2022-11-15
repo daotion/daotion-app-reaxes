@@ -1,7 +1,11 @@
+import { useRouter } from "@@toolkits";
+
 export const FinancialDetails = reaxper(() => {
-	const {fetchFinDetail, fin_detail_list, finDetailPending } = reaxel_overview_info();
-	const {current:badge} = useRef(Symbol('badge'));
-	fetchFinDetail(badge);
+	const { params } = useRouter();
+	const pathArr = params['*'].split('/');
+	const path = pathArr.pop();
+	const {fetchFinDetail, fin_detail_list, finDetailPending } = reaxel_overview_info(path);
+	fetchFinDetail(path);
 	const { Table , Button } = antd;
 	const columns = [
 		{

@@ -7,8 +7,14 @@ export const request_overview_info = () => {
 }
 
 
-export const request_fin_detail = (payload: PayloadBody<Overview__fin_detail.payload>) => {
+export const request_account_fin_detail = (payload: PayloadBody<Overview__fin_detail.payload>) => {
 	return request.post<Overview__fin_detail.response, typeof payload>(`/agent/mch-money-detail`, {
+		body : payload,
+		
+	})
+}
+export const request_service_fin_detail = (payload: PayloadBody<Overview__fin_detail.payload>) => {
+	return request.post<Overview__fin_detail.response, typeof payload>(`/agent/tax-money-detail`, {
 		body : payload,
 		
 	})
