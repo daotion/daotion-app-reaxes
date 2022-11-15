@@ -63,34 +63,35 @@ const menulist:ItemType[] = [
 		],
 	},
 	{
-		label:"代付管理",
+		label:"商户提现申请",
 		key : "payment-mgnt",
-		icon : <SVGMenuPayoutIcon />,
+		icon : <SVGMenuIconWithdrawalApply />,
 	},
 	{
-		label:"操作记录",
+		label:"商户充值申请",
 		key : "ops-record",
-		icon : <SvgMenuIconLogs />,
+		icon : <SVGMenuIconDepositApply />,
 	},
 	{
-		label:"商户信息",
+		label:"商户管理",
 		key : "profile",
-		icon : <SVGMenuProfileIcon />,
+		icon : <SVGMenuIconMerchantMgnt />,
 	},
 	{
-		label:"API文档",
+		label:"成员管理",
 		key : "api",
-		icon : <SVGMenuApiIcon />,
+		icon : <SVGMenuIconUserMgnt />,
 	},
 ];
 
 import {
-	SVGMenuApiIcon ,
+	SVGMenuIconSetting ,
 	SVGMenuOrderIcon ,
 	SVGMenuOverviewIcon ,
-	SVGMenuPayoutIcon ,
-	SVGMenuProfileIcon ,
-	SvgMenuIconLogs ,
+	SVGMenuIconDepositApply ,
+	SVGMenuIconMerchantMgnt ,
+	SVGMenuIconWithdrawalApply ,
+	SVGMenuIconUserMgnt
 } from '@@SVGcomponents';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
 import less from '@@root/src/styles/layout.module.less';

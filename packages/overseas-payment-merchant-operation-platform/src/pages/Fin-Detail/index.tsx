@@ -1,12 +1,25 @@
+import { useRouter } from "@@toolkits";
+
 export const FinancialDetails = reaxper(() => {
-	const {fetchFinDetail, fin_detail_list} = reaxel_overview_info();
-	const {current:badge} = useRef(Symbol('badge'));
-	fetchFinDetail(badge);
+	const { params } = useRouter();
+	const pathArr = params['*'].split('/');
+	const path = pathArr.pop();
+	const {fetchFinDetail, fin_detail_list, finDetailPending } = reaxel_overview_info(path);
+	fetchFinDetail(path);
 	const { Table , Button } = antd;
 	const columns = [
 		{
 			title: '时间',
 			dataIndex: 'timestamp',
+			render(value){
+				if(!value){
+					return 'N/A';
+				}
+				return <Timezone
+					format
+					unix
+				>{value}</Timezone>;
+			} ,
 		},
 		{
 			title: '订单号',
@@ -44,13 +57,14 @@ export const FinancialDetails = reaxper(() => {
 	
 	
 	return (
-		<div className = { less.detailContainer }>
-			<div className = { less.detailHeader }>
+		<div className = { less.finDetailTable }>
+			<div className = { less.finDetailTableHeader }>
 				资金明细
 			</div>
 			<Table
 				columns = { columns }
 				dataSource = { fin_detail_list }
+				loading={finDetailPending}
 				rowKey = "orderID"
 				size = "small"
 				pagination = { {
@@ -65,5 +79,5 @@ export const FinancialDetails = reaxper(() => {
 })
 
 import less from './index.module.less';
-import { reaxel_overview_info } from '@@reaxels';
+import { reaxel_overview_info, Timezone } from '@@reaxels';
 import { ColumnsType } from "antd/lib/table";

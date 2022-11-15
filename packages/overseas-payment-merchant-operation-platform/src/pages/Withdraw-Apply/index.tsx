@@ -1,14 +1,25 @@
 
 export const OverviewWithdraw = reaxper(() => {
-	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState  } = reaxel_overview_info();
+	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState, fetchOverviewInfo  } = reaxel_overview_info();
+	const { navigate } = toolkits.useRouter();
+	const { message, Input, Button, Spin } = antd;
+	
+	if(!overviewInfo){
+		fetchOverviewInfo();
+		return (
+			<div className={less.loadingSpin}>
+				<Spin/>
+			</div>
+		)
+	}
 	const { balance } = overviewInfo;
 	const { withdrawApplyMoney} = withdrawStore;
-	const { navigate } = toolkits.useRouter()
-	const { message, Input, Button } = antd;
 	return (
 		<div className={less.withdrawContainer}>
 			<div className = { less.windowContent }>
-				<h3>提现</h3>
+				<span className={less.title}>
+					提现
+				</span>
 				<div className = { less.withdrawAmount }>
 					<span>提现金额</span>
 					<Input
@@ -19,7 +30,7 @@ export const OverviewWithdraw = reaxper(() => {
 							})
 						}}
 					/>
-					<span>
+					<span className={less.maxWithdrawAmount}>
 						最大可到账金额：R${balance}
 						<span
 							className = { less.withdrawBtn }
@@ -34,46 +45,33 @@ export const OverviewWithdraw = reaxper(() => {
 					</span>
 				</div>
 				<div className = { less.address }>
-					<p>接收USDT地址(TRC-20)</p>
-					<p
+					<span>接收USDT地址(TRC-20)</span>
+					<span
 						className={(overviewInfo.address === '') ? less.setBtn : ''}
 						onClick={() => {
-							if (overviewInfo.address) return
+							if (overviewInfo.address) return;
 							navigate('/profile/API')
 						}}
 					>
 						{ overviewInfo.address === '' ? '前往设置' : overviewInfo.address}
-					</p>
+					</span>
 				</div>
 				<Button
 					type = "primary"
+					loading={withdrawStore.pending}
 					onClick = { () => {
-						if (withdrawApplyMoney === '') {
-							message.error('提现金额不能为空');
-						} else if(!overviewInfo.address ) {
-							message.error('请先设置地址');
-							
-						} else {
-							withdrawApply().then((res) => {
-								if (res.result === 0) {
-									message.success('申请成功');
-									withdrawSetState({
-										withdrawApplyMoney: ''
-									})
-								} else {
-									message.error('余额不足');
-								}
-								
-							}).catch((e) => {
-								message.error('申请失败' + e)
-							})
-						}
-					} }
+						withdrawApply().then(() => {
+							message.success('已提交申请');
+						}).catch((e) => {
+							console.log(e);
+							message.error(  e.msg)
+						})
+					}}
 				>
 					提交
 				</Button>
 			</div>
-			
+		
 		</div>
 	)
 });

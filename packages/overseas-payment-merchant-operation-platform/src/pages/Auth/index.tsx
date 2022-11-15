@@ -16,7 +16,7 @@ export const Login = reaxper(() => {
 		>
 			<div className = { less.loginContent }>
 				<div className = { less.loginTitle }>
-					<SVGLoginRainpayLogo />
+					<SVGLoginRiverpayLogo />
 				</div>
 				<SignInForm />
 			</div>
@@ -86,7 +86,7 @@ export const SignInForm = reaxper(() => {
 });
 
 import less from './index.module.less';
-import { SVGLoginRainpayLogo } from '@@SVGcomponents';
+import { SVGLoginRiverpayLogo } from '@@SVGcomponents';
 import img_login_background from '@@public/statics/login-bg-img.svg';
 import {
 	reaxel_user_login ,
