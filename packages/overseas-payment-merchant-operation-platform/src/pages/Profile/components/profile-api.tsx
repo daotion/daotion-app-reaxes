@@ -1,3 +1,4 @@
+import { SVGCopyBtn } from "#project-root/packages/overseas-payment-cashier/src/SVGcomponents";
 
 export const ProfileApi = reaxper(() => {
 	const badge = useRef(Math.random())
@@ -37,7 +38,7 @@ export const ProfileApi = reaxper(() => {
 						onClick={() => {clipboard(mchKey, {
 							onCopy: () => {message.success('已复制到粘贴板')}
 						})}}
-					><SVGProfileCopyBtn/></Col>
+					><SVGCopyBtn/></Col>
 				</div>
 				<div className = { less.infoItem }>
 					<Col {...colSet}>平台IP</Col>
@@ -164,4 +165,4 @@ import {
 } from "@@reaxels";
 import less from "../index.module.less";
 import clipboard from "copy-to-clipboard";
-import { SVGProfileCopyBtn } from "@@SVGcomponents";
+import { SVGopyBtn } from "@@SVGcomponents";

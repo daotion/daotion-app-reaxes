@@ -10,7 +10,7 @@ export * from './Login-Logo-Riverpay.svg-component';
 export * from './Menu-Icon-Overview.svg-component';
 export * from './Menu-Icon-Order.svg-component';
 export * from './Btn-Add.svg-component';
-export * from './Profile-Btn-Copy.svg-component';
+export * from './Btn-Copy.svg-component';
 export * from './Menu-Icon-Withdrawal-Apply.svg-component';
 export * from './Menu-Icon-Deposit-Apply.svg-component';
 export * from './Menu-Icon-Merchant-Mgnt.svg-component';
