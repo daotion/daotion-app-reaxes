@@ -7,10 +7,6 @@ export const Routing = reaxper((props) => {
 				path = "login"
 				element = { <Login/> }
 			/>
-			<Route
-				path = 'test'
-				element={<TestRender/>}
-			/>
 			{/*fixme 找到办法匹配到login时阻止渲染Layout*/}
 			<Route
 				path="*"
@@ -58,15 +54,7 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(<OverviewDeposit />) }
 				/>
 			</Route>
-			
-			<Route
-				path = "profile/*"
-				element = { toolkits.withOutlet(<Profile />) }
-			/>
-			<Route
-				path = "collection-order"
-				element = { toolkits.withOutlet(<CollectionOrder />) }
-			/>
+			{/*商户管理*/}
 			<Route
 				path="mch-mgnt"
 			>
@@ -75,11 +63,11 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(< MerchantMgntList/>) }
 				/>
 				<Route
-					path = "mech-mgnt-detail"
+					path = "detail"
 					element = { toolkits.withOutlet(<MerchantMgntDetail />) }
 				/>
 				<Route
-					path = "mech-mgnt-edit"
+					path = "edit"
 					element = { toolkits.withOutlet(<MerchantMgntEdit />) }
 				/>
 			</Route>
@@ -100,18 +88,6 @@ export const MainContentRouting = reaxper(() => {
 				path = "ops-record"
 				element = { toolkits.withOutlet(<OpsRecord />) }
 			/>
-			<Route
-				path= "payment-mgnt/*"
-			>
-				<Route
-					index
-					element = { toolkits.withOutlet(<PayoutManagement />) }
-				/>
-				<Route
-					path = "new-payment"
-					element = { toolkits.withOutlet(<NewPayment />) }
-				/>
-			</Route>
 		</Route>
 	</Routes>;
 });
