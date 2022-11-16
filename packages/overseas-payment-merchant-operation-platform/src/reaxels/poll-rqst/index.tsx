@@ -3,7 +3,7 @@
  */
 export const reaxel_poll_rqst = function(){
 	const stack = [];
-	const { timer } = reaxel_global();
+	const { timer } = reaxel_tick_tock();
 	const usCycle = (frequency:number,runDurFirst:boolean = false) => {
 		let count = 0;
 		return (cb) => (innerCount,invokeTimes) => {
@@ -38,7 +38,7 @@ export const reaxel_poll_rqst = function(){
 		};
 	};
 }();
-import { reaxel_global } from '@@reaxels/reaxel--global';
+import { reaxel_tick_tock } from '@@reaxels';
 
 const reax_prqst = reaxel_poll_rqst();
 reax_prqst.regist(6,async (innerCount,invokeTimes) => {

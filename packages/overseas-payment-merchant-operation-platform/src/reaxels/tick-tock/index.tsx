@@ -1,4 +1,4 @@
-export const reaxel_global = function(){
+export const reaxel_tick_tock = function(){
 	const { store , setState } = orzMobx({
 		now : Date.now(),
 	});

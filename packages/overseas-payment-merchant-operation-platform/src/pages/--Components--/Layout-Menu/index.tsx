@@ -64,12 +64,12 @@ const menulist:ItemType[] = [
 	},
 	{
 		label:"商户提现申请",
-		key : "withdrawal-check",
+		key : "mch-withdraw-rqst",
 		icon : <SVGMenuIconWithdrawalApply />,
 	},
 	{
 		label:"商户充值申请",
-		key : "deposit-check",
+		key : "mch-deposit-rqst",
 		icon : <SVGMenuIconDepositApply />,
 	},
 	{
