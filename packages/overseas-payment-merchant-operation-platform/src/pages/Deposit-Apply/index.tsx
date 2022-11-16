@@ -1,4 +1,3 @@
-
 export const OverviewDeposit = reaxper(() => {
 	const {depositStore, deposit, depositSetState  } = reaxel_overview_info();
 	const { paymentAddress = '', depositMoney = ''} = depositStore;
@@ -34,7 +33,7 @@ export const OverviewDeposit = reaxper(() => {
 					<div className={less.collectionAddress}>
 						{/*地址为固定地址*/}
 						TF46jFVY4nuxTEdk9t7K4qzC3RA5ZQ49u6
-						<SVGProfileCopyBtn/>
+						<SVGCopyBtn/>
 					</div>
 				</div>
 				<Button
@@ -57,5 +56,5 @@ export const OverviewDeposit = reaxper(() => {
 });
 import less from "./index.module.less";
 import { reaxel_overview_info } from "@@reaxels";
-import { SVGProfileCopyBtn } from '@@SVGcomponents'
+import { SVGCopyBtn } from '@@SVGcomponents'
 
