@@ -86,7 +86,13 @@ const TableList = reaxper(() => {
 			title : '商户名' ,
 			dataIndex : 'mchName' ,
 			fixed : 'left' ,
-			render : (value) => <Button className={less.blueLink} type = "link">{ value }</Button> ,
+			render : (value, record, index) => (
+				<Button
+					className={less.blueLink}
+					type = "link"
+					onClick={() => {navigate(`detail?id=${record.mchID}`)}}
+				>{ value }</Button>
+			) ,
 		} ,
 		{
 			title : 'Telegram' ,
