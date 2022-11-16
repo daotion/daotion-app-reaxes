@@ -92,19 +92,6 @@ export const MainContentRouting = reaxper(() => {
 	</Routes>;
 });
 
-export const ProfileRouting = reaxper(() => {
-	
-	return <Routes>
-		<Route
-			path="*"
-		>
-			<Route index element={<Navigate to="base-info"/>}/>
-			<Route path="base-info" element={<ProfileInfo/>}/>
-			<Route path="reset-pwd" element={<ResetPwd/>}/>
-			<Route path="API" element={<ProfileApi/>}/>
-		</Route>
-	</Routes>
-})
 
 import { reaxel_user_auth } from '@@reaxels';
 import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
