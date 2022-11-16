@@ -69,12 +69,12 @@ const TableList = reaxper(() => {
 		{
 			title : '代收' ,
 			dataIndex : 'payInStatus' ,
-			render : (payInStatus) => <Switch checked = { payInStatus === 1 ? true : false } /> ,
+			render : (payInStatus) => <Switch checked = { payInStatus } /> ,
 		} ,
 		{
 			title : '代收' ,
 			dataIndex : 'payOutStatus' ,
-			render : (payOutStatus) => <Switch checked = { payOutStatus === 1 ? true : false } /> ,
+			render : (payOutStatus) => <Switch checked = { payOutStatus } /> ,
 		} ,
 		{
 			title : '操作' ,
@@ -84,7 +84,7 @@ const TableList = reaxper(() => {
 		{
 			title : '状态' ,
 			dataIndex : 'mchStatus' ,
-			render : (status) => <Switch checked = { status === 1 ? true : false } /> ,
+			render : (status) => <Switch checked = { status } /> ,
 		} ,
 	];
 	
