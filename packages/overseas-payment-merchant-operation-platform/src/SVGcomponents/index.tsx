@@ -19,3 +19,5 @@ export * from './Menu-Icon-setting.svg-component';
 export * from './Overview-Icon-Deposit.svg-component';
 export * from './Header-Timezone-Brazil.svg-component';
 export * from './Header-Timezone-China.svg-component';
+export * from './Charge-Set-Exchange.svg-component';
+export * from './Charge-Set-Back.svg-component';
