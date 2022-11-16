@@ -1,5 +1,3 @@
-import { SVGCopyBtn } from "#project-root/packages/overseas-payment-cashier/src/SVGcomponents";
-
 export const OverviewDeposit = reaxper(() => {
 	const {depositStore, deposit, depositSetState  } = reaxel_overview_info();
 	const { paymentAddress = '', depositMoney = ''} = depositStore;
@@ -58,5 +56,5 @@ export const OverviewDeposit = reaxper(() => {
 });
 import less from "./index.module.less";
 import { reaxel_overview_info } from "@@reaxels";
-import { SVGopyBtn } from '@@SVGcomponents'
+import { SVGCopyBtn } from '@@SVGcomponents'
 

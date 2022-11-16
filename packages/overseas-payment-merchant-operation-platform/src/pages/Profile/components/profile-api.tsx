@@ -1,5 +1,3 @@
-import { SVGCopyBtn } from "#project-root/packages/overseas-payment-cashier/src/SVGcomponents";
-
 export const ProfileApi = reaxper(() => {
 	const badge = useRef(Math.random())
 	const { Space, Col, Row, Button, message } = antd;
@@ -165,4 +163,4 @@ import {
 } from "@@reaxels";
 import less from "../index.module.less";
 import clipboard from "copy-to-clipboard";
-import { SVGopyBtn } from "@@SVGcomponents";
+import { SVGCopyBtn } from "@@SVGcomponents";
