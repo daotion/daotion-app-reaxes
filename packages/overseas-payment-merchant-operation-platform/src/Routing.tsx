@@ -94,14 +94,11 @@ export const MainContentRouting = reaxper(() => {
 
 
 import { reaxel_user_auth } from '@@reaxels';
-import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
 import { Login } from '@@pages/Auth';
-import { Profile } from '@@pages/Profile';
 import { Overview} from '@@pages/Overview';
 import { FinancialDetails } from '@@pages/Fin-Detail'
 import { OverviewWithdraw } from '@@pages/Withdraw-Apply'
 import { OverviewDeposit } from '@@pages/Deposit-Apply'
-import { CollectionOrder } from '@@pages/Collection-Order';
 import { MerchantMgntList } from '@@pages/Merchant-Mgnt-List';
 import { MerchantMgntDetail } from '@@pages/Merchant-Mgnt-Detail';
 import { MerchantMgntEdit } from '@@pages/Merchant-Mgnt-Edit';
@@ -109,10 +106,7 @@ import { PaymentOrder } from '@@pages/Payment-Order';
 import { WithdrawalOrder } from '@@pages/Withdrawal-Order';
 import { DepositOrder } from '@@pages/Deposit-Order';
 import { OpsRecord } from '@@pages/Ops-Record';
-import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
-import { NewPayment } from "@@pages/--Components--/New-Payment";
-import { TestRender } from '@@pages/test'
 import {
 	BrowserRouter ,
 	Navigate ,
