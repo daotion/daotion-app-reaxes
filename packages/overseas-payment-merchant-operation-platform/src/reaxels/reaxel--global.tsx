@@ -12,6 +12,12 @@ export const reaxel_global = function(){
 	return () => {
 		
 		return {
+			timer:{
+				get subscribe(){
+					return timer.subscribe.bind(timer);
+				},
+				
+			},
 			get now(){
 				return store.now;
 			},

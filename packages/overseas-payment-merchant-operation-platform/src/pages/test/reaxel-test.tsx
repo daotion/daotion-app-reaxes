@@ -2,46 +2,43 @@
 
 export const reaxel_test = function(){
 	let ret;
-	const initialState = {
-		info : {} as any ,
-		count : 0,
-		
-	}
+	const { store , setState } = orzMobx({
+		data : [],
+	});
+	const { regist } = reaxel_poll_rqst();
+	const { checkin , msgTypes , push } = reaxel_msg_notif();
 	
-	const { store, setState } = orzMobx(initialState)
+	const rqstMsg = () => {
+		const map = {
+			1 : 'mch-withdraw-rqst',
+			2 : 'mch-deposit-rqst',
+		};
+		return orzPromise((resolve , reject) => {
+			setTimeout(() => {
+				resolve({
+					type : map[_.random(1,2)],
+					number : _.random(1,20),
+				})
+			} , 200);
+		});
+	};
 	
-	const [fetchInfo, ] = Reaxes.closuredMemo(async () => {
-		if (store.count > 3) {
-			return Promise.reject({
-				msg: 'error'
-			})
-		}
-		return request_overview_info().then((res) => {
-			setState({
-				info: res
-			})
+	regist(5 , () => {
+		rqstMsg().then((data) => {
+			console.log(data);
+			push([data]);
 		})
-	}, () => []);
+	});
+	
 	
 	return () => {
 		return ret = {
-			get store(){
-				return store;
-			},
-			
-			setCount(){
-				setState({
-					count : store.count + 1,
-					
-				})
-			},
-			fetchInfo(badge){
-				return fetchInfo(() => [ badge, store.count > 3 ])();
-			} ,
+			store,
 		}
 	}
 }();
 
 import {
-	request_overview_info,
-} from "@@requests";
+	reaxel_msg_notif ,
+	reaxel_poll_rqst,
+} from "@@reaxels";
