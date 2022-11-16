@@ -67,6 +67,22 @@ export const MainContentRouting = reaxper(() => {
 				path = "collection-order"
 				element = { toolkits.withOutlet(<CollectionOrder />) }
 			/>
+			<Route
+				path="mch-mgnt"
+			>
+				<Route
+					index
+					element = { toolkits.withOutlet(< MerchantMgntList/>) }
+				/>
+				<Route
+					path = "mech-mgnt-detail"
+					element = { toolkits.withOutlet(<MerchantMgntDetail />) }
+				/>
+				<Route
+					path = "mech-mgnt-edit"
+					element = { toolkits.withOutlet(<MerchantMgntEdit />) }
+				/>
+			</Route>
 			{/*目前代收订单为多态组件, 已将代付和提现订单功能抽象 */}
 			<Route
 				path = "payment-order"
@@ -123,6 +139,9 @@ import { FinancialDetails } from '@@pages/Fin-Detail'
 import { OverviewWithdraw } from '@@pages/Withdraw-Apply'
 import { OverviewDeposit } from '@@pages/Deposit-Apply'
 import { CollectionOrder } from '@@pages/Collection-Order';
+import { MerchantMgntList } from '@@pages/Merchant-Mgnt-List';
+import { MerchantMgntDetail } from '@@pages/Merchant-Mgnt-Detail';
+import { MerchantMgntEdit } from '@@pages/Merchant-Mgnt-Edit';
 import { PaymentOrder } from '@@pages/Payment-Order';
 import { WithdrawalOrder } from '@@pages/Withdrawal-Order';
 import { DepositOrder } from '@@pages/Deposit-Order';
