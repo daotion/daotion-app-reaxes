@@ -64,23 +64,28 @@ const menulist:ItemType[] = [
 	},
 	{
 		label:"商户提现申请",
-		key : "payment-mgnt",
+		key : "withdrawal-check",
 		icon : <SVGMenuIconWithdrawalApply />,
 	},
 	{
 		label:"商户充值申请",
-		key : "ops-record",
+		key : "deposit-check",
 		icon : <SVGMenuIconDepositApply />,
 	},
 	{
 		label:"商户管理",
-		key : "profile",
+		key : "mch-mgnt",
 		icon : <SVGMenuIconMerchantMgnt />,
 	},
 	{
 		label:"成员管理",
-		key : "api",
+		key : "user-mgnt",
 		icon : <SVGMenuIconUserMgnt />,
+	},
+	{
+		label:"系统设置",
+		key : "setting",
+		icon : <SVGMenuIconSetting />,
 	},
 ];
 

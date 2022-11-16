@@ -1,10 +1,10 @@
 export const SVGOverviewIconDeposit = reaxper(() =>{
 	return(
-		<svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<rect x="0.5" width="33" height="33" rx="16.5" fill="#C8F9DD"/>
-			<path d="M26.3499 18.15C26.3499 21.2437 24.2416 26.4 16.8624 26.4C9.48327 26.4 7.37493 21.2437 7.37493 18.15" stroke="#16161A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-			<path d="M16.6667 21.45L16.6667 6.60001" stroke="#16161A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-			<path d="M22.6667 14.85L16.4792 21.45L10.2917 14.85" stroke="#16161A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+		<svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<rect x="3.83325" y="3" width="33" height="33" rx="16.5" fill="#C3F4FD"/>
+			<path d="M29.6832 21.1499C29.6832 24.2437 27.5749 29.3999 20.1957 29.3999C12.8165 29.3999 10.7082 24.2437 10.7082 21.1499" stroke="#16161A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M20 24.4502V9.60019" stroke="#16161A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+			<path d="M14 17.8502L20.1875 24.4502L26.375 17.8502" stroke="#16161A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
 		</svg>
 	)
 });
