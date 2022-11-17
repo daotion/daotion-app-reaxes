@@ -62,6 +62,7 @@ export const MerchantMgntEdit = reaxper(() => {
 							{ fields.map((field , index) => (
 								<Form.Item
 									label = { index === 0 ? '配置IP白名单' : '' }
+									key={Math.random()}
 								>
 									<div style = { { display : 'flex' } }>
 										<Input />
