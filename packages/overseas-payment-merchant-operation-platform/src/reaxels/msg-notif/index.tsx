@@ -1,8 +1,6 @@
 /**
  * 站内信服务
  */
-
-
 const msgTypes = {
 	"mch-withdraw-rqst" : {
 		label : "新的商户提现申请",
