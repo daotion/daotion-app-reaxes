@@ -1,29 +1,31 @@
 /**
  * 站内信服务
  */
-const msgTypes = {
-	"mch-withdraw-rqst" : {
-		label : "新的商户提现申请",
-		path : "/mch-withdraw-rqst"
-	},
-	"mch-deposit-rqst" : {
-		label : "新的商户充值申请",
-		path : "/mch-deposit-rqst"
-	},
-	
-};
 export const reaxel_msg_notif = function(){
 	const { store , setState } = orzMobx({
+		messageTypes : {},
 		list : [] as notifMsgItem[] ,
 	});
 	
 	return () => {
 		
 		return {
-			msgTypes,
+			get messageTypes(){
+				return store.messageTypes;
+			},
 			get messages (){
 				return store.list;
 			},
+			/*添加一条消息类型*/
+			addMessageType(msgTypes:{[p:string]:msgType}){
+				setState({
+					messageTypes : {
+						...store.messageTypes ,
+						...msgTypes ,
+					} ,
+				});
+			},
+			/*清除一类消息*/
 			checkin(type:notifMsgItem['type']){
 				setState({
 					list : store.list.filter((item) => {
@@ -41,4 +43,6 @@ export const reaxel_msg_notif = function(){
 	};
 }();
 
-import {notifMsgItem} from './types';
+import {notifMsgItem,msgType} from './types';
+
+

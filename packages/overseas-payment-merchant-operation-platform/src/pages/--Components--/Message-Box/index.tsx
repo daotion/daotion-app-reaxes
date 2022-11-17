@@ -13,13 +13,13 @@ export const MessageBox = reaxper(() => {
 
 const PopoverContent = reaxper(() => {
 	const { navigate } = toolkits.useRouter();
-	const { checkin , msgTypes , push , messages } = reaxel_msg_notif();
+	const { checkin , messageTypes , push , messages } = reaxel_msg_notif();
 	
 	return <ul>
-		{Object.keys(msgTypes).map((type:notifMsgItem["type"]) => {
+		{Object.keys(messageTypes).map((type:notifMsgItem["type"]) => {
 			const items = messages.filter((item) => item.type === type);
 			const count = items.reduce((accu , item) => item.number + accu , 0);
-			const {label,path} = msgTypes[type];
+			const {label,path} = messageTypes[type];
 			return items.length > 0 && <li
 				onClick = { () => {
 					navigate(path);
