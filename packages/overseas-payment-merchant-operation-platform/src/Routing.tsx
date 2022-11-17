@@ -7,6 +7,10 @@ export const Routing = reaxper((props) => {
 				path = "login"
 				element = { <Login/> }
 			/>
+			<Route
+				path = 'test'
+				element={<TestRender/>}
+			/>
 			{/*fixme 找到办法匹配到login时阻止渲染Layout*/}
 			<Route
 				path="*"
@@ -54,7 +58,20 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(<OverviewDeposit />) }
 				/>
 			</Route>
-			{/*商户管理*/}
+			<Route
+				path = "collection-order"
+				element = { toolkits.withOutlet(<CollectionOrder />) }
+			/>
+			{/*商户提现申请*/}
+			<Route
+				path = "mch-withdraw-rqst"
+				element = { toolkits.withOutlet(<Mch_Withdraw_Rqst />) }
+			/>
+			{/*商户充值申请*/}
+			<Route
+				path = "mch-deposit-rqst"
+				element = { toolkits.withOutlet(<Mch_Desposit_Rqst />) }
+			/>
 			<Route
 				path="mch-mgnt"
 			>
@@ -96,17 +113,21 @@ export const MainContentRouting = reaxper(() => {
 import { reaxel_user_auth } from '@@reaxels';
 import { Login } from '@@pages/Auth';
 import { Overview} from '@@pages/Overview';
-import { FinancialDetails } from '@@pages/Fin-Detail'
-import { OverviewWithdraw } from '@@pages/Withdraw-Apply'
-import { OverviewDeposit } from '@@pages/Deposit-Apply'
+import { FinancialDetails } from '@@pages/Fin-Detail';
+import { OverviewWithdraw } from '@@pages/Withdraw-Apply';
+import { OverviewDeposit } from '@@pages/Deposit-Apply';
+import { CollectionOrder } from '@@pages/Collection-Order';
 import { MerchantMgntList } from '@@pages/Merchant-Mgnt-List';
 import { MerchantMgntDetail } from '@@pages/Merchant-Mgnt-Detail';
 import { MerchantMgntEdit } from '@@pages/Merchant-Mgnt-Edit';
+import { Mch_Desposit_Rqst } from '@@pages/Merchant-Deposit-Rqst';
+import { Mch_Withdraw_Rqst } from '@@pages/Merchant-Withdraw-Rqst';
 import { PaymentOrder } from '@@pages/Payment-Order';
 import { WithdrawalOrder } from '@@pages/Withdrawal-Order';
 import { DepositOrder } from '@@pages/Deposit-Order';
 import { OpsRecord } from '@@pages/Ops-Record';
 import { Layout } from './Layout';
+import { TestRender } from '@@pages/test';
 import {
 	BrowserRouter ,
 	Navigate ,

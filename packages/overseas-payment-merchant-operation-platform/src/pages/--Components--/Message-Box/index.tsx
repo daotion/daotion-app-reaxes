@@ -1,13 +1,17 @@
-export const TestRender = reaxper(() => {
+export const MessageBox = reaxper(() => {
 	
-	return <div>
-		<MessageBox/>
-		<DataArea/>
-	</div>
+	const { Button , Popover } = antd;
+	return <Popover
+		trigger="click"
+		content={<PopoverContent/>}
+	>
+		<Button>
+			消息通知
+		</Button>
+	</Popover>;
 });
 
-
-const MessageBox = reaxper(() => {
+const PopoverContent = reaxper(() => {
 	const { navigate } = toolkits.useRouter();
 	const { checkin , msgTypes , push , messages } = reaxel_msg_notif();
 	
@@ -29,13 +33,19 @@ const MessageBox = reaxper(() => {
 	</ul>;
 });
 
-const DataArea = reaxper(() => {
-	const {} = reaxel_test();
-	return <div>
-	
-	</div>;
-});
-
-import { reaxel_test } from './reaxel-test'
 import { reaxel_msg_notif } from '@@reaxels';
 import {notifMsgItem} from '@@reaxels/msg-notif/types';
+
+const reaxel_message_box = function(){
+	
+	const reax_msg_notif = reaxel_msg_notif();
+	
+	return () => {
+		
+		return {
+			get messages (){
+				return reax_msg_notif.messages;
+			},
+		}
+	}
+}();
