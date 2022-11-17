@@ -1,5 +1,5 @@
 /*global provider*/
-declare const _ : typeof import('lodash/lodash');
+declare const _ : typeof import('lodash');
 declare const React : typeof import('react');
 declare const useState : typeof React.useState;
 declare const useEffect : typeof React.useEffect;
