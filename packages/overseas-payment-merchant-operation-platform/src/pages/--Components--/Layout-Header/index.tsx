@@ -9,7 +9,7 @@ export const LayoutHeader = reaxper(() => {
 		<div className = { less.layoutHeader }>
 			<SVGHeaderRiverpayLogo />
 			<div className = { less.layoutHeaderRight }>
-				<MessageBox/>
+				
 				<Dropdown
 					overlay = { <Menu
 						items = { [
@@ -42,6 +42,7 @@ export const LayoutHeader = reaxper(() => {
 						
 					</div>
 				</Dropdown>
+				<MessageBox/>
 				<div className = { less.userSelect }>
 					<Dropdown
 						overlay = { <Menu
