@@ -7,10 +7,6 @@ export const Routing = reaxper((props) => {
 				path = "login"
 				element = { <Login/> }
 			/>
-			<Route
-				path = 'test'
-				element={<TestRender/>}
-			/>
 			{/*fixme 找到办法匹配到login时阻止渲染Layout*/}
 			<Route
 				path="*"
@@ -58,15 +54,7 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(<OverviewDeposit />) }
 				/>
 			</Route>
-			
-			<Route
-				path = "profile/*"
-				element = { toolkits.withOutlet(<Profile />) }
-			/>
-			<Route
-				path = "collection-order"
-				element = { toolkits.withOutlet(<CollectionOrder />) }
-			/>
+			{/*商户管理*/}
 			<Route
 				path="mch-mgnt"
 			>
@@ -75,11 +63,11 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(< MerchantMgntList/>) }
 				/>
 				<Route
-					path = "mech-mgnt-detail"
+					path = "detail"
 					element = { toolkits.withOutlet(<MerchantMgntDetail />) }
 				/>
 				<Route
-					path = "mech-mgnt-edit"
+					path = "edit"
 					element = { toolkits.withOutlet(<MerchantMgntEdit />) }
 				/>
 			</Route>
@@ -100,45 +88,17 @@ export const MainContentRouting = reaxper(() => {
 				path = "ops-record"
 				element = { toolkits.withOutlet(<OpsRecord />) }
 			/>
-			<Route
-				path= "payment-mgnt/*"
-			>
-				<Route
-					index
-					element = { toolkits.withOutlet(<PayoutManagement />) }
-				/>
-				<Route
-					path = "new-payment"
-					element = { toolkits.withOutlet(<NewPayment />) }
-				/>
-			</Route>
 		</Route>
 	</Routes>;
 });
 
-export const ProfileRouting = reaxper(() => {
-	
-	return <Routes>
-		<Route
-			path="*"
-		>
-			<Route index element={<Navigate to="base-info"/>}/>
-			<Route path="base-info" element={<ProfileInfo/>}/>
-			<Route path="reset-pwd" element={<ResetPwd/>}/>
-			<Route path="API" element={<ProfileApi/>}/>
-		</Route>
-	</Routes>
-})
 
 import { reaxel_user_auth } from '@@reaxels';
-import  { ResetPwd, ProfileInfo, ProfileApi } from '@@pages/Profile/components'
 import { Login } from '@@pages/Auth';
-import { Profile } from '@@pages/Profile';
 import { Overview} from '@@pages/Overview';
 import { FinancialDetails } from '@@pages/Fin-Detail'
 import { OverviewWithdraw } from '@@pages/Withdraw-Apply'
 import { OverviewDeposit } from '@@pages/Deposit-Apply'
-import { CollectionOrder } from '@@pages/Collection-Order';
 import { MerchantMgntList } from '@@pages/Merchant-Mgnt-List';
 import { MerchantMgntDetail } from '@@pages/Merchant-Mgnt-Detail';
 import { MerchantMgntEdit } from '@@pages/Merchant-Mgnt-Edit';
@@ -146,10 +106,7 @@ import { PaymentOrder } from '@@pages/Payment-Order';
 import { WithdrawalOrder } from '@@pages/Withdrawal-Order';
 import { DepositOrder } from '@@pages/Deposit-Order';
 import { OpsRecord } from '@@pages/Ops-Record';
-import { PayoutManagement } from '@@pages/Payment-Mgnt';
 import { Layout } from './Layout';
-import { NewPayment } from "@@pages/--Components--/New-Payment";
-import { TestRender } from '@@pages/test'
 import {
 	BrowserRouter ,
 	Navigate ,

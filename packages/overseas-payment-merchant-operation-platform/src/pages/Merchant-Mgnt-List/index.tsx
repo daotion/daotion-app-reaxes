@@ -5,10 +5,39 @@ export const MerchantMgntList = reaxper(() => {
 	</>;
 });
 
+const data = [
+	{
+		mchID : '12321312' ,
+		mchName : '李政' ,
+		telegram : '1212213' ,
+		seller : '强子' ,
+		payInStatus : 0 ,
+		payOutStatus : 0 ,
+		mchStatus : 1 ,
+	} ,
+	{
+		mchID : '12321312' ,
+		mchName : '吴敏' ,
+		telegram : '1212213' ,
+		seller : '强子' ,
+		payInStatus : 0 ,
+		payOutStatus : 1 ,
+		mchStatus : 0 ,
+	} ,
+	{
+		mchID : '12321312' ,
+		mchName : '王佳琪' ,
+		telegram : '1212213' ,
+		seller : '强子' ,
+		payInStatus : 1 ,
+		payOutStatus : 1 ,
+		mchStatus : 0 ,
+	} ,
+];
+
 const SearchBar = reaxper(() => {
 	
 	const { Input , Button , Form , Col } = antd;
-	
 	return (
 		<div className = { less.searchContainer }>
 			<Form
@@ -33,6 +62,7 @@ const SearchBar = reaxper(() => {
 });
 
 const TableList = reaxper(() => {
+	const { navigate } = toolkits.useRouter()
 	
 	const { Button , Table , Switch } = antd;
 	
@@ -56,7 +86,13 @@ const TableList = reaxper(() => {
 			title : '商户名' ,
 			dataIndex : 'mchName' ,
 			fixed : 'left' ,
-			render : (MchName) => <Button type = "link">{ MchName }</Button> ,
+			render : (value, record, index) => (
+				<Button
+					className={less.blueLink}
+					type = "link"
+					onClick={() => {navigate(`detail?id=${record.mchID}`)}}
+				>{ value }</Button>
+			) ,
 		} ,
 		{
 			title : 'Telegram' ,
@@ -79,7 +115,7 @@ const TableList = reaxper(() => {
 		{
 			title : '操作' ,
 			dataIndex : 'action' ,
-			render : () => <Button type = "link">编辑</Button> ,
+			render : () => <Button type = "link" className={less.blueLink}>编辑</Button> ,
 		} ,
 		{
 			title : '状态' ,
@@ -88,35 +124,7 @@ const TableList = reaxper(() => {
 		} ,
 	];
 	
-	const data = [
-		{
-			mchID : '12321312' ,
-			mchName : '李政' ,
-			telegram : '1212213' ,
-			seller : '强子' ,
-			payInStatus : 0 ,
-			payOutStatus : 0 ,
-			mchStatus : 1 ,
-		} ,
-		{
-			mchID : '12321312' ,
-			mchName : '吴敏' ,
-			telegram : '1212213' ,
-			seller : '强子' ,
-			payInStatus : 0 ,
-			payOutStatus : 1 ,
-			mchStatus : 0 ,
-		} ,
-		{
-			mchID : '12321312' ,
-			mchName : '王佳琪' ,
-			telegram : '1212213' ,
-			seller : '强子' ,
-			payInStatus : 1 ,
-			payOutStatus : 1 ,
-			mchStatus : 0 ,
-		} ,
-	];
+
 	
 	return (
 		<div className = { less.tableContainer }>
@@ -125,6 +133,9 @@ const TableList = reaxper(() => {
 				<Button
 					icon = { <SVGAddBtn /> }
 					type = "primary"
+					onClick={() =>{
+						navigate('edit')
+					}}
 				>
 					新增成员
 				</Button>

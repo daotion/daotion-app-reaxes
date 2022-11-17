@@ -1,0 +1,41 @@
+.edit-container {
+	width: 100%;
+	background-color: #ffffff;
+	border-radius: 8px;
+	padding: 32px;
+	//display: flex;
+	//flex-direction: column;
+	//align-items: center;
+	
+	.change-set {
+		position: absolute;
+		right: 0;
+		top: -35px;
+	}
+	.mch-Switch {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	
+	.charge-senior-set {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		
+		.set-side {
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+		}
+		
+		.fee-input {
+			:global {
+				.ant-input:placeholder-shown {
+					text-align: center;
+				}
+			}
+		}
+	}
+	
+}
