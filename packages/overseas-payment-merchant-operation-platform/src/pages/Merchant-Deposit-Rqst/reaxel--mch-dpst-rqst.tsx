@@ -9,6 +9,7 @@ export const reaxel_mch_dpst_rqst = function(){
 		}
 	});
 	
+	/*请求充值列表*/
 	const rqstDeposit = () => {
 		return orzPromise((res) => {
 			res();
