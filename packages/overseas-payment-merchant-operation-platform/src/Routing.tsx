@@ -80,11 +80,15 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(< MerchantMgntList/>) }
 				/>
 				<Route
-					path = "detail"
+					path = "mch-detail"
 					element = { toolkits.withOutlet(<MerchantMgntDetail />) }
 				/>
 				<Route
-					path = "edit"
+					path = "mch-edit"
+					element = { toolkits.withOutlet(<MerchantMgntEdit />) }
+				/>
+				<Route
+					path = "mch-create"
 					element = { toolkits.withOutlet(<MerchantMgntEdit />) }
 				/>
 			</Route>

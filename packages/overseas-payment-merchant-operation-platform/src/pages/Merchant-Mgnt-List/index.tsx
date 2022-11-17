@@ -90,7 +90,7 @@ const TableList = reaxper(() => {
 				<Button
 					className={less.blueLink}
 					type = "link"
-					onClick={() => {navigate(`detail?id=${record.mchID}`)}}
+					onClick={() => {navigate(`mch-detail?id=${record.mchID}`)}}
 				>{ value }</Button>
 			) ,
 		} ,
@@ -115,7 +115,14 @@ const TableList = reaxper(() => {
 		{
 			title : '操作' ,
 			dataIndex : 'action' ,
-			render : () => <Button type = "link" className={less.blueLink}>编辑</Button> ,
+			render : (value, record, index) => (
+				<Button
+					type = "link"
+					className={less.blueLink}
+					onClick={() => {navigate(`mch-edit?id=${record.mchID}`)}}
+				>
+					编辑
+				</Button> ),
 		} ,
 		{
 			title : '状态' ,
@@ -134,7 +141,7 @@ const TableList = reaxper(() => {
 					icon = { <SVGAddBtn /> }
 					type = "primary"
 					onClick={() =>{
-						navigate('edit')
+						navigate('mch-create')
 					}}
 				>
 					新增成员
