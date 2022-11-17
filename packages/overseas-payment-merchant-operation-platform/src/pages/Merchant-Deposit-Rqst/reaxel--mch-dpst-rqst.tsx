@@ -1,5 +1,14 @@
 export const reaxel_mch_dpst_rqst = function(){
-	const { checkin,msgTypes } = reaxel_msg_notif();
+	const { checkin,msgTypes,push } = reaxel_msg_notif();
+	const { regist_BE_message } = reaxel_BE_message();
+	
+	regist_BE_message((msg) => {
+		if(msg.type === "mch-deposit-rqst") {
+			crayon.green(`更新了商户充值列表`);
+			push([msg]);
+		}
+	});
+	
 	const rqstDeposit = () => {
 		return orzPromise((res) => {
 			res();
@@ -18,4 +27,7 @@ export const reaxel_mch_dpst_rqst = function(){
 	};
 }();
 
-import { reaxel_msg_notif } from '@@reaxels';
+import {
+	reaxel_msg_notif ,
+	reaxel_BE_message,
+} from '@@reaxels';
