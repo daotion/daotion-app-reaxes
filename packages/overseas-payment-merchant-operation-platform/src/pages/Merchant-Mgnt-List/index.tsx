@@ -5,10 +5,39 @@ export const MerchantMgntList = reaxper(() => {
 	</>;
 });
 
+const data = [
+	{
+		mchID : '12321312' ,
+		mchName : '李政' ,
+		telegram : '1212213' ,
+		seller : '强子' ,
+		payInStatus : 0 ,
+		payOutStatus : 0 ,
+		mchStatus : 1 ,
+	} ,
+	{
+		mchID : '12321312' ,
+		mchName : '吴敏' ,
+		telegram : '1212213' ,
+		seller : '强子' ,
+		payInStatus : 0 ,
+		payOutStatus : 1 ,
+		mchStatus : 0 ,
+	} ,
+	{
+		mchID : '12321312' ,
+		mchName : '王佳琪' ,
+		telegram : '1212213' ,
+		seller : '强子' ,
+		payInStatus : 1 ,
+		payOutStatus : 1 ,
+		mchStatus : 0 ,
+	} ,
+];
+
 const SearchBar = reaxper(() => {
 	
 	const { Input , Button , Form , Col } = antd;
-	
 	return (
 		<div className = { less.searchContainer }>
 			<Form
@@ -31,102 +60,104 @@ const SearchBar = reaxper(() => {
 		</div>
 	);
 });
- 
+
 const TableList = reaxper(() => {
+	const { navigate } = toolkits.useRouter()
 	
-	const {Button, Table, Switch} = antd
+	const { Button , Table , Switch } = antd;
 	
-	interface DataType{
-		MchID: string,
-		MchName: string,
-		Telegram: string,
-		seller: string,
-		payInStatus: number,
-		payOutStatus: number,
-		status: number,
+	interface DataType {
+		mchID : string,
+		mchName : string,
+		telegram : string,
+		seller : string,
+		payInStatus : number,
+		payOutStatus : number,
+		mchStatus : number,
 	}
 	
-	const columns: ColumnsType<DataType> = [
+	const columns : ColumnsType<DataType> = [
 		{
-			title: '商户ID',
-			dataIndex: 'MchID',
-			fixed: 'left',
-		},
+			title : '商户ID' ,
+			dataIndex : 'mchID' ,
+			fixed : 'left' ,
+		} ,
 		{
-			title: '商户名',
-			dataIndex : 'MchName',
-			fixed : 'left',
-			render: () => <Button type="link">李政</Button>,
-		},
+			title : '商户名' ,
+			dataIndex : 'mchName' ,
+			fixed : 'left' ,
+			render : (value, record, index) => (
+				<Button
+					className={less.blueLink}
+					type = "link"
+					onClick={() => {navigate(`mch-detail?id=${record.mchID}`)}}
+				>{ value }</Button>
+			) ,
+		} ,
 		{
-			title : 'Telegram',
-			dataIndex : 'Telegram',
-		},
+			title : 'Telegram' ,
+			dataIndex : 'telegram' ,
+		} ,
 		{
-			title : '商务',
-			dataIndex : 'seller'
-		},
+			title : '商务' ,
+			dataIndex : 'seller' ,
+		} ,
 		{
-			title : '代收',
-			dataIndex : 'payInStatus',
-			render: () => <Switch/>,
-		},
+			title : '代收' ,
+			dataIndex : 'payInStatus' ,
+			render : (payInStatus) => <Switch checked = { payInStatus } /> ,
+		} ,
 		{
-			title : '代收',
-			dataIndex : 'payOutStatus',
-			render: () => <Switch/>,
-		},
+			title : '代收' ,
+			dataIndex : 'payOutStatus' ,
+			render : (payOutStatus) => <Switch checked = { payOutStatus } /> ,
+		} ,
 		{
-			title : '操作',
-			dataIndex : 'action',
-			render: () => <Button type="link">编辑</Button>,
-		},
+			title : '操作' ,
+			dataIndex : 'action' ,
+			render : (value, record, index) => (
+				<Button
+					type = "link"
+					className={less.blueLink}
+					onClick={() => {navigate(`mch-edit?id=${record.mchID}`)}}
+				>
+					编辑
+				</Button> ),
+		} ,
 		{
-			title : '状态',
-			dataIndex : 'status',
-			render: () => <Switch/>,
-		}
-	]
+			title : '状态' ,
+			dataIndex : 'mchStatus' ,
+			render : (status) => <Switch checked = { status } /> ,
+		} ,
+	];
 	
-	const data = [
-		{
-			MchID: '12321312',
-			Telegram: '1212213',
-			seller: '强子',
-		},
-		{
-			MchID: '12321312',
-			Telegram: '1212213',
-			seller: '强子',
-		},
-		{
-			MchID: '12321312',
-			Telegram: '1212213',
-			seller: '强子',
-		},
-	]
+
 	
 	return (
-		<div className={less.tableContainer}>
-			 <div className={less.tableTitleBar}>
-				 <span className={less.tableTitle}>商户列表</span>
-				 <Button 
-					 icon={<SVGAddBtn/>}
-					 type="primary">
-					 新增成员
-				 </Button>
-			 </div>
+		<div className = { less.tableContainer }>
+			<div className = { less.tableTitleBar }>
+				<span className = { less.tableTitle }>商户列表</span>
+				<Button
+					icon = { <SVGAddBtn /> }
+					type = "primary"
+					onClick={() =>{
+						navigate('mch-create')
+					}}
+				>
+					新增成员
+				</Button>
+			</div>
 			<Table
-				rowKey={Math.random}
-				columns={columns}
-				dataSource={data}
-				size="small"
-				pagination={{
-					pageSize: 10,
-				}}
-				scroll={{
-					x: 1000
-				}}
+				rowKey = { Math.random }
+				columns = { columns }
+				dataSource = { data }
+				size = "small"
+				pagination = { {
+					pageSize : 10 ,
+				} }
+				scroll = { {
+					x : 1000 ,
+				} }
 			/>
 		</div>
 	);
