@@ -22,3 +22,5 @@ export * from './Header-Timezone-China.svg-component';
 export * from './Charge-Set-Exchange.svg-component';
 export * from './Charge-Set-Back.svg-component';
 export * from './Header-Message-Box.svg-component';
+export * from './Message-Box-Icon-Withdraw.svg-component';
+export * from './Message-Box-Icon-Deposit.svg-component';
