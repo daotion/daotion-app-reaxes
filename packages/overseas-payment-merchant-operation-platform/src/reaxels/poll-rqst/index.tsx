@@ -34,7 +34,6 @@ export const reaxel_poll_rqst = function(){
 				const withCycle = usCycle(cycle);
 				timer.subscribe(withCycle(cb));
 			},
-			
 		};
 	};
 }();
