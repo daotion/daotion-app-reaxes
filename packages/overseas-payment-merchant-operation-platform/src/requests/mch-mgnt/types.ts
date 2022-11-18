@@ -1,3 +1,4 @@
+/*商户列表*/
 export namespace mch_mgnt_list {
 	
 	export type payload = {
@@ -24,4 +25,35 @@ export namespace mch_mgnt_list {
 		"payInStatus": number,
 		"payOutStatus": number
 	};
+}
+/*商户详情*/
+export namespace mch_info {
+	
+	export type payload = {
+		mchNo : string,
+	};
+	
+	export type response = {
+		mchNo : string,
+		name:string,
+		contactPerson,
+		contactPhone,
+		createTimestamp,
+		mchKey,
+		address,
+		payInCallback,
+		payOutCallback,
+		whiteList,
+		payIn:{
+			start:number,
+			fix:number,
+			rate:number
+		},
+		payOut:{
+			start:number,
+			fix:number,
+			rate:number
+		},
+	};
+	
 }

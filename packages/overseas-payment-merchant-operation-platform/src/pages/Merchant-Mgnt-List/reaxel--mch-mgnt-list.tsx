@@ -1,15 +1,10 @@
 export const reaxel_mch_mgnt_list = function(){
-	const [ , [ pendingState , setPending ] ] = utils.makePair(orzMobx({ pending : false }) , ({ store , setState }) => {
-		return [
-			store , (pending) => queueMicrotask(() => setState({ pending })) ,
-		] as const;
-	});
+	const { setPending , pendingState } = toolkits.orzPending();
 	const { store , setState } = orzMobx({
 		list : [] as mch_mgnt_list.item[] ,
 		searchText : '',
 		
 	});
-	
 	const fetchMchList = () => {
 		return request_mch_mgnt_list(async () => {
 			return {
@@ -54,7 +49,7 @@ export const reaxel_mch_mgnt_list = function(){
 	};
 }();
 
-
+import { reaxel_ctrl } from '@@pages/Merchant-Mgnt-Create&Edit';
 import { request_mch_mgnt_list } from '@@requests';
 import { reaxel_fact__prevent_dup_request } from '#reaxels';
 import { mch_mgnt_list } from '@@requests/mch-mgnt/types';

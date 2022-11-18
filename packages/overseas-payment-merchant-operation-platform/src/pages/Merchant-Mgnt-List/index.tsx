@@ -94,7 +94,7 @@ const TableList = reaxper(() => {
 				<Button
 					type = "link"
 					className = { less.blueLink }
-					onClick = { () => {navigate(`mch-edit?id=${ record.mchNo }`);} }
+					onClick = { () => {navigate(`edit-cfg?mchNo=${ record.mchNo }`);} }
 				>
 					编辑
 				</Button>
@@ -116,7 +116,7 @@ const TableList = reaxper(() => {
 					icon = { <SVGAddBtn /> }
 					type = "primary"
 					onClick = { () => {
-						navigate('mch-create');
+						navigate('open-account');
 					} }
 				>
 					新增成员
