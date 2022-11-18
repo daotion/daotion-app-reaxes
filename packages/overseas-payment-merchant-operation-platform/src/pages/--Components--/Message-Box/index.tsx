@@ -15,7 +15,7 @@ export const MessageBox = reaxper(() => {
 });
 
 const PopoverContent = reaxper(() => {
-	const { msgTypes , messages } = reaxel_msg_notif();
+	const { checkin , messageTypes , push , messages } = reaxel_msg_notif();
 	
 	if( messages.length === 0 ) {
 		return <div className = { `${ less.emptyBox } ${ less.msgContent }` }>
@@ -25,10 +25,10 @@ const PopoverContent = reaxper(() => {
 	}
 	
 	return <div className = { less.msgContent }>
-		{ Object.keys(msgTypes).map((type : notifMsgItem["type"]) => {
+		{ Object.keys(messageTypes).map((type : notifMsgItem["type"]) => {
 			const items = messages.filter((item) => item.type === type);
 			const count = items.reduce((accu , item) => item.number + accu , 0);
-			const { label , path } = msgTypes[type];
+			const { label , path } = messageTypes[type];
 			return items.length > 0 &&
 				<NewMessage
 					key = { Math.random() }
@@ -43,7 +43,8 @@ const PopoverContent = reaxper(() => {
 const NewMessage = reaxper((props) => {
 	const { Badge } = antd;
 	const { navigate } = toolkits.useRouter();
-	const { checkin , msgTypes } = reaxel_msg_notif();
+	const { checkin , messageTypes , push , messages } = reaxel_msg_notif();
+	
 	const typeCheck = {
 		"mch-withdraw-rqst" : {
 			title : '提现申请' ,
@@ -55,7 +56,7 @@ const NewMessage = reaxper((props) => {
 		} ,
 	};
 	const { type , count } = props;
-	const { label , path } = msgTypes[type];
+	const { label , path } = messageTypes[type];
 	const { title , icon } = typeCheck[type];
 	
 	return (
@@ -93,9 +94,9 @@ const reaxel_message_box = function(){
 	return () => {
 		
 		return {
-			get messages(){
+			get messages (){
 				return reax_msg_notif.messages;
-			} ,
-		};
-	};
+			},
+		}
+	}
 }();

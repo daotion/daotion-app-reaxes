@@ -1,5 +1,5 @@
 export const reaxel_mch_dpst_rqst = function(){
-	const { checkin,msgTypes,push } = reaxel_msg_notif();
+	const { checkin,messageTypes,push } = reaxel_msg_notif();
 	const { regist_BE_message } = reaxel_BE_message();
 	
 	regist_BE_message((msg) => {
@@ -22,7 +22,7 @@ export const reaxel_mch_dpst_rqst = function(){
 		return {
 			checkin(){
 				checkin("mch-deposit-rqst");
-				navigate(msgTypes['mch-deposit-rqst'].path);
+				navigate(messageTypes['mch-deposit-rqst'].path);
 			},
 		};
 	};
