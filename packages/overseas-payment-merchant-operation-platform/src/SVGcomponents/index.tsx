@@ -25,3 +25,5 @@ export * from './Header-Message-Box.svg-component';
 export * from './Message-Box-Icon-Withdraw.svg-component';
 export * from './Message-Box-Icon-Deposit.svg-component';
 export * from './Message-Box-Bell.svg-component';
+export * from './Modal-Btn-Back.svg-component';
+export * from './Modal-Icon-Info.svg-component';
