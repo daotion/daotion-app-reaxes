@@ -57,3 +57,18 @@ export namespace mch_info {
 	};
 	
 }
+
+export namespace mch_saller_list {
+	
+	export type payload = {};
+	
+	export type response = {
+		list : saller[];
+	};
+	
+	export type saller = {
+		id : number,
+		name : string,
+		phone : string;
+	};
+}
