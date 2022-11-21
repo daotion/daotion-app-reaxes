@@ -4,11 +4,20 @@ export const MerchantMgntEdit = reaxper(() => {
 	console.log(params);
 	/*@ts-ignore*/
 	const { submit } = reaxel_mch_COE(params)();
-	const { setFields , state$mchCNE,reset } = reaxel_ctrl();
+	const { setFields , state$mchCNE , reset , closFetchSellerList, sallers} = reaxel_ctrl();
+	
+	
 	
 	useEffect(() => reset , []);
 	
+	if(!sallers){
+		closFetchSellerList(() => [NaN])();
+		/*todo: prefer me! */
+		return <span>loading...</span>;
+	}
+	
 	const { Form , Input , Select , Space , Row , Col , Button , Switch,Spin } = antd;
+	const { Option } = Select;
 	return (
 		<div className = { less.editContainer }>
 			<Form
@@ -23,6 +32,7 @@ export const MerchantMgntEdit = reaxper(() => {
 			>
 				<Form.Item label = "商户名">
 					<Input
+						value = { state$mchCNE.name }
 						onChange = { (e) => {
 							setFields({
 								name : e.target.value ,
@@ -32,8 +42,9 @@ export const MerchantMgntEdit = reaxper(() => {
 					/>
 				</Form.Item>
 				<Form.Item label = "登录密码">
-					<Input size = 
-						"large"
+					<Input
+						size = "large"
+						value = { state$mchCNE.password }
 						onChange = { (e) => {
 							setFields({
 								password : e.target.value ,
@@ -47,20 +58,22 @@ export const MerchantMgntEdit = reaxper(() => {
 							label = "联系人"
 							style = { { marginBottom : '0' } }
 						>
-							<Input 
-								size = "large"
+							<Input
+								value = { state$mchCNE.contactPerson }
 								onChange = { (e) => {
 									setFields({
 										contactPerson : e.target.value ,
 									});
 								} }
+								size = "large"
 							/>
 						</Form.Item>
 						<Form.Item
 							label = "Telegram"
 							style = { { marginBottom : '0' } }
 						>
-							<Input 
+							<Input
+								value = { state$mchCNE.contactPhone }
 								size = "large"
 								onChange = { (e) => {
 									setFields({
@@ -73,13 +86,20 @@ export const MerchantMgntEdit = reaxper(() => {
 				</Form.Item>
 				<Form.Item label = "商务">
 					<Select
-						size = "large"
-						onChange = { (e) => {
+						value = { state$mchCNE.sellerID }
+						onChange = { (value, option) => {
 							setFields({
-								sellerID : e.target.value ,
+								sellerID : value ,
 							});
 						} }
-					></Select>
+						size = "large"
+					>
+						{sallers.map(({name,id,phone}) =>{
+							return <Option
+								key = {id}
+							>{name}</Option>;
+						})}
+					</Select>
 				</Form.Item>
 				<Form.Item label = "代收手续费设置">
 					<div className = { less.changeSet }>
@@ -90,8 +110,7 @@ export const MerchantMgntEdit = reaxper(() => {
 							<SVGChargeSetExchange />
 						</Button>
 					</div>
-					{/*<ChargeBaseSet/>*/ }
-					<ChargeSeniorSet />
+					<MchCharge_payIn/>
 				</Form.Item>
 				<Form.Item label = "代付款手续费设置">
 					<div className = { less.changeSet }>
@@ -211,6 +230,46 @@ export const ChargeSeniorSet = reaxper(() => {
 			</div>
 		</div>
 	);
+});
+
+const MchCharge_payIn = reaxper(() => {
+	const { state$mchCNE : { payIn } , setFields } = reaxel_ctrl();
+	
+	const { Input } = antd;
+	if(payIn.mode === "basic"){
+		return <div style = { { display : 'flex' , justifyContent : 'space-between' , gap : '16px' } }>
+			<Input placeholder = { '固定手续费R$' } />
+			<Input
+				placeholder = { '手续费率' }
+				suffix = "%"
+			/>
+		</div>;
+	}else if(payIn.mode === "advanced") {
+		return <div className = { less.chargeSeniorSet }>
+			<div className = { less.setSide }>
+				<Input placeholder = { '固定手续费R$' } />
+				<Input
+					placeholder = { '手续费率' }
+					suffix = "%"
+				/>
+			</div>
+			<div>
+				<Input
+					className = { less.feeInput }
+					placeholder = { '金额R$' }
+					prefix = "<"
+					suffix = "≤"
+				/>
+			</div>
+			<div className = { less.setSide }>
+				<Input placeholder = { '固定手续费R$' } />
+				<Input
+					placeholder = { '手续费率' }
+					suffix = "%"
+				/>
+			</div>
+		</div>;
+	}
 });
 
 

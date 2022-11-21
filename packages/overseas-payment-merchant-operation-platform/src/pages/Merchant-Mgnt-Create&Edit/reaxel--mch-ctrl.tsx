@@ -1,35 +1,64 @@
 export const reaxel_ctrl = function(){
 	let ret;
 	const initialState = {
-		name : '' ,
-		password : '' ,
-		contactPerson : '' ,
-		contactPhone : '' ,
-		sellerID : '' ,
+		name : '',
+		password : '',
+		contactPerson : '',
+		contactPhone : '',
+		sellerID : null ,
 		payIn : {
-			start : '' ,
-			fix : '' ,
-			rate : '' ,
-		} ,
+			mode : "basic",
+			amount : null,
+			left : {
+				fix : null,
+				rate : null,
+			},
+			right : {
+				fix : null,
+				rate : null,
+			},
+		},
 		payOut : {
-			start : '' ,
-			fix : '' ,
-			rate : '' ,
-		} ,
-		whiteList : [] ,
+			mode : "basic",
+			amount : null,
+			left : {
+				fix : null,
+				rate : null,
+			},
+			right : {
+				fix : null,
+				rate : null,
+			},
+		},
+		whiteList : [""],
 		status : 1 ,
-		payInStatus : 1 ,
-		payOutStatus : 1 ,
+		payInStatus : 1,
+		payOutStatus : 1,
 	};
 	const { store , setState } = orzMobx(initialState);
+	const {store:state$sallers,setState:setState$sallers} = orzMobx({sallers : null as mch_saller_list.response['list']});
+	
+	const [closFetchSellerList] = Reaxes.closuredMemo(() => {
+		return request_mch_saller_list().then(({ list }) => {
+			setState$sallers({ sallers : list });
+		});
+	} , () => []);
 	
 	return () => {
 		return ret = {
 			setFields : setState ,
 			state$mchCNE : store ,
+			get sallers(){
+				return state$sallers.sallers;
+			},
+			closFetchSellerList,
 			reset(){
 				setState(initialState);
 			},
 		};
 	};
 }();
+
+
+import { request_mch_saller_list } from '@@requests';
+import { mch_saller_list } from '@@requests/mch-mgnt/types';

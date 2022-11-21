@@ -1,7 +1,11 @@
 export const reaxel_edit_mch_cfg = function(){
 	
 	let ret;
-	const {} = orzMobx();
+	const initialState = {
+		
+	};
+	const { state$mchCNE , setFields , reset } = reaxel_ctrl();
+	const { store , setState } = orzMobx(initialState);
 	
 	const fetchMchCfg = () => {
 		return 
@@ -15,9 +19,14 @@ export const reaxel_edit_mch_cfg = function(){
 	
 	return () => {
 		return ret = {
+			state:store,
+			setState,
+			reaxel_ctrl,
 			submit(){
 				
 			},
 		};
 	};
 }();
+
+import { reaxel_ctrl } from './reaxel--mch-ctrl';
