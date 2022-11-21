@@ -2,12 +2,13 @@ export const reaxel_ctrl = function(){
 	let ret;
 	const initialState = {
 		name : '',
+		oldPwd : '',
 		password : '',
 		contactPerson : '',
 		contactPhone : '',
 		sellerID : null ,
 		payIn : {
-			mode : "basic",
+			mode : "basic" as "basic"|"advanced",
 			amount : null,
 			left : {
 				fix : null,
@@ -19,7 +20,7 @@ export const reaxel_ctrl = function(){
 			},
 		},
 		payOut : {
-			mode : "basic",
+			mode : "basic" as "basic"|"advanced",
 			amount : null,
 			left : {
 				fix : null,

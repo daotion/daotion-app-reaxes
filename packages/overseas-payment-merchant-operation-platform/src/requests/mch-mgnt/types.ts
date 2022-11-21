@@ -48,12 +48,12 @@ export namespace mch_info {
 			start:number,
 			fix:number,
 			rate:number
-		},
+		}[],
 		payOut:{
 			start:number,
 			fix:number,
 			rate:number
-		},
+		}[],
 	};
 	
 }
@@ -72,3 +72,52 @@ export namespace mch_saller_list {
 		phone : string;
 	};
 }
+
+export namespace edit_mch_cfg {
+	
+	export type payload = {
+		"mchNo": string,
+		"name": string,
+		"contactPerson": string,
+		"contactPhone": string,
+		"sellerID": number,
+		"payIn": commission[],
+		"payOut": commission[],
+		"whiteList": string[],
+		"status": number,
+		"payInStatus": number,
+		"payOutStatus": number,
+	};
+	
+	export type response = {
+		
+	};
+	
+}
+export namespace create_mch {
+	
+	export type payload = {
+		"name": string,
+		"password": string,
+		"contactPerson": string,
+		"contactPhone": string,
+		"sellerID": number,
+		"payIn": commission[],
+		"payOut": commission[],
+		"whiteList": string[],
+		"status": number,
+		"payInStatus": number,
+		"payOutStatus": number,
+	};
+	
+	export type response = {
+		
+	};
+	
+}
+
+export type commission = {
+	"start": number,
+	"fix": number,
+	"rate": number
+};
