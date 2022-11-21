@@ -84,11 +84,11 @@ export const MainContentRouting = reaxper(() => {
 					element = { toolkits.withOutlet(<MerchantMgntDetail />) }
 				/>
 				<Route
-					path = "mch-edit"
+					path = "edit-cfg"
 					element = { toolkits.withOutlet(<MerchantMgntEdit />) }
 				/>
 				<Route
-					path = "mch-create"
+					path = "open-account"
 					element = { toolkits.withOutlet(<MerchantMgntEdit />) }
 				/>
 			</Route>
@@ -123,7 +123,7 @@ import { OverviewDeposit } from '@@pages/Deposit-Apply';
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { MerchantMgntList } from '@@pages/Merchant-Mgnt-List';
 import { MerchantMgntDetail } from '@@pages/Merchant-Mgnt-Detail';
-import { MerchantMgntEdit } from '@@pages/Merchant-Mgnt-Edit';
+import { MerchantMgntEdit } from '@@pages/Merchant-Mgnt-Create&Edit';
 import { Mch_Desposit_Rqst } from '@@pages/Merchant-Deposit-Rqst';
 import { Mch_Withdraw_Rqst } from '@@pages/Merchant-Withdraw-Rqst';
 import { PaymentOrder } from '@@pages/Payment-Order';
