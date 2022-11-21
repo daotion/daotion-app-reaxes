@@ -101,24 +101,36 @@ export const MerchantMgntEdit = reaxper(() => {
 						})}
 					</Select>
 				</Form.Item>
-				<Form.Item label = "代收手续费设置">
-					<div className = { less.changeSet }>
-						<span>基本设置</span>
-						<Button
-							
-						>
-							<SVGChargeSetExchange />
-						</Button>
-					</div>
+				<Form.Item
+					labelCol={{span: 8, offset: 8}}
+					label = {
+						<div className={less.changeSet}>
+							<span>代收手续费设置</span>
+							<div>
+								<span>基本设置</span>
+								<Button>
+									<SVGChargeSetExchange />
+								</Button>
+							</div>
+						</div>
+					}
+				>
 					<MchCharge_payIn/>
 				</Form.Item>
-				<Form.Item label = "代付款手续费设置">
-					<div className = { less.changeSet }>
-						<span>基本设置</span>
-						<Button>
-							<SVGChargeSetExchange />
-						</Button>
-					</div>
+				<Form.Item
+					labelCol={{span: 8, offset: 8}}
+					label = {
+						<div className={less.changeSet}>
+							<span>代付手续费设置</span>
+							<div>
+								<span>基本设置</span>
+								<Button>
+									<SVGChargeSetExchange />
+								</Button>
+							</div>
+						</div>
+					}
+				>
 					{/*<ChargeBaseSet/>*/ }
 					<ChargeSeniorSet />
 				</Form.Item>
