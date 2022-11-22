@@ -36,14 +36,18 @@ export namespace mch_info {
 	export type response = {
 		mchNo : string,
 		name:string,
-		contactPerson,
-		contactPhone,
-		createTimestamp,
-		mchKey,
-		address,
-		payInCallback,
-		payOutCallback,
-		whiteList,
+		contactPerson :string,
+		contactPhone : string,
+		sellerID : number,
+		createTimestamp : number,
+		mchKey : string,
+		address : string,
+		payInCallback:string,
+		payOutCallback:string,
+		status: number,
+		payInStatus: number,
+		payOutStatus: number,
+		whiteList : string[],
 		payIn:{
 			start:number,
 			fix:number,
@@ -75,7 +79,7 @@ export namespace mch_saller_list {
 
 export namespace edit_mch_cfg {
 	
-	export type payload = {
+	export type payload = Partial<{
 		"mchNo": string,
 		"name": string,
 		"contactPerson": string,
@@ -87,7 +91,7 @@ export namespace edit_mch_cfg {
 		"status": number,
 		"payInStatus": number,
 		"payOutStatus": number,
-	};
+	}>;
 	
 	export type response = {
 		

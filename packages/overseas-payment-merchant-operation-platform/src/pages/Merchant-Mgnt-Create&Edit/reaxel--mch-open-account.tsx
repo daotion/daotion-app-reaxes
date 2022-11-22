@@ -21,9 +21,13 @@ export const reaxel_mch_open_account = function(){
 					];
 				}
 			};
+			const whiteList = (
+				state$mchCNE.whiteList.length === 1 && !state$mchCNE.whiteList[0]
+			) ? [] : state$mchCNE.whiteList;
 			return {
 				mchNo ,
-				..._.omit(state$mchCNE , "payIn" , "payOut" , "oldPwd") ,
+				..._.omit(state$mchCNE , "payIn" , "payOut" ) ,
+				whiteList,
 				password : state$mchCNE.password && crypto.MD5(state$mchCNE.password).toString() ,
 				payIn : gankCommission('payIn') ,
 				payOut : gankCommission('payOut') ,

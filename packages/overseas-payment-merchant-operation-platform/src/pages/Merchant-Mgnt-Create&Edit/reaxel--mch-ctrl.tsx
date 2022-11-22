@@ -2,7 +2,6 @@ export const reaxel_ctrl = function(){
 	let ret;
 	const initialState = {
 		name : '',
-		oldPwd : '',
 		password : '',
 		contactPerson : '',
 		contactPhone : '',
@@ -55,6 +54,12 @@ export const reaxel_ctrl = function(){
 			closFetchSellerList,
 			reset(){
 				setState(initialState);
+			},
+			async validate(){
+				/*校验密码合法性,如果是空值则代表不修改密码*/
+				if(store.password !== '' && !/[0-9a-zA-Z_.`!@#$%^&*(){}/+|\\?\-]{6,18}/.test(store.password)){
+					throw new Error('密码不合法:需要6-18位的数字、字母、英文半角符号。不能包含特殊字符');
+				}
 			},
 		};
 	};

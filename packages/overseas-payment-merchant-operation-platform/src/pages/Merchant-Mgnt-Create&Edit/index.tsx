@@ -1,5 +1,8 @@
 /**
  * todo 拆分成小组件
+ * 
+ * <reaxel--mch-ctrl>负责将表单的输入和被其他reaxel读取状态。
+ * <reaxel--edit-mch-cfg>和<reaxel--mch-open-account>应拥有完全相融的API,在视图层调用时会判断目前是编辑还是新建，从而避免调用到不正确或未实现的API
  */
 export const MerchantMgntEdit = reaxper(() => {
 	const { params , navigate } = toolkits.useRouter();
@@ -7,18 +10,19 @@ export const MerchantMgntEdit = reaxper(() => {
 	console.log(params);
 	
 	/*@ts-ignore*/
-	const { closFetchMchCfg,fetchSubmit } = reaxel_mch_COE(params)();
+	const { closFetchMchCfg , fetchSubmit , cleanMchCfg } = reaxel_mch_COE(params)();
 	const { setFields , state$mchCNE , reset , closFetchSellerList, sallers,} = reaxel_ctrl();
 	
-	useEffect(() => reset , []);
+	useEffect(() => {
+		return () => {
+			reset();
+			cleanMchCfg?.();
+		}
+	} , []);
 	
 	if(urlMchNo){
 		closFetchMchCfg(() => [urlMchNo])(urlMchNo);
 	}
-	
-	
-	
-	
 	
 	
 	const { Form , Input , Select , Space , Col , Button , Switch } = antd;
@@ -28,6 +32,11 @@ export const MerchantMgntEdit = reaxper(() => {
 		/*todo: prefer me! */
 		return <span>loading...</span>;
 	}
+	
+	if(urlMchNo && !state$mchCNE.name){
+		return <span>loading...</span>;
+	}
+	
 	return (
 		<div className = { less.editContainer }>
 			<Form
@@ -54,10 +63,11 @@ export const MerchantMgntEdit = reaxper(() => {
 				<Form.Item label = "登录密码">
 					<Input
 						size = "large"
+						placeholder="如果不需要修改登录密码则不填写"
 						value = { state$mchCNE.password }
 						onChange = { (e) => {
 							setFields({
-								password : e.target.value ,
+								password : e.target.value.replaceAll(' ' , '') ,
 							});
 						} }
 					/>
@@ -107,6 +117,7 @@ export const MerchantMgntEdit = reaxper(() => {
 						{ sallers.map(({ name , id , phone }) => {
 							return <Option
 								key = { id }
+								value = {id}
 							>{ name }</Option>;
 						}) }
 					</Select>
@@ -354,7 +365,7 @@ const MchCharge = reaxper(({pattern}:{pattern:"payIn"|"payOut"}) => {
 	> { ret } </Form.Item>;
 });
 
-
+/*create or edit*/
 const reaxel_mch_COE = function(){
 	return (param) => {
 		param = param['*'].split('/').pop();

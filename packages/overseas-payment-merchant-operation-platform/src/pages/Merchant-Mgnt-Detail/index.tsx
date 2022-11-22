@@ -1,6 +1,25 @@
 export const MerchantMgntDetail = reaxper(() => {
 	
-	const { Divider } = antd;
+	const { mchNo } = utils.decodeQueryString();
+	const { closFetchMchDetail , cleanMchDetailDeps , pending , state , reset } = reaxel_mch_mgnt_detail();
+	
+	closFetchMchDetail(() => [mchNo])(mchNo);
+	
+	useEffect(() => {
+		return () => {
+			cleanMchDetailDeps();
+			reset();
+		}
+	} , []);
+	
+	
+	const { Divider , Result } = antd;
+	if(!mchNo){
+		return <Result status = { 404 } />;
+	}
+	if(pending){
+		return <span>loading...</span>;
+	}
 	
 	return (
 		<div className = { less.mchDetailContainer }>
@@ -75,5 +94,6 @@ export const MerchantMgntDetail = reaxper(() => {
 	);
 });
 
+import { reaxel_mch_mgnt_detail } from './reaxel--mch-mgnt-detail';
 import { SVGCopyBtn } from '@@SVGcomponents';
 import less from './index.module.less';

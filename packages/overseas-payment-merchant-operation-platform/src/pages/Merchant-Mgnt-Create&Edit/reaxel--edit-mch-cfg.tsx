@@ -18,7 +18,7 @@ export const reaxel_edit_mch_cfg = function(){
 		});
 	};
 	
-	const [closFetchMchCfg] = Reaxes.closuredMemo((mchNo:string) => {
+	const [closFetchMchCfg , cleanMchCfg] = Reaxes.closuredMemo((mchNo:string) => {
 		return fetchMchCfg(mchNo).then((res) => {
 			const gankCommission = (type:"payIn"|"payOut") => {
 				return {
@@ -56,9 +56,12 @@ export const reaxel_edit_mch_cfg = function(){
 				name : res.name ,
 				contactPerson : res.contactPerson ,
 				contactPhone : res.contactPhone ,
-				// sellerID : res.
+				sellerID : res.sellerID,
 				payIn : gankCommission('payIn'),
 				payOut : gankCommission('payOut'),
+				status : res.status,
+				payInStatus : res.payInStatus,
+				payOutStatus:res.payOutStatus,
 				whiteList : res.whiteList,
 			});
 		});
@@ -82,10 +85,12 @@ export const reaxel_edit_mch_cfg = function(){
 					];
 				}
 			};
+			
 			return {
 				mchNo ,
-				..._.omit(state$mchCNE , "payIn" , "payOut" , "oldPwd") ,
-				password : state$mchCNE.password && crypto.MD5(state$mchCNE.password).toString() || state$mchCNE.oldPwd ,
+				..._.omit(state$mchCNE , "payIn" , "payOut" ) ,
+				whiteList : state$mchCNE.whiteList.filter((item) => !!item) ,
+				password : state$mchCNE.password && crypto.MD5(state$mchCNE.password).toString() || null,
 				payIn : gankCommission('payIn') ,
 				payOut : gankCommission('payOut') ,
 			};
@@ -107,6 +112,7 @@ export const reaxel_edit_mch_cfg = function(){
 			setState,
 			reaxel_ctrl,
 			closFetchMchCfg,
+			cleanMchCfg,
 			fetchSubmit,
 		};
 	};
