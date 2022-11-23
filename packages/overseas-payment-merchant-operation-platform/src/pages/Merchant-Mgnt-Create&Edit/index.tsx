@@ -1,23 +1,42 @@
-
+/**
+ * todo 拆分成小组件
+ * 
+ * <reaxel--mch-ctrl>负责将表单的输入和被其他reaxel读取状态。
+ * <reaxel--edit-mch-cfg>和<reaxel--mch-open-account>应拥有完全相融的API,在视图层调用时会判断目前是编辑还是新建，从而避免调用到不正确或未实现的API
+ */
 export const MerchantMgntEdit = reaxper(() => {
-	const { params } = toolkits.useRouter();
+	const { params , navigate } = toolkits.useRouter();
+	const urlMchNo = utils.decodeQueryString().mchNo;
 	console.log(params);
+	
 	/*@ts-ignore*/
-	const { submit } = reaxel_mch_COE(params)();
-	const { setFields , state$mchCNE , reset , closFetchSellerList, sallers} = reaxel_ctrl();
+	const { closFetchMchCfg , fetchSubmit , cleanMchCfg } = reaxel_mch_COE(params)();
+	const { setFields , state$mchCNE , reset , closFetchSellerList, sallers,} = reaxel_ctrl();
+	
+	useEffect(() => {
+		return () => {
+			reset();
+			cleanMchCfg?.();
+		}
+	} , []);
+	
+	if(urlMchNo){
+		closFetchMchCfg(() => [urlMchNo])(urlMchNo);
+	}
 	
 	
-	
-	useEffect(() => reset , []);
-	
+	const { Form , Input , Select , Space , Col , Button , Switch } = antd;
+	const { Option } = Select;
 	if(!sallers){
 		closFetchSellerList(() => [NaN])();
 		/*todo: prefer me! */
 		return <span>loading...</span>;
 	}
 	
-	const { Form , Input , Select , Space , Row , Col , Button , Switch,Spin } = antd;
-	const { Option } = Select;
+	if(urlMchNo && !state$mchCNE.name){
+		return <span>loading...</span>;
+	}
+	
 	return (
 		<div className = { less.editContainer }>
 			<Form
@@ -44,10 +63,11 @@ export const MerchantMgntEdit = reaxper(() => {
 				<Form.Item label = "登录密码">
 					<Input
 						size = "large"
+						placeholder="如果不需要修改登录密码则不填写"
 						value = { state$mchCNE.password }
 						onChange = { (e) => {
 							setFields({
-								password : e.target.value ,
+								password : e.target.value.replaceAll(' ' , '') ,
 							});
 						} }
 					/>
@@ -87,79 +107,62 @@ export const MerchantMgntEdit = reaxper(() => {
 				<Form.Item label = "商务">
 					<Select
 						value = { state$mchCNE.sellerID }
-						onChange = { (value, option) => {
+						onChange = { (value , option) => {
 							setFields({
 								sellerID : value ,
 							});
 						} }
 						size = "large"
 					>
-						{sallers.map(({name,id,phone}) =>{
+						{ sallers.map(({ name , id , phone }) => {
 							return <Option
-								key = {id}
-							>{name}</Option>;
-						})}
+								key = { id }
+								value = {id}
+							>{ name }</Option>;
+						}) }
 					</Select>
 				</Form.Item>
-				<Form.Item
-					labelCol={{span: 8, offset: 8}}
-					label = {
-						<div className={less.changeSet}>
-							<span>代收手续费设置</span>
-							<div>
-								<span>基本设置</span>
-								<Button>
-									<SVGChargeSetExchange />
-								</Button>
-							</div>
-						</div>
-					}
-				>
-					<MchCharge_payIn/>
+				<MchCharge pattern = "payIn" />
+				<MchCharge pattern = "payOut" />
+				<Form.Item label = "配置IP白名单">
+					{ state$mchCNE.whiteList.map((ip , index) => {
+						
+						return <div
+							key = { index }
+							style = { { display : 'flex' } }
+						>
+							<Input
+								value = { ip }
+								onChange = { (e) => {
+									orzAction(() => state$mchCNE.whiteList[index] = e.target.value);
+								} }
+							/>
+							<Button
+								onClick = { () => {
+									if( state$mchCNE.whiteList.length === 1 ) {
+										return;
+									}
+									setFields({
+										whiteList : state$mchCNE.whiteList.filter(($ , i) => {
+											return i !== index;
+										}) ,
+									});
+								} }
+								style = { { display : 'inline' , marginLeft : '8px' } }
+							>
+								<MinusOutlined />
+							</Button>
+						</div>;
+					}) }
 				</Form.Item>
-				<Form.Item
-					labelCol={{span: 8, offset: 8}}
-					label = {
-						<div className={less.changeSet}>
-							<span>代付手续费设置</span>
-							<div>
-								<span>基本设置</span>
-								<Button>
-									<SVGChargeSetExchange />
-								</Button>
-							</div>
-						</div>
-					}
-				>
-					{/*<ChargeBaseSet/>*/ }
-					<ChargeSeniorSet />
-				</Form.Item>
-				<Form.List
-					name = { 'whiteList' }
-					initialValue = { [ '1' , '2' , '3' ] }
-				>
-					{ (fields , { add , remove }) => (
-						<>
-							{ fields.map((field , index) => (
-								<Form.Item
-									label = { index === 0 ? '配置IP白名单' : '' }
-									key = { Math.random() }
-								>
-									<div style = { { display : 'flex' } }>
-										<Input />
-										<Button style = { { display : 'inline' , marginLeft : '8px' } }>
-											<MinusOutlined />
-										</Button>
-									</div>
-								</Form.Item>
-							)) }
-						</>
-					) }
-				</Form.List>
 				<Form.Item>
 					<Button
 						type = "dashed"
-						onClick = { () => {} }
+						onClick = { () => {
+							setFields({
+								whiteList : state$mchCNE.whiteList.concat([ '' ]) ,
+							});
+						} }
 						block
 						icon = { <PlusOutlined /> }
 					>
@@ -169,25 +172,46 @@ export const MerchantMgntEdit = reaxper(() => {
 				<Form.Item>
 					<div className = { less.mchSwitch }>
 						<span>商户状态</span>
-						<Switch />
+						<Switch
+							checked = { !!state$mchCNE.status }
+							onChange = { () => {
+								setFields({ status : state$mchCNE.status^1/*0和1互相取反*/ });
+							} }
+						/>
 					</div>
 				</Form.Item>
 				<Form.Item>
 					<div className = { less.mchSwitch }>
 						<span>商户代收状态</span>
-						<Switch />
+						<Switch
+							checked = { !!state$mchCNE.payInStatus }
+							onChange = { () => {
+								setFields({ payInStatus : state$mchCNE.payInStatus^1/*0和1互相取反*/ });
+							} }
+						/>
 					</div>
 				</Form.Item>
 				<Form.Item>
 					<div className = { less.mchSwitch }>
 						<span>商户代付状态</span>
-						<Switch />
+						<Switch
+							checked = { !!state$mchCNE.payOutStatus }
+							onChange = { () => {
+								setFields({ payOutStatus : state$mchCNE.payOutStatus^1/*0和1互相取反*/ });
+							} }
+						/>
 					</div>
 				</Form.Item>
 				<Form.Item>
 					<Button
-						onClick = { () => {
-							submit();
+						onClick = { (e) => {
+							e.preventDefault();
+							fetchSubmit(urlMchNo).then(() => {
+								antd.message.success('保存成功!');
+								navigate('../');
+							}).catch((e) => {
+								antd.message.error(`保存失败!,${ e.message || e.toString() }`);
+							});
 						} }
 						type = "primary"
 						size = "large"
@@ -244,29 +268,59 @@ export const ChargeSeniorSet = reaxper(() => {
 	);
 });
 
-const MchCharge_payIn = reaxper(() => {
-	const { state$mchCNE : { payIn } , setFields } = reaxel_ctrl();
+const MchCharge = reaxper(({pattern}:{pattern:"payIn"|"payOut"}) => {
+	const { state$mchCNE , setFields } = reaxel_ctrl();
 	
-	const { Input } = antd;
-	if(payIn.mode === "basic"){
-		return <div style = { { display : 'flex' , justifyContent : 'space-between' , gap : '16px' } }>
-			<Input placeholder = { '固定手续费R$' } />
+	/*根据pattern决定是代收还是代付*/
+	const commission = reaxel_ctrl().state$mchCNE[pattern];
+	
+	let ret;
+	const { Input , Form , Button } = antd;
+	
+
+	if(commission.mode === "basic"){
+		ret = <div style = { { display : 'flex' , justifyContent : 'space-between' , gap : '16px' } }>
 			<Input
+				value = { commission.left.fix }
+				onChange = { (e) => {
+					orzAction(() => commission.left.fix = e.target.value);
+				} }
+				placeholder = { '固定手续费R$' }
+			/>
+			<Input
+				value = { commission.left.rate }
+				onChange = { (e) => {
+					orzAction(() => commission.left.rate = e.target.value);
+				} }
 				placeholder = { '手续费率' }
 				suffix = "%"
 			/>
 		</div>;
-	}else if(payIn.mode === "advanced") {
-		return <div className = { less.chargeSeniorSet }>
+	}else if(commission.mode === "advanced") {
+		ret = <div className = { less.chargeSeniorSet }>
 			<div className = { less.setSide }>
-				<Input placeholder = { '固定手续费R$' } />
 				<Input
+					value = { commission.left.fix }
+					onChange = { (e) => {
+						orzAction(() => commission.left.fix = e.target.value);
+					} }
+					placeholder = { '固定手续费R$' }
+				/>
+				<Input
+					value = { commission.left.rate }
+					onChange = { (e) => {
+						orzAction(() => commission.left.rate = e.target.value);
+					} }
 					placeholder = { '手续费率' }
 					suffix = "%"
 				/>
 			</div>
 			<div>
 				<Input
+					value = { commission.amount }
+					onChange = { (e) => {
+						orzAction(() => commission.amount = e.target.value);
+					} }
 					className = { less.feeInput }
 					placeholder = { '金额R$' }
 					prefix = "<"
@@ -274,30 +328,63 @@ const MchCharge_payIn = reaxper(() => {
 				/>
 			</div>
 			<div className = { less.setSide }>
-				<Input placeholder = { '固定手续费R$' } />
 				<Input
+					value = { commission.right.fix }
+					onChange = { (e) => {
+						orzAction(() => commission.right.fix = e.target.value);
+					} }
+					placeholder = { '固定手续费R$' }
+				/>
+				<Input
+					value = { commission.right.rate }
+					onChange = { (e) => {
+						orzAction(() => commission.right.rate = e.target.value);
+					} }
 					placeholder = { '手续费率' }
 					suffix = "%"
 				/>
 			</div>
 		</div>;
 	}
+	
+	return <Form.Item
+		labelCol = { { span : 8 , offset : 8 } }
+		label = {
+			<div className = { less.changeSet }>
+				<span>代收手续费设置</span>
+				<div>
+					<span>{ commission.mode === "basic" ? "基本" : "高级" }设置</span>
+					<Button
+						onClick = { () => {
+							orzAction(() => commission.mode = { basic : "advanced" as const , advanced : "basic" as const }[commission.mode]);
+						} }
+					> <SVGChargeSetExchange /> </Button>
+				</div>
+			</div>
+		}
+	> { ret } </Form.Item>;
 });
 
-
+/*create or edit*/
 const reaxel_mch_COE = function(){
 	return (param) => {
 		param = param['*'].split('/').pop();
 		if(param === "open-account"){
-			return reaxel_mch_open_account
+			return reaxel_mch_open_account;
 		}else if(param === "edit-cfg"){
-			return reaxel_edit_mch_cfg
+			return reaxel_edit_mch_cfg;
 		}
 	}
 }();
+
+const orzAction = (cb:Function) => {
+	return action(cb)();
+};
+
 import { reaxel_ctrl } from './reaxel--mch-ctrl';
 import { reaxel_edit_mch_cfg } from './reaxel--edit-mch-cfg';
 import { reaxel_mch_open_account } from './reaxel--mch-open-account';
+import {action} from 'mobx';
 import {
 	PlusOutlined ,
 	MinusOutlined,

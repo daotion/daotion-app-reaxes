@@ -27,29 +27,49 @@ export const reaxel_mch_mgnt_list = function(){
 		});
 	} , () => []);
 	
+	/*商户列表切换代收/代付/状态 */
+	const switchStatus = (
+		type : "payInStatus" | "payOutStatus" | "status" ,
+		status : number,
+		mchNo : string,
+	) => {
+		return request_edit_mch_cfg(async () => (
+			{
+				mchNo,
+				[type] : status ,
+			}
+		)).then(() => {
+			cleanDps$MchMgntList();
+			closFetchMchList(() => [ NaN ])();
+		});
+	};
+	
 	return () => {
 		
 		return {
 			get pending(){
 				return pendingState.pending;
 			},
-			get mch_list (){
+			get mch_list(){
 				return store.list;
 			},
 			state$mchMgnt:store,
 			setFields : setState,
 			setPending,
+			switchStatus,
 			closFetchMchList(){
 				return closFetchMchList(() => [store.searchText])();
 			},
-			cleanDps(){
+			cleanDeps(){
 				cleanDps$MchMgntList();
 			}
 		};
 	};
 }();
 
-import { reaxel_ctrl } from '@@pages/Merchant-Mgnt-Create&Edit';
-import { request_mch_mgnt_list } from '@@requests';
+import {
+	request_mch_mgnt_list ,
+	request_edit_mch_cfg,
+} from '@@requests';
 import { reaxel_fact__prevent_dup_request } from '#reaxels';
 import { mch_mgnt_list } from '@@requests/mch-mgnt/types';

@@ -1,8 +1,8 @@
 export const MerchantMgntList = reaxper(() => {
 	
-	const { closFetchMchList , cleanDps , setPending } = reaxel_mch_mgnt_list();
+	const { closFetchMchList , cleanDeps , setPending } = reaxel_mch_mgnt_list();
 	closFetchMchList();
-	useEffect(() => cleanDps , []);
+	useEffect(() => cleanDeps , []);
 	
 	return <>
 		<SearchBar />
@@ -47,7 +47,7 @@ const SearchBar = reaxper(() => {
 
 const TableList = reaxper(() => {
 	const { navigate } = toolkits.useRouter();
-	const { mch_list } = reaxel_mch_mgnt_list();
+	const { mch_list , switchStatus } = reaxel_mch_mgnt_list();
 	const { Button , Table , Switch } = antd;
 	
 	
@@ -65,7 +65,7 @@ const TableList = reaxper(() => {
 				<Button
 					className = { less.blueLink }
 					type = "link"
-					onClick = { () => {navigate(`mch-detail?id=${ record.mchNo }`);} }
+					onClick = { () => {navigate(`mch-detail?mchNo=${ record.mchNo }`);} }
 				>{ value }</Button>
 			) ,
 		} ,
@@ -80,12 +80,44 @@ const TableList = reaxper(() => {
 		{
 			title : '代收' ,
 			dataIndex : 'payInStatus' ,
-			render : (payInStatus) => <Switch checked = { payInStatus === 1 ? true : false } /> ,
+			render : (payInStatus , record) => <Switch
+				onChange = { (status) => {
+					antd.Modal.confirm({
+						title : "请确认" ,
+						content : `确定${ { 0 : "停用" , 1 : "启用" }[payInStatus ^ 1] }商户 ${ record.mchNo } 的 代收 功能吗?` ,
+						onOk(){
+							return switchStatus('payInStatus' , payInStatus ^ 1 , record.mchNo).then(() => {
+								antd.message.success('操作成功!');
+							}).catch((reason) => {
+								antd.message.error(reason.message || reason.toString());
+							});
+						} ,
+					});
+					
+				} }
+				checked = { payInStatus === 1 ? true : false }
+			/> ,
 		} ,
 		{
 			title : '代付' ,
 			dataIndex : 'payOutStatus' ,
-			render : (payOutStatus) => <Switch checked = { payOutStatus === 1 ? true : false } /> ,
+			render : (payOutStatus,record) => <Switch 
+				checked = { payOutStatus === 1 }
+				onChange = { (status) => {
+					antd.Modal.confirm({
+						title : "请确认" ,
+						content : `确定${ { 0 : "停用" , 1 : "启用" }[payOutStatus ^ 1] }商户 ${ record.mchNo } 的 代付 功能吗?` ,
+						onOk(){
+							return switchStatus('payOutStatus' , payOutStatus ^ 1 , record.mchNo).then(() => {
+								antd.message.success('操作成功!');
+							}).catch((reason) => {
+								antd.message.error(reason.message || reason.toString());
+							});
+						} ,
+					});
+					
+				} }
+			/> ,
 		} ,
 		{
 			title : '操作' ,
@@ -103,7 +135,23 @@ const TableList = reaxper(() => {
 		{
 			title : '状态' ,
 			dataIndex : 'status' ,
-			render : (status) => <Switch checked = { status === 1 ? true : false } /> ,
+			render : (status:number,record) => <Switch 
+				checked = { status === 1 }
+				onChange = { () => {
+					antd.Modal.confirm({
+						title : "请确认" ,
+						content : `确定${ { '0' : "停用" , '1' : "启用" }[status ^ 1] }商户 ${ record.mchNo } 吗?` ,
+						onOk(){
+							return switchStatus('status' , status ^ 1 , record.mchNo).then(() => {
+								antd.message.success('操作成功!');
+							}).catch((reason) => {
+								antd.message.error(reason.message || reason.toString());
+							});
+						} ,
+					});
+					
+				} }
+			/> ,
 		} ,
 	];
 	
