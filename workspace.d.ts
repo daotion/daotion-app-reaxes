@@ -65,5 +65,28 @@ declare interface NodeModule {
 	};
 }
 
+// declare module 'dayjs' {
+// 	import type Ndayjs from 'node_modules/dayjs';
+// 	import type { Dayjs } from 'node_modules/dayjs';
+// 	type dayjs = typeof import('node_modules/dayjs');
+//	
+// 	interface Dayjs {
+// 		tz (tz:string) : any;
+// 	}
+//	
+// 	function def (date?: Ndayjs.ConfigType):Dayjs;
+// 	function def (date?: Ndayjs.ConfigType, format?: Ndayjs.OptionType, strict?: boolean):Dayjs;
+// 	function def (date?: Ndayjs.ConfigType, format?: Ndayjs.OptionType, locale?: string, strict?: boolean):Dayjs;
+//	
+// 	export default def;
+// }
+
+///<reference path="node_modules/dayjs/index.d.ts" />
+///<reference path="node_modules/dayjs/plugin/timezone.d.ts" />
+///<reference path="node_modules/dayjs/plugin/utc.d.ts" />
+
+
+
+
 /*todo 后续放入requester插件*/
 declare type PayloadBody<T> = () => Promise<T>; 
