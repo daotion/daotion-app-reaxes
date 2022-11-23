@@ -184,6 +184,7 @@ export const MerchantMgntEdit = reaxper(() => {
 					<div className = { less.mchSwitch }>
 						<span>商户代收状态</span>
 						<Switch
+							disabled={state$mchCNE.status === 0}
 							checked = { !!state$mchCNE.payInStatus }
 							onChange = { () => {
 								setFields({ payInStatus : state$mchCNE.payInStatus^1/*0和1互相取反*/ });
@@ -195,6 +196,7 @@ export const MerchantMgntEdit = reaxper(() => {
 					<div className = { less.mchSwitch }>
 						<span>商户代付状态</span>
 						<Switch
+							disabled={state$mchCNE.status === 0}
 							checked = { !!state$mchCNE.payOutStatus }
 							onChange = { () => {
 								setFields({ payOutStatus : state$mchCNE.payOutStatus^1/*0和1互相取反*/ });

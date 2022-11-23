@@ -1,5 +1,7 @@
 export const MessageBox = reaxper(() => {
 	
+	const { messages } = reaxel_msg_notif();
+	
 	const { Button , Popover } = antd;
 	return <Popover
 		title = { <div className = { less.title }>通知</div> }
@@ -9,7 +11,9 @@ export const MessageBox = reaxper(() => {
 		content = { <PopoverContent /> }
 	>
 		<div className = { less.msgBox }>
-			<SVGMessageBox />
+			<SVGMessageBox 
+				notifying = {messages.length > 0}
+			/>
 		</div>
 	</Popover>;
 });
@@ -42,7 +46,7 @@ const PopoverContent = reaxper(() => {
 
 const NewMessage = reaxper((props) => {
 	const { Badge } = antd;
-	const { navigate } = toolkits.useRouter();
+	const { navigate , params } = toolkits.useRouter();
 	const { checkin , messageTypes , push , messages } = reaxel_msg_notif();
 	
 	const typeCheck = {
@@ -63,7 +67,9 @@ const NewMessage = reaxper((props) => {
 		<div
 			className = { less.messageContainer }
 			onClick = { () => {
-				navigate(path);
+				if(path){
+					navigate(path);
+				}
 				checkin(type);
 			} }
 		>

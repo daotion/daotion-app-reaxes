@@ -2,7 +2,6 @@ export const reaxel_mch_dpst_rqst = function(){
 	const { store , setState } = orzMobx({
 		pending : false ,
 		dataList : null ,
-		depositMsgList : [] ,
 		depositModalVisible : false ,
 		depositVerifyModalVisible: false,
 		verifyInfo : null as any,
@@ -10,16 +9,14 @@ export const reaxel_mch_dpst_rqst = function(){
 		verifyPending : false
 	});
 	
+	const reax_msg_notif = reaxel_msg_notif();
 	const { checkin,messageTypes,push } = reaxel_msg_notif();
-	const { regist_BE_message } = reaxel_BE_message();
+	const { regist_BE_message, } = reaxel_BE_message();
 	
 	regist_BE_message((msg) => {
 		if(msg.type === "mch-deposit-rqst") {
-			crayon.green(`更新了商户充值列表`);
+			crayon.green(`商户充值列表有新的申请!`);
 			push([msg]);
-			setState({
-				depositMsgList: [...store.depositMsgList, msg]
-			})
 		}
 	});
 	
@@ -33,11 +30,12 @@ export const reaxel_mch_dpst_rqst = function(){
 	
 	
 	/*请求充值列表*/
-	const [ fetchDepositRqst ] = Reaxes.closuredMemo(() => {
-		rqstDeposit()
-	}, () => [])
+	const [ closFetchDepositRqst,cleanDepositRqstDeps ] = Reaxes.closuredMemo(() => {
+		return rqstDeposit();
+	} , () => []);
+	
 	const rqstDeposit = async () => {
-		setPending('pending', true)
+		setPending('pending' , true);
 		return request_mch_deposit_rqst_list(async () => {
 			return {
 				indexStart : 0,
@@ -50,13 +48,12 @@ export const reaxel_mch_dpst_rqst = function(){
 				updateTimestampBegin : null,
 				updateTimestampEnd : null,
 			}
-			
 		}).then((res) => {
+			checkin("mch-deposit-rqst");
 			setState({
-				dataList: res.orderList
-			})
-			setPending('pending', false)
-			
+				dataList : res.orderList ,
+			});
+			setPending('pending' , false);
 		})
 	}
 	
@@ -96,13 +93,15 @@ export const reaxel_mch_dpst_rqst = function(){
 		return {
 			checkin(){
 				checkin("mch-deposit-rqst");
-				rqstDeposit();
-				setState({
-					depositMsgList :[] ,
-				});
 			},
 			fetchDepositRqst (badge) {
-				return fetchDepositRqst(() => [badge])();
+				return closFetchDepositRqst(() => [badge])();
+			},
+			verifyDepositRqst(agree) {
+				return verifyDepositRqst(agree)
+			},
+			cleanDeps(){
+				cleanDepositRqstDeps();
 			},
 			get store(){
 				return store;
@@ -111,10 +110,7 @@ export const reaxel_mch_dpst_rqst = function(){
 				return setState;
 			},
 			get depositMsgList () {
-				return store.depositMsgList
-			},
-			verifyDepositRqst(agree) {
-				return verifyDepositRqst(agree)
+				return reax_msg_notif.messages.filter((item) => item.type === "mch-deposit-rqst");
 			}
 		};
 	};
