@@ -64,6 +64,7 @@ export const reaxel_mch_dpst_rqst = function(){
 		setState({
 			depositModalVisible: false,
 			depositVerifyModalVisible : false,
+			verifyR: null
 		})
 	}
 	

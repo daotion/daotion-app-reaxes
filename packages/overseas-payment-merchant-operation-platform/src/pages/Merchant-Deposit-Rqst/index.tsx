@@ -168,7 +168,7 @@ export const DespositModal = reaxper(() => {
 						})
 					}}
 				>继续</Button>
-				<Button type = "default" onClick={() => {setState({depositModalVisible: false})}}>取消</Button>
+				<Button type = "default" onClick={() => {setState({depositModalVisible: false, verifyR: null })}}>取消</Button>
 			</div>
 		</Modal>
 	);

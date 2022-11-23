@@ -95,17 +95,11 @@ export const reaxel_mch_withdraw_rqst = function(){
 			fetchWithdrawRqst (badge) {
 				return fetchWithdrawRqst(() => [badge])();
 			},
-			get dataList(){
-				return store.dataList;
-			},
 			get store(){
 				return store;
 			},
 			get setState(){
 				return setState;
-			},
-			get pending() {
-				return store.pending
 			},
 			get withdrawMsgList () {
 				return store.withdrawMsgList
