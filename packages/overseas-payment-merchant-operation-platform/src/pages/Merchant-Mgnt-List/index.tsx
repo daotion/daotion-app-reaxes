@@ -81,6 +81,7 @@ const TableList = reaxper(() => {
 			title : '代收' ,
 			dataIndex : 'payInStatus' ,
 			render : (payInStatus , record) => <Switch
+				disabled={record.status === 0}
 				onChange = { (status) => {
 					antd.Modal.confirm({
 						title : "请确认" ,
@@ -101,7 +102,8 @@ const TableList = reaxper(() => {
 		{
 			title : '代付' ,
 			dataIndex : 'payOutStatus' ,
-			render : (payOutStatus,record) => <Switch 
+			render : (payOutStatus,record) => <Switch
+				disabled={record.status === 0}
 				checked = { payOutStatus === 1 }
 				onChange = { (status) => {
 					antd.Modal.confirm({
