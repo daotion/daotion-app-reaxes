@@ -10,16 +10,14 @@ export const reaxel_mch_withdraw_rqst = function(){
 		
 	});
 	
-	const { checkin,messageTypes,push } = reaxel_msg_notif();
+	const reax_msg_notif = reaxel_msg_notif();
+	const { checkin,messageTypes,push } = reax_msg_notif;
 	const { regist_BE_message } = reaxel_BE_message();
 	
 	regist_BE_message((msg) => {
 		if(msg.type === "mch-withdraw-rqst") {
-			crayon.green(`更新了商户提现列表`);
+			crayon.green(`商户提现列表有新的申请!`);
 			push([msg]);
-			setState({
-				withdrawMsgList: [...store.withdrawMsgList, msg]
-			})
 		}
 	});
 	
@@ -32,11 +30,12 @@ export const reaxel_mch_withdraw_rqst = function(){
 	}
 	
 	/*请求提现列表*/
-	const [ fetchWithdrawRqst ] = Reaxes.closuredMemo(() => {
-		rqstWithdraw()
-	}, () => [])
-	const rqstWithdraw = async () => {
-		setPending('pending', true)
+	const [ fetchWithdrawRqst , cleanWithdrawRqstDeps ] = Reaxes.closuredMemo(() => {
+		return fetchWithdrawalRqstList();
+	} , () => []);
+	
+	const fetchWithdrawalRqstList = async () => {
+		setPending('pending' , true);
 		return request_mch_withdraw_rqst_list(async () => {
 			return {
 				indexStart : 0,
@@ -49,11 +48,11 @@ export const reaxel_mch_withdraw_rqst = function(){
 				updateTimestampBegin : null,
 				updateTimestampEnd : null,
 			}
-
 		}).then((res) => {
 			setState({
-				dataList: res.orderList
-			})
+				dataList : res.orderList ,
+			});
+			checkin("mch-withdraw-rqst");
 			setPending('pending',false)
 		})
 	}
@@ -74,23 +73,17 @@ export const reaxel_mch_withdraw_rqst = function(){
 				withdrawModalVisible : false,
 				verifyUSDT: null
 			})
-			rqstWithdraw()
-		}).catch(() => {
+			fetchWithdrawalRqstList();
+		}).catch((e) => {
 			setPending('verifyPending' , false);
-			throw  {
-				msg : '操作失败' + e
-			};
+			throw e;
 		})
 	};
 	
 	return () => {
 		return {
 			checkin(){
-				checkin("mch-deposit-rqst");
-				rqstWithdraw();
-				setState({
-					withdrawMsgList : [],
-				})
+				checkin("mch-withdraw-rqst");
 			},
 			fetchWithdrawRqst (badge) {
 				return fetchWithdrawRqst(() => [badge])();
@@ -102,7 +95,10 @@ export const reaxel_mch_withdraw_rqst = function(){
 				return setState;
 			},
 			get withdrawMsgList () {
-				return store.withdrawMsgList
+				return reax_msg_notif.messages.filter((item) => item.type === "mch-withdraw-rqst");
+			},
+			cleanDeps(){
+				cleanWithdrawRqstDeps();
 			},
 			verifyWithdrawRqst (agree) {
 				return verifyWithdrawRqst(agree)

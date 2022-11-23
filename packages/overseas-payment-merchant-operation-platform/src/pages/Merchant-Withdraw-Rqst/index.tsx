@@ -2,7 +2,7 @@ import { ColumnsType } from "antd/es/table";
 
 export const Mch_Withdraw_Rqst = reaxper(() => {
 	const reax_mch_withdraw_rqst = reaxel_mch_withdraw_rqst();
-	const {fetchWithdrawRqst, checkin, store, setState, verifyWithdrawRqst } = reax_mch_withdraw_rqst
+	const {fetchWithdrawRqst, checkin, store, setState, verifyWithdrawRqst ,cleanDeps,} = reax_mch_withdraw_rqst
 	const {dataList, pending } = store;
 	const { current : badge } = useRef(Math.random());
 	fetchWithdrawRqst(badge);
@@ -83,13 +83,17 @@ export const Mch_Withdraw_Rqst = reaxper(() => {
 				申请列表
 			</div>
 			{reax_mch_withdraw_rqst.withdrawMsgList.length > 0 && <Alert
-				message = "您有新的订单申请，点击刷新，查看最新内容。"
+				message = {<span>您有新的订单申请!<Button
+					type="link"
+					onClick={() => {
+						cleanDeps();
+						fetchWithdrawRqst(badge)?.then(() => {
+							checkin();
+						});
+					}}
+				>刷新</Button></span>}
 				type = "info"
 				showIcon
-				closable
-				onClick={() => {
-					checkin()
-				}}
 			/> }
 			<Table
 				columns = { columns }
