@@ -53,10 +53,6 @@ export const MainContentRouting = reaxper(() => {
 					path = "withdraw"
 					element = { toolkits.withOutlet(<OverviewWithdraw />) }
 				/>
-				<Route
-					path = "deposit"
-					element = { toolkits.withOutlet(<OverviewDeposit />) }
-				/>
 			</Route>
 			<Route
 				path = "collection-order"
@@ -119,7 +115,6 @@ import { Login } from '@@pages/Auth';
 import { Overview} from '@@pages/Overview';
 import { FinancialDetails } from '@@pages/Fin-Detail';
 import { OverviewWithdraw } from '@@pages/Withdraw-Apply';
-import { OverviewDeposit } from '@@pages/Deposit-Apply';
 import { CollectionOrder } from '@@pages/Collection-Order';
 import { MerchantMgntList } from '@@pages/Merchant-Mgnt-List';
 import { MerchantMgntDetail } from '@@pages/Merchant-Mgnt-Detail';

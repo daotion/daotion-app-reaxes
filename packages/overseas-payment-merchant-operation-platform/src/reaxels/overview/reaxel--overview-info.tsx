@@ -8,7 +8,8 @@ export const reaxel_overview_info = function(){
 		overviewInfoPending : false,
 		overviewInfo : null as any ,
 		finDetailPending : false,
-		fin_detail_list : [] as Overview__fin_detail.response['listInfo'] ,
+		fin_detail_list : null as any ,
+		
 	})
 	
 	const setOverviewInfoPending = (pending) => {
@@ -40,9 +41,11 @@ export const reaxel_overview_info = function(){
 		}).then((data) => {
 			preventDup(() => {
 				setState({
-					fin_detail_list : data?.listInfo || [],
+					fin_detail_list : data.listInfo,
 				})
 				setFinDetailPending(false);
+				currentPath = path;
+				
 			});
 			return data;
 		}).catch((e) => {
@@ -85,102 +88,29 @@ export const reaxel_overview_info = function(){
 	};
 	const withdrawApply = async () => {
 		const { withdrawApplyMoney = '', pending} = withdrawStore;
-		const {overviewInfo: {address} } = store
+		const { overviewInfo : { address } } = store;
 		if (pending) return;
-		if (withdrawApplyMoney === '') {
-			throw {
-				msg : '提现金额不能为空',
-			}
-		} else if (address === '') {
-			throw {
-				msg: '请先设置地址'
-			}
-		} else {
-			setWithdrawPending(true);
-			return request_withdraw_apply(async () => {
-				return {
-					money : + withdrawApplyMoney ,
-					address ,
-				};
-			}).then((res) => {
-				setWithdrawPending(false);
-				if (res.result === 0) {
-					withdrawSetState({
-						withdrawApplyMoney : '',
-					})
-					ret.fetchOverviewInfo();
-				} else {
-					throw {
-						msg: '申请失败'
-					}
-				}
-			}).catch(() => {
-				throw {
-					msg: '申请失败'
-				}
+		setWithdrawPending(true);
+		return request_withdraw_apply(async () => {
+			return {
+				money : + withdrawApplyMoney ,
+				address ,
+			};
+		}).then((res) => {
+			setWithdrawPending(false);
+			withdrawSetState({
+				withdrawApplyMoney : '',
 			})
-		}
-		
-	}
-	
-	/**
-	 * 充值相关信息及方法
-	 */
-	const { store: depositStore, setState: depositSetState } = orzMobx({
-		depositMoney : '',
-		paymentAddress : '',
-		pending : false,
-	})
-	const setDepositPending = (pending) => {
-		queueMicrotask(() => {
-			depositSetState({
-				pending,
-			})
+			ret.fetchOverviewInfo();
+		}).catch(() => {
+			throw {
+				msg: '操作失败'
+			}
 		})
-	}
-	const depositApply = async () => {
-		const { depositMoney, paymentAddress, pending } = depositStore
-		if (pending) return;
-		if (depositMoney === ''){
-			throw {
-				msg: '充值金额不能为空'
-			}
-		} else if (paymentAddress === '') {
-			throw {
-				msg: '地址不能为空'
-			}
-		} else {
-			setDepositPending(true);
-			return request_deposit_apply(async () => {
-				return {
-					usdt : +depositMoney,
-					sourceAddress: paymentAddress
-				}
-			}).then((res) => {
-				setDepositPending(false);
-				if (res.result === 0) {
-					depositSetState({
-						depositMoney : '',
-						paymentAddress : '',
-					})
-					ret.fetchOverviewInfo();
-				} else {
-					throw {
-						msg : '充值失败',
-					}
-				}
-			}).catch(() => {
-				setDepositPending(false);
-				throw {
-					msg : '充值失败' ,
-				};
-			})
-			
-		}
 	}
 	
 	let currentPath;
-	return (path) => {
+	return (path?) => {
 		return ret = {
 
 			get overviewInfo(){
@@ -194,7 +124,7 @@ export const reaxel_overview_info = function(){
 			},
 			get fin_detail_list(){
 				Reaxes.collectDeps(store);
-				if(path && path !== currentPath) return [];
+				if(path && (path !== currentPath)) return [];
 				if (store.finDetailPending) return [];
 				return store.fin_detail_list;
 			} ,
@@ -215,16 +145,6 @@ export const reaxel_overview_info = function(){
 				return  withdrawApply();
 			},
 			
-			//充值方法
-			get depositStore(){
-				return depositStore
-			},
-			get depositSetState(){
-				return depositSetState;
-			},
-			deposit(){
-				return depositApply()
-			},
 			
 		};
 	}
@@ -235,12 +155,7 @@ import {
 	request_account_fin_detail ,
 	request_service_fin_detail ,
 	request_withdraw_apply ,
-	request_deposit_apply ,
-	Overview__fin_detail ,
-	request_collection_order ,
-	request_payment_order ,
-	request_withdrawal_order ,
-	request_deposit_order ,
+
 } from '@@requests';
 import { reaxel_fact__prevent_dup_request } from '#reaxels';
 

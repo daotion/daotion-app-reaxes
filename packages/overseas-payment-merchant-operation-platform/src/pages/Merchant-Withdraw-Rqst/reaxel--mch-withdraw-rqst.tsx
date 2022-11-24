@@ -42,7 +42,7 @@ export const reaxel_mch_withdraw_rqst = function(){
 				count : 999999,
 				firstTimestamp : 0,
 				orderID : '',
-				// orderState: 0,
+				orderState: 1,
 				createTimestampBegin : null,
 				createTimestampEnd : null,
 				updateTimestampBegin : null,
