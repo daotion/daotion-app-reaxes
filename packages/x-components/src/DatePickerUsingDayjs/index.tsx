@@ -10,9 +10,10 @@ extend(Timezone);
 extend(Utc);
 
 import type { GenerateConfig } from 'rc-picker/es/generate';
-declare const dayjsGenerateConfig: GenerateConfig<Dayjs>;
+import dayjsGenerateConfig from 'rc-picker/es/generate/dayjs';
+declare type dayjsGenerateConfig = GenerateConfig<Dayjs>;
 
 
 
-export const DatePicker = generatePicker<Dayjs>(dayjsGenerateConfig);
+export const DatePicker = generatePicker<Dayjs>(dayjsGenerateConfig as dayjsGenerateConfig);
 

@@ -63,7 +63,7 @@ export const MerchantMgntEdit = reaxper(() => {
 				<Form.Item label = "登录密码">
 					<Input
 						size = "large"
-						placeholder="如果不需要修改登录密码则不填写"
+						placeholder= { urlMchNo ? "如果不需要修改登录密码则不填写" : "填写商户登录密码" }
 						value = { state$mchCNE.password }
 						onChange = { (e) => {
 							setFields({

@@ -36,7 +36,6 @@
 			"#reaxels" : [ "../reaxels" ] ,
 			"#reaxels/*" : [ "../reaxels/*" ] ,
 			"#reaxes" : [ "../reaxes" ] ,
-			"#toolkits/*" : [ "../toolkits/*" ] ,
 			"#utils" : [ "../utils" ] ,
 			"#statics" : [ "../../statics" ] ,
 		} ,

@@ -6,6 +6,9 @@ const {
 const __ENV_CONFIG__ = (await import(`./proxy.configuration.json`,{assert: { type: 'json' }})).default;
 
 export const webpackConfig = {
+	devServer : {
+		port : await getPort(8010),
+	},
 	resolve: {
 		alias: {
 			'@@root': path.resolve(repoRoot),
@@ -57,5 +60,6 @@ export const webpackConfig = {
 
 import path from 'path';
 import webpack from 'webpack';
+import { getPort } from '../../build/toolkits.mjs';
 import {method, repo, repoRoot , mock , env , node_env , experimental, } from '../../build/entrance.mjs';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
