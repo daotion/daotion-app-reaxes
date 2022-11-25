@@ -41,13 +41,14 @@ export const MerchantMgntEdit = reaxper(() => {
 		<div className = { less.editContainer }>
 			<Form
 				layout = "vertical"
-				labelCol = { {
-					offset : 8 ,
-				} }
-				wrapperCol = { {
-					span : 8 ,
-					offset : 8 ,
-				} }
+				// labelCol = { {
+				// 	offset : 8 ,
+				// } }
+				// wrapperCol = { {
+				// 	span : 8 ,
+				// 	offset : 8 ,
+				// } }
+				style={{ gridColumn: 2, minWidth: 300}}
 			>
 				<Form.Item label = "商户名">
 					<Input
@@ -354,7 +355,7 @@ const MchCharge = reaxper(({pattern}:{pattern:"payIn"|"payOut"}) => {
 	}
 	
 	return <Form.Item
-		labelCol = { { span : 8 , offset : 8 } }
+		// labelCol = { { span : 8 , offset : 8 } }
 		label = {
 			<div className = { less.changeSet }>
 				<span>代收手续费设置</span>
