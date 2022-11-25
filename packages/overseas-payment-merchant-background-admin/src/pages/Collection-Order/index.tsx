@@ -68,8 +68,8 @@ export const OrderInfoSearch = reaxper(() => {
 							onChange = { ([ start , end ]) => {
 								setFields({
 									range_picker_order_created_date : [
-										dayjs(start).tz('America/Sao_Paulo') ,
-										dayjs(end).tz('America/Sao_Paulo') ,
+										utils.dayjs(start).tz('America/Sao_Paulo') ,
+										utils.dayjs(end).tz('America/Sao_Paulo') ,
 									] ,
 								});
 							} }
@@ -288,7 +288,6 @@ import {
 import { reaxel_collection_order } from './reaxel--collection-order';
 import { DatePicker } from '@@Xcomponents';
 import { time_localize_Brazil } from '#toolkits/overseas-payment';
-import dayjs from 'dayjs';
 import {ConfigProvider} from 'antd';
 import { ColumnsType } from "antd/es/table";
 import {

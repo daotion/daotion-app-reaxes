@@ -1945,6 +1945,14 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/react@17.0.2":
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.2.tgz#3de24c4efef902dd9795a49c75f760cbe4f7a5a8"
+  integrity sha512-Xt40xQsrkdvjn1EyWe1Bc0dJLcil/9x2vAuW7ya+PuQip4UYUaXyhzWmAbwRsdMgwOFHpfp7/FFZebDU6Y8VHA==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^3.0.2"
+
 "@types/react@17.0.47":
   version "17.0.47"
   resolved "https://registry.npmjs.org/@types/react/-/react-17.0.47.tgz"
@@ -2278,9 +2286,9 @@ antd-mobile-v5-count@^1.0.1:
   resolved "https://registry.npmjs.org/antd-mobile-v5-count/-/antd-mobile-v5-count-1.0.1.tgz"
   integrity sha512-YGsiEDCPUDz3SzfXi6gLZn/HpeSMW+jgPc4qiYUr1fSopg3hkUie2TnooJdExgfiETHefH3Ggs58He0OVfegLA==
 
-antd-mobile@^5.24.2:
+antd-mobile@5.25.1:
   version "5.25.1"
-  resolved "https://registry.npmjs.org/antd-mobile/-/antd-mobile-5.25.1.tgz"
+  resolved "https://registry.yarnpkg.com/antd-mobile/-/antd-mobile-5.25.1.tgz#b87ee94d5a919f9940a246d382cfa4d0a7dace2a"
   integrity sha512-uQnF56R5eM5w4TF4UAnTrkdxaswSb9SjB5M/hz7cdOevQKJ1hbIqKqrUfyvq8S9tnw2VqXMVbyBMB6R6jtCVAg==
   dependencies:
     "@floating-ui/dom" "^1.0.0"
