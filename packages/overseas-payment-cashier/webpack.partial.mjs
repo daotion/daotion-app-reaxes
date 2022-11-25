@@ -5,8 +5,10 @@ const {
 
 const __ENV_CONFIG__ = (await import(`./proxy.configuration.json`,{assert: { type: 'json' }})).default;
 
-export const webpackConfig = {
-	port : await getPort(8030),
+export const webpackConfig = {   
+	devServer : {
+		port : await getPort(8030),
+	},
 	resolve: {
 		alias: {
 			'@@root': path.resolve(repoRoot),
