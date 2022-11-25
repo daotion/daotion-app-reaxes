@@ -51,6 +51,7 @@ export const MerchantMgntEdit = reaxper(() => {
 			>
 				<Form.Item label = "商户名">
 					<Input
+						placeholder={'最大40个字符'}
 						value = { state$mchCNE.name }
 						onChange = { (e) => {
 							setFields({
@@ -73,10 +74,10 @@ export const MerchantMgntEdit = reaxper(() => {
 					/>
 				</Form.Item>
 				<Form.Item>
-					<div style = { { display : 'flex' , justifyContent : 'space-between' } }>
+					<div style = { { display : 'flex', gap: 30 } }>
 						<Form.Item
 							label = "联系人"
-							style = { { marginBottom : '0' } }
+							style = { { marginBottom : '0', width: '100%'} }
 						>
 							<Input
 								value = { state$mchCNE.contactPerson }
@@ -90,7 +91,7 @@ export const MerchantMgntEdit = reaxper(() => {
 						</Form.Item>
 						<Form.Item
 							label = "Telegram"
-							style = { { marginBottom : '0' } }
+							style = { { marginBottom : '0', width: '100%'} }
 						>
 							<Input
 								value = { state$mchCNE.contactPhone }
@@ -106,6 +107,7 @@ export const MerchantMgntEdit = reaxper(() => {
 				</Form.Item>
 				<Form.Item label = "商务">
 					<Select
+						placeholder={'选择商务人员'}
 						value = { state$mchCNE.sellerID }
 						onChange = { (value , option) => {
 							setFields({
@@ -124,14 +126,16 @@ export const MerchantMgntEdit = reaxper(() => {
 				</Form.Item>
 				<MchCharge pattern = "payIn" />
 				<MchCharge pattern = "payOut" />
-				<Form.Item label = "配置IP白名单">
+				<Form.Item label = {<div className={less.whitleTitle}>配置IP白名单<SVGMchInfoIcon/></div>}>
 					{ state$mchCNE.whiteList.map((ip , index) => {
 						
 						return <div
+							className={less.ipAddress}
 							key = { index }
-							style = { { display : 'flex' } }
+							style = { { display : 'flex'} }
 						>
 							<Input
+								placeholder={'输入IP地址'}
 								value = { ip }
 								onChange = { (e) => {
 									orzAction(() => state$mchCNE.whiteList[index] = e.target.value);
@@ -157,7 +161,6 @@ export const MerchantMgntEdit = reaxper(() => {
 				</Form.Item>
 				<Form.Item>
 					<Button
-						type = "dashed"
 						onClick = { () => {
 							setFields({
 								whiteList : state$mchCNE.whiteList.concat([ '' ]) ,
@@ -165,6 +168,7 @@ export const MerchantMgntEdit = reaxper(() => {
 						} }
 						block
 						icon = { <PlusOutlined /> }
+						style={{width: 143}}
 					>
 						添加IP地址
 					</Button>
@@ -260,7 +264,7 @@ export const ChargeSeniorSet = reaxper(() => {
 				/>
 			</div>
 			<div className = { less.setSide }>
-				<Input placeholder = { '固定手续费R$' } />
+				<Input placeholder = { '固定手续费R$' }/>
 				<Input
 					placeholder = { '手续费率' }
 					suffix = "%"
@@ -354,7 +358,7 @@ const MchCharge = reaxper(({pattern}:{pattern:"payIn"|"payOut"}) => {
 		label = {
 			<div className = { less.changeSet }>
 				<span>代收手续费设置</span>
-				<div>
+				<div className={less.left}>
 					<span>{ commission.mode === "basic" ? "基本" : "高级" }设置</span>
 					<Button
 						onClick = { () => {
@@ -394,5 +398,6 @@ import {
 import {
 	SVGChargeSetExchange ,
 	SVGChargeSetBack,
+	SVGMchInfoIcon,
 } from '@@SVGcomponents';
 import less from './index.module.less';
