@@ -14,10 +14,11 @@ export const reaxel_mch_withdraw_rqst = function(){
 	const { checkin,messageTypes,push } = reax_msg_notif;
 	const { regist_BE_message } = reaxel_BE_message();
 	
-	regist_BE_message((msg) => {
-		if(msg.type === "mch-withdraw-rqst") {
+	regist_BE_message((messageList) => {
+		const messages = messageList.filter((msg) => msg.type === "mch-withdraw-rqst");
+		if(messages.length){
 			crayon.green(`商户提现列表有新的申请!`);
-			push([msg]);
+			push(messages);
 		}
 	});
 	

@@ -26,13 +26,9 @@ export const reaxel_BE_message = function(){
 			1 : 'mch-withdraw-rqst',
 			2 : 'mch-deposit-rqst',
 		};
-		return orzPromise((resolve , reject) => {
-			setTimeout(() => {
-				resolve({
-					type : map[_.random(1,2)],
-					number : _.random(1,20),
-				})
-			} , _.random(20,500));
+		return request_BE_message(async () => null).then((data) => {
+			console.log(data);
+			return data.tips.map((item) => ({...item,type:map[item.type]}));
 		});
 	};
 	/*注册轮询请求后端消息，每次请求时更新msgPromise的指向，并重新挂载onCheckin*/
@@ -49,7 +45,7 @@ export const reaxel_BE_message = function(){
 	
 	return () => {
 		return {
-			regist_BE_message(cb){
+			regist_BE_message(cb:(messageList:{type:'mch-withdraw-rqst'|'mch-deposit-rqst',number:number}[]) => any ){
 				stack.push(cb);
 			},
 		};
@@ -58,3 +54,5 @@ export const reaxel_BE_message = function(){
 import { reaxel_msg_notif } from '@@reaxels/msg-notif';
 import { reaxel_poll_rqst } from '@@reaxels/poll-rqst';
 import { reaxel_user_auth } from '@@reaxels/user/auth';
+import { request_BE_message } from '@@requests';
+import { BE_messages } from '@@requests/--APIs--/BE-messages/types';

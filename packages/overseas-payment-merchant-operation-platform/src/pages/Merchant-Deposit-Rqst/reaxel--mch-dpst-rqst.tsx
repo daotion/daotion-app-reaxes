@@ -13,10 +13,11 @@ export const reaxel_mch_dpst_rqst = function(){
 	const { checkin,messageTypes,push } = reaxel_msg_notif();
 	const { regist_BE_message, } = reaxel_BE_message();
 	
-	regist_BE_message((msg) => {
-		if(msg.type === "mch-deposit-rqst") {
+	regist_BE_message((messageList) => {
+		const messages = messageList.filter((msg) => msg.type === "mch-deposit-rqst");
+		if(messages.length){
 			crayon.green(`商户充值列表有新的申请!`);
-			push([msg]);
+			push(messages);
 		}
 	});
 	

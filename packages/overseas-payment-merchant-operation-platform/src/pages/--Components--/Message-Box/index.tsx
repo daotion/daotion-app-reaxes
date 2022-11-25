@@ -5,14 +5,18 @@ export const MessageBox = reaxper(() => {
 	const { Button , Popover } = antd;
 	return <Popover
 		title = { <div className = { less.title }>通知</div> }
-		placement = "bottomRight"
-		trigger = "click"
+		placement = 'bottomRight'
+		trigger = 'click'
 		arrowPointAtCenter
 		content = { <PopoverContent /> }
+		visible = { store.popoverVisible }
+		onVisibleChange = { (visible) => {
+			setState({ popoverVisible : visible });
+		} }
 	>
 		<div className = { less.msgBox }>
-			<SVGMessageBox 
-				notifying = {messages.length > 0}
+			<SVGMessageBox
+				notifying = { messages.length > 0 }
 			/>
 		</div>
 	</Popover>;
@@ -70,7 +74,7 @@ const NewMessage = reaxper((props) => {
 				if(path){
 					navigate(path);
 				}
-				checkin(type);
+				setState({ popoverVisible : false });
 			} }
 		>
 			{ icon }
@@ -81,6 +85,10 @@ const NewMessage = reaxper((props) => {
 			<Badge count = { count } />
 		</div>
 	);
+});
+
+const { store , setState } = orzMobx({
+	popoverVisible : false ,
 });
 
 import { reaxel_msg_notif } from '@@reaxels';
