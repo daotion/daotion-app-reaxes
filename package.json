@@ -63,7 +63,7 @@
 	},
 	"dependencies": {
 		"@types/webpack": "5.28.0",
-		"reaxes": "0.10.11"
+		"reaxes": "^0.10.13"
 	},
 	"prettier": {
 		"printWidth": 120,
