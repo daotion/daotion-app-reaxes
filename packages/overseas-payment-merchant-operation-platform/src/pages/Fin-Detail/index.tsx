@@ -23,12 +23,17 @@ export const FinancialDetails = reaxper(() => {
 		{
 			title: '订单号',
 			dataIndex: 'orderID',
+			render(value){
+				if(!value){
+					return 'N/A';
+				}
+				return value;
+			},
 		},
 		{
 			title: '交易金额',
 			dataIndex: 'money',
 			render: (money) => {
-				
 				if(money > 0){
 					return(
 						<span style={{color: 'black'}}>
@@ -65,7 +70,7 @@ export const FinancialDetails = reaxper(() => {
 				columns = { columns }
 				dataSource = { reax_overview_info.fin_detail_list }
 				loading={finDetailPending}
-				rowKey = "orderID"
+				rowKey = "id"
 				size = "small"
 				pagination = { {
 					pageSize : 10 ,
