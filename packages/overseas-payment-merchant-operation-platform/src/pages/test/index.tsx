@@ -29,7 +29,7 @@ const reaxel = function(){
 	
 	orzPromise((res , rej) => {
 		setTimeout(() => {
-			rej();
+			res();
 		} , 1400);
 	}).then(() => {
 		setPending(false);

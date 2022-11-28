@@ -6,10 +6,11 @@
 		"node": "node --stack-trace-limit=30 --stack-size=1024",
 		"start-daotion-app-web": "npm run node scripts/start.mjs daotion-app-web",
 		"start-platform": "npm run node scripts/start.mjs overseas-payment-merchant-operation-platform server_dev",
+		"build-platform": "npm run build overseas-payment-merchant-operation-platform server_dev production",
 		"start-admin": "npm run node scripts/start.mjs overseas-payment-merchant-background-admin server_dev",
 		"build-admin": "npm run build overseas-payment-merchant-background-admin server_dev production",
-		"build-platform": "npm run build overseas-payment-merchant-operation-platform server_dev production",
-		"start-cashier": "npm run node scripts/start.mjs overseas-payment-cashier server_dev"
+		"start-cashier": "npm run node scripts/start.mjs overseas-payment-cashier server_dev",
+		"build-cashier": "npm run build overseas-payment-cashier server_dev production"
 	},
 	"private": true,
 	"workspaces": [
