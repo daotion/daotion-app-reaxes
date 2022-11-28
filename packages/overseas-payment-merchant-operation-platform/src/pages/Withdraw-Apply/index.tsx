@@ -12,8 +12,7 @@ export const OverviewWithdraw = reaxper(() => {
 			</div>
 		)
 	}
-	const { mchTotalBalance } = overviewInfo;
-	console.log('mozi', mchTotalBalance);
+	const { agentBalance } = overviewInfo;
 	const { withdrawApplyMoney} = withdrawStore;
 	return (
 		<div className={less.withdrawContainer}>
@@ -32,12 +31,12 @@ export const OverviewWithdraw = reaxper(() => {
 						}}
 					/>
 					<span className={less.maxWithdrawAmount}>
-						最大可到账金额：R${mchTotalBalance}
+						最大可到账金额：R${agentBalance < 0 ? 0 : agentBalance}
 						<span
 							className = { less.withdrawBtn }
 							onClick={() => {
 								withdrawSetState({
-									withdrawApplyMoney: mchTotalBalance
+									withdrawApplyMoney: agentBalance
 								})
 							}}
 						>

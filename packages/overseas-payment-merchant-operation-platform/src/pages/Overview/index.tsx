@@ -34,7 +34,7 @@ export const OverviewInfo = reaxper(() => {
 				</span>
 				<div>
 					<p className={less.overviewSubTitle}>账户余额（R$)</p>
-					<span className = { less.balanceAmount }>{ agentBalance }</span>
+					<span className = { less.balanceAmount }>{ mchTotalBalance }</span>
 					<Button
 						type="link"
 						onClick={() => {
@@ -59,7 +59,7 @@ export const OverviewInfo = reaxper(() => {
 				</span>
 				<div>
 					<p className={less.overviewSubTitle}>账户余额（R$)</p>
-					<span className = { less.balanceAmount }>{ mchTotalBalance }</span>
+					<span className = { less.balanceAmount }>{ agentBalance }</span>
 					<Button
 						type="link"
 						onClick={() => {
