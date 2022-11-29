@@ -30,6 +30,7 @@ export const webpack_base_config = {
 			'#reaxels': path.resolve(packagesRoot, 'reaxels'),
 			'#requester': path.resolve(packagesRoot, 'requester'),
 			'#reaxes': path.resolve(packagesRoot, 'reaxes'),
+			'#Xcomponents': path.resolve(packagesRoot, 'x-components'),
 		},
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 	},

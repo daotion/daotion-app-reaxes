@@ -1,10 +1,9 @@
-import { useRouter } from "@@toolkits";
-
 export const FinancialDetails = reaxper(() => {
-	const { params } = useRouter();
+	const { params } = toolkits.useRouter();
 	const pathArr = params['*'].split('/');
 	const path = pathArr.pop();
-	const {fetchFinDetail, fin_detail_list, finDetailPending } = reaxel_overview_info(path);
+	const reax_overview_info = reaxel_overview_info(path);
+	const {fetchFinDetail, finDetailPending} = reax_overview_info;
 	fetchFinDetail(path);
 	const { Table , Button } = antd;
 	const columns = [
@@ -24,6 +23,12 @@ export const FinancialDetails = reaxper(() => {
 		{
 			title: '订单号',
 			dataIndex: 'orderID',
+			render(value){
+				if(!value){
+					return 'N/A';
+				}
+				return value;
+			},
 		},
 		{
 			title: '交易金额',
@@ -31,13 +36,13 @@ export const FinancialDetails = reaxper(() => {
 			render: (money) => {
 				if(money > 0){
 					return(
-						<span style={{color: '#009D44'}}>
+						<span style={{color: 'black'}}>
 							{money}
 						</span>
 					)
 				}else {
 					return(
-						<span style={{color: 'black'}}>
+						<span style={{color: '#F21361'}}>
 							{money}
 						</span>
 					)
@@ -63,9 +68,9 @@ export const FinancialDetails = reaxper(() => {
 			</div>
 			<Table
 				columns = { columns }
-				dataSource = { fin_detail_list }
+				dataSource = { reax_overview_info.fin_detail_list }
 				loading={finDetailPending}
-				rowKey = "orderID"
+				rowKey = "id"
 				size = "small"
 				pagination = { {
 					pageSize : 10 ,

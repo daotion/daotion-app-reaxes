@@ -3,12 +3,13 @@ export const LayoutHeader = reaxper(() => {
 	const reax_user_info = reaxel_user_info();
 	const { logout } = reaxel_user_auth();
 	const { tz , setTz } = reaxel_timezone();
-	const { now } = reaxel_global();	
+	const { now } = reaxel_tick_tock();	
 	const { Select , Dropdown , Menu } = antd;
 	return (
 		<div className = { less.layoutHeader }>
 			<SVGHeaderRiverpayLogo />
 			<div className = { less.layoutHeaderRight }>
+				
 				<Dropdown
 					overlay = { <Menu
 						items = { [
@@ -41,6 +42,7 @@ export const LayoutHeader = reaxper(() => {
 						
 					</div>
 				</Dropdown>
+				<MessageBox/>
 				<div className = { less.userSelect }>
 					<Dropdown
 						overlay = { <Menu
@@ -94,8 +96,9 @@ import {
 	reaxel_user_auth ,
 	Timezone ,
 	reaxel_timezone ,
-	reaxel_global,
+	reaxel_tick_tock,
 } from '@@reaxels';
+import { MessageBox } from '@@pages/--Components--/Message-Box';
 import {
 	SVGHeaderAvatar ,
 	SVGHeaderRiverpayLogo ,

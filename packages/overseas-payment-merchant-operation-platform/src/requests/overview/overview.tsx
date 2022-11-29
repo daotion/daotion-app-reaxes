@@ -21,17 +21,11 @@ export const request_service_fin_detail = (payload: PayloadBody<Overview__fin_de
 }
 
 export const request_withdraw_apply = (payload: PayloadBody<Overview__withdraw.payload>) => {
-	return request.post<Overview__withdraw.response, typeof payload>(`/mch/withdraw`, {
+	return request.post<Overview__withdraw.response, typeof payload>(`/agent/withdraw-record`, {
 		body : payload,
 		
 	})
 }
 
-export const request_deposit_apply = (payload: PayloadBody<Overview__deposit.payload>) => {
-	return request.post<Overview__withdraw.response, typeof payload>(`/mch/recharge`, {
-		body : payload,
-		
-	})
-}
 
-import { Overview__fin_detail, Overview__withdraw, Overview__deposit } from './types'
+import { Overview__fin_detail, Overview__withdraw } from './types'
