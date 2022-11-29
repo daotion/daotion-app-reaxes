@@ -9,7 +9,7 @@ export const CreateSBTModal = reaxper(() => {
 	const { setFields:setFields__SBT_list,SBT_Pad_Store } = reaxel_SBT_list();
 	return <>
 		<Modal
-			visible = { SBT_Pad_Store.create_Modal_visible }
+			open = { SBT_Pad_Store.create_Modal_visible }
 			onCancel={() => {
 				setFields__SBT_list({ create_Modal_visible : false });
 			}}

@@ -13,7 +13,7 @@ export const UserButtonDropdown = reaxper( () => {
 		
 		return subscribe_root_click( () => {
 			setVisible( false );
-		} , root_click_symbol );
+		} );
 	} , [] );
 	
 	if ( !reax_wallet.wallet ) return null;
@@ -35,8 +35,8 @@ export const UserButtonDropdown = reaxper( () => {
 				targetOffset : [ 32 ] ,
 			} }
 			autoAdjustOverflow = { false }
-			visible = { visible }
-			onVisibleChange = { ( visible ) => {
+			open = { visible }
+			onOpenChange = { ( visible ) => {
 				invoke_root_click.then( () => setVisible( () => visible ) );
 			} }
 			trigger = { [ 'click' ] }

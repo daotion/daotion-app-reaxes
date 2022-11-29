@@ -15,7 +15,7 @@ export const SelectSocialModalBtn = reaxper( (props:AddSocialBtn) => {
 			</span>
 		</Button>
 		<Modal
-			visible = { props.modalVisible }
+			open = { props.modalVisible }
 			onCancel = { props.onModalCancel }
 			footer = { null }
 			className = { less.antdSocialMediaModal }

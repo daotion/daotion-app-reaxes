@@ -16,7 +16,7 @@ export const CropperPicBox = reaxper((props : {
 	const { XCropper , zoomTo,crop } = reaxel_Cropper();
 	return (
 		<Modal
-			visible={cropperModalShow}
+			open={cropperModalShow}
 			title={'Edit Media'}
 			footer={null}
 			className={less.cropperModal}

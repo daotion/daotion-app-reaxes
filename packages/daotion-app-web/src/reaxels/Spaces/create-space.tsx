@@ -108,7 +108,7 @@ export const reaxel_create_space = function(){
 					} = reaxel_i18n();
 					return <>
 						<Modal
-							visible = { store.visible }
+							open = { store.visible }
 							// visible = { true }
 							centered
 							maskClosable

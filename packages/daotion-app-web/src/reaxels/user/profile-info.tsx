@@ -17,7 +17,7 @@ export const reaxel_user_profile = function () {
 	
 	const fetchUpdateUserProfile = async ( address : string ) => {
 		/*防止重复请求*/
-		if ( store.loading && address === store.loading.address ) {
+		if ( store.loading && toolkits.addressEqual(address,store.loading?.address)) {
 			return;
 		}
 		

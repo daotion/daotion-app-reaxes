@@ -3,13 +3,13 @@
  */
 export const reaxel_Fact__subscriber = function(description? : string){
 	const subscribe_symbol_map : { [p : symbol] : Function[] } = {};
+	const symbol = Symbol(description);
 	
 	return () : [
-		(callback : Function , symbol : Symbol) => () => void ,
+		(callback : Function) => () => void ,
 		{ () : void; then(callback : Function) : void; } ,
 		Symbol
 	] => {
-		const symbol = Symbol(description);
 		
 		const subscribe = (callback) => {
 			if( subscribe_symbol_map.hasOwnProperty(symbol) ) {
@@ -27,6 +27,7 @@ export const reaxel_Fact__subscriber = function(description? : string){
 		
 		const invoke = () => {
 			const callbackList = subscribe_symbol_map[symbol];
+			console.log(callbackList);
 			try {
 				for( const fn of callbackList ) {
 					fn();

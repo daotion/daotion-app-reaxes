@@ -1,7 +1,7 @@
 export const DxzModalCropper = () => {
 	return <>
 		<Modal
-			visible = { true }
+			open = { true }
 			className = { less.antdCropperModal }
 			centered
 			maskClosable

@@ -20,7 +20,7 @@ export const CropperDDF = reaxper((props : {
 	const { XCropper , zoomTo,crop } = reaxel_Cropper();
 	return (
 		<Modal
-			visible={cropperModalShow}
+			open={cropperModalShow}
 			title={'EditMedia'}
 			footer={null}
 			className={less.cropperModal}

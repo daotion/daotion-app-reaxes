@@ -28,7 +28,7 @@ export const SelectNetworkButtonDropdown = reaxper( () => {
 		const subscription = () => {
 			setVisible( false );
 		};
-		return subscribe_root_click( subscription , symbol );
+		return subscribe_root_click( subscription );
 		
 	} , [] );
 	
@@ -70,12 +70,12 @@ export const SelectNetworkButtonDropdown = reaxper( () => {
 			align = { {
 				// targetOffset : [ -61 ] ,
 			} }
-			onVisibleChange = { ( visible ) => {
+			onOpenChange = { ( visible ) => {
 				invoke_root_click.then( () => setVisible( () => visible ) );
 			} }
 			autoAdjustOverflow = { false }
 			// visible = { true }
-			visible = { visible }
+			open = { visible }
 			content = { <div
 				style = { {
 					padding : "24px 16px" ,

@@ -10,9 +10,9 @@ export const GeneralMenuButtonDropdown = reaxper( () => {
 			overlayClassName = { less.userinfoPopoverContainer }
 			align = { { targetOffset : [ reax_general_button.language_currency_visible ? 145 : 105 ] } }
 			autoAdjustOverflow = { true }
-			visible = { reax_general_button.general_popover_visible }
+			open = { reax_general_button.general_popover_visible }
 			trigger = { [ 'click' ] }
-			onVisibleChange = { ( visible ) => invoke_root_click.then( () => {
+			onOpenChange = { ( visible ) => invoke_root_click.then( () => {
 				reax_general_button.setVisible( {
 					general_popover_visible : visible ,
 				} );

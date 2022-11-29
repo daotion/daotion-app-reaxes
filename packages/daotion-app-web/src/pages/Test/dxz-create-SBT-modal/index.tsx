@@ -2,7 +2,7 @@ export const DxzCreateSBTModal = () => {
 	const { Modal } = antd;
 	return <>
 		<Modal
-			visible = { true }
+			open = { true }
 			className = { less.createSBTModal }
 			centered
 			maskClosable
