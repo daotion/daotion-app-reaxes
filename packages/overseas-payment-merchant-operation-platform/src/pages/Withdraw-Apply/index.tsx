@@ -30,16 +30,16 @@ export const OverviewWithdraw = reaxper(() => {
 					/>
 					<span className={less.maxWithdrawAmount}>
 						最大可到账金额：R${agentBalance < 0 ? 0 : agentBalance}
-						<span
+						{agentBalance > 0 && <span
 							className = { less.withdrawBtn }
-							onClick={() => {
+							onClick = { () => {
 								withdrawSetState({
-									withdrawApplyMoney: agentBalance
-								})
-							}}
+									withdrawApplyMoney : agentBalance,
+								});
+							} }
 						>
 							全部提现
-						</span>
+						</span> }
 					</span>
 				</div>
 

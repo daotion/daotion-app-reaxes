@@ -94,6 +94,7 @@ export const reaxel_overview_info = function(){
 			})
 			ret.fetchOverviewInfo();
 		}).catch(() => {
+			setWithdrawPending(false);
 			throw {
 				msg: '操作失败'
 			}
