@@ -1,4 +1,4 @@
-export const SetState = ComponentWrapper(class extends ReactComponentClass {
+export const SetState = reaxper(class extends Reaxlass {
 	
 	state = {
 		count : 0 ,

@@ -3,7 +3,7 @@ import {
 	Button ,
 	Select,
 } from 'antd';
-import { reaxel_i18n } from '@@RootPath/src/reaxels';
+import { reaxel_i18n } from '@@reaxels';
 
 const { Option } = Select;
 

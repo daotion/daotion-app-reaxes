@@ -1,8 +1,8 @@
 /*上传区域组件*/
-export const UploaderDDF = ComponentWrapper(() => {
-	const { reaxel_DDF } = reaxel__create_SBT();
+export const UploaderDDF = reaxper(() => {
+	const { reax_DDF } = reaxel__create_SBT();
 	
-	return <UploadFileBox reaxel_DDF = { reaxel_DDF } />;
+	return <UploadFileBox reaxel_DDF = {() => reax_DDF } />;
 });
 
 import { Reaxel_fact__DDF } from '@@reaxels/Reaxel-Factories';
@@ -10,7 +10,7 @@ import { reaxel__create_SBT } from '@@reaxels';
 import { UploadFileBox } from '@@Xcomponents';
 import less from './index.module.less';
 
-import { SVGUploadFileIcon  } from '@@SvgComponents/all-SBT-SVG';
+import { SVGUploadFileIcon  } from '@@SVGcomponents/all-SBT-SVG';
 
 export const SVGClose = ( props : {
 	style? : React.CSSProperties,

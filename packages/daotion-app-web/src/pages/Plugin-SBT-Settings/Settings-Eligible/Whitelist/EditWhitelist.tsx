@@ -1,6 +1,6 @@
 import { crayon } from "@@utils";
 
-export const EditWhitelist = ComponentWrapper(() => {
+export const EditWhitelist = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,
@@ -33,7 +33,7 @@ export const EditWhitelist = ComponentWrapper(() => {
 });
 
 
-export const DetailTable = ComponentWrapper((props) => {
+export const DetailTable = reaxper((props) => {
 	const {
 		TableEmpty,
 		setFields,
@@ -200,7 +200,7 @@ import {SaveChangesGroup} from '@@pages//Plugin-SBT-Settings/Settings-Eligible/W
 import { reaxel__SBT_settings_whitelist } from '@@pages/Plugin-SBT-Settings/Settings-Eligible/Whitelist/reaxel--SBT-settings-whitelist';
 import { reaxel_scrollParentRef } from '@@reaxels';
 import { SearchBar } from '@@pages/Plugin-SBT-Settings/Settings-Eligible/Whitelist/SearchBar.component';
-import { XButton } from '@@common/Xcomponents';
+import { XButton } from '@@Xcomponents';
 import { Notification } from '@@pages/Test/Notification';
 import {
 	SVGSBTCheck ,
@@ -209,6 +209,6 @@ import {
 	SVGSBTCountUp ,
 	SVGSBTUploading ,
 	SVGSBTWarning ,
-} from "@@SvgComponents";
+} from "@@SVGcomponents";
 import {createPortal} from 'react-dom';
 import less from '@@pages/Plugin-SBT-Settings/index.module.less';

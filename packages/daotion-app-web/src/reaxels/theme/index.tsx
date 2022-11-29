@@ -1,5 +1,5 @@
-const darkThemePath = () => import('@@RootPath/src/styles/dark.theme.less');
-const lightThemePath = () => import('@@RootPath/src/styles/light.theme.less');
+const darkThemePath = () => import('@@root/src/styles/dark.theme.less');
+const lightThemePath = () => import('@@root/src/styles/light.theme.less');
 
 export const reaxel_theme = function(){
 	const {

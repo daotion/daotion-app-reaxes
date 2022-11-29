@@ -10,7 +10,7 @@ import {
 	SVGReddit ,
 	SVGTelegram ,
 	SVGYoutube ,
-}from '@@SvgComponents/space-setting-svg';
+}from '@@SVGcomponents/space-setting-svg';
 
 export const reaxel_edit_space_social_settings = function () {
 	let ret;

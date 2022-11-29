@@ -92,7 +92,7 @@ export const reaxel_create_space = function(){
 				return store;
 			} ,
 			setCreateModalVisible : (visible : boolean) => setState({ visible }) ,
-			CreateSpaceModal : ComponentWrapper(class extends ReactComponentClass {
+			CreateSpaceModal : reaxper(class extends Reaxlass {
 				
 				render(){
 					const {
@@ -303,7 +303,7 @@ const update_space_list = async (spaceID : number) => {
 };
 
 
-export const OptionNetEthereum = ComponentWrapper(() => {
+export const OptionNetEthereum = reaxper(() => {
 	return <>
 		<span className = { less.netEthereum }>
 			<SVGModalNetEthereum />
@@ -322,9 +322,9 @@ import {
 } from '@@reaxels';
 import { Reaxel_fact__contract } from '@@reaxels/Reaxel-Factories';
 
-import spaceTags from '@@Public/space-tags.json';
-import { SpaceFactoryAbi } from '@@common/contract/abi';
-import { SpaceFactoryAddress } from '@@common/contract/address';
+import spaceTags from '@@public/space-tags.json';
+import { SpaceFactoryAbi } from '@@public/contract/abi';
+import { SpaceFactoryAddress } from '@@public/contract/address';
 import {
 	request_create_space ,
 	request_server_timestamp ,
@@ -332,9 +332,9 @@ import {
 import { ethers } from 'ethers';
 import { XInput } from '@@pages/Test/dxz-input';
 import { XSelect } from '@@pages/Test/dxz-select';
-import { SVGSelectArrowIcon } from '@@SvgComponents/space-setting-svg';
+import { SVGSelectArrowIcon } from '@@SVGcomponents/space-setting-svg';
 import {
 	SVGModalCloseIcon ,
 	SVGModalNetEthereum ,
-} from '@@SvgComponents';
+} from '@@SVGcomponents';
 import less from '../../styles/reaxels.module.less';

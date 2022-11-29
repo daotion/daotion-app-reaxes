@@ -7,12 +7,11 @@ export function AuthIntegratedPlugin (){
 	return (hooks) => {
 		
 		hooks.onInvoke((slot , url , options) => {
-			const reax_auth = reaxel_user_auth();
-			slot.options.headers["Authorization"] = `token ${reax_auth.token}`;
+			const reax_auth = reaxel_user();
 		});
 		/*fixme 先假设此插件一定在<AsyncReplayablePayloadPlugin>之后运行*/
 		hooks.onResolve(async (slot , url , options) => {
-			const reax_auth = reaxel_user_auth();
+			const reax_auth = reaxel_user();
 			try {
 				const json = await slot.response.json();
 				
@@ -34,7 +33,7 @@ export function AuthIntegratedPlugin (){
 						throw json;
 					};break;
 					case 401 : {
-						reax_auth.logout();
+						reax_auth.clearInvalidFakeWallet();
 						throw json.message;
 					};break;
 					default : throw json;
@@ -47,5 +46,5 @@ export function AuthIntegratedPlugin (){
 	}
 }
 
-import { reaxel_user_auth } from '@@reaxels';
+import { reaxel_user } from '@@reaxels';
 

@@ -1,4 +1,4 @@
-export const TableSBTBlacklist = ComponentWrapper(() => {
+export const TableSBTBlacklist = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,
@@ -16,7 +16,7 @@ export const TableSBTBlacklist = ComponentWrapper(() => {
 });
 
 
-export const DetailTable = ComponentWrapper((props) => {
+export const DetailTable = reaxper((props) => {
 	
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
@@ -112,5 +112,5 @@ import { SearchBar } from '@@pages/Plugin-SBT-Settings/Settings-Eligible/Blackli
 import {
 	SVGSBTCountDown ,
 	SVGSBTCountUp ,
-} from "@@SvgComponents";
+} from "@@SVGcomponents";
 import less from '@@pages/Plugin-SBT-Settings/index.module.less';

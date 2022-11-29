@@ -1,6 +1,6 @@
 import { reaxel_SBT_list } from "@@reaxels";
 
-export const CreateSBTModal = ComponentWrapper(() => {
+export const CreateSBTModal = reaxper(() => {
 	
 	const { Modal } = antd;
 	const { navigate } = toolkits.useRouter();
@@ -107,7 +107,7 @@ export const CreateSBTModal = ComponentWrapper(() => {
 });
 
 
-import SBT_template from '@@Public/SBT--create-SBT-template.json';
+import SBT_template from '@@public/SBT--create-SBT-template.json';
 export const reaxel__SBT_template = function(){
 	
 	const icon_jsx_map:icon_jsx_map = {
@@ -151,7 +151,7 @@ type SBTTemplateItemProps = {
 	text : string;
 	onClick? : React.BaseHTMLAttributes<HTMLDivElement>['onClick'];
 };
-export const SBTTemplateItem = ComponentWrapper((props:SBTTemplateItemProps) => {
+export const SBTTemplateItem = reaxper((props:SBTTemplateItemProps) => {
 	return <>
 		<div
 			onClick={props.onClick}
@@ -171,13 +171,13 @@ import { reaxel__create_SBT } from '@@reaxels/SBT/create-SBT';
 import {
 	SVGCloseIcon ,
 	SVGArrowTip ,
-} from '@@SvgComponents';
-import { Img } from '@@common/Xcomponents';
-import imgBlank from '@@Public/statics/create-new-SBT-template-icon/blank-template.png';
-import imgTitle from '@@Public/statics/create-new-SBT-template-icon/title-template.png';
-import imgWork from '@@Public/statics/create-new-SBT-template-icon/work-template.png';
-import imgHonor from '@@Public/statics/create-new-SBT-template-icon/honorary-template.png';
-import imgBussiness from '@@Public/statics/create-new-SBT-template-icon/bussiness-template.png';
-import imgEvent from '@@Public/statics/create-new-SBT-template-icon/event-template.png';
-import imgMember from '@@Public/statics/create-new-SBT-template-icon/member-template.png';
+} from '@@SVGcomponents';
+import { Img } from '@@Xcomponents';
+import imgBlank from '@@public/statics/create-new-SBT-template-icon/blank-template.png';
+import imgTitle from '@@public/statics/create-new-SBT-template-icon/title-template.png';
+import imgWork from '@@public/statics/create-new-SBT-template-icon/work-template.png';
+import imgHonor from '@@public/statics/create-new-SBT-template-icon/honorary-template.png';
+import imgBussiness from '@@public/statics/create-new-SBT-template-icon/bussiness-template.png';
+import imgEvent from '@@public/statics/create-new-SBT-template-icon/event-template.png';
+import imgMember from '@@public/statics/create-new-SBT-template-icon/member-template.png';
 import less from './index.module.less';

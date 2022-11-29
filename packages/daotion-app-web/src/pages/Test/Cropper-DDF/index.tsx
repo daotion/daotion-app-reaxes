@@ -1,7 +1,7 @@
 import { CropperDDF } from './Cropper';
 
 
-export const TestCropperDDF = ComponentWrapper(() => {
+export const TestCropperDDF = reaxper(() => {
 	
 	const {XCropper , reax_DDF , reaxel_Cropper , setState,store } = reaxel_TestCropper();
 	

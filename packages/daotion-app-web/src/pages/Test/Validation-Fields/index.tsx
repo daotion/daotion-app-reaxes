@@ -1,5 +1,5 @@
 
-export const Validations = ComponentWrapper( () => {
+export const Validations = reaxper( () => {
 	const {
 		Input ,
 		Select ,

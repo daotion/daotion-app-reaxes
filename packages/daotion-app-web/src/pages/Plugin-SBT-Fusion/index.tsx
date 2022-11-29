@@ -1,4 +1,4 @@
-export const PluginSBTFusion = ComponentWrapper(() => {
+export const PluginSBTFusion = reaxper(() => {
 	
 	
 	return <>

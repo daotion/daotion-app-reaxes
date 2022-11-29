@@ -124,7 +124,7 @@ export const reaxel__blacklist = function(){
 
 
 import { Reaxel_fact__contract } from '@@reaxels/Reaxel-Factories';
-import {ExecuteSBTABI} from '@@common/contract/abi';
+import {ExecuteSBTABI} from '@@public/contract/abi';
 import {
 	API__SBT_blacklist ,
 	request__SBT_blacklist,

@@ -51,7 +51,7 @@ export const reaxel_space_settings_upload_pictures = function () {
 						};
 						const signature = await reax_user.signByFakeWallet( data );
 						
-						return request.formater( {
+						return toolkits.toFormdata( {
 							address ,
 							data ,
 							signature ,
@@ -90,7 +90,7 @@ export const reaxel_space_settings_upload_pictures = function () {
 							timestamp : await request_server_timestamp() ,
 						};
 						const signature = await reax_user.signByFakeWallet( data );
-						return request.formater( {
+						return toolkits.toFormdata( {
 							address ,
 							data ,
 							signature ,

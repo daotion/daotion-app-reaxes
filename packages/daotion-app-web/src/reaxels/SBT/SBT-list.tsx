@@ -166,4 +166,4 @@ import { reaxel_wallet } from "@@reaxels/wallet/wallet";
 import { reaxel_scrollParentRef } from '@@reaxels/engine/reaxel--scroll-coentent-ref';
 import { reaxel_fact__prevent_dup_request } from "@@reaxels/Reaxel-Factories";
 import { request__SBT_list } from "@@requests/SBT/SBT-list";
-import enum__SBT_type from '@@Public/SBT--types.enum.json';
+import enum__SBT_type from '@@public/SBT--types.enum.json';

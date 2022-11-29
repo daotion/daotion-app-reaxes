@@ -188,7 +188,7 @@ export const reaxel_user_profile_lists = function () {
 export const reaxel_profile_avatar = function(){
 	
 
-	const BlokiesAvatar = ComponentWrapper( ( props : BlokiesAvatarProps ) => {
+	const BlokiesAvatar = reaxper( ( props : BlokiesAvatarProps ) => {
 		const containerRef = useRef<HTMLCanvasElement>();
 		useLayoutEffect( () => {
 			renderIcon( {
@@ -222,7 +222,7 @@ export const reaxel_profile_avatar = function(){
 }();
 
 
-import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
+import { reaxel_wallet } from '@@reaxels/wallet/wallet';
 
 import {
 	request_user_profile ,

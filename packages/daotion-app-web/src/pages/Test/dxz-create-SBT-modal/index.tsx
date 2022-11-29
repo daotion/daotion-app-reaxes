@@ -88,18 +88,18 @@ export const DxzCreateSBTModal = () => {
 import {
 	SVGCloseIcon ,
 	SVGArrowTip ,
-} from '@@SvgComponents';
-import { Img } from '@@common/Xcomponents';
-import imgBlack from '@@Public/statics/create-new-SBT-template-icon/blank-template.png';
-import imgTitle from '@@Public/statics/create-new-SBT-template-icon/title-template.png';
-import imgWork from '@@Public/statics/create-new-SBT-template-icon/work-template.png';
-import imgHonor from '@@Public/statics/create-new-SBT-template-icon/honorary-template.png';
-import imgBussiness from '@@Public/statics/create-new-SBT-template-icon/bussiness-template.png';
-import imgEvent from '@@Public/statics/create-new-SBT-template-icon/event-template.png';
-import imgMember from '@@Public/statics/create-new-SBT-template-icon/member-template.png';
+} from '@@SVGcomponents';
+import { Img } from '@@Xcomponents';
+import imgBlack from '@@public/statics/create-new-SBT-template-icon/blank-template.png';
+import imgTitle from '@@public/statics/create-new-SBT-template-icon/title-template.png';
+import imgWork from '@@public/statics/create-new-SBT-template-icon/work-template.png';
+import imgHonor from '@@public/statics/create-new-SBT-template-icon/honorary-template.png';
+import imgBussiness from '@@public/statics/create-new-SBT-template-icon/bussiness-template.png';
+import imgEvent from '@@public/statics/create-new-SBT-template-icon/event-template.png';
+import imgMember from '@@public/statics/create-new-SBT-template-icon/member-template.png';
 import less from './index.module.less';
 
-export const SBTTemplateItem = ComponentWrapper((props) => {
+export const SBTTemplateItem = reaxper((props) => {
 	return <>
 		<div className = { less.SBTCreateTemplate }>
 			{ props.icon }

@@ -1,6 +1,6 @@
 import { XButton } from "@@pages/Test/mozi-xbutton";
 
-export const RevocationList = ComponentWrapper(() => {
+export const RevocationList = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,
@@ -115,7 +115,7 @@ export const RevocationList = ComponentWrapper(() => {
 });
 
 
-export const DetailTable = ComponentWrapper((props) => {
+export const DetailTable = reaxper((props) => {
 	const {
 		store_SBT_revocation,
 		setFields,
@@ -266,5 +266,5 @@ import { SearchBar } from '@@pages/Plugin-SBT-Settings/Settings-Eligible/Revocat
 import {
 	SVGSBTCountDown ,
 	SVGSBTCountUp ,
-} from "@@SvgComponents";
+} from "@@SVGcomponents";
 import less from '@@pages/Plugin-SBT-Settings/index.module.less';

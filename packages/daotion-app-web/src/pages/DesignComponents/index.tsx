@@ -1,4 +1,4 @@
-export const DesignComponents = ComponentWrapper(() => {
+export const DesignComponents = reaxper(() => {
 	
 	const { Button , Card , Space , Layout , Row , Col } = antd;
 	

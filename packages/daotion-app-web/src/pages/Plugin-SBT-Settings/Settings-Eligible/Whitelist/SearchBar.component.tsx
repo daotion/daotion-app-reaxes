@@ -1,5 +1,5 @@
 
-export const SearchBar = ComponentWrapper(() => {
+export const SearchBar = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,
@@ -77,7 +77,7 @@ export const SearchBar = ComponentWrapper(() => {
 
 
 
-export const UploadStatus = ComponentWrapper(() => {
+export const UploadStatus = reaxper(() => {
 	
 	const {setFields,setUpload,uploadStatus} = reaxel__SBT_settings_whitelist();
 	
@@ -143,7 +143,7 @@ export const UploadStatus = ComponentWrapper(() => {
 
 import { XInput } from '@@pages/Test/mozi-xinput';
 import { reaxel__SBT_settings_whitelist } from '@@pages/Plugin-SBT-Settings/Settings-Eligible/Whitelist/reaxel--SBT-settings-whitelist';
-import { SVGSBTUpload  } from "@@SvgComponents";
+import { SVGSBTUpload  } from "@@SVGcomponents";
 import { DownloadOutlined, SearchOutlined } from '@ant-design/icons'
 import {
 	SVGSBTCheck ,
@@ -153,6 +153,6 @@ import {
 	SVGSBTUploading ,
 	SVGSBTWarning ,
 	SVGSBTChecked
-} from "@@SvgComponents";
+} from "@@SVGcomponents";
 import less from '../../index.module.less';
 

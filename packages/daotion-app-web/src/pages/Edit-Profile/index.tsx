@@ -7,15 +7,15 @@ import {
 } from "@@reaxels";
 
 
-import { Img  } from '@@common/Xcomponents';
+import { Img  } from '@@Xcomponents';
 import {
 	EditSocialItem ,
 	SelectSocialModalBtn,
-} from '@@pages/--Components';
+} from '@@pages/--Components--';
 import less from "./index.module.less";
 
 
-export const EditProfile = ComponentWrapper( () => {
+export const EditProfile = reaxper( () => {
 	
 	const {
 		Button ,

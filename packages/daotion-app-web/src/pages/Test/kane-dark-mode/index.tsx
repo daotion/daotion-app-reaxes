@@ -1,6 +1,6 @@
 
 
-export const KaneDarkMode = ComponentWrapper(() => {
+export const KaneDarkMode = reaxper(() => {
 	
 	const reax_theme  = reaxel_theme();
 	const {Switch} = antd;
@@ -21,5 +21,5 @@ export const KaneDarkMode = ComponentWrapper(() => {
 		</footer>
 	</div>;
 })
-import { reaxel_theme } from '@@RootPath/src/reaxels';
+import { reaxel_theme } from '@@reaxels';
 import less from './index.module.less';

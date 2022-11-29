@@ -1,4 +1,4 @@
-export const All_Spaces_List_Container = ComponentWrapper(() => {
+export const All_Spaces_List_Container = reaxper(() => {
 	const { scrollParentRef } = reaxel_scrollParentRef();
 	
 	const { store , deduped_fetch_all_space_list , setFields,reset_fetch_state, } = reaxel_space_list();
@@ -104,7 +104,7 @@ export const All_Spaces_List_Container = ComponentWrapper(() => {
 	);
 });
 
-const InfiniteSpacesList = ComponentWrapper(() => {
+const InfiniteSpacesList = reaxper(() => {
 	const { store , deduped_fetch_all_space_list } = reaxel_space_list();
 	const { scrollParentRef } = reaxel_scrollParentRef();
 	const { Empty } = antd;
@@ -148,9 +148,9 @@ import {
 	reaxel_scrollParentRef ,
 	reaxel_space_list ,
 } from '@@reaxels';
-import { Space_List_Item } from '@@pages/--Components';
+import { Space_List_Item } from '@@pages/--Components--';
 import { SearchOutlined } from '@ant-design/icons';
-import spaceTags from '@@Public/space-tags.json';
+import spaceTags from '@@public/space-tags.json';
 import InfiniteScroll from 'react-infinite-scroller';
-import { SelectArrowIconSvgComponent } from '@@SvgComponents';
+import { SelectArrowIconSvgComponent } from '@@SVGcomponents';
 import less from './index.module.less';

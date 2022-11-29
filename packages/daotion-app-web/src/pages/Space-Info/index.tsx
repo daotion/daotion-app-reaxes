@@ -8,7 +8,7 @@ const { TabPane } = Tabs;
 const onChange = ( key : string ) => {
 	console.log( key );
 };
-export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any , any> {
+export const SpaceInfo = reaxper( class extends Reaxlass<any , any> {
 	
 	reax_space_detail = reaxel_space_detail();
 	
@@ -147,7 +147,7 @@ export const SpaceInfo = ComponentWrapper( class extends ReactComponentClass<any
 	}
 } );
 
-const EditTabsNameBtn = ComponentWrapper( () => {
+const EditTabsNameBtn = reaxper( () => {
 	return <>
 		<Button
 			className = { less.editTabsNameBtn }
@@ -157,7 +157,7 @@ const EditTabsNameBtn = ComponentWrapper( () => {
 	</>;
 } );
 
-const EditTabsNamePopover = ComponentWrapper( () => {
+const EditTabsNamePopover = reaxper( () => {
 	return <>
 		<XPopover
 			content = { <EditTabsNameContent /> }
@@ -173,7 +173,7 @@ const EditTabsNamePopover = ComponentWrapper( () => {
 		</XPopover>
 	</>;
 } );
-const EditTabsNameContent = ComponentWrapper( () => {
+const EditTabsNameContent = reaxper( () => {
 	return <>
 		<div>
 			<div className = { less.editTabsTitle }>TabsName</div>
@@ -188,7 +188,7 @@ const EditTabsNameContent = ComponentWrapper( () => {
 		</div>
 	</>;
 } );
-const AddNewTabBtn = ComponentWrapper( () => {
+const AddNewTabBtn = reaxper( () => {
 	return <>
 			<Button
 				className={less.addNewTabBtn}>
@@ -201,7 +201,7 @@ const AddNewTabBtn = ComponentWrapper( () => {
 			</Button>
 	</>;
 } );
-const SpaceOverViewContainer = ComponentWrapper( (props:{memberList:Space__member_list.response['userInfos']}) => {
+const SpaceOverViewContainer = reaxper( (props:{memberList:Space__member_list.response['userInfos']}) => {
 	return <>
 		<div className = { less.contentBox }>
 			<div className = { less.contentLeft }>
@@ -227,7 +227,7 @@ const SpaceOverViewContainer = ComponentWrapper( (props:{memberList:Space__membe
 	</>;
 } );
 
-const MemberItem = ComponentWrapper( (props:MemberItemProps) => {
+const MemberItem = reaxper( (props:MemberItemProps) => {
 	const { navigate } = toolkits.useRouter();
 	return <>
 		<div
@@ -253,7 +253,7 @@ type MemberItemProps = {
 };
 
 
-const OverViewTitle = ComponentWrapper( () => {
+const OverViewTitle = reaxper( () => {
 	return <>
 		<div className={less.overviewTitle}>
 				<I18n>
@@ -262,7 +262,7 @@ const OverViewTitle = ComponentWrapper( () => {
 		</div>
 	</>;
 } );
-const ContentListFirst = ComponentWrapper( () => {
+const ContentListFirst = reaxper( () => {
 	return <>
 		{/*<div className = { less.contentListFirst }>
 			<OverViewTitle />
@@ -271,7 +271,7 @@ const ContentListFirst = ComponentWrapper( () => {
 		<Contributions/>
 	</>;
 } );
-const ContentListSecond = ComponentWrapper( () => {
+const ContentListSecond = reaxper( () => {
 	return <>
 		{/*<div className = { less.contentListSecond }>
 			<OverViewTitle />
@@ -280,7 +280,7 @@ const ContentListSecond = ComponentWrapper( () => {
 	</>;
 } );
 
-const ShareBtn = ComponentWrapper( () => {
+const ShareBtn = reaxper( () => {
 	return <>
 		<Button className = { less.shareBtn }>
 			<SVGShareIcon />
@@ -294,16 +294,16 @@ import {
 	Img ,
 	WalletAddressCopyBox ,
 	XPopover,
-} from '@@common/Xcomponents';
+} from '@@Xcomponents';
 import {
 	reaxel_joined_Space_list ,
 	reaxel_space_detail ,
 	reaxel_space_member_list ,
 	reaxel_space_settings_upload_pictures ,
 	reaxel_user_join_or_leave_space ,
-} from '@@RootPath/src/reaxels';
+} from '@@reaxels';
 import { Space__member_list } from '@@requests/types';
-import { BtnSpaceJoinedSetting } from '@@pages/--Components';
+import { BtnSpaceJoinedSetting } from '@@pages/--Components--';
 import less from './index.module.less';
 import {
 	SVGAddNewIcon ,
@@ -312,8 +312,8 @@ import {
 	SVGSettingTabs ,
 	SVGShareIcon ,
 	SVGSocialShare ,
-} from '@@SvgComponents/space-info-svg';
+} from '@@SVGcomponents/space-info-svg';
 
 
-import Contributions from '@@Public/svg/Space-Info-Overview-Contributions.component.svg';
-import Intensity from '@@Public/svg/Space-Info-Overview-Intensity.component.svg';
+import Contributions from '@@public/svg/Space-Info-Overview-Contributions.component.svg';
+import Intensity from '@@public/svg/Space-Info-Overview-Intensity.component.svg';

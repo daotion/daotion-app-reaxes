@@ -69,7 +69,7 @@ const reaxel_fetch = function(){
 }()
 
 let count = 0;
-export const PreventDupTest = ComponentWrapper(() => {
+export const PreventDupTest = reaxper(() => {
 	
 	const { fetch , text } = reaxel_fetch();
 	

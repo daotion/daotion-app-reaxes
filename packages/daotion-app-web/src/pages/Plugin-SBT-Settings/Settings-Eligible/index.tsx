@@ -1,4 +1,4 @@
-export const Eligible = ComponentWrapper(class extends ReactComponentClass {
+export const Eligible = reaxper(class extends Reaxlass {
 	
 	render(){
 		const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {

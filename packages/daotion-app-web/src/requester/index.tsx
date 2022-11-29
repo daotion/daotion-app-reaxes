@@ -19,7 +19,7 @@ export const request:{
 ]);
 
 
-type post = <RESP,PL>(input:RequestInfo | URL , init:Omit<RequestInit,"body"> & {
+type post = <RESP = any,PL = any>(input:RequestInfo | URL , init:Omit<RequestInit,"body"> & {
 	body? : PL;
 	env?:string,
 	mock?:boolean,
