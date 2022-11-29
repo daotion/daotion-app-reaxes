@@ -1,9 +1,7 @@
 
 export const OverviewWithdraw = reaxper(() => {
-	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState, fetchOverviewInfo  } = reaxel_overview_info();
-	const { navigate } = toolkits.useRouter();
+	const {withdrawStore, overviewInfo, withdrawApply, withdrawSetState, fetchOverviewInfo, withdrawPending  } = reaxel_overview_info();
 	const { message, Input, Button, Spin } = antd;
-	
 	if(!overviewInfo){
 		fetchOverviewInfo();
 		return (
@@ -47,7 +45,7 @@ export const OverviewWithdraw = reaxper(() => {
 
 				<Button
 					type = "primary"
-					loading={withdrawStore.pending}
+					loading={withdrawPending}
 					disabled={!withdrawApplyMoney}
 					onClick = { () => {
 						withdrawApply().then(() => {

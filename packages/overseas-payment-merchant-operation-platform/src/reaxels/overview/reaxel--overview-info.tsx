@@ -5,27 +5,20 @@ export const reaxel_overview_info = function(){
 	* 资金明细信息
 	*/
 	const {store, setState } = orzMobx({
-		overviewInfoPending : false,
 		overviewInfo : null as any ,
-		finDetailPending : false,
 		fin_detail_list : null as any ,
 		
 	})
-	
-	const setOverviewInfoPending = (pending) => {
-		queueMicrotask(() => {
-			setState({
-				overviewInfoPending: pending
-			})
-		})
-	}
-	const setFinDetailPending = (pending) => {
-		queueMicrotask(() => {
-			setState({
-				finDetailPending: pending
-			})
-		})
-	}
+	const {
+		pendingState: overviewInfoPendingState,
+		setPending: setOverviewInfoPending,
+	} = toolkits.orzPending()
+	const {
+		pendingState: finDetailPendingState,
+		setPending: setFinDetailPending,
+	} = toolkits.orzPending()
+
+
 	const {grasp:fetchFinDetail} = reaxel_fact__prevent_dup_request((preventDup) => async (path) => {
 		const fetchMap = {
 			"account-fin-detail" : request_account_fin_detail,
@@ -57,7 +50,7 @@ export const reaxel_overview_info = function(){
 	})();
 	
 	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
-		if(store.overviewInfoPending) return;
+		if(overviewInfoPendingState.pending) return;
 		setOverviewInfoPending(true)
 		return request_overview_info().then((res) => {
 			setState({
@@ -79,13 +72,11 @@ export const reaxel_overview_info = function(){
 		pending : false,
 		
 	});
-	const setWithdrawPending = (pending) => {
-		queueMicrotask(() => {
-			withdrawSetState({
-				pending,
-			});
-		});
-	};
+	const {
+		pendingState: withdrawPendingState,
+		setPending: setWithdrawPending
+	}  = toolkits.orzPending()
+	
 	const withdrawApply = async () => {
 		const { withdrawApplyMoney = '', pending} = withdrawStore;
 		const { overviewInfo : { address } } = store;
@@ -117,15 +108,15 @@ export const reaxel_overview_info = function(){
 				return store.overviewInfo;
 			},
 			get overviewInfoPending(){
-				return store.overviewInfoPending;
+				return overviewInfoPendingState.pending;
 			},
 			get finDetailPending(){
-				return store.finDetailPending;
+				return finDetailPendingState.pending;
 			},
 			get fin_detail_list(){
 				Reaxes.collectDeps(store);
 				if(path && (path !== currentPath)) return [];
-				if (store.finDetailPending) return [];
+				if (finDetailPendingState.pending) return [];
 				return store.fin_detail_list;
 			} ,
 			fetchOverviewInfo(){
@@ -138,6 +129,9 @@ export const reaxel_overview_info = function(){
 			get withdrawStore(){
 				return withdrawStore;
 			} ,
+			get withdrawPending(){
+				return withdrawPendingState.pending
+			},
 			get withdrawSetState(){
 				return withdrawSetState;
 			},
