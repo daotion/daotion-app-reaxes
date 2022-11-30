@@ -1,11 +1,9 @@
 export const reaxel_mch_withdraw_rqst = function(){
 	const { store , setState } = orzMobx({
-		pending : false ,
 		dataList: null,
 		withdrawMsgList : [] as any,
 		withdrawModalVisible : false,
 		verifyInfo : null as any,
-		verifyPending : false,
 		verifyUSDT : null,
 		
 	});
@@ -22,13 +20,15 @@ export const reaxel_mch_withdraw_rqst = function(){
 		}
 	});
 	
-	const setPending = (type,pending) => {
-		queueMicrotask(() => {
-			setState({
-				[type]: pending
-			});
-		});
-	}
+	const {
+		pendingState : listPendingState ,
+		setPending : setListPending,
+	} = toolkits.orzPending();
+	
+	const {
+		pendingState :  verifyPending,
+		setPending : setVerifyPending,
+	} = toolkits.orzPending();
 	
 	/*请求提现列表*/
 	const [ fetchWithdrawRqst , cleanWithdrawRqstDeps ] = Reaxes.closuredMemo(() => {
@@ -36,32 +36,34 @@ export const reaxel_mch_withdraw_rqst = function(){
 	} , () => []);
 	
 	const fetchWithdrawalRqstList = async () => {
-		setPending('pending' , true);
+		setListPending(true)
 		return request_mch_withdraw_rqst_list(async () => {
 			return {
-				indexStart : 0,
-				count : 999999,
-				firstTimestamp : 0,
-				orderID : '',
-				orderState: 1,
-				createTimestampBegin : null,
-				createTimestampEnd : null,
-				updateTimestampBegin : null,
-				updateTimestampEnd : null,
-			}
+				indexStart : 0 ,
+				count : 999999 ,
+				firstTimestamp : 0 ,
+				orderID : '' ,
+				orderState : 1 ,
+				createTimestampBegin : null ,
+				createTimestampEnd : null ,
+				updateTimestampBegin : null ,
+				updateTimestampEnd : null ,
+			};
 		}).then((res) => {
 			setState({
 				dataList : res.orderList ,
 			});
 			checkin("mch-withdraw-rqst");
-			setPending('pending',false)
-		})
+			setListPending(false);
+		}).catch(e => {
+			setListPending(false);
+		});
 	}
 	
 	/*确认提现*/
 	const verifyWithdrawRqst = async (agree) => {
 		const { verifyInfo: { orderID = '' }, verifyUSDT } = store;
-		setPending('verifyPending' , true);
+		setVerifyPending(true);
 		return request_mch_withdraw_rqst(async () => {
 			return {
 				orderID ,
@@ -69,14 +71,14 @@ export const reaxel_mch_withdraw_rqst = function(){
 				usdt : + verifyUSDT,
 			};
 		}).then(() => {
-			setPending('verifyPending' , false);
+			setVerifyPending(false);
 			setState({
 				withdrawModalVisible : false,
 				verifyUSDT: null
 			})
 			fetchWithdrawalRqstList();
 		}).catch((e) => {
-			setPending('verifyPending' , false);
+			setVerifyPending(false);
 			throw e;
 		})
 	};
@@ -103,7 +105,14 @@ export const reaxel_mch_withdraw_rqst = function(){
 			},
 			verifyWithdrawRqst (agree) {
 				return verifyWithdrawRqst(agree)
-			}
+			},
+			get pending(){
+				return {
+					listPending : listPendingState.pending,
+					verifyPending: verifyPending.pending
+				}
+				
+			},
 		};
 	};
 }();

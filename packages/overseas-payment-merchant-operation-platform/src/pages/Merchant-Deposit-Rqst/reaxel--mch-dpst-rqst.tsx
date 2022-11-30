@@ -1,12 +1,10 @@
 export const reaxel_mch_dpst_rqst = function(){
 	const { store , setState } = orzMobx({
-		pending : false ,
 		dataList : null ,
 		depositModalVisible : false ,
 		depositVerifyModalVisible: false,
 		verifyInfo : null as any,
 		verifyR : null,
-		verifyPending : false
 	});
 	
 	const reax_msg_notif = reaxel_msg_notif();
@@ -21,13 +19,15 @@ export const reaxel_mch_dpst_rqst = function(){
 		}
 	});
 	
-	const setPending = (type,pending) => {
-		queueMicrotask(() => {
-			setState({
-				[type]: pending
-			});
-		});
-	}
+	const {
+		pendingState : listPendingState ,
+		setPending : setListPending,
+	} = toolkits.orzPending();
+	
+	const {
+		pendingState :  verifyPending,
+		setPending : setVerifyPending,
+	} = toolkits.orzPending();
 	
 	
 	/*请求充值列表*/
@@ -36,26 +36,28 @@ export const reaxel_mch_dpst_rqst = function(){
 	} , () => []);
 	
 	const rqstDeposit = async () => {
-		setPending('pending' , true);
+		setListPending(true);
 		return request_mch_deposit_rqst_list(async () => {
 			return {
-				indexStart : 0,
-				count : 999999,
-				firstTimestamp : 0,
-				orderID : '',
-				orderState: 1,
-				createTimestampBegin : null,
-				createTimestampEnd : null,
-				updateTimestampBegin : null,
-				updateTimestampEnd : null,
-			}
+				indexStart : 0 ,
+				count : 999999 ,
+				firstTimestamp : 0 ,
+				orderID : '' ,
+				orderState : 1 ,
+				createTimestampBegin : null ,
+				createTimestampEnd : null ,
+				updateTimestampBegin : null ,
+				updateTimestampEnd : null ,
+			};
 		}).then((res) => {
 			checkin("mch-deposit-rqst");
 			setState({
 				dataList : res.orderList ,
 			});
-			setPending('pending' , false);
-		})
+			setListPending(false);
+		}).catch(() => {
+			setListPending(false);
+		});
 	}
 	
 	const closeAllModal = () => {
@@ -70,7 +72,7 @@ export const reaxel_mch_dpst_rqst = function(){
 	const verifyDepositRqst = async (agree) => {
 		const { verifyR, verifyInfo } = store;
 		const { orderID = '',  } = verifyInfo;
-		setPending('verifyPending' , true);
+		setVerifyPending(true);
 		return request_mch_deposit_rqst(async () => {
 			return {
 				orderID ,
@@ -78,11 +80,12 @@ export const reaxel_mch_dpst_rqst = function(){
 				money : +verifyR ,
 			};
 		}).then(() => {
-			setPending('verifyPending' , false);
+			setVerifyPending(false);
+			
 			closeAllModal();
 			rqstDeposit();
 		}).catch((e) => {
-			setPending('verifyPending' , false);
+			setVerifyPending(false);
 			throw  {
 				msg : '操作失败' + e,
 			};
@@ -112,7 +115,14 @@ export const reaxel_mch_dpst_rqst = function(){
 			},
 			get depositMsgList () {
 				return reax_msg_notif.messages.filter((item) => item.type === "mch-deposit-rqst");
-			}
+			},
+			get pending(){
+				return {
+					listPending : listPendingState.pending,
+					verifyPending: verifyPending.pending
+				}
+				
+			},
 		};
 	};
 }();

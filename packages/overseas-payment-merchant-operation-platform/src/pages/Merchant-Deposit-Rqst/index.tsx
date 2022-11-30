@@ -2,8 +2,8 @@ import { ColumnsType } from "antd/es/table";
 
 export const Mch_Desposit_Rqst = reaxper(() => {
 	const reax_mch_dpst_rqst = reaxel_mch_dpst_rqst();
-	const { fetchDepositRqst , checkin , store , setState , verifyDepositRqst , cleanDeps } = reax_mch_dpst_rqst;
-	const { dataList, pending } = store;
+	const { fetchDepositRqst , checkin , store , setState , verifyDepositRqst , cleanDeps, pending } = reax_mch_dpst_rqst;
+	const { dataList } = store;
 	const { current : badge } = useRef(Math.random());
 	fetchDepositRqst(badge);
 	const { Table, Button, Popconfirm, Alert, message } = antd;
@@ -107,7 +107,7 @@ export const Mch_Desposit_Rqst = reaxper(() => {
 				columns = { columns }
 				dataSource={dataList}
 				rowKey = "orderID"
-				loading = { pending }
+				loading = { pending.listPending }
 				size = "small"
 				pagination = { {
 					pageSize : 10 ,
@@ -181,9 +181,10 @@ export const DespositModal = reaxper(() => {
 export const CheckModal = reaxper(() =>{
 	const { Modal , Button, Divider, message } = antd;
 	const {
-		store: {depositVerifyModalVisible, verifyInfo = {}, verifyR, verifyPending},
+		store: {depositVerifyModalVisible, verifyInfo = {}, verifyR},
 		setState,
-		verifyDepositRqst
+		verifyDepositRqst,
+		pending
 	} = reaxel_mch_dpst_rqst();
 	return(
 		<Modal
@@ -221,7 +222,7 @@ export const CheckModal = reaxper(() =>{
 				</div>
 				<Button
 					type = "primary"
-					loading={verifyPending}
+					loading={pending.verifyPending}
 					onClick={() => {
 						verifyDepositRqst(true).then(() => {
 							message.success('操作成功')

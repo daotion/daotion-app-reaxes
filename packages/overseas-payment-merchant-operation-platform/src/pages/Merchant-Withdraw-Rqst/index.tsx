@@ -2,8 +2,8 @@ import { ColumnsType } from "antd/es/table";
 
 export const Mch_Withdraw_Rqst = reaxper(() => {
 	const reax_mch_withdraw_rqst = reaxel_mch_withdraw_rqst();
-	const {fetchWithdrawRqst, checkin, store, setState, verifyWithdrawRqst ,cleanDeps,} = reax_mch_withdraw_rqst
-	const {dataList, pending } = store;
+	const {fetchWithdrawRqst, checkin, store, setState, verifyWithdrawRqst ,cleanDeps, pending} = reax_mch_withdraw_rqst
+	const {dataList } = store;
 	const { current : badge } = useRef(Math.random());
 	fetchWithdrawRqst(badge);
 	const { Table, Button, Popconfirm, Alert } = antd;
@@ -99,7 +99,7 @@ export const Mch_Withdraw_Rqst = reaxper(() => {
 				columns = { columns }
 				dataSource={dataList}
 				rowKey = "orderID"
-				loading = { pending }
+				loading = { pending.listPending }
 				size = "small"
 				pagination = { {
 					pageSize : 10 ,
@@ -126,8 +126,8 @@ export const Mch_Withdraw_Rqst = reaxper(() => {
 export const WithdrawRqstModal = reaxper(() => {
 	
 	const { Modal , Button , Input } = antd;
-	const { store, setState, verifyWithdrawRqst } = reaxel_mch_withdraw_rqst();
-	const { withdrawModalVisible, verifyPending, verifyUSDT, verifyInfo } = store;
+	const { store, setState, verifyWithdrawRqst, pending } = reaxel_mch_withdraw_rqst();
+	const { withdrawModalVisible, verifyUSDT, verifyInfo } = store;
 	return (
 		<Modal
 			title = { '确认提现信息' }
@@ -155,6 +155,7 @@ export const WithdrawRqstModal = reaxper(() => {
 				<Button
 					type = "primary"
 					disabled={!verifyUSDT}
+					loading={pending.verifyPending}
 					onClick={() => {
 						verifyWithdrawRqst(true).then(() => {
 							antd.message.success('操作成功')
