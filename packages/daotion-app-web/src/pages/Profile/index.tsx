@@ -59,6 +59,13 @@ export const Profile = reaxper(() => {
 		return <Empty/>;
 	}
 	
+	if(toolkits.addressEqual(qsAddress,reax_user_profile.profileStore.profile?.address)){
+		return <Navigate
+			to="/profile"
+			replace
+		/>
+	}
+	
 	
 	/*如果访问的是用户本人的profile则显示settings*/
 	const UserSelfSettingsBtn = () => {
@@ -218,6 +225,7 @@ import {
 	reaxel_profile_avatar,
 } from '@@reaxels';
 import {User__profile_info} from '@@requests/types';
+import { Navigate } from 'react-router-dom';
 import less from './index.module.less';
 
 import {

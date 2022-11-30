@@ -228,6 +228,7 @@ const SpaceOverViewContainer = reaxper( (props:{memberList:Space__member_list.re
 } );
 
 const MemberItem = reaxper( (props:MemberItemProps) => {
+	const {} = reaxel_user_profile();
 	const { navigate } = toolkits.useRouter();
 	return <>
 		<div
@@ -301,6 +302,8 @@ import {
 	reaxel_space_member_list ,
 	reaxel_space_settings_upload_pictures ,
 	reaxel_user_join_or_leave_space ,
+	reaxel_user,
+	reaxel_user_profile,
 } from '@@reaxels';
 import { Space__member_list } from '@@requests/types';
 import { BtnSpaceJoinedSetting } from '@@pages/--Components--';

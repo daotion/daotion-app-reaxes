@@ -7,6 +7,7 @@ import { AsyncReplayablePayloadPlugin } from '#requester/src/plugins/async-repla
 import { ApplyEnvConfigPlugin } from '#requester/src/plugins/env-proxy-confing-plugin';
 import { RealAddressPlugin } from '#requester/src/plugins/real-address-plugin';
 import { AuthIntegratedPlugin } from './auth-integrated-plugin';
+import { FormdataPlugin } from '#requester/src/plugins/formdata-plugin';
 
 
 export const request:{
@@ -15,6 +16,7 @@ export const request:{
 	RealAddressPlugin(__ENV_CONFIG__ , __ENV__),
 	ApplyEnvConfigPlugin(__ENV_CONFIG__ , __ENV__),
 	AsyncReplayablePayloadPlugin(),
+	FormdataPlugin(),
 	/*此插件目前必须在最后被插入*/AuthIntegratedPlugin(),
 ]);
 

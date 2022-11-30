@@ -1,7 +1,6 @@
 /**
  * 
  */
-
 export function AuthIntegratedPlugin (){
 	
 	return (hooks) => {
@@ -47,4 +46,3 @@ export function AuthIntegratedPlugin (){
 }
 
 import { reaxel_user } from '@@reaxels';
-

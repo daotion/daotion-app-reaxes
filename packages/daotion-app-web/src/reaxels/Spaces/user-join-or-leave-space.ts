@@ -33,7 +33,7 @@ export const reaxel_user_join_or_leave_space = function(){
 				
 				return request_user_join_space( createPayload ).catch((e) => {
 					antd.Modal.error({
-						title : e ,
+						title : e.message ,
 					});
 					throw e;
 				}).then((spaceInfo) => {

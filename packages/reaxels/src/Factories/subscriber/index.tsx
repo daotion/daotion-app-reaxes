@@ -27,7 +27,6 @@ export const reaxel_Fact__subscriber = function(description? : string){
 		
 		const invoke = () => {
 			const callbackList = subscribe_symbol_map[symbol];
-			console.log(callbackList);
 			try {
 				for( const fn of callbackList ) {
 					fn();

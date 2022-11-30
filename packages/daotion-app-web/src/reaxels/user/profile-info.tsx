@@ -86,7 +86,14 @@ export const reaxel_user_profile = function () {
 				} );
 			} ,
 			setProfileBanner( url : string ) {
-				mutatePartialState( {
+				setState({
+					...store ,
+					profile : {
+						...store.profile ,
+						bgUrl : url,
+					} ,
+				});
+				false && mutatePartialState( {
 					profile : {
 						bgUrl : url ,
 					} ,
