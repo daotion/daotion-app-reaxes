@@ -1,4 +1,4 @@
-export const SpaceSettings = ComponentWrapper( class extends ReactComponentClass {
+export const SpaceSettings = reaxper( class extends Reaxlass {
 	
 	state = {
 		tab : "General" as 'Social' | 'General',
@@ -44,7 +44,7 @@ export const SpaceSettings = ComponentWrapper( class extends ReactComponentClass
 
 
 
-const SpaceSettingTabs = ComponentWrapper( ( props : SpaceSettingTabsProps ) => {
+const SpaceSettingTabs = reaxper( ( props : SpaceSettingTabsProps ) => {
 	return <>
 		<div
 			style = { {
@@ -114,5 +114,5 @@ import {
 import {
 	GeneralProfile ,
 	SocialProfile ,
-} from '@@pages/--Components/Space-Settings';
+} from '@@pages/--Components--/Space-Settings';
 import less from './index.module.less';

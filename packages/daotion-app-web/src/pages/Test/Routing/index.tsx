@@ -1,5 +1,5 @@
 /*
-export const Test = ComponentWrapper( class extends ReactComponentClass {
+export const Test = reaxper( class extends Reaxlass {
 	
 	act = _action(this.lifecycle);
 	
@@ -14,7 +14,7 @@ export const Test = ComponentWrapper( class extends ReactComponentClass {
 	}
 } );
 
-const Text = ComponentWrapper(class extends ReactComponentClass {
+const Text = reaxper(class extends Reaxlass {
 	
 	act = _action( _.omit(this.lifecycle,"updated","") );
 	
@@ -31,7 +31,7 @@ const Text = ComponentWrapper(class extends ReactComponentClass {
 });
 
 
-const Hooking = ComponentWrapper( () => {
+const Hooking = reaxper( () => {
 	
 	const reaxel = _action( Reaxes.hooks );
 	
@@ -198,7 +198,7 @@ export const RoutingTest =  () => {
 // }
 
 
-// const InfoElement = ComponentWrapper(class pop extends ReactComponentClass {
+// const InfoElement = reaxper(class pop extends Reaxlass {
 //	
 //	
 // 	reax = reaxel( this.lifecycle );
@@ -212,7 +212,7 @@ export const RoutingTest =  () => {
 // 		})
 // 	}
 // })
-const InfoElement = ComponentWrapper((props) => {
+const InfoElement = reaxper((props) => {
 	
 	
 	const reax = reaxel( Reaxes.hooks );

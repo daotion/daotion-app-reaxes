@@ -31,7 +31,7 @@ export const reaxel__SBT_settings_Metadata = function(){
 			timestamp : await request_server_timestamp(),
 		};
 		return request__update_SBT_info(async () => {
-			return request.formater({
+			return toolkits.toFormdata({
 				address : reax_wallet.account.address ,
 				data ,
 				signature : await reax_user.signByFakeWallet(data) ,
@@ -139,9 +139,6 @@ export const reaxel__SBT_settings_Metadata = function(){
 			},
 			get cropperModalShow(){
 				return store.cropperModalShow
-			},
-			showCropperModal(){
-				changeCropperModal(true)
 			},
 			closeCropperModal(){
 				changeCropperModal(false)

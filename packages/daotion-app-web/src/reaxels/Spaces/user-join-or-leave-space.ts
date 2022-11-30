@@ -84,6 +84,6 @@ import {
 	request_user_leave_space,
 	request_server_timestamp
 } from '@@requests';
-import { reaxel_joined_Space_list } from '@@RootPath/src/reaxels/Spaces/joined-space-list';
-import {reaxel_user,} from '@@RootPath/src/reaxels/user';
-import {reaxel_wallet,} from '@@RootPath/src/reaxels/wallet';
+import { reaxel_joined_Space_list } from '@@reaxels/Spaces/joined-space-list';
+import {reaxel_user,} from '@@reaxels/user';
+import {reaxel_wallet,} from '@@reaxels/wallet';

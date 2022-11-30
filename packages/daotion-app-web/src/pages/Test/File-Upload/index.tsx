@@ -1,9 +1,9 @@
 import {
 	reaxel_wallet ,
 	reaxel_user,
-} from "@@RootPath/src/reaxels";
+} from "@@reaxels";
 
-export const FileUpload = ComponentWrapper( () => {
+export const FileUpload = reaxper( () => {
 	const {store,upload} = reaxel_upload();
 	
 	return <>
@@ -57,7 +57,7 @@ const reaxel_upload = function(){
 					
 					return request.post( `https://192.168.0.4:8199/space/space-upload-avatar` , {
 						method : "post" ,
-						body : request.formater( {
+						body : toolkits.toFormdata( {
 							address : reaxel_wallet().account.address ,
 							data ,
 							signature ,

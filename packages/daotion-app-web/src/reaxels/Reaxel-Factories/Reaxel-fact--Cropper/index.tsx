@@ -2,7 +2,7 @@ export const reaxel_fact__Cropper = function(){
 	
 	let cropperInstance:Cropper|null = null;
 
-	const XCropper = ComponentWrapper( ( props : ReactCropperProps ) => {
+	const XCropper = reaxper( ( props : ReactCropperProps ) => {
 		return <>
 			<Cropper
 				onInitialized = { ( instance ) => {

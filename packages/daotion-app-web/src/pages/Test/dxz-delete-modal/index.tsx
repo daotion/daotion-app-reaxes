@@ -8,7 +8,7 @@ import React , { useState } from 'react';
 export const DxzDeleteModal = () => {
 	return <>
 		<Modal
-			visible = { true }
+			open = { true }
 			className = { less.antdDeleteTabModal }
 			centered
 			maskClosable

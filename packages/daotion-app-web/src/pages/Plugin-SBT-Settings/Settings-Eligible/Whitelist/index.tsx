@@ -1,4 +1,4 @@
-export const SettingsWhitelist = ComponentWrapper(() => {
+export const SettingsWhitelist = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,

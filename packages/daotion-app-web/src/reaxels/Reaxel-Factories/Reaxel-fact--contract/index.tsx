@@ -40,7 +40,7 @@ export const Reaxel_fact__contract = (
 }
 
 /*test&example*/
-/*import {ExecuteSBTABI} from '@@common/contract/abi';
+/*import {ExecuteSBTABI} from '@@public/contract/abi';
 window.recover = () => {
 	const {invokeContract,pending} = Reaxel_fact__contract('0xD8d9Db20553d3096029d64d42D805b83Dfb80625',ExecuteSBTABI,(contractWithSigner) => {
 		return contractWithSigner.recover;

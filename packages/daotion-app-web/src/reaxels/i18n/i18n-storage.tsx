@@ -1,16 +1,17 @@
-import { orzLocalstroage , i18n_language_symbol } from '@@common/storages';
+import { reaxel_storage } from '@@reaxels';
 /*为reaxel-i18n勾入storage能力*/
 export const reaxel_i18n_storage = function(){
+	const reax_storage = reaxel_storage();
 	let ret = {
 		writeToStorage(lang:string){
-			orzLocalstroage.set(i18n_language_symbol.description , lang)
+			reax_storage.set('__i18n_language__' , lang)
 		},
 		readFromStorage(callback){
-			callback(orzLocalstroage.get(i18n_language_symbol.description));
+			callback(reax_storage.get('__i18n_language__'));
 			
 		},
 		clearI18nStorage(){
-			orzLocalstroage.remove( i18n_language_symbol.description );
+			reax_storage.remove( '__i18n_language__' );
 		},
 	};
 	

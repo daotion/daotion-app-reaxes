@@ -2,7 +2,7 @@ import less from './index.module.less'
 import { ModalProps } from 'antd'
 import { XButton } from "@@pages/Test/mozi-xbutton";
 
-export const XConfirmModal = ComponentWrapper((props: Partial<ModalProps> & {
+export const XConfirmModal = reaxper((props: Partial<ModalProps> & {
 	danger?: boolean,
 	contentText?: string,
 	actionText?: '',

@@ -23,7 +23,7 @@ export const Header_GoBack = () => {
 import { Button } from 'antd';
 import less from './index.module.less';
 
-const SVGGoBack = ComponentWrapper(() => {
+const SVGGoBack = reaxper(() => {
 	return <>
 		<svg
 			width = "16"

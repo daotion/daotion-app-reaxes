@@ -1,5 +1,5 @@
 
-export const PluginSBTPadList = ComponentWrapper(() => {
+export const PluginSBTPadList = reaxper(() => {
 	const { params } = toolkits.useRouter();
 	const spaceID = parseInt(params.spaceID);
 	
@@ -59,7 +59,7 @@ export const PluginSBTPadList = ComponentWrapper(() => {
 	</>;
 });
 
-export const SBTSearchArea = ComponentWrapper(() => {
+export const SBTSearchArea = reaxper(() => {
 	const { SBT_Pad_Store , setFields , fetchSBTList , enum__SBT_type , } = reaxel_SBT_list();
 	const { chains } = reaxel_wallet();
 	const { Input , Select } = antd , { Option } = Select;
@@ -129,7 +129,7 @@ export const SBTSearchArea = ComponentWrapper(() => {
 	</>;
 });
 
-export const SBTDisplayCard = ComponentWrapper((props : {
+export const SBTDisplayCard = reaxper((props : {
 	SBT_info: API__SBT_list.SBTListItem;
 }) => {
 	const spaceID = parseInt(toolkits.useRouter().params.spaceID);
@@ -176,7 +176,7 @@ export const SBTDisplayCard = ComponentWrapper((props : {
 	</>;
 });
 
-export const SBTCreateNewBtn = ComponentWrapper(() => {
+export const SBTCreateNewBtn = reaxper(() => {
 	
 	const { setFields } = reaxel_SBT_list();
 	return <>
@@ -208,14 +208,14 @@ import {
 	API__SBT_list,
 } from '@@requests';
 import { CreateSBTModal } from './Create-SBT-Modal';
-import { Img } from '@@common/Xcomponents';
+import { Img } from '@@Xcomponents';
 import { XButton } from '@@pages/Test/dxz-button';
 import InfiniteScroll from 'react-infinite-scroller';
-import {SVGSettingTabs} from '@@SvgComponents/space-info-svg';
+import {SVGSettingTabs} from '@@SVGcomponents/space-info-svg';
 import {
 	SVGSearch ,
 	SVGSelectSuffix ,
 	SVGSettings
-} from '@@SvgComponents/all-SBT-SVG';
-import spaceTags from '@@Public/space-tags.json';
+} from '@@SVGcomponents/all-SBT-SVG';
+import spaceTags from '@@public/space-tags.json';
 import less from './index.module.less';

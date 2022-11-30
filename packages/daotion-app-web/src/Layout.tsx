@@ -1,103 +1,65 @@
-export const Layout = reaxper(() => {
-
-	const { isLoggedIn } = reaxel_user_auth();
-	const { navigate , location , params } = toolkits.useRouter();
+export const Layout = reaxper( () => {
 	
-	
-
-
-	if (!isLoggedIn) {
-		return <Navigate to="/login" />;
-	}
-	
-	const { Layout, Menu, Breadcrumb, Space } = antd;
-	const { Header, Sider, Content } = Layout;
-	
-	
-	return (
-		<>
-			<Layout>
-				<LayoutHeader />
-			</Layout>
-			<Layout>
-				<Sider
-					style={{
-						backgroundColor: '#ffffff',
-					}}
-				>
-					<LayoutMenu />
-				</Sider>
-				<Content className={less.contentWrap}>
-					<LayoutBreadCrumb/>
-					<div className={less.contentGrayBg}>
-						<div className={less.contentComponents}>
-							<MainContentRouting />
-						</div>
-					</div>
-				</Content>
-			</Layout>
-		</>
-	);
-});
-
-
-
-export const LayoutBreadCrumb = reaxper(() => {
-	const { Space, Breadcrumb, Button } = antd;
-	const { navigate , params,  } = toolkits.useRouter();
-	const path = params['*'].split('/');
-	const pathName = params['*'];
-	if (!(pathName === 'overview' || pathName.includes('profile'))) {
-		return (
-			<Space
-				direction = "vertical"
-				className = { less.contentSpace }
+	const urlparam = utils.decodeQueryString();
+	const [,invoke_root_click] = reaxel_subs_root_click();
+	const { scrollParentRef } = reaxel_scrollParentRef();
+	return <>
+		<div
+			className = { less.HomeRoot }
+			onClick = { invoke_root_click }
+		>
+			<div
+				className = { less.leftSide }
 			>
-				<Breadcrumb
-					style={{
-						userSelect : 'none',
-					}}
-				>
-					{ path.length > 1 && path.map((item , index) => (
-						<Breadcrumb.Item
-							key = { item }
-							onClick = { () => {navigate('..');} }
-						>{ index !== path.length - 1
-							? <Button
-								type = "link"
-								style = { { padding : 0 , height : 0 } }
-							>{ breadcrumb_router_name[item] }</Button>
-							: breadcrumb_router_name[item]
-						}</Breadcrumb.Item>
-					)) }
-				</Breadcrumb>
-				<div style = { { display : 'flex' , alignItems : 'center' , gap : '8px' } }>
-					{ path.length > 1 &&
-						<Button
-							shape = "circle"
-							onClick = { () => {
-								const newPath = path;
-								newPath.pop();
-								navigate(`/${ newPath.join('/') }`);
-							} }
-							icon = { <LeftOutlined /> }
-						>
-						</Button>
-					}
-					<h2 style = { { margin : 0, userSelect : 'none' } }>{ breadcrumb_router_name[path[path.length - 1]] }</h2>
-				</div>
-			</Space>
-		);
-		
-	} else {
-		return <></>
-	}
-})
+				{/*用户加入过的space列表*/ }
+				<Sider_Space_List />
+				{/*选中space下的插件列表 , 仅当出在host/space:spaceID时出现*/ }
+				<SiderPluginListRouting />
+			</div>
+			
+			<div
+				className = { less.mainContent }
+			>
+				<Layout_Header />
+				<>
+					<div
+						style = { {
+							display : "flex" ,
+							height : "calc(100% - 80px)" ,
+							position : "static" ,
+							transform : "translateX(0)" ,
+							width : "100%" ,
+							boxSizing : "border-box" ,
+							overflow : "auto" ,
+							padding : "32px" ,
+							paddingBottom : "0" ,
+							justifyContent : "center" ,
+							flexFlow : "row nowrap" ,
+							
+						} }
+						ref = { scrollParentRef }
+					>
+						<MainContentRouting />
+					</div>
+				</>
+			</div>
+			<ModalCreateSpace />
+		</div>
+	</>;
+} );
 
-import { reaxel_user_auth } from '@@reaxels';
-import { MainContentRouting } from './Routing';
-import { LayoutMenu,LayoutHeader } from '@@pages/--Components--';
-import { LeftOutlined } from '@ant-design/icons';
-import { Navigate } from 'react-router-dom';
-import less from './styles/layout.module.less';
-import breadcrumb_router_name from '@@public/routers/breadcrumb-router-name.json'
+
+
+import { Select  } from 'antd';
+import { reaxel_subs_root_click } from '@@reaxels';
+import { reaxel_scrollParentRef } from '@@reaxels';
+import {
+	MainContentRouting ,
+	SiderPluginListRouting ,
+} from './Routing';
+import {
+	Layout_Header ,
+	ModalCreateSpace ,
+	Sider_Space_List ,
+} from '@@pages/--Components--';
+import less from './styles/main.module.less';

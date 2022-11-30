@@ -1,8 +1,8 @@
 import {
 	reaxel_wallet ,
-} from '@@RootPath/src/reaxels';
+} from '@@reaxels';
 
-export const TestWallet = ComponentWrapper( class extends ReactComponentClass {
+export const TestWallet = reaxper( class extends Reaxlass {
 	
 	
 	render() {

@@ -1,8 +1,8 @@
 import less from './index.module.less';
-import { reaxel_i18n } from '@@RootPath/src/reaxels';
+import { reaxel_i18n } from '@@reaxels';
 
 
-export const DxzLangCurrency = ComponentWrapper( () => {
+export const DxzLangCurrency = reaxper( () => {
 	const { Tabs  } = antd;
 	const { TabPane  } = Tabs;
 	const {

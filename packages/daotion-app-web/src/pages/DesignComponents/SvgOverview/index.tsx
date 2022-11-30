@@ -17,26 +17,26 @@ import {
 	SVGSelectSuffix ,
 	SVGSubtract ,
 	SVGUploadFileIcon ,
-} from '@@SvgComponents/all-SBT-SVG';
-import { BtnCreateSpaceSvgComponent } from '@@SvgComponents/Btn-Create-Space.svg-component';
-import { BtnGeneralMenuSvg } from '@@SvgComponents/Btn-general-menu-svg';
-import { BtnIconCopySvgComponent } from '@@SvgComponents/Btn-icon-copy.svg-component';
-import { BtnIconRenameSvgComponent } from '@@SvgComponents/Btn-icon-rename.svg-component';
-import { BtnIconShare } from '@@SvgComponents/Btn-icon-share.svg-component';
-import { HeaderNotificationIconSvgComponent } from '@@SvgComponents/Header-notification-icon.svg-component';
+} from '@@SVGcomponents/all-SBT-SVG';
+import { BtnCreateSpaceSvgComponent } from '@@SVGcomponents/Btn-Create-Space.svg-component';
+import { BtnGeneralMenuSvg } from '@@SVGcomponents/Btn-general-menu-svg';
+import { BtnIconCopySvgComponent } from '@@SVGcomponents/Btn-icon-copy.svg-component';
+import { BtnIconRenameSvgComponent } from '@@SVGcomponents/Btn-icon-rename.svg-component';
+import { BtnIconShare } from '@@SVGcomponents/Btn-icon-share.svg-component';
+import { HeaderNotificationIconSvgComponent } from '@@SVGcomponents/Header-notification-icon.svg-component';
 import {
 	SVGAbout ,
 	SVGDocs ,
 	SVGHelp ,
 	SVGLang ,
 	SVGRequest ,
-} from '@@SvgComponents/header-panel-svg';
-import { HeaderToggleThemeIconSvgComponent } from '@@SvgComponents/Header-toggle-theme-icon.svg-component';
-import { ItemIconDisconnectSvgComponent } from '@@SvgComponents/Item-icon-disconnect.svg-component';
-import { ItemIconEthNode } from '@@SvgComponents/Item-icon-eth-node.svg-component';
-import { ItemIconI18nSvgComponent } from '@@SvgComponents/Item-icon-i18n.svg-component';
-import { ItemIconProfileSvgComponent } from '@@SvgComponents/Item-icon-profile.svg-component';
-import { ItemIconThemeSvgComponent } from '@@SvgComponents/Item-icon-theme.svg-component';
+} from '@@SVGcomponents/header-panel-svg';
+import { HeaderToggleThemeIconSvgComponent } from '@@SVGcomponents/Header-toggle-theme-icon.svg-component';
+import { ItemIconDisconnectSvgComponent } from '@@SVGcomponents/Item-icon-disconnect.svg-component';
+import { ItemIconEthNode } from '@@SVGcomponents/Item-icon-eth-node.svg-component';
+import { ItemIconI18nSvgComponent } from '@@SVGcomponents/Item-icon-i18n.svg-component';
+import { ItemIconProfileSvgComponent } from '@@SVGcomponents/Item-icon-profile.svg-component';
+import { ItemIconThemeSvgComponent } from '@@SVGcomponents/Item-icon-theme.svg-component';
 import {
 	SVGPluginDropDownIcon ,
 	SVGPluginNFTIcon ,
@@ -44,7 +44,7 @@ import {
 	SVGPluginSpaceIcon ,
 	SVGPluginSRMIcon ,
 	SVGPluginVotingIcon ,
-} from '@@SvgComponents/left-plugin-list';
+} from '@@SVGcomponents/left-plugin-list';
 import {
 	SVGCardAvatar ,
 	SVGCup ,
@@ -53,8 +53,8 @@ import {
 	SVGNFTsLink ,
 	SVGSBTsCardSpaceLogo ,
 	SVGSettingIcon ,
-} from '@@SvgComponents/my-profile-tabs-svg';
-import { SelectArrowIconSvgComponent } from '@@SvgComponents/Select-arrow-icon.svg-component';
+} from '@@SVGcomponents/my-profile-tabs-svg';
+import { SelectArrowIconSvgComponent } from '@@SVGcomponents/Select-arrow-icon.svg-component';
 import {
 	SVGDropDiscord ,
 	SVGDropTwitter ,
@@ -63,7 +63,7 @@ import {
 	SVGPopJoinSpace ,
 	SVGPopWebsite ,
 	SVGSpaceProfileSetting ,
-} from '@@SvgComponents/Space-dropdown-pop-svg';
+} from '@@SVGcomponents/Space-dropdown-pop-svg';
 import {
 	SVGAddNewIcon ,
 	SVGDeleteTabIcon ,
@@ -81,7 +81,7 @@ import {
 	SVGShareVK ,
 	SVGShareWebsite ,
 	SVGShareYoutube ,
-} from '@@SvgComponents/space-info-svg';
+} from '@@SVGcomponents/space-info-svg';
 import {
 	SVGClear ,
 	SVGClubHouse ,
@@ -106,55 +106,49 @@ import {
 	SVGVK ,
 	SVGWhiteAdd ,
 	SVGYoutube ,
-} from '@@SvgComponents/space-setting-svg';
-import { SVGCloseIcon } from '@@SvgComponents/SVG-close-icon';
-import transparentBackgroundImg from '@@Public/statics/transparent-background.svg';
+} from '@@SVGcomponents/space-setting-svg';
+import { SVGCloseIcon } from '@@SVGcomponents/SVG-close-icon';
+import transparentBackgroundImg from '@@public/statics/transparent-background.svg';
 import Draggable from 'react-draggable';
 import { Table } from "antd";
-import components from "@@RootPath/src/utils/components";
 import less from './index.module.less';
 
-export class SvgOverview extends components {
-	render() : React.ReactNode{
-		return (
-			<div className = { less.wrapper }>
-				<h1>Svg Overview</h1>
-				<Table
-					columns = { columns }
-					dataSource = { data }
-					size = "middle"
-					pagination = { {
-						pageSize: 1000,
-					} }
-					scroll = { {
-						y : myHeight-120,
-					} }
-				>
-				</Table>
-			</div>
-		);
-	}
-}
+export const SvgOverview = reaxper(() => {
+	
+	return <div className = { less.wrapper }>
+		<h1>Svg Overview</h1>
+		<Table
+			columns = { columns }
+			dataSource = { data }
+			size = "middle"
+			pagination = { {
+				pageSize : 1000 ,
+			} }
+			scroll = { {
+				y : myHeight - 120 ,
+			} }
+		>
+		</Table>
+	</div>;
+});
 
-class Content extends components {
-	render() : React.ReactNode{
-		return (
-			<div
-				className = { less.canvas }
-				style = { {
-					backgroundRepeat : "repeat" ,
-					backgroundImage : `url('${ transparentBackgroundImg }')` ,
-				} }
-			>
-				<Draggable bounds = { { left : - 100 , top : - 50 , right : 100 , bottom : 50 } }>
-				<div className = { less.iconContainer }>
-					{ this.props.children }
-				</div>
-			</Draggable>
+
+const Content = reaxper((props) => {
+	
+	return <div
+		className = { less.canvas }
+		style = { {
+			backgroundRepeat : "repeat" ,
+			backgroundImage : `url('${ transparentBackgroundImg }')` ,
+		} }
+	>
+		<Draggable bounds = { { left : - 100 , top : - 50 , right : 100 , bottom : 50 } }>
+			<div className = { less.iconContainer }>
+				{ props.children }
 			</div>
-		);
-	}
-}
+		</Draggable>
+	</div>;
+});
 
 const myHeight = document.documentElement.clientHeight;
 

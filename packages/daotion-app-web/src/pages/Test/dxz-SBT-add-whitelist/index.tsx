@@ -26,9 +26,9 @@ import {
 	SVGAddNewFeature ,
 	SVGCopySBT,
 	SVGDeleteList
-} from '@@SvgComponents/all-SBT-SVG';
+} from '@@SVGcomponents/all-SBT-SVG';
 
-export const SBTWhiteItem=ComponentWrapper(()=>{
+export const SBTWhiteItem=reaxper(()=>{
 	return<>
 	<div className={less.SBTWhiteItem}>
 		<XInput
@@ -51,7 +51,7 @@ export const SBTWhiteItem=ComponentWrapper(()=>{
 	</div>
 	</>
 })
-export const CurrentSBTPreview=ComponentWrapper(()=>{
+export const CurrentSBTPreview=reaxper(()=>{
 	return<>
 		<div className={less.currentSBTPreview}>
 			<p className={less.SBTPreviewSubtitle}>
@@ -67,7 +67,7 @@ export const CurrentSBTPreview=ComponentWrapper(()=>{
 			</div>
 		</div></>
 })
-export const EditSBTWhitelist=ComponentWrapper(()=>{
+export const EditSBTWhitelist=reaxper(()=>{
 	return<>
 		<div className={less.editSBTWhitelist}>
 			{/*编辑SBT-white-list分为main和footer两个box*/}

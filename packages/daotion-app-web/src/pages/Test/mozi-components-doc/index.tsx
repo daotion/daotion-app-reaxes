@@ -1,5 +1,5 @@
 
-export const ComponentsDoc = ComponentWrapper(class extends ReactComponentClass {
+export const ComponentsDoc = reaxper(class extends Reaxlass {
     state = {
         activeKey: 'XModal'
     }
@@ -82,4 +82,4 @@ import { XButtonShow } from '../mozi-xbutton-show';
 import { XInputShow } from '../mozi-xinput-show';
 import { XSelectShow } from '../mozi-xselect-show';
 import  { XModalShow } from '../mozi-xmodal-show';
-import { reaxel_theme } from '@@RootPath/src/reaxels';
+import { reaxel_theme } from '@@reaxels';

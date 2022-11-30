@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 
-export const SearchBar = ComponentWrapper(() => {
+export const SearchBar = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,
@@ -46,7 +46,7 @@ export const SearchBar = ComponentWrapper(() => {
 
 import { XInput } from '@@pages/Test/dxz-input';
 import { reaxel__SBT_revocation } from '@@pages/Plugin-SBT-Settings/Settings-Eligible/Revocation/reaxel--SBT-revocation';
-import { SVGSBTUpload  } from "@@SvgComponents";
+import { SVGSBTUpload  } from "@@SVGcomponents";
 import {
 	SVGSBTCheck ,
 	SVGSBTClose ,
@@ -55,6 +55,6 @@ import {
 	SVGSBTUploading ,
 	SVGSBTWarning ,
 	SVGSBTChecked
-} from "@@SvgComponents";
+} from "@@SVGcomponents";
 import less from '../../index.module.less';
 

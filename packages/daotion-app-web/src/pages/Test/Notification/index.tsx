@@ -1,5 +1,5 @@
 import { reaxel_scrollParentRef } from '@@reaxels';
-export const Notification = ComponentWrapper(class extends ReactComponentClass<{
+export const Notification = reaxper(class extends Reaxlass<{
 	visible : boolean;
 	config : ArgsProps;
 }>{
@@ -38,7 +38,7 @@ export const Notification = ComponentWrapper(class extends ReactComponentClass<{
 const {store,setState} = orzMobx({
 	visible : false,
 });
-export const TestNotification = ComponentWrapper(() => {
+export const TestNotification = reaxper(() => {
 	
 	return <>
 		<antd.Button
@@ -79,4 +79,4 @@ export const TestNotification = ComponentWrapper(() => {
 
 import less from './index.module.less';
 import {ArgsProps} from 'antd/lib/notification/index';
-import {XButton} from "@@common/Xcomponents";
+import {XButton} from "@@Xcomponents";

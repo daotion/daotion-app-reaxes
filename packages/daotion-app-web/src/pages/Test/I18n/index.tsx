@@ -1,6 +1,6 @@
-import { reaxel_i18n } from '@@RootPath/src/reaxels';
+import { reaxel_i18n } from '@@reaxels';
 
-export const Test_Reaxel_i18n = ComponentWrapper( class extends ReactComponentClass {
+export const Test_Reaxel_i18n = reaxper( class extends Reaxlass {
 	
 	
 	render() {

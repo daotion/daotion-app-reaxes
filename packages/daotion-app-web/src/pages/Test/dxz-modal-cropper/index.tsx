@@ -1,7 +1,7 @@
 export const DxzModalCropper = () => {
 	return <>
 		<Modal
-			visible = { true }
+			open = { true }
 			className = { less.antdCropperModal }
 			centered
 			maskClosable
@@ -38,5 +38,5 @@ import {
 	Modal ,
 	Slider,
 } from 'antd';
-import { SVGCloseIcon } from '@@SvgComponents';
+import { SVGCloseIcon } from '@@SVGcomponents';
 import { XButton } from '@@pages/Test/dxz-button';

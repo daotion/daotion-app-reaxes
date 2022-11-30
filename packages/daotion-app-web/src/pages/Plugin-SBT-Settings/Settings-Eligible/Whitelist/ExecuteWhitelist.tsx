@@ -1,4 +1,4 @@
-export const ExecuteWhitelist = ComponentWrapper(() => {
+export const ExecuteWhitelist = reaxper(() => {
 	
 	const { contractSaveWhitelst , store__SBT_settings_whitelist } = reaxel__SBT_settings_whitelist();
 	

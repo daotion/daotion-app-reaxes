@@ -1,4 +1,4 @@
-export const Revocation = ComponentWrapper(() => {
+export const Revocation = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,

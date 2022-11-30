@@ -25,7 +25,7 @@ import { Button  } from 'antd';
 import {
 	SVGAddNewFeature ,
 	SVGCopySBT ,
-} from '@@SvgComponents/all-SBT-SVG';
+} from '@@SVGcomponents/all-SBT-SVG';
 import { UploadFileBox  } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
 
 export const SubTitleWithItem = (props) => {
@@ -39,7 +39,7 @@ export const SubTitleWithItem = (props) => {
 		</div>
 	</>;
 };
-export const CurrentSBTPreview = ComponentWrapper(() => {
+export const CurrentSBTPreview = reaxper(() => {
 	return <>
 		<div className = { less.currentSBTPreview }>
 			<p className = { less.SBTPreviewSubtitle }>

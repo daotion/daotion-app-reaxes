@@ -1,4 +1,4 @@
-export const XButtonShow = ComponentWrapper(() => {
+export const XButtonShow = reaxper(() => {
 	const reax_theme = reaxel_theme();
 	const theme = reax_theme.theme;
 	const { Space } = antd;
@@ -68,6 +68,6 @@ export const XButtonShow = ComponentWrapper(() => {
 });
 
 import { XButton } from '../mozi-xbutton';
-import { reaxel_theme } from '@@RootPath/src/reaxels';
+import { reaxel_theme } from '@@reaxels';
 
 import { SearchOutlined } from '@ant-design/icons';

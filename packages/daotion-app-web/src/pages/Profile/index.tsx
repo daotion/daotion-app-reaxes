@@ -1,5 +1,5 @@
 /**/
-export const Profile = ComponentWrapper(() => {
+export const Profile = reaxper(() => {
 	const { Empty } = antd;
 	/*声明profileStore,如果是本人的则直接用reax_user_profile.profile,否则用othersProfile*/
 	let profile : User__profile_info.response;
@@ -209,7 +209,7 @@ export const Profile = ComponentWrapper(() => {
 import {
 	Img ,
 	WalletAddressCopyBox ,
-} from '@@common/Xcomponents';
+} from '@@Xcomponents';
 import {
 	reaxel_edit_profile ,
 	reaxel_user_profile ,
@@ -232,9 +232,9 @@ import {
 	SVGSBTsCardSpaceLogo ,
 	SVGSettingIcon ,
 	SVGShareIcon ,
-} from '@@SvgComponents/my-profile-tabs-svg';
+} from '@@SVGcomponents/my-profile-tabs-svg';
 
-import { SVGSocialShare } from '@@SvgComponents/space-info-svg';
+import { SVGSocialShare } from '@@SVGcomponents/space-info-svg';
 
 
 const { TabPane } = Tabs;
@@ -437,7 +437,7 @@ const MyprofileTabSubTitle = () => {
 		</div>
 	</>;
 };
-const ShareBtn = ComponentWrapper( () => {
+const ShareBtn = reaxper( () => {
 	return <>
 		<Button className = { less.shareBtn }>
 			<SVGShareIcon />

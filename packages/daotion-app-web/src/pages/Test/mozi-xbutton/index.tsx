@@ -7,10 +7,10 @@
  */
 import less from './index.module.less';
 import {ButtonProps} from 'antd';
-import { reaxel_theme } from '@@RootPath/src/reaxels';
+import { reaxel_theme } from '@@reaxels';
 
 
-export const XButton = ComponentWrapper((props : Omit<ButtonProps,'type'| 'icon'> & {
+export const XButton = reaxper((props : Omit<ButtonProps,'type'| 'icon'> & {
 	type? : any,
 	icon? : any,
 	frontIcon? : boolean,

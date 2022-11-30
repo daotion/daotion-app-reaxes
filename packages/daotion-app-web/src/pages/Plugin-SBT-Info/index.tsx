@@ -1,6 +1,6 @@
 import clipboard from "copy-to-clipboard";
 
-export const PluginSBTInfo = ComponentWrapper(() => {
+export const PluginSBTInfo = reaxper(() => {
 	
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
@@ -169,7 +169,7 @@ import {
 	reaxel__SBT_user_claim_access ,
 	reaxel__user_claim_SBT,
 } from '@@reaxels';
-import { Img } from '@@common/Xcomponents';
+import { Img } from '@@Xcomponents';
 import { XButton } from '@@pages/Test/mozi-xbutton';
 import {
 	SVGConformingCondition ,
@@ -177,14 +177,14 @@ import {
 	SVGNetEthereum ,
 	SVGNonconformingCondition ,
 	SVGSBTChecked ,
-} from '@@SvgComponents/all-SBT-SVG';
-import { SVGShareIcon  } from '@@SvgComponents/space-info-svg';
+} from '@@SVGcomponents/all-SBT-SVG';
+import { SVGShareIcon  } from '@@SVGcomponents/space-info-svg';
 import type { ColumnsType } from 'antd/es/table';
 import less from './index.module.less';
 import { message } from "antd";
 
 
-export const ClaimBtnArea = ComponentWrapper(() => {
+export const ClaimBtnArea = reaxper(() => {
 	
 	const { user_SBT_access } = reaxel__SBT_user_claim_access();
 	const { claimSBTPending , user_claim_SBT } = reaxel__user_claim_SBT();
@@ -221,7 +221,7 @@ export const ClaimBtnArea = ComponentWrapper(() => {
 
 
 // 每一个灰色边框盒子:
-export const SBTInfoBox = ComponentWrapper((props) => {
+export const SBTInfoBox = reaxper((props) => {
 	return <>
 		<div className = { less.SBTInfoBox }>
 			<p className = { less.boxSubtitle }>{ props.title }</p>
@@ -230,7 +230,7 @@ export const SBTInfoBox = ComponentWrapper((props) => {
 	</>;
 });
 
-const Divider = ComponentWrapper(() => {
+const Divider = reaxper(() => {
 	const { Divider } = antd;
 	
 	return <Divider
@@ -240,7 +240,7 @@ const Divider = ComponentWrapper(() => {
 });
 
 // SBT详情页address-info包括space-address 和 contact-address
-export const SBTAddressInfo = ComponentWrapper(() => {
+export const SBTAddressInfo = reaxper(() => {
 	const { SBT_info } = reaxel__SBT_info();
 	console.log(SBT_info);
 	
@@ -307,7 +307,7 @@ export const SBTAddressInfo = ComponentWrapper(() => {
 	</>;
 });
 
-export const SBTDetailList = ComponentWrapper(() => {
+export const SBTDetailList = reaxper(() => {
 	const { SBT_info } = reaxel__SBT_info();
 	const { user_SBT_access } = reaxel__SBT_user_claim_access()
 	if(!SBT_info ){
@@ -351,7 +351,7 @@ export const SBTDetailList = ComponentWrapper(() => {
 });
 
 // 灰色subtitle和黑色content组成的item :
-export const SBTInfoItem = ComponentWrapper((props) => {
+export const SBTInfoItem = reaxper((props) => {
 	return <>
 		<div className = { less.SBTInfoItem }>
 			<span className = { less.itemSubtitle }>{ props.title }</span>
@@ -360,7 +360,7 @@ export const SBTInfoItem = ComponentWrapper((props) => {
 	</>;
 });
 
-const ShareBtn = ComponentWrapper( () => {
+const ShareBtn = reaxper( () => {
 	const { Button } = antd;
 	return <>
 		<Button className = { less.shareBtn }>

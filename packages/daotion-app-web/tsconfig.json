@@ -54,8 +54,8 @@
 			"@@toolkits/*" : [ "src/toolkits/*" ],
 			"@@Xcomponents" : [ "src/Xcomponents" ], 
 			"@@Xcomponents/*" : [ "src/Xcomponents/*" ], 
-			"@@SVGcomponents" : [ "src/SVGcomponents" ],
-			"@@SVGcomponents/*" : [ "src/SVGcomponents/*" ],
+			"@@SVGcomponents" : [ "src/svg-comps" ],
+			"@@SVGcomponents/*" : [ "src/svg-comps/*" ],
 			"@@declarations/*" : [ "src/declarations/*" ] ,
 			"@@public/*" : [ "public/*" ] 
 		} ,

@@ -1,6 +1,6 @@
 import less from "@@pages/Plugin-SBT-Settings/index.module.less";
 import clipboard from 'copy-to-clipboard';
-export const SaveChangesGroup = ComponentWrapper(() => {
+export const SaveChangesGroup = reaxper(() => {
 	
 	const { 
 		reset_changes , 
@@ -110,5 +110,5 @@ export const SaveChangesGroup = ComponentWrapper(() => {
 
 import { reaxel__SBT_settings_whitelist } from '@@pages/Plugin-SBT-Settings/Settings-Eligible/Whitelist/reaxel--SBT-settings-whitelist';
 import { XButton } from '@@pages/Test/mozi-xbutton';
-import { SVGCopySBT } from "@@SvgComponents";
+import { SVGCopySBT } from "@@SVGcomponents";
 import { message } from "antd";

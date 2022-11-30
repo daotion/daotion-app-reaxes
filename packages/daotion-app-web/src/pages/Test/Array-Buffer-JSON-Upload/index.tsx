@@ -1,4 +1,4 @@
-export const UploadArrayBuffer = ComponentWrapper(() => {
+export const UploadArrayBuffer = reaxper(() => {
 	
 	const {
 		upload_text ,

@@ -19,12 +19,13 @@ export const webpackConfig = {
 			'@@requests': path.resolve(repoRoot, 'src/requests'),
 			'@@toolkits': path.resolve(repoRoot, 'src/toolkits'),
 			'@@public': path.resolve(repoRoot, 'public'),
-			'@@SVGcomponents': path.resolve(repoRoot, 'src/SVGcomponents'),
+			'@@SVGcomponents': path.resolve(repoRoot, 'src/svg-comps'),
 			'@@Xcomponents': path.resolve(repoRoot, 'src/Xcomponents'),
 			'--Components--': path.resolve(repoRoot, 'src/pages/--Components--'),
 		},
 	},
 	plugins: [
+		new NodePolyfillPlugin(),
 		new HtmlWebpackPlugin({
 			template: path.resolve(repoRoot, 'public/index.template.ejs'),
 			filename: 'index.html',
@@ -60,6 +61,7 @@ export const webpackConfig = {
 
 import path from 'path';
 import webpack from 'webpack';
+import NodePolyfillPlugin from 'node-polyfill-webpack-plugin';
 import { getPort } from '../../build/toolkits.mjs';
 import {method, repo, repoRoot , mock , env , node_env , experimental, } from '../../build/entrance.mjs';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
