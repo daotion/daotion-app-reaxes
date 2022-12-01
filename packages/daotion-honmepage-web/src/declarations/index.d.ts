@@ -1,4 +1,9 @@
 
+declare module '*.png';
+declare module '*.jpg';
+declare module '*.jpeg';
+declare module '*.svg';
+declare module '*.bmp';
 declare const orzPromise : typeof import('@@utils').orzPromise;
 declare const crayon : typeof import('@@utils').crayon;
 declare const logProxy : typeof import('@@utils').logProxy;
