@@ -5,12 +5,12 @@ import { I18n } from '@@reaxels/i18n';
 
 import Footer from '@@pages/Homepage/components/footer';
 
-import paperImg1 from '@@assets/imgs/paperImg1.png';
-import paperImg2 from '@@assets/imgs/paperImg2.png';
-import paperImg3 from '@@assets/imgs/paperImg3.png';
-import paperImg4 from '@@assets/imgs/paperImg4.png';
-import paperImg5 from '@@assets/imgs/paperImg5.png';
-import paperImg6 from '@@assets/imgs/paperImg6.png';
+import paperImg1 from '@@public/imgs/paperImg1.png';
+import paperImg2 from '@@public/imgs/paperImg2.png';
+import paperImg3 from '@@public/imgs/paperImg3.png';
+import paperImg4 from '@@public/imgs/paperImg4.png';
+import paperImg5 from '@@public/imgs/paperImg5.png';
+import paperImg6 from '@@public/imgs/paperImg6.png';
 
 import Menu, { ListItem } from '@@pages/WhitePaper/components/menu';
 

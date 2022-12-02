@@ -1,6 +1,6 @@
 import { Reaxper } from 'reaxes';
 
-import Button from '@@common/components/Button';
+import { XButton } from '@@Xcomponents';
 import SelectPopup from '@@pages/Homepage/components/selectPopup';
 
 import { LANGUAGE_LIST } from '@@pages/Homepage/const';
@@ -177,9 +177,9 @@ const Header = Reaxper(({ isMobile, showBg, showMenu, handleToggleMenu, handleCl
         <div className={less.mainRightDemoBtn} onClick={handleViewDemo}>
           <I18n>Try Demo</I18n>
         </div>
-        <Button onClick={handleEnterApp}>
+        <XButton onClick={handleEnterApp}>
           <I18n>Enter App</I18n>
-        </Button>
+        </XButton>
       </div>
       <div className={less.mainMenuWrap} onClick={handleToggleMenu}>
         <div className={`${less.mainMenu} ${showMenu ? less.mainMenuOn : ''}`}>

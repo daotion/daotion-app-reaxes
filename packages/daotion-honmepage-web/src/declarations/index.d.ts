@@ -4,6 +4,7 @@ declare module '*.jpg';
 declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.bmp';
+declare module '*.mp4';
 declare const orzPromise : typeof import('@@utils').orzPromise;
 declare const crayon : typeof import('@@utils').crayon;
 declare const logProxy : typeof import('@@utils').logProxy;
@@ -16,3 +17,6 @@ declare const utils : typeof import('@@utils');
 declare const toolkits : typeof import('@@toolkits');
 declare const antd : typeof import('antd');
 declare const request : typeof import('@@requester').request;
+
+declare const I18n : typeof import('@@reaxels').I18n;
+declare const i18n : typeof import('@@reaxels').i18n;

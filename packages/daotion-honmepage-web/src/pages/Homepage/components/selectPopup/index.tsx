@@ -1,10 +1,7 @@
-import type { PopupPosition } from '@@common/components/Popup/types';
-
-import { Reaxper } from 'reaxes';
-
-import Popup from '@@common/components/Popup';
+import {PopupPosition} from '@@Xcomponents/XPopup/types';
 
 import { reaxel_i18n } from '@@reaxels';
+import { XPopup } from '@@Xcomponents';
 
 import less from './index.module.less';
 
@@ -20,7 +17,7 @@ interface ISelectPopup {
   onChange?: (value: string) => void;
 }
 
-export default Reaxper(({ title, list, position = 'bottom center' as const, children, onChange }: ISelectPopup) => {
+export default reaxper(({ title, list, position = 'bottom center' as const, children, onChange }: ISelectPopup) => {
   const { changeLang } = reaxel_i18n();
 
   const popupRef = useRef(null);
@@ -36,7 +33,7 @@ export default Reaxper(({ title, list, position = 'bottom center' as const, chil
 
   return (
     <div>
-      <Popup
+      <XPopup
         ref={popupRef}
         trigger={<div className={less.title}>{title}</div>}
         arrow={false}
@@ -71,7 +68,7 @@ export default Reaxper(({ title, list, position = 'bottom center' as const, chil
             })}
           </div>
         )}
-      </Popup>
+      </XPopup>
     </div>
   );
 });

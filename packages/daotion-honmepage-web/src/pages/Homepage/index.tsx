@@ -1,14 +1,14 @@
-import ScrollReveal from '@@common/components/ScrollReveal';
+import { XScrollReveal } from '@@Xcomponents';
 import { Reaxper } from 'reaxes';
 import mediumZoom from 'medium-zoom';
 
 import { I18n } from '@@reaxels/i18n';
 import { request_send_email } from '@@requests';
 
-import video from '@@assets/imgs/heroVideo.mp4';
-import roadmap from '@@assets/imgs/roadmap.png';
-import flow1 from '@@assets/imgs/paperImg1.png';
-import flow2 from '@@assets/imgs/paperImg5.png';
+import video from '@@public/imgs/heroVideo.mp4';
+import roadmap from '@@public/imgs/roadmap.png';
+import flow1 from '@@public/imgs/paperImg1.png';
+import flow2 from '@@public/imgs/paperImg5.png';
 
 import ProgressBar from '@@pages/Homepage/components/progressBar';
 
@@ -160,7 +160,7 @@ const Homepage: React.FC = Reaxper(() => {
         )}
 
         <div className={less.sectionOne}>
-          <ScrollReveal
+          <XScrollReveal
             config={{
               delay: 300,
             }}
@@ -168,8 +168,8 @@ const Homepage: React.FC = Reaxper(() => {
             <div className={less.sectionOneTitle}>
               <I18n>Stakeholder Relationship Management (SRM) Protocol</I18n>
             </div>
-          </ScrollReveal>
-          <ScrollReveal
+          </XScrollReveal>
+          <XScrollReveal
             config={{
               delay: 500,
             }}
@@ -182,9 +182,9 @@ const Homepage: React.FC = Reaxper(() => {
                 <I18n>By Stakeholders</I18n>
               </div>
             </div>
-          </ScrollReveal>
+          </XScrollReveal>
 
-          <ScrollReveal
+          <XScrollReveal
             config={{
               delay: 1000,
             }}
@@ -195,8 +195,8 @@ const Homepage: React.FC = Reaxper(() => {
             <div className={less.sectionOneMission2}>
               <I18n>community with data-driven via SoulBound Tokens.</I18n>
             </div>
-          </ScrollReveal>
-          <ScrollReveal
+          </XScrollReveal>
+          <XScrollReveal
             config={{
               delay: 1500,
             }}
@@ -213,11 +213,11 @@ const Homepage: React.FC = Reaxper(() => {
                 <I18n>Try Demo</I18n>
               </div>
             </div>
-          </ScrollReveal>
+          </XScrollReveal>
         </div>
         <section className={less.sectionTwo}>
           <div className={less.sectionTwoTop}>
-            <ScrollReveal
+            <XScrollReveal
               config={{
                 delay: 300,
               }}
@@ -228,8 +228,8 @@ const Homepage: React.FC = Reaxper(() => {
               <div className={less.sectionTwoTopTitle}>
                 <I18n>What is Daotion</I18n>
               </div>
-            </ScrollReveal>
-            <ScrollReveal
+            </XScrollReveal>
+            <XScrollReveal
               config={{
                 delay: 600,
               }}
@@ -246,10 +246,10 @@ const Homepage: React.FC = Reaxper(() => {
                   building a stronger community with members.
                 </span>
               </div>
-            </ScrollReveal>
+            </XScrollReveal>
           </div>
           <div className={less.sectionTwoBottomWrapper}>
-            <ScrollReveal
+            <XScrollReveal
               config={{
                 delay: 900,
               }}
@@ -265,12 +265,12 @@ const Homepage: React.FC = Reaxper(() => {
                 </div>
                 <div className={less.sectionTwoBottomImg} />
               </div>
-            </ScrollReveal>
+            </XScrollReveal>
           </div>
         </section>
         <section className={less.sectionThreeFourWrapper}>
           <div className={less.sectionThree}>
-            <ScrollReveal
+            <XScrollReveal
               config={{
                 delay: 300,
               }}
@@ -281,8 +281,8 @@ const Homepage: React.FC = Reaxper(() => {
               <div className={less.sectionThreeTitle}>
                 <I18n>What is SRM</I18n>
               </div>
-            </ScrollReveal>
-            <ScrollReveal
+            </XScrollReveal>
+            <XScrollReveal
               config={{
                 delay: 600,
               }}
@@ -298,9 +298,9 @@ const Homepage: React.FC = Reaxper(() => {
                   retention of members, and maintain a high degree of consensus in the community.
                 </I18n>
               </div>
-            </ScrollReveal>
+            </XScrollReveal>
 
-            <ScrollReveal
+            <XScrollReveal
               config={{
                 delay: 900,
               }}
@@ -341,12 +341,12 @@ const Homepage: React.FC = Reaxper(() => {
                 </div>
               </div>
               {isMobile && <ProgressBar scrollEl={scrollRef1?.current} />}
-            </ScrollReveal>
+            </XScrollReveal>
           </div>
 
           <section className={less.sectionFourWrapper}>
             <div className={less.sectionFour}>
-              <ScrollReveal
+              <XScrollReveal
                 config={{
                   delay: 300,
                 }}
@@ -354,8 +354,8 @@ const Homepage: React.FC = Reaxper(() => {
                 <div className={less.sectionFourTitle}>
                   <I18n>What does SRM do?</I18n>
                 </div>
-              </ScrollReveal>
-              <ScrollReveal
+              </XScrollReveal>
+              <XScrollReveal
                 config={{
                   delay: 600,
                 }}
@@ -411,13 +411,13 @@ const Homepage: React.FC = Reaxper(() => {
                   </div>
                 </div>
                 {isMobile && <ProgressBar scrollEl={scrollRef2?.current} />}
-              </ScrollReveal>
+              </XScrollReveal>
             </div>
           </section>
         </section>
 
         <section className={less.sectionFive}>
-          <ScrollReveal
+          <XScrollReveal
             config={{
               delay: 300,
             }}
@@ -425,8 +425,8 @@ const Homepage: React.FC = Reaxper(() => {
             <div className={less.sectionFiveTitle}>
               <I18n>Why SRM matters?</I18n>
             </div>
-          </ScrollReveal>
-          <ScrollReveal
+          </XScrollReveal>
+          <XScrollReveal
             config={{
               delay: 600,
             }}
@@ -490,11 +490,11 @@ const Homepage: React.FC = Reaxper(() => {
               </section>
             </div>
             {isMobile && <ProgressBar scrollEl={scrollRef3?.current} />}
-          </ScrollReveal>
+          </XScrollReveal>
         </section>
         <section className={less.sectionSixWrapper}>
           <div className={less.sectionSix}>
-            <ScrollReveal
+            <XScrollReveal
               config={{
                 delay: 300,
               }}
@@ -502,8 +502,8 @@ const Homepage: React.FC = Reaxper(() => {
               <div className={less.sectionSixTitle}>
                 <I18n>How Daotion can help you building a great DAO</I18n>
               </div>
-            </ScrollReveal>
-            <ScrollReveal
+            </XScrollReveal>
+            <XScrollReveal
               config={{
                 delay: 600,
               }}
@@ -515,12 +515,12 @@ const Homepage: React.FC = Reaxper(() => {
                 <img id="medium-zoom-flow1" src={flow1} className={less.sectionSixImg} alt="flow" />
                 <img id="medium-zoom-flow2" src={flow2} className={less.sectionSixImg} alt="flow" />
               </div>
-            </ScrollReveal>
+            </XScrollReveal>
           </div>
         </section>
         <section className={less.sectionSevenWrapper}>
           <div className={less.sectionSeven}>
-            <ScrollReveal
+            <XScrollReveal
               config={{
                 delay: 300,
               }}
@@ -531,8 +531,8 @@ const Homepage: React.FC = Reaxper(() => {
               <div className={less.sectionSevenTitle}>
                 <I18n>Roadmap</I18n>
               </div>
-            </ScrollReveal>
-            <ScrollReveal
+            </XScrollReveal>
+            <XScrollReveal
               config={{
                 delay: 600,
               }}
@@ -545,7 +545,7 @@ const Homepage: React.FC = Reaxper(() => {
                 <div />
               </div>
               {isMobile && <ProgressBar scrollEl={scrollRef4?.current} />}
-            </ScrollReveal>
+            </XScrollReveal>
           </div>
         </section>
         <section className={less.sectionEightWrapper}>

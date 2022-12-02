@@ -5,6 +5,7 @@
 		"build": "node scripts/build.mjs build",
 		"node": "node --stack-trace-limit=30 --stack-size=1024",
 		"start-daotion-app-web": "npm run node scripts/start.mjs daotion-app-web server_dev",
+		"start-daotion-homepage": "npm run node scripts/start.mjs daotion-honmepage-web server_dev",
 		"start-platform": "npm run node scripts/start.mjs overseas-payment-merchant-operation-platform server_dev",
 		"build-platform": "npm run build overseas-payment-merchant-operation-platform server_dev production",
 		"start-admin": "npm run node scripts/start.mjs overseas-payment-merchant-background-admin server_dev",

@@ -7,7 +7,7 @@ const __ENV_CONFIG__ = (await import(`./proxy.configuration.json`,{assert: { typ
 
 export const webpackConfig = {
 	devServer : {
-		port : await getPort(8010),
+		port : await getPort(3020),
 	},
 	resolve: {
 		alias: {

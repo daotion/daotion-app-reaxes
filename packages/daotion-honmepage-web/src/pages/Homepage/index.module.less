@@ -1,5 +1,5 @@
-@import "/src/styles/variable.module.less";
-@import "/src/styles/mixin.module.less";
+@import "@@root/src/styles/variable.module.less";
+@import "@@root/src/styles/mixin.module.less";
 
 .page {
   width: 100%;
@@ -253,7 +253,7 @@
   max-width: 1800px;
   margin: 0 auto;
 
-  background-image: url("/src/assets/imgs/gradientRing.png");
+  background-image: url("@@public/imgs/gradientRing.png");
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: contain;
@@ -293,7 +293,7 @@
       height: 30px;
       margin-right: 8px;
 
-      background-image: url("/src/assets/svg/logo.svg");
+      background-image: url("@@public/svg/logo.svg");
       background-repeat: no-repeat;
       background-position: center;
     }
@@ -384,13 +384,13 @@
       width: 100%;
       height: 242px;
 
-      background-image: url("/src/assets/imgs/crm.png");
+      background-image: url("@@public/imgs/crm.png");
       .background-center-no-repeat-contain();
 
       @media screen and (max-width: 799px) {
         width: 100%;
         height: calc((100vw - 88px) * 0.54);
-        background-image: url("/src/assets/imgs/crm2.png");
+        background-image: url("@@public/imgs/crm2.png");
       }
     }
   }
@@ -398,7 +398,7 @@
 
 .section-three-four-wrapper {
   background-color: #000;
-  background-image: url("/src/assets/svg/ring.svg");
+  background-image: url("@@public/svg/ring.svg");
   background-repeat: no-repeat;
   background-position: -260px 260px;
   background-size: 720px;
@@ -583,7 +583,7 @@
       box-sizing: border-box;
 
       &-img {
-        background-image: url("/src/assets/svg/SBTPad.svg");
+        background-image: url("@@public/svg/SBTPad.svg");
         .background-center-no-repeat-contain();
       }
     }
@@ -592,7 +592,7 @@
       box-sizing: border-box;
 
       &-img {
-        background-image: url("/src/assets/svg/SBTFusion.svg");
+        background-image: url("@@public/svg/SBTFusion.svg");
         .background-center-no-repeat-contain();
       }
     }
@@ -601,7 +601,7 @@
       box-sizing: border-box;
 
       &-img {
-        background-image: url("/src/assets/svg/datahub.svg");
+        background-image: url("@@public/svg/datahub.svg");
         .background-center-no-repeat-contain();
       }
     }
@@ -618,7 +618,7 @@
   &-wrapper {
     position: relative;
 
-    background-image: url("/src/assets/svg/ring2.svg");
+    background-image: url("@@public/svg/ring2.svg");
     background-repeat: no-repeat;
     background-position: right bottom;
     background-size: contain;
@@ -691,19 +691,19 @@
         .background-center-no-repeat-contain();
 
         &-one {
-          background-image: url("/src/assets/svg/interaction.svg");
+          background-image: url("@@public/svg/interaction.svg");
         }
 
         &-two {
-          background-image: url("/src/assets/svg/statusChain.svg");
+          background-image: url("@@public/svg/statusChain.svg");
         }
 
         &-three {
-          background-image: url("/src/assets/svg/dataPoint.svg");
+          background-image: url("@@public/svg/dataPoint.svg");
         }
 
         &-four {
-          background-image: url("/src/assets/svg/autoGovernance.svg");
+          background-image: url("@@public/svg/autoGovernance.svg");
         }
       }
 
@@ -845,19 +845,19 @@
         .background-center-no-repeat-contain();
 
         &-one {
-          background-image: url("/src/assets/svg/growth.svg");
+          background-image: url("@@public/svg/growth.svg");
         }
 
         &-two {
-          background-image: url("/src/assets/svg/deData.svg");
+          background-image: url("@@public/svg/deData.svg");
         }
 
         &-three {
-          background-image: url("/src/assets/svg/native.svg");
+          background-image: url("@@public/svg/native.svg");
         }
 
         &-four {
-          background-image: url("/src/assets/svg/individual.svg");
+          background-image: url("@@public/svg/individual.svg");
         }
       }
     }
@@ -894,7 +894,7 @@
   }
 
   &-wrapper {
-    background-image: url("/src/assets/svg/ring4.svg");
+    background-image: url("@@public/svg/ring4.svg");
     background-repeat: no-repeat;
     background-position: right;
     background-size: 447px 956px;
@@ -964,7 +964,7 @@
     margin-bottom: 295px;
     background-color: #000;
 
-    background-image: url("/src/assets/svg/ring3.svg");
+    background-image: url("@@public/svg/ring3.svg");
     background-repeat: no-repeat;
     background-position: left 50px;
     background-size: contain;
@@ -1036,7 +1036,7 @@
   &-wrapper {
     position: relative;
     background-color: rgba(44, 53, 61, 0.7);
-    background-image: url("/src/assets/imgs/ring2.png");
+    background-image: url("@@public/imgs/ring2.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -1124,7 +1124,7 @@
         width: 24px;
         height: 20px;
 
-        background-image: url("/src/assets/svg/twitter.svg");
+        background-image: url("@@public/svg/twitter.svg");
       }
 
       &-github {
@@ -1132,7 +1132,7 @@
         width: 24px;
         height: 20px;
 
-        background-image: url("/src/assets/svg/github.svg");
+        background-image: url("@@public/svg/github.svg");
       }
 
       &-discord {
@@ -1140,7 +1140,7 @@
         width: 24px;
         height: 20px;
 
-        background-image: url("/src/assets/svg/discord.svg");
+        background-image: url("@@public/svg/discord.svg");
       }
 
 
