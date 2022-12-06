@@ -4,7 +4,6 @@ const {
 	Tabs ,
 	Button,
 } = antd;
-const { TabPane } = Tabs;
 const onChange = ( key : string ) => {
 	console.log( key );
 };
@@ -114,32 +113,19 @@ export const SpaceInfo = reaxper( class extends Reaxlass<any , any> {
 						<Tabs
 							defaultActiveKey = "1"
 							onChange = { onChange }
-						>
-							<TabPane
-								tab = { <span><I18n>OverView</I18n></span> }
-								key = "1"
-							>
-								<SpaceOverViewContainer memberList = { this.reax_space_member_list.spaceMemberList } />
-							</TabPane>
-							<TabPane
-								tab = { <span><I18n>Articles</I18n></span> }
-								key = "2"
-							>
-								Content of Tab Pane 22222
-							</TabPane>
-							<TabPane
-								tab = { <span>Tab3</span> }
-								key = "3"
-							>
-								Content of Tab Pane 33333
-							</TabPane>
-							<TabPane
-								tab = { <span>Tab4</span> }
-								key = "4"
-							>
-								Content of Tab Pane 44444
-							</TabPane>
-						</Tabs>
+							items = {[
+								{
+									label : <I18n>OverView</I18n>,
+									key:"1",
+									children:<SpaceOverViewContainer memberList = { this.reax_space_member_list.spaceMemberList } />
+								},
+								{
+									label : <I18n>Articles</I18n>,
+									key:"2",
+									children:"Content of Tab Pane 22222"
+								},
+							]}
+						/>
 					</div>
 				</div>
 			</div>
