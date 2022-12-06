@@ -59,6 +59,7 @@ export const OverviewWithdraw = reaxper(() => {
 				<Button
 					type = "primary"
 					loading={withdrawStore.pending}
+					disabled={withdrawApplyMoney <= 0}
 					onClick = { () => {
 						withdrawApply().then(() => {
 							message.success('已提交申请');
