@@ -151,11 +151,14 @@ const SetApiModal = reaxper(() => {
 						loading={setApiStore.pending}
 						onClick = { () => {
 							setApiConfig().then((res) => {
+								console.log(res);
 								setStateApi({
 									apiSetModalShow : false ,
 								});
 								message.success('修改成功');
 								fetchApiConfig();
+							}).catch((e) => {
+								message.error(e.msg);
 							});
 							
 						} }

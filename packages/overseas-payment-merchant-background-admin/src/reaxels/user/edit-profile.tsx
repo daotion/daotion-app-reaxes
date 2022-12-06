@@ -89,6 +89,9 @@ export const reaxel_edit_info = function(){
 			setStateApi({
 				pending : false,
 			});
+			throw {
+				msg: '操作失败,格式错误'
+			}
 		});
 	};
 	const reax_user_info = reaxel_user_info()
