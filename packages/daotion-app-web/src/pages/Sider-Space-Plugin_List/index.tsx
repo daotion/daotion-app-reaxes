@@ -245,4 +245,3 @@ import {
 	SVGPluginSpaceIcon ,
 } from '@@SVGcomponents/left-plugin-list';
 import less from './index.module.less';
-import { logs } from "@cosmjs/stargate";
