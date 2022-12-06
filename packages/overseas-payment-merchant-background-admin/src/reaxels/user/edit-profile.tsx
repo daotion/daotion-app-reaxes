@@ -66,17 +66,21 @@ export const reaxel_edit_info = function(){
 	
 	// 修改Api方法
 	const setApiConfig = async () => {
-		
+		const { apiSetModalKey } = setApiStore;
 		setStateApi({
 			pending : true ,
 		});
 		return request_user_api_set(async () => {
-			return {
-				payInCallback : setApiStore.payInCallback ,
-				payOutCallback : setApiStore.payOutCallback ,
-				payOutWhitelist : setApiStore.payOutWhitelist.split(';').filter(i => i !== ''),
-				address : setApiStore.address ,
-			};
+			if (apiSetModalKey === 'payOutWhitelist') {
+				return {
+					payOutWhitelist: setApiStore.payOutWhitelist.split(';').filter(i => i !== '')
+				}
+			} else {
+				return {
+					[apiSetModalKey] : setApiStore[apiSetModalKey] ,
+				};
+			}
+			
 		}).then((res) => {
 			setStateApi({
 				pending : false ,
@@ -85,6 +89,9 @@ export const reaxel_edit_info = function(){
 			setStateApi({
 				pending : false,
 			});
+			throw {
+				msg: '操作失败,格式错误'
+			}
 		});
 	};
 	const reax_user_info = reaxel_user_info()
