@@ -19,7 +19,7 @@ export let {
 	experimental = "non-exp" ,
 } = overload(args , [
 	{
-		regExp : /\bdaotion-app-web|daotion-demo-web|daotion-honmepage-web|overseas-payment-cashier|overseas-payment-merchant-background-admin|overseas-payment-merchant-operation-platform\b/ ,
+		regExp : /\bdaotion-app-web|daotion-demo-web|daotion-homepage-web|overseas-payment-cashier|overseas-payment-merchant-background-admin|overseas-payment-merchant-operation-platform\b/ ,
 		key : "repo" ,
 	} ,
 	{
