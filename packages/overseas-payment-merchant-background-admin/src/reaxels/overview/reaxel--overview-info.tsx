@@ -5,29 +5,16 @@ export const reaxel_overview_info = function(){
 	* 资金明细信息
 	*/
 	const {store, setState } = orzMobx({
-		overviewInfoPending : false,
 		overviewInfo : null as any ,
-		finDetailPending : false,
 		fin_detail_list : [] as Overview__fin_detail.response['listInfo'] ,
 	})
 	
-	const setOverviewInfoPending = (pending) => {
-		queueMicrotask(() => {
-			setState({
-				overviewInfoPending: pending
-			})
-		})
-	}
-	const setFinDetailPending = (pending) => {
-		queueMicrotask(() => {
-			setState({
-				finDetailPending: pending
-			})
-		})
-	}
+	const { pendingState: overviewInfoPendingState, setPending: setOverviewInfoPending } = toolkits.orzPending();
+	const { pendingState: finDetailPendingState, setPending: setFinDetailPending } = toolkits.orzPending();
+	
 	
 	const [fetchOverviewInfo] = Reaxes.closuredMemo(async () => {
-		if(store.overviewInfoPending) return;
+		if(overviewInfoPendingState.pending) return;
 		setOverviewInfoPending(true)
 		return request_overview_info().then((res) => {
 			setState({
@@ -37,7 +24,7 @@ export const reaxel_overview_info = function(){
 		})
 	}, () => []);
 	const [fetchFinDetail] = Reaxes.closuredMemo( async () => {
-		if (store.finDetailPending) return;
+		if (finDetailPendingState.pending) return;
 		setFinDetailPending(true);
 		return request_fin_detail(async () => {
 			return {
@@ -173,10 +160,10 @@ export const reaxel_overview_info = function(){
 				return store.overviewInfo;
 			},
 			get overviewInfoPending(){
-				return store.overviewInfoPending;
+				return overviewInfoPendingState.pending;
 			},
 			get finDetailPending(){
-				return store.finDetailPending;
+				return finDetailPendingState.pending;
 			},
 			get fin_detail_list(){
 				return store.fin_detail_list;
