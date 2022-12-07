@@ -45,20 +45,14 @@ export const reaxel_overview_info = function(){
 	 */
 	const { store: withdrawStore , setState: withdrawSetState } = orzMobx({
 		withdrawApplyMoney : '' as any ,
-		pending : false,
 		
 	});
-	const setWithdrawPending = (pending) => {
-		queueMicrotask(() => {
-			withdrawSetState({
-				pending,
-			});
-		});
-	};
+	const { pendingState: withdrawPendingState, setPending: setWithdrawPending } = toolkits.orzPending();
+	
 	const withdrawApply = async () => {
-		const { withdrawApplyMoney = '', pending} = withdrawStore;
+		const { withdrawApplyMoney = ''} = withdrawStore;
 		const {overviewInfo: {address} } = store
-		if (pending) return;
+		if (withdrawPendingState.pending) return;
 		if (withdrawApplyMoney === '') {
 			throw {
 				msg : '提现金额不能为空',
@@ -92,7 +86,6 @@ export const reaxel_overview_info = function(){
 				}
 			})
 		}
-		
 	}
 	
 	/**
@@ -101,19 +94,13 @@ export const reaxel_overview_info = function(){
 	const { store: depositStore, setState: depositSetState } = orzMobx({
 		depositMoney : '',
 		paymentAddress : '',
-		pending : false,
 	})
-	const setDepositPending = (pending) => {
-		queueMicrotask(() => {
-			depositSetState({
-				pending,
-			})
-		})
-	}
+	
+	const { pendingState: depositPendingState, setPending: setDepositPending } = toolkits.orzPending();
 	
 	const depositApply = async () => {
-		const { depositMoney, paymentAddress, pending } = depositStore
-		if (pending) return;
+		const { depositMoney, paymentAddress } = depositStore
+		if (depositPendingState.pending) return;
 		if (depositMoney === ''){
 			throw {
 				msg: '充值金额不能为空'
@@ -178,6 +165,9 @@ export const reaxel_overview_info = function(){
 			get withdrawStore(){
 				return withdrawStore;
 			} ,
+			get withdrawPending(){
+				return withdrawPendingState.pending
+			},
 			get withdrawSetState(){
 				return withdrawSetState;
 			},
@@ -188,6 +178,9 @@ export const reaxel_overview_info = function(){
 			//充值方法
 			get depositStore(){
 				return depositStore
+			},
+			get depositPending(){
+				return depositPendingState.pending
 			},
 			get depositSetState(){
 				return depositSetState;
