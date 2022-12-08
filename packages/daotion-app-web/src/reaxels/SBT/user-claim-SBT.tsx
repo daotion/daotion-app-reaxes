@@ -109,5 +109,5 @@ import {
 	API__user_claim_SBT ,
 	request__user_claim_SBT ,
 } from '@@requests';
-import { ExecuteSBTABI } from '@@common/contract/abi';
+import { ExecuteSBTABI } from '@@public/contract/abi';
 import { ethers } from 'ethers';

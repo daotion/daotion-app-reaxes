@@ -1,4 +1,4 @@
-export const CropperTest = ComponentWrapper( () => {
+export const CropperTest = reaxper( () => {
 	const {
 		dragging ,
 		file ,

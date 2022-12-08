@@ -2,7 +2,7 @@ import { XInput } from '../mozi-xinput';
 import { XTextArea } from '../mozi-xtextarea'
 import { Space } from 'antd'
 
-export const XInputShow = ComponentWrapper(() => {
+export const XInputShow = reaxper(() => {
 	return (
 		<Space
 			direction="vertical"

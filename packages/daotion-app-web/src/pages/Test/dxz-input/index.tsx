@@ -22,7 +22,7 @@ export const XTextArea = ( props : TextAreaProps & {
 	/>;
 	
 };
-export const DxzInput = ComponentWrapper( () => {
+export const DxzInput = reaxper( () => {
 	return <>
 		<div className={less.box}>
 			<XInput

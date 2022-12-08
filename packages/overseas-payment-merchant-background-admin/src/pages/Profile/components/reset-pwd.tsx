@@ -63,7 +63,7 @@ export const ResetPwd = reaxper(() => {
 			/>
 			<Button
 				type = "primary"
-				loading = { resetPwdStore.pending }
+				loading = { reax_edit_info.pending }
 				onClick = { () => {
 					submitPwd();
 				} }

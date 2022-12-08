@@ -5,7 +5,7 @@ import {
 import {
 	reaxel_user ,
 	reaxel_wallet,
-} from '@@RootPath/src/reaxels';
+} from '@@reaxels';
 import { request_user_address_alias } from '@@requests';
 import { Button } from 'antd';
 
@@ -149,7 +149,7 @@ const reaxel_sign_request = function () {
 	};
 }();
 
-export const SignTest = ComponentWrapper( class extends ReactComponentClass {
+export const SignTest = reaxper( class extends Reaxlass {
 	
 	// reax_login = reaxel_login(this.lifecycle);
 	//

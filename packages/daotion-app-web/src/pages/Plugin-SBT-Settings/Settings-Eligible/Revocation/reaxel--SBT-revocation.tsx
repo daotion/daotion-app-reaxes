@@ -188,7 +188,7 @@ type revocationItem = API__revocation_SBT_list.revocationItem;
 import { reaxel_wallet } from '@@reaxels/wallet/wallet';
 import { reaxel_user } from '@@reaxels/user';
 import { Reaxel_fact__contract } from '@@reaxels/Reaxel-Factories';
-import {ExecuteSBTABI} from '@@common/contract/abi';
+import {ExecuteSBTABI} from '@@public/contract/abi';
 import {ethers} from 'ethers';
 
 import {

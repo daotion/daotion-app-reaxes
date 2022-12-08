@@ -10,7 +10,7 @@ import {
 	SVGDropTwitter ,
 	SVGDropDiscord,
 	SVGPopJoinSpace
-} from '@@SvgComponents/Space-dropdown-pop-svg';
+} from '@@SVGcomponents/Space-dropdown-pop-svg';
 
 export const DxzSpaceDropdownPop = () => {
 	return <>

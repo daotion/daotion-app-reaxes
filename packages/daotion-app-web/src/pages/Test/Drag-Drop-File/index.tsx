@@ -1,4 +1,4 @@
-export const DragDropFile = ComponentWrapper( (props) => {
+export const DragDropFile = reaxper( (props) => {
 	const onUpload = async (file) => {
 		console.log( file );
 	};
@@ -21,7 +21,7 @@ export const DragDropFile = ComponentWrapper( (props) => {
 			
 		}}
 	>
-		<UploadFileBox/>
+		<UploaderDDF/>
 		
 		<CropperTest/>
 	</div>
@@ -56,7 +56,7 @@ export const DragDropFile = ComponentWrapper( (props) => {
 	</>;
 } );
 
-import { UploadFileBox } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
+import { UploaderDDF } from '@@pages/Plugin-SBT-Pad--New/Upload-Box';
 import { CropperTest } from '@@pages/Test/Drag-Drop-File/Cropper-Test';
 import { reaxel_DDF } from '@@pages/Test/Drag-Drop-File/reaxel-DDF';
 

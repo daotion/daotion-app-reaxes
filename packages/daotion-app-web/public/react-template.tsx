@@ -1,4 +1,4 @@
-export const ReactTemplate = ComponentWrapper(() => {
+export const ReactTemplate = reaxper(() => {
 	
 	const {} = antd;
 	

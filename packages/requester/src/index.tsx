@@ -41,9 +41,7 @@ export const Requester = function (plugins) {
 				await asyncListRunner(onInvokeStack.map((callback) => () => callback(slot , url , options)));
 				try {
 					let remote = slot.target.href;
-					if( slot.options.method === "POST" ) {
-						slot.options.body = stringify(slot.options.body);
-					} else if( slot.options.method === "GET" ) {
+					if( slot.options.method === "GET" ) {
 						slot.target.search = utils.encodeQueryString(slot.options.body);
 						slot.options = _.omit(slot.options , "body");
 						remote = slot.target.href;

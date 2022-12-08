@@ -1,6 +1,6 @@
 
 
-export const Sider_Space_Plugin_List = ComponentWrapper(() => {
+export const Sider_Space_Plugin_List = reaxper(() => {
 	
 	const {
 		navigate ,
@@ -238,11 +238,10 @@ import {
 	reaxel__role_in_space ,
 	reaxel__space_plugin ,
 } from '@@reaxels';
-import { Img } from '@@common/Xcomponents';
+import { Img } from '@@Xcomponents';
 import {
 	SVGPluginDropDownIcon ,
 	SVGPluginOverviewIcon ,
 	SVGPluginSpaceIcon ,
-} from '@@SvgComponents/left-plugin-list';
+} from '@@SVGcomponents/left-plugin-list';
 import less from './index.module.less';
-import { logs } from "@cosmjs/stargate";

@@ -7,7 +7,7 @@ import less from './index.module.less'
 import  { InputProps } from 'antd'
 
 
-export const XInput = ComponentWrapper((props : Partial<InputProps>) => {
+export const XInput = reaxper((props : Partial<InputProps>) => {
 	const { Input } = antd;
 	
 	

@@ -1,7 +1,7 @@
 import less from './index.module.less'
 import { SelectProps } from 'antd'
 
-export const XSelect = ComponentWrapper((props: Partial<SelectProps>) => {
+export const XSelect = reaxper((props: Partial<SelectProps>) => {
 	const { Select } = antd
 	return (
 		<Select

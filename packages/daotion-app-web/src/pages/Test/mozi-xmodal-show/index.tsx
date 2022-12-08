@@ -3,7 +3,7 @@ import { XButton } from '../mozi-xbutton'
 
 
 
-export const XModalShow = ComponentWrapper(class extends ReactComponentClass{
+export const XModalShow = reaxper(class extends Reaxlass{
 	state = {
 		modalType: {
 			1: {

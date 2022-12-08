@@ -3,7 +3,7 @@
 import less from '@@Xcomponents/Cropper-Pic/index.module.less';
 import { XButton } from '../../../pages/Test/mozi-xbutton';
 
-export const CropperDDF = ComponentWrapper((props : {
+export const CropperDDF = reaxper((props : {
 	imgPreviewUrl: string,
 	cropperModalShow: boolean,
 	closeModal?: () => void,
@@ -20,7 +20,7 @@ export const CropperDDF = ComponentWrapper((props : {
 	const { XCropper , zoomTo,crop } = reaxel_Cropper();
 	return (
 		<Modal
-			visible={cropperModalShow}
+			open={cropperModalShow}
 			title={'EditMedia'}
 			footer={null}
 			className={less.cropperModal}

@@ -1,4 +1,4 @@
-export const SBTBlacklist = ComponentWrapper(() => {
+export const SBTBlacklist = reaxper(() => {
 	const [ , { spaceID , SBTID } ] = utils.makePair(toolkits.useRouter().params , ({ spaceID , SBTID }) => {
 		return {
 			spaceID : parseInt(spaceID) ,

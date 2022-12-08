@@ -1,7 +1,7 @@
 import { XSelect } from '../mozi-xselect'
 import { Space } from 'antd'
 
-export const XSelectShow = ComponentWrapper(() => {
+export const XSelectShow = reaxper(() => {
 	
 	return (
 		<Space

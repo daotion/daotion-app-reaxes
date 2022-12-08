@@ -1,7 +1,7 @@
 import { request_user_joined_space_list } from '@@requests/Spaces';
 import { Space__user_joined_Space_list } from '@@requests/Spaces/types';
-import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
-import { reaxel_user_join_or_leave_space } from '@@RootPath/src/reaxels/Spaces/user-join-or-leave-space';
+import { reaxel_wallet } from '@@reaxels/wallet/wallet';
+import { reaxel_user_join_or_leave_space } from '@@reaxels/Spaces/user-join-or-leave-space';
 
 
 export const reaxel_joined_Space_list = function () {

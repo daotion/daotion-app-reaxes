@@ -10,9 +10,8 @@ import {
 	
 } from 'ethers';
 import {
-	account_storage_symbol ,
-	orzLocalstroage ,
-} from '@@common/storages';
+	reaxel_storage
+} from '@@reaxels';
 import { Chain } from '@web3-onboard/common';
 import {
 	web3onboard ,
@@ -34,7 +33,8 @@ const connect_wallet_from_storage = function() {
 			/*从localstorage读入缓存并链接钱包*/
 			connectWalletFromStorage() {
 				const reax_wallet = reaxel_wallet?.();
-				const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
+				const reax_storage = reaxel_storage();
+				const wallet = reax_storage.get<WalletState>( '__internal_storage_wallet_account__' );
 				if ( wallet !== null && reax_wallet?.wallet === null ) {
 					// crayon.blue( 'connectWalletFromStorage:' , wallet );
 					web3onboard.instance.connectWallet( {
@@ -85,6 +85,9 @@ export const reaxel_wallet = function () {
 		account : null ,
 	} );
 	
+	
+	const reax_storage = reaxel_storage();
+	
 	const memedChain = Reaxes._DEPRECATED_closuredMemo( ( chain : ConnectedChain ) => {
 		if ( chain ) {
 			setState( { chain } );
@@ -118,7 +121,7 @@ export const reaxel_wallet = function () {
 	} );
 	
 	const connectWalletFromStorage = () =>  {
-		const wallet = orzLocalstroage.get<WalletState>( orzLocalstroage.account_storage_symbol );
+		const wallet = reax_storage.get<WalletState>( '__internal_storage_wallet_account__' );
 		if ( wallet !== null && store.wallet === null ) {
 			setState( { connecting : true } );
 			web3onboard.instance.connectWallet( {
@@ -203,7 +206,7 @@ export const reaxel_wallet = function () {
 				setState( { connecting : true } );
 				web3Onboard.disconnectWallet( { label } ).
 				then( () => {
-					orzLocalstroage.remove( account_storage_symbol );
+					reax_storage.remove( '__internal_storage_wallet_account__' );
 				} ).finally(() => {
 					
 					setState( { connecting : false } );
@@ -249,7 +252,7 @@ type SetChainOptions = {
 
 
 function setWalletToLocalstorage( connectWallet : WalletState ) {
-	orzLocalstroage.set( account_storage_symbol , stringify( _.omit( connectWallet , [ "provider" ] ) ) );
+	reaxel_storage().set( "__internal_storage_wallet_account__" , stringify( _.omit( connectWallet , [ "provider" ] ) ) );
 }
 
 

@@ -21,11 +21,12 @@ export const reaxel_user = function () {
 	} );
 	let ret;
 	const reax_wallet = reaxel_wallet();
+	const reax_storage = reaxel_storage();
 	const symbol__storage_key_fake_wallets_secret_map_ = Symbol( '_fake_wallets_map_' );
 
 	/*从storage获取私钥*/
 	const checkAddressIsLoggedIn = ( address : string ) => {
-		const walletsMap : string = orzLocalstroage.get<string>( symbol__storage_key_fake_wallets_secret_map_.description ) || '{}';
+		const walletsMap : string = reax_storage.get<string>( '_fake_wallets_map_' ) || '{}';
 		const privateKey : string = (typeof walletsMap === "string" ? JSON.parse( walletsMap )[ address ] : walletsMap[address]) ?? null;
 
 		return privateKey;
@@ -39,18 +40,18 @@ export const reaxel_user = function () {
 			const pairs = address_map_private_key_utils.getAll();
 			pairs[address] = privateKey;
 			console.log( pairs );
-			orzLocalstroage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( pairs ) );
+			reax_storage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( pairs ) );
 		} ,
 		remove(address:string) {
 			const pairs = _.omit(address_map_private_key_utils.getAll(),[address]);
-			orzLocalstroage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( pairs ) );
+			reax_storage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( pairs ) );
 		} ,
 		empyt() {
-			orzLocalstroage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( {} ) );
+			reax_storage.set( symbol__storage_key_fake_wallets_secret_map_.description , JSON.stringify( {} ) );
 		} ,
 		/*获取所有的映射关系键值对 exa:{k1:v1,k2:v2}*/
 		getAll() : member {
-			const map_string = orzLocalstroage.get<string>( symbol__storage_key_fake_wallets_secret_map_.description ) ?? '{}';
+			const map_string = reax_storage.get<string>( symbol__storage_key_fake_wallets_secret_map_.description ) ?? '{}';
 			return typeof map_string === "string" ? JSON.parse( map_string ) : map_string ;
 		} ,
 		checkAddressIsLoggedIn ,
@@ -167,13 +168,13 @@ export const reaxel_user = function () {
 	};
 }();
 
-import { orzLocalstroage } from '@@common/storages';
+import { reaxel_storage } from '@@reaxels';
 import { Wallet  } from 'ethers';
 import {
 	request_server_timestamp ,
 	request_user_address_alias,
 } from '@@requests';
-import { reaxel_wallet } from '@@RootPath/src/reaxels/wallet/wallet';
+import { reaxel_wallet } from '@@reaxels/wallet/wallet';
 /*address-privateKey映射*/
 type member = { [ p : string ] : string };
 const domainTypes = [

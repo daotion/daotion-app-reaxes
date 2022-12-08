@@ -26,9 +26,9 @@ import {
 	SVGAddNewFeature ,
 	SVGCopySBT,
 	SVGDeleteList
-} from '@@SvgComponents/all-SBT-SVG';
+} from '@@SVGcomponents/all-SBT-SVG';
 
-export const SBTRevocationItem=ComponentWrapper(()=>{
+export const SBTRevocationItem=reaxper(()=>{
 	return<>
 		<div className={less.SBTRevocationItem}>
 			<XInput
@@ -51,7 +51,7 @@ export const SBTRevocationItem=ComponentWrapper(()=>{
 		</div>
 	</>
 })
-export const CurrentSBTPreview=ComponentWrapper(()=>{
+export const CurrentSBTPreview=reaxper(()=>{
 	return<>
 		<div className={less.currentSBTPreview}>
 			<p className={less.SBTPreviewSubtitle}>
@@ -67,7 +67,7 @@ export const CurrentSBTPreview=ComponentWrapper(()=>{
 			</div>
 		</div></>
 })
-export const EditSBTRevocationlist=ComponentWrapper(()=>{
+export const EditSBTRevocationlist=reaxper(()=>{
 	return<>
 		<div className={less.editSBTRevocationlist}>
 			{/*编辑SBT-revocation-list分为main和footer两个box*/}

@@ -1,9 +1,9 @@
-import { Button } from "@@common/Xcomponents/Button";
-import { SelectTags , Option } from "@@common/Xcomponents";
-import { BtnCreateSpaceSvgComponent } from "@@SvgComponents/Btn-Create-Space.svg-component";
-import { HeaderToggleThemeIconSvgComponent } from "@@SvgComponents";
-import { Select } from "@@common/Xcomponents/Select";
-import Switch from '@@common/Xcomponents/Switch';
+import { Button } from "@@Xcomponents/Button";
+import { SelectTags , Option } from "@@Xcomponents";
+import { BtnCreateSpaceSvgComponent } from "@@SVGcomponents/Btn-Create-Space.svg-component";
+import { HeaderToggleThemeIconSvgComponent } from "@@SVGcomponents";
+import { Select } from "@@Xcomponents/Select";
+import Switch from '@@Xcomponents/Switch';
 
 const InputTest = () => {
   const [checked, setChecked] = useState(false); // 按钮checked状态

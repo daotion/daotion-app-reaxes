@@ -8,7 +8,7 @@ import {
 	request_user_upload_profile_pictures ,
 } from '@@requests';
 import { User__profile_info } from '@@requests/types';
-import { staticSocialList } from '@@pages/--Components/Select-Social-Btn-Modal/static-social-list';
+import { staticSocialList } from '@@pages/--Components--/Select-Social-Btn-Modal/static-social-list';
 
 /*编辑个人profile*/
 export const reaxel_edit_profile = function(){
@@ -169,7 +169,7 @@ export const reaxel_upload_profile_pics = function () {
 							timestamp : await request_server_timestamp() ,
 						};
 						const signature = await reax_user.signByFakeWallet( data );
-						return request.formater( {
+						return toolkits.toFormdata( {
 							address ,
 							data ,
 							signature ,
@@ -213,7 +213,7 @@ export const reaxel_upload_profile_pics = function () {
 							timestamp : await request_server_timestamp() ,
 						};
 						const signature = await reax_user.signByFakeWallet( data );
-						return request.formater( {
+						return toolkits.toFormdata( {
 							address ,
 							data ,
 							signature ,

@@ -1,6 +1,6 @@
 
 
-export const NewSBT = ComponentWrapper(() => {
+export const NewSBT = reaxper(() => {
 	
 	const spaceID = parseInt(toolkits.useRouter().params.spaceID);
 	const reax_newSBT = reaxel__create_SBT();
@@ -15,11 +15,12 @@ export const NewSBT = ComponentWrapper(() => {
 		enum_chains ,
 		enum__SBT_eligible ,
 		reaxel_DDF,
+		reax_DDF,
 	} = reax_newSBT;
 	const {
 		file ,
 		imgPreviewUrl ,
-	} = reaxel_DDF();
+	} = reax_DDF;
 	
 	Reaxes.collectDeps(store);
 	
@@ -294,6 +295,8 @@ export const NewSBT = ComponentWrapper(() => {
 								icon = { <SVGSubtract /> }
 							>
 								<UploaderDDF />
+								<CropperBox/>
+								
 							</SubTitleWithItem>
 							
 							<SubTitleWithItem
@@ -351,7 +354,8 @@ export const NewSBT = ComponentWrapper(() => {
 import { reaxel__create_SBT } from '@@reaxels';
 
 import { UploaderDDF } from './Upload-Box';
-import { Img } from '@@common/Xcomponents';
+import { CropperBox } from './Cropper-Box'
+import { Img } from '@@Xcomponents';
 import { Header_GoBack } from '@@pages/DesignComponents/Button-GoBack';
 import {
 	XInput ,
@@ -370,9 +374,9 @@ import {
 	SVGSBTAdd ,
 	SVGSelectArrowIcon ,
 	SVGSubtract ,
-} from '@@SvgComponents/all-SBT-SVG';
-import { SVGCloseIcon } from "../../common/SvgComponents/space-setting-svg";
-import { SVGAddNewIcon } from "../../common/SvgComponents/space-info-svg";
+} from '@@SVGcomponents/all-SBT-SVG';
+import { SVGCloseIcon } from "@@SVGcomponents/space-setting-svg";
+import { SVGAddNewIcon } from "@@SVGcomponents/space-info-svg";
 import less from './index.module.less';
 
 export const SubTitleWithItem = (props) => {
@@ -387,7 +391,7 @@ export const SubTitleWithItem = (props) => {
 	</>;
 };
 
-const RecommentdSBTNameBlock = ComponentWrapper(() => {
+const RecommentdSBTNameBlock = reaxper(() => {
 	const { Button } = antd;
 	const { setFields } = reaxel__create_SBT();
 	
@@ -416,7 +420,7 @@ const RecommentdSBTNameBlock = ComponentWrapper(() => {
 });
 
 
-export const OptionNetEthereum = ComponentWrapper((props : {
+export const OptionNetEthereum = reaxper((props : {
 	label : string;
 }) => {
 	return <>

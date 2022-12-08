@@ -1,6 +1,6 @@
 import { message } from "antd";
 
-export const PluginSBTSettings = ComponentWrapper(class extends ReactComponentClass {
+export const PluginSBTSettings = reaxper(class extends Reaxlass {
 	
 	
 	render(){
@@ -45,7 +45,7 @@ export const PluginSBTSettings = ComponentWrapper(class extends ReactComponentCl
 });
 
 
-export const UserInfo = ComponentWrapper((props) => {
+export const UserInfo = reaxper((props) => {
 	const { SBT_info } = reaxel__SBT_info() || {};
 	return <>
 		{ SBT_info &&
@@ -87,7 +87,7 @@ export const UserInfo = ComponentWrapper((props) => {
 
 
 
-const UploaderDDF = ComponentWrapper(() => {
+const UploaderDDF = reaxper(() => {
 	
 	
 })
@@ -106,10 +106,10 @@ import {
 	SVGSBTAdd ,
 	SVGSBTBack ,
 	SVGSubtract ,
-} from "@@SvgComponents";
+} from "@@SVGcomponents";
 import {
 	Img ,
-} from "@@common/Xcomponents";
+} from "@@Xcomponents";
 import clipboard from "copy-to-clipboard";
 import less from './index.module.less';
 

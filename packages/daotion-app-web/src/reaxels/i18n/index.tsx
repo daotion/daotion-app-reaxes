@@ -56,7 +56,7 @@ export const reaxel_i18n = function(){
 		};
 	}()
 	
-	const I18n = ComponentWrapper((props:React.PropsWithChildren<{}>):React.ReactElement => {
+	const I18n = reaxper((props:React.PropsWithChildren<{}>):React.ReactElement => {
 		[store.lang];
 		const children = props.children as React.ReactText;
 		const forceUpdate = utils.useforceUpdate();

@@ -11,7 +11,7 @@ type XSwitchProps = SwitchProps&{
 	type : "primary" | "secondary";
 }
 
-export const DxzSwitch = ComponentWrapper( () => {
+export const DxzSwitch = reaxper( () => {
 	return <>
 		<XSwitch
 			defaultChecked={true}

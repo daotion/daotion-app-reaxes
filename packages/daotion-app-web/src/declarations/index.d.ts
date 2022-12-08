@@ -4,17 +4,28 @@ declare module '*.jpg';
 declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.bmp';
-declare const orzPromise : typeof import('@@utils').orzPromise;
-declare const crayon : typeof import('@@utils').crayon;
-declare const logProxy : typeof import('@@utils').logProxy;
-declare const makePair : typeof import('@@utils').makePair;
-declare const assert : typeof import('@@utils').assert;
-declare const decodeQueryString : typeof import('@@utils').decodeQueryString;
-declare const encodeQueryString : typeof import('@@utils').encodeQueryString;
-declare const stringify : typeof import('@@utils').stringify;
-declare const utils : typeof import('@@utils');
-declare const toolkits : typeof import('@@toolkits');
-declare const antd : typeof import('antd');
-declare const request : typeof import('@@requester').request;
-declare const I18n : typeof import('@@reaxels').I18n;
-declare const i18n : typeof import('@@reaxels').i18n;
+
+
+declare interface NodeModule {
+	hot?: {
+		accept: Function;
+	};
+}
+
+declare interface NodeRequire {
+	context: Function;
+}
+
+/*批量将一个包含键名的数组KEY指定为一个值都为F的对象类型*/
+declare type Batch<KEY extends (string | number | symbol)[], F> = {
+	[p in ArrayElement<KEY>]: F;
+};
+
+type WalletState = import('@web3-onboard/core').WalletState;
+type ConnectedChain = import('@web3-onboard/core').ConnectedChain;
+
+type Chain = import('@web3-onboard/common').Chain;
+declare type Account = ArrayElement<WalletState['accounts']>;
+
+/*从Promise里获取then的值*/
+declare type PromiseValue<P> = P extends Promise<infer V> ? V : never;

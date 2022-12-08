@@ -1,6 +1,6 @@
 import { Space } from "antd";
 
-export const SBTSettingsMetaData = ComponentWrapper(() => {
+export const SBTSettingsMetaData = reaxper(() => {
 	
 	const { spaceID , SBTID } = toolkits.useSpaceSBTID();
 	const {
@@ -23,7 +23,7 @@ export const SBTSettingsMetaData = ComponentWrapper(() => {
 
 
 
-export const MetaDataLeft = ComponentWrapper(() => {
+export const MetaDataLeft = reaxper(() => {
 	const {spaceID,SBTID} = toolkits.useSpaceSBTID();
 	const {
 		store_SBT_settings_metadata ,
@@ -94,7 +94,7 @@ export const MetaDataLeft = ComponentWrapper(() => {
 	</>;
 });
 
-export const MetaDataRight = ComponentWrapper((props) => {
+export const MetaDataRight = reaxper((props) => {
 	const { SBT_info } = reaxel__SBT_info() || {};
 	const { reax_DDF } = reaxel__SBT_settings_Metadata()
 	const { imgPreviewUrl } = reax_DDF
@@ -147,15 +147,15 @@ export const SubTitleWithItem = (props) => {
 	</>;
 };
 
-const UploaderDDF = ComponentWrapper(() => {
-	const { reax_DDF, showCropperModal } = reaxel__SBT_settings_Metadata();
+const UploaderDDF = reaxper(() => {
+	const { reax_DDF } = reaxel__SBT_settings_Metadata();
 	return <UploadFileBox
 		reaxel_DDF = { () => reax_DDF }
 	/>;
 });
 
-const CropperPic = ComponentWrapper (() => {
-	const { closeCropperModal, showCropperModal, cropperModalShow, reax_DDF, reaxel_Cropper } = reaxel__SBT_settings_Metadata();
+const CropperPic = reaxper (() => {
+	const { closeCropperModal, cropperModalShow, reax_DDF, reaxel_Cropper } = reaxel__SBT_settings_Metadata();
 	
 	return <CropperPicBox
 		reaxel_Cropper = {reaxel_Cropper}
@@ -168,7 +168,7 @@ const CropperPic = ComponentWrapper (() => {
 	/>
 })
 
-export const Properties = ComponentWrapper(() => {
+export const Properties = reaxper(() => {
 	
 	const {
 		setFields ,
@@ -228,8 +228,8 @@ import {
 	SVGCopySBT ,
 	SVGSBTAdd ,
 	SVGSubtract ,
-} from "@@SvgComponents";
+} from "@@SVGcomponents";
 
-import { SVGCloseIcon } from '@@SvgComponents/SVG-close-icon';
-import { Img } from "@@common/Xcomponents";
+import { SVGCloseIcon } from '@@SVGcomponents/SVG-close-icon';
+import { Img } from "@@Xcomponents";
 import less from '@@pages/Plugin-SBT-Settings/index.module.less';
