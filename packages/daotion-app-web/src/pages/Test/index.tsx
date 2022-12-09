@@ -1,6 +1,5 @@
 import { RoutingTest } from './Routing';
 import { SvgOverview } from '../DesignComponents/SvgOverview';
-import { ParentObserver } from './parentObserver';
 import { SetState } from './SetState';
 import { DxzLangCurrency } from './dxz-Lang-currency';
 import { DxzVotingProposals } from './dxz-voting_proposals';
@@ -29,10 +28,9 @@ import { DxzCreateSBTModal } from './dxz-create-SBT-modal';
 import {TestNotification} from './Notification';
 import { ComponentsDoc } from './mozi-components-doc'
 import { TestCropperDDF } from './Cropper-DDF';
+import { LexicalEditorTest } from './Lexical';
 
-export const Test = () => <div className = { less.HomeRoot }>
-	<TestCropperDDF/>
-</div>;
+export const Test = () => <LexicalEditorTest/>;
 import "antd/dist/antd.less";
 import less from '../../styles/main.module.less';
 import { PluginSBTPadList } from "@@pages/Plugin-SBT-Pad-List";
