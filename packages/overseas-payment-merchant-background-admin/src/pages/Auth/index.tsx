@@ -29,11 +29,11 @@ export const SignInForm = reaxper(() => {
 	const { input_username , input_password } = store;
 	const { Input , Button } = antd;
 	return (
-		<form
-			onSubmit = { (e) => {
-				e.preventDefault();
-			} }
-		>
+		// <form
+		// 	onSubmit = { (e) => {
+		// 		e.preventDefault();
+		// 	} }
+		// >
 			<div className = { less.signInFormWrapper }>
 				<h2 className = { less.formTitle }>登录</h2>
 				<p className = { less.inputTitle }>账号</p>
@@ -72,7 +72,7 @@ export const SignInForm = reaxper(() => {
 					登录
 				</Button>
 			</div>
-		</form>
+		// </form>
 	);
 });
 
