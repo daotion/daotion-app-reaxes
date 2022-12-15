@@ -19,7 +19,7 @@ export let {
 	experimental = "non-exp" ,
 } = overload(args , [
 	{
-		regExp : /\bdaotion-app-web|daotion-demo-web|daotion-homepage-web|overseas-payment-cashier|overseas-payment-merchant-background-admin|overseas-payment-merchant-operation-platform\b/ ,
+		regExp : /\bdaotion-app-web|daotion-demo-web|daotion-homepage-web|overseas-payment-cashier|overseas-payment-merchant-background-admin|overseas-payment-merchant-operation-platform|tester-based-react\b/ ,
 		key : "repo" ,
 	} ,
 	{
@@ -78,6 +78,7 @@ export const repoPackages = [
 	"overseas-payment-cashier" ,
 	"overseas-payment-merchant-background-admin" ,
 	"overseas-payment-merchant-operation-platform" ,
+	"tester-based-react" ,
 ];
 /*非业务模块不可被打包,因为webpack.base.config.mjs里配置了对通用模块的alias,*/
 if(repoPackages.every((repoName) => repoName !== repo )){

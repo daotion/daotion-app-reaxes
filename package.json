@@ -4,6 +4,7 @@
 		"start": "node scripts/start.mjs",
 		"build": "node scripts/build.mjs build",
 		"node": "node --stack-trace-limit=50 --stack-size=1024",
+		"start-test" : "npm run start tester-based-react",
 		"start-daotion-app-web": "npm run node scripts/start.mjs daotion-app-web server_dev",
 		"start-daotion-homepage": "npm run node scripts/start.mjs daotion-homepage-web server_dev",
 		"start-platform": "npm run node scripts/start.mjs overseas-payment-merchant-operation-platform server_dev",
